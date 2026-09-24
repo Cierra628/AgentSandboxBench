@@ -4,7 +4,7 @@
 
 ## 仓库与同步
 
-2026-09-24 在 `/home/yyxie/agentenv_experiment` 初始化独立 Git 仓库，分支 `main`。尚未暂存、提交、推送或配置 GitHub remote。原 `AgentENV/` 和新 `IncrementalDAX_moti/` 仍是独立嵌套仓库，已整体忽略；运行时和 `.artifacts/` 也忽略。不要 `git add -f` 这些目录。
+2026-09-24 在 `/home/yyxie/agentenv_experiment` 初始化独立 Git 仓库，分支 `main`，remote 为 `https://github.com/Cierra628/AgentSandboxBench.git`。本地提交 `902c805` 已将 `AGENTS.md` 从 Git 跟踪中移除并加入 `.gitignore`；截至本记录远端仍在 `628514b`，因为服务器没有可用的 GitHub HTTPS 凭据，推送被拒绝。因此远端当前版本仍含 `AGENTS.md`，需要有凭据的用户执行 `git push origin main` 才能移除当前分支中的该文件。其历史提交仍可访问；如需从历史中彻底清除，须另做影响所有提交的历史改写。原 `AgentENV/` 和新 `IncrementalDAX_moti/` 仍是独立嵌套仓库，已整体忽略；运行时和 `.artifacts/` 也忽略。不要 `git add -f` 这些目录。
 
 平台可同步内容为 `scripts/`、`configs/`、`patches/` 和文档。`configs/source-revisions.json` 固定源码版本；`patches/incrementaldax-platform.patch` 保留学长代码的局部改造。新机器可运行 `bash scripts/14-fetch-research-sources.sh` 获取相同源码及补丁；该脚本尚未在全新目录做完整复现验收，不覆盖版本不同的现有 checkout。
 
@@ -42,7 +42,7 @@
 | Exp1 冻结输入 | 直接复用 26 个 action 和 SHA256 manifest；每步独立 bash、cwd=/testbed；008/016 的 127 为预期失败 |
 | Exp1 runner/guest-runner/analyze | 直接复用；外层 `run_exp1.py` 固定服务、版本、输入哈希及独立输出，增加顺序/失败集合/oracle/清理核验 |
 | Host collector | 原版全机 pgrep 取最大 VMM，已修为选定服务 cgroup 内；仍是该组最大 RSS VMM，不称为精确 sandbox 归因；后续复用 host-vmm collector 的汇总并记录池开销 |
-| Exp2 snapshot/create/start | 复用持久 snapshot 生命周期，后续移植到指定 Exp1 动作边界；目前未实现/未验证该扩展 |
+| Exp2 snapshot/create/start | 已复用持久 snapshot 生命周期，在 Exp1 第 013 步后保存并删除原实例，恢复后从 014 续跑；本机可恢复和进程连续性已验证 |
 | Exp3 controller | 直接保留既有 GRPO/BPO/TVCache 调度形状，暂不运行并发；不是 RL policy 训练 |
 | 物理页探针 | `physical_cache.py` 使用 4096 字节页及 guest 地址过滤 `<0x140000000`；必须先校准共享/私有/CoW，再用于定量结论 |
 | TrEnv-X checkpoint DAX | 标为仅文件状态继承；干净 VM 模板不保持任意父进程、匿名内存和打开文件状态 |
@@ -52,9 +52,9 @@
 ## 分阶段验收
 
 1. **环境、版本和安全入口**：本轮已完成上述读取、盘点、版本固定与最小服务归因修正。
-2. **Exp1 单轨迹**：入口 `bash scripts/13-run-exp1.sh`；配置 `configs/exp1-agentenv.json`。资源为 2 vCPU/4096 MiB；保留 guest cache，不做任何 host drop_caches；采样 0.1s。该组标为官方镜像默认功能组，不等同学长 balloon-off 历史组。首次运行 ID `20260924T031016Z-1652038`，结果在 `.artifacts/platform-exp1-agentenv-default/{raw,audit}/`。运行以 FAIL 结束，尚未进入动作重放：`raw/20260924T031016Z-1652038/cold-start.log` 记录 `/sandboxes-cold` 等待响应超时。服务日志已观察到固定 OCI 镜像的首次转换，但超时的根因和后台转换最终状态尚未验证；不能据此判定工具执行或 checkpoint 失败。下一步先只读核对该请求的服务端日志和实例列表，再决定是否需要预转换镜像或调整客户端等待时间，不重复完整实验。
-3. **指定步骤恢复**：Exp1 完整通过后，在明确动作边界执行 snapshot、删除原实例、恢复并从下一步续跑；完整轨迹与恢复轨迹需核对 action 哈希/顺序、失败集合、关键输出及最终 patch；另做进程/打开文件探针验证完整 VM 语义。此前简单暂停恢复通过不能替代本验收。
-4. **指标和报告**：当前采集沿用 guest meminfo/vmstat 与 host 服务 cgroup/最大 VMM；两者分开，不混加。上游分析器的 page_cache 含 SReclaimable，平台正式报告应保留原字段并分开 Cached/Shmem/slab。补生命周期、控制器调用耗时和端到端时间；不把并发动作耗时求和当总完成时间。
+2. **Exp1 单轨迹**：入口 `bash scripts/13-run-exp1.sh`；配置 `configs/exp1-agentenv.json`。资源为 2 vCPU/4096 MiB；保留 guest cache，不做任何 host drop_caches；采样 0.1s。该组标为官方镜像默认功能组，不等同学长 balloon-off 历史组。首次运行 `20260924T031016Z-1652038` 在固定 OCI 镜像首次转换时超过 CLI 的 120 秒请求超时，未进入动作执行。随后用 `bash scripts/15-prewarm-exp1-image.sh` 异步构建同一 digest 的模板，结果 `.artifacts/exp1-image-prewarm/20260924T035140Z-1671165/` 为 PASS，模板已清理。重跑 `20260924T035910Z-1677178` 为 PASS：26 个动作顺序和 SHA-256 输入检查通过；仅 008/016 返回预期 127；第 024 步关键输出符合 oracle；最终 patch SHA-256 为 `f1cc23ac4f5ac1cff87eb7f8c54f8176c1a47cec37fa4cb6907b9dd8ad199af2`；sandbox、模板均已清理。证据在 `.artifacts/platform-exp1-agentenv-default/{raw,audit}/20260924T035910Z-1677178/`，离线 `summary.md` 和 SVG 曲线在同一 output_root。冷启动 2587 ms，guest 动作耗时之和 2127 ms；两者不等于完整控制器端到端时间。23 条 host 与 95 条 guest 原始采样可复算报告。历史 raw/最终 patch 参考缺失，未验证 patch 一致性或独立任务测试，未量化监控开销；这仍是单次功能与采集管线验收。
+3. **指定步骤恢复**：入口 `bash scripts/16-run-exp1-checkpoint.sh`，第 013 步结束后运行 `aenv snapshot create`、删除原实例、从 snapshot 新建实例并续跑 014–026。运行 `20260924T072030Z-1690521` 为 PASS：动作输入 SHA-256、顺序、008/016 的预期失败、第 024 步关键输出均通过；最终 patch 与完整重放逐字节一致，SHA-256 均为 `f1cc23ac4f5ac1cff87eb7f8c54f8176c1a47cec37fa4cb6907b9dd8ad199af2`。来宾探针 PID=361、start_ticks=79、boot ID 恢复前后相同，计数从 26 增至 31；这支持 VM 内进程连续性，而不表示宿主机 Firecracker PID 原地保留。原始结果和逐项验收在 `.artifacts/platform-exp1-checkpoint/{raw,audit}/20260924T072030Z-1690521/`。两个沙箱及 snapshot 删除成功，最终列表均为空。`raw/cleanup.log` 是在运行后根据 audit 中三个 CLI 删除回执重建，已标注来源；无需重复长实验。打开文件描述符、跨服务重启或远端持久化尚未验证。
+4. **指标和报告**：guest meminfo/vmstat 与 host 服务 cgroup/最大 VMM 分开，不混加。上游分析器已去除写死的历史 Direct I/O 对照和缓存数值，图例明确 guest `Cached+Buffers+SReclaimable-Shmem` 与 host cgroup `file` 口径不同。离线运行 `python3 scripts/report_exp1_checkpoint.py .artifacts/platform-exp1-checkpoint/audit/20260924T072030Z-1690521` 可重建阶段报告；当前结果为创建至工具可用 2853.8 ms、checkpoint API 779.8 ms、恢复至工具可用 198.3 ms，guest 26 步执行时间之和 2706.0 ms。原始采样 36 条 host、101 条 guest，SVG 曲线在 `.artifacts/platform-exp1-checkpoint/figures/`。本轮没有记录完整控制器端到端时间，不能用阶段之和替代；新控制器已加总耗时字段，留待后续新运行验证。观测峰值仅是采样最大值；更精细的 Cached/Shmem/slab 拆分和监控开销仍待完成。
 5. **开销与精细内存**：当前属于诊断采样组，未测监控开销；需无采集/轻量采集配对并验证相同语义，5% 只作待确认目标。精细扫描按边界独立计时；未测 BPF 加载、DAX/CoW 校准或 guest→host PFN 覆盖率。
 6. **历史组和调度扩展**：另行构建固定 fork 的隔离服务，明确 free-page reporting、DAMON、I/O 和缓存配置；不改共享服务。之后才推进 TrEnv-X 与多分支成对运行。
 

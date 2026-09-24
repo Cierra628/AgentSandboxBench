@@ -6,7 +6,7 @@
 
 - **AgentENV 官方示例已跑通。** 在 cpu-15 上使用固定的官方预构建服务镜像和 `e2b 2.26.0`，完成 Kimi K3 报告所链接的 AgentENV 官方 Python SDK 示例：Ubuntu 22.04 模板构建、沙箱创建与列举、命令执行、暂停和删除。逐项结果、镜像版本与证据见 [官方示例报告](KIMI_AGENTENV_EXAMPLE.md)。
 - **底层功能已验证。** Alpine 模板、文件读写、单次暂停/恢复及来宾进程连续性通过，证据见 [cpu-15 验证报告](CPU15_RESULTS.md)。这不等于本地源码构建或 K3 模型实验通过。
-- **研究平台仍在首轮 Exp1 阶段。** 固定 26 个工具动作的首次重放请求在 `/sandboxes-cold` 等待响应时超时，尚未进入动作执行；下一步先诊断镜像首次转换和实例状态。原始结果保存在本地 `.artifacts/platform-exp1-agentenv-default/`，详见 [平台交接记录](PLATFORM_HANDOFF.md)。
+- **Exp1 完整重放及第 13 步恢复均已通过一轮。** 固定 26 个工具动作按序执行，保留原轨迹中 008/016 的预期失败；恢复后的最终 patch 与完整重放一致，来宾进程在恢复前后连续运行。原始结果分别保存在本地 `.artifacts/platform-exp1-agentenv-default/` 和 `.artifacts/platform-exp1-checkpoint/`，见 [平台交接记录](PLATFORM_HANDOFF.md)。监控开销、远端 checkpoint 持久化及独立任务测试尚未验证。
 
 ## 源码与复现
 
