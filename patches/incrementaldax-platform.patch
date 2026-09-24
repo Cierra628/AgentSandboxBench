@@ -1,0 +1,96 @@
+diff --git a/motivation/experiments/exp1-single-app-smoke/systems/agentenv/run.sh b/motivation/experiments/exp1-single-app-smoke/systems/agentenv/run.sh
+index ab5a877..adb8c18 100755
+--- a/motivation/experiments/exp1-single-app-smoke/systems/agentenv/run.sh
++++ b/motivation/experiments/exp1-single-app-smoke/systems/agentenv/run.sh
+@@ -14,6 +14,7 @@ raw_dir="$output_root/raw/$run_id"
+ host_dir="$raw_dir/host"
+ phase_file="$raw_dir/.host-monitor-phase"
+ lock_file="$output_root/.run.lock"
++container=${AGENTENV_CONTAINER:-aenv-server}
+ sandbox_id=''
+ monitor_pid=''
+ exec_status=1
+@@ -41,7 +42,9 @@ cleanup_runtime() {
+     fi
+   fi
+ }
+-trap cleanup_runtime EXIT INT TERM
++trap cleanup_runtime EXIT
++trap 'exit 130' INT
++trap 'exit 143' TERM
+ 
+ for tool_name in aenv awk column docker flock jq pgrep python3 sudo; do
+   command -v "$tool_name" >/dev/null || { echo "missing command: $tool_name" >&2; exit 1; }
+@@ -55,8 +58,8 @@ test "$(aenv list | jq 'length')" = 0 || {
+   echo 'active AgentENV sandboxes exist; refusing an attribution-ambiguous run' >&2
+   exit 1
+ }
+-test "$(docker inspect aenv-server --format '{{.State.Running}}')" = true
+-overlaybd_config="$(docker exec aenv-server cat /workspace/env/overlaybd/overlaybd-global.json)"
++test "$(docker inspect "$container" --format '{{.State.Running}}')" = true
++overlaybd_config="$(docker exec "$container" cat /workspace/env/overlaybd/overlaybd-global.json)"
+ overlaybd_io_engine="$(jq -er '.ioEngine' <<< "$overlaybd_config")"
+ if [[ -n $EXPECTED_OVERLAYBD_IO_ENGINE && $overlaybd_io_engine != "$EXPECTED_OVERLAYBD_IO_ENGINE" ]]; then
+   echo "expected OverlayBD ioEngine=$EXPECTED_OVERLAYBD_IO_ENGINE, got $overlaybd_io_engine" >&2
+@@ -73,8 +76,8 @@ printf '%s\n' "$overlaybd_config" > "$raw_dir/overlaybd-global.json"
+   printf 'action_manifest_sha256=%s\n' "$(sha256sum "$workload_root/actions.tsv" | awk '{print $1}')"
+   printf 'aenv_version=%s\n' "$(aenv --version)"
+   printf 'host_kernel=%s\n' "$(uname -r)"
+-  printf 'agentenv_container_image=%s\n' "$(docker inspect aenv-server --format '{{.Config.Image}}')"
+-  printf 'agentenv_container_id=%s\n' "$(docker inspect aenv-server --format '{{.Id}}')"
++  printf 'agentenv_container_image=%s\n' "$(docker inspect "$container" --format '{{.Config.Image}}')"
++  printf 'agentenv_container_id=%s\n' "$(docker inspect "$container" --format '{{.Id}}')"
+   printf 'overlaybd_io_engine=%s\n' "$overlaybd_io_engine"
+   printf 'overlaybd_direct_io=%s\n' "$([[ $overlaybd_io_engine == 2 ]] && printf true || printf false)"
+ } > "$raw_dir/metadata.env"
+@@ -102,7 +105,7 @@ aenv upload "$sandbox_id" "$script_dir/guest-runner.sh" /workspace/guest-runner.
+ 
+ printf 'idle\n' > "$phase_file"
+ "$repo_root/motivation/experiments/lib/host-memory-monitor.sh" \
+-  "$host_dir/memory-samples.tsv" "$phase_file" "$MEMORY_SAMPLE_INTERVAL_SECONDS" &
++  "$host_dir/memory-samples.tsv" "$phase_file" "$MEMORY_SAMPLE_INTERVAL_SECONDS" "$container" &
+ monitor_pid=$!
+ sleep 0.2
+ printf 'running\n' > "$phase_file"
+diff --git a/motivation/experiments/lib/host-memory-monitor.sh b/motivation/experiments/lib/host-memory-monitor.sh
+index 530097c..a167430 100755
+--- a/motivation/experiments/lib/host-memory-monitor.sh
++++ b/motivation/experiments/lib/host-memory-monitor.sh
+@@ -1,8 +1,8 @@
+ #!/usr/bin/env bash
+ set -euo pipefail
+ 
+-if (($# != 3)); then
+-  echo "usage: $0 OUTPUT_TSV PHASE_FILE INTERVAL_SECONDS" >&2
++if (($# < 3 || $# > 4)); then
++  echo "usage: $0 OUTPUT_TSV PHASE_FILE INTERVAL_SECONDS [CONTAINER]" >&2
+   exit 2
+ fi
+ 
+@@ -10,7 +10,8 @@ output=$1
+ phase_file=$2
+ interval=$3
+ 
+-container_pid="$(docker inspect aenv-server --format '{{.State.Pid}}')"
++container=${4:-aenv-server}
++container_pid="$(docker inspect "$container" --format '{{.State.Pid}}')"
+ cgroup_rel="$(awk -F: '$1 == "0" { print $3 }' "/proc/$container_pid/cgroup")"
+ cgroup_dir="/sys/fs/cgroup${cgroup_rel}"
+ test -r "$cgroup_dir/memory.current"
+@@ -40,6 +41,7 @@ while :; do
+   best_file=0
+   while read -r pid; do
+     [[ $pid =~ ^[0-9]+$ ]] || continue
++    [[ $(cat "/proc/$pid/comm" 2>/dev/null) == firecracker ]] || continue
+     rollup="$(sudo -n awk '
+       $1 == "Rss:" { rss=$2 }
+       $1 == "Pss:" { pss=$2 }
+@@ -55,7 +57,7 @@ while :; do
+       best_anon=$proc_anon
+       best_file=$proc_file
+     fi
+-  done < <(pgrep -x firecracker || true)
++  done < <(find "$cgroup_dir" -name cgroup.procs -type f -exec cat {} + 2>/dev/null | sort -un)
+ 
+   printf '%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\n' \
+     "$timestamp_ns" "$phase" "$current" "$anon" "$file" "$kernel" \
