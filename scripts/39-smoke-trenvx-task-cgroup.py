@@ -30,7 +30,7 @@ def cpio(tree,output):
         for p in sorted(tree.rglob('*')):
             name=str(p.relative_to(tree))
             if p.is_symlink():entry(name,os.readlink(p).encode(),0o120777)
-            elif p.is_dir():entry(name,mode=p.stat().st_mode)
+            elif p.is_dir():entry(name,mode=0o41777 if name=='tmp' else 0o40755)
             else:entry(name,p.read_bytes(),0o100755)
         entry('dev/console',mode=0o20600,rmajor=5,rminor=1)
         entry('TRAILER!!!',mode=0)
@@ -46,12 +46,12 @@ def main():
     shutil.copy2(args.busybox,tree/'bin/busybox')
     for name in ['sh','mount','mkdir','setsid','sleep','poweroff','ln']:(tree/'bin'/name).symlink_to('busybox')
     (tree/'tmp').chmod(0o1777)
-    env=dict(os.environ,CGO_ENABLED='0',GOCACHE='/tmp/asb-go-cache')
+    env=dict(os.environ,CGO_ENABLED='0',GOCACHE=os.environ.get('GOCACHE','/tmp/asb-go-cache'))
     subprocess.run(['go','test','-c','-o',str(tree/'asb.test')],cwd=ROOT/'backend/trenvx/taskcgroup',env=env,check=True,timeout=60)
     launcher_cmd = ""
     if args.launchers:
         fork=ROOT/'IncrementalDAX_moti/baselines/TrEnv-X/packages/envd'
-        subprocess.run(['go','test','-c','-o',str(tree/'launchers.test'),'./internal/process'],cwd=fork,env=dict(env,GOPATH='/tmp/asb-go-path'),check=True,timeout=60)
+        subprocess.run(['go','test','-c','-o',str(tree/'launchers.test'),'./internal/process'],cwd=fork,env=dict(env,GOPATH=os.environ.get('GOPATH','/tmp/asb-go-path')),check=True,timeout=60)
         (tree/'etc').mkdir()
         (tree/'etc/passwd').write_text('root:x:0:0:root:/tmp:/bin/bash\nuser:x:1000:1000:user:/tmp:/bin/bash\n')
         (tree/'etc/group').write_text('root:x:0:\nuser:x:1000:\n')

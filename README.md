@@ -4,6 +4,7 @@
 
 - [当前进度与验收缺口](docs/STATUS.md)：以后续实验应从这里开始。
 - [协作分工与接口](docs/COLLABORATION.md)：适合两人或多人并行开发。
+- [rashen 用户环境与一键隔离验证](docs/records/RASHEN_SERVER_SETUP.md)：当前服务器的准备结果、使用命令和权限缺口。
 - [详细实验记录](docs/records/PLATFORM_HANDOFF.md)：按阶段保留结果、失败边界与本机证据路径。
 
 ## 已验证到哪里
@@ -25,6 +26,9 @@ bash scripts/14-fetch-research-sources.sh
 以下命令从仓库根目录运行，输出写到独立的 `.artifacts/` 目录：
 
 ```bash
+# 普通用户隔离验收；需要已准备的固定源码、两个 SDK、CLI 和兼容 kernel。
+bash scripts/41-verify-trenvx-server.sh
+
 # 需要本机已有兼容 AgentENV 服务及私密凭据。
 bash scripts/13-run-exp1.sh
 bash scripts/16-run-exp1-checkpoint.sh
