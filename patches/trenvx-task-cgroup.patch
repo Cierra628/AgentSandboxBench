@@ -1,0 +1,1025 @@
+diff --git a/packages/envd/internal/process/service.go b/packages/envd/internal/process/service.go
+index 06868d7..394faa0 100644
+--- a/packages/envd/internal/process/service.go
++++ b/packages/envd/internal/process/service.go
+@@ -4,6 +4,7 @@ import (
+ 	"bufio"
+ 	"context"
+ 	"fmt"
++	"github.com/e2b-dev/infra/packages/envd/internal/taskcgroup"
+ 	"io"
+ 	"sync"
+ 
+@@ -212,7 +213,7 @@ func (s *Service) Start(id ID, cmd string, envVars *map[string]string, rootdir s
+ 		// We need to wait for the clock to sync before we start the process.
+ 		s.clock.Wait()
+ 
+-		if startErr := newProc.cmd.Start(); startErr != nil {
++		if startErr := taskcgroup.Start(newProc.cmd); startErr != nil {
+ 			s.processes.Remove(newProc.ID)
+ 
+ 			pipeErr := stdout.Close()
+diff --git a/packages/envd/internal/process/simple.go b/packages/envd/internal/process/simple.go
+index d79b2ce..7fcfbba 100644
+--- a/packages/envd/internal/process/simple.go
++++ b/packages/envd/internal/process/simple.go
+@@ -4,6 +4,7 @@ import (
+ 	"bytes"
+ 	"encoding/json"
+ 	"fmt"
++	"github.com/e2b-dev/infra/packages/envd/internal/taskcgroup"
+ 	"net/http"
+ 	"os"
+ 	"os/exec"
+@@ -15,6 +16,7 @@ import (
+ )
+ 
+ type SimpleProcess struct {
++	TaskID  string
+ 	cmd     *exec.Cmd
+ 	stdout  bytes.Buffer
+ 	stderr  bytes.Buffer
+@@ -35,7 +37,8 @@ type SimpleProcessCreateRequest struct {
+ }
+ 
+ type SimpleProcessCreateResponse struct {
+-	Pid int `json:"pid"`
++	TaskID string `json:"task_id,omitempty"`
++	Pid    int    `json:"pid"`
+ }
+ 
+ type SimpleProcessWaitRequest struct {
+@@ -128,7 +131,7 @@ func create(req *SimpleProcessCreateRequest, logger *zap.SugaredLogger) (*Simple
+ 	cmd.Stdout = &proc.stdout
+ 	cmd.Stderr = &proc.stderr
+ 
+-	if err = cmd.Start(); err != nil {
++	if proc.TaskID, err = taskcgroup.Default.Launch(cmd, cmd.Start); err != nil {
+ 		return proc, err
+ 	}
+ 
+@@ -164,7 +167,7 @@ func (m *SimpleProcessManager) Create(w http.ResponseWriter, r *http.Request) {
+ 			return
+ 		}
+ 
+-		response := SimpleProcessCreateResponse{Pid: p.cmd.Process.Pid}
++		response := SimpleProcessCreateResponse{Pid: p.cmd.Process.Pid, TaskID: p.TaskID}
+ 		w.Header().Set("Content-Type", "application/json")
+ 		if err := json.NewEncoder(w).Encode(response); err != nil {
+ 			http.Error(w, fmt.Sprintf("encode response failed: %s", err), http.StatusInternalServerError)
+diff --git a/packages/envd/internal/terminal/terminal.go b/packages/envd/internal/terminal/terminal.go
+index 32abb58..68ae3bc 100644
+--- a/packages/envd/internal/terminal/terminal.go
++++ b/packages/envd/internal/terminal/terminal.go
+@@ -2,6 +2,7 @@ package terminal
+ 
+ import (
+ 	"fmt"
++	"github.com/e2b-dev/infra/packages/envd/internal/taskcgroup"
+ 	"os"
+ 	"os/exec"
+ 	"syscall"
+@@ -61,9 +62,11 @@ func New(id, shell string, rootdir *string, cols, rows uint16, envVars *map[stri
+ 
+ 	cmd.Env = formattedVars
+ 
+-	tty, err := pty.StartWithSize(cmd, &pty.Winsize{
+-		Cols: cols,
+-		Rows: rows,
++	var tty *os.File
++	_, err = taskcgroup.Default.Launch(cmd, func() error {
++		var startErr error
++		tty, startErr = pty.StartWithSize(cmd, &pty.Winsize{Cols: cols, Rows: rows})
++		return startErr
+ 	})
+ 	if err != nil {
+ 		return nil, fmt.Errorf("error starting pty with command '%s' in dir '%s' with '%d' cols and '%d' rows: %w", cmd, cmd.Dir, cols, rows, err)
+diff --git a/packages/envd/main.go b/packages/envd/main.go
+index a716113..6305780 100644
+--- a/packages/envd/main.go
++++ b/packages/envd/main.go
+@@ -3,6 +3,7 @@ package main
+ import (
+ 	"flag"
+ 	"fmt"
++	"github.com/e2b-dev/infra/packages/envd/internal/taskcgroup"
+ 	"net/http"
+ 	_ "net/http/pprof"
+ 	"os"
+@@ -169,6 +170,14 @@ func main() {
+ 		)
+ 	}
+ 
++	// Opt-in on isolated templates only; missing delegation fails closed.
++	if parent := os.Getenv("ASB_TASK_CGROUP_PARENT"); parent != "" {
++		var err error
++		taskcgroup.Default, err = taskcgroup.New(parent)
++		if err != nil {
++			logger.Panicw("task cgroup initialization failed", "error", err)
++		}
++	}
+ 	processService := process.NewService(logger.Named("processSvc"), envConfig, clock)
+ 	if err := rpcServer.RegisterName("process", processService); err != nil {
+ 		logger.Panicw("failed to register process service", "error", err)
+@@ -213,6 +222,7 @@ func main() {
+ 	router.PathPrefix("/debug/pprof").Handler(http.DefaultServeMux)
+ 	// The /file route used for downloading and uploading files via SDK.
+ 	router.HandleFunc("/file", fileHandler)
++	router.Handle("/tasks", taskcgroup.Default)
+ 	router.HandleFunc("/process/create", simpleProcessManager.Create)
+ 	router.HandleFunc("/process/wait", simpleProcessManager.Wait)
+ 	router.HandleFunc("/process/kill", simpleProcessManager.Kill)
+diff --git a/packages/envd/internal/process/taskcgroup_integration_test.go b/packages/envd/internal/process/taskcgroup_integration_test.go
+new file mode 100644
+index 0000000..53c70b4
+--- /dev/null
++++ b/packages/envd/internal/process/taskcgroup_integration_test.go
+@@ -0,0 +1,143 @@
++package process
++
++import (
++	"bytes"
++	"context"
++	"encoding/json"
++	"fmt"
++	"net/http"
++	"net/http/httptest"
++	"os"
++	"path/filepath"
++	"strings"
++	"testing"
++	"time"
++
++	"github.com/e2b-dev/infra/packages/envd/internal/clock"
++	"github.com/e2b-dev/infra/packages/envd/internal/env"
++	"github.com/e2b-dev/infra/packages/envd/internal/taskcgroup"
++	"github.com/e2b-dev/infra/packages/envd/internal/terminal"
++	"go.uber.org/zap"
++)
++
++// Runs real simple HTTP handlers, Service.Start (RPC implementation), and PTY
++// launch code in a disposable kernel guest, without main/envd or host services.
++func TestIsolatedEnvdLaunchers(t *testing.T) {
++	parent := os.Getenv("ASB_CGROUP_SMOKE_PARENT")
++	if parent == "" {
++		t.Skip("isolated cgroup guest required")
++	}
++	m, e := taskcgroup.New(parent)
++	if e != nil {
++		t.Fatal(e)
++	}
++	taskcgroup.Default = m
++	defer func() {
++		taskcgroup.Default = nil
++		tasks, e := m.Tasks()
++		if e != nil {
++			t.Error(e)
++		}
++		for _, task := range tasks {
++			if e = m.Cleanup(context.Background(), task.ID); e != nil {
++				t.Error(e)
++			}
++		}
++	}()
++	logger := zap.NewNop().Sugar()
++	simple := NewSimpleProcessManager(logger)
++	call := func(handler http.HandlerFunc, body any) *httptest.ResponseRecorder {
++		b, _ := json.Marshal(body)
++		w := httptest.NewRecorder()
++		handler(w, httptest.NewRequest("POST", "/", bytes.NewReader(b)))
++		if w.Code != 200 {
++			t.Fatalf("handler failed: %d %s", w.Code, w.Body)
++		}
++		return w
++	}
++	created := call(simple.Create, SimpleProcessCreateRequest{Cmd: "printf frozen-action; exit 127", User: "root", Cwd: "/tmp"})
++	var response SimpleProcessCreateResponse
++	if e = json.Unmarshal(created.Body.Bytes(), &response); e != nil {
++		t.Fatal(e)
++	}
++	if response.TaskID == "" {
++		t.Fatal("simple launcher did not return task_id")
++	}
++	waited := call(simple.Wait, SimpleProcessWaitRequest{Pid: response.Pid})
++	var result SimpleProcessWaitResponse
++	if e = json.Unmarshal(waited.Body.Bytes(), &result); e != nil {
++		t.Fatal(e)
++	}
++	if result.ExitCode != 127 || result.Stdout != "frozen-action" || result.Stderr != "" {
++		t.Fatalf("action semantics changed: %+v", result)
++	}
++	t.Log("PASS actual simple HTTP create/wait preserves stdout and expected 127")
++	// Each real launcher writes its membership before shell startup returns.
++	paths := []string{"/tmp/simple-worker", "/tmp/rpc-worker", "/tmp/pty-worker"}
++	detached := func(path string) string {
++		return fmt.Sprintf("setsid /bin/sh -c 'echo $$ > %s; while :; do sleep 1; done' </dev/null >/dev/null 2>&1 &", path)
++	}
++	created = call(simple.Create, SimpleProcessCreateRequest{Cmd: detached(paths[0]), User: "root", Cwd: "/tmp"})
++	json.Unmarshal(created.Body.Bytes(), &response)
++	call(simple.Wait, SimpleProcessWaitRequest{Pid: response.Pid})
++	service := NewService(logger, &env.EnvConfig{Shell: "/bin/bash"}, clock.NewService(logger))
++	vars := map[string]string{}
++	if _, e = service.Start("probe", detached(paths[1]), &vars, "/tmp"); e != nil {
++		t.Fatal(e)
++	}
++	command := detached(paths[2])
++	cwd := "/tmp"
++	term, e := terminal.New("probe", "/bin/bash", &cwd, 80, 24, &vars, &command, logger)
++	if e != nil {
++		t.Fatal(e)
++	}
++	defer term.Destroy()
++	deadline := time.Now().Add(3 * time.Second)
++	for _, path := range paths {
++		for {
++			if _, e = os.Stat(path); e == nil {
++				break
++			}
++			if time.Now().After(deadline) {
++				t.Fatal("launcher writer not ready: " + path)
++			}
++			time.Sleep(10 * time.Millisecond)
++		}
++		pid, e := os.ReadFile(path)
++		if e != nil {
++			t.Fatal(e)
++		}
++		membership, e := os.ReadFile("/proc/" + strings.TrimSpace(string(pid)) + "/cgroup")
++		if e != nil {
++			t.Fatal(e)
++		}
++		tasks, e := m.Tasks()
++		if e != nil {
++			t.Fatal(e)
++		}
++		found := false
++		for _, task := range tasks {
++			if filepath.Base(strings.TrimSpace(string(membership))) == task.ID {
++				found = true
++			}
++		}
++		if !found {
++			t.Fatalf("launcher escaped task groups: %s", membership)
++		}
++	}
++	tasks, e := m.Tasks()
++	if e != nil {
++		t.Fatal(e)
++	}
++	if len(tasks) != 4 {
++		t.Fatalf("expected one group per launcher call, got %d", len(tasks))
++	}
++	token := "22222222222222222222222222222222"
++	request := func(op string) *httptest.ResponseRecorder {
++		body := map[string]any{"op": op, "token": token, "timeout_ms": 3000}
++		return call(m.ServeHTTP, body)
++	}
++	request("freeze")
++	request("thaw")
++	t.Log("PASS actual simple, RPC Service.Start, PTY launchers retain setsid descendants; HTTP freeze/thaw confirmed")
++}
+diff --git a/packages/envd/internal/taskcgroup/http.go b/packages/envd/internal/taskcgroup/http.go
+new file mode 100644
+index 0000000..ed8e42e
+--- /dev/null
++++ b/packages/envd/internal/taskcgroup/http.go
+@@ -0,0 +1,97 @@
++package taskcgroup
++
++import (
++	"context"
++	"encoding/json"
++	"errors"
++	"net/http"
++	"os"
++	"os/exec"
++	"strings"
++	"syscall"
++	"time"
++)
++
++func splitLines(s string) []string { return strings.Split(strings.TrimSpace(s), "\n") }
++
++// ServeHTTP is a guest control-plane endpoint; envd must stay outside task groups.
++// Network access is subject to the same private-guest boundary as existing envd.
++func (m *Manager) ServeHTTP(w http.ResponseWriter, r *http.Request) {
++	w.Header().Set("Content-Type", "application/json")
++	fail := func(e error) { http.Error(w, e.Error(), http.StatusConflict) }
++	if m == nil {
++		http.Error(w, "task cgroups disabled", http.StatusServiceUnavailable)
++		return
++	}
++	if r.Method == http.MethodGet {
++		v, e := m.Tasks()
++		if e != nil {
++			fail(e)
++			return
++		}
++		json.NewEncoder(w).Encode(v)
++		return
++	}
++	if r.Method != http.MethodPost {
++		w.WriteHeader(http.StatusMethodNotAllowed)
++		return
++	}
++	var req struct {
++		Op        string `json:"op"`
++		Token     string `json:"token"`
++		ID        string `json:"id"`
++		TimeoutMS int    `json:"timeout_ms"`
++	}
++	if e := json.NewDecoder(http.MaxBytesReader(w, r.Body, 4096)).Decode(&req); e != nil {
++		fail(e)
++		return
++	}
++	if req.TimeoutMS <= 0 || req.TimeoutMS > 30000 {
++		req.TimeoutMS = 5000
++	}
++	ctx, cancel := context.WithTimeout(r.Context(), time.Duration(req.TimeoutMS)*time.Millisecond)
++	defer cancel()
++	var e error
++	var result any = map[string]bool{"ok": true}
++	switch req.Op {
++	case "freeze":
++		e = m.Freeze(ctx, req.Token)
++	case "thaw":
++		e = m.Thaw(req.Token)
++	case "cleanup":
++		e = m.Cleanup(ctx, req.ID)
++	case "prepare":
++		// Fixed maintenance action outside tasks: no arbitrary tool escape hatch.
++		// Preserve upstream /tmp exclusions and finish sync before CH pause/copy.
++		m.mu.Lock()
++		if !validToken(req.Token) || m.token != req.Token || !m.frozen {
++			e = errors.New("prepare requires freeze ownership")
++		} else {
++			path := "/dev/shm/asb-runtime-" + req.Token + ".tar"
++			cmd := exec.CommandContext(ctx, "tar", "--xattrs", "--acls", "--numeric-owner", "--exclude=./mixfs-exp5*", "--exclude=./mixfs-probe*", "-C", "/tmp", "-cf", path, ".")
++			if b, err := cmd.CombinedOutput(); err != nil {
++				e = errors.New(err.Error() + ": " + string(b))
++			} else {
++				syscall.Sync()
++				result = map[string]string{"runtime_path": path}
++			}
++		}
++		m.mu.Unlock()
++	case "discard-runtime":
++		if !validToken(req.Token) {
++			e = errors.New("invalid token")
++		} else {
++			e = os.Remove("/dev/shm/asb-runtime-" + req.Token + ".tar")
++			if os.IsNotExist(e) {
++				e = nil
++			}
++		}
++	default:
++		e = errors.New("unknown task operation")
++	}
++	if e != nil {
++		fail(e)
++		return
++	}
++	json.NewEncoder(w).Encode(result)
++}
+diff --git a/packages/envd/internal/taskcgroup/kernel_test.go b/packages/envd/internal/taskcgroup/kernel_test.go
+new file mode 100644
+index 0000000..a95bb88
+--- /dev/null
++++ b/packages/envd/internal/taskcgroup/kernel_test.go
+@@ -0,0 +1,137 @@
++package taskcgroup
++
++import (
++	"context"
++	"fmt"
++	"os"
++	"os/exec"
++	"path/filepath"
++	"strings"
++	"syscall"
++	"testing"
++	"time"
++)
++
++// Executed only in a disposable guest or an explicitly delegated cgroup parent.
++func TestKernelDescendantsFreezeCleanup(t *testing.T) {
++	parent := os.Getenv("ASB_CGROUP_SMOKE_PARENT")
++	if parent == "" {
++		t.Skip("real cgroup smoke requires an isolated guest/delegated parent")
++	}
++	m, e := New(parent)
++	if e != nil {
++		t.Fatal(e)
++	}
++	dir := t.TempDir()
++	counter := filepath.Join(dir, "counter")
++	pidfile := filepath.Join(dir, "pid")
++	// Redirection closes inherited output FDs; shell Wait must not wait for worker.
++	worker := fmt.Sprintf("echo $$ > %s; while :; do echo x >> %s; sleep 0.01; done", pidfile, counter)
++	cmd := exec.Command("/bin/sh", "-c", fmt.Sprintf("setsid /bin/sh -c '%s' </dev/null >/dev/null 2>&1 & exit 0", worker))
++	id, e := m.Launch(cmd, cmd.Start)
++	if e != nil {
++		t.Fatal(e)
++	}
++	defer func() {
++		if e := m.Thaw(token); e != nil {
++			t.Error(e)
++		}
++		for id := range m.groups {
++			if e := m.Cleanup(context.Background(), id); e != nil {
++				t.Error(e)
++			}
++		}
++		if e := os.Remove(m.root); e != nil {
++			t.Error(e)
++		}
++	}()
++	if e = cmd.Wait(); e != nil {
++		t.Fatal(e)
++	}
++	size := func() int64 {
++		st, e := os.Stat(counter)
++		if e != nil {
++			return 0
++		}
++		return st.Size()
++	}
++	waitGrowth := func(before int64) {
++		deadline := time.Now().Add(3 * time.Second)
++		for size() <= before {
++			if time.Now().After(deadline) {
++				t.Fatal("writer did not grow")
++			}
++			time.Sleep(10 * time.Millisecond)
++		}
++	}
++	waitGrowth(0)
++	pid, e := os.ReadFile(pidfile)
++	if e != nil {
++		t.Fatal(e)
++	}
++	cg, e := os.ReadFile("/proc/" + strings.TrimSpace(string(pid)) + "/cgroup")
++	if e != nil {
++		t.Fatal(e)
++	}
++	if !strings.Contains(string(cg), filepath.Base(m.root)+"/"+id) {
++		t.Fatalf("setsid descendant escaped: %s", cg)
++	}
++	t.Log("PASS parent shell exited; setsid background descendant remains in task cgroup")
++	// A second manager represents an unrelated run; targeted cleanup must not kill it.
++	other, e := New(parent)
++	if e != nil {
++		t.Fatal(e)
++	}
++	sentinel := exec.Command("/bin/sleep", "60")
++	otherID, e := other.Launch(sentinel, sentinel.Start)
++	if e != nil {
++		t.Fatal(e)
++	}
++	defer func() {
++		if e := other.Cleanup(context.Background(), otherID); e != nil {
++			t.Error(e)
++		}
++		sentinel.Wait()
++		if e := os.Remove(other.root); e != nil {
++			t.Error(e)
++		}
++	}()
++	ctx, cancel := context.WithTimeout(context.Background(), 3*time.Second)
++	defer cancel()
++	if e = m.Freeze(ctx, token); e != nil {
++		t.Fatal(e)
++	}
++	before := size()
++	time.Sleep(200 * time.Millisecond)
++	if size() != before {
++		t.Fatal("frozen writer changed file")
++	}
++	t.Log("PASS frozen=1 confirmed; writes stopped over 200ms guest window")
++	if e = m.Thaw(token); e != nil {
++		t.Fatal(e)
++	}
++	waitGrowth(before)
++	t.Log("PASS thaw confirmed and writer resumed")
++	// Canceled acquisition models freeze timeout; it must thaw a live writer.
++	canceled, stop := context.WithCancel(context.Background())
++	stop()
++	if e = m.Freeze(canceled, token); e == nil {
++		t.Fatal("expected canceled freeze")
++	}
++	before = size()
++	waitGrowth(before)
++	t.Log("PASS canceled freeze thaws and writes resume")
++	if e = m.Cleanup(context.Background(), "foreign"); e == nil {
++		t.Fatal("foreign cleanup accepted")
++	}
++	if e = m.Cleanup(context.Background(), id); e != nil {
++		t.Fatal(e)
++	}
++	if _, e = os.Stat(filepath.Join(m.root, id)); !os.IsNotExist(e) {
++		t.Fatal("owned group remains")
++	}
++	if e = sentinel.Process.Signal(syscall.Signal(0)); e != nil {
++		t.Fatalf("unrelated sentinel killed: %v", e)
++	}
++	t.Log("PASS task killed/removed; unrelated task and process remain")
++}
+diff --git a/packages/envd/internal/taskcgroup/taskcgroup.go b/packages/envd/internal/taskcgroup/taskcgroup.go
+new file mode 100644
+index 0000000..638c56b
+--- /dev/null
++++ b/packages/envd/internal/taskcgroup/taskcgroup.go
+@@ -0,0 +1,308 @@
++// Package taskcgroup tracks tool descendants, not arbitrary VM process state.
++package taskcgroup
++
++import (
++	"context"
++	"crypto/rand"
++	"encoding/hex"
++	"errors"
++	"fmt"
++	"os"
++	"os/exec"
++	"path/filepath"
++	"sync"
++	"syscall"
++	"time"
++)
++
++// Default is configured once before envd accepts tools. A nil manager preserves
++// the upstream launch path; checkpoint requests must reject that disabled mode.
++var Default *Manager
++
++type filesystem interface {
++	Mkdir(string, os.FileMode) error
++	Open(string) (*os.File, error)
++	ReadFile(string) ([]byte, error)
++	WriteFile(string, []byte, os.FileMode) error
++	Remove(string) error
++}
++type realFS struct{}
++
++func (realFS) Mkdir(p string, m os.FileMode) error               { return os.Mkdir(p, m) }
++func (realFS) Open(p string) (*os.File, error)                   { return os.Open(p) }
++func (realFS) ReadFile(p string) ([]byte, error)                 { return os.ReadFile(p) }
++func (realFS) WriteFile(p string, b []byte, m os.FileMode) error { return os.WriteFile(p, b, m) }
++func (realFS) Remove(p string) error                             { return os.Remove(p) }
++
++type group struct {
++	id  string
++	dir *os.File
++	pid int
++}
++type Task struct {
++	ID     string `json:"id"`
++	PID    int    `json:"pid"`
++	Events string `json:"events"`
++}
++type Manager struct {
++	mu     sync.Mutex
++	root   string
++	groups map[string]*group
++	token  string
++	frozen bool
++	fs     filesystem
++}
++
++func randomID() (string, error) {
++	b := make([]byte, 16)
++	if _, e := rand.Read(b); e != nil {
++		return "", e
++	}
++	return hex.EncodeToString(b), nil
++}
++
++// New requires an existing delegated cgroup v2 parent. It never adopts old groups.
++func New(parent string) (*Manager, error) {
++	if !filepath.IsAbs(parent) {
++		return nil, errors.New("cgroup parent must be absolute")
++	}
++	var st syscall.Statfs_t
++	if e := syscall.Statfs(parent, &st); e != nil {
++		return nil, e
++	}
++	if st.Type != 0x63677270 {
++		return nil, errors.New("parent is not cgroup v2")
++	}
++	id, e := randomID()
++	if e != nil {
++		return nil, e
++	}
++	root := filepath.Join(parent, "asb-"+id)
++	if e = os.Mkdir(root, 0700); e != nil {
++		return nil, e
++	}
++	return &Manager{root: root, groups: map[string]*group{}, fs: realFS{}}, nil
++}
++func (m *Manager) path(g *group, name string) string { return filepath.Join(m.root, g.id, name) }
++
++// An open directory FD pins ownership against deletion/recreation at the same path.
++func (m *Manager) owned(g *group) error {
++	a, e := g.dir.Stat()
++	if e != nil {
++		return e
++	}
++	f, e := m.fs.Open(m.path(g, "."))
++	if e != nil {
++		return e
++	}
++	defer f.Close()
++	b, e := f.Stat()
++	if e != nil {
++		return e
++	}
++	if !os.SameFile(a, b) {
++		return errors.New("cgroup identity changed")
++	}
++	return nil
++}
++func (m *Manager) write(g *group, name, value string) error {
++	if e := m.owned(g); e != nil {
++		return e
++	}
++	return m.fs.WriteFile(m.path(g, name), []byte(value), 0600)
++}
++func (m *Manager) wait(ctx context.Context, g *group, key, value string) error {
++	for {
++		if e := ctx.Err(); e != nil {
++			return e
++		}
++		if e := m.owned(g); e != nil {
++			return e
++		}
++		b, e := m.fs.ReadFile(m.path(g, "cgroup.events"))
++		if e != nil {
++			return e
++		}
++		if hasEvent(string(b), key, value) {
++			return nil
++		}
++		t := time.NewTimer(5 * time.Millisecond)
++		select {
++		case <-ctx.Done():
++			t.Stop()
++			return ctx.Err()
++		case <-t.C:
++		}
++	}
++}
++func hasEvent(s, key, value string) bool {
++	for _, line := range splitLines(s) {
++		if line == key+" "+value {
++			return true
++		}
++	}
++	return false
++}
++
++// Launch creates one task and atomically places the child in it before exec,
++// including before credentials, shell startup files, or user code can run.
++// start may be cmd.Start or PTY StartWithSize. There is no PID migration fallback.
++func (m *Manager) Launch(cmd *exec.Cmd, start func() error) (string, error) {
++	if m == nil {
++		return "", start()
++	}
++	m.mu.Lock()
++	defer m.mu.Unlock()
++	if m.token != "" {
++		return "", errors.New("checkpoint blocks new tool launches")
++	}
++	id, e := randomID()
++	if e != nil {
++		return "", e
++	}
++	p := filepath.Join(m.root, id)
++	if e = m.fs.Mkdir(p, 0700); e != nil {
++		return "", e
++	}
++	dir, e := m.fs.Open(p)
++	if e != nil {
++		return "", errors.Join(e, m.fs.Remove(p))
++	}
++	g := &group{id: id, dir: dir}
++	m.groups[id] = g
++	if cmd.SysProcAttr == nil {
++		cmd.SysProcAttr = &syscall.SysProcAttr{}
++	}
++	oldUse, oldFD := cmd.SysProcAttr.UseCgroupFD, cmd.SysProcAttr.CgroupFD
++	cmd.SysProcAttr.UseCgroupFD = true
++	cmd.SysProcAttr.CgroupFD = int(dir.Fd())
++	e = start()
++	cmd.SysProcAttr.UseCgroupFD = oldUse
++	cmd.SysProcAttr.CgroupFD = oldFD
++	if e != nil {
++		return "", errors.Join(e, m.cleanupLocked(context.Background(), g))
++	}
++	g.pid = cmd.Process.Pid
++	return id, nil
++}
++func Start(cmd *exec.Cmd) error { _, e := Default.Launch(cmd, cmd.Start); return e }
++
++func validToken(token string) bool { b, e := hex.DecodeString(token); return e == nil && len(b) == 16 }
++
++// Freeze closes admission and waits for every retained task, including tasks whose
++// shell has exited. Failed or canceled acquisition always attempts thaw itself.
++func (m *Manager) Freeze(ctx context.Context, token string) (err error) {
++	m.mu.Lock()
++	defer m.mu.Unlock()
++	if !validToken(token) {
++		return errors.New("token must be 32 hex characters")
++	}
++	if m.token != "" {
++		if m.token == token && m.frozen {
++			return nil
++		}
++		return errors.New("another checkpoint owns the freeze")
++	}
++	m.token = token
++	defer func() {
++		if err != nil {
++			err = errors.Join(err, m.thawLocked())
++		}
++	}()
++	for _, g := range m.groups {
++		if err = m.write(g, "cgroup.freeze", "1"); err != nil {
++			return err
++		}
++	}
++	for _, g := range m.groups {
++		if err = m.wait(ctx, g, "frozen", "1"); err != nil {
++			return err
++		}
++	}
++	if err = ctx.Err(); err == nil {
++		m.frozen = true
++	}
++	return err
++}
++func (m *Manager) thawLocked() error {
++	m.frozen = false
++	ctx, cancel := context.WithTimeout(context.Background(), 2*time.Second)
++	defer cancel()
++	var errs []error
++	for _, g := range m.groups {
++		e := m.write(g, "cgroup.freeze", "0")
++		if e == nil {
++			e = m.wait(ctx, g, "frozen", "0")
++		}
++		errs = append(errs, e)
++	}
++	e := errors.Join(errs...)
++	if e == nil {
++		m.token = ""
++	}
++	return e
++}
++func (m *Manager) Thaw(token string) error {
++	m.mu.Lock()
++	defer m.mu.Unlock()
++	if m.token == "" {
++		return nil
++	}
++	if m.token != token {
++		return errors.New("freeze ownership mismatch")
++	}
++	return m.thawLocked()
++}
++func (m *Manager) Tasks() ([]Task, error) {
++	m.mu.Lock()
++	defer m.mu.Unlock()
++	out := []Task{}
++	for _, g := range m.groups {
++		if e := m.owned(g); e != nil {
++			return nil, e
++		}
++		b, e := m.fs.ReadFile(m.path(g, "cgroup.events"))
++		if e != nil {
++			return nil, e
++		}
++		out = append(out, Task{g.id, g.pid, string(b)})
++	}
++	return out, nil
++}
++func (m *Manager) cleanupLocked(ctx context.Context, g *group) error {
++	// cgroup.kill is atomic for descendants. Refuse unsupported kernels rather
++	// than signal remembered PIDs, which may have been reused outside our task.
++	if e := m.write(g, "cgroup.freeze", "0"); e != nil {
++		return e
++	}
++	if e := m.write(g, "cgroup.kill", "1"); e != nil {
++		return e
++	}
++	bounded, cancel := context.WithTimeout(ctx, 2*time.Second)
++	defer cancel()
++	if e := m.wait(bounded, g, "populated", "0"); e != nil {
++		return e
++	}
++	if e := m.owned(g); e != nil {
++		return e
++	}
++	if e := m.fs.Remove(m.path(g, ".")); e != nil {
++		return e
++	}
++	delete(m.groups, g.id)
++	return g.dir.Close()
++}
++
++// Cleanup accepts only IDs created by this manager, never filesystem discovery.
++func (m *Manager) Cleanup(ctx context.Context, id string) error {
++	m.mu.Lock()
++	defer m.mu.Unlock()
++	if m.token != "" {
++		return errors.New("thaw before cleanup")
++	}
++	g, ok := m.groups[id]
++	if !ok {
++		return fmt.Errorf("task %q is not owned", id)
++	}
++	return m.cleanupLocked(ctx, g)
++}
+diff --git a/packages/envd/internal/taskcgroup/taskcgroup_test.go b/packages/envd/internal/taskcgroup/taskcgroup_test.go
+new file mode 100644
+index 0000000..f1e8893
+--- /dev/null
++++ b/packages/envd/internal/taskcgroup/taskcgroup_test.go
+@@ -0,0 +1,179 @@
++package taskcgroup
++
++import (
++	"context"
++	"errors"
++	"os"
++	"os/exec"
++	"path/filepath"
++	"strings"
++	"testing"
++	"time"
++)
++
++type fakeFS struct {
++	realFS
++	neverFrozen, failFreeze, failThaw bool
++	writes                            []string
++}
++
++func (f *fakeFS) Mkdir(p string, m os.FileMode) error {
++	if e := os.Mkdir(p, m); e != nil {
++		return e
++	}
++	return os.WriteFile(filepath.Join(p, "cgroup.events"), []byte("populated 0\nfrozen 0\n"), 0600)
++}
++func (f *fakeFS) WriteFile(p string, b []byte, m os.FileMode) error {
++	name, value := filepath.Base(p), string(b)
++	f.writes = append(f.writes, p+"="+value)
++	if name == "cgroup.freeze" {
++		if value == "1" && f.failFreeze || value == "0" && f.failThaw {
++			return errors.New("injected freezer IO error")
++		}
++		if value == "1" && f.neverFrozen {
++			return nil
++		}
++		return os.WriteFile(filepath.Join(filepath.Dir(p), "cgroup.events"), []byte("populated 0\nfrozen "+value+"\n"), 0600)
++	}
++	return nil
++}
++func (f *fakeFS) Remove(p string) error {
++	if e := os.Remove(filepath.Join(p, "cgroup.events")); e != nil {
++		return e
++	}
++	return os.Remove(p)
++}
++func fixture(t *testing.T) (*Manager, *fakeFS, string) {
++	t.Helper()
++	f := &fakeFS{}
++	m := &Manager{root: t.TempDir(), groups: map[string]*group{}, fs: f}
++	c := exec.Command("true")
++	id, e := m.Launch(c, func() error {
++		if !c.SysProcAttr.UseCgroupFD {
++			t.Fatal("launch outside cgroup")
++		}
++		c.Process, _ = os.FindProcess(os.Getpid())
++		return nil
++	})
++	if e != nil {
++		t.Fatal(e)
++	}
++	t.Cleanup(func() {
++		for _, g := range m.groups {
++			g.dir.Close()
++		}
++	})
++	return m, f, id
++}
++
++const token = "11111111111111111111111111111111"
++
++func TestFreezeTimeoutThawsAndReadmits(t *testing.T) {
++	m, f, _ := fixture(t)
++	f.neverFrozen = true
++	ctx, cancel := context.WithTimeout(context.Background(), 10*time.Millisecond)
++	defer cancel()
++	if !errors.Is(m.Freeze(ctx, token), context.DeadlineExceeded) {
++		t.Fatal("expected deadline")
++	}
++	if m.token != "" || !strings.HasSuffix(f.writes[len(f.writes)-1], "=0") {
++		t.Fatal("failure left task frozen")
++	}
++}
++func TestFreezeWriteFailureThaws(t *testing.T) {
++	m, f, _ := fixture(t)
++	f.failFreeze = true
++	if m.Freeze(context.Background(), token) == nil {
++		t.Fatal("expected IO error")
++	}
++	if m.token != "" {
++		t.Fatal("admission remains closed")
++	}
++}
++func TestThawFailureReportedAndBlocksAdmission(t *testing.T) {
++	m, f, _ := fixture(t)
++	if e := m.Freeze(context.Background(), token); e != nil {
++		t.Fatal(e)
++	}
++	f.failThaw = true
++	if m.Thaw(token) == nil || m.token == "" {
++		t.Fatal("lost thaw failure")
++	}
++	f.failThaw = false
++	if e := m.Thaw(token); e != nil {
++		t.Fatal(e)
++	}
++}
++func TestFreezeOwnershipAndLaunchGate(t *testing.T) {
++	m, _, id := fixture(t)
++	if e := m.Freeze(context.Background(), token); e != nil {
++		t.Fatal(e)
++	}
++	called := false
++	_, e := m.Launch(exec.Command("true"), func() error { called = true; return nil })
++	if e == nil || called {
++		t.Fatal("launch admitted during checkpoint")
++	}
++	if m.Thaw("22222222222222222222222222222222") == nil {
++		t.Fatal("foreign thaw")
++	}
++	if m.Cleanup(context.Background(), id) == nil {
++		t.Fatal("cleanup during freeze")
++	}
++	if e := m.Thaw(token); e != nil {
++		t.Fatal(e)
++	}
++	if e := m.Thaw(token); e != nil {
++		t.Fatal(e)
++	}
++}
++func TestCleanupOnlyOwnedGroup(t *testing.T) {
++	m, f, id := fixture(t)
++	before := len(f.writes)
++	if m.Cleanup(context.Background(), "../foreign") == nil || len(f.writes) != before {
++		t.Fatal("foreign cleanup touched filesystem")
++	}
++	if e := m.Cleanup(context.Background(), id); e != nil {
++		t.Fatal(e)
++	}
++	if len(m.groups) != 0 {
++		t.Fatal("not removed")
++	}
++}
++func TestChangedIdentityRefused(t *testing.T) {
++	m, _, id := fixture(t)
++	p := filepath.Join(m.root, id)
++	if e := os.Rename(p, p+"-old"); e != nil {
++		t.Fatal(e)
++	}
++	os.Mkdir(p, 0700)
++	if m.Cleanup(context.Background(), id) == nil {
++		t.Fatal("adopted replacement cgroup")
++	}
++}
++func TestStartFailureCleanupAndNoFallback(t *testing.T) {
++	f := &fakeFS{}
++	m := &Manager{root: t.TempDir(), groups: map[string]*group{}, fs: f}
++	_, e := m.Launch(exec.Command("missing"), func() error { return errors.New("clone3 denied") })
++	if e == nil || len(m.groups) != 0 {
++		t.Fatal("failed start leaked or was swallowed")
++	}
++}
++
++func TestIncompleteThawCannotBeReportedAsFrozen(t *testing.T) {
++	m, f, _ := fixture(t)
++	if e := m.Freeze(context.Background(), token); e != nil {
++		t.Fatal(e)
++	}
++	f.failThaw = true
++	if m.Thaw(token) == nil {
++		t.Fatal("expected thaw failure")
++	}
++	if m.Freeze(context.Background(), token) == nil {
++		t.Fatal("accepted token without confirmed frozen state")
++	}
++	f.failThaw = false
++	if e := m.Thaw(token); e != nil {
++		t.Fatal(e)
++	}
++}
