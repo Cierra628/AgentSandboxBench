@@ -1,29 +1,37 @@
 # AgentSandboxBench
 
-用于 Agent 沙箱的轨迹重放、checkpoint/restore 和内存与时延测量，主要以 AgentENV 为 baseline，并保留 TrEnv-X 对照。项目进度与未完成项见 [平台交接记录](PLATFORM_HANDOFF.md)。
+单机 Agent 沙箱实验平台：重放冻结的真实工具调用，在指定步骤 checkpoint/restore，并分别记录任务正确性、内存和阶段时延。AgentENV 是主要 baseline，学长的 TrEnv-X / 增量 DAX 实现是对照。
 
-## 当前验证状态（2026-09-24）
+- [当前进度与验收缺口](docs/STATUS.md)：以后续实验应从这里开始。
+- [协作分工与接口](docs/COLLABORATION.md)：适合两人或多人并行开发。
+- [详细实验记录](docs/records/PLATFORM_HANDOFF.md)：按阶段保留结果、失败边界与本机证据路径。
 
-- **AgentENV 官方示例已跑通。** 在 cpu-15 上使用固定的官方预构建服务镜像和 `e2b 2.26.0`，完成 Kimi K3 报告所链接的 AgentENV 官方 Python SDK 示例：Ubuntu 22.04 模板构建、沙箱创建与列举、命令执行、暂停和删除。逐项结果、镜像版本与证据见 [官方示例报告](KIMI_AGENTENV_EXAMPLE.md)。
-- **底层功能已验证。** Alpine 模板、文件读写、单次暂停/恢复及来宾进程连续性通过，证据见 [cpu-15 验证报告](CPU15_RESULTS.md)。这不等于本地源码构建或 K3 模型实验通过。
-- **Exp1 完整重放及第 13 步恢复均已通过一轮。** 固定 26 个工具动作按序执行，保留原轨迹中 008/016 的预期失败；恢复后的最终 patch 与完整重放一致，来宾进程在恢复前后连续运行。原始结果分别保存在本地 `.artifacts/platform-exp1-agentenv-default/` 和 `.artifacts/platform-exp1-checkpoint/`，见 [平台交接记录](PLATFORM_HANDOFF.md)。监控开销、远端 checkpoint 持久化及独立任务测试尚未验证。
+## 已验证到哪里
 
-## 源码与复现
+官方 AgentENV Python 示例、Exp1 的 26 步冻结重放及第 013 步后恢复续跑已通过。独立 SVG 功能用例与上游测试子集也通过。已知负载的物理页、DAX 和文件层封存校准通过；任务 cgroup 下的受控在线捕获和新 guest 重建通过。完整 TrEnv-X 服务、任务级跨后端收益及暂定 5% 监控开销目标尚未验收，见[状态表](docs/STATUS.md)。
 
-官方 AgentENV 源码在 `AgentENV/`，固定提交为 `2f48c9c78ec58e4d73c49aa07cb81d984a4a4184`。学长的实验源码在 `IncrementalDAX_moti/`，具体版本见 `configs/source-revisions.json`；两个目录均是独立仓库，不随本仓库上传。在新机器获取固定源码并应用平台补丁：
+## 源码与数据边界
+
+本仓库同步 `scripts/`、`configs/`、`patches/` 和文档。官方 AgentENV 与学长的 IncrementalDAX_moti 是独立 checkout，固定提交见 [`configs/source-revisions.json`](configs/source-revisions.json)，不会随本仓库上传。获取固定版本：
 
 ```bash
 bash scripts/14-fetch-research-sources.sh
 ```
 
-已有兼容服务、私密凭据和虚拟环境时，可复现官方 Python 示例：
+该入口尚未在全新机器完成端到端复现验收。实验机的服务凭据、镜像和 `.artifacts/` 原始数据仅保留本地。`AGENTS.md` 是本地协作指令，已被 Git 忽略。脚本运行前先读对应实验记录，避免重复已完成的长测。
+
+## 可复现入口
+
+以下命令从仓库根目录运行，输出写到独立的 `.artifacts/` 目录：
 
 ```bash
-bash scripts/10-run-official-python-example.sh .artifacts/server-smoke-20260922T114006Z-1387374
+# 需要本机已有兼容 AgentENV 服务及私密凭据。
+bash scripts/13-run-exp1.sh
+bash scripts/16-run-exp1-checkpoint.sh
+
+# 局部诊断：独立功能测试、计时和任务 cgroup。
+bash scripts/37-closeout-exp1.sh
+bash scripts/38-check-task-cgroup-upper.sh
 ```
 
-该服务目录与凭据只存在于实验机器；详细前提和依赖版本见 [官方示例报告](KIMI_AGENTENV_EXAMPLE.md)。历史排障过程已移至 [早期探索记录](CPU14_EARLY_HISTORY.md)，不作为当前操作步骤。
-
-## Git 同步
-
-本目录是独立 Git 仓库，`main` 分支连接到 [GitHub AgentSandboxBench](https://github.com/Cierra628/AgentSandboxBench)。Git 只同步文档、脚本、配置和补丁；`.gitignore` 排除嵌套源码、凭据、运行时镜像及原始实验数据。
+官方示例、环境迁移和早期排障细节分别见[官方示例记录](docs/records/KIMI_AGENTENV_EXAMPLE.md)、[迁移记录](MIGRATION.md)及[历史记录](docs/records/CPU14_EARLY_HISTORY.md)。本仓库 GitHub 地址为 <https://github.com/Cierra628/AgentSandboxBench>。

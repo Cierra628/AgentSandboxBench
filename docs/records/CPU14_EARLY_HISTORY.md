@@ -1,6 +1,6 @@
 # 早期 AgentENV 探索记录（历史）
 
-以下是迁移前的阶段记录。文中的“当前”“下一步”“尚未验证”仅指记录当时，不代表 cpu-15 的最新状态。当前验证结论见 [README](README.md)、[cpu-15 验证报告](CPU15_RESULTS.md) 和 [官方示例报告](KIMI_AGENTENV_EXAMPLE.md)。
+以下是迁移前的阶段记录。文中的“当前”“下一步”“尚未验证”仅指记录当时，不代表 cpu-15 的最新状态。当前验证结论见 [README](../../README.md)、[cpu-15 验证报告](CPU15_RESULTS.md) 和 [官方示例报告](KIMI_AGENTENV_EXAMPLE.md)。
 
 目标：在独立目录验证 Kimi K3 所引用的 AgentENV 能否运行。原 `sandbox_experiment` 项目、服务和实验数据保持不变。
 

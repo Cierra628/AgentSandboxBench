@@ -1,5 +1,6 @@
 """Small ownership/configuration wrapper around the senior repository's Exp1."""
-import csv,datetime,hashlib,json,os,pathlib,subprocess,sys,tomllib
+import csv,datetime,hashlib,json,os,pathlib,subprocess,sys,time,tomllib
+run_started_ns=time.monotonic_ns()
 root=pathlib.Path(__file__).resolve().parent.parent
 cfg=json.loads(pathlib.Path(sys.argv[1]).read_text())
 repo=(root/cfg['repository']).resolve()
@@ -24,10 +25,10 @@ try:
  assert [r[0] for r in rows]==[f'{i:03}' for i in range(1,27)]
  for step,digest,_ in rows:assert hashlib.sha256((workload/'actions'/f'{step}.sh').read_bytes()).hexdigest()==digest
  checks['input_hashes']='PASS'
- (audit/'effective-config.json').write_text(json.dumps(dict(cfg,container=cid,server_image_id=info['Image'],run_id=run_id,cwd='/testbed',session_semantics='one bash per frozen action',cache_policy='preserve; no host/guest drop_caches',measurement='diagnostic; overhead not validated',vmm_scope='largest RSS Firecracker within selected service cgroup; includes pool'),indent=2)+'\n')
+ (audit/'effective-config.json').write_text(json.dumps(dict(cfg,container=cid,server_image_id=info['Image'],run_id=run_id,cwd='/testbed',session_semantics='one bash per frozen action',cache_policy='preserve; no host/guest drop_caches',measurement=('light host cgroup sampling' if cfg.get('host_monitor_light',False) else 'diagnostic; overhead not validated'),vmm_scope=('not sampled' if cfg.get('host_monitor_light',False) else 'largest RSS Firecracker within selected service cgroup; includes pool')),indent=2)+'\n')
  for name,args in {'repository-version':['git','-C',str(repo),'rev-parse','HEAD'],'submodules':['git','-C',str(repo),'submodule','status'],'local-changes':['git','-C',str(repo),'diff'],'server-config':['docker','exec',cid,'cat','/workspace/config/default.toml']}.items():
   (audit/(name+'.txt')).write_text(capture(args))
- env=dict(os.environ,PATH=str(root/'runtime/bin')+':'+os.environ['PATH'],XDG_CONFIG_HOME=str(root/'runtime/config'),AGENTENV_CONTAINER=cid,OUTPUT_ROOT=str(output),RUN_ID=run_id,DROP_GUEST_CACHES=str(cfg['drop_guest_caches']),SANDBOX_CPU=str(cfg['sandbox_cpu']),SANDBOX_MEMORY_MIB=str(cfg['sandbox_memory_mib']),MEMORY_SAMPLE_INTERVAL_SECONDS=str(cfg['sample_interval_seconds']),ACTION_TIMEOUT_SECONDS=str(cfg['action_timeout_seconds']))
+ env=dict(os.environ,PATH=str(root/'runtime/bin')+':'+os.environ['PATH'],XDG_CONFIG_HOME=str(root/'runtime/config'),AGENTENV_CONTAINER=cid,OUTPUT_ROOT=str(output),RUN_ID=run_id,DROP_GUEST_CACHES=str(cfg['drop_guest_caches']),SANDBOX_CPU=str(cfg['sandbox_cpu']),SANDBOX_MEMORY_MIB=str(cfg['sandbox_memory_mib']),MEMORY_SAMPLE_INTERVAL_SECONDS=str(cfg['sample_interval_seconds']),ACTION_TIMEOUT_SECONDS=str(cfg['action_timeout_seconds']),GUEST_MEMORY_SAMPLING='1' if cfg.get('guest_sampling',True) else '0',HOST_MEMORY_SAMPLING='1' if cfg.get('host_sampling',True) else '0',HOST_MONITOR_LIGHT='1' if cfg.get('host_monitor_light',False) else '0',GENERATE_ANALYSIS='1' if cfg.get('generate_analysis',True) else '0')
  runner=repo/'motivation/experiments/exp1-single-app-smoke/systems/agentenv/run.sh'
  print(f'status=RUNNING run_id={run_id} result_dir={raw}',flush=True)
  with (audit/'controller.log').open('w') as log:
@@ -48,10 +49,21 @@ try:
   assert (raw/'oracle-exit-code.txt').read_text().strip()=='0'
   patch=raw/'replay/patch.diff';assert patch.stat().st_size>0
   (audit/'correctness.json').write_text(json.dumps({'action_order':'PASS','expected_failures':failures,'oracle':'PASS','patch_sha256':hashlib.sha256(patch.read_bytes()).hexdigest(),'patch_reference_match':'NOT_VERIFIED; historical raw absent','independent_task_tests':'NOT_RUN'},indent=2)+'\n')
-  with (raw/'host/memory-samples.tsv').open() as f:host=list(csv.DictReader(f,delimiter='\t'))
-  assert host, 'no host samples'
   checks['replay_correctness']='PASS'
-  checks['host_sampling']='PASS'
+  if cfg.get('host_sampling',True):
+   with (raw/'host/memory-samples.tsv').open() as f:host=list(csv.DictReader(f,delimiter='\t'))
+   assert host, 'no host samples'
+   if cfg.get('host_monitor_light',False):
+    assert all(int(x['firecracker_pid'])==0 and int(x['firecracker_pss_kib'])==0 for x in host)
+   checks['host_sampling']='PASS'
+  else:
+   assert not (raw/'host/memory-samples.tsv').exists()
+   checks['host_sampling']='DISABLED'
+  with (raw/'replay/guest-memory.tsv').open() as f:guest=list(csv.DictReader(f,delimiter='\t'))
+  assert bool(guest)==cfg.get('guest_sampling',True)
+  checks['guest_sampling']='PASS' if guest else 'DISABLED'
+  assert int((raw/'task-window-duration-ns.txt').read_text())>0
+  checks['task_window']='PASS'
   listing=json.loads(subprocess.run([str(root/'runtime/bin/aenv'),'list','--output','json'],env=env,capture_output=True,text=True,timeout=15,check=True).stdout)
   sid=(raw/'sandbox-id.txt').read_text().strip()
   assert not any(x['sandboxID']==sid for x in listing)
@@ -61,6 +73,6 @@ except Exception:
  (audit/'failure.txt').write_text(traceback.format_exc());rc=1
 finally:
  (audit/'checks.json').write_text(json.dumps(checks,indent=2)+'\n')
- (audit/'result.json').write_text(json.dumps({'rc':rc,'raw_dir':str(raw),'status':'PASS' if rc==0 else 'FAIL'},indent=2)+'\n')
+ (audit/'result.json').write_text(json.dumps({'rc':rc,'raw_dir':str(raw),'status':'PASS' if rc==0 else 'FAIL','controller_elapsed_ns':time.monotonic_ns()-run_started_ns},indent=2)+'\n')
  print(f'status={"PASS" if rc==0 else "FAIL"} run_id={run_id} result_dir={raw} audit_dir={audit}',flush=True)
 sys.exit(rc)

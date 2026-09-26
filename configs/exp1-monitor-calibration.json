@@ -1,0 +1,19 @@
+{
+  "variant": "calibration",
+  "workload_image": "ghcr.io/timesler/swe-polybench.eval.x86_64.prettier__prettier-14400@sha256:e625c9b9776870e2cc87172e886bbc90cfc3d6ce1521492f113a46b3f6dfcf44",
+  "sandbox_cpu": 2,
+  "sandbox_memory_mib": 4096,
+  "warmup_iterations": 8,
+  "phase_iterations": 32,
+  "host_sample_interval_seconds": 1.0,
+  "phases": [
+    {"name": "aa-A1", "mode": "off"},
+    {"name": "aa-B1", "mode": "off"},
+    {"name": "aa-B2", "mode": "off"},
+    {"name": "aa-A2", "mode": "off"},
+    {"name": "ab-off1", "mode": "off"},
+    {"name": "ab-performance1", "mode": "performance"},
+    {"name": "ab-performance2", "mode": "performance"},
+    {"name": "ab-off2", "mode": "off"}
+  ]
+}

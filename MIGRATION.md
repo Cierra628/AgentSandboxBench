@@ -1,10 +1,12 @@
 # AgentENV 迁移交接
 
-目标是在新机器跑通官方 AgentENV 单沙箱，再验证暂停和恢复。2026-09-22 已完成 Alpine 模板功能 smoke 和单次暂停/恢复、来宾进程连续性验证；详见 [cpu-15 验证报告](CPU15_RESULTS.md)。
+本页是服务器迁移阶段记录；当前平台状态见[状态页](docs/STATUS.md)。
+
+目标是在新机器跑通官方 AgentENV 单沙箱，再验证暂停和恢复。2026-09-22 已完成 Alpine 模板功能 smoke 和单次暂停/恢复、来宾进程连续性验证；详见 [cpu-15 验证报告](docs/records/CPU15_RESULTS.md)。
 
 ## 官方示例进展（2026-09-23）
 
-已复用新机器服务跑通 AgentENV 官方 Quick Start 的 Ubuntu 22.04 模板及 Python SDK Usage。固定 SDK 为 `e2b 2.26.0`；2.51.0 使用 v2 创建接口，与当前固定镜像不兼容（405）。运行入口是 `scripts/10-run-official-python-example.sh`，证据和结论边界见 [官方示例报告](KIMI_AGENTENV_EXAMPLE.md)。本轮测试 sandbox/template 已清理，服务保留运行。
+已复用新机器服务跑通 AgentENV 官方 Quick Start 的 Ubuntu 22.04 模板及 Python SDK Usage。固定 SDK 为 `e2b 2.26.0`；2.51.0 使用 v2 创建接口，与当前固定镜像不兼容（405）。运行入口是 `scripts/10-run-official-python-example.sh`，证据和结论边界见 [官方示例报告](docs/records/KIMI_AGENTENV_EXAMPLE.md)。本轮测试 sandbox/template 已清理，服务保留运行。
 
 ## 已有证据
 

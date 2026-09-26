@@ -74,12 +74,14 @@ index 32653d8..98a9e8c 100755
  ## 正确性与可复现性
  
 diff --git a/motivation/experiments/exp1-single-app-smoke/systems/agentenv/guest-runner.sh b/motivation/experiments/exp1-single-app-smoke/systems/agentenv/guest-runner.sh
-index 769c909..5b8556e 100755
+index 769c909..208184c 100755
 --- a/motivation/experiments/exp1-single-app-smoke/systems/agentenv/guest-runner.sh
 +++ b/motivation/experiments/exp1-single-app-smoke/systems/agentenv/guest-runner.sh
-@@ -6,14 +6,26 @@ out=${OUTPUT_DIR:-/workspace/artifacts/replay}
+@@ -5,15 +5,29 @@ actions=${ACTIONS_DIR:-/workspace/replay-actions}
+ out=${OUTPUT_DIR:-/workspace/artifacts/replay}
  timeout_seconds=${ACTION_TIMEOUT_SECONDS:-60}
  sample_interval=${MEMORY_SAMPLE_INTERVAL_SECONDS:-0.02}
++guest_sampling=${GUEST_MEMORY_SAMPLING:-1}
  drop_caches=${DROP_GUEST_CACHES:-1}
 +start_step=${START_STEP:-001}
 +end_step=${END_STEP:-026}
@@ -87,6 +89,7 @@ index 769c909..5b8556e 100755
 +  [[ $start_step < $end_step || $start_step == $end_step ]] || {
 +  echo 'invalid START_STEP/END_STEP range' >&2; exit 2;
 +}
++[[ $guest_sampling == 0 || $guest_sampling == 1 ]] || { echo 'invalid GUEST_MEMORY_SAMPLING' >&2; exit 2; }
  
  mkdir -p "$out/stdout" "$out/stderr"
 +if [[ $start_step == 001 ]]; then
@@ -104,7 +107,7 @@ index 769c909..5b8556e 100755
  
  sample_memory() {
    local phase=$1 step=$2 timestamp_ns
-@@ -47,6 +59,7 @@ monitor_step() {
+@@ -47,6 +61,7 @@ monitor_step() {
    done
  }
  
@@ -112,19 +115,53 @@ index 769c909..5b8556e 100755
  {
    date -u --iso-8601=seconds
    uname -a
-@@ -68,9 +81,11 @@ if [[ $drop_caches == 1 ]]; then
+@@ -55,6 +70,7 @@ monitor_step() {
+   printf 'memory_limit_mib=%s\n' "$(awk '/MemTotal:/ { printf "%.0f", $2 / 1024 }' /proc/meminfo)"
+   printf 'drop_guest_caches=%s\n' "$drop_caches"
+   printf 'sample_interval_seconds=%s\n' "$sample_interval"
++  printf 'guest_memory_sampling=%s\n' "$guest_sampling"
+ } > "$out/environment.txt"
+ 
+ git -C /testbed add -A
+@@ -66,14 +82,20 @@ if [[ $drop_caches == 1 ]]; then
+   sync
+   echo 3 > /proc/sys/vm/drop_caches
  fi
- sample_memory baseline 000
- sample_memory baseline 000
+-sample_memory baseline 000
+-sample_memory baseline 000
++if [[ $guest_sampling == 1 ]]; then
++  sample_memory baseline 000
++  sample_memory baseline 000
++fi
 +fi
  
  for action in "$actions"/*.sh; do
    step="$(basename "$action" .sh)"
+-  sample_memory before "$step"
+-  monitor_step "$step" &
+-  monitor_pid=$!
 +  [[ $step < $start_step || $step > $end_step ]] && continue
-   sample_memory before "$step"
-   monitor_step "$step" &
-   monitor_pid=$!
-@@ -88,9 +103,11 @@ for action in "$actions"/*.sh; do
++  if [[ $guest_sampling == 1 ]]; then
++    sample_memory before "$step"
++    monitor_step "$step" &
++    monitor_pid=$!
++  fi
+   start_ns="$(date +%s%N)"
+   set +e
+   (cd /testbed && timeout --signal=TERM --kill-after=5s "${timeout_seconds}s" bash "$action") \
+@@ -81,16 +103,22 @@ for action in "$actions"/*.sh; do
+   status=$?
+   set -e
+   end_ns="$(date +%s%N)"
+-  kill "$monitor_pid" 2>/dev/null || true
+-  wait "$monitor_pid" 2>/dev/null || true
+-  sample_memory after "$step"
++  if [[ $guest_sampling == 1 ]]; then
++    kill "$monitor_pid" 2>/dev/null || true
++    wait "$monitor_pid" 2>/dev/null || true
++    sample_memory after "$step"
++  fi
+   printf '%s\t%s\t%s\n' "$step" "$status" "$((end_ns - start_ns))" \
      >> "$out/steps.tsv"
  done
  
@@ -134,21 +171,32 @@ index 769c909..5b8556e 100755
  git -C /testbed reset --mixed >/dev/null
  git -C /testbed status --porcelain=v1 > "$out/git-status.txt"
  cp "${actions}.tsv" "$out/actions.tsv"
- sample_memory complete 999
+-sample_memory complete 999
++if [[ $guest_sampling == 1 ]]; then
++  sample_memory complete 999
++fi
 +fi
 diff --git a/motivation/experiments/exp1-single-app-smoke/systems/agentenv/run.sh b/motivation/experiments/exp1-single-app-smoke/systems/agentenv/run.sh
-index ab5a877..adb8c18 100755
+index ab5a877..cecb086 100755
 --- a/motivation/experiments/exp1-single-app-smoke/systems/agentenv/run.sh
 +++ b/motivation/experiments/exp1-single-app-smoke/systems/agentenv/run.sh
-@@ -14,6 +14,7 @@ raw_dir="$output_root/raw/$run_id"
+@@ -14,6 +14,15 @@ raw_dir="$output_root/raw/$run_id"
  host_dir="$raw_dir/host"
  phase_file="$raw_dir/.host-monitor-phase"
  lock_file="$output_root/.run.lock"
 +container=${AGENTENV_CONTAINER:-aenv-server}
++host_sampling=${HOST_MEMORY_SAMPLING:-1}
++guest_sampling=${GUEST_MEMORY_SAMPLING:-1}
++generate_analysis=${GENERATE_ANALYSIS:-1}
++host_monitor_light=${HOST_MONITOR_LIGHT:-0}
++[[ $host_sampling == 0 || $host_sampling == 1 ]] || { echo 'invalid HOST_MEMORY_SAMPLING' >&2; exit 2; }
++[[ $guest_sampling == 0 || $guest_sampling == 1 ]] || { echo 'invalid GUEST_MEMORY_SAMPLING' >&2; exit 2; }
++[[ $generate_analysis == 0 || $generate_analysis == 1 ]] || { echo 'invalid GENERATE_ANALYSIS' >&2; exit 2; }
++[[ $host_monitor_light == 0 || $host_monitor_light == 1 ]] || { echo 'invalid HOST_MONITOR_LIGHT' >&2; exit 2; }
  sandbox_id=''
  monitor_pid=''
  exec_status=1
-@@ -41,7 +42,9 @@ cleanup_runtime() {
+@@ -41,7 +50,9 @@ cleanup_runtime() {
      fi
    fi
  }
@@ -159,7 +207,7 @@ index ab5a877..adb8c18 100755
  
  for tool_name in aenv awk column docker flock jq pgrep python3 sudo; do
    command -v "$tool_name" >/dev/null || { echo "missing command: $tool_name" >&2; exit 1; }
-@@ -55,8 +58,8 @@ test "$(aenv list | jq 'length')" = 0 || {
+@@ -55,8 +66,8 @@ test "$(aenv list | jq 'length')" = 0 || {
    echo 'active AgentENV sandboxes exist; refusing an attribution-ambiguous run' >&2
    exit 1
  }
@@ -170,7 +218,7 @@ index ab5a877..adb8c18 100755
  overlaybd_io_engine="$(jq -er '.ioEngine' <<< "$overlaybd_config")"
  if [[ -n $EXPECTED_OVERLAYBD_IO_ENGINE && $overlaybd_io_engine != "$EXPECTED_OVERLAYBD_IO_ENGINE" ]]; then
    echo "expected OverlayBD ioEngine=$EXPECTED_OVERLAYBD_IO_ENGINE, got $overlaybd_io_engine" >&2
-@@ -73,8 +76,8 @@ printf '%s\n' "$overlaybd_config" > "$raw_dir/overlaybd-global.json"
+@@ -73,10 +84,14 @@ printf '%s\n' "$overlaybd_config" > "$raw_dir/overlaybd-global.json"
    printf 'action_manifest_sha256=%s\n' "$(sha256sum "$workload_root/actions.tsv" | awk '{print $1}')"
    printf 'aenv_version=%s\n' "$(aenv --version)"
    printf 'host_kernel=%s\n' "$(uname -r)"
@@ -180,21 +228,110 @@ index ab5a877..adb8c18 100755
 +  printf 'agentenv_container_id=%s\n' "$(docker inspect "$container" --format '{{.Id}}')"
    printf 'overlaybd_io_engine=%s\n' "$overlaybd_io_engine"
    printf 'overlaybd_direct_io=%s\n' "$([[ $overlaybd_io_engine == 2 ]] && printf true || printf false)"
++  printf 'host_memory_sampling=%s\n' "$host_sampling"
++  printf 'host_monitor_light=%s\n' "$host_monitor_light"
++  printf 'guest_memory_sampling=%s\n' "$guest_sampling"
++  printf 'memory_sample_interval_seconds=%s\n' "$MEMORY_SAMPLE_INTERVAL_SECONDS"
  } > "$raw_dir/metadata.env"
-@@ -102,7 +105,7 @@ aenv upload "$sandbox_id" "$script_dir/guest-runner.sh" /workspace/guest-runner.
  
- printf 'idle\n' > "$phase_file"
- "$repo_root/motivation/experiments/lib/host-memory-monitor.sh" \
+ start_ns="$(date +%s%N)"
+@@ -100,24 +115,32 @@ aenv upload "$sandbox_id" "$workload_root/actions" /workspace/replay-actions
+ aenv upload "$sandbox_id" "$workload_root/actions.tsv" /workspace/replay-actions.tsv
+ aenv upload "$sandbox_id" "$script_dir/guest-runner.sh" /workspace/guest-runner.sh
+ 
+-printf 'idle\n' > "$phase_file"
+-"$repo_root/motivation/experiments/lib/host-memory-monitor.sh" \
 -  "$host_dir/memory-samples.tsv" "$phase_file" "$MEMORY_SAMPLE_INTERVAL_SECONDS" &
-+  "$host_dir/memory-samples.tsv" "$phase_file" "$MEMORY_SAMPLE_INTERVAL_SECONDS" "$container" &
- monitor_pid=$!
- sleep 0.2
- printf 'running\n' > "$phase_file"
+-monitor_pid=$!
+-sleep 0.2
+-printf 'running\n' > "$phase_file"
++task_window_start_ns="$(date +%s%N)"
++if [[ $host_sampling == 1 ]]; then
++  printf 'idle\n' > "$phase_file"
++  "$repo_root/motivation/experiments/lib/host-memory-monitor.sh" \
++    "$host_dir/memory-samples.tsv" "$phase_file" "$MEMORY_SAMPLE_INTERVAL_SECONDS" "$container" &
++  monitor_pid=$!
++  if [[ $host_monitor_light == 0 ]]; then sleep 0.2; fi
++  printf 'running\n' > "$phase_file"
++fi
+ 
++exec_start_ns="$(date +%s%N)"
+ set +e
+ aenv exec "$sandbox_id" bash -lc \
+-  "ACTION_TIMEOUT_SECONDS='$ACTION_TIMEOUT_SECONDS' MEMORY_SAMPLE_INTERVAL_SECONDS='$MEMORY_SAMPLE_INTERVAL_SECONDS' DROP_GUEST_CACHES='$DROP_GUEST_CACHES' bash /workspace/guest-runner.sh" \
++  "ACTION_TIMEOUT_SECONDS='$ACTION_TIMEOUT_SECONDS' MEMORY_SAMPLE_INTERVAL_SECONDS='$MEMORY_SAMPLE_INTERVAL_SECONDS' GUEST_MEMORY_SAMPLING='$guest_sampling' DROP_GUEST_CACHES='$DROP_GUEST_CACHES' bash /workspace/guest-runner.sh" \
+   > "$raw_dir/replay-command.stdout.log" 2> "$raw_dir/replay-command.stderr.log"
+ exec_status=$?
+ set -e
+-printf 'done\n' > "$phase_file"
+-sleep 0.1
+-kill "$monitor_pid" 2>/dev/null || true
+-wait "$monitor_pid" 2>/dev/null || true
+-monitor_pid=''
++printf '%s\n' "$(($(date +%s%N) - exec_start_ns))" > "$raw_dir/controller-exec-duration-ns.txt"
++if [[ $host_sampling == 1 ]]; then
++  printf 'done\n' > "$phase_file"
++  if [[ $host_monitor_light == 0 ]]; then sleep 0.1; fi
++  kill "$monitor_pid" 2>/dev/null || true
++  wait "$monitor_pid" 2>/dev/null || true
++  monitor_pid=''
++fi
++printf '%s\n' "$(($(date +%s%N) - task_window_start_ns))" > "$raw_dir/task-window-duration-ns.txt"
+ printf '%s\n' "$exec_status" > "$raw_dir/replay-command-exit-code.txt"
+ 
+ aenv download "$sandbox_id" /workspace/artifacts/replay "$raw_dir/"
+@@ -139,9 +162,11 @@ aenv delete "$sandbox_id" >> "$raw_dir/cleanup.log" 2>&1
+ printf 'deleted=%s\n' "$sandbox_id" >> "$raw_dir/cleanup.log"
+ sandbox_id=''
+ 
+-python3 "$script_dir/analyze.py" "$output_root"
++if [[ $generate_analysis == 1 ]]; then
++  python3 "$script_dir/analyze.py" "$output_root"
++fi
+ echo "raw result: $raw_dir"
+-echo "summary:    $output_root/summary.md"
++if [[ $generate_analysis == 1 ]]; then echo "summary:    $output_root/summary.md"; fi
+ if ((exec_status != 0)); then
+   exit "$exec_status"
+ fi
+diff --git a/motivation/experiments/exp3-RL-fork/checkpoint_dax.py b/motivation/experiments/exp3-RL-fork/checkpoint_dax.py
+index df46017..f143abf 100644
+--- a/motivation/experiments/exp3-RL-fork/checkpoint_dax.py
++++ b/motivation/experiments/exp3-RL-fork/checkpoint_dax.py
+@@ -58,9 +58,14 @@ def build_layer(archive: Path, image: Path) -> None:
+             subprocess.run(["sudo", "-n", "umount", str(mountpoint)], check=True)
+         mountpoint.rmdir()
+     image.chmod(0o444)
+-    os.sync()
+     with image.open("rb") as handle:
++        os.fsync(handle.fileno())
+         os.posix_fadvise(handle.fileno(), 0, 0, os.POSIX_FADV_DONTNEED)
++    directory_fd = os.open(image.parent, os.O_RDONLY | os.O_DIRECTORY)
++    try:
++        os.fsync(directory_fd)
++    finally:
++        os.close(directory_fd)
+ 
+ 
+ def link_layers(instance: Path, template_image: Path) -> list[str]:
+diff --git a/motivation/experiments/exp3-RL-fork/physical_cache.py b/motivation/experiments/exp3-RL-fork/physical_cache.py
+index 7f6e6b9..dcd211a 100644
+--- a/motivation/experiments/exp3-RL-fork/physical_cache.py
++++ b/motivation/experiments/exp3-RL-fork/physical_cache.py
+@@ -119,6 +119,8 @@ def main(raw: Path, expected: int = 7, probes_dir: Path | None = None, output_pa
+                         all_host_cache_pfns.add(host_pfn)
+                         resident_guest_pages += 1
+                     break
++            else:
++                raise RuntimeError(f"unmapped guest PFN {guest_pfn} for sandbox {sandbox_id}; KVM slots incomplete")
+     if len(matched) != expected:
+         raise RuntimeError("incomplete sandbox-to-VMM mapping")
+     dax_kib = sum(dax_pss_kib(pid) for pid in matched.values())
 diff --git a/motivation/experiments/lib/host-memory-monitor.sh b/motivation/experiments/lib/host-memory-monitor.sh
-index 530097c..a167430 100755
+index 530097c..94745d3 100755
 --- a/motivation/experiments/lib/host-memory-monitor.sh
 +++ b/motivation/experiments/lib/host-memory-monitor.sh
-@@ -1,8 +1,8 @@
+@@ -1,16 +1,19 @@
  #!/usr/bin/env bash
  set -euo pipefail
  
@@ -205,9 +342,11 @@ index 530097c..a167430 100755
    exit 2
  fi
  
-@@ -10,7 +10,8 @@ output=$1
+ output=$1
  phase_file=$2
  interval=$3
++light=${HOST_MONITOR_LIGHT:-0}
++[[ $light == 0 || $light == 1 ]] || { echo 'invalid HOST_MONITOR_LIGHT' >&2; exit 2; }
  
 -container_pid="$(docker inspect aenv-server --format '{{.State.Pid}}')"
 +container=${4:-aenv-server}
@@ -215,20 +354,49 @@ index 530097c..a167430 100755
  cgroup_rel="$(awk -F: '$1 == "0" { print $3 }' "/proc/$container_pid/cgroup")"
  cgroup_dir="/sys/fs/cgroup${cgroup_rel}"
  test -r "$cgroup_dir/memory.current"
-@@ -40,6 +41,7 @@ while :; do
+@@ -38,24 +41,27 @@ while :; do
+   best_pss=0
+   best_anon=0
    best_file=0
-   while read -r pid; do
-     [[ $pid =~ ^[0-9]+$ ]] || continue
-+    [[ $(cat "/proc/$pid/comm" 2>/dev/null) == firecracker ]] || continue
-     rollup="$(sudo -n awk '
-       $1 == "Rss:" { rss=$2 }
-       $1 == "Pss:" { pss=$2 }
-@@ -55,7 +57,7 @@ while :; do
-       best_anon=$proc_anon
-       best_file=$proc_file
-     fi
+-  while read -r pid; do
+-    [[ $pid =~ ^[0-9]+$ ]] || continue
+-    rollup="$(sudo -n awk '
+-      $1 == "Rss:" { rss=$2 }
+-      $1 == "Pss:" { pss=$2 }
+-      $1 == "Pss_Anon:" { anon=$2 }
+-      $1 == "Pss_File:" { file=$2 }
+-      END { printf "%s %s %s %s\n", rss+0, pss+0, anon+0, file+0 }
+-    ' "/proc/$pid/smaps_rollup" 2>/dev/null || printf '0 0 0 0')"
+-    read -r rss pss proc_anon proc_file <<< "$rollup"
+-    if ((rss > best_rss)); then
+-      best_pid=$pid
+-      best_rss=$rss
+-      best_pss=$pss
+-      best_anon=$proc_anon
+-      best_file=$proc_file
+-    fi
 -  done < <(pgrep -x firecracker || true)
-+  done < <(find "$cgroup_dir" -name cgroup.procs -type f -exec cat {} + 2>/dev/null | sort -un)
++  if [[ $light == 0 ]]; then
++    while read -r pid; do
++      [[ $pid =~ ^[0-9]+$ ]] || continue
++      [[ $(cat "/proc/$pid/comm" 2>/dev/null) == firecracker ]] || continue
++      rollup="$(sudo -n awk '
++        $1 == "Rss:" { rss=$2 }
++        $1 == "Pss:" { pss=$2 }
++        $1 == "Pss_Anon:" { anon=$2 }
++        $1 == "Pss_File:" { file=$2 }
++        END { printf "%s %s %s %s\n", rss+0, pss+0, anon+0, file+0 }
++      ' "/proc/$pid/smaps_rollup" 2>/dev/null || printf '0 0 0 0')"
++      read -r rss pss proc_anon proc_file <<< "$rollup"
++      if ((rss > best_rss)); then
++        best_pid=$pid
++        best_rss=$rss
++        best_pss=$pss
++        best_anon=$proc_anon
++        best_file=$proc_file
++      fi
++    done < <(find "$cgroup_dir" -name cgroup.procs -type f -exec cat {} + 2>/dev/null | sort -un)
++  fi
  
    printf '%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\n' \
      "$timestamp_ns" "$phase" "$current" "$anon" "$file" "$kernel" \
