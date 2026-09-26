@@ -1,0 +1,70 @@
+{
+  "date": "2026-09-26",
+  "baseline": "4acf96e",
+  "source_revisions": {
+    "AgentENV": {
+      "url": "https://github.com/kvcache-ai/AgentENV.git",
+      "commit": "2f48c9c78ec58e4d73c49aa07cb81d984a4a4184"
+    },
+    "IncrementalDAX_moti": {
+      "url": "https://github.com/132ash/IncrementalDAX_moti.git",
+      "commit": "a9bc7deadb68a6e24b7242eab343dfedf953ea38",
+      "submodules": {
+        "baselines/AgentENV": "6c67f92afb8e697bd4d5eb1715864119c1e10c5d",
+        "baselines/TrEnv-X": "53041d8c924514fca27e363cce7f5af8079267ce"
+      }
+    }
+  },
+  "final_smoke_run_id": "20260926T061058Z-1913515",
+  "smoke": {
+    "scope": "real kernel + actual envd launchers/HTTP handlers; no full service/controller/DAX restore",
+    "kernel_sha256": "a50bbc107954f603fce3c8eb8105c6c65290dbe2224402061acc022c95968730",
+    "busybox_sha256": "dbac288c29ba568459550a2da9e7ae0ded6b1fc728ee9fad3044c44e62d6ac14",
+    "test_sha256": "3f97d3086f7d8c740bfce3e3862608174eaaeb1ec58de2eb916ff00d6f0699d5",
+    "status": "PASS",
+    "qemu_rc": 0
+  },
+  "serial_assertions": [
+    "kernel_test.go:79: PASS parent shell exited; setsid background descendant remains in task cgroup",
+    "kernel_test.go:109: PASS frozen=1 confirmed; writes stopped over 200ms guest window",
+    "kernel_test.go:114: PASS thaw confirmed and writer resumed",
+    "kernel_test.go:123: PASS canceled freeze thaws and writes resume",
+    "kernel_test.go:136: PASS task killed/removed; unrelated task and process remain",
+    "--- PASS: TestKernelDescendantsFreezeCleanup (1.40s)",
+    "taskcgroup_integration_test.go:74: PASS actual simple HTTP create/wait preserves stdout and expected 127",
+    "taskcgroup_integration_test.go:142: PASS actual simple, RPC Service.Start, PTY launchers retain setsid descendants; HTTP freeze/thaw confirmed",
+    "--- PASS: TestIsolatedEnvdLaunchers (0.44s)",
+    "ASB_KERNEL_SMOKE_RC=0"
+  ],
+  "offline": {
+    "go_contracts_passed": 8,
+    "go_race": "PASS",
+    "host_kernel_test": "SKIP, explicitly run in QEMU",
+    "python_contracts_passed": 4,
+    "fixed_fork_process_terminal_taskcgroup_compile": "PASS",
+    "envd_build": "PASS",
+    "pristine_patch_apply_reverse_and_parity": "PASS",
+    "idempotent_patch_check": "PASS"
+  },
+  "prior_failure": {
+    "run_id": "20260926T060601Z-1907330",
+    "cause": "fixture missing devpts /dev/ptmx",
+    "core_and_simple_127": "PASS",
+    "pty": "FAIL; fixed guest devpts before final run"
+  },
+  "full_controller_service_verified": false,
+  "file_layer_restore_verified_this_run": false,
+  "real_trajectory_verified_this_run": false,
+  "source_sha256": {
+    "backend/trenvx/quiesced_checkpoint.py": "8233070c7d479d6edd6af8a146c95c28c360d11b0bd76812251a0ae320125358",
+    "backend/trenvx/taskcgroup/http.go": "9b41c32f529b7143b3bc51d7188e49141617e8a0e1ada4b08e35cc972d2585c6",
+    "backend/trenvx/taskcgroup/kernel_test.go": "043c500986955d71f74a3aa78ddf5d8e389379aa80ebb12ce95f0335d386b2ca",
+    "backend/trenvx/taskcgroup/taskcgroup.go": "693c495065d063fdcd1548191c189ca3887177946639313550896fa9eb059603",
+    "backend/trenvx/taskcgroup/taskcgroup_test.go": "20b2a9a88d3da35370de4c6c8c535f3c8d10f6cb37537ffd486b8825d649b0ea",
+    "backend/trenvx/tests/taskcgroup_integration_test.go": "6811516e8d943b232b106bf785a937452f33275da58271e1eb960b5b81a9117b"
+  },
+  "patch_sha256": {
+    "incrementaldax-task-checkpoint.patch": "7366d8fc61650c2d6c6349005ba16df500fc952557d82494008df30bb4bfe006",
+    "trenvx-task-cgroup.patch": "bc09ea60e4bd9acd42ded2e458146b9d08992ea65ef7613937fc247d9cf08a91"
+  }
+}

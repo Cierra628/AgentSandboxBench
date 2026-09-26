@@ -8,7 +8,7 @@
 
 ## 已验证到哪里
 
-官方 AgentENV Python 示例、Exp1 的 26 步冻结重放及第 013 步后恢复续跑已通过。独立 SVG 功能用例与上游测试子集也通过。已知负载的物理页、DAX 和文件层封存校准通过；任务 cgroup 下的受控在线捕获和新 guest 重建通过。完整 TrEnv-X 服务、任务级跨后端收益及暂定 5% 监控开销目标尚未验收，见[状态表](docs/STATUS.md)。
+官方 AgentENV Python 示例、Exp1 的 26 步冻结重放及第 013 步后恢复续跑已通过。独立 SVG 功能用例与上游测试子集也通过。已知负载的物理页、DAX 和文件层封存校准通过；任务 cgroup 下的受控在线捕获和新 guest 重建通过。固定 TrEnv-X fork 的任务 cgroup/controller 补丁及隔离启动代码验证已交付，见[后端记录](docs/records/TRENVX_TASK_CGROUP_BACKEND.md)。完整 TrEnv-X 服务、任务级跨后端收益及暂定 5% 监控开销目标尚未验收，见[状态表](docs/STATUS.md)。
 
 ## 源码与数据边界
 

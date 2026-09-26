@@ -17,12 +17,12 @@
 ## 当前研究结论
 
 - AgentENV snapshot 双实例的已知文件页共享、写入隔离已通过逐页校准；TrEnv-X 底层 DAX 只读层共享、OverlayFS 整文件 copy-up 和两代封存重建也已验证。两后端写入语义不同，尚无任务级公平内存收益结论。
-- 运行中复制 ext4 upper 后直接 `ro,noload` 封存，已复现遗漏 fsync 更新；独立副本恢复日志能读到更新。已知写进程在任务 cgroup 冻结、guest sync、CH 暂停期间复制的受控试验通过，包括新 guest 重建。生产 TrEnv-X controller 尚未接入通用任务写入者管理。
+- 运行中复制 ext4 upper 后直接 `ro,noload` 封存，已复现遗漏 fsync 更新；独立副本恢复日志能读到更新。已知写进程在任务 cgroup 冻结、guest sync、CH 暂停期间复制的受控试验通过，包括新 guest 重建。本轮新增固定 fork 的三条工具启动路径 cgroup 补丁与 controller 捕获/清理接入，契约及无网络 QEMU 实际启动代码 smoke 通过；完整 TrEnv-X controller 服务和文件层恢复尚未验证，见[后端交付记录](records/TRENVX_TASK_CGROUP_BACKEND.md)。
 - 同 VM 计时 smoke 与独立功能测试已通过；旧性能数据不能重新解释为 guest 执行、纯 RPC 与落盘的完整拆分。新 schema 2 的 8 次调用离线审计通过，尚未按新口径开展统计验收。
 
 ## 下一步顺序
 
-1. 在隔离 TrEnv-X 服务中接入每次工具调用及后台后代的任务 cgroup，验证冻结超时后的解冻和资源归属，再复放真实 trajectory 的 checkpoint。
+1. 将已交付的任务 cgroup/controller 补丁装入新隔离 TrEnv-X 模板，验证完整服务的捕获/恢复及异常解冻，再复放真实 trajectory 的 checkpoint；不要将 QEMU 启动代码 smoke 当成完整 controller 验收。
 2. 取得并运行任务专属评测清单，增加另一个动作边界及打开文件状态探针。
 3. 固定生产计时口径、A/A 与 A/B 测量协议后再扩展统计轮数；不能因区间跨过 5% 而改分组。
 4. 前述正确性与口径通过后，开展 AgentENV/TrEnv-X 同语义任务级对照，再推进既有 GRPO/BPO/TVCache 调度形状。调度形状不代表 RL policy 已训练。
@@ -31,6 +31,7 @@
 
 | 主题 | 详细记录 |
 | --- | --- |
+| TrEnv-X 后端任务组接口、固定补丁及隔离验证 | [后端交付记录](records/TRENVX_TASK_CGROUP_BACKEND.md) |
 | 功能收尾、独立测试、计时及 cgroup | [收尾记录](records/CLOSEOUT_STATUS.md) |
 | Exp1、监控 A/B/A/A、时延及历史服务盘点 | [阶段交接记录](records/PLATFORM_HANDOFF.md) |
 | 单 VM、snapshot 双实例内存校准 | [VM 文件页](records/VM_FILE_CALIBRATION.md)、[双实例](records/SNAPSHOT_SIBLING_CALIBRATION.md) |

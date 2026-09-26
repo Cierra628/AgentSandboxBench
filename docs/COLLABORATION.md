@@ -19,4 +19,4 @@
 
 协作时每人使用独立 checkout 与分支，不共享未提交的工作树。新机器先从 GitHub 获取本仓库，再用 `bash scripts/14-fetch-research-sources.sh` 获取固定上游版本；该流程尚未做全新机器端到端验收，遇到版本或依赖差异要记录，不自行升级上游。原始 `.artifacts/` 只在实验机本地；需要复算时使用脱敏的最小样例或受控访问。`AGENTS.md` 始终只在本地。
 
-当前适合交给第二位开发者的首个任务是后端适配：阅读 [收尾记录](records/CLOSEOUT_STATUS.md) 和 [受控协议](records/QUIESCED_UPPER_PROTOCOL.md)，设计并实现任务 cgroup 的创建、工具子进程加入、冻结确认、解冻及清理接口。先做模拟/隔离验证，保留现有固定 fork 和文件状态继承语义；完整服务实验与性能对照由集成人员安排。
+后端任务 cgroup 的接口、固定 fork/controller 补丁和契约/隔离启动代码 smoke 已交付，见[后端交付记录](records/TRENVX_TASK_CGROUP_BACKEND.md)。集成方需要在新隔离模板配置 delegated cgroup parent、私有 guest 地址及 CH socket，并验证完整 controller 捕获/恢复；该服务验收和真实 trajectory 尚未完成。完整服务实验与性能对照由集成人员安排。
