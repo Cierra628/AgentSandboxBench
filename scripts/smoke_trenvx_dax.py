@@ -15,6 +15,8 @@ import subprocess
 import sys
 import time
 import traceback
+from experiment_disk_guard import guarded_run, writer_lock, RESERVE_BYTES
+from measure_file_physical import collect
 
 ROOT = Path(__file__).resolve().parent.parent
 CH_REPO = Path('/var/lib/trenvx/deps/cloud-hypervisor')
@@ -70,8 +72,9 @@ def main():
         head=run('ch-revision',['git','-c',f'safe.directory={CH_REPO}','-C',str(CH_REPO),'rev-parse','HEAD']).decode().strip()
         assert head=='9e0056eb750096f3bf8ed491c345ef9241fd527e'
         assert not run('ch-status',['git','-c',f'safe.directory={CH_REPO}','-C',str(CH_REPO),'status','--porcelain']).strip()
-        assert shutil.disk_usage(out).free>4*1024**3
-        sources=[Path(__file__),ROOT/'scripts/trenvx_dax_init.sh',COLLECTOR]
+        assert shutil.disk_usage(out).free > RESERVE_BYTES + 2 * 1024**3
+        sources=[Path(__file__),ROOT/'scripts/trenvx_dax_init.sh',COLLECTOR,
+                 ROOT/'scripts/measure_file_physical.py', ROOT/'scripts/experiment_disk_guard.py']
         for p in sources:
             (out/p.name).write_bytes(p.read_bytes())
         config=dict(mib=mib,host_kernel=os.uname().release,ch_commit=head,
@@ -200,6 +203,35 @@ def main():
             result=dict(status='PASS',shared_known_pages=shared,unique_known_pages=len(sets['A']|sets['B']),
                         known_physical_mib=len(sets['A']|sets['B'])/256,service_values=values)
             (out/f'{label}.json').write_text(json.dumps(result,indent=2)+'\n')
+            # Independent scoped collector. Only initialized data extents of the
+            # immutable lower file are named; upper cache remains NOT_MEASURED.
+            vms=[]
+            for name,p in procs.items():
+                proc=Path('/proc')/str(p.pid)
+                guest_text=buffers[name].decode(errors='replace')
+                section=re.search(r'ASB_GUEST_'+label.upper()+r'_BEGIN\r?\n(.*?)ASB_GUEST_END',
+                                  guest_text,re.S)
+                assert section, 'guest memory/layout observation missing'
+                memory=section[1]
+                assert re.search(r'^ASB_PAGE_KIB 4\r?$',memory,re.M), 'unverified guest page size'
+                meminfo={k:int(v)*1024 for k,v in re.findall(r'^(MemTotal|MemAvailable|Cached|Buffers):\s+(\d+) kB',memory,re.M)}
+                assert 'MemTotal' in meminfo and 'MemAvailable' in meminfo
+                vms.append(dict(id=name,pid=p.pid,executable=str(CH),
+                    start_time_ticks=int((proc/'stat').read_text().rsplit(')',1)[1].split()[19]),
+                    cgroup=(proc/'cgroup').read_text().strip().split('::',1)[1],
+                    guest_memory=dict(status='PASS',meminfo_bytes=meminfo,raw_layout=memory,
+                                      scope='guest /proc/meminfo and iomem at serial boundary; not host usage'),
+                    files=[dict(backing=str(out/name/'checkpoint-0001.ext4'),owner='/delta/known.bin',
+                                guest_path='/delta/known.bin',immutable_image=True)]))
+            manifest=dict(page_size=4096,owned_root=str(out),vms=vms)
+            measured,raw_pages=collect(manifest)
+            measured['upper_file_content']={'status':'NOT_MEASURED',
+                'reason':'initramfs fixture has no guest PFN probe; disk block allocation is not physical memory'}
+            (out/f'{label}-file-manifest.json').write_text(json.dumps(manifest,indent=2)+'\n')
+            (out/f'{label}-file-physical.json').write_text(json.dumps(measured,indent=2)+'\n')
+            (out/f'{label}-file-pages.json').write_text(json.dumps(raw_pages)+'\n')
+            assert measured['status']=='PASS', measured['first_failure']
+            assert measured['file_content']['file_content_unique_pages']==len(blocks)
             return result
 
         stage='before_write'
@@ -244,10 +276,30 @@ def main():
                 path.unlink()
             socket_root.rmdir()
         checks['cleanup']='PASS' if all(p.poll() is not None for p in procs.values()) else 'FAIL'
+        if checks['cleanup']!='PASS':
+            status='FAIL'
         (out/'result.json').write_text(json.dumps(dict(status=status,last_stage=stage,checks=checks),indent=2)+'\n')
         print(f'status={status} stage={stage} result_dir={out}',flush=True)
     return 0 if status=='PASS' else 1
 
 
+def guarded_main():
+    """Guard only this fixture's process group; preserve all existing images."""
+    os.umask(0o077)
+    ident=time.strftime('%Y%m%dT%H%M%SZ',time.gmtime())+f'-{os.getpid()}'
+    out=ROOT/'.artifacts/trenvx-dax-guard'/ident
+    out.mkdir(parents=True)
+    try:
+        with writer_lock(), (out/'driver.log').open('wb') as log:
+            guarded_run([sys.executable,Path(__file__),sys.argv[1] if len(sys.argv)>1 else '1',
+                         '--guarded-child'],directory=out,log=log,timeout=180)
+        print((out/'driver.log').read_text().splitlines()[-1],flush=True)
+        return 0
+    except Exception as exc:
+        (out/'failure.txt').write_text(repr(exc)+'\n')
+        print(f'status=FAIL guard_dir={out}',flush=True)
+        return 1
+
+
 if __name__=='__main__':
-    raise SystemExit(main())
+    raise SystemExit(main() if '--guarded-child' in sys.argv else guarded_main())

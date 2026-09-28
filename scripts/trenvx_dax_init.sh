@@ -20,6 +20,11 @@ echo ASB_MOUNTS
 cat /proc/mounts
 test "$(cat /sys/block/pmem1/queue/dax)" = 1
 before=$(sha256sum /merged/known.bin | cut -d' ' -f1)
+echo ASB_GUEST_BEFORE_BEGIN
+echo "ASB_PAGE_KIB $(/bin/busybox awk '/^KernelPageSize:/ {print $2; exit}' /proc/self/smaps)"
+cat /proc/iomem
+cat /proc/meminfo
+echo ASB_GUEST_END
 echo "ASB_READY branch=$branch hash=$before kernel=$(uname -r)"
 read -r command
 test "$command" = GO
@@ -30,6 +35,11 @@ if [ "$branch" = A ]; then
 fi
 after=$(sha256sum /merged/known.bin | cut -d' ' -f1)
 lower=$(sha256sum /checkpoint/delta/known.bin | cut -d' ' -f1)
+echo ASB_GUEST_AFTER_BEGIN
+echo "ASB_PAGE_KIB $(/bin/busybox awk '/^KernelPageSize:/ {print $2; exit}' /proc/self/smaps)"
+cat /proc/iomem
+cat /proc/meminfo
+echo ASB_GUEST_END
 echo "ASB_AFTER branch=$branch hash=$after lower=$lower"
 read -r command
 test "$command" = DONE

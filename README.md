@@ -8,6 +8,7 @@
 - [TrEnv-X Exp1 验收](docs/records/TRENVX_EXP1.md)：26 步完整重放、第 013、022 步文件恢复续跑及正确性证据。
 - [TrEnv-X 服务恢复验证](docs/records/TRENVX_SERVICE_SMOKE.md)：完整服务 smoke、复制抛错/子进程超时恢复、大文件复制缺陷及修复证据。
 - [Exp1 指标与归档](docs/records/EXP1_METRICS_AUDIT.md)：19 次运行的统一缺口审计、五对采样实验、进程内存与阶段耗时图。
+- [文件内容物理页](docs/records/FILE_PHYSICAL_MEMORY.md)：独立采集/复算入口、已知负载判据与本轮首个权限失败；真实 Exp1 文件物理量仍未测。
 - [本轮平台进展](docs/records/PLATFORM_PROGRESS_20260926.md)：原有能力、本轮改动、实际验证和集成要求。
 - [协作分工与接口](docs/COLLABORATION.md)：后端、控制器、任务和采集分析的交付边界。
 

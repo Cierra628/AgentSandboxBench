@@ -17,6 +17,8 @@
 2. **后端状态**：创建、执行、停止写入者、checkpoint、restore、删除；返回实例和 checkpoint ID，并明确“完整 VM 状态”或“仅文件状态继承”。失败必须报告清理与解冻结果。
 3. **运行输出**：生效配置、代码及输入版本、事件、样本、stdout/stderr、退出码、正确性、各阶段时钟来源及清理状态。每次运行独立目录，失败和重试不覆盖。
 
-协作时每人使用独立 checkout 与分支，不共享未提交的工作树。新机器先从 GitHub 获取本仓库，再用 `bash scripts/14-fetch-research-sources.sh` 获取固定上游版本；该流程尚未做全新机器端到端验收，遇到版本或依赖差异要记录，不自行升级上游。原始 `.artifacts/` 只在实验机本地；需要复算时使用脱敏的最小样例或受控访问。`AGENTS.md` 始终只在本地。
+本机按用户约定直接在 `/home/rashen/work/AgentSandboxBench` 工作，使用独立 `feature/…` 分支，不另建 Codex 工作树。开始前拉取已推送的 main，核对工作目录干净，不使用共享目录中尚未提交的文件；多人同时工作仍需分别使用独立 checkout，或明确串行交接。旧独立工作树应通过管理工具在确认空闲后归档；本轮旧 checkout 不属于当前 chat，工具拒绝归档，尚未移除。新机器先从 GitHub 获取本仓库，再用 `bash scripts/14-fetch-research-sources.sh` 获取固定上游版本；该流程尚未做全新机器端到端验收，遇到版本或依赖差异要记录，不自行升级上游。原始 `.artifacts/` 只在实验机本地；需要复算时使用脱敏的最小样例或受控访问。`AGENTS.md` 始终只在本地。
 
 后端任务 cgroup、完整服务 smoke、Exp1 完整重放及第 013、022 步文件恢复续跑已通过，见 [Exp1 验收](records/TRENVX_EXP1.md)。复制抛错与子进程超时的受控恢复也已通过，见[服务 smoke](records/TRENVX_SERVICE_SMOKE.md)。五对采集和两次诊断见[指标记录](records/EXP1_METRICS_AUDIT.md)；目前优先补齐虚拟机内部内存和文件实际驻留页。两人可分开推进：项目负责人整合任务级数据与报告，同伴在独立分支完成文件驻留页的已知负载校准和单次任务验证。涉及共享服务器的运行顺序及磁盘预算由项目负责人协调。
+
+文件页接口和首个权限失败见[本轮物理页记录](records/FILE_PHYSICAL_MEMORY.md)。采集模块输出页面归属、guest RAM 布局、host PFN 去重、未归因页和扫描耗时；guest、host cgroup、VMM PSS 与文件内容分别报告。控制器只在已知负载成功后接入指定任务边界，并继续核对输入、动作、预期失败、patch、独立检查及清理。PFN 隐藏、布局缺失或归属不明必须保存首个失败位置和 null/PARTIAL；不能以历史校准或单元测试 PASS 替代本轮实测。新 DAX 入口沿用 20 GiB 停止线，只处理本次进程与目录。

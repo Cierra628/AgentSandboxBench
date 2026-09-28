@@ -1,0 +1,144 @@
+{
+  "date": "2026-09-28",
+  "base_commit": "3232be5",
+  "environment_status": "BLOCKED",
+  "host_kernel": "6.19.9+",
+  "page_size": 4096,
+  "free_bytes": 70818304000,
+  "stop_line_bytes": 21474836480,
+  "preflight_scan_ns": 17823708,
+  "first_failed_check": "host_pfn_visibility",
+  "checks": {
+    "host_pfn_visibility": {
+      "status": "FAIL",
+      "error": "resident self page PFN hidden; CAP_SYS_ADMIN unavailable"
+    },
+    "kvm_open": {
+      "status": "FAIL",
+      "error": "[Errno 13] Permission denied: '/dev/kvm'"
+    },
+    "noninteractive_sudo": {
+      "status": "FAIL",
+      "error": "sudo: a password is required"
+    },
+    "kpageflags": {
+      "status": "FAIL",
+      "error": "[Errno 13] Permission denied: '/proc/kpageflags'"
+    },
+    "kpagecount": {
+      "status": "FAIL",
+      "error": "[Errno 13] Permission denied: '/proc/kpagecount'"
+    },
+    "IncrementalDAX_revision": {
+      "status": "PASS",
+      "value": "a9bc7deadb68a6e24b7242eab343dfedf953ea38"
+    },
+    "CH_revision": {
+      "status": "PASS",
+      "value": "9e0056eb750096f3bf8ed491c345ef9241fd527e"
+    }
+  },
+  "dependencies": {
+    "cloud_hypervisor": {
+      "present": true,
+      "readable": true
+    },
+    "guest_kernel": {
+      "present": true,
+      "readable": true
+    },
+    "seed": {
+      "present": true,
+      "readable": true
+    },
+    "envd": {
+      "present": false,
+      "readable": false
+    },
+    "orchestrator": {
+      "present": false,
+      "readable": false
+    },
+    "template_manager": {
+      "present": false,
+      "readable": false
+    }
+  },
+  "source_revisions": {
+    "AgentENV": {
+      "url": "https://github.com/kvcache-ai/AgentENV.git",
+      "commit": "2f48c9c78ec58e4d73c49aa07cb81d984a4a4184"
+    },
+    "IncrementalDAX_moti": {
+      "url": "https://github.com/132ash/IncrementalDAX_moti.git",
+      "commit": "a9bc7deadb68a6e24b7242eab343dfedf953ea38",
+      "submodules": {
+        "baselines/AgentENV": "6c67f92afb8e697bd4d5eb1715864119c1e10c5d",
+        "baselines/TrEnv-X": "53041d8c924514fca27e363cce7f5af8079267ce"
+      }
+    }
+  },
+  "calibration": {
+    "status": "FAIL",
+    "run_id": "20260928T095347Z-2273819",
+    "mib_per_mapping": 1,
+    "executed_case": "shared",
+    "first_failure": {
+      "location": "host-worker-0:pagemap:0",
+      "error": "resident PFN hidden; CAP_SYS_ADMIN is required"
+    },
+    "scan_elapsed_ns": 7150074,
+    "file_content_physical_bytes": null,
+    "cleanup": "PASS",
+    "not_run": [
+      "private-cow",
+      "private-files",
+      "write-then-copy"
+    ],
+    "scope": "host process fixture; no VM, DAX, OverlayFS or Exp1 verification",
+    "source_hashes": {
+      "calibrate_file_physical.py": "39704c854464936366b287188045fa907727eb0b15c49b33a8262762d604f1e1",
+      "measure_file_physical.py": "ac4a6310c7d5ed03e0604fcceed527ed28c800be6f6948ed4b9c983a0f16c1de",
+      "calibrate_host_pfn.py": "d798a4a850b7ea362ad02ad3dd180d4e37ff2c5ef7965d13de1a2bb4cf73723e"
+    }
+  },
+  "memory_scopes": {
+    "guest": "NOT_APPLICABLE: no VM launched",
+    "vmm_pss": "NOT_MEASURED: no VMM",
+    "host_resource_group": "host fixture session cgroup contains unrelated processes; not sandbox memory",
+    "file_content": "FAIL: resident PFN hidden; physical bytes null"
+  },
+  "exp1": {
+    "status": "NOT_RUN",
+    "input_hashes": "NOT_RUN",
+    "action_order": "NOT_RUN",
+    "expected_failures": "NOT_RUN",
+    "final_patch": "NOT_RUN",
+    "independent_task_check": "NOT_RUN",
+    "resource_cleanup": "NOT_APPLICABLE: no VM/resources created"
+  },
+  "validation": {
+    "targeted_file_tests": 14,
+    "existing_metric_and_disk_tests": 9,
+    "serial_marker_tests": 1,
+    "status": "PASS",
+    "type": "synthetic PFN unit tests plus real small ext4 data-extent parsing; not live sharing calibration"
+  },
+  "historical_evidence": {
+    "vm_files": "docs/records/VM_FILE_CALIBRATION.md",
+    "dax": "docs/records/TRENVX_DAX_PRIMITIVES.md",
+    "scope": "prior committed records only; historical raw data unavailable in this checkout"
+  },
+  "offline_audit": {
+    "audit_status": "PASS",
+    "measurement_status": "FAIL",
+    "scope": "counter/hash consistency only"
+  },
+  "limitations": [
+    "no new VM, DAX, OverlayFS or Exp1 physical-memory result",
+    "private-file, CoW and write-then-copy live cases not run after first permission failure",
+    "guest file-LRU probe cannot attribute inodes and may include metadata",
+    "no measured memory benefit; memory scopes never added"
+  ],
+  "redaction": "no raw addresses, PFNs, PIDs, cgroup paths, logs, image contents or credentials"
+}
