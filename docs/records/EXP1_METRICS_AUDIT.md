@@ -133,3 +133,9 @@ PSS 表示共享内存按使用进程分摊后的进程内存。完整重放前�
 离线报告入口为 `python3 scripts/report_trenvx_diagnostics.py RUN_DIR`，输出 `diagnostic-report.md`、`diagnostic-summary.json`、SVG 和 PNG 图；只读取已有数据，不启动沙箱。可共享图与摘要：[完整重放图](evidence/trenvx-full-diagnostic-20260928.svg)、[恢复过程图](evidence/trenvx-checkpoint-022-diagnostic-20260928.svg)、[完整重放摘要](evidence/trenvx-full-diagnostic-20260928.json)、[恢复过程摘要](evidence/trenvx-checkpoint-022-diagnostic-20260928.json)。图示为部分阶段耗时，传输、所有清理和完整实验耗时尚未统一覆盖。
 
 首次扩展离线审计因旧程序不接受新增诊断类型名称而退出；补充类型识别和独立诊断字段后，19 次审计 `.artifacts/exp1-metrics-audit/20260928T082004Z-2248751/` PASS，没有重跑沙箱。两份镜像均校验归档后移除解包目录，最低观测空闲分别为 58.01、50.95 GiB，结束时约剩 66.04 GiB。下一步补齐 guest 内存及任务中的文件物理驻留量，并统一两后端的采集范围；5% 轻量监控开销和跨后端内存收益仍未判定。
+
+## 文件物理页采集代码与本轮阻塞（2026-09-28）
+
+新增独立采集、离线复算与小型已知负载入口，并在既有 DAX 校准中接入命名文件 data extent 的 host PFN 去重、guest meminfo/iomem 和 20 GiB 磁盘保护。文件 LRU 页缺少 inode 归属且可能包括元数据，作为未归因集合单列；DAX 容量、upper 磁盘分配量和映射 PSS 不视为内容物理量。缺失 PFN 保持 null，不能以零或通过代替。
+
+普通账号下复用既有 1 MiB host 校准及新小负载均在首个驻留页 PFN 读取失败，清理成功。新 work 目录未准备服务二进制，KVM 和非交互 sudo 也不可用；未运行真实 VM、DAX 或 Exp1。因此上述 19 次审计及任务级实测样本数没有增加，没有新增内存收益结果。代码测试使用合成 PFN 和小型 ext4 镜像，不替代真实已知负载验收。接口、首次失败、计时与待办见[文件物理页记录](FILE_PHYSICAL_MEMORY.md)和[脱敏摘要](evidence/trenvx-file-physical-20260928.json)。
