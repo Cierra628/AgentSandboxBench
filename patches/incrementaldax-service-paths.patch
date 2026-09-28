@@ -1,0 +1,20 @@
+--- a/motivation/experiments/exp3-RL-fork/controller.py
++++ b/motivation/experiments/exp3-RL-fork/controller.py
+@@ -151,7 +151,7 @@
+ 
+     def checkpoint_build_config(self, current: str, name: str, layers: list[Path]) -> str:
+         """Build a template-manager config for a clean VM with DAX history."""
+-        source = (ROOT / "systems/trenvx/config.toml").read_text()
++        source = Path(os.environ.get("ASB_TRENVX_BUILD_CONFIG", str(ROOT / "systems/trenvx/config.toml"))).read_text()
+         source = source.replace(f'data_root = "/var/lib/trenvx-exp5-cow"', f'data_root = "{self.data_root}"')
+         source = re.sub(r'(?m)^template_id = .*$', f'template_id = "{name}"', source, count=1)
+         source = source.replace('rootfs_build_mode = "normal"',
+@@ -190,7 +190,7 @@
+             await asyncio.to_thread(build_layer, archive, layer)
+             layers = [*inherited, layer]
+             config.write_text(self.checkpoint_build_config(current, name, layers))
+-            manager = REPO / "baselines/TrEnv-X/packages/template-manager/bin/template-manager"
++            manager = Path(os.environ.get("ASB_TEMPLATE_MANAGER", str(REPO / "baselines/TrEnv-X/packages/template-manager/bin/template-manager")))
+             self.templates.append(final)
+             result = await asyncio.to_thread(subprocess.run, [str(manager), "--config", str(config)],
+                                              text=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE)

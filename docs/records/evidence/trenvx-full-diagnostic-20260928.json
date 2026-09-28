@@ -1,0 +1,94 @@
+{
+  "status": "PASS",
+  "run_id": "20260928T080653Z-2238410",
+  "report_script_sha256": "809def61bcee0e152839c3dca0a77a2d96b24beb2229a8b36dd5aeae91a553b6",
+  "input_sha256": {
+    "diagnostic-events.jsonl": "141a331849e599c905a4e63cba92304b89593d4f8385db08667bebcd2c745df4",
+    "host/memory-samples.tsv": "28aa216c3a88d70c1f66b29de9b02c72729b5603ba1609678ff0212dd9ad9b40",
+    "config.json": "e9790fd2b8023009b6b2f275a62b05ca27cdc7dfdabee34d8de35d4f67e19980",
+    "vmm-after-replay.json": "7623733399621541c6ac305b264e3001b6af1af44aece9a5a05e7b9d4f72868a",
+    "vmm-before-replay.json": "4c95ffcf2ab8181d5c927250ca4a0d750bb7a729a591a413ef9aff59aa5d3ac9"
+  },
+  "selected_phase_seconds": {
+    "private-template-prepare": 6.473372218,
+    "template-build": 12.48055837,
+    "create-to-first-tool-success": 1.041628375,
+    "tool:replay-all": 23.720138664
+  },
+  "sdk_create_seconds": 0.075731567,
+  "restore_interface_seconds": null,
+  "host_observed_peak_bytes": 168259584,
+  "vmm_observations": [
+    {
+      "label": "after-replay",
+      "sandbox_id": "c9b89337-464a-4d29-b7ff-daa66297d265",
+      "pid": 102,
+      "pid_scope": "local PID in the private service PID namespace",
+      "cgroup": "/asb-trenvx-20260928T080653Z-2238410/c9b89337-464a-4d29-b7ff-daa66297d265",
+      "memory_bytes": {
+        "Rss": 430911488,
+        "Pss": 429034496,
+        "Pss_Dirty": 247857152,
+        "Pss_Anon": 148647936,
+        "Pss_File": 280386560,
+        "Pss_Shmem": 0,
+        "Shared_Clean": 1892352,
+        "Shared_Dirty": 0,
+        "Private_Clean": 181161984,
+        "Private_Dirty": 247857152,
+        "Referenced": 430911488,
+        "Anonymous": 148647936,
+        "KSM": 0,
+        "LazyFree": 0,
+        "AnonHugePages": 0,
+        "ShmemPmdMapped": 0,
+        "FilePmdMapped": 0,
+        "Shared_Hugetlb": 0,
+        "Private_Hugetlb": 0,
+        "Swap": 0,
+        "SwapPss": 0,
+        "Locked": 0
+      },
+      "scan_elapsed_ns": 6810288
+    },
+    {
+      "label": "before-replay",
+      "sandbox_id": "c9b89337-464a-4d29-b7ff-daa66297d265",
+      "pid": 102,
+      "pid_scope": "local PID in the private service PID namespace",
+      "cgroup": "/asb-trenvx-20260928T080653Z-2238410/c9b89337-464a-4d29-b7ff-daa66297d265",
+      "memory_bytes": {
+        "Rss": 413368320,
+        "Pss": 411490304,
+        "Pss_Dirty": 408109056,
+        "Pss_Anon": 139829248,
+        "Pss_File": 271661056,
+        "Pss_Shmem": 0,
+        "Shared_Clean": 1892352,
+        "Shared_Dirty": 0,
+        "Private_Clean": 3366912,
+        "Private_Dirty": 408109056,
+        "Referenced": 413368320,
+        "Anonymous": 139829248,
+        "KSM": 0,
+        "LazyFree": 0,
+        "AnonHugePages": 0,
+        "ShmemPmdMapped": 0,
+        "FilePmdMapped": 0,
+        "Shared_Hugetlb": 0,
+        "Private_Hugetlb": 0,
+        "Swap": 0,
+        "SwapPss": 0,
+        "Locked": 0
+      },
+      "scan_elapsed_ns": 6377083
+    }
+  ],
+  "limitations": [
+    "selected timings do not cover full experiment duration",
+    "create-to-first-tool-success includes local bookkeeping and first existing tool",
+    "VMM boundary scans are extra diagnostics outside frozen runner calls",
+    "host cgroup, VMM PSS, guest memory and DAX residency must not be added",
+    "sampling maximum is an observed peak; scan overhead is not total monitoring overhead"
+  ]
+}

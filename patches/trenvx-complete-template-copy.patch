@@ -1,0 +1,111 @@
+--- a/packages/template-manager/build/runtime_config.go
++++ b/packages/template-manager/build/runtime_config.go
+@@ -10,7 +10,6 @@
+ 	"path/filepath"
+ 
+ 	"github.com/BurntSushi/toml"
+-	"github.com/KarpelesLab/reflink"
+ 	"github.com/X-code-interpreter/sandbox-backend/packages/shared/config"
+ 	"github.com/X-code-interpreter/sandbox-backend/packages/shared/consts"
+ 	"github.com/X-code-interpreter/sandbox-backend/packages/shared/telemetry"
+@@ -235,7 +234,7 @@
+ 	}
+ 	for _, path := range paths {
+ 		// reflink auto will fallback to copy if reflink is not supported
+-		if err := reflink.Auto(path.src, path.dst); err != nil {
++		if err := copyTemplateImage(path.src, path.dst); err != nil {
+ 			return err
+ 		}
+ 		telemetry.ReportEvent(childCtx, "copied rootfs",
+@@ -263,7 +262,7 @@
+ 	if err := os.Link(source.HostRootfsPath(c.DataRoot), c.PrivateRootfsPath(c.DataRoot)); err != nil {
+ 		return fmt.Errorf("link base rootfs from template %s: %w", c.BaseTemplateID, err)
+ 	}
+-	if err := reflink.Auto(source.HostWritableRootfsPath(c.DataRoot), c.PrivateWritableRootfsPath(c.DataRoot)); err != nil {
++	if err := copyTemplateImage(source.HostWritableRootfsPath(c.DataRoot), c.PrivateWritableRootfsPath(c.DataRoot)); err != nil {
+ 		return fmt.Errorf("copy writable rootfs from template %s: %w", c.BaseTemplateID, err)
+ 	}
+ 	for index, layer := range c.DaxLayerPaths {
+--- /dev/null
++++ b/packages/template-manager/build/image_copy.go
+@@ -0,0 +1,30 @@
++package build
++
++import (
++	"fmt"
++	"os"
++	"os/exec"
++)
++
++// The pinned reflink.Auto fallback ignores short copy_file_range results.
++// Coreutils handles partial copies and sparse files, while retaining reflink
++// when supported. Check length before presenting the image to the VMM.
++func copyTemplateImage(src, dst string) error {
++	source, err := os.Stat(src)
++	if err != nil {
++		return err
++	}
++	output, err := exec.Command("cp", "--reflink=auto", "--sparse=always",
++		"--preserve=mode,timestamps", "--", src, dst).CombinedOutput()
++	if err != nil {
++		return fmt.Errorf("copy template image: %w: %s", err, output)
++	}
++	target, err := os.Stat(dst)
++	if err != nil {
++		return err
++	}
++	if target.Size() != source.Size() {
++		return fmt.Errorf("incomplete template image: got %d bytes, want %d", target.Size(), source.Size())
++	}
++	return nil
++}
+--- /dev/null
++++ b/packages/template-manager/build/image_copy_test.go
+@@ -0,0 +1,47 @@
++package build
++
++import (
++	"os"
++	"path/filepath"
++	"testing"
++)
++
++func TestTemplateCopyPreservesLargeSparseTail(t *testing.T) {
++	dir := t.TempDir()
++	src, dst := filepath.Join(dir, "source.img"), filepath.Join(dir, "target.img")
++	f, err := os.Create(src)
++	if err != nil {
++		t.Fatal(err)
++	}
++	const size int64 = (2 << 30) + (2 << 20)
++	marker := []byte("ASB_COPY_TAIL")
++	if err = f.Truncate(size); err != nil {
++		t.Fatal(err)
++	}
++	if _, err = f.WriteAt(marker, size-int64(len(marker))); err != nil {
++		t.Fatal(err)
++	}
++	f.Close()
++	if err = copyTemplateImage(src, dst); err != nil {
++		t.Fatal(err)
++	}
++	st, err := os.Stat(dst)
++	if err != nil {
++		t.Fatal(err)
++	}
++	if st.Size() != size {
++		t.Fatalf("short copy: %d != %d", st.Size(), size)
++	}
++	d, err := os.Open(dst)
++	if err != nil {
++		t.Fatal(err)
++	}
++	defer d.Close()
++	buf := make([]byte, len(marker))
++	if _, err = d.ReadAt(buf, size-int64(len(marker))); err != nil {
++		t.Fatal(err)
++	}
++	if string(buf) != string(marker) {
++		t.Fatalf("tail missing: %q", buf)
++	}
++}

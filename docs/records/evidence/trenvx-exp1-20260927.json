@@ -1,0 +1,251 @@
+{
+  "date": "2026-09-27",
+  "scope": "one full replay and two file-state restores after actions 013 and 022; correctness only",
+  "runs": [
+    {
+      "run_id": "20260927T110632Z-2094910",
+      "result": {
+        "status": "PASS",
+        "run_id": "20260927T110632Z-2094910",
+        "restore_semantics": "file-state-only",
+        "full_trajectory_verified": true,
+        "performance_measured": false,
+        "checks": {
+          "private_template_prepare": "PASS",
+          "template_build": "PASS",
+          "frozen_input_hashes": "PASS",
+          "unfixed_seed_oracle": "PASS",
+          "exp1_replay_correctness": "PASS",
+          "sdk_cleanup": "PASS",
+          "service_shutdown": "PASS"
+        },
+        "host_cleanup": {
+          "cgroup_removed": true,
+          "loop_query_exit_code": 0,
+          "owned_loop_backings": []
+        }
+      },
+      "correctness": {
+        "action_order": "PASS",
+        "input_hashes": "PASS",
+        "expected_failures": {
+          "008": 127,
+          "016": 127
+        },
+        "action_024_oracle": "PASS",
+        "independent_svg_properties": "PASS",
+        "official_full_tests": "NOT_RUN",
+        "patch_sha256": "f1cc23ac4f5ac1cff87eb7f8c54f8176c1a47cec37fa4cb6907b9dd8ad199af2",
+        "patch_reference_match": "NOT_CHECKED"
+      },
+      "replay_config": {
+        "action_manifest_sha256": "6ea843b464f5f7ec3c081c539386593027ede2335c5309b945a9462feddceaa7",
+        "runner_sha256": "bb3f50aa03b7424855556920d3808be5b6b8c3046e9bc0687c4229fc344efd9a",
+        "independent_check_sha256": "fc65c8cbb1876f5747b4d5d99531a4885c4e3bf05625fa074f3ea0f286d694ca",
+        "cwd": "/testbed",
+        "session_semantics": "one bash per frozen action",
+        "environment": {
+          "ACTIONS_DIR": "/opt/asb-exp1/actions",
+          "OUTPUT_DIR": "/root/asb-exp1/replay",
+          "ACTION_TIMEOUT_SECONDS": "60",
+          "MEMORY_SAMPLE_INTERVAL_SECONDS": "0.1",
+          "GUEST_MEMORY_SAMPLING": "0",
+          "DROP_GUEST_CACHES": "0"
+        },
+        "checkpoint_after": null,
+        "cache_policy": "preserve; no cache drop",
+        "measurement": "correctness only; guest sampling disabled"
+      },
+      "checksums": {
+        "seed_sha256": "5e22e3f6d1cd5cfcbb9e5a17a34f0f1705833a9357f214845a8fcdfa627e8d82",
+        "kernel_sha256": "a50bbc107954f603fce3c8eb8105c6c65290dbe2224402061acc022c95968730",
+        "ch_sha256": "244c0113a64d40efa2c6ccd886deb9135153869cfacca0a50647e8ed844d1fb9",
+        "envd_sha256": "7d3f123cce61232824f8f054725c641658d4fff0be8ef8672bec72b1c1dfc07a"
+      }
+    },
+    {
+      "run_id": "20260927T110838Z-2095712",
+      "result": {
+        "status": "PASS",
+        "run_id": "20260927T110838Z-2095712",
+        "restore_semantics": "file-state-only",
+        "full_trajectory_verified": true,
+        "performance_measured": false,
+        "checks": {
+          "private_template_prepare": "PASS",
+          "template_build": "PASS",
+          "frozen_input_hashes": "PASS",
+          "unfixed_seed_oracle": "PASS",
+          "checkpoint_after_013": "PASS",
+          "file_restore_interface": "PASS",
+          "prefix_state_preserved": "PASS",
+          "patch_matches_full_replay": "PASS",
+          "exp1_replay_correctness": "PASS",
+          "sdk_cleanup": "PASS",
+          "service_shutdown": "PASS"
+        },
+        "host_cleanup": {
+          "cgroup_removed": true,
+          "loop_query_exit_code": 0,
+          "owned_loop_backings": []
+        }
+      },
+      "correctness": {
+        "action_order": "PASS",
+        "input_hashes": "PASS",
+        "expected_failures": {
+          "008": 127,
+          "016": 127
+        },
+        "action_024_oracle": "PASS",
+        "independent_svg_properties": "PASS",
+        "official_full_tests": "NOT_RUN",
+        "patch_sha256": "f1cc23ac4f5ac1cff87eb7f8c54f8176c1a47cec37fa4cb6907b9dd8ad199af2",
+        "patch_reference_match": "PASS"
+      },
+      "replay_config": {
+        "action_manifest_sha256": "6ea843b464f5f7ec3c081c539386593027ede2335c5309b945a9462feddceaa7",
+        "runner_sha256": "bb3f50aa03b7424855556920d3808be5b6b8c3046e9bc0687c4229fc344efd9a",
+        "independent_check_sha256": "fc65c8cbb1876f5747b4d5d99531a4885c4e3bf05625fa074f3ea0f286d694ca",
+        "cwd": "/testbed",
+        "session_semantics": "one bash per frozen action",
+        "environment": {
+          "ACTIONS_DIR": "/opt/asb-exp1/actions",
+          "OUTPUT_DIR": "/root/asb-exp1/replay",
+          "ACTION_TIMEOUT_SECONDS": "60",
+          "MEMORY_SAMPLE_INTERVAL_SECONDS": "0.1",
+          "GUEST_MEMORY_SAMPLING": "0",
+          "DROP_GUEST_CACHES": "0"
+        },
+        "checkpoint_after": "013",
+        "cache_policy": "preserve; no cache drop",
+        "measurement": "correctness only; guest sampling disabled"
+      },
+      "checksums": {
+        "seed_sha256": "5e22e3f6d1cd5cfcbb9e5a17a34f0f1705833a9357f214845a8fcdfa627e8d82",
+        "kernel_sha256": "a50bbc107954f603fce3c8eb8105c6c65290dbe2224402061acc022c95968730",
+        "ch_sha256": "244c0113a64d40efa2c6ccd886deb9135153869cfacca0a50647e8ed844d1fb9",
+        "envd_sha256": "7d3f123cce61232824f8f054725c641658d4fff0be8ef8672bec72b1c1dfc07a"
+      },
+      "checkpoint": {
+        "after_step": "013",
+        "next_step": "014",
+        "template": "exp5-dax-c1472135b14c-1",
+        "parent": "e2630c42-c4ee-4694-83bd-2546221567f5",
+        "restored": "beb8b4dc-6079-4eb0-92b5-38e336757a5b",
+        "restore_semantics": "file-state-only"
+      }
+    },
+    {
+      "run_id": "20260927T112826Z-2098756",
+      "result": {
+        "status": "PASS",
+        "run_id": "20260927T112826Z-2098756",
+        "restore_semantics": "file-state-only",
+        "full_trajectory_verified": true,
+        "performance_measured": false,
+        "checks": {
+          "private_template_prepare": "PASS",
+          "template_build": "PASS",
+          "frozen_input_hashes": "PASS",
+          "unfixed_seed_oracle": "PASS",
+          "checkpoint_after_022": "PASS",
+          "file_restore_interface": "PASS",
+          "modified_source_preserved": "PASS",
+          "prefix_state_preserved": "PASS",
+          "patch_matches_full_replay": "PASS",
+          "exp1_replay_correctness": "PASS",
+          "sdk_cleanup": "PASS",
+          "service_shutdown": "PASS"
+        },
+        "host_cleanup": {
+          "cgroup_removed": true,
+          "loop_query_exit_code": 0,
+          "owned_loop_backings": []
+        }
+      },
+      "correctness": {
+        "action_order": "PASS",
+        "input_hashes": "PASS",
+        "expected_failures": {
+          "008": 127,
+          "016": 127
+        },
+        "action_024_oracle": "PASS",
+        "independent_svg_properties": "PASS",
+        "official_full_tests": "NOT_RUN",
+        "patch_sha256": "f1cc23ac4f5ac1cff87eb7f8c54f8176c1a47cec37fa4cb6907b9dd8ad199af2",
+        "patch_reference_match": "PASS"
+      },
+      "replay_config": {
+        "action_manifest_sha256": "6ea843b464f5f7ec3c081c539386593027ede2335c5309b945a9462feddceaa7",
+        "runner_sha256": "bb3f50aa03b7424855556920d3808be5b6b8c3046e9bc0687c4229fc344efd9a",
+        "independent_check_sha256": "fc65c8cbb1876f5747b4d5d99531a4885c4e3bf05625fa074f3ea0f286d694ca",
+        "cwd": "/testbed",
+        "session_semantics": "one bash per frozen action",
+        "environment": {
+          "ACTIONS_DIR": "/opt/asb-exp1/actions",
+          "OUTPUT_DIR": "/root/asb-exp1/replay",
+          "ACTION_TIMEOUT_SECONDS": "60",
+          "MEMORY_SAMPLE_INTERVAL_SECONDS": "0.1",
+          "GUEST_MEMORY_SAMPLING": "0",
+          "DROP_GUEST_CACHES": "0"
+        },
+        "checkpoint_after": "022",
+        "reference": "/home/yyxie/agentenv_experiment/.artifacts/trenvx-service-smoke/20260927T110632Z-2094910",
+        "cache_policy": "preserve; no cache drop",
+        "measurement": "correctness only; guest sampling disabled"
+      },
+      "checksums": {
+        "seed_sha256": "5e22e3f6d1cd5cfcbb9e5a17a34f0f1705833a9357f214845a8fcdfa627e8d82",
+        "kernel_sha256": "a50bbc107954f603fce3c8eb8105c6c65290dbe2224402061acc022c95968730",
+        "ch_sha256": "244c0113a64d40efa2c6ccd886deb9135153869cfacca0a50647e8ed844d1fb9",
+        "envd_sha256": "7d3f123cce61232824f8f054725c641658d4fff0be8ef8672bec72b1c1dfc07a"
+      },
+      "checkpoint": {
+        "after_step": "022",
+        "next_step": "023",
+        "template": "exp5-dax-c1472135b14c-1",
+        "parent": "b6622536-67e8-4eb7-8c73-6c22269ba5b6",
+        "restored": "add85571-70b9-4492-b0ac-c7163090100d",
+        "restore_semantics": "file-state-only"
+      },
+      "modified_source_sha256": "51d07fd7752ca36d8f059b7897ee6c8a77e9946c1ce22f129ad8f7dc6a1c1ea5",
+      "modified_source_hash_and_diff_preserved": true
+    }
+  ],
+  "matched_pair_configuration": true,
+  "agentenv_reference": {
+    "status": "PASS",
+    "reference": ".artifacts/platform-exp1-agentenv-default/raw/20260924T035910Z-1677178",
+    "checks": {
+      "patch.diff": {
+        "match": true,
+        "sha256": "f1cc23ac4f5ac1cff87eb7f8c54f8176c1a47cec37fa4cb6907b9dd8ad199af2"
+      },
+      "actions.tsv": {
+        "match": true,
+        "sha256": "6ea843b464f5f7ec3c081c539386593027ede2335c5309b945a9462feddceaa7"
+      },
+      "original-head.txt": {
+        "match": true,
+        "sha256": "d94758a6018bda258d203013db55ad85e7b78469c1c0ded058e86e8274f7f9dc"
+      }
+    },
+    "scope": "byte equality of manifest, source HEAD, final patch; no performance comparison"
+  },
+  "limits": [
+    "checkpoint 022 preserves modified source; only two boundaries tested",
+    "file-state-only, no arbitrary process restore",
+    "guest memory sampling disabled",
+    "official full task test patch not run",
+    "one run per mode; no performance or variance conclusions"
+  ],
+  "failed_harness_attempt": {
+    "run_id": "20260927T112658Z-2098122",
+    "boundary": "new source-diff assertion assumed incorrect indentation before checkpoint",
+    "status": "FAIL",
+    "sdk_and_host_cleanup": "PASS",
+    "service_fault": "NOT_OBSERVED"
+  }
+}

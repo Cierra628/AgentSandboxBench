@@ -14,7 +14,7 @@ def main():
     parent=ROOT/'IncrementalDAX_moti';fork=parent/'baselines/TrEnv-X'
     for source,revision in [(parent,revisions['IncrementalDAX_moti']['commit']),(fork,revisions['IncrementalDAX_moti']['submodules']['baselines/TrEnv-X'])]:
         if git(source,'rev-parse','HEAD').stdout.strip()!=revision:raise RuntimeError(f'pinned revision mismatch: {source}')
-    patches=[(parent,'incrementaldax-platform.patch'),(fork,'trenvx-task-cgroup.patch'),(parent,'incrementaldax-task-checkpoint.patch')]
+    patches=[(parent,'incrementaldax-platform.patch'),(fork,'trenvx-task-cgroup.patch'),(parent,'incrementaldax-task-checkpoint.patch'),(parent,'incrementaldax-service-paths.patch'),(fork,'trenvx-complete-template-copy.patch')]
     # Preflight the whole plan before mutating any checkout.
     pending=[]
     for source,name in patches:

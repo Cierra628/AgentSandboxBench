@@ -86,5 +86,5 @@ PY
 phase go-contracts go -C backend/trenvx/taskcgroup test -race -v -count=1 ./...
 phase python-contracts python3 -m unittest discover -s tests -v
 phase envd-packages go -C IncrementalDAX_moti/baselines/TrEnv-X/packages/envd test -count=1 ./internal/process ./internal/terminal ./internal/taskcgroup
-phase envd-build env CGO_ENABLED=0 go -C IncrementalDAX_moti/baselines/TrEnv-X/packages/envd build -o "$ROOT/runtime/bin/envd-task-cgroup" .
+phase envd-build env CGO_ENABLED=0 go -C IncrementalDAX_moti/baselines/TrEnv-X/packages/envd build -buildvcs=false -o "$ROOT/runtime/bin/envd-task-cgroup" .
 phase isolated-guest python3 scripts/39-smoke-trenvx-task-cgroup.py --kernel "$ASB_VERIFY_KERNEL" --launchers

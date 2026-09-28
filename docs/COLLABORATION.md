@@ -19,4 +19,4 @@
 
 协作时每人使用独立 checkout 与分支，不共享未提交的工作树。新机器先从 GitHub 获取本仓库，再用 `bash scripts/14-fetch-research-sources.sh` 获取固定上游版本；该流程尚未做全新机器端到端验收，遇到版本或依赖差异要记录，不自行升级上游。原始 `.artifacts/` 只在实验机本地；需要复算时使用脱敏的最小样例或受控访问。`AGENTS.md` 始终只在本地。
 
-后端任务 cgroup 的接口、固定 fork/controller 补丁和契约/隔离启动代码 smoke 已交付，见[后端交付记录](records/TRENVX_TASK_CGROUP_BACKEND.md)。集成方需要在新隔离模板配置 delegated cgroup parent、私有 guest 地址及 CH socket，并验证完整 controller 捕获/恢复；该服务验收和真实 trajectory 尚未完成。完整服务实验与性能对照由集成人员安排。
+后端任务 cgroup、完整服务 smoke、Exp1 完整重放及第 013、022 步文件恢复续跑已通过，见 [Exp1 验收](records/TRENVX_EXP1.md)。复制抛错与子进程超时的受控恢复也已通过，见[服务 smoke](records/TRENVX_SERVICE_SMOKE.md)。五对采集和两次诊断见[指标记录](records/EXP1_METRICS_AUDIT.md)；目前优先补齐虚拟机内部内存和文件实际驻留页。两人可分开推进：项目负责人整合任务级数据与报告，同伴在独立分支完成文件驻留页的已知负载校准和单次任务验证。涉及共享服务器的运行顺序及磁盘预算由项目负责人协调。

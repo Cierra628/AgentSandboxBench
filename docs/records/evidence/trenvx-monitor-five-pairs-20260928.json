@@ -1,0 +1,84 @@
+{
+  "batch_id": "20260928T040927Z-2198712",
+  "status": "PASS",
+  "run_count": 10,
+  "host_sample_count": 244,
+  "pairs": [
+    {
+      "pair": 1,
+      "order": [
+        "off",
+        "light"
+      ],
+      "controller_runner_call_light_vs_off_percent": -0.497793903921917
+    },
+    {
+      "pair": 2,
+      "order": [
+        "light",
+        "off"
+      ],
+      "controller_runner_call_light_vs_off_percent": 1.3743965242445588
+    },
+    {
+      "pair": 3,
+      "order": [
+        "off",
+        "light"
+      ],
+      "controller_runner_call_light_vs_off_percent": -2.3711861732488626
+    },
+    {
+      "pair": 4,
+      "order": [
+        "light",
+        "off"
+      ],
+      "controller_runner_call_light_vs_off_percent": 2.6533808413351734
+    },
+    {
+      "pair": 5,
+      "order": [
+        "off",
+        "light"
+      ],
+      "controller_runner_call_light_vs_off_percent": -3.254977455368435
+    }
+  ],
+  "descriptive_percent": {
+    "mean": -0.4192360333918965,
+    "median": -0.497793903921917,
+    "minimum": -3.254977455368435,
+    "maximum": 2.6533808413351734
+  },
+  "observed_min_free_bytes": 65922985984,
+  "archive_bytes": 31579502410,
+  "process_including_archive_seconds": 2724.533073951,
+  "archive_seconds": 2003.705,
+  "performance_conclusion": "NOT_VALIDATED",
+  "limitations": [
+    "runner call duration only; not end-to-end overhead",
+    "host sandbox parent cgroup only; guest and VMM PSS not measured",
+    "each pair second arm faster; causal order effect not proven",
+    "five pairs have three off-first and two light-first pairs",
+    "no automatic additional runs"
+  ],
+  "order_groups": {
+    "off": [
+      -0.497793903921917,
+      -2.3711861732488626,
+      -3.254977455368435
+    ],
+    "light": [
+      1.3743965242445588,
+      2.6533808413351734
+    ]
+  },
+  "second_vs_first_percent": [
+    -0.497793903921917,
+    -1.355762965174212,
+    -2.3711861732488626,
+    -2.5847963501916538,
+    -3.254977455368435
+  ]
+}

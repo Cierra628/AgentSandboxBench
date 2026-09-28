@@ -1,0 +1,249 @@
+{
+  "date": "2026-09-27",
+  "run_id": "20260927T034748Z-2077790",
+  "result": {
+    "status": "PASS",
+    "run_id": "20260927T034748Z-2077790",
+    "restore_semantics": "file-state-only",
+    "full_trajectory_verified": false,
+    "performance_measured": false,
+    "checks": {
+      "private_template_prepare": "PASS",
+      "template_build": "PASS",
+      "service_create_and_tool": "PASS",
+      "controller_capture_and_seal": "PASS",
+      "restore_interface": "PASS",
+      "file_restore_and_continue": "PASS",
+      "parent_child_write_isolation": "PASS",
+      "sdk_cleanup": "PASS",
+      "service_shutdown": "PASS"
+    },
+    "host_cleanup": {
+      "cgroup_removed": true,
+      "loop_query_exit_code": 0,
+      "owned_loop_backings": []
+    }
+  },
+  "output_audit": {
+    "expected_stdout_stderr_exit": "PASS",
+    "restored_checkpoint_dax_mount": "PASS",
+    "source": "recorded tool outputs; offline audit, no rerun"
+  },
+  "copy_probe": {
+    "cp_auto": {
+      "error": "<nil>",
+      "size": 2149580800,
+      "tail_matches": true
+    },
+    "reflink_auto": {
+      "error": "<nil>",
+      "size": 2147479552,
+      "tail_matches": false
+    },
+    "source_size": 2149580800
+  },
+  "copy_regression_build_run": "20260927T034735Z-2074196",
+  "copy_regression": "PASS TestTemplateCopyPreservesLargeSparseTail",
+  "patch_reproduction": {
+    "status": "PASS",
+    "patches": [
+      "incrementaldax-task-checkpoint.patch",
+      "incrementaldax-service-paths.patch",
+      "trenvx-complete-template-copy.patch"
+    ]
+  },
+  "source_revisions": {
+    "AgentENV": {
+      "url": "https://github.com/kvcache-ai/AgentENV.git",
+      "commit": "2f48c9c78ec58e4d73c49aa07cb81d984a4a4184"
+    },
+    "IncrementalDAX_moti": {
+      "url": "https://github.com/132ash/IncrementalDAX_moti.git",
+      "commit": "a9bc7deadb68a6e24b7242eab343dfedf953ea38",
+      "submodules": {
+        "baselines/AgentENV": "6c67f92afb8e697bd4d5eb1715864119c1e10c5d",
+        "baselines/TrEnv-X": "53041d8c924514fca27e363cce7f5af8079267ce"
+      }
+    }
+  },
+  "hashes": {
+    "seed_sha256": "5e22e3f6d1cd5cfcbb9e5a17a34f0f1705833a9357f214845a8fcdfa627e8d82",
+    "ch_sha256": "244c0113a64d40efa2c6ccd886deb9135153869cfacca0a50647e8ed844d1fb9",
+    "kernel_sha256": "a50bbc107954f603fce3c8eb8105c6c65290dbe2224402061acc022c95968730",
+    "envd_sha256": "7d3f123cce61232824f8f054725c641658d4fff0be8ef8672bec72b1c1dfc07a",
+    "binaries": {
+      "template-manager": "e28825b0d20000523961b9bd157d90152c1032d6c96486749bd8ea3913b56d8e",
+      "bind_mount": "d57786809042cccac911efad4202f586fc0322365fe7f3bad8de128394b23f90",
+      "orchestrator": "fc205c1be6a096395070cafaa255976a8c49f57208646c58bda8f5023f97b5b8"
+    },
+    "script_sha256": "23af2dd1626ce32f774e2fc85ce1fa99e089d052d107e6f850133a25dc0ce184"
+  },
+  "limits": [
+    "one successful checkpoint/restore smoke plus one copy-error and one copy-subprocess-timeout recovery smoke",
+    "file-state-only restore",
+    "existing local seed rather than fresh digest rebuild",
+    "no performance experiment",
+    "natural upper or disk I/O timeout not validated",
+    "failed-run data archives only on this host"
+  ],
+  "fault_copy": {
+    "run_id": "20260927T113837Z-2101631",
+    "scenario": "real isolated service with one injected host upper-copy OSError after CH pause",
+    "result": {
+      "status": "PASS",
+      "run_id": "20260927T113837Z-2101631",
+      "restore_semantics": "file-state-only",
+      "full_trajectory_verified": false,
+      "performance_measured": false,
+      "checks": {
+        "private_template_prepare": "PASS",
+        "template_build": "PASS",
+        "service_create_and_tool": "PASS",
+        "injected_copy_failure_observed": "PASS",
+        "capture_recovery_audit": "PASS",
+        "parent_running_after_failure": "PASS",
+        "sdk_cleanup": "PASS",
+        "service_shutdown": "PASS"
+      },
+      "host_cleanup": {
+        "cgroup_removed": true,
+        "loop_query_exit_code": 0,
+        "owned_loop_backings": []
+      }
+    },
+    "injected_error": {
+      "error": "ExceptionGroup('checkpoint capture/recovery failed', [OSError('ASB injected upper-copy failure')])",
+      "causes": [
+        "OSError('ASB injected upper-copy failure')"
+      ],
+      "copy_calls": 1
+    },
+    "capture_audit_without_token": {
+      "frozen": true,
+      "paused": true,
+      "resumed": true,
+      "runtime_removed": true,
+      "thawed": true,
+      "complete": false,
+      "copied": false
+    },
+    "ch_after_fault": {
+      "state": "Running"
+    },
+    "parent_after_fault_exit_code": 0,
+    "same_seed_kernel_ch_envd_and_service_binaries_as_smoke": true,
+    "script_sha256": "f6087fbbd825ab13992dfaf04dc9d68b7839609a51a786d46e2e3272629c1db0",
+    "scope": "failure recovery at copy stage only; no real disk failure or timeout"
+  },
+  "fault_copy_timeout_attempt": {
+    "run_id": "20260927T115731Z-2104794",
+    "status": "FAIL",
+    "first_boundary": "sparse upper cp completed within 20 ms; expected TimeoutExpired not raised",
+    "observed_cause": "AssertionError('copy unexpectedly finished within timeout')",
+    "capture_recovery_audit_without_token": {
+      "frozen": true,
+      "paused": true,
+      "resumed": true,
+      "runtime_removed": true,
+      "thawed": true,
+      "complete": false,
+      "copied": false
+    },
+    "sdk_cleanup": "PASS",
+    "service_shutdown": "PASS",
+    "host_cleanup": {
+      "cgroup_removed": true,
+      "loop_query_exit_code": 0,
+      "owned_loop_backings": []
+    }
+  },
+  "revised_timeout_injection_probe": {
+    "result_dir": ".artifacts/trenvx-timeout-probe/20260927T120459Z-2106740",
+    "result": {
+      "outcome": "TIMEOUT",
+      "elapsed_ns": 99480747,
+      "partial_bytes": 67633152,
+      "cp_process_query_exit_code": 1,
+      "cp_process_query_stdout": ""
+    },
+    "scope": "standalone infinite-source cp timeout and child reaping only; no full-service rerun"
+  },
+  "fault_copy_timeout_success": {
+    "run_id": "20260927T123214Z-2113498",
+    "result": {
+      "status": "PASS",
+      "run_id": "20260927T123214Z-2113498",
+      "restore_semantics": "file-state-only",
+      "full_trajectory_verified": false,
+      "performance_measured": false,
+      "checks": {
+        "private_template_prepare": "PASS",
+        "template_build": "PASS",
+        "service_create_and_tool": "PASS",
+        "injected_copy_timeout_observed": "PASS",
+        "timed_out_copy_reaped": "PASS",
+        "capture_recovery_audit": "PASS",
+        "parent_running_after_failure": "PASS",
+        "sdk_cleanup": "PASS",
+        "service_shutdown": "PASS"
+      },
+      "host_cleanup": {
+        "cgroup_removed": true,
+        "loop_query_exit_code": 0,
+        "owned_loop_backings": []
+      }
+    },
+    "injection": "copy method substitutes cp /dev/zero with 20 ms subprocess timeout after real guest freeze and CH pause",
+    "observed_exception_type": "subprocess.TimeoutExpired",
+    "copy_calls": 1,
+    "capture_audit_without_token": {
+      "frozen": true,
+      "paused": true,
+      "resumed": true,
+      "runtime_removed": true,
+      "thawed": true,
+      "complete": false,
+      "copied": false
+    },
+    "copy_process_query_exit_code": 1,
+    "ch_after_fault": {
+      "state": "Running"
+    },
+    "parent_after_fault_exit_code": 0,
+    "script_sha256": "db5f9d1ea202b69c1349f671d558f5cfab0945cc04dd6c063aaa3ebc19d8d176",
+    "scope": "real isolated service recovery from injected copy subprocess timeout; not actual upper or disk I/O timeout"
+  },
+  "failed_run_data_archives": {
+    "authorization": "user approved cleanup after targeted inspection",
+    "archives": [
+      {
+        "run_id": "20260927T115731Z-2104794",
+        "source": "data/",
+        "archive": "data.tar.gz",
+        "source_allocated_bytes": 11877920768,
+        "archive_bytes": 3127161511,
+        "archive_sha256": "55e5d13e45348587059d95da9cbda5d33e53b18e2ceb6928590fb11a1a389c34",
+        "gzip_test": "PASS",
+        "tar_compare": "PASS",
+        "archived_at_utc": "2026-09-27T12:27:24Z",
+        "archive_elapsed_seconds": 222.44
+      },
+      {
+        "run_id": "20260927T112658Z-2098122",
+        "source": "data/",
+        "archive": "data.tar.gz",
+        "source_allocated_bytes": 11878092800,
+        "archive_bytes": 3127140327,
+        "archive_sha256": "b3aa9ccaf1cbdcbbbdf5a51c93315c3d3def2900150c0ee943c73c17e9381b59",
+        "gzip_test": "PASS",
+        "tar_compare": "PASS",
+        "archived_at_utc": "2026-09-27T12:31:08Z",
+        "archive_elapsed_seconds": 222.037
+      }
+    ],
+    "original_data_dirs_removed_after_verification": true,
+    "result_logs_and_audits_retained_in_original_run_dirs": true,
+    "archive_location": "same host and filesystem; no off-host backup",
+    "estimated_net_reclaimed_bytes": 17501711730
+  }
+}

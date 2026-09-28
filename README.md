@@ -2,9 +2,12 @@
 
 单机 Agent 沙箱实验平台：对冻结的真实工具调用轨迹进行可复现重放，在指定步骤执行 checkpoint/restore，并记录任务正确性、内存和阶段时延。AgentENV 是主要 baseline，固定 TrEnv-X / Incremental DAX 实现作为对照。
 
-目前已有 AgentENV 历史单机实验闭环，以及 TrEnv-X 后端补丁和普通用户隔离验证入口。**TrEnv-X 完整服务、真实轨迹下的文件恢复及跨后端性能对照尚未验收。**
+目前 AgentENV 和 TrEnv-X 都已有 Exp1 单轨迹重放与第 013 步恢复续跑证据；TrEnv-X 还通过了第 022 步已修改源码的文件恢复，以及复制抛错和子进程超时的受控恢复。**其他服务异常路径及跨后端性能对照尚未验收。**
 
 - [当前进度与验收缺口](docs/STATUS.md)：项目状态的统一入口。
+- [TrEnv-X Exp1 验收](docs/records/TRENVX_EXP1.md)：26 步完整重放、第 013、022 步文件恢复续跑及正确性证据。
+- [TrEnv-X 服务恢复验证](docs/records/TRENVX_SERVICE_SMOKE.md)：完整服务 smoke、复制抛错/子进程超时恢复、大文件复制缺陷及修复证据。
+- [Exp1 指标与归档](docs/records/EXP1_METRICS_AUDIT.md)：19 次运行的统一缺口审计、五对采样实验、进程内存与阶段耗时图。
 - [本轮平台进展](docs/records/PLATFORM_PROGRESS_20260926.md)：原有能力、本轮改动、实际验证和集成要求。
 - [协作分工与接口](docs/COLLABORATION.md)：后端、控制器、任务和采集分析的交付边界。
 
@@ -12,9 +15,9 @@
 
 | 部分 | 已有能力与本轮交付 | 尚未完成的验收 |
 | --- | --- | --- |
-| 沙箱运行与轨迹重放 | 历史 AgentENV Exp1 的 26 步冻结重放、预期失败和针对性功能检查通过。本轮提供固定源码与 SDK/CLI 准备入口；TrEnv-X 的 simple HTTP、process RPC、PTY 实际启动代码通过隔离 guest 测试。 | TrEnv-X 完整服务与真实轨迹；更多任务及官方完整任务评测。本轮未验收新 trajectory 的自动生成。 |
-| checkpoint/restore 管理 | 历史 AgentENV 在第 013 步保存并重建续跑通过。本轮为 TrEnv-X 工具及后台后代增加任务 cgroup，提供归属、冻结确认、解冻和定向清理；controller 捕获/失败恢复补丁已交付。 | 将新版 envd 装入独立模板，验收完整 controller 的捕获、封存、新 guest 恢复和异常路径。TrEnv-X 当前恢复的是文件状态。 |
-| 指标采集与分析 | 既有脚本能保存 guest/host 内存样本、事件、正确性及阶段时延；历史物理页/DAX 校准和计时审计已有记录。 | 按统一口径在真实 TrEnv-X 任务中采集，完成任务级公平对照；暂定 5% 监控开销目标仍未判定。 |
+| 沙箱运行与轨迹重放 | 两后端 Exp1 的 26 步冻结重放、预期失败和独立 SVG 检查通过；manifest、初始 HEAD 和最终 patch 一致。 | 更多任务及官方完整任务评测；新 trajectory 的自动生成。 |
+| checkpoint/restore 管理 | 两后端第 013 步保存并重建续跑通过；TrEnv-X 还在第 022 步保存并继承已修改源码，复制抛错/子进程超时后父 guest 可继续。 | 其他服务异常路径及更多文件状态。TrEnv-X 不恢复任意父进程。 |
+| 指标采集与分析 | Exp1 19 次运行审计通过；五对采集完成，差异存在顺序相关波动；两次诊断已核对虚拟机进程归属，记录 PSS 和创建/恢复时间并生成图表，历史物理页/DAX 校准和计时审计已有记录。 | 补齐 guest、文件物理量和完整阶段计时，统一两后端的 PSS 采集，完成任务级公平对照；暂定 5% 监控开销目标仍未判定。 |
 
 历史 AgentENV、DAX 和 upper-layer fixture 结果见[阶段交接记录](docs/records/PLATFORM_HANDOFF.md)及[收尾记录](docs/records/CLOSEOUT_STATUS.md)。它们与本轮普通用户隔离验证分别记录，不能用 fixture 的成功证明完整 TrEnv-X controller 已通过。
 
@@ -30,7 +33,9 @@ bash scripts/41-verify-trenvx-server.sh
 
 `status=PASS` 表示这套短检查全部通过；`stage=isolated-guest` 表示最后完成的阶段；`result_dir` 是本次日志位置。该入口不会部署完整服务或重放真实任务，也没有验证完整文件 checkpoint/restore。详细阶段解释见[本轮平台进展](docs/records/PLATFORM_PROGRESS_20260926.md)。
 
-完整服务的下一步是配置实验所需 Docker、KVM/ublk 和受控镜像挂载权限，部署独立 TrEnv-X 模板，再验证“执行命令 → checkpoint → 新 guest 恢复文件 → 继续执行”。本次没有修改共享服务或全局清缓存。
+完整服务入口为 `bash scripts/43-build-trenvx-service.sh` 和 `bash scripts/44-smoke-trenvx-service.sh`，复用本机已有模板，要求 root 及文档列出的依赖。真实重放入口为 `bash scripts/45-replay-trenvx-exp1.sh`；完整运行及第 013、022 步恢复模式均已通过，命令与范围见 [Exp1 验收记录](docs/records/TRENVX_EXP1.md)。
+
+TrEnv-X 运行结束后默认用本机 `pigz` 将本次私有镜像 `data/` 压缩、校验后移除，保留归档与轨迹、样本和日志；可用 `--archive-compressor gzip` 选择旧方式，或用 `--keep-data` 保留解包镜像。入口设有空间门槛、写入互斥和每 0.25 秒的空闲空间检查；达到 20 GiB 停止本次受保护进程组。这是轮询保护，不能替代共享文件系统的硬配额。归档仅在本机，不等于异机备份。当前磁盘余量与保留边界见[指标记录](docs/records/EXP1_METRICS_AUDIT.md)。批量前可运行 `python3 scripts/plan_trenvx_storage.py --pairs 5` 只读估算所需空间；空间不足返回退出码 2，配对入口也会在每次运行前检查剩余整批预算。
 
 ## 固定源码与复现边界
 
