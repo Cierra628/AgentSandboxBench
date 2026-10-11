@@ -1,0 +1,234 @@
+{
+  "status": "PASS",
+  "calibration": {
+    "result_dir": ".artifacts/runner-phase-calibration/20260930T152625Z-2735258",
+    "status": "PASS",
+    "diagnostic_gate": "PASS",
+    "differences_percent": {
+      "command_total_ns": {
+        "aa": -0.5797491083287309,
+        "ab": 0.5557972761311314
+      },
+      "phase_ns": {
+        "aa": -0.5723290511212897,
+        "ab": 0.6016311690960618
+      }
+    },
+    "scope": "incremental five Bash timestamps plus outer dual clock; warm runner fixture in DAMON-disabled guest only; not formal monitoring acceptance",
+    "iterations_per_phase": 32,
+    "phases": 8,
+    "source_result_sha256": "40d40da4756bd9d4f125928ed1140ea3324c81a4c538d58b291544dbeb2903ba"
+  },
+  "full_replays": 6,
+  "batches": [
+    {
+      "group": "smoke",
+      "result_dir": ".artifacts/exp1-damon-control-smoke-runner-phases/20260930T153017Z-2736618",
+      "status": "PASS",
+      "source_result_sha256": "fa339f98abfafb7f6666c5722530e5fbc5b321f4d2ad5d5d9f131f6622a130e5"
+    },
+    {
+      "group": "comparison",
+      "result_dir": ".artifacts/exp1-damon-control-comparison-runner-phases/20260930T153317Z-2738743",
+      "status": "PASS",
+      "source_result_sha256": "bd20e5387d01b0e6d49f809de909270778f1550c5d18418978f70882c48bb6d6"
+    }
+  ],
+  "runs": [
+    {
+      "group": "smoke",
+      "position": 1,
+      "mode": "default",
+      "phase_ms": {
+        "entry": 73.773,
+        "baseline": 1812.093,
+        "actions": 2104.198,
+        "finalize": 105.509
+      },
+      "guest_envelope_ms": 4097.172955,
+      "envelope_realtime_minus_monotonic_ms": 0.000457,
+      "loop_outside_action_timers_ms": 55.427226,
+      "controller_minus_guest_envelope_ms": 43.17369,
+      "task_ms": 4144.278927,
+      "action_sum_ms": 2048.770774,
+      "scan_ms": 40.369,
+      "observed_min_free_gib": 48.40566635131836
+    },
+    {
+      "group": "smoke",
+      "position": 2,
+      "mode": "damon_disabled",
+      "phase_ms": {
+        "entry": 58.691,
+        "baseline": 1542.961,
+        "actions": 2071.949,
+        "finalize": 105.856
+      },
+      "guest_envelope_ms": 3780.915945,
+      "envelope_realtime_minus_monotonic_ms": 0.000402,
+      "loop_outside_action_timers_ms": 54.533152,
+      "controller_minus_guest_envelope_ms": 38.883509,
+      "task_ms": 3824.2055100000002,
+      "action_sum_ms": 2017.415848,
+      "scan_ms": 30.294,
+      "observed_min_free_gib": 48.40070724487305
+    },
+    {
+      "group": "comparison",
+      "position": 1,
+      "mode": "default",
+      "phase_ms": {
+        "entry": 64.944,
+        "baseline": 1537.528,
+        "actions": 2122.773,
+        "finalize": 107.726
+      },
+      "guest_envelope_ms": 3834.599717,
+      "envelope_realtime_minus_monotonic_ms": 0.000375,
+      "loop_outside_action_timers_ms": 55.419947,
+      "controller_minus_guest_envelope_ms": 40.46968,
+      "task_ms": 3879.350175,
+      "action_sum_ms": 2067.3530530000003,
+      "scan_ms": 97.489,
+      "observed_min_free_gib": 48.393856048583984
+    },
+    {
+      "group": "comparison",
+      "position": 2,
+      "mode": "damon_disabled",
+      "phase_ms": {
+        "entry": 66.837,
+        "baseline": 1627.669,
+        "actions": 2052.227,
+        "finalize": 107.231
+      },
+      "guest_envelope_ms": 3855.321149,
+      "envelope_realtime_minus_monotonic_ms": 0.000376,
+      "loop_outside_action_timers_ms": 54.259679,
+      "controller_minus_guest_envelope_ms": 38.619511,
+      "task_ms": 3898.893977,
+      "action_sum_ms": 1997.9673209999999,
+      "scan_ms": 30.089000000000002,
+      "observed_min_free_gib": 48.397438049316406
+    },
+    {
+      "group": "comparison",
+      "position": 3,
+      "mode": "damon_disabled",
+      "phase_ms": {
+        "entry": 61.353,
+        "baseline": 1614.779,
+        "actions": 2070.378,
+        "finalize": 105.78
+      },
+      "guest_envelope_ms": 3853.685004,
+      "envelope_realtime_minus_monotonic_ms": 0.00037,
+      "loop_outside_action_timers_ms": 55.26748,
+      "controller_minus_guest_envelope_ms": 38.244853,
+      "task_ms": 3896.305012,
+      "action_sum_ms": 2015.11052,
+      "scan_ms": 30.254,
+      "observed_min_free_gib": 48.39250564575195
+    },
+    {
+      "group": "comparison",
+      "position": 4,
+      "mode": "default",
+      "phase_ms": {
+        "entry": 72.765,
+        "baseline": 1522.815,
+        "actions": 2074.378,
+        "finalize": 106.351
+      },
+      "guest_envelope_ms": 3777.918713,
+      "envelope_realtime_minus_monotonic_ms": 0.000344,
+      "loop_outside_action_timers_ms": 53.821694,
+      "controller_minus_guest_envelope_ms": 40.759567,
+      "task_ms": 3823.092617,
+      "action_sum_ms": 2020.556306,
+      "scan_ms": 30.099999999999998,
+      "observed_min_free_gib": 48.396053314208984
+    }
+  ],
+  "comparison_means": {
+    "default": {
+      "phase_ms": {
+        "entry": 68.8545,
+        "baseline": 1530.1715,
+        "actions": 2098.5755,
+        "finalize": 107.0385
+      },
+      "task_ms": 3851.221396,
+      "controller_minus_guest_envelope_ms": 40.61462349999999
+    },
+    "damon_disabled": {
+      "phase_ms": {
+        "entry": 64.095,
+        "baseline": 1621.2240000000002,
+        "actions": 2061.3025,
+        "finalize": 106.5055
+      },
+      "task_ms": 3897.5994945,
+      "controller_minus_guest_envelope_ms": 38.432182
+    }
+  },
+  "source_identity": {
+    "workload_image": "ghcr.io/timesler/swe-polybench.eval.x86_64.prettier__prettier-14400@sha256:e625c9b9776870e2cc87172e886bbc90cfc3d6ce1521492f113a46b3f6dfcf44",
+    "sandbox_cpu": "2",
+    "sandbox_memory_mib": "4096",
+    "action_manifest_sha256": "6ea843b464f5f7ec3c081c539386593027ede2335c5309b945a9462feddceaa7",
+    "aenv_version": "aenv 0.2.2",
+    "host_kernel": "6.19.9+",
+    "agentenv_container_image": "sha256:db9eb044ae3d85f9b276b9d2e5dea28cb0be95263d217ea4989f095e1d828681",
+    "overlaybd_io_engine": "0",
+    "overlaybd_direct_io": "false"
+  },
+  "checks": {
+    "replay": "PASS",
+    "stdout_patch_hashes": "PASS",
+    "independent_svg_html": "PASS",
+    "state": "PASS",
+    "cleanup": "PASS",
+    "cpu_restore": "PASS",
+    "offline_audit": "PASS",
+    "full_official_task_tests": "NOT_RUN",
+    "monitoring_overhead": "NOT_ACCEPTED"
+  },
+  "limitations": [
+    "Calibration only on warm fixture in DAMON-disabled guest; not total combined instrumentation overhead",
+    "Five Bash realtime boundaries; outer dual clock checked; phase clocks not independently monotonic",
+    "Two observations per condition in comparison; descriptive means only, no confidence interval",
+    "Baseline phase includes add/write-tree/reset/rev-parse and boundary work; no subcommand attribution",
+    "Controller minus guest envelope includes control channel and boundaries, not pure network time",
+    "All periodic monitoring off; preserve official default and original whole-task metric"
+  ],
+  "final_resource_check": {
+    "status": "PASS",
+    "checked_date": "2026-10-01",
+    "project_sandboxes": [],
+    "owned_probe_processes": [],
+    "cpu_policies": {
+      "2": {
+        "scaling_min_freq": "800000",
+        "scaling_max_freq": "2801000",
+        "scaling_governor": "schedutil"
+      },
+      "4": {
+        "scaling_min_freq": "800000",
+        "scaling_max_freq": "2801000",
+        "scaling_governor": "schedutil"
+      },
+      "66": {
+        "scaling_min_freq": "800000",
+        "scaling_max_freq": "2801000",
+        "scaling_governor": "schedutil"
+      },
+      "68": {
+        "scaling_min_freq": "800000",
+        "scaling_max_freq": "2801000",
+        "scaling_governor": "schedutil"
+      }
+    },
+    "free_bytes": 52043255808
+  }
+}

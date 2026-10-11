@@ -12,7 +12,7 @@ import unittest
 from unittest.mock import patch
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1] / 'scripts'))
-from measure_file_physical import audit_run, captured_slots, collect, ext4_data_offsets, ram_address, summarize, validate_slots
+from measure_file_physical import audit_run, captured_slots, collect, content_accounting, ext4_data_offsets, ram_address, summarize, validate_slots
 
 PRESENT = 1 << 63
 FILE = 1 << 61
@@ -119,6 +119,56 @@ class FilePhysicalTests(unittest.TestCase):
             result, _ = self.scan(root, manifest)
             self.assertEqual(result['file_content']['anonymous_cow_unique_pages'], 1)
             self.assertEqual(result['file_content']['file_content_physical_bytes'], 4096)
+
+    def test_verified_anonymous_copy_and_mismatch(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp); manifest, proc, backing = self.fixture(root)
+            backing.chmod(0o444)
+            manifest['vms'][0]['files'][0].update(immutable_image=True, verify_anonymous_content=True)
+            (proc/'pagemap').write_bytes(struct.pack('<QQQ', 0, PRESENT | FILE | 101, PRESENT | 202))
+            (proc/'mem').write_bytes(b'\0'*8192 + b'a'*4096)
+            result, rows = self.scan(root, manifest)
+            self.assertEqual(result['status'], 'PASS')
+            self.assertEqual(result['content_accounting']['verified_anonymous_unique_pages'], 1)
+            self.assertEqual(result['content_accounting']['attributed_physical_bytes'], 8192)
+            self.assertEqual(result['file_content']['file_content_physical_bytes'], 4096)
+            self.assertEqual(content_accounting(rows+rows), result['content_accounting'])
+            raw = json.dumps(manifest).encode()
+            result['manifest_sha256'] = hashlib.sha256(raw).hexdigest()
+            (root/'manifest.json').write_bytes(raw)
+            (root/'pages.json').write_text(json.dumps(rows))
+            (root/'result.json').write_text(json.dumps(result))
+            self.assertEqual(audit_run(root)['measurement_status'], 'PASS')
+            result['content_accounting']['verified_anonymous_unique_pages'] = 0
+            (root/'result.json').write_text(json.dumps(result))
+            with self.assertRaisesRegex(RuntimeError, 'content accounting differs'):
+                audit_run(root)
+            (proc/'mem').write_bytes(b'\0'*8192 + b'b'*4096)
+            result, rows = self.scan(root, manifest)
+            self.assertEqual(result['status'], 'PARTIAL')
+            self.assertEqual(result['content_accounting']['unknown_unique_pages'], 1)
+            self.assertIsNone(result['content_accounting']['attributed_physical_bytes'])
+            result['manifest_sha256'] = hashlib.sha256(raw).hexdigest()
+            (root/'pages.json').write_text(json.dumps(rows))
+            (root/'result.json').write_text(json.dumps(result))
+            self.assertEqual(audit_run(root)['measurement_status'], 'PARTIAL')
+            (proc/'mem').unlink()
+            result, _ = self.scan(root, manifest)
+            self.assertEqual(result['status'], 'FAIL')
+            self.assertIsNone(result['content_accounting']['attributed_physical_bytes'])
+
+    def test_unknown_and_conflicting_pages_not_attributed(self):
+        rows = [dict(entry=PRESENT | FILE | 101, kind='file_content'),
+                dict(entry=PRESENT | 101, kind='anonymous_cow', content_verification={
+                    'status':'MATCH', 'mapped_sha256':'a'*64, 'backing_sha256':'a'*64}),
+                dict(entry=PRESENT | 202, kind='anonymous_cow')]
+        counted = content_accounting(rows)
+        self.assertEqual(counted['status'], 'PARTIAL')
+        self.assertEqual(counted['unknown_unique_pages'], 2)
+        self.assertEqual(counted['file_cache_unique_pages'], 0)
+        rows[1]['content_verification']['backing_sha256'] = 'b'*64
+        with self.assertRaisesRegex(RuntimeError, 'equal SHA-256'):
+            content_accounting(rows)
 
     def test_nonresident_and_swapped_are_not_hidden_or_mapping_capacity(self):
         with tempfile.TemporaryDirectory() as tmp:

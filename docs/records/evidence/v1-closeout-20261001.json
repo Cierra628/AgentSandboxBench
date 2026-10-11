@@ -1,0 +1,644 @@
+{
+  "status": "PASS",
+  "scope": "v1 single-task functional acceptance on this prepared host",
+  "bundles": {
+    "agentenv": {
+      "directory": ".artifacts/v1-clean-20261001-verified",
+      "manifest_sha256": "17bc858b1a3a863391952f799baaa30f1b62f409445ccf4bdd4d7759ff885ddf",
+      "senior_commit": "a9bc7deadb68a6e24b7242eab343dfedf953ea38",
+      "historical_raw_copied": false,
+      "credentials_copied": false,
+      "external_runtime": "/home/yyxie/agentenv_experiment/runtime"
+    },
+    "trenvx": {
+      "directory": ".artifacts/v1-clean-trenvx-20261001-verified",
+      "manifest_sha256": "71829ec200bfe91d755e65f99fd1b32a7c9936afc65059ddf96e5ec8282432cd",
+      "senior_commit": "a9bc7deadb68a6e24b7242eab343dfedf953ea38",
+      "historical_raw_copied": false,
+      "credentials_copied": false,
+      "external_runtime": "/home/yyxie/agentenv_experiment/runtime"
+    }
+  },
+  "negative_control": {
+    "status": "PASS",
+    "phase": "unfixed_negative_control",
+    "exit_code": 1,
+    "parser_results": {
+      "num_tests_passed": 0,
+      "num_tests_failed": 4,
+      "failed_tests": [
+        "/testbed/tests/format/html/svg/embeded/jsfmt.spec.js->format",
+        "/testbed/tests/format/html/svg/embeded/jsfmt.spec.js->format",
+        "/testbed/tests/format/html/svg/embeded/jsfmt.spec.js->format",
+        "/testbed/tests/format/html/svg/embeded/jsfmt.spec.js->format"
+      ],
+      "passed_tests": []
+    },
+    "F2P": [
+      "/testbed/tests/format/html/svg/embeded/jsfmt.spec.js->format"
+    ],
+    "P2P": [],
+    "P2P_scope": "empty in official dataset",
+    "manifest": {
+      "instance_id": "prettier__prettier-14400",
+      "base_commit": "6905b39ec7bc6ed38732e26ceced5b57677e2600",
+      "dataset_revision": "d56445f9940eae4e9d2974ec66820c2f1d7754e6",
+      "dataset_url": "https://huggingface.co/datasets/AmazonScience/SWE-PolyBench/resolve/d56445f9940eae4e9d2974ec66820c2f1d7754e6/test.csv",
+      "dataset_sha256": "17ad661b20e9af1e2067fbbc2e2658a21137d56693570d1d07f966d8bc0408b7",
+      "harness_revision": "9c836c5d7f3cb991934132b77d29e6941d912a07",
+      "parser_sources": {
+        "javascript_parsers.py": {
+          "url": "https://raw.githubusercontent.com/amazon-science/SWE-PolyBench/9c836c5d7f3cb991934132b77d29e6941d912a07/src/poly_bench_evaluation/parsers/javascript_parsers.py",
+          "sha256": "4a83ceab7802e4c187dece23a9d9421b81b56181fa8cdd4812944d6b7646b8a2"
+        },
+        "parser_results.py": {
+          "url": "https://raw.githubusercontent.com/amazon-science/SWE-PolyBench/9c836c5d7f3cb991934132b77d29e6941d912a07/src/poly_bench_evaluation/parsers/parser_results.py",
+          "sha256": "29c4d0e26c9cceea18457ee108eb8c747722276705e48a4414c3f6f9a3de7555"
+        },
+        "parser_protocol.py": {
+          "url": "https://raw.githubusercontent.com/amazon-science/SWE-PolyBench/9c836c5d7f3cb991934132b77d29e6941d912a07/src/poly_bench_evaluation/parsers/parser_protocol.py",
+          "sha256": "1094c1b7b29e2a9089f75b60b158e64e358d5332e8ea13f74c1e2d8199794b27"
+        }
+      },
+      "test_patch_sha256": "8f71b31fcb2a471626ca4d5f4a7042989880449522139ace01db5bf45615b01a",
+      "task_sha256": "1ebc948cd6f51af71eac66734a981229c8ec95e4da9d768247215a8ba9ddb15b",
+      "scope": "official task-specific test command and F2P/P2P; not entire Prettier suite"
+    },
+    "scope": "official task-specific evaluation; entire Prettier suite NOT_RUN"
+  },
+  "runs": [
+    {
+      "run_id": "20261001T063906Z-2885739",
+      "backend": "agentenv",
+      "mode": "full",
+      "status": "PASS",
+      "raw_dir": "/home/yyxie/agentenv_experiment/.artifacts/v1-clean-20261001-verified/.artifacts/exp1-clean/raw/20261001T063906Z-2885739",
+      "action_manifest_sha256": "6ea843b464f5f7ec3c081c539386593027ede2335c5309b945a9462feddceaa7",
+      "original_head_sha256": "d94758a6018bda258d203013db55ad85e7b78469c1c0ded058e86e8274f7f9dc",
+      "final_patch_sha256": "f1cc23ac4f5ac1cff87eb7f8c54f8176c1a47cec37fa4cb6907b9dd8ad199af2",
+      "action_count": 26,
+      "expected_failures": {
+        "008": 127,
+        "016": 127
+      },
+      "cwd": "/testbed",
+      "session_semantics": "one bash per frozen action",
+      "cache_policy": "preserve; no host/guest drop_caches",
+      "image_provenance": "sha256:db9eb044ae3d85f9b276b9d2e5dea28cb0be95263d217ea4989f095e1d828681",
+      "restore_semantics": "not applicable",
+      "timing_ns": {
+        "guest_runner_action_sum_ns": 2015774069,
+        "controller_runner_call_ns": 3948414740,
+        "checkpoint_call_ns": "NOT_MEASURED",
+        "restore_call_ns": "NOT_MEASURED",
+        "create_to_tool_ready_ns": "NOT_MEASURED",
+        "controller_end_to_end_ns": 17883087627
+      },
+      "guest_memory": {
+        "sample_count": 0,
+        "observed_peak_used_estimate_kib": "NOT_MEASURED",
+        "observed_peak_cached_kib": "NOT_MEASURED",
+        "observed_peak_anon_pages_kib": "NOT_MEASURED",
+        "observed_peak_slab_kib": "NOT_MEASURED",
+        "sampling_mode": "NOT_MEASURED",
+        "boundary_observations": []
+      },
+      "host_memory": {
+        "sample_count": 4,
+        "scope": "selected AgentENV service cgroup; may include pool/shared overhead",
+        "observed_peak_current_bytes": 9050353664,
+        "observed_peak_file_bytes": 8094298112,
+        "observed_peak_anon_bytes": 659353600,
+        "observed_peak_vmm_pss_kib": "NOT_MEASURED"
+      },
+      "final_checks": {
+        "status": "PASS",
+        "action_order": "PASS",
+        "expected_failures": "PASS",
+        "key_output_024": "PASS",
+        "final_patch": "PASS",
+        "independent_svg": "PASS: offline verified runner artifact",
+        "official_task_tests": "NOT_RUN",
+        "recovery": {
+          "interface": "NOT_APPLICABLE",
+          "file_state": "NOT_APPLICABLE",
+          "process_state": "NOT_APPLICABLE"
+        },
+        "official_full_tests": "NOT_RUN",
+        "patch_sha256": "f1cc23ac4f5ac1cff87eb7f8c54f8176c1a47cec37fa4cb6907b9dd8ad199af2",
+        "scope": "frozen replay and task-specific checks; patch equality does not prove full upstream tests"
+      },
+      "cleanup": {
+        "status": "PASS",
+        "sandbox": "PASS",
+        "service": "RETAINED_SHARED_SERVICE",
+        "cgroup_and_loop": "NOT_MEASURED",
+        "archived_images": "NOT_APPLICABLE",
+        "evidence": "checks.json and live CLI deletion receipts"
+      },
+      "phase_breakdown": {
+        "guest_action_sum": {
+          "status": "MEASURED",
+          "duration_ns": 2015774069,
+          "source": "replay/steps.tsv",
+          "boundary": "sum of 26 guest runner action durations; excludes controller and setup"
+        },
+        "controller_runner_calls": {
+          "status": "MEASURED",
+          "duration_ns": 3948414740,
+          "source": "controller-exec-duration-ns.txt",
+          "boundary": "sum of controller calls that launch frozen runner segments"
+        },
+        "create_to_first_success": {
+          "status": "NOT_MEASURED",
+          "duration_ns": null,
+          "source": null,
+          "boundary": "cold start call through first successful true command"
+        },
+        "checkpoint": {
+          "status": "NOT_MEASURED",
+          "duration_ns": null,
+          "source": null,
+          "boundary": "snapshot create CLI call"
+        },
+        "restore_interface": {
+          "status": "NOT_MEASURED",
+          "duration_ns": null,
+          "source": null,
+          "boundary": "snapshot start CLI call"
+        },
+        "restore_to_first_success": {
+          "status": "NOT_MEASURED",
+          "duration_ns": null,
+          "source": null,
+          "boundary": "snapshot start call through first successful true command"
+        },
+        "template_build": {
+          "status": "NOT_MEASURED",
+          "duration_ns": null,
+          "source": null,
+          "boundary": "not separately recorded"
+        },
+        "parent_delete": {
+          "status": "NOT_MEASURED",
+          "duration_ns": null,
+          "source": null,
+          "boundary": "delete original sandbox CLI call"
+        },
+        "full_run_including_cleanup": {
+          "status": "MEASURED",
+          "duration_ns": 17883087627,
+          "source": "audit/result.json",
+          "boundary": "controller start through sandbox cleanup and on-run report"
+        }
+      },
+      "named_file_mapping": {
+        "status": "NOT_MEASURED",
+        "bytes": null,
+        "scope": "no named-file mapping measurement"
+      },
+      "file_content_physical_bytes": "NOT_MEASURED",
+      "performance_comparison": "NOT_VALIDATED"
+    },
+    {
+      "run_id": "20261001T064059Z-2886802",
+      "backend": "agentenv",
+      "mode": "checkpoint-013",
+      "status": "PASS",
+      "raw_dir": "/home/yyxie/agentenv_experiment/.artifacts/v1-clean-20261001-verified/.artifacts/exp1-checkpoint-clean/raw/20261001T064059Z-2886802",
+      "action_manifest_sha256": "6ea843b464f5f7ec3c081c539386593027ede2335c5309b945a9462feddceaa7",
+      "original_head_sha256": "d94758a6018bda258d203013db55ad85e7b78469c1c0ded058e86e8274f7f9dc",
+      "final_patch_sha256": "f1cc23ac4f5ac1cff87eb7f8c54f8176c1a47cec37fa4cb6907b9dd8ad199af2",
+      "action_count": 26,
+      "expected_failures": {
+        "008": 127,
+        "016": 127
+      },
+      "cwd": "/testbed",
+      "session_semantics": "one bash per frozen action",
+      "cache_policy": "preserve",
+      "image_provenance": "sha256:db9eb044ae3d85f9b276b9d2e5dea28cb0be95263d217ea4989f095e1d828681",
+      "restore_semantics": "complete VM memory and filesystem snapshot",
+      "timing_ns": {
+        "guest_runner_action_sum_ns": 2299209159,
+        "controller_runner_call_ns": 4170333465,
+        "checkpoint_call_ns": 788143182,
+        "restore_call_ns": 87838674,
+        "create_to_tool_ready_ns": 4756638615,
+        "controller_end_to_end_ns": 38378382269
+      },
+      "guest_memory": {
+        "sample_count": 0,
+        "observed_peak_used_estimate_kib": "NOT_MEASURED",
+        "observed_peak_cached_kib": "NOT_MEASURED",
+        "observed_peak_anon_pages_kib": "NOT_MEASURED",
+        "observed_peak_slab_kib": "NOT_MEASURED",
+        "sampling_mode": "NOT_MEASURED",
+        "boundary_observations": []
+      },
+      "host_memory": {
+        "sample_count": 33,
+        "scope": "selected AgentENV service cgroup; may include pool/shared overhead",
+        "observed_peak_current_bytes": 10046976000,
+        "observed_peak_file_bytes": 9227051008,
+        "observed_peak_anon_bytes": 605577216,
+        "observed_peak_vmm_pss_kib": "NOT_MEASURED"
+      },
+      "final_checks": {
+        "status": "PASS",
+        "action_order": "PASS",
+        "expected_failures": "PASS",
+        "key_output_024": "PASS",
+        "final_patch": "PASS",
+        "independent_svg": "PASS",
+        "official_task_tests": "PASS",
+        "recovery": {
+          "interface": "PASS",
+          "file_state": "PASS",
+          "process_state": "PASS"
+        },
+        "official_full_tests": "NOT_RUN",
+        "patch_sha256": "f1cc23ac4f5ac1cff87eb7f8c54f8176c1a47cec37fa4cb6907b9dd8ad199af2",
+        "scope": "frozen replay and task-specific checks; patch equality does not prove full upstream tests"
+      },
+      "cleanup": {
+        "status": "PASS",
+        "sandbox": "PASS",
+        "service": "RETAINED_SHARED_SERVICE",
+        "cgroup_and_loop": "NOT_MEASURED",
+        "archived_images": "NOT_APPLICABLE",
+        "evidence": "checks.json and live CLI deletion receipts"
+      },
+      "phase_breakdown": {
+        "guest_action_sum": {
+          "status": "MEASURED",
+          "duration_ns": 2299209159,
+          "source": "replay/steps.tsv",
+          "boundary": "sum of 26 guest runner action durations; excludes controller and setup"
+        },
+        "controller_runner_calls": {
+          "status": "MEASURED",
+          "duration_ns": 4170333465,
+          "source": "audit/events.json",
+          "boundary": "sum of controller calls that launch frozen runner segments"
+        },
+        "create_to_first_success": {
+          "status": "MEASURED",
+          "duration_ns": 4756638615,
+          "source": "audit/events.json",
+          "boundary": "cold start call through first successful true command"
+        },
+        "checkpoint": {
+          "status": "MEASURED",
+          "duration_ns": 788143182,
+          "source": "audit/events.json",
+          "boundary": "snapshot create CLI call"
+        },
+        "restore_interface": {
+          "status": "MEASURED",
+          "duration_ns": 87838674,
+          "source": "audit/events.json",
+          "boundary": "snapshot start CLI call"
+        },
+        "restore_to_first_success": {
+          "status": "MEASURED",
+          "duration_ns": 149089416,
+          "source": "audit/events.json",
+          "boundary": "snapshot start call through first successful true command"
+        },
+        "template_build": {
+          "status": "NOT_MEASURED",
+          "duration_ns": null,
+          "source": null,
+          "boundary": "not separately recorded"
+        },
+        "parent_delete": {
+          "status": "MEASURED",
+          "duration_ns": 117829066,
+          "source": "audit/events.json",
+          "boundary": "delete original sandbox CLI call"
+        },
+        "full_run_including_cleanup": {
+          "status": "MEASURED",
+          "duration_ns": 38378382269,
+          "source": "audit/result.json",
+          "boundary": "controller start through sandbox cleanup and on-run report"
+        }
+      },
+      "named_file_mapping": {
+        "status": "NOT_MEASURED",
+        "bytes": null,
+        "scope": "no named-file mapping measurement"
+      },
+      "file_content_physical_bytes": "NOT_MEASURED",
+      "performance_comparison": "NOT_VALIDATED"
+    },
+    {
+      "run_id": "20261001T064940Z-2889203",
+      "backend": "trenvx",
+      "mode": "full-light",
+      "status": "PASS",
+      "raw_dir": "/home/yyxie/agentenv_experiment/.artifacts/v1-clean-trenvx-20261001-verified/.artifacts/trenvx-service-smoke/20261001T064940Z-2889203",
+      "action_manifest_sha256": "6ea843b464f5f7ec3c081c539386593027ede2335c5309b945a9462feddceaa7",
+      "original_head_sha256": "d94758a6018bda258d203013db55ad85e7b78469c1c0ded058e86e8274f7f9dc",
+      "final_patch_sha256": "f1cc23ac4f5ac1cff87eb7f8c54f8176c1a47cec37fa4cb6907b9dd8ad199af2",
+      "action_count": 26,
+      "expected_failures": {
+        "008": 127,
+        "016": 127
+      },
+      "cwd": "/testbed",
+      "session_semantics": "one bash per frozen action",
+      "cache_policy": "preserve; no cache drop",
+      "image_provenance": "existing local seed sha256:5e22e3f6d1cd5cfcbb9e5a17a34f0f1705833a9357f214845a8fcdfa627e8d82",
+      "restore_semantics": "not applicable",
+      "timing_ns": {
+        "guest_runner_action_sum_ns": 1892929908,
+        "controller_runner_call_ns": 23555107962,
+        "checkpoint_call_ns": "NOT_MEASURED",
+        "restore_call_ns": "NOT_MEASURED",
+        "create_to_tool_ready_ns": "NOT_MEASURED",
+        "controller_end_to_end_ns": 104724200109
+      },
+      "guest_memory": {
+        "sample_count": 0,
+        "observed_peak_used_estimate_kib": "NOT_MEASURED",
+        "observed_peak_cached_kib": "NOT_MEASURED",
+        "observed_peak_anon_pages_kib": "NOT_MEASURED",
+        "observed_peak_slab_kib": "NOT_MEASURED",
+        "sampling_mode": "NOT_MEASURED",
+        "boundary_observations": []
+      },
+      "host_memory": {
+        "sample_count": 66,
+        "scope": "run-owned TrEnv-X sandbox parent cgroup; excludes orchestrator",
+        "observed_peak_current_bytes": 356139008,
+        "observed_peak_file_bytes": 7839744,
+        "observed_peak_anon_bytes": 334630912,
+        "observed_peak_vmm_pss_kib": "NOT_MEASURED"
+      },
+      "final_checks": {
+        "status": "PASS",
+        "action_order": "PASS",
+        "expected_failures": "PASS",
+        "key_output_024": "PASS",
+        "final_patch": "PASS",
+        "independent_svg": "PASS",
+        "official_task_tests": "PASS",
+        "recovery": {
+          "interface": "NOT_APPLICABLE",
+          "file_state": "NOT_APPLICABLE",
+          "process_state": "NOT_APPLICABLE"
+        },
+        "official_full_tests": "NOT_RUN",
+        "patch_sha256": "f1cc23ac4f5ac1cff87eb7f8c54f8176c1a47cec37fa4cb6907b9dd8ad199af2",
+        "scope": "frozen replay and task-specific checks; patch equality does not prove full upstream tests"
+      },
+      "cleanup": {
+        "status": "PASS",
+        "sandbox": "PASS",
+        "service": "PASS",
+        "cgroup_and_loop": "PASS",
+        "archived_images": "SUCCESS_IMAGES_REMOVED; RAW_AND_HASHES_RETAINED",
+        "evidence": "run checks, cgroup/loop receipt, archive manifest and current retention state"
+      },
+      "phase_breakdown": {
+        "guest_action_sum": {
+          "status": "MEASURED",
+          "duration_ns": 1892929908,
+          "source": "replay/steps.tsv",
+          "boundary": "sum of 26 guest runner action durations; excludes controller and setup"
+        },
+        "controller_runner_calls": {
+          "status": "MEASURED",
+          "duration_ns": 23555107962,
+          "source": "replay-*.json",
+          "boundary": "sum of controller calls that launch frozen runner segments"
+        },
+        "create_to_first_success": {
+          "status": "MEASURED",
+          "duration_ns": 1044014480,
+          "source": "diagnostic-events.jsonl",
+          "boundary": "SDK create through first successful mkdir command"
+        },
+        "checkpoint": {
+          "status": "NOT_MEASURED",
+          "duration_ns": null,
+          "source": null,
+          "boundary": "controller file capture, sealing and template construction"
+        },
+        "restore_interface": {
+          "status": "NOT_MEASURED",
+          "duration_ns": null,
+          "source": null,
+          "boundary": "controller start of child VM from sealed file layer"
+        },
+        "restore_to_first_success": {
+          "status": "NOT_MEASURED",
+          "duration_ns": null,
+          "source": null,
+          "boundary": "start restored VM through first successful environment command"
+        },
+        "template_build": {
+          "status": "MEASURED",
+          "duration_ns": 12380549528,
+          "source": "diagnostic-events.jsonl",
+          "boundary": "prepare private template before trajectory"
+        },
+        "parent_delete": {
+          "status": "NOT_MEASURED",
+          "duration_ns": null,
+          "source": null,
+          "boundary": "delete parent VM after checkpoint"
+        },
+        "full_run_including_cleanup": {
+          "status": "MEASURED",
+          "duration_ns": 104724200109,
+          "source": "result.json",
+          "boundary": "outer start through sandbox cleanup and verified image archiving when enabled"
+        }
+      },
+      "named_file_mapping": {
+        "status": "NOT_MEASURED",
+        "bytes": null,
+        "scope": "no named-file mapping measurement"
+      },
+      "file_content_physical_bytes": "NOT_MEASURED",
+      "performance_comparison": "NOT_VALIDATED"
+    },
+    {
+      "run_id": "20261001T065156Z-2889585",
+      "backend": "trenvx",
+      "mode": "checkpoint-022",
+      "status": "PASS",
+      "raw_dir": "/home/yyxie/agentenv_experiment/.artifacts/v1-clean-trenvx-20261001-verified/.artifacts/trenvx-service-smoke/20261001T065156Z-2889585",
+      "action_manifest_sha256": "6ea843b464f5f7ec3c081c539386593027ede2335c5309b945a9462feddceaa7",
+      "original_head_sha256": "d94758a6018bda258d203013db55ad85e7b78469c1c0ded058e86e8274f7f9dc",
+      "final_patch_sha256": "f1cc23ac4f5ac1cff87eb7f8c54f8176c1a47cec37fa4cb6907b9dd8ad199af2",
+      "action_count": 26,
+      "expected_failures": {
+        "008": 127,
+        "016": 127
+      },
+      "cwd": "/testbed",
+      "session_semantics": "one bash per frozen action",
+      "cache_policy": "preserve; no cache drop",
+      "image_provenance": "existing local seed sha256:5e22e3f6d1cd5cfcbb9e5a17a34f0f1705833a9357f214845a8fcdfa627e8d82",
+      "restore_semantics": "file-state-only",
+      "timing_ns": {
+        "guest_runner_action_sum_ns": 1703826785,
+        "controller_runner_call_ns": 24590826002,
+        "checkpoint_call_ns": 11616840004,
+        "restore_call_ns": 1143241707,
+        "create_to_tool_ready_ns": "NOT_MEASURED",
+        "controller_end_to_end_ns": 376438429153
+      },
+      "guest_memory": {
+        "sample_count": 0,
+        "observed_peak_used_estimate_kib": "NOT_MEASURED",
+        "observed_peak_cached_kib": "NOT_MEASURED",
+        "observed_peak_anon_pages_kib": "NOT_MEASURED",
+        "observed_peak_slab_kib": "NOT_MEASURED",
+        "sampling_mode": "NOT_MEASURED",
+        "boundary_observations": []
+      },
+      "host_memory": {
+        "sample_count": 103,
+        "scope": "run-owned TrEnv-X sandbox parent cgroup; excludes orchestrator",
+        "observed_peak_current_bytes": 333185024,
+        "observed_peak_file_bytes": 6557696,
+        "observed_peak_anon_bytes": 319848448,
+        "observed_peak_vmm_pss_kib": "NOT_MEASURED"
+      },
+      "final_checks": {
+        "status": "PASS",
+        "action_order": "PASS",
+        "expected_failures": "PASS",
+        "key_output_024": "PASS",
+        "final_patch": "PASS",
+        "independent_svg": "PASS",
+        "official_task_tests": "PASS",
+        "recovery": {
+          "interface": "PASS",
+          "file_state": "PASS",
+          "process_state": "NOT_APPLICABLE"
+        },
+        "official_full_tests": "NOT_RUN",
+        "patch_sha256": "f1cc23ac4f5ac1cff87eb7f8c54f8176c1a47cec37fa4cb6907b9dd8ad199af2",
+        "scope": "frozen replay and task-specific checks; patch equality does not prove full upstream tests"
+      },
+      "cleanup": {
+        "status": "PASS",
+        "sandbox": "PASS",
+        "service": "PASS",
+        "cgroup_and_loop": "PASS",
+        "archived_images": "RETAINED_WITH_VERIFIED_MANIFEST",
+        "evidence": "run checks, cgroup/loop receipt, archive manifest and current retention state"
+      },
+      "phase_breakdown": {
+        "guest_action_sum": {
+          "status": "MEASURED",
+          "duration_ns": 1703826785,
+          "source": "replay/steps.tsv",
+          "boundary": "sum of 26 guest runner action durations; excludes controller and setup"
+        },
+        "controller_runner_calls": {
+          "status": "MEASURED",
+          "duration_ns": 24590826002,
+          "source": "replay-*.json",
+          "boundary": "sum of controller calls that launch frozen runner segments"
+        },
+        "create_to_first_success": {
+          "status": "MEASURED",
+          "duration_ns": 1048816835,
+          "source": "diagnostic-events.jsonl",
+          "boundary": "SDK create through first successful mkdir command"
+        },
+        "checkpoint": {
+          "status": "MEASURED",
+          "duration_ns": 11617018140,
+          "source": "diagnostic-events.jsonl",
+          "boundary": "controller file capture, sealing and template construction"
+        },
+        "restore_interface": {
+          "status": "MEASURED",
+          "duration_ns": 1143397718,
+          "source": "diagnostic-events.jsonl",
+          "boundary": "controller start of child VM from sealed file layer"
+        },
+        "restore_to_first_success": {
+          "status": "MEASURED",
+          "duration_ns": 2342044669,
+          "source": "diagnostic-events.jsonl",
+          "boundary": "start restored VM through first successful environment command"
+        },
+        "template_build": {
+          "status": "MEASURED",
+          "duration_ns": 12430811381,
+          "source": "diagnostic-events.jsonl",
+          "boundary": "prepare private template before trajectory"
+        },
+        "parent_delete": {
+          "status": "MEASURED",
+          "duration_ns": 16592773423,
+          "source": "diagnostic-events.jsonl",
+          "boundary": "delete parent VM after checkpoint"
+        },
+        "full_run_including_cleanup": {
+          "status": "MEASURED",
+          "duration_ns": 376438429153,
+          "source": "result.json",
+          "boundary": "outer start through sandbox cleanup and verified image archiving when enabled"
+        }
+      },
+      "named_file_mapping": {
+        "status": "NOT_MEASURED",
+        "bytes": null,
+        "scope": "no named-file mapping measurement"
+      },
+      "file_content_physical_bytes": "NOT_MEASURED",
+      "performance_comparison": "NOT_VALIDATED"
+    }
+  ],
+  "evidence_sha256": {
+    "agentenv:full": {
+      ".artifacts/v1-clean-20261001-verified/.artifacts/exp1-clean/raw/20261001T063906Z-2885739/replay/actions.tsv": "6ea843b464f5f7ec3c081c539386593027ede2335c5309b945a9462feddceaa7",
+      ".artifacts/v1-clean-20261001-verified/.artifacts/exp1-clean/raw/20261001T063906Z-2885739/replay/steps.tsv": "868838cec3f080e97a6ffda9e9451700809239033fd52c4f55641ab14506c99c",
+      ".artifacts/v1-clean-20261001-verified/.artifacts/exp1-clean/raw/20261001T063906Z-2885739/replay/patch.diff": "f1cc23ac4f5ac1cff87eb7f8c54f8176c1a47cec37fa4cb6907b9dd8ad199af2",
+      ".artifacts/v1-clean-20261001-verified/.artifacts/exp1-clean/raw/20261001T063906Z-2885739/replay/stdout/025.log": "9a64ed707c224734715f7af4fea2d84f0b51d128e5c8d05535fc9de7d5b6162f",
+      ".artifacts/v1-clean-20261001-verified/.artifacts/exp1-clean/raw/20261001T063906Z-2885739/host/memory-samples.tsv": "b0ff40ad968f832443ad33858bf02a59f66647ded98c20664428b0babffc4ecb",
+      ".artifacts/v1-clean-20261001-verified/.artifacts/exp1-clean/audit/20261001T063906Z-2885739/result.json": "31b6563a59b0426cb5699edb599e4100a62c6ad6e0097de1c30a63c5fdce9908"
+    },
+    "agentenv:checkpoint-013": {
+      ".artifacts/v1-clean-20261001-verified/.artifacts/exp1-checkpoint-clean/raw/20261001T064059Z-2886802/replay/actions.tsv": "6ea843b464f5f7ec3c081c539386593027ede2335c5309b945a9462feddceaa7",
+      ".artifacts/v1-clean-20261001-verified/.artifacts/exp1-checkpoint-clean/raw/20261001T064059Z-2886802/replay/steps.tsv": "014ce6df220f207298290a3012c08812dbab38dc3224521afe5046af6f5dd035",
+      ".artifacts/v1-clean-20261001-verified/.artifacts/exp1-checkpoint-clean/raw/20261001T064059Z-2886802/replay/patch.diff": "f1cc23ac4f5ac1cff87eb7f8c54f8176c1a47cec37fa4cb6907b9dd8ad199af2",
+      ".artifacts/v1-clean-20261001-verified/.artifacts/exp1-checkpoint-clean/raw/20261001T064059Z-2886802/replay/stdout/025.log": "9a64ed707c224734715f7af4fea2d84f0b51d128e5c8d05535fc9de7d5b6162f",
+      ".artifacts/v1-clean-20261001-verified/.artifacts/exp1-checkpoint-clean/raw/20261001T064059Z-2886802/host/memory-samples.tsv": "c9b31e3a17b448932429aedf3819ba2d88d1e78f313f80b31e7dcdfa44112351",
+      ".artifacts/v1-clean-20261001-verified/.artifacts/exp1-checkpoint-clean/audit/20261001T064059Z-2886802/result.json": "c2ec3e26771491496f0f271fbf7aa4145ca69b6ade3883cb248ff32c2a7ce3b5"
+    },
+    "trenvx:full-light": {
+      ".artifacts/v1-clean-trenvx-20261001-verified/.artifacts/trenvx-service-smoke/20261001T064940Z-2889203/replay/actions.tsv": "6ea843b464f5f7ec3c081c539386593027ede2335c5309b945a9462feddceaa7",
+      ".artifacts/v1-clean-trenvx-20261001-verified/.artifacts/trenvx-service-smoke/20261001T064940Z-2889203/replay/steps.tsv": "191b0403fbec1983734f3b4af883dfedfe69e6e99901ff18678e3171046fb372",
+      ".artifacts/v1-clean-trenvx-20261001-verified/.artifacts/trenvx-service-smoke/20261001T064940Z-2889203/replay/patch.diff": "f1cc23ac4f5ac1cff87eb7f8c54f8176c1a47cec37fa4cb6907b9dd8ad199af2",
+      ".artifacts/v1-clean-trenvx-20261001-verified/.artifacts/trenvx-service-smoke/20261001T064940Z-2889203/replay/stdout/025.log": "9a64ed707c224734715f7af4fea2d84f0b51d128e5c8d05535fc9de7d5b6162f",
+      ".artifacts/v1-clean-trenvx-20261001-verified/.artifacts/trenvx-service-smoke/20261001T064940Z-2889203/host/memory-samples.tsv": "e33be035160f96bc81c7f25e0a64609c075ee22aa15bf8ffbe39a284ed4950a0",
+      ".artifacts/v1-clean-trenvx-20261001-verified/.artifacts/trenvx-service-smoke/20261001T064940Z-2889203/result.json": "f47948e9dea1fe1dbf5582637b4ebf2689a023b5a1a767bbae500ca28da840f3"
+    },
+    "trenvx:checkpoint-022": {
+      ".artifacts/v1-clean-trenvx-20261001-verified/.artifacts/trenvx-service-smoke/20261001T065156Z-2889585/replay/actions.tsv": "6ea843b464f5f7ec3c081c539386593027ede2335c5309b945a9462feddceaa7",
+      ".artifacts/v1-clean-trenvx-20261001-verified/.artifacts/trenvx-service-smoke/20261001T065156Z-2889585/replay/steps.tsv": "51cae98f77df8f1a8c20f33cf586bea063bfc5b1119f88b5579c96c770cc4b41",
+      ".artifacts/v1-clean-trenvx-20261001-verified/.artifacts/trenvx-service-smoke/20261001T065156Z-2889585/replay/patch.diff": "f1cc23ac4f5ac1cff87eb7f8c54f8176c1a47cec37fa4cb6907b9dd8ad199af2",
+      ".artifacts/v1-clean-trenvx-20261001-verified/.artifacts/trenvx-service-smoke/20261001T065156Z-2889585/replay/stdout/025.log": "9a64ed707c224734715f7af4fea2d84f0b51d128e5c8d05535fc9de7d5b6162f",
+      ".artifacts/v1-clean-trenvx-20261001-verified/.artifacts/trenvx-service-smoke/20261001T065156Z-2889585/host/memory-samples.tsv": "b4458d8c4bd7ca43bf925623ccb1ce41576a84eaeb3c78d7326ec24b3690fc35",
+      ".artifacts/v1-clean-trenvx-20261001-verified/.artifacts/trenvx-service-smoke/20261001T065156Z-2889585/result.json": "6ea0a14c594df62494227118ffb7b86dae331abdde555b330b79799a6d60027d"
+    }
+  },
+  "monitoring_acceptance": "reuse separate five-group host-only results; not re-estimated from closeout runs",
+  "limitations": [
+    "existing service, runtime, credentials, compiled binaries and local template are external dependencies",
+    "checkpoint functional runs add process probes or phase timestamps; lifecycle overhead NOT_VALIDATED",
+    "TrEnv-X restores file state only; arbitrary process continuity NOT_SUPPORTED",
+    "entire Prettier suite, fresh-machine deployment and multi-VM memory benefit NOT_VALIDATED"
+  ]
+}

@@ -1,0 +1,200 @@
+{
+  "status": "PASS",
+  "scope": "short find failure diagnosis; not strict original continuation or formal overhead acceptance",
+  "runs": {
+    "before_fix": {
+      "source_directory": ".artifacts/storage-isolated-service/20261010T042859Z-81378",
+      "source_status": "PASS",
+      "capture_only": true,
+      "cases": {
+        "parent-monitor-on": {
+          "original_exit_code": 1,
+          "pipeline_exit_codes": [
+            1,
+            0
+          ],
+          "find_stderr": "find: \u2018/proc/622\u2019: No such file or directory\n",
+          "command_sha256": "1f6e4d89a09212e18cf773594c96e46f5aaab4bf0d55b3f27d0e17086cc800a5"
+        },
+        "parent-monitor-off": {
+          "original_exit_code": 1,
+          "pipeline_exit_codes": [
+            1,
+            0
+          ],
+          "find_stderr": "find: \u2018/proc/346/task/346/net\u2019: Invalid argument\nfind: \u2018/proc/346/net\u2019: Invalid argument\n",
+          "command_sha256": "1f6e4d89a09212e18cf773594c96e46f5aaab4bf0d55b3f27d0e17086cc800a5"
+        },
+        "restored-monitor-off": {
+          "original_exit_code": 1,
+          "pipeline_exit_codes": [
+            1,
+            0
+          ],
+          "find_stderr": "find: \u2018/proc/346/task/346/net\u2019: Invalid argument\nfind: \u2018/proc/346/net\u2019: Invalid argument\n",
+          "command_sha256": "1f6e4d89a09212e18cf773594c96e46f5aaab4bf0d55b3f27d0e17086cc800a5"
+        },
+        "restored-monitor-on": {
+          "original_exit_code": 1,
+          "pipeline_exit_codes": [
+            1,
+            0
+          ],
+          "find_stderr": "find: \u2018/proc/346/task/346/net\u2019: Invalid argument\nfind: \u2018/proc/346/net\u2019: Invalid argument\n",
+          "command_sha256": "1f6e4d89a09212e18cf773594c96e46f5aaab4bf0d55b3f27d0e17086cc800a5"
+        }
+      },
+      "session_count": 5,
+      "collector_lifecycle_version": 1,
+      "sessions": [
+        {
+          "sandbox_id": "01a12412-69f1-7830-a217-4c5e7ff5e37b",
+          "collector_pid": 346,
+          "collector_reaped": null,
+          "samples": 129
+        },
+        {
+          "sandbox_id": "01a12412-8436-7723-86f7-51748af4b293",
+          "collector_pid": 348,
+          "collector_reaped": null,
+          "samples": 253
+        },
+        {
+          "sandbox_id": "01a12412-69f1-7830-a217-4c5e7ff5e37b",
+          "collector_pid": 768,
+          "collector_reaped": null,
+          "samples": 19
+        },
+        {
+          "sandbox_id": "01a12412-bd61-7ac3-b8a5-7d5f6439874a",
+          "collector_pid": 759,
+          "collector_reaped": null,
+          "samples": 117
+        },
+        {
+          "sandbox_id": "01a12412-d4c4-7621-bad4-9fa240690ad3",
+          "collector_pid": 716,
+          "collector_reaped": null,
+          "samples": 61
+        }
+      ],
+      "input_file_count": 314,
+      "input_manifest_sha256": "02c6b3e0116901f4fa92f4771c4f1a1e6829cf9652249c5aff2790efc3b71399",
+      "volume_observed_used_peak_gib": 3.7398109436035156,
+      "host_observed_available_min_gib": 41.46453094482422,
+      "cleanup": {
+        "owned_container_removed": true,
+        "mount_and_loop_removed": true,
+        "successful_fixture_removed": true,
+        "original_firecracker_identities_unchanged": true,
+        "original_service_unchanged": true
+      }
+    },
+    "after_fix": {
+      "source_directory": ".artifacts/storage-isolated-service/20261010T043507Z-88488",
+      "source_status": "PASS",
+      "capture_only": true,
+      "cases": {
+        "parent-monitor-on": {
+          "original_exit_code": 0,
+          "pipeline_exit_codes": [
+            0,
+            0
+          ],
+          "find_stderr": "",
+          "command_sha256": "1f6e4d89a09212e18cf773594c96e46f5aaab4bf0d55b3f27d0e17086cc800a5"
+        },
+        "parent-monitor-off": {
+          "original_exit_code": 0,
+          "pipeline_exit_codes": [
+            0,
+            0
+          ],
+          "find_stderr": "",
+          "command_sha256": "1f6e4d89a09212e18cf773594c96e46f5aaab4bf0d55b3f27d0e17086cc800a5"
+        },
+        "restored-monitor-off": {
+          "original_exit_code": 0,
+          "pipeline_exit_codes": [
+            0,
+            0
+          ],
+          "find_stderr": "",
+          "command_sha256": "1f6e4d89a09212e18cf773594c96e46f5aaab4bf0d55b3f27d0e17086cc800a5"
+        },
+        "restored-monitor-on": {
+          "original_exit_code": 0,
+          "pipeline_exit_codes": [
+            0,
+            0
+          ],
+          "find_stderr": "",
+          "command_sha256": "1f6e4d89a09212e18cf773594c96e46f5aaab4bf0d55b3f27d0e17086cc800a5"
+        }
+      },
+      "session_count": 5,
+      "collector_lifecycle_version": 2,
+      "sessions": [
+        {
+          "sandbox_id": "01a12418-0893-76c1-859e-2f5824f16ef0",
+          "collector_pid": 346,
+          "collector_reaped": true,
+          "samples": 125
+        },
+        {
+          "sandbox_id": "01a12418-21e3-7112-bfa0-75134f51c1fb",
+          "collector_pid": 347,
+          "collector_reaped": true,
+          "samples": 240
+        },
+        {
+          "sandbox_id": "01a12418-0893-76c1-859e-2f5824f16ef0",
+          "collector_pid": 635,
+          "collector_reaped": true,
+          "samples": 17
+        },
+        {
+          "sandbox_id": "01a12418-5908-73b1-971b-46cb06a77eff",
+          "collector_pid": 655,
+          "collector_reaped": true,
+          "samples": 105
+        },
+        {
+          "sandbox_id": "01a12418-6e38-7df3-84ab-be3b2b5f44a8",
+          "collector_pid": 634,
+          "collector_reaped": true,
+          "samples": 67
+        }
+      ],
+      "input_file_count": 334,
+      "input_manifest_sha256": "d8c17acb9ca548b8a429a727a738f38cc977c2eb986d5b875010c8f802f0e884",
+      "volume_observed_used_peak_gib": 3.7332229614257812,
+      "host_observed_available_min_gib": 41.45636749267578,
+      "cleanup": {
+        "owned_container_removed": true,
+        "mount_and_loop_removed": true,
+        "successful_fixture_removed": true,
+        "original_firecracker_identities_unchanged": true,
+        "original_service_unchanged": true
+      }
+    }
+  },
+  "conclusions": [
+    "Suppressed find errors after stopping/recovering name the first sampler PID 346, not a changed task file.",
+    "The old stop path accepts a zombie state without waiting for the orphan. An owned local unreaped-child test reproduces the same net Invalid argument.",
+    "Managed foreground sampling plus a single-process progress probe gives original exit 0 and pipeline [0,0] in four pre/post-snapshot sampler-on/off cases; all five sampler processes are reaped."
+  ],
+  "limits": [
+    "The separate original and diagnostic commands run consecutively, not at exactly the same time.",
+    "One earlier on case reports a disappearing PID 622; its exact process identity was not captured.",
+    "Two related instrumentation fixes were applied together; their individual contributions to transient-directory races are not statistically isolated.",
+    "Both restored original steps 7-13 and expanded monitoring costs still need their separate validations."
+  ],
+  "validation_commands": [
+    "bash scripts/validate-runtime-monitor.sh --find-diagnostic (before and after changes)",
+    "python3 -B -m unittest discover -s tests -p test_sandbox_runtime_monitor.py (10 PASS)",
+    "python3 -B -m unittest discover -s tests -p test_sandbox_performance.py (10 PASS)",
+    "python3 -B -m unittest discover -s tests -p test_isolated_storage.py (25 PASS)",
+    "python3 -B -m unittest discover -s tests -p test_xarray6992.py (9 PASS)"
+  ]
+}

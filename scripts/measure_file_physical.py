@@ -145,6 +145,50 @@ def summarize(rows, *, failed=False):
                 scope='declared file data only; not all guest files or whole-machine memory')
 
 
+def content_accounting(rows, *, failed=False):
+    """Separate file cache, byte-verified private copies, and unknown residents."""
+    file_pages, copies, unknown = set(), set(), set()
+    for row in rows:
+        if not row['entry'] & (1 << 63):
+            continue
+        pfn = row['entry'] & PFN_MASK
+        if not pfn:
+            raise RuntimeError('cannot account hidden PFN')
+        if row['kind'] == 'file_content':
+            file_pages.add(pfn)
+        elif row['kind'] == 'anonymous_cow' and row.get('content_verification', {}).get('status') == 'MATCH':
+            verification = row['content_verification']
+            if not re.fullmatch(r'[0-9a-f]{64}', verification.get('mapped_sha256', '')) or \
+                    verification['mapped_sha256'] != verification.get('backing_sha256'):
+                raise RuntimeError('matching anonymous content lacks equal SHA-256 evidence')
+            copies.add(pfn)
+        else:
+            unknown.add(pfn)
+    conflict = file_pages & copies
+    unknown |= conflict
+    file_pages -= unknown
+    copies -= unknown
+    return dict(status='FAIL' if failed else 'PARTIAL' if unknown else 'PASS',
+                file_cache_unique_pages=len(file_pages),
+                verified_anonymous_unique_pages=len(copies),
+                unknown_unique_pages=len(unknown),
+                attributed_physical_bytes=None if failed or unknown else len(file_pages | copies)*PAGE,
+                scope='resident declared mappings only; includes full allocated tail page; not total backing cache')
+
+
+def verify_anonymous_content(proc, path, address, offset):
+    # Read only an already resident page. Caller rechecks pagemap and identity.
+    # This is a diagnostic read: backing reads may warm its host cache.
+    with (proc / 'mem').open('rb', buffering=0) as memory, path.open('rb', buffering=0) as backing:
+        actual = os.pread(memory.fileno(), PAGE, address)
+        expected = os.pread(backing.fileno(), PAGE, offset)
+    if len(actual) != PAGE or len(expected) != PAGE:
+        raise RuntimeError('short anonymous content verification read')
+    return dict(status='MATCH' if actual == expected else 'MISMATCH',
+                mapped_sha256=hashlib.sha256(actual).hexdigest(),
+                backing_sha256=hashlib.sha256(expected).hexdigest())
+
+
 def collect(manifest, *, proc_root=Path('/proc'), cgroup_root=Path('/sys/fs/cgroup')):
     started = time.monotonic_ns()
     rows, observations, cgroups = [], [], {}
@@ -191,6 +235,9 @@ def collect(manifest, *, proc_root=Path('/proc'), cgroup_root=Path('/sys/fs/cgro
                 if not path.is_relative_to(Path(manifest['owned_root']).resolve()):
                     raise RuntimeError('backing file outside run-owned directory')
                 stat = path.stat()
+                verify = mapped.get('verify_anonymous_content', False)
+                if verify and (stat.st_mode & 0o222 or not mapped.get('immutable_image')):
+                    raise RuntimeError('anonymous verification requires immutable read-only backing')
                 if 'guest_path' in mapped:
                     if stat.st_mode & 0o222 or not mapped.get('immutable_image'):
                         raise RuntimeError('ext4 data resolution requires a run-owned immutable image')
@@ -205,7 +252,8 @@ def collect(manifest, *, proc_root=Path('/proc'), cgroup_root=Path('/sys/fs/cgro
                     if offset < 0 or offset >= stat.st_size or offset % PAGE:
                         raise RuntimeError('unaligned/out-of-file data offset')
                     requests.append((file_address(offset, regions, stat), 'file_content', mapped['owner'],
-                                     mapped.get('allow_private_cow', False)))
+                                     mapped.get('allow_private_cow', False) or verify,
+                                     (path, offset) if verify else None))
                 files.append((path, stat))
             probe = vm.get('file_lru_probe')
             if probe:
@@ -238,13 +286,13 @@ def collect(manifest, *, proc_root=Path('/proc'), cgroup_root=Path('/sys/fs/cgro
                 if len(pfns) != marker['file_pfn_count'] or len(set(pfns)) != len(pfns):
                     raise RuntimeError('guest file-LRU count/uniqueness mismatch')
                 for pfn in pfns:
-                    requests.append((ram_address(pfn, slots), 'file_lru_unattributed', None, False))
+                    requests.append((ram_address(pfn, slots), 'file_lru_unattributed', None, False, None))
             if not requests:
                 raise RuntimeError('no declared file pages')
             location = f"{vm['id']}:pagemap-open"
             with (proc / 'pagemap').open('rb', buffering=0) as pagemap:
                 entries = []
-                for index, (address, kind, owner, cow) in enumerate(requests):
+                for index, (address, kind, owner, cow, verification) in enumerate(requests):
                     location = f"{vm['id']}:pagemap:{index}"
                     entry = read_entry(pagemap.fileno(), address)
                     if kind == 'file_content' and entry & (1 << 63) and not entry & (1 << 61):
@@ -252,6 +300,9 @@ def collect(manifest, *, proc_root=Path('/proc'), cgroup_root=Path('/sys/fs/cgro
                             raise RuntimeError('named file mapping became anonymous; ownership unverified')
                         kind = 'anonymous_cow'
                     rows.append(dict(vm=vm['id'], owner=owner, kind=kind, address=address, entry=entry))
+                    if kind == 'anonymous_cow' and verification:
+                        path, offset = verification
+                        rows[-1]['content_verification'] = verify_anonymous_content(proc, path, address, offset)
                     entries.append((address, entry))
                 location = f"{vm['id']}:pagemap-recheck"
                 for address, entry in entries:
@@ -280,6 +331,11 @@ def collect(manifest, *, proc_root=Path('/proc'), cgroup_root=Path('/sys/fs/cgro
                                'file-LRU pages have no inode attribution and may include filesystem metadata',
                                'anonymous CoW pages reported separately from file content',
                                'guest, cgroup, PSS and file-content measures must not be added'])
+    if any(f.get('verify_anonymous_content') for vm in manifest['vms'] for f in vm.get('files', [])):
+        result['content_accounting'] = content_accounting(rows, failed=failure is not None)
+        result['limitations'].append('anonymous byte verification reads backing content and may warm cache; diagnostic mode only')
+        if result['content_accounting']['status'] == 'PARTIAL' and result['status'] == 'PASS':
+            result['status'] = 'PARTIAL'
     return result, rows
 
 
@@ -329,13 +385,22 @@ def audit_run(directory):
         raise RuntimeError('saved counters differ from raw PFN observations')
     expected = ('FAIL' if saved['first_failure'] else 'PARTIAL' if computed['unattributed_unique_pages']
                 or computed['file_content_physical_bytes'] is None else 'PASS')
+    if 'content_accounting' in saved:
+        accounting = content_accounting(rows, failed=saved['first_failure'] is not None)
+        if accounting != saved['content_accounting']:
+            raise RuntimeError('saved content accounting differs from raw observations')
+        if accounting['status'] == 'PARTIAL' and expected == 'PASS':
+            expected = 'PARTIAL'
     if saved['status'] != expected:
         raise RuntimeError('saved measurement status inconsistent with missing/partial data')
     manifest = (directory / 'manifest.json').read_bytes()
     if hashlib.sha256(manifest).hexdigest() != saved['manifest_sha256']:
         raise RuntimeError('manifest hash mismatch')
-    return dict(audit_status='PASS', measurement_status=saved['status'], file_content=computed,
-                scope='offline counter/hash consistency only; not live mapping validation')
+    audited = dict(audit_status='PASS', measurement_status=saved['status'], file_content=computed,
+                   scope='offline counter/hash consistency only; not live mapping validation')
+    if 'content_accounting' in saved:
+        audited['content_accounting'] = accounting
+    return audited
 
 
 def main():

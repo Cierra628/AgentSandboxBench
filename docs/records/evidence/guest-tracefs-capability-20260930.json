@@ -1,0 +1,62 @@
+{
+  "result_dir": ".artifacts/guest-syscall-tools/20260930T110301Z-2629085",
+  "result": {
+    "status": "PASS",
+    "source_sha256": "75fc810dc8b9301e4fc04b973824674f186143dd0fde66abc6a519028a9d87a8",
+    "arguments": {
+      "host_bundle": false,
+      "kernel_tracing": true,
+      "mount_tracefs": true
+    },
+    "free_bytes_before": 54116139008,
+    "tracefs_mount": "UNAVAILABLE",
+    "tracefs_registered": false,
+    "event_collection": "NOT_VALIDATED",
+    "capability": "MISSING",
+    "cleanup": "PASS",
+    "free_bytes_after": 54115864576
+  },
+  "guest_kernel": "6.1.175",
+  "tracefs_registered": false,
+  "tracefs_mount_error": "unknown filesystem type 'tracefs'",
+  "functional_event_collection": "NOT_RUN",
+  "limits": [
+    "Probe completion PASS is not tracing capability PASS.",
+    "BPF/perf symbols do not prove usable tracing or event attachment.",
+    "No kernel configuration was available; exact build options unverified.",
+    "No new Exp1 replay or monitoring acceptance sample."
+  ],
+  "final_check": {
+    "project_sandboxes_empty": true,
+    "cpu_settings": {
+      "2": {
+        "scaling_min_freq": "800000",
+        "scaling_max_freq": "2801000",
+        "scaling_governor": "schedutil"
+      },
+      "4": {
+        "scaling_min_freq": "800000",
+        "scaling_max_freq": "2801000",
+        "scaling_governor": "schedutil"
+      },
+      "66": {
+        "scaling_min_freq": "800000",
+        "scaling_max_freq": "2801000",
+        "scaling_governor": "schedutil"
+      },
+      "68": {
+        "scaling_min_freq": "800000",
+        "scaling_max_freq": "2801000",
+        "scaling_governor": "schedutil"
+      }
+    },
+    "free_bytes": 54114807808
+  },
+  "sha256": {
+    "probe.stdout": "5b241743df1daa699dd81add04a82ebf6e2bad7c4e181b57b746f16744e76c9f",
+    "probe.stderr": "e3536e60cae4014d89e97acd7b39e7ea63d41cc21f555d8b25ab70da98cc474e",
+    "result.json": "ffaa8f57c0719cee644a33a3952a35e0772f85f53931061d59c4ffba1ac810a6",
+    "probe_guest_syscall_tools.py": "75fc810dc8b9301e4fc04b973824674f186143dd0fde66abc6a519028a9d87a8",
+    "final-check.json": "be983a2d88a630a980d98ba078554938780f4fc5ebd19f96a59178f90aa7ab50"
+  }
+}

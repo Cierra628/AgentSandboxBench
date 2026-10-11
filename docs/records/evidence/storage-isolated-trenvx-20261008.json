@@ -1,0 +1,412 @@
+{
+  "status": "VERIFIED_TR_ENVX_SMOKE_AND_EXP1_STEP_022_STORAGE_WORKFLOW",
+  "run_dir": ".artifacts/storage-isolated-trenvx/20261008T045201Z-3548772",
+  "mode": "smoke",
+  "first_failed_boundary": "controller imports sandbox_sdk with system Python",
+  "passed_before_failure": [
+    "private_template_prepare",
+    "template_build",
+    "service_shutdown",
+    "host resource cleanup",
+    "archive gzip and tar compare"
+  ],
+  "first_result": {
+    "status": "FAIL",
+    "scope": "temporary TrEnv-X storage-boundary functional validation; no performance comparison",
+    "mode": "smoke",
+    "capacity_bytes": 25769803776,
+    "coordination": {
+      "status": "USER_CONFIRMED",
+      "start_utc": "2026-10-08T04:52:01+00:00",
+      "end_utc": "2026-10-08T05:12:01+00:00",
+      "duration_seconds": 1200.0,
+      "scope": "no other large shared-disk writes; not a global writer lock"
+    },
+    "checks": {},
+    "budget": {
+      "ready": true,
+      "available_bytes": 75260878848,
+      "required_available_bytes": 53687091200,
+      "capacity_bytes": 25769803776,
+      "host_reserve_bytes": 21474836480,
+      "host_margin_bytes": 6442450944
+    },
+    "boundary": {
+      "version": 1,
+      "workspace": "/home/yyxie/agentenv_experiment",
+      "mountpoint": "/home/yyxie/agentenv_experiment/.artifacts/storage-isolated-trenvx/20261008T045201Z-3548772/mount",
+      "device": "/dev/loop2",
+      "image": "/home/yyxie/agentenv_experiment/.artifacts/storage-isolated-trenvx/20261008T045201Z-3548772/volume.ext4",
+      "capacity_bytes": 25769803776,
+      "image_device": 64512,
+      "image_inode": 50356389,
+      "initial_host_available_bytes": 75260878848,
+      "raw_root": "/home/yyxie/agentenv_experiment/.artifacts/storage-isolated-trenvx/20261008T045201Z-3548772/mount/trenvx-runs",
+      "volume_reserve_bytes": 536870912,
+      "window": {
+        "status": "USER_CONFIRMED",
+        "start_utc": "2026-10-08T04:52:01+00:00",
+        "end_utc": "2026-10-08T05:12:01+00:00",
+        "duration_seconds": 1200.0,
+        "scope": "no other large shared-disk writes; not a global writer lock"
+      }
+    },
+    "error": "RuntimeError('trenvx exited 1; see private log')",
+    "failed_stage": "trenvx-smoke",
+    "fixture_archives": [
+      {
+        "run_id": "20261008T045201Z-3548786",
+        "bytes": 3157797065,
+        "sha256": "38ad502a4d38ebf23f51dcc9279e444089b8c08d3dc4c16174dea3d159f4f7b1"
+      }
+    ],
+    "disk_sample_count": 902,
+    "observed_volume_used_peak_bytes": 15572918272,
+    "observed_host_available_min_bytes": 49484627968,
+    "cleanup": {
+      "mount_and_loop_removed": true,
+      "failure_volume_retained": true,
+      "original_firecracker_identities_unchanged": true
+    },
+    "host_available_after_cleanup_bytes": 49484312576,
+    "finished_utc": "2026-10-08T04:55:49.214332+00:00",
+    "archive_retention": "successful temporary fixture archive removed; raw/config/logs/hash preserved; failed volume retained"
+  },
+  "preserved_failure_archive": {
+    "bytes": 3157797065,
+    "sha256": "38ad502a4d38ebf23f51dcc9279e444089b8c08d3dc4c16174dea3d159f4f7b1",
+    "path": ".artifacts/storage-isolated-trenvx/20261008T045201Z-3548772/preserved-failure-image/data.tar.gz",
+    "status": "PASS"
+  },
+  "runtime_fix": {
+    "change": "Bash entry now uses existing runtime/trenvx-venv; import preflight before volume allocation",
+    "offline_tests": 19,
+    "evidence": ".artifacts/storage-safety/trenvx-runtime-fix-20261008T045630Z",
+    "status": "PASS",
+    "latest_tests": {
+      "status": "PASS",
+      "tests": 23,
+      "path": ".artifacts/storage-safety/trenvx-preflight-fix-20261008T051219Z"
+    }
+  },
+  "coordination": {
+    "status": "USER_CONFIRMED",
+    "start_utc": "2026-10-08T05:07:25+00:00",
+    "end_utc": "2026-10-08T05:27:25+00:00",
+    "duration_seconds": 1200.0,
+    "scope": "no other large shared-disk writes; not a global writer lock"
+  },
+  "checkpoint": "PASS",
+  "retry": "PASS",
+  "performance_comparison": "NOT_MEASURED",
+  "remaining": [
+    "integrate storage selection into unified use-platform entry",
+    "existing AgentENV long-running service migration not performed",
+    "real VM ENOSPC/timeout cleanup remains unverified",
+    "multi-task/concurrent capacity unverified"
+  ],
+  "additional_parameter_failure": {
+    "run_dir": ".artifacts/storage-isolated-trenvx/20261008T050726Z-3555258",
+    "status": "FAIL",
+    "first_boundary": "CLI rejected missing successful full-run reference before any VM or sandbox image",
+    "cleanup_receipt": ".artifacts/storage-isolated-trenvx/20261008T050726Z-3555258/empty-volume-cleanup.json",
+    "data_loss": false,
+    "resolution": "reference hash/completion validation and real backend --check-only run before allocating volume"
+  },
+  "first_failed_volume_cleanup": {
+    "user_confirmed": true,
+    "receipt": ".artifacts/storage-isolated-trenvx/20261008T045201Z-3548772/confirmed-volume-cleanup.json",
+    "failure_archive_retained": true,
+    "original_failure_unchanged": true
+  },
+  "smoke_success": {
+    "status": "PASS",
+    "run_dir": ".artifacts/storage-isolated-trenvx/20261008T050025Z-3552247",
+    "capacity_bytes": 25769803776,
+    "disk_sample_count": 1384,
+    "observed_volume_used_peak_bytes": 19971932160,
+    "observed_host_available_min_bytes": 46323933184,
+    "host_available_after_cleanup_bytes": 72093421568,
+    "archive_manifest": {
+      "run_id": "20261008T050025Z-3552261",
+      "source": "data/",
+      "archive": "data.tar.gz",
+      "compressor": "pigz-fast",
+      "source_allocated_scope": "sum of distinct inode st_blocks; reflink sharing not resolved",
+      "source_allocated_bytes": 16206221312,
+      "archive_bytes": 3228317858,
+      "archive_sha256": "025dc0d485c7a816a2cdf471391d9fec7e47e450957b5af030d76129403c8404",
+      "gzip_test": "PASS",
+      "tar_compare": "PASS",
+      "source_removed": true,
+      "archive_elapsed_seconds": 250.581
+    },
+    "checks": {
+      "lossless_archive_inside_volume": "PASS",
+      "service_smoke": "PASS",
+      "fixed_backing_allocation": "PASS"
+    },
+    "backend_checks": {
+      "private_template_prepare": "PASS",
+      "template_build": "PASS",
+      "service_create_and_tool": "PASS",
+      "controller_capture_and_seal": "PASS",
+      "restore_interface": "PASS",
+      "file_restore_and_continue": "PASS",
+      "parent_child_write_isolation": "PASS",
+      "sdk_cleanup": "PASS",
+      "service_shutdown": "PASS",
+      "data_archive": "PASS"
+    },
+    "cleanup": {
+      "mount_and_loop_removed": true,
+      "successful_fixture_removed": true,
+      "original_firecracker_identities_unchanged": true
+    },
+    "coordination": {
+      "status": "USER_CONFIRMED",
+      "start_utc": "2026-10-08T04:52:01+00:00",
+      "end_utc": "2026-10-08T05:12:01+00:00",
+      "duration_seconds": 1200.0,
+      "scope": "no other large shared-disk writes; not a global writer lock"
+    },
+    "finished_utc": "2026-10-08T05:06:14.486359+00:00"
+  },
+  "checkpoint_success": {
+    "status": "PASS",
+    "run_dir": ".artifacts/storage-isolated-trenvx/20261008T051135Z-3556871",
+    "capacity_bytes": 25769803776,
+    "disk_sample_count": 1526,
+    "observed_volume_used_peak_bytes": 19975655424,
+    "observed_host_available_min_bytes": 46322044928,
+    "host_available_after_cleanup_bytes": 72090705920,
+    "archive_manifest": {
+      "run_id": "20261008T051135Z-3556886",
+      "source": "data/",
+      "archive": "data.tar.gz",
+      "compressor": "pigz-fast",
+      "source_allocated_scope": "sum of distinct inode st_blocks; reflink sharing not resolved",
+      "source_allocated_bytes": 16208408576,
+      "archive_bytes": 3229144665,
+      "archive_sha256": "4c85c99d88559bcdb2d8d339edb2e07d31ba0a76444d63d5555b4b3fdb7933a5",
+      "gzip_test": "PASS",
+      "tar_compare": "PASS",
+      "source_removed": true,
+      "archive_elapsed_seconds": 250.827
+    },
+    "checks": {
+      "lossless_archive_inside_volume": "PASS",
+      "full_exp1_file_restore_and_official_tests": "PASS",
+      "fixed_backing_allocation": "PASS"
+    },
+    "backend_checks": {
+      "private_template_prepare": "PASS",
+      "template_build": "PASS",
+      "frozen_input_hashes": "PASS",
+      "unfixed_seed_oracle": "PASS",
+      "checkpoint_after_022": "PASS",
+      "file_restore_interface": "PASS",
+      "modified_source_preserved": "PASS",
+      "guest_memory_sampling": "PASS",
+      "prefix_state_preserved": "PASS",
+      "patch_matches_full_replay": "PASS",
+      "exp1_replay_correctness": "PASS",
+      "official_task_tests": "PASS",
+      "sdk_cleanup": "PASS",
+      "host_light_sampling": "PASS",
+      "service_shutdown": "PASS",
+      "data_archive": "PASS"
+    },
+    "cleanup": {
+      "mount_and_loop_removed": true,
+      "successful_fixture_removed": true,
+      "original_firecracker_identities_unchanged": true
+    },
+    "coordination": {
+      "status": "USER_CONFIRMED",
+      "start_utc": "2026-10-08T05:07:25+00:00",
+      "end_utc": "2026-10-08T05:27:25+00:00",
+      "duration_seconds": 1200.0,
+      "scope": "no other large shared-disk writes; not a global writer lock"
+    },
+    "finished_utc": "2026-10-08T05:18:00.436795+00:00"
+  },
+  "raw_run_id": "20261008T051135Z-3556886",
+  "checkpoint_semantics": {
+    "restore": "file-state-only",
+    "after_step": "022",
+    "next_step": "023",
+    "action_count": 26,
+    "expected_failures": {
+      "008": 127,
+      "016": 127
+    },
+    "final_checks": {
+      "status": "PASS",
+      "action_order": "PASS",
+      "expected_failures": "PASS",
+      "key_output_024": "PASS",
+      "final_patch": "PASS",
+      "independent_svg": "PASS",
+      "official_task_tests": "PASS",
+      "recovery": {
+        "interface": "PASS",
+        "file_state": "PASS",
+        "process_state": "NOT_APPLICABLE"
+      },
+      "official_full_tests": "NOT_RUN",
+      "patch_sha256": "f1cc23ac4f5ac1cff87eb7f8c54f8176c1a47cec37fa4cb6907b9dd8ad199af2",
+      "scope": "frozen replay and task-specific checks; patch equality does not prove full upstream tests"
+    }
+  },
+  "metrics": {
+    "phase_breakdown": {
+      "guest_action_sum": {
+        "status": "MEASURED",
+        "duration_ns": 2161793669,
+        "source": "replay/steps.tsv",
+        "boundary": "sum of 26 guest runner action durations; excludes controller and setup"
+      },
+      "controller_runner_calls": {
+        "status": "MEASURED",
+        "duration_ns": 25354410129,
+        "source": "replay-*.json",
+        "boundary": "sum of controller calls that launch frozen runner segments"
+      },
+      "create_to_first_success": {
+        "status": "MEASURED",
+        "duration_ns": 1048690639,
+        "source": "diagnostic-events.jsonl",
+        "boundary": "SDK create through first successful mkdir command"
+      },
+      "checkpoint": {
+        "status": "MEASURED",
+        "duration_ns": 11681544212,
+        "source": "diagnostic-events.jsonl",
+        "boundary": "controller file capture, sealing and template construction"
+      },
+      "restore_interface": {
+        "status": "MEASURED",
+        "duration_ns": 1032391020,
+        "source": "diagnostic-events.jsonl",
+        "boundary": "controller start of child VM from sealed file layer"
+      },
+      "restore_to_first_success": {
+        "status": "MEASURED",
+        "duration_ns": 2204769012,
+        "source": "diagnostic-events.jsonl",
+        "boundary": "start restored VM through first successful environment command"
+      },
+      "template_build": {
+        "status": "MEASURED",
+        "duration_ns": 12481087737,
+        "source": "diagnostic-events.jsonl",
+        "boundary": "prepare private template before trajectory"
+      },
+      "parent_delete": {
+        "status": "MEASURED",
+        "duration_ns": 16533234396,
+        "source": "diagnostic-events.jsonl",
+        "boundary": "delete parent VM after checkpoint"
+      },
+      "full_run_including_cleanup": {
+        "status": "MEASURED",
+        "duration_ns": 378954251065,
+        "source": "result.json",
+        "boundary": "outer start through sandbox cleanup and verified image archiving when enabled"
+      }
+    },
+    "guest_memory": {
+      "sample_count": 26,
+      "observed_peak_used_estimate_kib": 327964,
+      "observed_peak_cached_kib": 4484,
+      "observed_peak_anon_pages_kib": 71576,
+      "observed_peak_slab_kib": 61256,
+      "sampling_mode": "periodic",
+      "boundary_observations": []
+    },
+    "host_memory": {
+      "sample_count": 103,
+      "scope": "run-owned TrEnv-X sandbox parent cgroup; excludes orchestrator",
+      "observed_peak_current_bytes": 347475968,
+      "observed_peak_file_bytes": 6959104,
+      "observed_peak_anon_bytes": 334528512,
+      "observed_peak_vmm_pss_kib": "NOT_MEASURED"
+    },
+    "guest_composition": {
+      "status": "PASS",
+      "sample_count": 26,
+      "valid_sample_count": 26,
+      "observed_peak_nonfree_bytes": 251568128,
+      "composition_at_observed_peak": {
+        "timestamp_ns": 1791436376644971111,
+        "phase": "after",
+        "step": "026",
+        "status": "PASS",
+        "missing_fields": [],
+        "unit": "bytes",
+        "scope": "guest logical counters at one sample; not host physical residency",
+        "used_definition": "MemTotal - MemFree",
+        "percentage_denominator": "same-sample nonfree memory",
+        "slab_rule": "Slab includes SReclaimable and SUnreclaim; do not add them again",
+        "nonfree_bytes": 251568128,
+        "used_estimate_bytes": 335200256,
+        "components_bytes": {
+          "file_cache_and_buffers": 34320384,
+          "anonymous": 60686336,
+          "slab": 61825024,
+          "shared_memory": 1069056,
+          "kernel_stack": 1626112,
+          "page_tables": 1433600,
+          "percpu": 581632,
+          "unclassified_residual": 90025984
+        },
+        "percentages": {
+          "file_cache_and_buffers": 13.642580351037155,
+          "anonymous": 24.123221205509786,
+          "slab": 24.575857240548373,
+          "shared_memory": 0.42495685303982544,
+          "kernel_stack": 0.6463903090299261,
+          "page_tables": 0.5698655117392295,
+          "percpu": 0.23120257904848743,
+          "unclassified_residual": 35.785925950047215
+        },
+        "reclaimable_slab_bytes": 44478464,
+        "unreclaimable_slab_bytes": 17346560
+      },
+      "peak_scope": "sample maximum, not instantaneous peak; incomplete samples excluded and counted",
+      "sampling_mode": "persistent asynchronous process; advisory phase markers",
+      "time_scope": "includes runner preparation; short actions may have no sample; per-runner lifetime only"
+    },
+    "cache_policy": "preserve; no cache drop",
+    "file_content_physical_bytes": "NOT_MEASURED",
+    "monitoring_impact": "NOT_VALIDATED_BY_THIS_RUN; see separate matched controls"
+  },
+  "report": {
+    "directory": ".artifacts/storage-isolated-trenvx/20261008T051135Z-3556871/report",
+    "recomputation": {
+      "status": "PASS",
+      "input_files": 226,
+      "raw_unchanged": true,
+      "repeat_summary_identical": true,
+      "scope": "two read-only offline audits and guest composition plots; no service/VM operations",
+      "finished_ns": 1791436746105087439
+    },
+    "raw_export_allocated_bytes": 1126400,
+    "raw_export_scope": "preserved frozen data/logs/config, excluding images; small host writes outside the bulk volume"
+  },
+  "resource_check": {
+    "original_service_running": true,
+    "original_firecracker_count": 12,
+    "identities_unchanged": true,
+    "owned_loops_mounts_cgroups_removed": true
+  },
+  "limitations": [
+    "functional storage validation only; changed I/O/cache path cannot be pooled with old performance experiments",
+    "guest logical counters, host cgroup counters and disk volume occupancy are different quantities",
+    "no new page-cache physical residency or monitoring-overhead experiment",
+    "successful temporary checkpoints/images removed; their raw evidence is reproducible, saved VM/image state is not reloadable"
+  ],
+  "recorded_utc": "2026-10-08T05:20:54.336862+00:00",
+  "source_unchanged_since_final_run": true
+}

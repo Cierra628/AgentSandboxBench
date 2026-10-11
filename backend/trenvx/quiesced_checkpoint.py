@@ -12,6 +12,7 @@ import secrets
 import shutil
 import socket
 import subprocess
+import time
 import urllib.parse
 import urllib.request
 
@@ -68,8 +69,19 @@ class CaptureIO:
         # subprocess.run kills and waits on timeout before returning.
         if target.exists():
             raise FileExistsError(target)
+        started = time.monotonic_ns()
+        before = subprocess.check_output(["sha256sum", str(source)], text=True,
+                                         timeout=self.timeout).split()[0]
         subprocess.run(["cp", "--reflink=never", "--sparse=always", str(source), str(target)],
                        check=True, timeout=self.timeout)
+        hashes = subprocess.check_output(["sha256sum", str(source), str(target)],
+                                         text=True, timeout=self.timeout).splitlines()
+        source_after, captured = [line.split()[0] for line in hashes]
+        if before != source_after or before != captured:
+            raise RuntimeError("paused upper changed or copied content differs")
+        return dict(source_sha256_before=before, source_sha256_after=source_after,
+                    captured_sha256=captured, bytes=target.stat().st_size,
+                    verified_while_paused=True, duration_ns=time.monotonic_ns()-started)
 
 
 def capture_upper(io: CaptureIO, upper: Path, copy: Path, runtime: Path, audit: dict):
@@ -93,7 +105,9 @@ def capture_upper(io: CaptureIO, upper: Path, copy: Path, runtime: Path, audit: 
         if io.vm("info")["state"] != "Paused":
             raise RuntimeError("CH did not confirm Paused")
         audit["paused"] = True
-        io.copy(upper, copy)
+        verification = io.copy(upper, copy)
+        if verification is not None:
+            audit["copy_verification"] = verification
         audit["copied"] = True
     except BaseException as exc:
         failure = exc

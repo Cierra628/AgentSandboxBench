@@ -1,0 +1,239 @@
+{
+  "status": "PASS",
+  "third_initial_acceptance": "PARTIAL",
+  "driver_id": "20261006T024252Z-3268452",
+  "run_id": "20261006T024252Z-3268454",
+  "protocol": {
+    "vm_count": 1,
+    "full_replays": 1,
+    "checkpoint": false,
+    "host_periodic_sampling": true,
+    "guest_periodic_sampling": true,
+    "monitoring_acceptance": true,
+    "cache_policy": "preserve; no global drop",
+    "probe_order": "full frozen replay; official task evaluation; source metadata; optional upper physical proof; source content",
+    "performance_comparison": "NOT_RUN",
+    "physical_cache_measurement": "REQUESTED",
+    "stop_policy": "first failure; no automatic retry"
+  },
+  "configuration": {
+    "cpu": 2,
+    "memory_mib": 4096,
+    "host_kernel": "6.19.9+",
+    "source_revisions": {
+      "AgentENV": {
+        "url": "https://github.com/kvcache-ai/AgentENV.git",
+        "commit": "2f48c9c78ec58e4d73c49aa07cb81d984a4a4184"
+      },
+      "IncrementalDAX_moti": {
+        "url": "https://github.com/132ash/IncrementalDAX_moti.git",
+        "commit": "a9bc7deadb68a6e24b7242eab343dfedf953ea38",
+        "submodules": {
+          "baselines/AgentENV": "6c67f92afb8e697bd4d5eb1715864119c1e10c5d",
+          "baselines/TrEnv-X": "53041d8c924514fca27e363cce7f5af8079267ce"
+        }
+      }
+    }
+  },
+  "physical": {
+    "status": "PASS",
+    "page_size": 4096,
+    "verified_unique_host_pages": 4,
+    "verified_file_cache_physical_bytes": 16384,
+    "unknown_resident_unique_pages": 0,
+    "classification_conflict_pages": 0,
+    "scope": "declared files and pages resident before this probe; single VM; not all task or host cache",
+    "limitations": [
+      "Non-atomic rechecks cannot rule out intervening PFN reuse",
+      "File pages absent before the probe are not read; full file hashes taken after both host checks",
+      "Mapping selected initially resident pages may fault them; file flags checked before/after",
+      "Whole-task cache, base/DAX layers, unmapped backing cache and multi-VM sharing not measured"
+    ],
+    "host_read_elapsed_ns": 325657,
+    "guest_before_elapsed_ns": 718062,
+    "guest_after_elapsed_ns": 1407078,
+    "controller_elapsed_ns": 7116135568
+  },
+  "files": [
+    {
+      "path": "/testbed/src/language-html/utils/index.js",
+      "bytes": 16198,
+      "initially_resident_pages": 4
+    }
+  ],
+  "timing_ns": {
+    "task_window_ns": 2268556676,
+    "guest_action_sum_ns": 1493034925,
+    "controller_end_to_end_ns": 103193280975
+  },
+  "timing_scope": {
+    "task_window_ns": "controller replay call",
+    "guest_action_sum_ns": "sum of frozen guest actions",
+    "controller_end_to_end_ns": "outer launch through cleanup and image retention"
+  },
+  "checks": {
+    "private_template_prepare": "PASS",
+    "template_build": "PASS",
+    "frozen_input_hashes": "PASS",
+    "owned_ram_registration": "PASS",
+    "unfixed_seed_oracle": "PASS",
+    "guest_memory_sampling": "PASS",
+    "patch_matches_full_replay": "PASS",
+    "exp1_replay_correctness": "PASS",
+    "official_task_tests": "PASS",
+    "upper_file_physical_proof": "PASS",
+    "merged_file_origins": "PASS",
+    "post_scan_correctness": "PASS",
+    "sdk_cleanup": "PASS",
+    "host_light_sampling": "PASS",
+    "owned_kvm_capture_shutdown": "PASS",
+    "service_shutdown": "PASS",
+    "successful_image_cleanup": "PASS"
+  },
+  "host_cleanup": {
+    "cgroup_removed": true,
+    "loop_query_exit_code": 0,
+    "owned_loop_backings": []
+  },
+  "observed_min_free_bytes": 31576567808,
+  "evidence_sha256": {
+    "trenvx-monitoring-acceptance/20261006T024252Z-3268452/result.json": "3634867a3899df7bc40e74a43f69a8120c50b14610b5d7169521b2a4d63109ad",
+    "trenvx-monitoring-acceptance/20261006T024252Z-3268452/code/sha256.json": "57c69840f4ea1eaed1f57b252dc6c9ffb18e8ec809bec492b5ff12d0b6f12566",
+    "trenvx-service-smoke/20261006T024252Z-3268454/result.json": "1a3545dcb2bb4b686ead790cbbfc836d9a84d5ea1f2a86c240dacc2407330f5d",
+    "trenvx-service-smoke/20261006T024252Z-3268454/config.json": "777a88eb0c5b2d8b7a82f349b0013eec814c15a7b6fd1e58c4f20c5135543d2e",
+    "trenvx-service-smoke/20261006T024252Z-3268454/correctness.json": "7f78896e86e6e8d68b0640f401a30d6bcf167196841b2c6850744c3dd7847ab9",
+    "trenvx-service-smoke/20261006T024252Z-3268454/official-task-result.json": "41711baf67dd69014ecf1b28eea1314de1a84936239583f7d34081fb29262971",
+    "trenvx-service-smoke/20261006T024252Z-3268454/image-cleanup.json": "d869d4ac2087640241f24833dd0e47c8e9e653b35db5e3dadf6a628914773b1d",
+    "trenvx-service-smoke/20261006T024252Z-3268454/named-guest-files/result.json": "c30740eba91a188acc30c26a4b9a6a4b751a8a18e65f53e09b89b2c1dc0a00dc",
+    "trenvx-service-smoke/20261006T024252Z-3268454/named-guest-files/pages.json": "334211cca4ad3dcf33364d08736ee14b5730647614d4e9521d31b30e47dbd1b9",
+    "trenvx-service-smoke/20261006T024252Z-3268454/named-guest-files/ram-attestation.json": "61614f47d0104bb3d18b146382e210740c1beacc1d11090b016967a0391e92ac",
+    "trenvx-monitoring-acceptance/20261006T024252Z-3268452/memory/summary.json": "ff97d5cdac3c11c26524f60cc36bafa5dca57a2836ae806c09cb3aadffb629d6",
+    "trenvx-service-smoke/20261006T024252Z-3268454/post-scan-correctness.json": "2c5314954a9af456c2d8559b2918f3674fde94dfea84a290117ae532837dc086",
+    "trenvx-service-smoke/20261006T024252Z-3268454/official-task-post-scan-result.json": "41711baf67dd69014ecf1b28eea1314de1a84936239583f7d34081fb29262971",
+    "trenvx-service-smoke/20261006T024252Z-3268454/replay/guest-memory.tsv": "ff0fb8aa0b6900bf179488c35f86f134c0a9f797f9c00c563c179475e2231a32",
+    "trenvx-service-smoke/20261006T024252Z-3268454/host/memory-samples.tsv": "0393b752f8996b538762118590b32cc6ee2943dd254b58e433f1a5f05ebedc4a"
+  },
+  "unmeasured": [
+    "whole-task physical cache",
+    "base/DAX and upper at the same boundary",
+    "unmapped host backing cache",
+    "multi-VM sharing",
+    "checkpoint/restore and fine-scan impact comparison"
+  ],
+  "guest_memory": {
+    "status": "PASS",
+    "sample_count": 20,
+    "observed_peak_nonfree_bytes": 283779072,
+    "composition_at_observed_peak": {
+      "timestamp_ns": 1791254603529783916,
+      "phase": "running",
+      "step": "023",
+      "status": "PASS",
+      "missing_fields": [],
+      "unit": "bytes",
+      "scope": "guest logical counters at one sample; not host physical residency",
+      "used_definition": "MemTotal - MemFree",
+      "percentage_denominator": "same-sample nonfree memory",
+      "slab_rule": "Slab includes SReclaimable and SUnreclaim; do not add them again",
+      "nonfree_bytes": 283779072,
+      "used_estimate_bytes": 367894528,
+      "components_bytes": {
+        "file_cache_and_buffers": 31993856,
+        "anonymous": 98754560,
+        "slab": 63119360,
+        "shared_memory": 1060864,
+        "kernel_stack": 1769472,
+        "page_tables": 2723840,
+        "percpu": 573440,
+        "unclassified_residual": 83783680
+      },
+      "percentages": {
+        "file_cache_and_buffers": 11.274212638203284,
+        "anonymous": 34.79980370081695,
+        "slab": 22.2424294910655,
+        "shared_memory": 0.37383447360064664,
+        "kernel_stack": 0.6235385814497272,
+        "page_tables": 0.9598452700557143,
+        "percpu": 0.20207268843278198,
+        "unclassified_residual": 29.524263156375394
+      },
+      "reclaimable_slab_bytes": 45842432,
+      "unreclaimable_slab_bytes": 17276928
+    },
+    "peak_scope": "sample maximum, not instantaneous peak; incomplete samples excluded and counted",
+    "sampling_mode": "persistent asynchronous process; advisory phase markers",
+    "time_scope": "includes runner preparation; short actions may have no sample; per-runner lifetime only"
+  },
+  "host_memory": {
+    "sample_count": 626,
+    "scope": "run-owned TrEnv-X sandbox parent cgroup; excludes orchestrator",
+    "observed_peak_current_bytes": 369815552,
+    "observed_peak_file_bytes": 10514432,
+    "observed_peak_anon_bytes": 343642112,
+    "observed_peak_vmm_pss_kib": "NOT_MEASURED"
+  },
+  "phase_breakdown": {
+    "guest_action_sum": {
+      "status": "MEASURED",
+      "duration_ns": 1493034925,
+      "source": "replay/steps.tsv",
+      "boundary": "sum of 26 guest runner action durations; excludes controller and setup"
+    },
+    "controller_runner_calls": {
+      "status": "MEASURED",
+      "duration_ns": 2268556676,
+      "source": "replay-*.json",
+      "boundary": "sum of controller calls that launch frozen runner segments"
+    },
+    "create_to_first_success": {
+      "status": "MEASURED",
+      "duration_ns": 1060454915,
+      "source": "diagnostic-events.jsonl",
+      "boundary": "SDK create through first successful mkdir command"
+    },
+    "checkpoint": {
+      "status": "NOT_MEASURED",
+      "duration_ns": null,
+      "source": null,
+      "boundary": "controller file capture, sealing and template construction"
+    },
+    "restore_interface": {
+      "status": "NOT_MEASURED",
+      "duration_ns": null,
+      "source": null,
+      "boundary": "controller start of child VM from sealed file layer"
+    },
+    "restore_to_first_success": {
+      "status": "NOT_MEASURED",
+      "duration_ns": null,
+      "source": null,
+      "boundary": "start restored VM through first successful environment command"
+    },
+    "template_build": {
+      "status": "MEASURED",
+      "duration_ns": 12531069940,
+      "source": "diagnostic-events.jsonl",
+      "boundary": "prepare private template before trajectory"
+    },
+    "parent_delete": {
+      "status": "NOT_MEASURED",
+      "duration_ns": null,
+      "source": null,
+      "boundary": "delete parent VM after checkpoint"
+    },
+    "full_run_including_cleanup": {
+      "status": "MEASURED",
+      "duration_ns": 103193280975,
+      "source": "result.json",
+      "boundary": "outer start through sandbox cleanup and verified image archiving when enabled"
+    }
+  },
+  "post_scan_correctness": {
+    "status": "PASS",
+    "independent_properties": "PASS",
+    "task_patch_unchanged": "PASS",
+    "official_task_tests": "PASS",
+    "scope": "final task state after physical/source probes; no performance-impact comparison"
+  },
+  "monitoring_impact": "NOT_VALIDATED_BY_THIS_RUN; matched historical controls have different configuration"
+}

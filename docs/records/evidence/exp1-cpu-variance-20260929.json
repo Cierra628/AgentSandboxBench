@@ -1,0 +1,252 @@
+{
+  "schema_version": 1,
+  "scope": "AgentENV diagnostic full trajectories; host and guest memory samplers off; additional CPU observation enabled",
+  "runs": [
+    {
+      "result_dir": ".artifacts/exp1-cpu-diagnostic/20260929T113610Z-2445764",
+      "result_sha256": "42233be832ca3224f027cba8c91d625108d7c6280bd8e57d574ec0640ff0b7a1",
+      "driver_sha256": "4d3dd6293a3531c2aba72b7a8d1526fb49f17429ae0a96d008cc5fd6c337ab67",
+      "guest_runner_sha256": "60a16978ff0c1027e3e8eef638d63ece006f19a06a4d9bd11129b1455d08c4b1",
+      "summary": {
+        "status": "PASS",
+        "run_count": 1,
+        "runs": [
+          {
+            "number": 1,
+            "checks": {
+              "input_hashes": "PASS",
+              "runner": "PASS",
+              "replay_correctness": "PASS",
+              "host_sampling": "DISABLED",
+              "guest_sampling": "DISABLED",
+              "task_window": "PASS",
+              "cleanup": "PASS"
+            },
+            "steps": {
+              "023": {
+                "wall_seconds": 0.717,
+                "user_seconds": 0.521,
+                "system_seconds": 0.133,
+                "cpu_seconds": 0.654
+              },
+              "024": {
+                "wall_seconds": 0.492,
+                "user_seconds": 0.553,
+                "system_seconds": 0.048,
+                "cpu_seconds": 0.6010000000000001
+              }
+            },
+            "task_window_ms": 3404.898732,
+            "host_vcpu_count": 2,
+            "vcpu_observed_cpu_counts": [
+              3,
+              3
+            ],
+            "frequency_scope": "scaling_cur_freq on last observed CPU; not per-thread effective frequency",
+            "host_observed_frequency_khz_range": [
+              771327,
+              3800038
+            ],
+            "sample_count": 78,
+            "collection_ms_median": 0.9156765,
+            "collection_ms_max": 1.087812,
+            "scheduler_wait_valid": false
+          }
+        ],
+        "interpretation": "diagnostic instrumentation; no 5% overhead decision; summed CPU time can exceed wall time for multithreaded Node",
+        "frequency_causality": "NOT_VALIDATED; samples include idle/waiting phases, clocks not aligned between guest and host",
+        "scheduler_wait": "NOT_MEASURED: sched_schedstats disabled",
+        "independent_task_tests": "NOT_RUN"
+      }
+    },
+    {
+      "result_dir": ".artifacts/exp1-cpu-diagnostic/20260929T113720Z-2446366",
+      "result_sha256": "c30bdf06ddc901c8013f617e48b9e17d4055c759e9298610b2250b6ac3793fe6",
+      "driver_sha256": "4d3dd6293a3531c2aba72b7a8d1526fb49f17429ae0a96d008cc5fd6c337ab67",
+      "guest_runner_sha256": "60a16978ff0c1027e3e8eef638d63ece006f19a06a4d9bd11129b1455d08c4b1",
+      "summary": {
+        "status": "PASS",
+        "run_count": 4,
+        "runs": [
+          {
+            "number": 1,
+            "checks": {
+              "input_hashes": "PASS",
+              "runner": "PASS",
+              "replay_correctness": "PASS",
+              "host_sampling": "DISABLED",
+              "guest_sampling": "DISABLED",
+              "task_window": "PASS",
+              "cleanup": "PASS"
+            },
+            "steps": {
+              "023": {
+                "wall_seconds": 0.964,
+                "user_seconds": 0.806,
+                "system_seconds": 0.198,
+                "cpu_seconds": 1.004
+              },
+              "024": {
+                "wall_seconds": 0.828,
+                "user_seconds": 0.881,
+                "system_seconds": 0.105,
+                "cpu_seconds": 0.986
+              }
+            },
+            "task_window_ms": 4495.161691,
+            "host_vcpu_count": 2,
+            "vcpu_observed_cpu_counts": [
+              3,
+              2
+            ],
+            "frequency_scope": "scaling_cur_freq on last observed CPU; not per-thread effective frequency",
+            "host_observed_frequency_khz_range": [
+              775241,
+              3800038
+            ],
+            "sample_count": 97,
+            "collection_ms_median": 0.90806,
+            "collection_ms_max": 1.332929,
+            "scheduler_wait_valid": false
+          },
+          {
+            "number": 2,
+            "checks": {
+              "input_hashes": "PASS",
+              "runner": "PASS",
+              "replay_correctness": "PASS",
+              "host_sampling": "DISABLED",
+              "guest_sampling": "DISABLED",
+              "task_window": "PASS",
+              "cleanup": "PASS"
+            },
+            "steps": {
+              "023": {
+                "wall_seconds": 1.319,
+                "user_seconds": 1.14,
+                "system_seconds": 0.222,
+                "cpu_seconds": 1.3619999999999999
+              },
+              "024": {
+                "wall_seconds": 0.615,
+                "user_seconds": 0.708,
+                "system_seconds": 0.077,
+                "cpu_seconds": 0.7849999999999999
+              }
+            },
+            "task_window_ms": 4612.811044,
+            "host_vcpu_count": 2,
+            "vcpu_observed_cpu_counts": [
+              4,
+              4
+            ],
+            "frequency_scope": "scaling_cur_freq on last observed CPU; not per-thread effective frequency",
+            "host_observed_frequency_khz_range": [
+              761019,
+              3800038
+            ],
+            "sample_count": 101,
+            "collection_ms_median": 0.897226,
+            "collection_ms_max": 0.952506,
+            "scheduler_wait_valid": false
+          },
+          {
+            "number": 3,
+            "checks": {
+              "input_hashes": "PASS",
+              "runner": "PASS",
+              "replay_correctness": "PASS",
+              "host_sampling": "DISABLED",
+              "guest_sampling": "DISABLED",
+              "task_window": "PASS",
+              "cleanup": "PASS"
+            },
+            "steps": {
+              "023": {
+                "wall_seconds": 1.108,
+                "user_seconds": 0.927,
+                "system_seconds": 0.18,
+                "cpu_seconds": 1.107
+              },
+              "024": {
+                "wall_seconds": 0.615,
+                "user_seconds": 0.733,
+                "system_seconds": 0.093,
+                "cpu_seconds": 0.826
+              }
+            },
+            "task_window_ms": 4076.325972,
+            "host_vcpu_count": 2,
+            "vcpu_observed_cpu_counts": [
+              4,
+              3
+            ],
+            "frequency_scope": "scaling_cur_freq on last observed CPU; not per-thread effective frequency",
+            "host_observed_frequency_khz_range": [
+              782341,
+              3800038
+            ],
+            "sample_count": 88,
+            "collection_ms_median": 0.9099524999999999,
+            "collection_ms_max": 0.973254,
+            "scheduler_wait_valid": false
+          },
+          {
+            "number": 4,
+            "checks": {
+              "input_hashes": "PASS",
+              "runner": "PASS",
+              "replay_correctness": "PASS",
+              "host_sampling": "DISABLED",
+              "guest_sampling": "DISABLED",
+              "task_window": "PASS",
+              "cleanup": "PASS"
+            },
+            "steps": {
+              "023": {
+                "wall_seconds": 1.023,
+                "user_seconds": 0.836,
+                "system_seconds": 0.2,
+                "cpu_seconds": 1.036
+              },
+              "024": {
+                "wall_seconds": 0.545,
+                "user_seconds": 0.646,
+                "system_seconds": 0.079,
+                "cpu_seconds": 0.725
+              }
+            },
+            "task_window_ms": 3710.391015,
+            "host_vcpu_count": 2,
+            "vcpu_observed_cpu_counts": [
+              3,
+              2
+            ],
+            "frequency_scope": "scaling_cur_freq on last observed CPU; not per-thread effective frequency",
+            "host_observed_frequency_khz_range": [
+              768961,
+              3800038
+            ],
+            "sample_count": 83,
+            "collection_ms_median": 0.635177,
+            "collection_ms_max": 2.040157,
+            "scheduler_wait_valid": false
+          }
+        ],
+        "interpretation": "diagnostic instrumentation; no 5% overhead decision; summed CPU time can exceed wall time for multithreaded Node",
+        "frequency_causality": "NOT_VALIDATED; samples include idle/waiting phases, clocks not aligned between guest and host",
+        "scheduler_wait": "NOT_MEASURED: sched_schedstats disabled",
+        "independent_task_tests": "NOT_RUN"
+      }
+    }
+  ],
+  "counter_capability": {
+    "status": "PASS",
+    "scope": "own host process, user mode only; guest attribution NOT_VALIDATED",
+    "enabled_ns": 4483571,
+    "running_ns": 4483571,
+    "cycles": 8004546,
+    "instructions": 12000040
+  },
+  "counter_probe_sha256": "ff2d6f82b4ee222e85baae3de3af0abe89e04e90099fa85192d0acf47d05e238"
+}

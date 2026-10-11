@@ -1,0 +1,323 @@
+{
+  "date": "2026-10-08",
+  "status": "PARTIAL",
+  "replay_consistency": "PASS",
+  "official_task_correctness": "FAIL",
+  "task_id": "prettier__prettier-6604",
+  "path": "backbone",
+  "action_count": 29,
+  "expected_failure": "read_repo/002: exit 127",
+  "config": "configs/prettier6604-backbone.json",
+  "raw": ".artifacts/storage-isolated-service/20261008T102942Z-3642885/prettier6604",
+  "report": ".artifacts/prettier6604/20261008T102942Z-retry/report",
+  "report_recheck": ".artifacts/prettier6604/20261008T102942Z-retry/report-recheck",
+  "reports_match": true,
+  "raw_hashes_unchanged": true,
+  "code_versions": {
+    "AgentENV": "2f48c9c78ec58e4d73c49aa07cb81d984a4a4184",
+    "IncrementalDAX_moti": "a9bc7deadb68a6e24b7242eab343dfedf953ea38"
+  },
+  "image": "ghcr.io/timesler/swe-polybench.eval.x86_64.prettier__prettier-6604@sha256:8159d38fcbd6d5f09402d93d3e15cf2a891058ddd835a224f1d6b3357a87cc94",
+  "reference_patch_sha256": "73eb5f9d0c5582c5b1be464aa6915cfba621a27b80d953b69db74c6d1fa3da5a",
+  "checks": {
+    "frozen_29_action_order_hashes_expected_exit_codes_and_patch": "PASS",
+    "frozen_tests": "32 suites / 66 tests passed",
+    "independent_properties": "5 checks PASS",
+    "official_tests": "0 passed / 2 failed",
+    "cleanup": {
+      "owned_container_removed": true,
+      "mount_and_loop_removed": true,
+      "failed_fixture_retained": true,
+      "original_firecracker_identities_unchanged": true,
+      "original_service_unchanged": true
+    }
+  },
+  "official": {
+    "exit_code": 1,
+    "passed": 0,
+    "failed": 2,
+    "required_test": "['/testbed/tests/typescript_intersection/jsfmt.spec.js->intersection-parens.ts']",
+    "reason": "missing required passing tests: {'/testbed/tests/typescript_intersection/jsfmt.spec.js->intersection-parens.ts'}",
+    "output_sha256": "15c03b8ffb899aaafbf3005205a212b488c4a48805bd9a3cbcb94aa8d05b6b66",
+    "output": ".artifacts/storage-isolated-service/20261008T102942Z-3642885/prettier6604/official-task-tests.stdout",
+    "audit_script": "scripts/audit_prettier6604_official.py"
+  },
+  "source_difference": {
+    "frozen_patch_handles": [
+      "TSIndexedAccessType"
+    ],
+    "official_patch_additionally_handles": [
+      "TSConditionalType",
+      "TSIntersectionType",
+      "TSUnionType"
+    ],
+    "other_six_paths": "static inspection only: no complete official fix found; not executed"
+  },
+  "metrics": {
+    "guest": {
+      "sample_count": 202,
+      "observed_peak_bytes": 685846528,
+      "peak_sample_timestamp_ns": 1791455580050953429,
+      "components_at_peak_bytes": {
+        "AnonPages": 359989248,
+        "Cached": 206794752,
+        "Buffers": 44392448,
+        "Shmem": 1089536
+      },
+      "components_at_peak_percent": {
+        "AnonPages": 52.48830945456066,
+        "Cached": 30.151753133902282,
+        "Buffers": 6.472650394462593,
+        "Shmem": 0.15886002998035154
+      },
+      "note": "MemTotal-MemFree; counters from /proc/meminfo, KiB converted to bytes. Shmem overlaps Cached; components are not added. Slab not collected. Runner windows only. Sampling image was a local derived tag; current source digest was checked separately."
+    },
+    "host": {
+      "sample_count": 941,
+      "observed_peak_bytes": 4506308608,
+      "components_at_peak_bytes": {
+        "anon": 35774464,
+        "file": 4333486080,
+        "kernel": 135704576
+      },
+      "note": "Temporary service cgroup, includes cache and VMM. Does not include original service. VMM PSS not measured; zero columns are placeholders."
+    },
+    "timing": {
+      "guest_action_sum_ns": 12472319318,
+      "controller_elapsed_ns": 103019853692,
+      "stages": [
+        {
+          "stage": "service-state",
+          "duration_ns": 23036139,
+          "exit_code": 0
+        },
+        {
+          "stage": "service-labels",
+          "duration_ns": 20613290,
+          "exit_code": 0
+        },
+        {
+          "stage": "cold-start",
+          "duration_ns": 82304569497,
+          "exit_code": 0
+        },
+        {
+          "stage": "source-smoke",
+          "duration_ns": 1170901601,
+          "exit_code": 0
+        },
+        {
+          "stage": "upload-independent-check",
+          "duration_ns": 33432874,
+          "exit_code": 0
+        },
+        {
+          "stage": "unfixed-oracle",
+          "duration_ns": 754983181,
+          "exit_code": 0
+        },
+        {
+          "stage": "upload-frozen-workload",
+          "duration_ns": 50294739,
+          "exit_code": 0
+        },
+        {
+          "stage": "controller-call-0007",
+          "duration_ns": 839030183,
+          "exit_code": 0
+        },
+        {
+          "stage": "controller-call-0008",
+          "duration_ns": 54783947,
+          "exit_code": 0
+        },
+        {
+          "stage": "segment-read_repo",
+          "duration_ns": 901239447,
+          "exit_code": 0
+        },
+        {
+          "stage": "controller-call-0010",
+          "duration_ns": 696424728,
+          "exit_code": 0
+        },
+        {
+          "stage": "controller-call-0011",
+          "duration_ns": 46621292,
+          "exit_code": 0
+        },
+        {
+          "stage": "segment-read_typescript",
+          "duration_ns": 746633445,
+          "exit_code": 0
+        },
+        {
+          "stage": "controller-call-0013",
+          "duration_ns": 1640030146,
+          "exit_code": 0
+        },
+        {
+          "stage": "controller-call-0014",
+          "duration_ns": 48842160,
+          "exit_code": 0
+        },
+        {
+          "stage": "segment-core_patch",
+          "duration_ns": 1692620062,
+          "exit_code": 0
+        },
+        {
+          "stage": "controller-call-0016",
+          "duration_ns": 4015794511,
+          "exit_code": 0
+        },
+        {
+          "stage": "controller-call-0017",
+          "duration_ns": 52705108,
+          "exit_code": 0
+        },
+        {
+          "stage": "segment-core_verify",
+          "duration_ns": 4072275148,
+          "exit_code": 0
+        },
+        {
+          "stage": "controller-call-0019",
+          "duration_ns": 7284050998,
+          "exit_code": 0
+        },
+        {
+          "stage": "controller-call-0020",
+          "duration_ns": 47679716,
+          "exit_code": 0
+        },
+        {
+          "stage": "segment-backbone_finish",
+          "duration_ns": 7335657365,
+          "exit_code": 0
+        },
+        {
+          "stage": "fixed-independent-check",
+          "duration_ns": 441978184,
+          "exit_code": 0
+        },
+        {
+          "stage": "upload-official-tests",
+          "duration_ns": 32735122,
+          "exit_code": 0
+        },
+        {
+          "stage": "official-task-tests",
+          "duration_ns": 3212284685,
+          "exit_code": 0
+        },
+        {
+          "stage": "delete-owned-sandbox",
+          "duration_ns": 190647891,
+          "exit_code": 0
+        }
+      ],
+      "note": "ns; guest actions include frozen shell and runner timing boundary overhead. Stage totals overlap segment totals; do not add them as end-to-end time."
+    },
+    "page_cache": {
+      "physical_bytes": "NOT_MEASURED",
+      "guest_logical_counter": "Cached_kib",
+      "cache_control": "no manual host or guest cache drop",
+      "cold_state": "temporary service reuses immutable base layers; missing task layers prepared at creation"
+    },
+    "monitoring_impact": "NOT_VALIDATED"
+  },
+  "storage": {
+    "capacity_bytes": 21474836480,
+    "observed_peak_bytes": 8379805696,
+    "host_observed_min_bytes": 43828809728,
+    "host_after_bytes": 43828035584,
+    "disk_samples": 472,
+    "current_failed_volume_retained": ".artifacts/storage-isolated-service/20261008T102942Z-3642885/volume.ext4",
+    "previous_failed_volume_removed": ".artifacts/storage-isolated-service/20261008T083723Z-3624965/volume.ext4",
+    "previous_full_backup": ".artifacts/storage-isolated-service/20261008T083723Z-3624965/volume.ext4.gz",
+    "backup_sha256": "c4cbefbc19b8a562432bdadd587fc34e82441fd108527ad26a7e7ca28bd26252",
+    "decompressed_source_sha256": "986ab804ab59a3c7bda57429c0a4e8b1f922166e52a9d8ed96c08723326872a8",
+    "approved_cleanup": "PASS"
+  },
+  "first_attempt": {
+    "raw": ".artifacts/storage-isolated-service/20261008T083723Z-3624965",
+    "stage": "cold-start",
+    "http_timeout_s": 120,
+    "cold_request_failed_ns": 120286480145,
+    "actions": 0
+  },
+  "changes": {
+    "creation_http_wait_seconds": 600,
+    "sandbox_ttl_seconds": 1800,
+    "cold_creation_actual_ns": 82304569497,
+    "creation_cause_limit": "Retry took under 120 seconds; this does not prove raising timeout alone resolved original image-preparation delay.",
+    "old_jest_parser": "numTodoTests absent: require every assertion accounted for, no pending/todo; saved actual output still strictly FAIL",
+    "raw_result": "original KeyError and FAIL preserved; no historical result rewritten"
+  },
+  "validations": {
+    "cold_helper_unit_tests": 5,
+    "frozen_input_tests": 4,
+    "official_parser_tests": 9,
+    "storage_tests": 23,
+    "report_boundary_tests": 3,
+    "vm_runs": 2,
+    "complete_frozen_replays": 1,
+    "offline_official_audit_recheck": "same strict FAIL; original raw unchanged"
+  },
+  "limits": [
+    "checkpoint/restore not run",
+    "physical page cache not measured",
+    "Slab not collected by original runner",
+    "VMM PSS not measured",
+    "monitoring effect not validated for task6604",
+    "full upstream suite not run",
+    "one path; no rollout comparison",
+    "failed task, not official correctness PASS"
+  ],
+  "next_step": "Keep original failure trajectory immutable; decide whether to validate restore with expected task failure or add a separately labelled corrected frozen variant. Do not automatically run six other paths or change the old patch.",
+  "resource_observation": {
+    "first_attempt_preexisting_firecracker_count": 12,
+    "retry_preexisting_firecracker_count": 13,
+    "all_retry_identities_unchanged": true,
+    "additional_vm": "another user VM started between attempts; left untouched",
+    "limit": "confirmed no large shared-disk writes does not imply an idle host"
+  },
+  "validation_commands": [
+    {
+      "command": "python3 -B -m unittest discover -s tests -p test_agentenv_cold_start.py",
+      "result": "PASS",
+      "test_count": 5
+    },
+    {
+      "command": "python3 -B -m unittest discover -s tests -p test_prettier6604_inputs.py",
+      "result": "PASS",
+      "test_count": 4
+    },
+    {
+      "command": "python3 -B -m unittest discover -s tests -p test_exp1_official_task.py",
+      "result": "PASS",
+      "test_count": 9
+    },
+    {
+      "command": "python3 -B -m unittest discover -s tests -p test_isolated_storage.py",
+      "result": "PASS",
+      "test_count": 23
+    },
+    {
+      "command": "python3 -B -m unittest discover -s tests -p test_prettier6604_report.py",
+      "result": "PASS",
+      "test_count": 3
+    },
+    {
+      "command": "python3 -B scripts/audit_prettier6604_official.py <pinned-task> <saved-stdout> <new-audit>",
+      "result": "FAIL: two official assertions failed; exit 1 expected"
+    },
+    {
+      "command": "python3 -B scripts/report_prettier6604.py <raw> <new-report> --official-audit <audit>",
+      "result": "FAIL; replay_consistency PASS; two offline reports equal"
+    }
+  ],
+  "latest_code_limit": "Live code captured in raw/code; later parser compatibility and failure-stage metadata fixes have offline checks only.",
+  "closeout": ".artifacts/prettier6604/20261008T102942Z-retry/closeout.json"
+}

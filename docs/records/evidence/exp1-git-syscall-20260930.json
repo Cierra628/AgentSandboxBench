@@ -1,0 +1,537 @@
+{
+  "status": "PASS",
+  "probes": [
+    {
+      "directory": ".artifacts/guest-syscall-tools/20260930T054319Z-2531496",
+      "status": "PASS",
+      "capability": "MISSING",
+      "cleanup": "PASS",
+      "failure": null
+    },
+    {
+      "directory": ".artifacts/guest-syscall-tools/20260930T054603Z-2533119",
+      "status": "FAIL",
+      "capability": null,
+      "cleanup": "PASS",
+      "failure": "uploaded loader execute permission missing"
+    },
+    {
+      "directory": ".artifacts/guest-syscall-tools/20260930T054726Z-2533627",
+      "status": "PASS",
+      "capability": "AVAILABLE",
+      "cleanup": "PASS",
+      "failure": null
+    },
+    {
+      "directory": ".artifacts/guest-syscall-tools/20260930T060019Z-2539144",
+      "status": "PASS",
+      "capability": "MISSING",
+      "cleanup": "PASS",
+      "failure": null
+    }
+  ],
+  "runs": [
+    {
+      "position": 1,
+      "label": "off",
+      "command_clock": {
+        "realtime_ns": 770369522,
+        "monotonic_raw_ns": 770369096,
+        "user_ns": 132033000,
+        "system_ns": 532705000,
+        "minor_faults": 2392,
+        "major_faults": 1,
+        "voluntary_switches": 87336,
+        "involuntary_switches": 4433,
+        "exit_code": 0
+      },
+      "git_add_seconds": 0.736387,
+      "directory_scan_seconds": 0.543042,
+      "thread_log_count": 19,
+      "all_threads": {
+        "execve": {
+          "count": 3,
+          "summed_duration_ms": 0.49799999999999994,
+          "maximum_duration_ms": 0.16799999999999998,
+          "error_count": 0
+        },
+        "mmap": {
+          "count": 92,
+          "summed_duration_ms": 5.936999999999999,
+          "maximum_duration_ms": 3.133,
+          "error_count": 0
+        },
+        "access": {
+          "count": 49,
+          "summed_duration_ms": 0.629,
+          "maximum_duration_ms": 0.017,
+          "error_count": 29
+        },
+        "openat": {
+          "count": 4217,
+          "summed_duration_ms": 52.969,
+          "maximum_duration_ms": 0.08399999999999999,
+          "error_count": 1387
+        },
+        "newfstatat": {
+          "count": 13998,
+          "summed_duration_ms": 1198.618,
+          "maximum_duration_ms": 0.215,
+          "error_count": 24
+        },
+        "read": {
+          "count": 75,
+          "summed_duration_ms": 0.9520000000000001,
+          "maximum_duration_ms": 0.019,
+          "error_count": 0
+        },
+        "pread64": {
+          "count": 14,
+          "summed_duration_ms": 0.157,
+          "maximum_duration_ms": 0.013,
+          "error_count": 0
+        },
+        "munmap": {
+          "count": 35,
+          "summed_duration_ms": 1.357,
+          "maximum_duration_ms": 0.134,
+          "error_count": 0
+        },
+        "wait4": {
+          "count": 4,
+          "summed_duration_ms": 757.436,
+          "maximum_duration_ms": 739.683,
+          "error_count": 2
+        },
+        "getcwd": {
+          "count": 6,
+          "summed_duration_ms": 0.068,
+          "maximum_duration_ms": 0.012,
+          "error_count": 0
+        },
+        "chdir": {
+          "count": 1,
+          "summed_duration_ms": 0.012,
+          "maximum_duration_ms": 0.012,
+          "error_count": 0
+        },
+        "readlink": {
+          "count": 1,
+          "summed_duration_ms": 0.012,
+          "maximum_duration_ms": 0.012,
+          "error_count": 1
+        },
+        "futex": {
+          "count": 5,
+          "summed_duration_ms": 160.337,
+          "maximum_duration_ms": 123.82799999999999,
+          "error_count": 0
+        },
+        "getdents64": {
+          "count": 5502,
+          "summed_duration_ms": 68.488,
+          "maximum_duration_ms": 0.22,
+          "error_count": 0
+        },
+        "utimensat": {
+          "count": 2,
+          "summed_duration_ms": 0.028,
+          "maximum_duration_ms": 0.015000000000000001,
+          "error_count": 0
+        },
+        "mkdir": {
+          "count": 1,
+          "summed_duration_ms": 0.053,
+          "maximum_duration_ms": 0.053,
+          "error_count": 0
+        },
+        "link": {
+          "count": 1,
+          "summed_duration_ms": 0.025,
+          "maximum_duration_ms": 0.025,
+          "error_count": 0
+        },
+        "unlink": {
+          "count": 1,
+          "summed_duration_ms": 0.016,
+          "maximum_duration_ms": 0.016,
+          "error_count": 0
+        },
+        "rename": {
+          "count": 1,
+          "summed_duration_ms": 2.3649999999999998,
+          "maximum_duration_ms": 2.3649999999999998,
+          "error_count": 0
+        }
+      },
+      "git_main": {
+        "execve": {
+          "count": 1,
+          "summed_duration_ms": 0.16699999999999998,
+          "maximum_duration_ms": 0.16699999999999998,
+          "error_count": 0
+        },
+        "mmap": {
+          "count": 37,
+          "summed_duration_ms": 1.324,
+          "maximum_duration_ms": 0.125,
+          "error_count": 0
+        },
+        "access": {
+          "count": 22,
+          "summed_duration_ms": 0.291,
+          "maximum_duration_ms": 0.017,
+          "error_count": 15
+        },
+        "openat": {
+          "count": 4140,
+          "summed_duration_ms": 51.839000000000006,
+          "maximum_duration_ms": 0.078,
+          "error_count": 1360
+        },
+        "newfstatat": {
+          "count": 2812,
+          "summed_duration_ms": 33.041000000000004,
+          "maximum_duration_ms": 0.215,
+          "error_count": 6
+        },
+        "read": {
+          "count": 32,
+          "summed_duration_ms": 0.41,
+          "maximum_duration_ms": 0.019,
+          "error_count": 0
+        },
+        "pread64": {
+          "count": 5,
+          "summed_duration_ms": 0.056,
+          "maximum_duration_ms": 0.012,
+          "error_count": 0
+        },
+        "munmap": {
+          "count": 14,
+          "summed_duration_ms": 0.34299999999999997,
+          "maximum_duration_ms": 0.092,
+          "error_count": 0
+        },
+        "getcwd": {
+          "count": 4,
+          "summed_duration_ms": 0.045,
+          "maximum_duration_ms": 0.012,
+          "error_count": 0
+        },
+        "chdir": {
+          "count": 1,
+          "summed_duration_ms": 0.012,
+          "maximum_duration_ms": 0.012,
+          "error_count": 0
+        },
+        "readlink": {
+          "count": 1,
+          "summed_duration_ms": 0.012,
+          "maximum_duration_ms": 0.012,
+          "error_count": 1
+        },
+        "futex": {
+          "count": 5,
+          "summed_duration_ms": 160.337,
+          "maximum_duration_ms": 123.82799999999999,
+          "error_count": 0
+        },
+        "getdents64": {
+          "count": 5490,
+          "summed_duration_ms": 68.327,
+          "maximum_duration_ms": 0.22,
+          "error_count": 0
+        },
+        "utimensat": {
+          "count": 2,
+          "summed_duration_ms": 0.028,
+          "maximum_duration_ms": 0.015000000000000001,
+          "error_count": 0
+        },
+        "mkdir": {
+          "count": 1,
+          "summed_duration_ms": 0.053,
+          "maximum_duration_ms": 0.053,
+          "error_count": 0
+        },
+        "link": {
+          "count": 1,
+          "summed_duration_ms": 0.025,
+          "maximum_duration_ms": 0.025,
+          "error_count": 0
+        },
+        "unlink": {
+          "count": 1,
+          "summed_duration_ms": 0.016,
+          "maximum_duration_ms": 0.016,
+          "error_count": 0
+        },
+        "rename": {
+          "count": 1,
+          "summed_duration_ms": 2.3649999999999998,
+          "maximum_duration_ms": 2.3649999999999998,
+          "error_count": 0
+        }
+      },
+      "git_directory_region": {
+        "openat": {
+          "count": 4096,
+          "summed_duration_ms": 51.165,
+          "maximum_duration_ms": 0.078,
+          "error_count": 1351
+        },
+        "newfstatat": {
+          "count": 2745,
+          "summed_duration_ms": 32.176,
+          "maximum_duration_ms": 0.215,
+          "error_count": 0
+        },
+        "getdents64": {
+          "count": 5486,
+          "summed_duration_ms": 68.27600000000001,
+          "maximum_duration_ms": 0.22,
+          "error_count": 0
+        },
+        "mmap": {
+          "count": 1,
+          "summed_duration_ms": 0.015000000000000001,
+          "maximum_duration_ms": 0.015000000000000001,
+          "error_count": 0
+        },
+        "read": {
+          "count": 2,
+          "summed_duration_ms": 0.024,
+          "maximum_duration_ms": 0.012,
+          "error_count": 0
+        }
+      },
+      "longest_git_main_calls": [
+        {
+          "syscall": "futex",
+          "duration_ms": 123.82799999999999
+        },
+        {
+          "syscall": "futex",
+          "duration_ms": 23.442999999999998
+        },
+        {
+          "syscall": "futex",
+          "duration_ms": 7.228
+        },
+        {
+          "syscall": "futex",
+          "duration_ms": 3.527
+        },
+        {
+          "syscall": "rename",
+          "duration_ms": 2.3649999999999998
+        },
+        {
+          "syscall": "futex",
+          "duration_ms": 2.311
+        },
+        {
+          "syscall": "getdents64",
+          "duration_ms": 0.22
+        },
+        {
+          "syscall": "newfstatat",
+          "duration_ms": 0.215
+        },
+        {
+          "syscall": "execve",
+          "duration_ms": 0.16699999999999998
+        },
+        {
+          "syscall": "getdents64",
+          "duration_ms": 0.128
+        }
+      ],
+      "seccomp_probe_enabled": false,
+      "log_sha256": {
+        "git-025-syscalls.1095": "feb0697dd12035a72cb0223e79a4222e85c93f1b1a75ea154400ccb4ece60276",
+        "git-025-syscalls.1096": "aba7118e06117c2458ad1cb3fbe0eaad3453accbdeedbb9104a9b7b37dd59bee",
+        "git-025-syscalls.1097": "c72b787188b0f18dc48aa048a199bff98bb1c96d0d70a5a606718529eb5fef85",
+        "git-025-syscalls.1098": "fdebbcaf579fec3006c6616884203fdd3e238977bc0e8851b673447260083a71",
+        "git-025-syscalls.1099": "39ce819b2d5320dd9c3851b16dfe0dfb5bc70d3562203e16637f4c8f93c3707d",
+        "git-025-syscalls.1100": "f5f7944e1cb485aab6d0263d64d8b43c4a334c8c2785782ba4d1105913def2ea",
+        "git-025-syscalls.1101": "1a8ec0bc2b8a7a6fa292ecb41d98411d9282a1659b0e1aa4786e8668fb836442",
+        "git-025-syscalls.1102": "02fa05a796b4479edf3776d470fbecd093c423ccb56518802259341b5a26e6eb",
+        "git-025-syscalls.1103": "5580792a8da89240461f2e11a5b23c41072c5705ba5f33b4d30d54288a5fd940",
+        "git-025-syscalls.1104": "c63f2b851f29eed6123e240b6c9c94d7c9f29210b87fdb55a0a82f8e1f4a1696",
+        "git-025-syscalls.1105": "141ce050ad2cbd0f8e9ef3e153d4f81c73f5bd40549502d0b41f2926f1a14530",
+        "git-025-syscalls.1106": "3f133781647fa9457d6800180a5a55733aebc1a356c39d321e6219ef6e29a7b9",
+        "git-025-syscalls.1107": "8d8e825b37d4993157fbf7224789dcce6564ba64b69f1493759eaf914e4fe72b",
+        "git-025-syscalls.1108": "33ee1ed2705ead9d5416f1cdaed6404a4a7e87ff3b2ee1062d4c7ab62e8dc3db",
+        "git-025-syscalls.1109": "51f87ce6629ab2ffb5b6c05c767598103688c0b6800d2c7fd33d86adb4acfba5",
+        "git-025-syscalls.1110": "21227bf9ea5318824dd72a0b51e02315b6c7e6eff9a0e5251f67b064f5fad2ab",
+        "git-025-syscalls.1111": "dbdd026a892c59fc6ef98f108c6befe99a169536839b41947045d3a961aed5f9",
+        "git-025-syscalls.1112": "dfa77ff39cf6ed6f2ca1f5d877f7c82d52650240fb0b909ca0279bae5e272276",
+        "git-025-syscalls.1113": "3cdecb116e46f9cc2f39766652deb57358784fd81900ec93cc57dd90a71a02d3"
+      },
+      "source_dir": ".artifacts/exp1-git-diagnostic/20260930T055000Z-2534560",
+      "requested_syscall_scope": "all-files",
+      "result_sha256": "1c93833705985efe80b8fe506a535aabd5132a62788e2bff27e6a356619e4dcc"
+    },
+    {
+      "position": 1,
+      "label": "off",
+      "command_clock": {
+        "realtime_ns": 396229149,
+        "monotonic_raw_ns": 396228726,
+        "user_ns": 74517000,
+        "system_ns": 261214000,
+        "minor_faults": 2357,
+        "major_faults": 63,
+        "voluntary_switches": 45623,
+        "involuntary_switches": 4196,
+        "exit_code": 0
+      },
+      "git_add_seconds": 0.367013,
+      "directory_scan_seconds": 0.274859,
+      "thread_log_count": 19,
+      "all_threads": {
+        "read": {
+          "count": 75,
+          "summed_duration_ms": 1.163,
+          "maximum_duration_ms": 0.163,
+          "error_count": 0
+        },
+        "pread64": {
+          "count": 14,
+          "summed_duration_ms": 0.133,
+          "maximum_duration_ms": 0.013,
+          "error_count": 0
+        },
+        "getdents64": {
+          "count": 5502,
+          "summed_duration_ms": 114.579,
+          "maximum_duration_ms": 2.7399999999999998,
+          "error_count": 0
+        }
+      },
+      "git_main": {
+        "read": {
+          "count": 32,
+          "summed_duration_ms": 0.449,
+          "maximum_duration_ms": 0.163,
+          "error_count": 0
+        },
+        "pread64": {
+          "count": 5,
+          "summed_duration_ms": 0.032,
+          "maximum_duration_ms": 0.013,
+          "error_count": 0
+        },
+        "getdents64": {
+          "count": 5490,
+          "summed_duration_ms": 114.387,
+          "maximum_duration_ms": 2.7399999999999998,
+          "error_count": 0
+        }
+      },
+      "git_directory_region": {
+        "getdents64": {
+          "count": 5486,
+          "summed_duration_ms": 114.336,
+          "maximum_duration_ms": 2.7399999999999998,
+          "error_count": 0
+        },
+        "read": {
+          "count": 2,
+          "summed_duration_ms": 0.176,
+          "maximum_duration_ms": 0.163,
+          "error_count": 0
+        }
+      },
+      "longest_git_main_calls": [
+        {
+          "syscall": "getdents64",
+          "duration_ms": 2.7399999999999998
+        },
+        {
+          "syscall": "getdents64",
+          "duration_ms": 0.776
+        },
+        {
+          "syscall": "getdents64",
+          "duration_ms": 0.45199999999999996
+        },
+        {
+          "syscall": "getdents64",
+          "duration_ms": 0.44
+        },
+        {
+          "syscall": "read",
+          "duration_ms": 0.163
+        },
+        {
+          "syscall": "getdents64",
+          "duration_ms": 0.158
+        },
+        {
+          "syscall": "getdents64",
+          "duration_ms": 0.157
+        },
+        {
+          "syscall": "getdents64",
+          "duration_ms": 0.15
+        },
+        {
+          "syscall": "getdents64",
+          "duration_ms": 0.145
+        },
+        {
+          "syscall": "getdents64",
+          "duration_ms": 0.13899999999999998
+        }
+      ],
+      "seccomp_probe_enabled": true,
+      "log_sha256": {
+        "git-025-syscalls.1099": "eec8290584725b510e7999dee0a58df1769d686dbaafed4b0cd6e63ab1344dc3",
+        "git-025-syscalls.1100": "427077b4560d4724b6689d140ec59c4795b96b5332abfc66c800c7dd161a9f1a",
+        "git-025-syscalls.1101": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "git-025-syscalls.1102": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "git-025-syscalls.1103": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "git-025-syscalls.1104": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "git-025-syscalls.1105": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "git-025-syscalls.1106": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "git-025-syscalls.1107": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "git-025-syscalls.1108": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "git-025-syscalls.1109": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "git-025-syscalls.1110": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "git-025-syscalls.1111": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "git-025-syscalls.1112": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "git-025-syscalls.1113": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "git-025-syscalls.1114": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "git-025-syscalls.1115": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "git-025-syscalls.1116": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "git-025-syscalls.1117": "535694445ea98e42756e9c44b1c69e62fc9898e005966694f2f76a1fb3569f57"
+      },
+      "source_dir": ".artifacts/exp1-git-diagnostic/20260930T055623Z-2537226",
+      "requested_syscall_scope": "reads",
+      "result_sha256": "1cadc933509ec1b1632b62de4737eb010f5abbbbf0e31ea8372f6caf2a4d5d07"
+    }
+  ],
+  "cause_status": "SYSCALL_TRACING_TOO_INTRUSIVE_FOR_ORIGINAL_DELAY_ATTRIBUTION",
+  "monitor_overhead_verdict": "NOT_DETERMINED",
+  "guest": {
+    "kernel": "6.1.175",
+    "git": "2.34.1",
+    "native_strace": false,
+    "native_perf": false,
+    "tracefs_mounted": false,
+    "btf_path_visible": false,
+    "tracefs_kernel_support": "NOT_VERIFIED"
+  },
+  "tool_bundle": "host strace 6.8 and dependencies copied privately; package/image unchanged",
+  "limitations": [
+    "Two distinct diagnostic variants, not a controlled overhead estimate",
+    "Trace syscall durations include observer effects and scheduling",
+    "No single 100ms+ directory read captured; original untraced delay not explained",
+    "Thread durations overlap; do not sum as end-to-end time",
+    "Host runnable waiting not measured; absence of guest tracefs paths does not prove kernel lacks support",
+    "Raw traces and library bundles remain local only"
+  ]
+}

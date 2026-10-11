@@ -1,0 +1,72 @@
+{
+  "version": 1,
+  "task_id": "prettier__prettier-6604",
+  "base_commit": "affa24ce764bd14ac087abeef0603012f5c635d6",
+  "workload": "IncrementalDAX_moti/motivation/experiments/exp3-RL-fork/workloads/prettier-6604-rl-fork",
+  "path": [
+    "read_repo",
+    "read_typescript",
+    "core_patch",
+    "core_verify",
+    "backbone_finish"
+  ],
+  "source_image": "ghcr.io/timesler/swe-polybench.eval.x86_64.prettier__prettier-6604@sha256:8159d38fcbd6d5f09402d93d3e15cf2a891058ddd835a224f1d6b3357a87cc94",
+  "sample_interval_seconds": 0.1,
+  "action_timeout_seconds": 600,
+  "guest_cpu": 2,
+  "guest_memory_mib": 4096,
+  "sampling_sha256": "5a8ec5da148af843cb8237a206977a270ef567a9ed8e5f2c12bfe6448b18d8e1",
+  "rollouts_sha256": "14e599f5068e5d96b3b8284b91dc02baf798ae13a38dd6d7b279d7d4ab3995bd",
+  "runner_sha256": "8bc17248c054342d169a9bae1eea9240a39ff802e28ada8422e9df53628f544d",
+  "manifest_sha256": {
+    "read_repo": "04535e51497aad6dcee378731875876f661382b95de6b38a3dfa7574df892fa2",
+    "read_typescript": "6abe173e35c13a1534d98d0bffaae1cf7cc495123ddcb2441e49f3cd673afa15",
+    "core_patch": "6739d180c3d07e67885ffeb4a7cfd29f3400c13cdc23bf4b47e5bb634a47fe6b",
+    "core_verify": "961e077f9d10be192ccdd3e9dba2fcaffa73e9e63caa372e5c6342c57144bfeb",
+    "backbone_finish": "853d193617db0587cf957cdeee3a9f0862df74d124fadb1d498ffd95d895e2ac"
+  },
+  "expected_exit_codes": {
+    "read_repo": [
+      0,
+      127,
+      0,
+      0,
+      0
+    ],
+    "read_typescript": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+    ],
+    "core_patch": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+    ],
+    "core_verify": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+    ],
+    "backbone_finish": [
+      0,
+      0,
+      0,
+      0,
+      0
+    ]
+  },
+  "reference_patch_sha256": "73eb5f9d0c5582c5b1be464aa6915cfba621a27b80d953b69db74c6d1fa3da5a",
+  "cache_policy": "no manual host/guest drop; cold VM, frozen tools warm caches",
+  "scope": "one frozen backbone; no checkpoint, other rollouts or performance comparison"
+}

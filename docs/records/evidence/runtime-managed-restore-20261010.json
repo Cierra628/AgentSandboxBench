@@ -1,0 +1,99 @@
+{
+  "status": "PASS",
+  "scope": "six frozen prefix actions; two snapshot children each continue original steps 7-13; CPU/file-I/O/idle calibration and parent sampling restart; not full task or formal overhead comparison",
+  "source_directory": ".artifacts/storage-isolated-service/20261010T043724Z-93404",
+  "cpu": 2,
+  "memory_mib": 512,
+  "checks": {
+    "six_frozen_actions_match_reference": "PASS",
+    "parent_process_and_sampling_continue_after_capture": "PASS",
+    "full_vm_restore_files_progress_and_process": "PASS",
+    "snapshot_branch_progress_process_and_write_isolation": "PASS",
+    "two_children_continue_original_steps_7_to_13": "PASS",
+    "one_owned_collector_per_live_vm": "PASS",
+    "continuous_idle_and_per_instance_curves": "PASS",
+    "guest_cpu_io_and_owned_host_vmm_curves": "PASS",
+    "parent_restart_restore_and_branch_sampling_ids": "PASS"
+  },
+  "continuations": {
+    "backbone": {
+      "status": "PASS",
+      "action_count": 7,
+      "global_steps": "7-13",
+      "expected_nonzero_exits_preserved": true,
+      "guest_action_sum_ns": 3687364351
+    },
+    "branch": {
+      "status": "PASS",
+      "action_count": 7,
+      "global_steps": "7-13",
+      "expected_nonzero_exits_preserved": true,
+      "guest_action_sum_ns": 3770522079
+    }
+  },
+  "instances": [
+    {
+      "sandbox_id": "01a1241a-1f80-7970-8b6c-87c13ebe0acf",
+      "role": "backbone",
+      "guest_samples": 132,
+      "host_samples": 132,
+      "pss_samples": 14,
+      "guest_cpu_observed_peak_percent": 63.63636363636363,
+      "host_pss_observed_peak_mib": 244.216796875,
+      "max_pss_read_ms": 4.939244
+    },
+    {
+      "sandbox_id": "01a1241a-3802-76e0-ac1e-9b678a18870d",
+      "role": "idle",
+      "guest_samples": 301,
+      "host_samples": 308,
+      "pss_samples": 31,
+      "guest_cpu_observed_peak_percent": 52.38095238095238,
+      "host_pss_observed_peak_mib": 105.451171875,
+      "max_pss_read_ms": 2.373907
+    },
+    {
+      "sandbox_id": "01a1241a-6983-7863-8af6-639b8e3c66ef",
+      "role": "backbone",
+      "guest_samples": 190,
+      "host_samples": 193,
+      "pss_samples": 20,
+      "guest_cpu_observed_peak_percent": 61.904761904761905,
+      "host_pss_observed_peak_mib": 206.748046875,
+      "max_pss_read_ms": 4.768559
+    },
+    {
+      "sandbox_id": "01a1241a-77ec-7702-9c1f-8707e4bad4e8",
+      "role": "branch",
+      "guest_samples": 160,
+      "host_samples": 163,
+      "pss_samples": 17,
+      "guest_cpu_observed_peak_percent": 71.42857142857143,
+      "host_pss_observed_peak_mib": 198.58203125,
+      "max_pss_read_ms": 4.946019
+    }
+  ],
+  "collector_lifecycle_version": 2,
+  "process_probe_mode": "single Python loop; no repeated cat/sleep child processes",
+  "offline_verification": {
+    "status": "PASS",
+    "raw_files": 372,
+    "strict_children": 2,
+    "raw_hashes_unchanged": true,
+    "reports_byte_identical": true
+  },
+  "volume_observed_used_peak_gib": 3.7251052856445312,
+  "host_observed_available_min_gib": 41.44929885864258,
+  "cleanup": {
+    "owned_container_removed": true,
+    "mount_and_loop_removed": true,
+    "successful_fixture_removed": true,
+    "original_firecracker_identities_unchanged": true,
+    "original_service_unchanged": true
+  },
+  "limits": [
+    "512 MiB smoke, not normal complete 4096 MiB task or seven instances",
+    "PSS read duration is direct collection cost, not a matched task overhead percentage",
+    "Guest logical Cached and VMM PSS are separate; no continuous physical cache deduplication"
+  ]
+}

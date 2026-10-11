@@ -1,0 +1,313 @@
+{
+  "date": "2026-09-30",
+  "scope": "owned KVM fault-probe calibration and original-cache Exp1; not monitoring overhead acceptance",
+  "protocol": {
+    "full_replays": 5,
+    "monitoring": "off",
+    "original_cache_conditions": true,
+    "guest_drop_caches": false,
+    "directory_prewarm": false,
+    "vcpu_affinity": [
+      2,
+      4
+    ],
+    "temporary_frequency_khz": 2000000,
+    "frequency_policies": [
+      2,
+      4,
+      66,
+      68
+    ],
+    "guest_memory_mib": 4096
+  },
+  "calibration": {
+    "result_dir": ".artifacts/owned-kvm-fault-calibration/20260930T124951Z-2679768",
+    "status": "PASS",
+    "diagnostic_gate": "PASS",
+    "checked_phases": 8,
+    "checked_actions": 512,
+    "differences_percent": {
+      "command_total_ns": {
+        "aa": -0.8216963102964936,
+        "ab": -0.37566380360625207
+      },
+      "phase_ns": {
+        "aa": -1.1259647141883211,
+        "ab": -0.1249255007047756
+      }
+    },
+    "stdout_sha256": "3466031c26c23903bab73ed2ceeea6dad30eec9c38f16cbb6c51e4b79341aca6",
+    "source_sha256": "8c9d26f86b270f686ad4e8ba32dea7f6827b3dd3cd60288bafc379296e51b6b0",
+    "limits": [
+      "one mirrored group, no confidence interval",
+      "warm synthetic Git workload; native Git trace cost not measured",
+      "Incremental KVM counters; queue probe in both conditions; no synchronous fault or worker latency measurement; not monitoring acceptance"
+    ],
+    "functional_validation": {
+      "try_event": "NOT_VALIDATED",
+      "async_setup": "NOT_VALIDATED"
+    }
+  },
+  "positive_fixture": {
+    "result_dir": ".artifacts/dax-restore-diagnostic/20260930T125502Z-2681183",
+    "status": "PASS",
+    "observations": [
+      {
+        "mode": "direct",
+        "try_async_get_page": 3,
+        "successful_async_setup": 3,
+        "target_page_completions": 1
+      },
+      {
+        "mode": "restore",
+        "try_async_get_page": 3,
+        "successful_async_setup": 3,
+        "target_page_completions": 1
+      }
+    ],
+    "source_sha256": "91a8f05ff131cca64fddceef466f7fc444f8549c462daf57a48ca0e8417b3ec6",
+    "limits": [
+      "CH cold-file fixture proves probe functionality, not AgentENV fault frequency",
+      "whole capture counters include other owned-vCPU activity; not exact target-file counts",
+      "no synchronous fault, fault latency or Exp1 timing measurement",
+      "snapshot content roundtrip checked during run; offline audit checks stored archive hash"
+    ]
+  },
+  "failed_attempts": [
+    {
+      "result_dir": ".artifacts/owned-kvm-fault-calibration/20260930T124808Z-2678530",
+      "status": "FAIL",
+      "error": "AssertionError('trace setup failed')",
+      "cleanup": "PASS",
+      "result_sha256": "e7e9e698df354d4975c68091d3bb9057eecf954cb75962a42c6ad211102cd22f"
+    },
+    {
+      "result_dir": ".artifacts/dax-restore-diagnostic/20260930T125330Z-2680981",
+      "status": "FAIL",
+      "error": "AssertionError('TRY functional validation failed')",
+      "cleanup": "PASS",
+      "result_sha256": "d9453f99a4cc86b164ee703867341547f37aaaa961c23d24f413c0de04c4416f"
+    }
+  ],
+  "exp1": [
+    {
+      "run_id": "20260930T125714Z-2681507",
+      "position": 1,
+      "monitoring": "off",
+      "command_ms": 62.535021,
+      "directory_scan_ms": 30.615,
+      "directory_counts": {
+        "directories-visited": 2743,
+        "paths-visited": 11007
+      },
+      "guest_cpu_ms": 63.962,
+      "voluntary_switches": 50,
+      "guest_command_major_faults": 4,
+      "guest_vdb": {
+        "major": 254,
+        "minor": 16,
+        "reads_completed": 205,
+        "sectors_read": 1776,
+        "read_ms": 96,
+        "writes_completed": 134,
+        "sectors_written": 2088,
+        "write_ms": 18,
+        "io_ms": 4,
+        "weighted_io_ms": 115
+      },
+      "owned_vcpu_queue_upper_bound_ms": 13.250247,
+      "kvm_try_async_get_page": 0,
+      "kvm_successful_async_setup": 0,
+      "observed_min_free_gib": 49.58564758300781,
+      "steps_stdout_025_sha256": "9a64ed707c224734715f7af4fea2d84f0b51d128e5c8d05535fc9de7d5b6162f",
+      "patch_sha256": "f1cc23ac4f5ac1cff87eb7f8c54f8176c1a47cec37fa4cb6907b9dd8ad199af2",
+      "offline_audit": "PASS",
+      "source_result_sha256": "9e51829b5abd536047cd4680ef3d9ccc2b01ccb8077a7bc2062f29f1cbc40469"
+    },
+    {
+      "run_id": "20260930T125816Z-2682230",
+      "position": 1,
+      "monitoring": "off",
+      "command_ms": 60.344851,
+      "directory_scan_ms": 30.477,
+      "directory_counts": {
+        "directories-visited": 2743,
+        "paths-visited": 11007
+      },
+      "guest_cpu_ms": 63.48,
+      "voluntary_switches": 35,
+      "guest_command_major_faults": 3,
+      "guest_vdb": {
+        "major": 254,
+        "minor": 16,
+        "reads_completed": 209,
+        "sectors_read": 1800,
+        "read_ms": 93,
+        "writes_completed": 29,
+        "sectors_written": 2088,
+        "write_ms": 7,
+        "io_ms": 8,
+        "weighted_io_ms": 101
+      },
+      "owned_vcpu_queue_upper_bound_ms": 9.374242,
+      "kvm_try_async_get_page": 0,
+      "kvm_successful_async_setup": 0,
+      "observed_min_free_gib": 49.574867248535156,
+      "steps_stdout_025_sha256": "9a64ed707c224734715f7af4fea2d84f0b51d128e5c8d05535fc9de7d5b6162f",
+      "patch_sha256": "f1cc23ac4f5ac1cff87eb7f8c54f8176c1a47cec37fa4cb6907b9dd8ad199af2",
+      "offline_audit": "PASS",
+      "source_result_sha256": "bdd1befae4b14035dd1dbecfab65cdd2c8371b62fc5a06dc14bd26e40d757f95"
+    },
+    {
+      "run_id": "20260930T125816Z-2682230",
+      "position": 2,
+      "monitoring": "off",
+      "command_ms": 351.405545,
+      "directory_scan_ms": 319.945,
+      "directory_counts": {
+        "directories-visited": 2743,
+        "paths-visited": 11007
+      },
+      "guest_cpu_ms": 77.517,
+      "voluntary_switches": 2742,
+      "guest_command_major_faults": 16,
+      "guest_vdb": {
+        "major": 254,
+        "minor": 16,
+        "reads_completed": 3070,
+        "sectors_read": 25656,
+        "read_ms": 385,
+        "writes_completed": 35,
+        "sectors_written": 2088,
+        "write_ms": 7,
+        "io_ms": 288,
+        "weighted_io_ms": 393
+      },
+      "owned_vcpu_queue_upper_bound_ms": 9.424733,
+      "kvm_try_async_get_page": 0,
+      "kvm_successful_async_setup": 0,
+      "observed_min_free_gib": 49.578369140625,
+      "steps_stdout_025_sha256": "9a64ed707c224734715f7af4fea2d84f0b51d128e5c8d05535fc9de7d5b6162f",
+      "patch_sha256": "f1cc23ac4f5ac1cff87eb7f8c54f8176c1a47cec37fa4cb6907b9dd8ad199af2",
+      "offline_audit": "PASS",
+      "source_result_sha256": "bdd1befae4b14035dd1dbecfab65cdd2c8371b62fc5a06dc14bd26e40d757f95"
+    },
+    {
+      "run_id": "20260930T125816Z-2682230",
+      "position": 3,
+      "monitoring": "off",
+      "command_ms": 74.556654,
+      "directory_scan_ms": 38.80200000000001,
+      "directory_counts": {
+        "directories-visited": 2743,
+        "paths-visited": 11007
+      },
+      "guest_cpu_ms": 62.848,
+      "voluntary_switches": 153,
+      "guest_command_major_faults": 2,
+      "guest_vdb": {
+        "major": 254,
+        "minor": 16,
+        "reads_completed": 289,
+        "sectors_read": 2368,
+        "read_ms": 89,
+        "writes_completed": 258,
+        "sectors_written": 2088,
+        "write_ms": 33,
+        "io_ms": 12,
+        "weighted_io_ms": 123
+      },
+      "owned_vcpu_queue_upper_bound_ms": 8.718707,
+      "kvm_try_async_get_page": 0,
+      "kvm_successful_async_setup": 0,
+      "observed_min_free_gib": 49.57769775390625,
+      "steps_stdout_025_sha256": "9a64ed707c224734715f7af4fea2d84f0b51d128e5c8d05535fc9de7d5b6162f",
+      "patch_sha256": "f1cc23ac4f5ac1cff87eb7f8c54f8176c1a47cec37fa4cb6907b9dd8ad199af2",
+      "offline_audit": "PASS",
+      "source_result_sha256": "bdd1befae4b14035dd1dbecfab65cdd2c8371b62fc5a06dc14bd26e40d757f95"
+    },
+    {
+      "run_id": "20260930T125816Z-2682230",
+      "position": 4,
+      "monitoring": "off",
+      "command_ms": 62.617489,
+      "directory_scan_ms": 31.099999999999998,
+      "directory_counts": {
+        "directories-visited": 2743,
+        "paths-visited": 11007
+      },
+      "guest_cpu_ms": 64.162,
+      "voluntary_switches": 64,
+      "guest_command_major_faults": 0,
+      "guest_vdb": {
+        "major": 254,
+        "minor": 16,
+        "reads_completed": 198,
+        "sectors_read": 1600,
+        "read_ms": 81,
+        "writes_completed": 129,
+        "sectors_written": 2088,
+        "write_ms": 18,
+        "io_ms": 8,
+        "weighted_io_ms": 98
+      },
+      "owned_vcpu_queue_upper_bound_ms": 8.94095,
+      "kvm_try_async_get_page": 0,
+      "kvm_successful_async_setup": 0,
+      "observed_min_free_gib": 49.5771369934082,
+      "steps_stdout_025_sha256": "9a64ed707c224734715f7af4fea2d84f0b51d128e5c8d05535fc9de7d5b6162f",
+      "patch_sha256": "f1cc23ac4f5ac1cff87eb7f8c54f8176c1a47cec37fa4cb6907b9dd8ad199af2",
+      "offline_audit": "PASS",
+      "source_result_sha256": "bdd1befae4b14035dd1dbecfab65cdd2c8371b62fc5a06dc14bd26e40d757f95"
+    }
+  ],
+  "final_check": {
+    "status": "PASS",
+    "project_sandbox_count": 0,
+    "owned_probe_processes": [],
+    "cpu_policies": {
+      "2": {
+        "scaling_min_freq": "800000",
+        "scaling_max_freq": "2801000",
+        "scaling_governor": "schedutil"
+      },
+      "4": {
+        "scaling_min_freq": "800000",
+        "scaling_max_freq": "2801000",
+        "scaling_governor": "schedutil"
+      },
+      "66": {
+        "scaling_min_freq": "800000",
+        "scaling_max_freq": "2801000",
+        "scaling_governor": "schedutil"
+      },
+      "68": {
+        "scaling_min_freq": "800000",
+        "scaling_max_freq": "2801000",
+        "scaling_governor": "schedutil"
+      }
+    },
+    "free_bytes": 53241020416
+  },
+  "conclusion": {
+    "observed": "One natural slow directory scan coincided with much greater guest root block reads; unchanged directory/path counts; no owned-vCPU KVM async setup in full capture",
+    "inference": "Together with the prior guest cache intervention, cache-related guest filesystem reads are the leading explanation for this captured delay",
+    "not_established": [
+      "exact initially uncached or reclaimed files",
+      "which guest cache reclamation or initialization caused the difference",
+      "host synchronous faults or backend I/O latency",
+      "the cause of every historical slow execution",
+      "5% monitoring overhead acceptance"
+    ]
+  },
+  "limits": [
+    "Only one natural slow execution captured in this batch; no frequency estimate",
+    "Guest diskstats endpoints cover command loading, logging and other guest activity; not the scan alone",
+    "Device read_ms sums request times; io_ms is device activity, neither is exact Git blocked time",
+    "KVM counters include the full task capture and two owned vCPUs; no synchronous fault or worker latency measurement",
+    "CH private cold-file fixture establishes counter functionality on the same host, not AgentENV memory semantics",
+    "Warm calibration saw zero faults; measured incremental overhead does not bound cost under frequent events",
+    "Diagnostic probes enabled in all replay runs; not the original monitoring acceptance protocol",
+    "Full official task tests NOT_RUN"
+  ]
+}

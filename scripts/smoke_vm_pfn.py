@@ -1,17 +1,20 @@
 """One owned 4 GiB VM: capture successful KVM slots and join guest file PFNs."""
 import array
+import argparse
 import hashlib
 import json
 import os
 from pathlib import Path
 import re
 import signal
+import shutil
 import struct
 import subprocess
 import sys
 import time
 import tomllib
 import traceback
+from experiment_disk_guard import writer_lock
 
 ROOT = Path(__file__).resolve().parent.parent
 SENIOR = ROOT / 'IncrementalDAX_moti/motivation/experiments/exp3-RL-fork'
@@ -21,8 +24,17 @@ CLI = str(ROOT / 'runtime/bin/aenv')
 
 
 def main():
-    fixture_mib = int(sys.argv[1]) if len(sys.argv) > 1 else None
-    assert fixture_mib in (None, 1, 16)
+    parser=argparse.ArgumentParser(description=__doc__)
+    parser.add_argument('fixture_mib',type=int,nargs='?',choices=(1,16))
+    parser.add_argument('--exp1',action='store_true',help='complete frozen Exp1 before file-LRU scan; diagnostic mode')
+    parser.add_argument('--recheck-file-types',action='store_true',help='diagnostic guest type checks around host reads')
+    parser.add_argument('--damon-mode',choices=('default','damon_disabled'),help='verify/control only this guest DAMON policy')
+    parser.add_argument('--named-files',type=Path,help='resident-only named task-file manifest; diagnostic mode after Exp1')
+    args=parser.parse_args();fixture_mib=args.fixture_mib
+    if args.exp1 and fixture_mib:parser.error('Exp1 and synthetic fixture are separate workloads')
+    if args.recheck_file_types and not args.exp1:parser.error('type recheck currently requires --exp1')
+    if args.damon_mode and not args.exp1:parser.error('guest DAMON control currently requires --exp1')
+    if args.named_files and not args.exp1:parser.error('named task files require --exp1')
     os.umask(0o077)
     out = ROOT / '.artifacts/vm-pfn-smoke' / (time.strftime('%Y%m%dT%H%M%SZ', time.gmtime()) + f'-{os.getpid()}')
     (out / 'host/probes').mkdir(parents=True)
@@ -30,6 +42,15 @@ def main():
                SENIOR / 'workloads/prettier-6604-rl-fork/physical-cache-probe.py']
     if fixture_mib:
         sources += [ROOT / 'scripts/vm_pfn_fixture.py', ROOT / 'scripts/guest_pfn_fixture.py']
+    if args.exp1:
+        from exp1_physical_workload import sources as exp1_sources
+        sources += exp1_sources()
+    if args.recheck_file_types:
+        sources += [ROOT/'scripts/guest_file_type_check.py',ROOT/'scripts/recheck_file_lru.py']
+    if args.damon_mode:sources += [ROOT/'scripts/guest_damon_control.py']
+    if args.named_files:
+        sources += [ROOT/'scripts/guest_named_file_probe.py',ROOT/'scripts/named_guest_file_physical.py',
+                    ROOT/'scripts/guest_file_type_check.py',ROOT/'scripts/measure_file_physical.py',args.named_files.resolve()]
     for source in sources:
         (out / source.name).write_bytes(source.read_bytes())
     cfg = json.loads((ROOT / 'configs/exp1-monitor-calibration-smoke.json').read_text())
@@ -38,6 +59,11 @@ def main():
     tracer = None
     stage = 'preflight'
     status = 'FAIL'
+
+    def cancelled(signum, frame):
+        raise RuntimeError(f'owned VM measurement interrupted: {signum}')
+
+    signal.signal(signal.SIGTERM,cancelled)
 
     def run(name, args, timeout=30):
         try:
@@ -57,6 +83,7 @@ def main():
 
     try:
         assert os.geteuid() == 0 and os.sysconf('SC_PAGE_SIZE') == 4096
+        assert shutil.disk_usage(out).free >= 32*1024**3, 'less than 32 GiB before launch'
         credentials = tomllib.loads((ROOT / 'runtime/config/aenv/credentials').read_text())
         assert credentials['url'] == 'http://' + (SERVER / 'address.txt').read_text().strip()
         cid = (SERVER / 'container-id.txt').read_text().strip()
@@ -66,7 +93,11 @@ def main():
         cg = Path('/sys/fs/cgroup') / Path(f"/proc/{info['State']['Pid']}/cgroup").read_text().strip().split('::')[1].lstrip('/')
         assert not list(cg.glob('*/cgroup.procs')), 'nested service cgroups require explicit trace scope'
         (out / 'config.json').write_text(json.dumps(dict(image=cfg['workload_image'], cpu=2, memory_mib=4096,
-            host_kernel=os.uname().release, fixture_mib=fixture_mib, cgroup=str(cg), cgroup_id=cg.stat().st_ino,
+            host_kernel=os.uname().release, fixture_mib=fixture_mib, exp1=args.exp1,
+            recheck_file_types=args.recheck_file_types,
+            damon_mode=args.damon_mode,
+            named_files_manifest=str(args.named_files.resolve()) if args.named_files else None,
+            cgroup=str(cg), cgroup_id=cg.stat().st_ino,
             server_image=info['Image'], source_sha256={p.name: hashlib.sha256(p.read_bytes()).hexdigest() for p in sources}), indent=2))
         checks[stage] = 'PASS'
         stage = 'trace_attach'
@@ -101,13 +132,24 @@ END { clear(@active); clear(@slot); clear(@guest); clear(@size); clear(@host); }
         (out / 'sandbox-id.txt').write_text(sid + '\n')
         aenv('guest-environment', 'exec', sid, 'bash', '-lc', 'uname -a; getconf PAGESIZE; cat /proc/iomem; cat /proc/meminfo')
         checks[stage] = 'PASS'
+        if args.exp1:
+            if args.damon_mode:
+                run('damon-prepare',[sys.executable,str(ROOT/'scripts/guest_damon_control.py'),
+                    sid,args.damon_mode,'prepare',str(out/'damon-prepare.json')])
+            stage='frozen_exp1'
+            from exp1_physical_workload import run_exp1
+            run_exp1(aenv,sid,out)
+            checks[stage]='PASS'
         stage = 'guest_probe'
+        guest_probe_started=time.monotonic_ns()
         aenv('upload', 'upload', sid, str(sources[2]), '/tmp/asb-physical-cache-probe.py')
         aenv('probe-start', 'exec', sid, 'bash', '-lc',
              f'nohup timeout 180 python3 /tmp/asb-physical-cache-probe.py {sid} >/tmp/asb-probe.log 2>&1 </dev/null & echo $! >/tmp/asb-probe.pid')
         aenv('probe-ready', 'exec', sid, 'bash', '-lc',
              f'for i in $(seq 1 40); do test -s /dev/shm/mixfs-exp5-{sid}/marker.json && exit 0; sleep 0.25; done; cat /tmp/asb-probe.log; exit 1')
         aenv('download', 'download', sid, f'/dev/shm/mixfs-exp5-{sid}', str(out / 'host/probes'))
+        (out/'guest-probe-duration-ns.txt').write_text(str(time.monotonic_ns()-guest_probe_started)+'\n')
+        if args.exp1:aenv('exp1-memory-after-probe','exec',sid,'cat','/proc/meminfo')
         checks[stage] = 'PASS'
         stage = 'slot_capture'
         assert tracer.poll() is None, 'tracer stopped early'
@@ -120,6 +162,12 @@ END { clear(@active); clear(@slot); clear(@guest); clear(@size); clear(@host); }
         (out / 'host/kvm-slots.tsv').write_text(''.join('\t'.join(r[:5]) + '\n' for r in rows))
         checks[stage] = 'PASS'
         stage = 'physical_join'
+        if args.recheck_file_types:
+            aenv('type-check-upload','upload',sid,str(ROOT/'scripts/guest_file_type_check.py'),'/tmp/asb-file-type-check.py')
+            aenv('type-check-before','exec',sid,'python3','/tmp/asb-file-type-check.py',sid,'before')
+            for name in ('flags-before.bin','flags-before.json'):
+                aenv('download-'+name,'download',sid,f'/dev/shm/mixfs-exp5-{sid}/{name}',
+                     str(out/'host/probes'/f'mixfs-exp5-{sid}'/name))
         begin = time.monotonic_ns()
         run('physical-join', ['python3', str(sources[1]), str(out), '1'], timeout=30)
         scan_ns = time.monotonic_ns() - begin
@@ -128,6 +176,12 @@ END { clear(@active); clear(@slot); clear(@guest); clear(@size); clear(@host); }
         assert 0 < measured['guest_file_cache_resident_mappings'] <= measured['guest_file_cache_logical_pages']
         pid = measured['sandbox_to_vmm_pid'][sid]
         assert Path(f'/proc/{pid}/cgroup').read_text() == Path(f"/proc/{info['State']['Pid']}/cgroup").read_text()
+        process_start=Path(f'/proc/{pid}/stat').read_text().rsplit(')',1)[1].split()[19]
+        (out/'host/vmm-identity.json').write_text(json.dumps(dict(pid=pid,start_time_ticks=int(process_start),
+            cgroup=Path(f'/proc/{pid}/cgroup').read_text(),executable=os.readlink(f'/proc/{pid}/exe'),
+            sandbox_id=sid,marker_verified=True),indent=2)+'\n')
+        if args.exp1:
+            assert measured['dax_file_host_physical_pss_mib']==0, 'DAX accounting is outside this AgentENV file-LRU scope'
         # Independent second live read, archived for offline recomputation.
         # This is not an atomic snapshot of the preceding collector scan.
         latest_slots = {int(r[1]): tuple(int(x, 16) for x in r[2:5]) for r in rows if int(r[0]) == pid}
@@ -169,6 +223,14 @@ END { clear(@active); clear(@slot); clear(@guest); clear(@size); clear(@host); }
             os.close(fd)
         assert resident == measured['guest_file_cache_resident_mappings'], 'live residency changed between scans'
         assert len(unique) * 4096 / 1024**2 == measured['guest_file_cache_host_physical_mib'], 'live unique page count changed between scans'
+        assert Path(f'/proc/{pid}/stat').read_text().rsplit(')',1)[1].split()[19]==process_start
+        if args.recheck_file_types:
+            aenv('type-check-after','exec',sid,'python3','/tmp/asb-file-type-check.py',sid,'after')
+            for name in ('flags-after.bin','flags-after.json'):
+                aenv('download-'+name,'download',sid,f'/dev/shm/mixfs-exp5-{sid}/{name}',
+                     str(out/'host/probes'/f'mixfs-exp5-{sid}'/name))
+            from recheck_file_lru import report as recheck
+            (out/'file-type-recheck.json').write_text(json.dumps(recheck(out),indent=2)+'\n')
         (out / 'coverage.json').write_text(json.dumps(dict(logical_pages=measured['guest_file_cache_logical_pages'],
             mapped_pages=measured['guest_file_cache_logical_pages'], unmapped_pages=0,
             resident_mappings=measured['guest_file_cache_resident_mappings'],
@@ -176,11 +238,20 @@ END { clear(@active); clear(@slot); clear(@guest); clear(@size); clear(@host); }
             scan_ns=scan_ns, independent_unique_host_pages=len(unique),
             note='two live non-atomic scans agree in counts; no shared/private/CoW or DAX validation'), indent=2))
         checks[stage] = 'PASS'
+        if args.exp1:
+            from exp1_physical_workload import file_lru_accounting
+            (out/'file-lru-accounting.json').write_text(json.dumps(file_lru_accounting(out),indent=2)+'\n')
         if fixture_mib:
             stage = 'known_file_fixture'
             from vm_pfn_fixture import run_fixture
             run_fixture(run, aenv, sid, out, pid, latest_slots, fixture_mib, SENIOR)
             checks[stage] = 'PASS'
+        if args.named_files:
+            stage='named_file_probe'
+            from named_guest_file_physical import run_named_files
+            named=run_named_files(aenv,sid,out,pid,latest_slots,args.named_files)
+            assert named['status']=='PASS','named file attribution incomplete; inspect named-files/result.json'
+            checks[stage]='PASS'
         status = 'PASS'
     except Exception:
         checks[stage] = 'FAIL'
@@ -216,4 +287,5 @@ END { clear(@active); clear(@slot); clear(@guest); clear(@size); clear(@host); }
 
 
 if __name__ == '__main__':
-    raise SystemExit(main())
+    with writer_lock():
+        raise SystemExit(main())

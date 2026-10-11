@@ -28,7 +28,7 @@ def main():
     # Audit mirrored implementation sources, so a stale patch cannot silently
     # differ from the code used by the offline contracts/kernel fixture.
     pairs=[(p,fork/'packages/envd/internal/taskcgroup'/p.name) for p in (ROOT/'backend/trenvx/taskcgroup').glob('*.go')]
-    pairs += [(ROOT/'backend/trenvx/quiesced_checkpoint.py',parent/'motivation/experiments/exp3-RL-fork/quiesced_checkpoint.py'),(ROOT/'backend/trenvx/tests/taskcgroup_integration_test.go',fork/'packages/envd/internal/process/taskcgroup_integration_test.go')]
+    pairs += [(ROOT/'backend/trenvx/checkpoint_dax.py',parent/'motivation/experiments/exp3-RL-fork/checkpoint_dax.py'),(ROOT/'backend/trenvx/quiesced_checkpoint.py',parent/'motivation/experiments/exp3-RL-fork/quiesced_checkpoint.py'),(ROOT/'backend/trenvx/tests/taskcgroup_integration_test.go',fork/'packages/envd/internal/process/taskcgroup_integration_test.go')]
     for expected,actual in pairs:
         if expected.read_bytes()!=actual.read_bytes():raise RuntimeError(f'implementation/patch mismatch: {actual}')
     print('PASS pinned revisions, patch state, and implementation parity')

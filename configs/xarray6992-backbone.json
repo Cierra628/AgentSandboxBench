@@ -1,0 +1,107 @@
+{
+  "task_id": "pydata__xarray-6992",
+  "base_commit": "45c0a114e2b7b27b83c9618bc05b36afac82183c",
+  "source_image": "ghcr.io/epoch-research/swe-bench.eval.x86_64.pydata__xarray-6992@sha256:c05101ef7105599eca1b7d15279a2928ac5453876cd2b83008deb9165d752655",
+  "workload": "IncrementalDAX_moti/motivation/experiments/exp3-RL-fork/workloads/xarray-6992-rl-fork",
+  "path": [
+    "read_repo",
+    "trace_index_state",
+    "core_patch",
+    "core_verify",
+    "backbone_finish"
+  ],
+  "guest_cpu": 2,
+  "guest_memory_mib": 4096,
+  "sample_interval_seconds": 0.1,
+  "action_timeout_seconds": 600,
+  "frozen_shell_environment": {
+    "PATH": "/opt/miniconda3/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin",
+    "unset": [
+      "CONDA_PREFIX",
+      "CONDA_DEFAULT_ENV",
+      "CONDA_SHLVL"
+    ],
+    "reason": "restore image-configured PATH; original sampled which/python outputs select base interpreter"
+  },
+  "expected_exit_codes": {
+    "read_repo": [
+      1,
+      0,
+      127,
+      0,
+      1,
+      1
+    ],
+    "trace_index_state": [
+      0,
+      0,
+      0,
+      1,
+      0,
+      0,
+      0
+    ],
+    "core_patch": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      1,
+      0
+    ],
+    "core_verify": [
+      1,
+      1,
+      0,
+      1,
+      1,
+      0,
+      0
+    ],
+    "backbone_finish": [
+      0,
+      1,
+      0,
+      0,
+      1,
+      1
+    ]
+  },
+  "input_sha256": {
+    "task.json": "cbb5e089798dee077162e4f19266e09f0ccc5d6aecf3299fcd78f2552eb5b7a4",
+    "agent-sampling.json": "112f158bfc8659d871651371cd212aedf5b1801f28c208f3acb717243b5f6cf3",
+    "rollouts.json": "42a4dc63058f85820cfb04369da48a2a902ef49f738607ee71545fdcb8be4628",
+    "guest-runner.sh": "8bc17248c054342d169a9bae1eea9240a39ff802e28ada8422e9df53628f544d",
+    "segments/backbone_finish/actions.tsv": "84317c176ccb379478c98fdb1208878e947e4b5a0bedac64ab30c6d7028d1c17",
+    "segments/core_patch/actions.tsv": "775d91ffcc76ac869324e9b8aa4befe1ef65893b6f4872bd8ea7ffd05dac132e",
+    "segments/core_verify/actions.tsv": "9c18572b676daa5f2e3ca268a1835850540eaad212069a9f42d821cdd9e2600d",
+    "segments/early_1_finish/actions.tsv": "f5268df650630ce153906635abfa6f952c57564608009b33c79d796e1522a3f0",
+    "segments/early_1_inspect/actions.tsv": "8509dca2989466d7212fdc1f00b21164dabe65644b0ff54b4994acfd38675015",
+    "segments/early_2_finish/actions.tsv": "6ab192c060a1dbfa4cad25f7ac1c04c0a2d09fb72d53b542698e1676f9f64200",
+    "segments/early_2_inspect/actions.tsv": "464ef9fc75f3ed4ec76ed3c5c3196612d03bf2139839f5a7625f06e0e45913bd",
+    "segments/early_3_finish/actions.tsv": "ff38c60ad72801a15c2f14d2c525eae3fc115159a2e12a194f8a11133c208693",
+    "segments/early_3_inspect/actions.tsv": "ce7593edc95b225311455cb2f1ff8a8559f1bb0d43f0a463f57e826c7419dbda",
+    "segments/late_1_finish/actions.tsv": "a9f2146a90412c71ed22873dc6298ebbe4fc2ad15ede29fd043737ef653ab4e4",
+    "segments/late_1_inspect/actions.tsv": "adedced686a7ec6020d0552bfaa865505a527102e5d011c7faf54424f1cb3870",
+    "segments/late_2_finish/actions.tsv": "7b8e583e702267111fa9f117b9a705d5d5ceee2986fc576d23a1e2c0d7490223",
+    "segments/late_2_inspect/actions.tsv": "c818d39b89622778d7ca3927c36e8d9c8e8749a06ec0c42a5d583fd3ed984b0f",
+    "segments/late_3_finish/actions.tsv": "dc12fba421b525fe346d11b057b8c10c438bb0de834464508b9a4224c98ff7d5",
+    "segments/late_3_inspect/actions.tsv": "a9c80a3f919b75329302657e8e724807c14e818360ceb2bc07b1fcfde8d5b253",
+    "segments/read_repo/actions.tsv": "91e99456d859e792b64434eca006523fe4f98d092bf86c8fbee21715f5d951be",
+    "segments/trace_index_state/actions.tsv": "b149675abcf8591504b91c693d1d175a262ba058dd19baa71cec7925d2fa1318"
+  },
+  "base_file_sha256": {
+    "xarray/core/dataset.py": "ad2a1dcde480fffe1d49027746b9cc79e0268d6ef34dab4b14fea8fdd29e3ba8",
+    "xarray/tests/test_dataset.py": "565ab0a37e046aa13955b1e3ef2aad54f82a0c617f3c923cf5d949e08bd63bc2"
+  },
+  "final_file_sha256": {
+    "xarray/core/dataset.py": "b5be1fd52f72b00703514203d4cc399f14d7a9290fc5597dcaae8dcf6b61f267",
+    "xarray/tests/test_dataset.py": "369fee4f3cefa6666d14a5241433d674f47bcbf6ce553d4291d1806300661c85"
+  },
+  "reference_patch_sha256": "e7c07a31bafbb7ee2a73883b83a551b11add14c15f17d24e4402f77464f21de1",
+  "official_task_sha256": "13eb11ba4b031793553cfa26ec94cab4a72476025b8571f993f1d9021b6ca06b",
+  "scope": "one frozen Xarray backbone; complete patch reference from sampled edits; direct SWE-bench selected-case evaluation"
+}

@@ -1,0 +1,1401 @@
+{
+  "schema": 1,
+  "date": "2026-09-30",
+  "scope": "add-only native performance logging; diagnostic only; platform monitoring not accepted",
+  "calibration": {
+    "run_id": "20260930T093940Z-2601481",
+    "path": ".artifacts/git-add-performance-calibration/20260930T093940Z-2601481",
+    "status": "PASS",
+    "gate": "PASS",
+    "differences_percent": {
+      "command_total_ns": {
+        "aa": 0.6903287990092322,
+        "ab": -1.7098445387987438
+      },
+      "phase_ns": {
+        "aa": 0.446767901012568,
+        "ab": -0.12108393668140982
+      }
+    },
+    "checked_actions": 512,
+    "cleanup": "PASS",
+    "restoration": "PASS",
+    "result_sha256": "f8ebf9cf3f4a60df286643c160396720ce42f686f7b5b3a32b7c871dfa579f6c",
+    "input_hashes": {
+      "command-clock": "e64dcf25ab468433898e2f8fc16cde7ad11b112aab542a14404e54e9657fd4e6",
+      "git_step_diagnostic.py": "a36e7c594366c26424e0d3618e3a3949d3c3ff61fc857d5f5cd3f4d52904d379",
+      "command_clock.c": "ac9d6a9b517074a0e50d004f843dda5edc07454c43c3b8cc585236f50b35b136",
+      "025.sh": "9d62a89b1f265a2908b4c002df82f34368ac23a970cec807eca924a8ff81ec6a",
+      "calibrate_git_host_wait.py": "2ba235cfacc9467e6a0ab1956a846644a7d744e0c3b0af040d4eebc6558b2295"
+    },
+    "limits": [
+      "one mirrored group, no confidence interval",
+      "warm synthetic Git workload; cannot guarantee cost on Exp1",
+      "only incremental add-native performance logging; Bash command timing in both conditions; not platform monitoring acceptance"
+    ]
+  },
+  "batches": [
+    {
+      "run_id": "20260930T094120Z-2602544",
+      "path": ".artifacts/exp1-git-add-performance/20260930T094120Z-2602544",
+      "status": "PASS",
+      "verdict": "DIAGNOSTIC_ONLY",
+      "order": [
+        "off"
+      ],
+      "guest_runner_sha256": {
+        "guest-runner-original.sh": "bb3f50aa03b7424855556920d3808be5b6b8c3046e9bc0687c4229fc344efd9a",
+        "guest-runner-effective.sh": "98e06bba55434ff1d86d24fc21a9e853412976acbb9e18b155d1d634775901c4"
+      },
+      "clock_check": {
+        "max_abs_realtime_minus_monotonic_ms": 0.000385,
+        "scope": "timeout/bash command wrapper only; excludes outer date and wrapper output write"
+      },
+      "differences": {},
+      "result_sha256": "93dd38ddfc7c20b23e16b3e3a8d4eea968ee61a5d3451e280667b145d0264d02",
+      "clock_source_sha256": "ac9d6a9b517074a0e50d004f843dda5edc07454c43c3b8cc585236f50b35b136",
+      "clock_binary_sha256": "e64dcf25ab468433898e2f8fc16cde7ad11b112aab542a14404e54e9657fd4e6"
+    },
+    {
+      "run_id": "20260930T094228Z-2603510",
+      "path": ".artifacts/exp1-git-add-performance/20260930T094228Z-2603510",
+      "status": "PASS",
+      "verdict": "DIAGNOSTIC_ONLY",
+      "order": [
+        "off",
+        "control_A",
+        "control_B",
+        "light",
+        "light",
+        "control_B",
+        "control_A",
+        "off"
+      ],
+      "guest_runner_sha256": {
+        "guest-runner-original.sh": "bb3f50aa03b7424855556920d3808be5b6b8c3046e9bc0687c4229fc344efd9a",
+        "guest-runner-effective.sh": "98e06bba55434ff1d86d24fc21a9e853412976acbb9e18b155d1d634775901c4"
+      },
+      "clock_check": {
+        "max_abs_realtime_minus_monotonic_ms": 0.000422,
+        "scope": "timeout/bash command wrapper only; excludes outer date and wrapper output write"
+      },
+      "differences": {
+        "task_window_seconds": {
+          "means": {
+            "control_A": 3.8241752985,
+            "control_B": 3.911331114,
+            "off": 3.9310459494999996,
+            "light": 4.0112853095
+          },
+          "light_vs_off_percent": 2.041170747704091,
+          "control_B_vs_A_percent": 2.2790747990602434
+        },
+        "controller_exec_seconds": {
+          "means": {
+            "control_A": 3.8199442785000004,
+            "control_B": 3.9064780545,
+            "off": 3.9267805925,
+            "light": 4.004737799
+          },
+          "light_vs_off_percent": 1.985270240178294,
+          "control_B_vs_A_percent": 2.265315137894608
+        },
+        "guest_action_sum_seconds": {
+          "means": {
+            "control_A": 2.0031945895,
+            "control_B": 2.062892722,
+            "off": 2.081459971,
+            "light": 2.153297915
+          },
+          "light_vs_off_percent": 3.451324791294774,
+          "control_B_vs_A_percent": 2.9801464527168475
+        }
+      },
+      "result_sha256": "b657b98d33f6789fdeaffbe65d2c36c2388da5f5e6e5c116f461eb3072b481a3",
+      "clock_source_sha256": "ac9d6a9b517074a0e50d004f843dda5edc07454c43c3b8cc585236f50b35b136",
+      "clock_binary_sha256": "e64dcf25ab468433898e2f8fc16cde7ad11b112aab542a14404e54e9657fd4e6"
+    }
+  ],
+  "runs": [
+    {
+      "run_id": "20260930T094120Z-2602544",
+      "position": 1,
+      "mode": "off",
+      "step025_ms": 112.720395,
+      "command_clock": {
+        "realtime_ns": 107578894,
+        "monotonic_raw_ns": 107578509,
+        "user_ns": 17853000,
+        "system_ns": 47667000,
+        "minor_faults": 1922,
+        "major_faults": 2,
+        "voluntary_switches": 447,
+        "involuntary_switches": 12,
+        "exit_code": 0
+      },
+      "git_command_times": {
+        "add": {
+          "real_seconds": 0.1,
+          "user_seconds": 0.012,
+          "system_seconds": 0.046
+        },
+        "diff": {
+          "real_seconds": 0.005,
+          "user_seconds": 0.005,
+          "system_seconds": 0.0
+        }
+      },
+      "git_add_performance": {
+        "command_seconds": 0.098326857,
+        "records": [
+          {
+            "timestamp": "09:43:05.382791",
+            "source": "read-cache.c:2398",
+            "seconds": 0.002204514,
+            "label": "read cache .git/index"
+          },
+          {
+            "timestamp": "09:43:05.390486",
+            "source": "preload-index.c:154",
+            "seconds": 0.007625098,
+            "label": "preload index"
+          },
+          {
+            "timestamp": "09:43:05.391450",
+            "source": "name-hash.c:607",
+            "seconds": 0.000803509,
+            "label": "initialize name hash"
+          },
+          {
+            "timestamp": "09:43:05.467908",
+            "source": "diff-lib.c:266",
+            "seconds": 0.001276852,
+            "label": "diff-files"
+          },
+          {
+            "timestamp": "09:43:05.473396",
+            "source": "read-cache.c:3072",
+            "seconds": 0.005444878,
+            "label": "write index, changed mask = 2a"
+          },
+          {
+            "timestamp": "09:43:05.478710",
+            "source": "trace.c:487",
+            "seconds": 0.098326857,
+            "label": "git command: git add -A"
+          }
+        ],
+        "longest_recorded_stage": {
+          "timestamp": "09:43:05.390486",
+          "source": "preload-index.c:154",
+          "seconds": 0.007625098,
+          "label": "preload index"
+        },
+        "scope": "Native Git timers may nest or omit intervals; do not sum as a complete breakdown"
+      },
+      "git_add_marker_gaps": [
+        {
+          "before": "read cache .git/index",
+          "after": "preload index",
+          "elapsed_ns": 7695000
+        },
+        {
+          "before": "preload index",
+          "after": "initialize name hash",
+          "elapsed_ns": 964000
+        },
+        {
+          "before": "initialize name hash",
+          "after": "diff-files",
+          "elapsed_ns": 76458000
+        },
+        {
+          "before": "diff-files",
+          "after": "write index, changed mask = 2a",
+          "elapsed_ns": 5488000
+        },
+        {
+          "before": "write index, changed mask = 2a",
+          "after": "git command: git add -A",
+          "elapsed_ns": 5314000
+        }
+      ],
+      "realtime_minus_monotonic_ms": 0.000385,
+      "host_wait_upper_bound_ns": 11162040,
+      "checks": {
+        "input_hashes": "PASS",
+        "runner": "PASS",
+        "replay_correctness": "PASS",
+        "host_sampling": "DISABLED",
+        "guest_sampling": "DISABLED",
+        "task_window": "PASS",
+        "cleanup": "PASS"
+      },
+      "independent": {
+        "svg": {
+          "javascript_formatted": true,
+          "idempotent": true,
+          "output": "<svg>\n  <script>\n    const answer = 1 + 2;\n  </script>\n</svg>\n"
+        },
+        "nested_svg": {
+          "javascript_formatted": true,
+          "idempotent": true,
+          "output": "<div>\n  <svg>\n    <script>\n      const answer = 1 + 2;\n    </script>\n  </svg>\n</div>\n"
+        },
+        "html_control": {
+          "javascript_formatted": true,
+          "idempotent": true,
+          "output": "<script>\n  const answer = 1 + 2;\n</script>\n"
+        }
+      },
+      "patch_sha256": "f1cc23ac4f5ac1cff87eb7f8c54f8176c1a47cec37fa4cb6907b9dd8ad199af2",
+      "cleanup": "PASS",
+      "restoration": "PASS"
+    },
+    {
+      "run_id": "20260930T094228Z-2603510",
+      "position": 1,
+      "mode": "off",
+      "step025_ms": 70.718874,
+      "command_clock": {
+        "realtime_ns": 65859239,
+        "monotonic_raw_ns": 65858908,
+        "user_ns": 18066000,
+        "system_ns": 45642000,
+        "minor_faults": 1925,
+        "major_faults": 0,
+        "voluntary_switches": 101,
+        "involuntary_switches": 12,
+        "exit_code": 0
+      },
+      "git_command_times": {
+        "add": {
+          "real_seconds": 0.058,
+          "user_seconds": 0.017,
+          "system_seconds": 0.039
+        },
+        "diff": {
+          "real_seconds": 0.005,
+          "user_seconds": 0.0,
+          "system_seconds": 0.005
+        }
+      },
+      "git_add_performance": {
+        "command_seconds": 0.056681254,
+        "records": [
+          {
+            "timestamp": "09:44:12.097848",
+            "source": "read-cache.c:2398",
+            "seconds": 0.001680805,
+            "label": "read cache .git/index"
+          },
+          {
+            "timestamp": "09:44:12.107507",
+            "source": "preload-index.c:154",
+            "seconds": 0.009603878,
+            "label": "preload index"
+          },
+          {
+            "timestamp": "09:44:12.108492",
+            "source": "name-hash.c:607",
+            "seconds": 0.000813323,
+            "label": "initialize name hash"
+          },
+          {
+            "timestamp": "09:44:12.141502",
+            "source": "diff-lib.c:266",
+            "seconds": 0.001302442,
+            "label": "diff-files"
+          },
+          {
+            "timestamp": "09:44:12.147209",
+            "source": "read-cache.c:3072",
+            "seconds": 0.005662258,
+            "label": "write index, changed mask = 2a"
+          },
+          {
+            "timestamp": "09:44:12.152649",
+            "source": "trace.c:487",
+            "seconds": 0.056681254,
+            "label": "git command: git add -A"
+          }
+        ],
+        "longest_recorded_stage": {
+          "timestamp": "09:44:12.107507",
+          "source": "preload-index.c:154",
+          "seconds": 0.009603878,
+          "label": "preload index"
+        },
+        "scope": "Native Git timers may nest or omit intervals; do not sum as a complete breakdown"
+      },
+      "git_add_marker_gaps": [
+        {
+          "before": "read cache .git/index",
+          "after": "preload index",
+          "elapsed_ns": 9659000
+        },
+        {
+          "before": "preload index",
+          "after": "initialize name hash",
+          "elapsed_ns": 985000
+        },
+        {
+          "before": "initialize name hash",
+          "after": "diff-files",
+          "elapsed_ns": 33010000
+        },
+        {
+          "before": "diff-files",
+          "after": "write index, changed mask = 2a",
+          "elapsed_ns": 5707000
+        },
+        {
+          "before": "write index, changed mask = 2a",
+          "after": "git command: git add -A",
+          "elapsed_ns": 5440000
+        }
+      ],
+      "realtime_minus_monotonic_ms": 0.000331,
+      "host_wait_upper_bound_ns": 8974027,
+      "checks": {
+        "input_hashes": "PASS",
+        "runner": "PASS",
+        "replay_correctness": "PASS",
+        "host_sampling": "DISABLED",
+        "guest_sampling": "DISABLED",
+        "task_window": "PASS",
+        "cleanup": "PASS"
+      },
+      "independent": {
+        "svg": {
+          "javascript_formatted": true,
+          "idempotent": true,
+          "output": "<svg>\n  <script>\n    const answer = 1 + 2;\n  </script>\n</svg>\n"
+        },
+        "nested_svg": {
+          "javascript_formatted": true,
+          "idempotent": true,
+          "output": "<div>\n  <svg>\n    <script>\n      const answer = 1 + 2;\n    </script>\n  </svg>\n</div>\n"
+        },
+        "html_control": {
+          "javascript_formatted": true,
+          "idempotent": true,
+          "output": "<script>\n  const answer = 1 + 2;\n</script>\n"
+        }
+      },
+      "patch_sha256": "f1cc23ac4f5ac1cff87eb7f8c54f8176c1a47cec37fa4cb6907b9dd8ad199af2",
+      "cleanup": "PASS",
+      "restoration": "PASS"
+    },
+    {
+      "run_id": "20260930T094228Z-2603510",
+      "position": 2,
+      "mode": "control_A",
+      "step025_ms": 72.224359,
+      "command_clock": {
+        "realtime_ns": 67176461,
+        "monotonic_raw_ns": 67176075,
+        "user_ns": 30123000,
+        "system_ns": 33745000,
+        "minor_faults": 1918,
+        "major_faults": 4,
+        "voluntary_switches": 78,
+        "involuntary_switches": 11,
+        "exit_code": 0
+      },
+      "git_command_times": {
+        "add": {
+          "real_seconds": 0.059,
+          "user_seconds": 0.025,
+          "system_seconds": 0.032
+        },
+        "diff": {
+          "real_seconds": 0.005,
+          "user_seconds": 0.005,
+          "system_seconds": 0.0
+        }
+      },
+      "git_add_performance": {
+        "command_seconds": 0.057665643,
+        "records": [
+          {
+            "timestamp": "09:44:31.522007",
+            "source": "read-cache.c:2398",
+            "seconds": 0.001683533,
+            "label": "read cache .git/index"
+          },
+          {
+            "timestamp": "09:44:31.529672",
+            "source": "preload-index.c:154",
+            "seconds": 0.007600969,
+            "label": "preload index"
+          },
+          {
+            "timestamp": "09:44:31.530641",
+            "source": "name-hash.c:607",
+            "seconds": 0.000811747,
+            "label": "initialize name hash"
+          },
+          {
+            "timestamp": "09:44:31.565071",
+            "source": "diff-lib.c:266",
+            "seconds": 0.001316341,
+            "label": "diff-files"
+          },
+          {
+            "timestamp": "09:44:31.570810",
+            "source": "read-cache.c:3072",
+            "seconds": 0.005687125,
+            "label": "write index, changed mask = 2a"
+          },
+          {
+            "timestamp": "09:44:31.577366",
+            "source": "trace.c:487",
+            "seconds": 0.057665643,
+            "label": "git command: git add -A"
+          }
+        ],
+        "longest_recorded_stage": {
+          "timestamp": "09:44:31.529672",
+          "source": "preload-index.c:154",
+          "seconds": 0.007600969,
+          "label": "preload index"
+        },
+        "scope": "Native Git timers may nest or omit intervals; do not sum as a complete breakdown"
+      },
+      "git_add_marker_gaps": [
+        {
+          "before": "read cache .git/index",
+          "after": "preload index",
+          "elapsed_ns": 7665000
+        },
+        {
+          "before": "preload index",
+          "after": "initialize name hash",
+          "elapsed_ns": 969000
+        },
+        {
+          "before": "initialize name hash",
+          "after": "diff-files",
+          "elapsed_ns": 34430000
+        },
+        {
+          "before": "diff-files",
+          "after": "write index, changed mask = 2a",
+          "elapsed_ns": 5739000
+        },
+        {
+          "before": "write index, changed mask = 2a",
+          "after": "git command: git add -A",
+          "elapsed_ns": 6556000
+        }
+      ],
+      "realtime_minus_monotonic_ms": 0.000386,
+      "host_wait_upper_bound_ns": 9041198,
+      "checks": {
+        "input_hashes": "PASS",
+        "runner": "PASS",
+        "replay_correctness": "PASS",
+        "host_sampling": "DISABLED",
+        "guest_sampling": "DISABLED",
+        "task_window": "PASS",
+        "cleanup": "PASS"
+      },
+      "independent": {
+        "svg": {
+          "javascript_formatted": true,
+          "idempotent": true,
+          "output": "<svg>\n  <script>\n    const answer = 1 + 2;\n  </script>\n</svg>\n"
+        },
+        "nested_svg": {
+          "javascript_formatted": true,
+          "idempotent": true,
+          "output": "<div>\n  <svg>\n    <script>\n      const answer = 1 + 2;\n    </script>\n  </svg>\n</div>\n"
+        },
+        "html_control": {
+          "javascript_formatted": true,
+          "idempotent": true,
+          "output": "<script>\n  const answer = 1 + 2;\n</script>\n"
+        }
+      },
+      "patch_sha256": "f1cc23ac4f5ac1cff87eb7f8c54f8176c1a47cec37fa4cb6907b9dd8ad199af2",
+      "cleanup": "PASS",
+      "restoration": "PASS"
+    },
+    {
+      "run_id": "20260930T094228Z-2603510",
+      "position": 3,
+      "mode": "control_B",
+      "step025_ms": 61.790252,
+      "command_clock": {
+        "realtime_ns": 59224539,
+        "monotonic_raw_ns": 59224244,
+        "user_ns": 37013000,
+        "system_ns": 25224000,
+        "minor_faults": 1919,
+        "major_faults": 0,
+        "voluntary_switches": 28,
+        "involuntary_switches": 10,
+        "exit_code": 0
+      },
+      "git_command_times": {
+        "add": {
+          "real_seconds": 0.052,
+          "user_seconds": 0.03,
+          "system_seconds": 0.025
+        },
+        "diff": {
+          "real_seconds": 0.005,
+          "user_seconds": 0.005,
+          "system_seconds": 0.0
+        }
+      },
+      "git_add_performance": {
+        "command_seconds": 0.05006723,
+        "records": [
+          {
+            "timestamp": "09:44:50.359532",
+            "source": "read-cache.c:2398",
+            "seconds": 0.001678005,
+            "label": "read cache .git/index"
+          },
+          {
+            "timestamp": "09:44:50.367131",
+            "source": "preload-index.c:154",
+            "seconds": 0.007533444,
+            "label": "preload index"
+          },
+          {
+            "timestamp": "09:44:50.368098",
+            "source": "name-hash.c:607",
+            "seconds": 0.000809631,
+            "label": "initialize name hash"
+          },
+          {
+            "timestamp": "09:44:50.398293",
+            "source": "diff-lib.c:266",
+            "seconds": 0.001280093,
+            "label": "diff-files"
+          },
+          {
+            "timestamp": "09:44:50.404001",
+            "source": "read-cache.c:3072",
+            "seconds": 0.005667177,
+            "label": "write index, changed mask = 2a"
+          },
+          {
+            "timestamp": "09:44:50.407732",
+            "source": "trace.c:487",
+            "seconds": 0.05006723,
+            "label": "git command: git add -A"
+          }
+        ],
+        "longest_recorded_stage": {
+          "timestamp": "09:44:50.367131",
+          "source": "preload-index.c:154",
+          "seconds": 0.007533444,
+          "label": "preload index"
+        },
+        "scope": "Native Git timers may nest or omit intervals; do not sum as a complete breakdown"
+      },
+      "git_add_marker_gaps": [
+        {
+          "before": "read cache .git/index",
+          "after": "preload index",
+          "elapsed_ns": 7599000
+        },
+        {
+          "before": "preload index",
+          "after": "initialize name hash",
+          "elapsed_ns": 967000
+        },
+        {
+          "before": "initialize name hash",
+          "after": "diff-files",
+          "elapsed_ns": 30195000
+        },
+        {
+          "before": "diff-files",
+          "after": "write index, changed mask = 2a",
+          "elapsed_ns": 5708000
+        },
+        {
+          "before": "write index, changed mask = 2a",
+          "after": "git command: git add -A",
+          "elapsed_ns": 3731000
+        }
+      ],
+      "realtime_minus_monotonic_ms": 0.000295,
+      "host_wait_upper_bound_ns": 11869387,
+      "checks": {
+        "input_hashes": "PASS",
+        "runner": "PASS",
+        "replay_correctness": "PASS",
+        "host_sampling": "DISABLED",
+        "guest_sampling": "DISABLED",
+        "task_window": "PASS",
+        "cleanup": "PASS"
+      },
+      "independent": {
+        "svg": {
+          "javascript_formatted": true,
+          "idempotent": true,
+          "output": "<svg>\n  <script>\n    const answer = 1 + 2;\n  </script>\n</svg>\n"
+        },
+        "nested_svg": {
+          "javascript_formatted": true,
+          "idempotent": true,
+          "output": "<div>\n  <svg>\n    <script>\n      const answer = 1 + 2;\n    </script>\n  </svg>\n</div>\n"
+        },
+        "html_control": {
+          "javascript_formatted": true,
+          "idempotent": true,
+          "output": "<script>\n  const answer = 1 + 2;\n</script>\n"
+        }
+      },
+      "patch_sha256": "f1cc23ac4f5ac1cff87eb7f8c54f8176c1a47cec37fa4cb6907b9dd8ad199af2",
+      "cleanup": "PASS",
+      "restoration": "PASS"
+    },
+    {
+      "run_id": "20260930T094228Z-2603510",
+      "position": 4,
+      "mode": "light",
+      "step025_ms": 66.335969,
+      "command_clock": {
+        "realtime_ns": 61370393,
+        "monotonic_raw_ns": 61370122,
+        "user_ns": 46184000,
+        "system_ns": 17070000,
+        "minor_faults": 1921,
+        "major_faults": 0,
+        "voluntary_switches": 42,
+        "involuntary_switches": 14,
+        "exit_code": 0
+      },
+      "git_command_times": {
+        "add": {
+          "real_seconds": 0.053,
+          "user_seconds": 0.039,
+          "system_seconds": 0.017
+        },
+        "diff": {
+          "real_seconds": 0.005,
+          "user_seconds": 0.005,
+          "system_seconds": 0.0
+        }
+      },
+      "git_add_performance": {
+        "command_seconds": 0.05187943,
+        "records": [
+          {
+            "timestamp": "09:45:09.846822",
+            "source": "read-cache.c:2398",
+            "seconds": 0.001658868,
+            "label": "read cache .git/index"
+          },
+          {
+            "timestamp": "09:45:09.854619",
+            "source": "preload-index.c:154",
+            "seconds": 0.007600183,
+            "label": "preload index"
+          },
+          {
+            "timestamp": "09:45:09.855602",
+            "source": "name-hash.c:607",
+            "seconds": 0.000824997,
+            "label": "initialize name hash"
+          },
+          {
+            "timestamp": "09:45:09.886362",
+            "source": "diff-lib.c:266",
+            "seconds": 0.00129343,
+            "label": "diff-files"
+          },
+          {
+            "timestamp": "09:45:09.892043",
+            "source": "read-cache.c:3072",
+            "seconds": 0.005638054,
+            "label": "write index, changed mask = 2a"
+          },
+          {
+            "timestamp": "09:45:09.896843",
+            "source": "trace.c:487",
+            "seconds": 0.05187943,
+            "label": "git command: git add -A"
+          }
+        ],
+        "longest_recorded_stage": {
+          "timestamp": "09:45:09.854619",
+          "source": "preload-index.c:154",
+          "seconds": 0.007600183,
+          "label": "preload index"
+        },
+        "scope": "Native Git timers may nest or omit intervals; do not sum as a complete breakdown"
+      },
+      "git_add_marker_gaps": [
+        {
+          "before": "read cache .git/index",
+          "after": "preload index",
+          "elapsed_ns": 7797000
+        },
+        {
+          "before": "preload index",
+          "after": "initialize name hash",
+          "elapsed_ns": 983000
+        },
+        {
+          "before": "initialize name hash",
+          "after": "diff-files",
+          "elapsed_ns": 30760000
+        },
+        {
+          "before": "diff-files",
+          "after": "write index, changed mask = 2a",
+          "elapsed_ns": 5681000
+        },
+        {
+          "before": "write index, changed mask = 2a",
+          "after": "git command: git add -A",
+          "elapsed_ns": 4800000
+        }
+      ],
+      "realtime_minus_monotonic_ms": 0.000271,
+      "host_wait_upper_bound_ns": 10400031,
+      "checks": {
+        "input_hashes": "PASS",
+        "runner": "PASS",
+        "replay_correctness": "PASS",
+        "host_sampling": "PASS",
+        "guest_sampling": "DISABLED",
+        "task_window": "PASS",
+        "cleanup": "PASS"
+      },
+      "independent": {
+        "svg": {
+          "javascript_formatted": true,
+          "idempotent": true,
+          "output": "<svg>\n  <script>\n    const answer = 1 + 2;\n  </script>\n</svg>\n"
+        },
+        "nested_svg": {
+          "javascript_formatted": true,
+          "idempotent": true,
+          "output": "<div>\n  <svg>\n    <script>\n      const answer = 1 + 2;\n    </script>\n  </svg>\n</div>\n"
+        },
+        "html_control": {
+          "javascript_formatted": true,
+          "idempotent": true,
+          "output": "<script>\n  const answer = 1 + 2;\n</script>\n"
+        }
+      },
+      "patch_sha256": "f1cc23ac4f5ac1cff87eb7f8c54f8176c1a47cec37fa4cb6907b9dd8ad199af2",
+      "cleanup": "PASS",
+      "restoration": "PASS"
+    },
+    {
+      "run_id": "20260930T094228Z-2603510",
+      "position": 5,
+      "mode": "light",
+      "step025_ms": 326.96753,
+      "command_clock": {
+        "realtime_ns": 321965550,
+        "monotonic_raw_ns": 321965214,
+        "user_ns": 31513000,
+        "system_ns": 42600000,
+        "minor_faults": 1919,
+        "major_faults": 1,
+        "voluntary_switches": 2238,
+        "involuntary_switches": 5,
+        "exit_code": 0
+      },
+      "git_command_times": {
+        "add": {
+          "real_seconds": 0.314,
+          "user_seconds": 0.031,
+          "system_seconds": 0.036
+        },
+        "diff": {
+          "real_seconds": 0.005,
+          "user_seconds": 0.0,
+          "system_seconds": 0.005
+        }
+      },
+      "git_add_performance": {
+        "command_seconds": 0.312495049,
+        "records": [
+          {
+            "timestamp": "09:45:29.685593",
+            "source": "read-cache.c:2398",
+            "seconds": 0.001688607,
+            "label": "read cache .git/index"
+          },
+          {
+            "timestamp": "09:45:29.692834",
+            "source": "preload-index.c:154",
+            "seconds": 0.007190203,
+            "label": "preload index"
+          },
+          {
+            "timestamp": "09:45:29.693829",
+            "source": "name-hash.c:607",
+            "seconds": 0.000828985,
+            "label": "initialize name hash"
+          },
+          {
+            "timestamp": "09:45:29.987673",
+            "source": "diff-lib.c:266",
+            "seconds": 0.001292311,
+            "label": "diff-files"
+          },
+          {
+            "timestamp": "09:45:29.993249",
+            "source": "read-cache.c:3072",
+            "seconds": 0.005529563,
+            "label": "write index, changed mask = 2a"
+          },
+          {
+            "timestamp": "09:45:29.996215",
+            "source": "trace.c:487",
+            "seconds": 0.312495049,
+            "label": "git command: git add -A"
+          }
+        ],
+        "longest_recorded_stage": {
+          "timestamp": "09:45:29.692834",
+          "source": "preload-index.c:154",
+          "seconds": 0.007190203,
+          "label": "preload index"
+        },
+        "scope": "Native Git timers may nest or omit intervals; do not sum as a complete breakdown"
+      },
+      "git_add_marker_gaps": [
+        {
+          "before": "read cache .git/index",
+          "after": "preload index",
+          "elapsed_ns": 7241000
+        },
+        {
+          "before": "preload index",
+          "after": "initialize name hash",
+          "elapsed_ns": 995000
+        },
+        {
+          "before": "initialize name hash",
+          "after": "diff-files",
+          "elapsed_ns": 293844000
+        },
+        {
+          "before": "diff-files",
+          "after": "write index, changed mask = 2a",
+          "elapsed_ns": 5576000
+        },
+        {
+          "before": "write index, changed mask = 2a",
+          "after": "git command: git add -A",
+          "elapsed_ns": 2966000
+        }
+      ],
+      "realtime_minus_monotonic_ms": 0.000336,
+      "host_wait_upper_bound_ns": 12491715,
+      "checks": {
+        "input_hashes": "PASS",
+        "runner": "PASS",
+        "replay_correctness": "PASS",
+        "host_sampling": "PASS",
+        "guest_sampling": "DISABLED",
+        "task_window": "PASS",
+        "cleanup": "PASS"
+      },
+      "independent": {
+        "svg": {
+          "javascript_formatted": true,
+          "idempotent": true,
+          "output": "<svg>\n  <script>\n    const answer = 1 + 2;\n  </script>\n</svg>\n"
+        },
+        "nested_svg": {
+          "javascript_formatted": true,
+          "idempotent": true,
+          "output": "<div>\n  <svg>\n    <script>\n      const answer = 1 + 2;\n    </script>\n  </svg>\n</div>\n"
+        },
+        "html_control": {
+          "javascript_formatted": true,
+          "idempotent": true,
+          "output": "<script>\n  const answer = 1 + 2;\n</script>\n"
+        }
+      },
+      "patch_sha256": "f1cc23ac4f5ac1cff87eb7f8c54f8176c1a47cec37fa4cb6907b9dd8ad199af2",
+      "cleanup": "PASS",
+      "restoration": "PASS"
+    },
+    {
+      "run_id": "20260930T094228Z-2603510",
+      "position": 6,
+      "mode": "control_B",
+      "step025_ms": 179.658772,
+      "command_clock": {
+        "realtime_ns": 174912234,
+        "monotonic_raw_ns": 174911812,
+        "user_ns": 23048000,
+        "system_ns": 45599000,
+        "minor_faults": 1907,
+        "major_faults": 30,
+        "voluntary_switches": 1063,
+        "involuntary_switches": 5,
+        "exit_code": 0
+      },
+      "git_command_times": {
+        "add": {
+          "real_seconds": 0.166,
+          "user_seconds": 0.015,
+          "system_seconds": 0.046
+        },
+        "diff": {
+          "real_seconds": 0.006,
+          "user_seconds": 0.005,
+          "system_seconds": 0.0
+        }
+      },
+      "git_add_performance": {
+        "command_seconds": 0.163324927,
+        "records": [
+          {
+            "timestamp": "09:45:48.942452",
+            "source": "read-cache.c:2398",
+            "seconds": 0.00319606,
+            "label": "read cache .git/index"
+          },
+          {
+            "timestamp": "09:45:48.949661",
+            "source": "preload-index.c:154",
+            "seconds": 0.007144186,
+            "label": "preload index"
+          },
+          {
+            "timestamp": "09:45:48.950781",
+            "source": "name-hash.c:607",
+            "seconds": 0.00080932,
+            "label": "initialize name hash"
+          },
+          {
+            "timestamp": "09:45:49.091045",
+            "source": "diff-lib.c:266",
+            "seconds": 0.001853838,
+            "label": "diff-files"
+          },
+          {
+            "timestamp": "09:45:49.096704",
+            "source": "read-cache.c:3072",
+            "seconds": 0.005481451,
+            "label": "write index, changed mask = 2a"
+          },
+          {
+            "timestamp": "09:45:49.099945",
+            "source": "trace.c:487",
+            "seconds": 0.163324927,
+            "label": "git command: git add -A"
+          }
+        ],
+        "longest_recorded_stage": {
+          "timestamp": "09:45:48.949661",
+          "source": "preload-index.c:154",
+          "seconds": 0.007144186,
+          "label": "preload index"
+        },
+        "scope": "Native Git timers may nest or omit intervals; do not sum as a complete breakdown"
+      },
+      "git_add_marker_gaps": [
+        {
+          "before": "read cache .git/index",
+          "after": "preload index",
+          "elapsed_ns": 7209000
+        },
+        {
+          "before": "preload index",
+          "after": "initialize name hash",
+          "elapsed_ns": 1120000
+        },
+        {
+          "before": "initialize name hash",
+          "after": "diff-files",
+          "elapsed_ns": 140264000
+        },
+        {
+          "before": "diff-files",
+          "after": "write index, changed mask = 2a",
+          "elapsed_ns": 5659000
+        },
+        {
+          "before": "write index, changed mask = 2a",
+          "after": "git command: git add -A",
+          "elapsed_ns": 3241000
+        }
+      ],
+      "realtime_minus_monotonic_ms": 0.000422,
+      "host_wait_upper_bound_ns": 12312684,
+      "checks": {
+        "input_hashes": "PASS",
+        "runner": "PASS",
+        "replay_correctness": "PASS",
+        "host_sampling": "DISABLED",
+        "guest_sampling": "DISABLED",
+        "task_window": "PASS",
+        "cleanup": "PASS"
+      },
+      "independent": {
+        "svg": {
+          "javascript_formatted": true,
+          "idempotent": true,
+          "output": "<svg>\n  <script>\n    const answer = 1 + 2;\n  </script>\n</svg>\n"
+        },
+        "nested_svg": {
+          "javascript_formatted": true,
+          "idempotent": true,
+          "output": "<div>\n  <svg>\n    <script>\n      const answer = 1 + 2;\n    </script>\n  </svg>\n</div>\n"
+        },
+        "html_control": {
+          "javascript_formatted": true,
+          "idempotent": true,
+          "output": "<script>\n  const answer = 1 + 2;\n</script>\n"
+        }
+      },
+      "patch_sha256": "f1cc23ac4f5ac1cff87eb7f8c54f8176c1a47cec37fa4cb6907b9dd8ad199af2",
+      "cleanup": "PASS",
+      "restoration": "PASS"
+    },
+    {
+      "run_id": "20260930T094228Z-2603510",
+      "position": 7,
+      "mode": "control_A",
+      "step025_ms": 66.932073,
+      "command_clock": {
+        "realtime_ns": 64389254,
+        "monotonic_raw_ns": 64388974,
+        "user_ns": 26296000,
+        "system_ns": 35962000,
+        "minor_faults": 1920,
+        "major_faults": 1,
+        "voluntary_switches": 75,
+        "involuntary_switches": 8,
+        "exit_code": 0
+      },
+      "git_command_times": {
+        "add": {
+          "real_seconds": 0.057,
+          "user_seconds": 0.02,
+          "system_seconds": 0.035
+        },
+        "diff": {
+          "real_seconds": 0.005,
+          "user_seconds": 0.005,
+          "system_seconds": 0.0
+        }
+      },
+      "git_add_performance": {
+        "command_seconds": 0.055195007,
+        "records": [
+          {
+            "timestamp": "09:46:08.117587",
+            "source": "read-cache.c:2398",
+            "seconds": 0.001876857,
+            "label": "read cache .git/index"
+          },
+          {
+            "timestamp": "09:46:08.125212",
+            "source": "preload-index.c:154",
+            "seconds": 0.007569762,
+            "label": "preload index"
+          },
+          {
+            "timestamp": "09:46:08.126177",
+            "source": "name-hash.c:607",
+            "seconds": 0.000810054,
+            "label": "initialize name hash"
+          },
+          {
+            "timestamp": "09:46:08.156337",
+            "source": "diff-lib.c:266",
+            "seconds": 0.001274728,
+            "label": "diff-files"
+          },
+          {
+            "timestamp": "09:46:08.162000",
+            "source": "read-cache.c:3072",
+            "seconds": 0.00562095,
+            "label": "write index, changed mask = 2a"
+          },
+          {
+            "timestamp": "09:46:08.170725",
+            "source": "trace.c:487",
+            "seconds": 0.055195007,
+            "label": "git command: git add -A"
+          }
+        ],
+        "longest_recorded_stage": {
+          "timestamp": "09:46:08.125212",
+          "source": "preload-index.c:154",
+          "seconds": 0.007569762,
+          "label": "preload index"
+        },
+        "scope": "Native Git timers may nest or omit intervals; do not sum as a complete breakdown"
+      },
+      "git_add_marker_gaps": [
+        {
+          "before": "read cache .git/index",
+          "after": "preload index",
+          "elapsed_ns": 7625000
+        },
+        {
+          "before": "preload index",
+          "after": "initialize name hash",
+          "elapsed_ns": 965000
+        },
+        {
+          "before": "initialize name hash",
+          "after": "diff-files",
+          "elapsed_ns": 30160000
+        },
+        {
+          "before": "diff-files",
+          "after": "write index, changed mask = 2a",
+          "elapsed_ns": 5663000
+        },
+        {
+          "before": "write index, changed mask = 2a",
+          "after": "git command: git add -A",
+          "elapsed_ns": 8725000
+        }
+      ],
+      "realtime_minus_monotonic_ms": 0.00028,
+      "host_wait_upper_bound_ns": 9237545,
+      "checks": {
+        "input_hashes": "PASS",
+        "runner": "PASS",
+        "replay_correctness": "PASS",
+        "host_sampling": "DISABLED",
+        "guest_sampling": "DISABLED",
+        "task_window": "PASS",
+        "cleanup": "PASS"
+      },
+      "independent": {
+        "svg": {
+          "javascript_formatted": true,
+          "idempotent": true,
+          "output": "<svg>\n  <script>\n    const answer = 1 + 2;\n  </script>\n</svg>\n"
+        },
+        "nested_svg": {
+          "javascript_formatted": true,
+          "idempotent": true,
+          "output": "<div>\n  <svg>\n    <script>\n      const answer = 1 + 2;\n    </script>\n  </svg>\n</div>\n"
+        },
+        "html_control": {
+          "javascript_formatted": true,
+          "idempotent": true,
+          "output": "<script>\n  const answer = 1 + 2;\n</script>\n"
+        }
+      },
+      "patch_sha256": "f1cc23ac4f5ac1cff87eb7f8c54f8176c1a47cec37fa4cb6907b9dd8ad199af2",
+      "cleanup": "PASS",
+      "restoration": "PASS"
+    },
+    {
+      "run_id": "20260930T094228Z-2603510",
+      "position": 8,
+      "mode": "off",
+      "step025_ms": 179.582996,
+      "command_clock": {
+        "realtime_ns": 174776946,
+        "monotonic_raw_ns": 174776561,
+        "user_ns": 19510000,
+        "system_ns": 47667000,
+        "minor_faults": 1918,
+        "major_faults": 1,
+        "voluntary_switches": 1102,
+        "involuntary_switches": 13,
+        "exit_code": 0
+      },
+      "git_command_times": {
+        "add": {
+          "real_seconds": 0.167,
+          "user_seconds": 0.012,
+          "system_seconds": 0.048
+        },
+        "diff": {
+          "real_seconds": 0.005,
+          "user_seconds": 0.005,
+          "system_seconds": 0.0
+        }
+      },
+      "git_add_performance": {
+        "command_seconds": 0.165294669,
+        "records": [
+          {
+            "timestamp": "09:46:27.551605",
+            "source": "read-cache.c:2398",
+            "seconds": 0.001583764,
+            "label": "read cache .git/index"
+          },
+          {
+            "timestamp": "09:46:27.559342",
+            "source": "preload-index.c:154",
+            "seconds": 0.007682681,
+            "label": "preload index"
+          },
+          {
+            "timestamp": "09:46:27.560307",
+            "source": "name-hash.c:607",
+            "seconds": 0.000811298,
+            "label": "initialize name hash"
+          },
+          {
+            "timestamp": "09:46:27.705259",
+            "source": "diff-lib.c:266",
+            "seconds": 0.001277098,
+            "label": "diff-files"
+          },
+          {
+            "timestamp": "09:46:27.710823",
+            "source": "read-cache.c:3072",
+            "seconds": 0.005520955,
+            "label": "write index, changed mask = 2a"
+          },
+          {
+            "timestamp": "09:46:27.715139",
+            "source": "trace.c:487",
+            "seconds": 0.165294669,
+            "label": "git command: git add -A"
+          }
+        ],
+        "longest_recorded_stage": {
+          "timestamp": "09:46:27.559342",
+          "source": "preload-index.c:154",
+          "seconds": 0.007682681,
+          "label": "preload index"
+        },
+        "scope": "Native Git timers may nest or omit intervals; do not sum as a complete breakdown"
+      },
+      "git_add_marker_gaps": [
+        {
+          "before": "read cache .git/index",
+          "after": "preload index",
+          "elapsed_ns": 7737000
+        },
+        {
+          "before": "preload index",
+          "after": "initialize name hash",
+          "elapsed_ns": 965000
+        },
+        {
+          "before": "initialize name hash",
+          "after": "diff-files",
+          "elapsed_ns": 144952000
+        },
+        {
+          "before": "diff-files",
+          "after": "write index, changed mask = 2a",
+          "elapsed_ns": 5564000
+        },
+        {
+          "before": "write index, changed mask = 2a",
+          "after": "git command: git add -A",
+          "elapsed_ns": 4316000
+        }
+      ],
+      "realtime_minus_monotonic_ms": 0.000385,
+      "host_wait_upper_bound_ns": 13100018,
+      "checks": {
+        "input_hashes": "PASS",
+        "runner": "PASS",
+        "replay_correctness": "PASS",
+        "host_sampling": "DISABLED",
+        "guest_sampling": "DISABLED",
+        "task_window": "PASS",
+        "cleanup": "PASS"
+      },
+      "independent": {
+        "svg": {
+          "javascript_formatted": true,
+          "idempotent": true,
+          "output": "<svg>\n  <script>\n    const answer = 1 + 2;\n  </script>\n</svg>\n"
+        },
+        "nested_svg": {
+          "javascript_formatted": true,
+          "idempotent": true,
+          "output": "<div>\n  <svg>\n    <script>\n      const answer = 1 + 2;\n    </script>\n  </svg>\n</div>\n"
+        },
+        "html_control": {
+          "javascript_formatted": true,
+          "idempotent": true,
+          "output": "<script>\n  const answer = 1 + 2;\n</script>\n"
+        }
+      },
+      "patch_sha256": "f1cc23ac4f5ac1cff87eb7f8c54f8176c1a47cec37fa4cb6907b9dd8ad199af2",
+      "cleanup": "PASS",
+      "restoration": "PASS"
+    }
+  ],
+  "limitations": [
+    "Native performance timers may nest or omit intervals; not a complete additive breakdown",
+    "Marker gaps include unmeasured operations and possible log write costs; not independently timed directory scan or I/O",
+    "Bash segments have 1ms precision; segment clocks not independently monotonic-validated",
+    "Host wait is a two-vCPU whole-capture queue bound; excludes sleep, guest queues/locks and host I/O threads",
+    "CPU sums can overlap across workers; wall minus CPU is not precise blocked time",
+    "One diagnostic group, no formal confidence interval; no monitoring acceptance",
+    "Full official task tests NOT_RUN"
+  ],
+  "next_step": "Calibrate add-only Trace2 internal-region logging, then capture read_directory boundaries without full syscall tracing.",
+  "final_check": {
+    "status": "PASS",
+    "project_sandboxes": [],
+    "owned_probes": [],
+    "cpu_policies": {
+      "2": {
+        "scaling_min_freq": "800000",
+        "scaling_max_freq": "2801000",
+        "scaling_governor": "schedutil"
+      },
+      "4": {
+        "scaling_min_freq": "800000",
+        "scaling_max_freq": "2801000",
+        "scaling_governor": "schedutil"
+      },
+      "66": {
+        "scaling_min_freq": "800000",
+        "scaling_max_freq": "2801000",
+        "scaling_governor": "schedutil"
+      },
+      "68": {
+        "scaling_min_freq": "800000",
+        "scaling_max_freq": "2801000",
+        "scaling_governor": "schedutil"
+      }
+    },
+    "free_bytes": 53840142336
+  },
+  "step025_stdout_sha256": "9a64ed707c224734715f7af4fea2d84f0b51d128e5c8d05535fc9de7d5b6162f",
+  "step025_stdout_matches_prior_segment_batch": true,
+  "image": "ghcr.io/timesler/swe-polybench.eval.x86_64.prettier__prettier-14400@sha256:e625c9b9776870e2cc87172e886bbc90cfc3d6ce1521492f113a46b3f6dfcf44",
+  "resources": {
+    "vcpus": 2,
+    "memory_mib": 4096,
+    "vcpu_cpus": [
+      2,
+      4
+    ],
+    "policy_cpus": [
+      2,
+      4,
+      66,
+      68
+    ],
+    "requested_min_max_khz": 2000000,
+    "exclusive": false
+  },
+  "verification": {
+    "relevant_tests": 21,
+    "status": "PASS",
+    "syntax": "PASS",
+    "diff_check": "PASS",
+    "prior_C_clock_test": "REUSED_PASS",
+    "full_official_task_tests": "NOT_RUN"
+  }
+}

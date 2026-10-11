@@ -1,0 +1,294 @@
+{
+  "status": "FAIL",
+  "timestamp_utc": "2026-10-09T05:14:24.647654+00:00",
+  "task_id": "sphinx-doc__sphinx-7590",
+  "run_id": "20261009T050703Z-3934019",
+  "raw_directory": ".artifacts/storage-isolated-service/20261009T050703Z-3934019/python-backbone",
+  "preparation_record": ".artifacts/sphinx-backbone/live-20261009T045936Z",
+  "source_image": "ghcr.io/epoch-research/swe-bench.eval.x86_64.sphinx-doc__sphinx-7590@sha256:577ebfcce825e4c9621e066dc1c8375443be94bbc6de30b9368e422b8f123731",
+  "live_scope": "single frozen backbone, 2 vCPU / 4096 MiB, persistent sampler, no cache clearing",
+  "failed_stage": "final-frozen-state",
+  "failure_reason": "final changed-path check rejected setup.py/tox.ini already dirty in pinned image; task source hashes and task-scoped patch actually match",
+  "checks": {
+    "first_segment": "PASS",
+    "all_35_frozen_actions_hash_order_expected_exits": "PASS",
+    "key_outputs": "PASS",
+    "final_task_files_and_patch_posthoc": "PASS",
+    "whole_live_pipeline": "FAIL",
+    "background_patch_unchanged_across_all_five_segments": "PASS",
+    "pre_tool_background_file_hashes": "NOT_CAPTURED",
+    "seven_final_udl_oracle": "NOT_RUN",
+    "independent_25_tests": "NOT_RUN",
+    "checkpoint_restore": "NOT_RUN",
+    "physical_page_cache": "NOT_MEASURED",
+    "monitoring_impact": "NOT_VALIDATED",
+    "VMM_PSS": "NOT_MEASURED"
+  },
+  "image_preparation": {
+    "status": "PASS",
+    "image": "ghcr.io/epoch-research/swe-bench.eval.x86_64.sphinx-doc__sphinx-7590@sha256:577ebfcce825e4c9621e066dc1c8375443be94bbc6de30b9368e422b8f123731",
+    "transport": "Python urllib HTTP/1.1, 8 MiB ranges, 3 workers",
+    "source_manifest_sha256": "577ebfcce825e4c9621e066dc1c8375443be94bbc6de30b9368e422b8f123731",
+    "tmpfs_capacity_bytes": 2147483648,
+    "volatile_cache": true,
+    "downloaded_bytes": 935166685,
+    "unpacked_regular_rounded_bytes": 2033913856,
+    "regular_file_entries": 45132,
+    "scope": "all compressed blob digests verified; tar sizes counted without extraction; native conversion not yet run",
+    "elapsed_ns": 444065186336,
+    "successful_ranges": 124,
+    "failed_range_attempts": 0
+  },
+  "conversion_budget": {
+    "capacity_bytes": 21474836480,
+    "source_allocated_bytes": 5834698752,
+    "oci_bytes": 935166685,
+    "unpacked_regular_rounded_bytes": 2033913856,
+    "estimated_peak_bytes": 16743273181,
+    "extra_private_metadata_cleanup_bytes": 5905580032,
+    "unallocated_margin_bytes": 4731563299,
+    "scope": "estimate from actual compressed and tar file sizes; native conversion peak still requires observation; hard volume limits writes"
+  },
+  "guest": {
+    "sample_count": 123,
+    "observed_peak_bytes": 277536768,
+    "components_at_peak_bytes": {
+      "AnonPages": 89366528,
+      "Cached": 99246080,
+      "Buffers": 26697728,
+      "Shmem": 831488
+    }
+  },
+  "host": {
+    "sample_count": 378,
+    "observed_peak_bytes": 4554055680,
+    "components_at_peak_bytes": {
+      "anon": 487137280,
+      "file": 3923558400,
+      "kernel": 129081344
+    }
+  },
+  "timing": {
+    "controller_elapsed_ns": 41319765802,
+    "guest_action_sum_ns": 10297824200,
+    "stages": [
+      {
+        "stage": "service-state",
+        "duration_ns": 21606923,
+        "exit_code": 0
+      },
+      {
+        "stage": "service-labels",
+        "duration_ns": 22809519,
+        "exit_code": 0
+      },
+      {
+        "stage": "cold-start",
+        "duration_ns": 25362575349,
+        "exit_code": 0
+      },
+      {
+        "stage": "source",
+        "duration_ns": 718465401,
+        "exit_code": 0
+      },
+      {
+        "stage": "login-environment",
+        "duration_ns": 159096740,
+        "exit_code": 0
+      },
+      {
+        "stage": "frozen-environment",
+        "duration_ns": 216390839,
+        "exit_code": 0
+      },
+      {
+        "stage": "upload-oracle",
+        "duration_ns": 32771317,
+        "exit_code": 0
+      },
+      {
+        "stage": "upload-test-id-resolver",
+        "duration_ns": 28125983,
+        "exit_code": 0
+      },
+      {
+        "stage": "negative-control",
+        "duration_ns": 600542274,
+        "exit_code": 0
+      },
+      {
+        "stage": "upload-frozen",
+        "duration_ns": 99486160,
+        "exit_code": 0
+      },
+      {
+        "stage": "upload-collector",
+        "duration_ns": 30878298,
+        "exit_code": 0
+      },
+      {
+        "stage": "upload-counter-reader",
+        "duration_ns": 28289999,
+        "exit_code": 0
+      },
+      {
+        "stage": "controller-exec",
+        "duration_ns": 791709808,
+        "exit_code": 0
+      },
+      {
+        "stage": "controller-download",
+        "duration_ns": 62863671,
+        "exit_code": 0
+      },
+      {
+        "stage": "controller-exec",
+        "duration_ns": 3794435935,
+        "exit_code": 0
+      },
+      {
+        "stage": "controller-download",
+        "duration_ns": 54951683,
+        "exit_code": 0
+      },
+      {
+        "stage": "controller-exec",
+        "duration_ns": 961182034,
+        "exit_code": 0
+      },
+      {
+        "stage": "controller-download",
+        "duration_ns": 52018946,
+        "exit_code": 0
+      },
+      {
+        "stage": "controller-exec",
+        "duration_ns": 1783727685,
+        "exit_code": 0
+      },
+      {
+        "stage": "controller-download",
+        "duration_ns": 56021965,
+        "exit_code": 0
+      },
+      {
+        "stage": "controller-exec",
+        "duration_ns": 5761859877,
+        "exit_code": 0
+      },
+      {
+        "stage": "controller-download",
+        "duration_ns": 52159964,
+        "exit_code": 0
+      },
+      {
+        "stage": "final-files",
+        "duration_ns": 347183487,
+        "exit_code": 0
+      },
+      {
+        "stage": "delete-owned",
+        "duration_ns": 206572084,
+        "exit_code": 0
+      },
+      {
+        "stage": "list-after",
+        "duration_ns": 14875551,
+        "exit_code": 0
+      }
+    ]
+  },
+  "storage": {
+    "capacity_bytes": 21474836480,
+    "observed_volume_used_peak_bytes": 8998080512,
+    "observed_host_available_min_bytes": 30152675328,
+    "host_available_after_backup_bytes": 27285139456,
+    "source_volume_retained": true,
+    "backup": {
+      "status": "PASS",
+      "source": "/home/yyxie/agentenv_experiment/.artifacts/storage-isolated-service/20261009T050703Z-3934019/volume.ext4",
+      "backup": "/home/yyxie/agentenv_experiment/.artifacts/storage-isolated-service/20261009T050703Z-3934019/volume.ext4.gz",
+      "source_sha256": "a273235fc639fd1b60a1acbe03d61fd60a69aacca4fc857f7cd9b2b63e02966d",
+      "backup_sha256": "d8a4632358c88b7f0852f14794cf35f5eccc34481544d29b7326d6eaea80a8b9",
+      "uncompressed_bytes": 21474836480,
+      "compressed_bytes": 2862171516,
+      "source_retained": true,
+      "elapsed_ns": 61230386375,
+      "host_available_bytes": 27286724608
+    },
+    "projected_available_after_source_deletion_bytes": 48759975936,
+    "next_candidate_capacity_bytes": 19327352832,
+    "next_required_host_available_bytes": 47244640256,
+    "next_live_capacity": "NOT_VALIDATED"
+  },
+  "background": {
+    "files": [
+      "setup.py",
+      "tox.ini"
+    ],
+    "normalized_patch_sha256": "75bb065627153500da2efe97397370b08e15981a91b51da7261c5e3a9c303437",
+    "frozen_background_patch": "configs/sphinx7590-image-background.patch",
+    "stage_patch_hashes": [
+      {
+        "segment": "read_repo",
+        "normalized_patch_sha256": "75bb065627153500da2efe97397370b08e15981a91b51da7261c5e3a9c303437"
+      },
+      {
+        "segment": "trace_cpp_parser",
+        "normalized_patch_sha256": "75bb065627153500da2efe97397370b08e15981a91b51da7261c5e3a9c303437"
+      },
+      {
+        "segment": "core_patch",
+        "normalized_patch_sha256": "75bb065627153500da2efe97397370b08e15981a91b51da7261c5e3a9c303437"
+      },
+      {
+        "segment": "core_verify",
+        "normalized_patch_sha256": "75bb065627153500da2efe97397370b08e15981a91b51da7261c5e3a9c303437"
+      },
+      {
+        "segment": "backbone_finish",
+        "normalized_patch_sha256": "75bb065627153500da2efe97397370b08e15981a91b51da7261c5e3a9c303437"
+      }
+    ],
+    "scope": "initial git status records both files; complete patch only captured at segment boundaries; per-file pre-tool background hashes not captured in this failed run"
+  },
+  "offline_verification": {
+    "raw_files": 222,
+    "raw_hashes_unchanged": true,
+    "sphinx_tests": 6,
+    "xarray_tests": 22,
+    "storage_tests": 23,
+    "original_xarray_checkpoint_report": "PASS",
+    "new_background_capture_live": "NOT_VALIDATED",
+    "local_doc_links_and_python_syntax": "PASS"
+  },
+  "cleanup": {
+    "owned_container_removed": true,
+    "mount_and_loop_removed": true,
+    "failed_fixture_retained": true,
+    "original_firecracker_identities_unchanged": true,
+    "original_service_unchanged": true,
+    "independent_owned_resources_absent": true
+  },
+  "oci_ram_cache_released": true,
+  "notes": [
+    "Guest bytes use /proc/meminfo KiB * 1024; used = MemTotal - MemFree. Sample maxima are observed peaks.",
+    "Cached is guest logical cache, not deduplicated physical page cache; Shmem overlaps Cached. Slab is not sampled.",
+    "Host peak is temporary-service cgroup memory.current/stat; excludes separate RAM cache and controller. It is not added to guest memory.",
+    "Nanosecond stage durations overlap; do not sum nested calls into end-to-end latency.",
+    "VMM metrics recorded as zero by unavailable PID lookup are not measured zero; VMM PSS stays NOT_MEASURED.",
+    "Original focused self-tests printed 25 passed; independent task tests were not run, so task correctness remains unverified.",
+    "Failed raw and fixed image contents were not changed. New background check and 18 GiB option only passed offline tests.",
+    "No staging, commit or push."
+  ],
+  "verification_commands": [
+    "python3 -B .artifacts/sphinx-backbone/run-confirmed-20261009.py (captures actual confirmed window and cache/native/release argv)",
+    "bash scripts/validate-isolated-storage.sh --confirmed-window --window-start-utc 2026-10-09T04:59:36.410324+00:00 --window-end-utc 2026-10-09T05:19:36.410324+00:00 --python-task-profile sphinx7590 --python-backbone-inputs .artifacts/sphinx-backbone/prepare-20261009T041720Z --python-backbone-oci .artifacts/python-image-cache/sphinx7590-20261009T045936Z --python-backbone-capacity-gib 20 --python-persistent-sampling",
+    "timeout -k 20s 480s python3 -B scripts/backup_isolated_failure.py .artifacts/storage-isolated-service/20261009T050703Z-3934019",
+    "python3 -B -m unittest discover -s tests -p test_sphinx7590.py",
+    "python3 -B -m unittest discover -s tests -p 'test_xarray6992*.py'",
+    "python3 -B -m unittest discover -s tests -p test_isolated_storage.py",
+    "git diff --check"
+  ]
+}

@@ -1,0 +1,445 @@
+{
+  "status": "PASS",
+  "scope": "controlled find vulnerability and cleanup verified; original formal failure remains unexplained",
+  "execution_command": "bash scripts/validate-runtime-command.sh --find-diagnostic",
+  "finding": "With performance sampling disabled, owned short-lived processes alone made the unchanged find action exit 1. All captured diagnostic errors referenced vanished owned /proc entries; after wait/reaping the action returned 0 again.",
+  "original_failure_cause": "NOT_ESTABLISHED",
+  "prior_formal_study": {
+    "status": "FAIL",
+    "completed_pairs": 2,
+    "planned_pairs": 5,
+    "source": ".artifacts/runtime-monitor-pairs/20261010T052318Z-140347"
+  },
+  "approved_cleanup": {
+    "source": ".artifacts/storage-isolated-service/20261010T044006Z-98974/volume.ext4",
+    "allocated_bytes": 8589959168,
+    "backup": ".artifacts/storage-isolated-service/20261010T044006Z-98974/volume.ext4.gz",
+    "backup_sha256": "a2411a15f9912f1e4490aae5551ed92954b6b32ee889e5191249d2904c00a68e",
+    "source_sha256": "7af331e670fec0158829360eb655412a1b81be1f5477fc485f245aa4b51f4306",
+    "logs_and_backup_retained": true
+  },
+  "host_available_after_bytes": 44163018752,
+  "runs": [
+    {
+      "status": "PASS",
+      "scope": "short diagnostic audit only; no full replay, task tests or monitoring overhead acceptance",
+      "source_directory": ".artifacts/storage-isolated-service/20261010T055140Z-158950/python-backbone",
+      "source_image": "ghcr.io/epoch-research/swe-bench.eval.x86_64.sphinx-doc__sphinx-7590@sha256:577ebfcce825e4c9621e066dc1c8375443be94bbc6de30b9368e422b8f123731",
+      "cpu": 2,
+      "memory_mib": 4096,
+      "monitor_mode": "off",
+      "command_sha256": "1f6e4d89a09212e18cf773594c96e46f5aaab4bf0d55b3f27d0e17086cc800a5",
+      "original_prefix": {
+        "action_count": 13,
+        "guest_action_sum_ns": 3422460760,
+        "guest_observed_peak_bytes": null,
+        "final_patch_sha256": "f9273a85c8c92060e17cac887e490adf40ee96bcb74f1ef3ce54a6f013744a08",
+        "observed_exit_differences": [],
+        "strict_prefix_status": "PASS",
+        "scope": "diagnostic observations only; find exit 1 remains invalid for trajectory acceptance"
+      },
+      "quiet_repeats": {
+        "captures": 8,
+        "original_exit_codes": [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        "diagnostic_pipeline_exit_codes": [
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ]
+        ],
+        "captures_with_find_error": 0,
+        "errors": [],
+        "scope": "each capture runs original and diagnostic commands consecutively; their exit codes may differ"
+      },
+      "controlled_process_test": null,
+      "raw_and_reference_files": 409,
+      "raw_and_reference_hashes_unchanged": true,
+      "cleanup": {
+        "owned_container_removed": true,
+        "mount_and_loop_removed": true,
+        "successful_fixture_removed": true,
+        "original_firecracker_identities_unchanged": true,
+        "original_service_unchanged": true
+      },
+      "volume_capacity_bytes": 8589934592,
+      "observed_host_available_min_bytes": 35580248064,
+      "original_failure_cause": "NOT_ESTABLISHED",
+      "full_trajectory": "NOT_RUN",
+      "independent_task_tests": "NOT_RUN",
+      "repeat_report_identical": true,
+      "archived_driver_sha256": "dff37df60c129ad72e1a656008625444d4a10d81a84e9bedfb60bca2f1b20837",
+      "archived_guest_probe_sha256": "b83b0dd5f7cf98d2b12faf0a84733b42e0cef5e04be206aca6bd4232ac130b2a",
+      "offline_report_directory": ".artifacts/runtime-monitor-offline/sphinx-find-short-20261010-first"
+    },
+    {
+      "status": "PASS",
+      "scope": "short diagnostic audit only; no full replay, task tests or monitoring overhead acceptance",
+      "source_directory": ".artifacts/storage-isolated-service/20261010T055639Z-161782/python-backbone",
+      "source_image": "ghcr.io/epoch-research/swe-bench.eval.x86_64.sphinx-doc__sphinx-7590@sha256:577ebfcce825e4c9621e066dc1c8375443be94bbc6de30b9368e422b8f123731",
+      "cpu": 2,
+      "memory_mib": 4096,
+      "monitor_mode": "off",
+      "command_sha256": "1f6e4d89a09212e18cf773594c96e46f5aaab4bf0d55b3f27d0e17086cc800a5",
+      "original_prefix": {
+        "action_count": 13,
+        "guest_action_sum_ns": 3459235977,
+        "guest_observed_peak_bytes": null,
+        "final_patch_sha256": "f9273a85c8c92060e17cac887e490adf40ee96bcb74f1ef3ce54a6f013744a08",
+        "observed_exit_differences": [],
+        "strict_prefix_status": "PASS",
+        "scope": "diagnostic observations only; find exit 1 remains invalid for trajectory acceptance"
+      },
+      "quiet_repeats": {
+        "captures": 8,
+        "original_exit_codes": [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        "diagnostic_pipeline_exit_codes": [
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ]
+        ],
+        "captures_with_find_error": 0,
+        "errors": [],
+        "scope": "each capture runs original and diagnostic commands consecutively; their exit codes may differ"
+      },
+      "controlled_process_test": {
+        "controller_pid": 742,
+        "workers": 2,
+        "child_command": "/bin/sleep 0.005",
+        "wait_delay_seconds": 0.025,
+        "owned_child_count": 197,
+        "owned_children_reaped": true,
+        "scope": "controlled process churn and delayed wait; tests find vulnerability, cannot identify the cause of an earlier unobserved failure",
+        "quiet_before": {
+          "captures": 3,
+          "original_exit_codes": [
+            0,
+            0,
+            0
+          ],
+          "diagnostic_pipeline_exit_codes": [
+            [
+              0,
+              0
+            ],
+            [
+              0,
+              0
+            ],
+            [
+              0,
+              0
+            ]
+          ],
+          "captures_with_find_error": 0,
+          "errors": [],
+          "scope": "each capture runs original and diagnostic commands consecutively; their exit codes may differ"
+        },
+        "active": {
+          "captures": 8,
+          "original_exit_codes": [
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1
+          ],
+          "diagnostic_pipeline_exit_codes": [
+            [
+              1,
+              0
+            ],
+            [
+              1,
+              0
+            ],
+            [
+              1,
+              0
+            ],
+            [
+              1,
+              0
+            ],
+            [
+              1,
+              0
+            ],
+            [
+              1,
+              0
+            ],
+            [
+              1,
+              0
+            ],
+            [
+              1,
+              0
+            ]
+          ],
+          "captures_with_find_error": 8,
+          "errors": [
+            {
+              "capture": 1,
+              "find_stderr": "find: ‘/proc/818’: No such file or directory\nfind: ‘/proc/819’: No such file or directory\n",
+              "processes_after_find": [
+                {
+                  "pid": 818,
+                  "status": "DISAPPEARED_AFTER_FIND",
+                  "owned_control_child": true
+                },
+                {
+                  "pid": 819,
+                  "status": "DISAPPEARED_AFTER_FIND",
+                  "owned_control_child": true
+                }
+              ]
+            },
+            {
+              "capture": 2,
+              "find_stderr": "find: ‘/proc/880’: No such file or directory\nfind: ‘/proc/881’: No such file or directory\n",
+              "processes_after_find": [
+                {
+                  "pid": 880,
+                  "status": "DISAPPEARED_AFTER_FIND",
+                  "owned_control_child": true
+                },
+                {
+                  "pid": 881,
+                  "status": "DISAPPEARED_AFTER_FIND",
+                  "owned_control_child": true
+                }
+              ]
+            },
+            {
+              "capture": 3,
+              "find_stderr": "find: ‘/proc/912’: No such file or directory\nfind: ‘/proc/914’: No such file or directory\n",
+              "processes_after_find": [
+                {
+                  "pid": 912,
+                  "status": "DISAPPEARED_AFTER_FIND",
+                  "owned_control_child": true
+                },
+                {
+                  "pid": 914,
+                  "status": "DISAPPEARED_AFTER_FIND",
+                  "owned_control_child": true
+                }
+              ]
+            },
+            {
+              "capture": 4,
+              "find_stderr": "find: ‘/proc/944’: No such file or directory\nfind: ‘/proc/946’: No such file or directory\n",
+              "processes_after_find": [
+                {
+                  "pid": 944,
+                  "status": "DISAPPEARED_AFTER_FIND",
+                  "owned_control_child": true
+                },
+                {
+                  "pid": 946,
+                  "status": "DISAPPEARED_AFTER_FIND",
+                  "owned_control_child": true
+                }
+              ]
+            },
+            {
+              "capture": 5,
+              "find_stderr": "find: ‘/proc/984’: No such file or directory\nfind: ‘/proc/985’: No such file or directory\n",
+              "processes_after_find": [
+                {
+                  "pid": 984,
+                  "status": "DISAPPEARED_AFTER_FIND",
+                  "owned_control_child": true
+                },
+                {
+                  "pid": 985,
+                  "status": "DISAPPEARED_AFTER_FIND",
+                  "owned_control_child": true
+                }
+              ]
+            },
+            {
+              "capture": 6,
+              "find_stderr": "find: ‘/proc/1020’: No such file or directory\nfind: ‘/proc/1021’: No such file or directory\n",
+              "processes_after_find": [
+                {
+                  "pid": 1020,
+                  "status": "DISAPPEARED_AFTER_FIND",
+                  "owned_control_child": true
+                },
+                {
+                  "pid": 1021,
+                  "status": "DISAPPEARED_AFTER_FIND",
+                  "owned_control_child": true
+                }
+              ]
+            },
+            {
+              "capture": 7,
+              "find_stderr": "find: ‘/proc/1052’: No such file or directory\nfind: ‘/proc/1053’: No such file or directory\n",
+              "processes_after_find": [
+                {
+                  "pid": 1052,
+                  "status": "DISAPPEARED_AFTER_FIND",
+                  "owned_control_child": true
+                },
+                {
+                  "pid": 1053,
+                  "status": "DISAPPEARED_AFTER_FIND",
+                  "owned_control_child": true
+                }
+              ]
+            },
+            {
+              "capture": 8,
+              "find_stderr": "find: ‘/proc/1090’: No such file or directory\nfind: ‘/proc/1094’: No such file or directory\n",
+              "processes_after_find": [
+                {
+                  "pid": 1090,
+                  "status": "DISAPPEARED_AFTER_FIND",
+                  "owned_control_child": true
+                },
+                {
+                  "pid": 1094,
+                  "status": "DISAPPEARED_AFTER_FIND",
+                  "owned_control_child": true
+                }
+              ]
+            }
+          ],
+          "scope": "each capture runs original and diagnostic commands consecutively; their exit codes may differ"
+        },
+        "quiet_after": {
+          "captures": 3,
+          "original_exit_codes": [
+            0,
+            0,
+            0
+          ],
+          "diagnostic_pipeline_exit_codes": [
+            [
+              0,
+              0
+            ],
+            [
+              0,
+              0
+            ],
+            [
+              0,
+              0
+            ]
+          ],
+          "captures_with_find_error": 0,
+          "errors": [],
+          "scope": "each capture runs original and diagnostic commands consecutively; their exit codes may differ"
+        }
+      },
+      "raw_and_reference_files": 412,
+      "raw_and_reference_hashes_unchanged": true,
+      "cleanup": {
+        "owned_container_removed": true,
+        "mount_and_loop_removed": true,
+        "successful_fixture_removed": true,
+        "original_firecracker_identities_unchanged": true,
+        "original_service_unchanged": true
+      },
+      "volume_capacity_bytes": 8589934592,
+      "observed_host_available_min_bytes": 35575676928,
+      "original_failure_cause": "NOT_ESTABLISHED",
+      "full_trajectory": "NOT_RUN",
+      "independent_task_tests": "NOT_RUN",
+      "repeat_report_identical": true,
+      "archived_driver_sha256": "168009df2a96e7595cc02337106e0f97a0cfd5cd8483779632902adab94c1660",
+      "archived_guest_probe_sha256": "699c224182cf983bdec1f0e002aa111b8fe3dea33a9c214d9685364083f9893c",
+      "offline_report_directory": ".artifacts/runtime-monitor-offline/sphinx-find-short-20261010-control"
+    }
+  ],
+  "local_checks": 68,
+  "limits": [
+    "Controlled errors occurred in later diagnostic commands, not the earlier failed formal command.",
+    "No performance sampler was running; control deliberately used two child-spawn workers and 25 ms delayed wait.",
+    "The captured errors are vanished /proc entries, not the earlier unreaped-collector EINVAL finding.",
+    "No full trajectory, independent task tests or five-pair monitoring overhead study was repeated.",
+    "No find exit-code exception was added; no original failed result or frozen input was changed."
+  ]
+}

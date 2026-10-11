@@ -1,0 +1,382 @@
+{
+  "date": "2026-10-08",
+  "status": "PASS",
+  "scope": "platform checkpoint/restore and continuation; original task correctness FAIL",
+  "task_id": "prettier__prettier-6604",
+  "path": "backbone",
+  "checkpoint_after_global_step": 24,
+  "continuation_global_step": 25,
+  "actions_total": 29,
+  "resources": {
+    "cpu": 2,
+    "memory_mib": 4096,
+    "volume_gib": 24,
+    "sample_interval_seconds": 0.1
+  },
+  "raw": ".artifacts/storage-isolated-service/20261008T113738Z-3660710/prettier6604",
+  "report": ".artifacts/prettier6604/20261008T113738Z-checkpoint/report",
+  "report_recheck": ".artifacts/prettier6604/20261008T113738Z-checkpoint/report-recheck",
+  "reports_match": true,
+  "raw_sha256_unchanged": true,
+  "raw_file_count": 194,
+  "checks": {
+    "smoke_and_unfixed_oracle": "PASS",
+    "checkpoint_interface": "PASS",
+    "restored_progress_and_files": "PASS",
+    "process_continuity": "PASS",
+    "frozen_order_hashes_exit_codes_patch_and_key_outputs": "PASS",
+    "independent_properties": "PASS",
+    "official_task_tests": "FAIL",
+    "official_outcome_matches_full_replay": "PASS"
+  },
+  "checkpoint_boundary": {
+    "status": "PASS",
+    "checkpoint_after_global_step": 24,
+    "continuation_global_step": 25,
+    "next_segment": "backbone_finish",
+    "files_compared": 85,
+    "scope": "prefix progress, source, new tests, frozen inputs, prefix outputs, known temporary tool inputs"
+  },
+  "process_continuity": {
+    "pid_before": "816",
+    "pid_after": "816",
+    "start_ticks_before": "262",
+    "start_ticks_after": "262",
+    "boot_id_same": true,
+    "counter_before": "82",
+    "counter_after": "89"
+  },
+  "final_patch_sha256": "73eb5f9d0c5582c5b1be464aa6915cfba621a27b80d953b69db74c6d1fa3da5a",
+  "frozen_tests": "32 suites / 66 tests PASS",
+  "independent_checks": "5 PASS",
+  "official_task": {
+    "status": "FAIL",
+    "exit_code": 1,
+    "passed": 0,
+    "failed": 2,
+    "failed_tests": [
+      "/testbed/tests/typescript_intersection/jsfmt.spec.js->intersection-parens.ts",
+      "/testbed/tests/typescript_intersection/jsfmt.spec.js->intersection-parens.ts"
+    ],
+    "same_as_original_complete_replay": true,
+    "reference_audit": ".artifacts/prettier6604/20261008T102942Z-retry/official-audit-recheck.json"
+  },
+  "source_sha256": {
+    "agentenv_cold_start.py": "b8476496531629da5d6508ad8332c0a2ac0c3bc10ff29194e3992259b275eaf5",
+    "host-memory-monitor.sh": "da4a9f24c43af1f11fc409f2e4779caf1c2525a63ed2ac85bb86c4f792399fc2",
+    "guest-runner.sh": "8bc17248c054342d169a9bae1eea9240a39ff802e28ada8422e9df53628f544d",
+    "prettier6604-backbone.json": "45b6cc3c593f813ead68236c8e0b0356c76f0c6f9d5d9ec20c23988b26c65f23",
+    "controller.py": "3e16a1305d674acb1073a7109af854a72aef2ecc278f1935a731f240edb7cc97",
+    "prettier6604_check.cjs": "ea86a254818a6fd36b3e97efd5d99dc83643667368ca68485997280ace651fa4",
+    "exp1_official_task.py": "a36cd8839fc573eb77abb40e288be88116467c5cd0b25c56abe7fdf87bf2562d",
+    "run_prettier6604.py": "5ebf58014509f0679cd43b437f461f9cea84ff27b1fc2147b7cebed4a5b64b99",
+    "prettier6604_boundary.py": "8ad68b975f6eef7568d21693bd1dd45afd7f7c08e1bba3dd58c2d90d636d1694",
+    "prettier6604_inputs.py": "3d627f3039dd070cccbc0062dd5ec61bbfa50ce5c87f090b7c2a76c18c4bf003",
+    "exp1-process-probe.sh": "0e1bfa362fb747d185cd262ef866597c23cae63f4a8305425587d6104d2edb65",
+    "audit_prettier6604_official.py": "35303798b36ddc4a5bcb0fa2147cd103f8c07e15279fbebcba9ea5a261f0bcd2"
+  },
+  "metrics": {
+    "status": "PASS",
+    "replay_consistency": "PASS",
+    "official_task_status": "FAIL",
+    "task_id": "prettier__prettier-6604",
+    "rollout": "one frozen backbone",
+    "actions": 29,
+    "guest": {
+      "sample_count": 220,
+      "observed_peak_bytes": 524972032,
+      "peak_sample_timestamp_ns": 1791459684985787945,
+      "components_at_peak_bytes": {
+        "AnonPages": 216879104,
+        "Cached": 195309568,
+        "Buffers": 40845312,
+        "Shmem": 1089536
+      },
+      "components_at_peak_percent": {
+        "AnonPages": 41.31250633938534,
+        "Cached": 37.20380441143196,
+        "Buffers": 7.780473912941709,
+        "Shmem": 0.20754172290839296
+      },
+      "note": "MemTotal-MemFree; counters from /proc/meminfo, KiB converted to bytes. Shmem overlaps Cached; components are not added. Slab not collected. Runner windows only."
+    },
+    "host": {
+      "sample_count": 1328,
+      "observed_peak_bytes": 5503221760,
+      "components_at_peak_bytes": {
+        "anon": 439775232,
+        "file": 4904067072,
+        "kernel": 141705216
+      },
+      "note": "Temporary service cgroup, includes cache and VMM. Does not include original service. VMM PSS not measured; zero columns are placeholders."
+    },
+    "timing": {
+      "guest_action_sum_ns": 14639523446,
+      "controller_elapsed_ns": 145038771372,
+      "stages": [
+        {
+          "stage": "service-state",
+          "duration_ns": 21913377,
+          "exit_code": 0
+        },
+        {
+          "stage": "service-labels",
+          "duration_ns": 18816692,
+          "exit_code": 0
+        },
+        {
+          "stage": "cold-start",
+          "duration_ns": 117949562426,
+          "exit_code": 0
+        },
+        {
+          "stage": "source-smoke",
+          "duration_ns": 1089027140,
+          "exit_code": 0
+        },
+        {
+          "stage": "upload-independent-check",
+          "duration_ns": 32673356,
+          "exit_code": 0
+        },
+        {
+          "stage": "unfixed-oracle",
+          "duration_ns": 829871708,
+          "exit_code": 0
+        },
+        {
+          "stage": "upload-frozen-workload",
+          "duration_ns": 54425215,
+          "exit_code": 0
+        },
+        {
+          "stage": "upload-state-probe",
+          "duration_ns": 30539730,
+          "exit_code": 0
+        },
+        {
+          "stage": "upload-process-probe",
+          "duration_ns": 29818945,
+          "exit_code": 0
+        },
+        {
+          "stage": "process-start",
+          "duration_ns": 363072168,
+          "exit_code": 0
+        },
+        {
+          "stage": "controller-call-0010",
+          "duration_ns": 1151206247,
+          "exit_code": 0
+        },
+        {
+          "stage": "controller-call-0011",
+          "duration_ns": 54960751,
+          "exit_code": 0
+        },
+        {
+          "stage": "segment-read_repo",
+          "duration_ns": 1213793811,
+          "exit_code": 0
+        },
+        {
+          "stage": "controller-call-0013",
+          "duration_ns": 662071992,
+          "exit_code": 0
+        },
+        {
+          "stage": "controller-call-0014",
+          "duration_ns": 50121932,
+          "exit_code": 0
+        },
+        {
+          "stage": "segment-read_typescript",
+          "duration_ns": 715428739,
+          "exit_code": 0
+        },
+        {
+          "stage": "controller-call-0016",
+          "duration_ns": 1771888631,
+          "exit_code": 0
+        },
+        {
+          "stage": "controller-call-0017",
+          "duration_ns": 50307078,
+          "exit_code": 0
+        },
+        {
+          "stage": "segment-core_patch",
+          "duration_ns": 1825879165,
+          "exit_code": 0
+        },
+        {
+          "stage": "controller-call-0019",
+          "duration_ns": 4182271989,
+          "exit_code": 0
+        },
+        {
+          "stage": "controller-call-0020",
+          "duration_ns": 53497896,
+          "exit_code": 0
+        },
+        {
+          "stage": "segment-core_verify",
+          "duration_ns": 4239461812,
+          "exit_code": 0
+        },
+        {
+          "stage": "boundary-before",
+          "duration_ns": 176517877,
+          "exit_code": 0
+        },
+        {
+          "stage": "process-before",
+          "duration_ns": 61107322,
+          "exit_code": 0
+        },
+        {
+          "stage": "checkpoint",
+          "duration_ns": 1635727720,
+          "exit_code": 0
+        },
+        {
+          "stage": "delete-original",
+          "duration_ns": 161389961,
+          "exit_code": 0
+        },
+        {
+          "stage": "restore",
+          "duration_ns": 202210463,
+          "exit_code": 0
+        },
+        {
+          "stage": "restore-ready",
+          "duration_ns": 53425863,
+          "exit_code": 0
+        },
+        {
+          "stage": "boundary-after",
+          "duration_ns": 218867479,
+          "exit_code": 0
+        },
+        {
+          "stage": "process-after",
+          "duration_ns": 355600916,
+          "exit_code": 0
+        },
+        {
+          "stage": "controller-call-0030",
+          "duration_ns": 9076223222,
+          "exit_code": 0
+        },
+        {
+          "stage": "controller-call-0031",
+          "duration_ns": 52929156,
+          "exit_code": 0
+        },
+        {
+          "stage": "segment-backbone_finish",
+          "duration_ns": 9132661634,
+          "exit_code": 0
+        },
+        {
+          "stage": "fixed-independent-check",
+          "duration_ns": 631113747,
+          "exit_code": 0
+        },
+        {
+          "stage": "upload-official-tests",
+          "duration_ns": 31499264,
+          "exit_code": 0
+        },
+        {
+          "stage": "official-task-tests",
+          "duration_ns": 3638596594,
+          "exit_code": 0
+        },
+        {
+          "stage": "delete-owned-sandbox",
+          "duration_ns": 262319870,
+          "exit_code": 0
+        },
+        {
+          "stage": "delete-owned-snapshot",
+          "duration_ns": 14421596,
+          "exit_code": 0
+        }
+      ],
+      "note": "ns; guest actions include frozen shell and runner timing boundary overhead. Stage totals overlap segment totals; do not add them as end-to-end time."
+    },
+    "page_cache": {
+      "physical_bytes": "NOT_MEASURED",
+      "guest_logical_counter": "Cached_kib",
+      "cache_control": "no manual host or guest cache drop",
+      "cold_state": "temporary service reuses immutable base layers; missing task layers prepared at creation"
+    },
+    "monitoring_impact": "NOT_VALIDATED",
+    "checkpoint_restore": "PASS",
+    "restore_semantics": "complete VM state; process continuity verified"
+  },
+  "cleanup": {
+    "child": {
+      "sandbox_removed": true,
+      "snapshot_removed": true,
+      "monitor_stopped": true
+    },
+    "isolation": {
+      "owned_container_removed": true,
+      "mount_and_loop_removed": true,
+      "successful_fixture_removed": true,
+      "original_firecracker_identities_unchanged": true,
+      "original_service_unchanged": true
+    },
+    "preexisting_firecracker_count": 12,
+    "snapshot_retained": false,
+    "snapshot_reload": "NOT_AVAILABLE_AFTER_AUTHORIZED_SUCCESS_CLEANUP"
+  },
+  "disk": {
+    "capacity_bytes": 25769803776,
+    "observed_peak_bytes": 8460206080,
+    "observed_host_min_bytes": 37289058304,
+    "samples": 640,
+    "host_after_cleanup_bytes": 63058366464,
+    "previous_20g_volume_removed": "PASS",
+    "previous_full_backup": ".artifacts/storage-isolated-service/20261008T102942Z-3642885/volume.ext4.gz",
+    "backup_bytes": 2245185148,
+    "backup_sha256": "502b8bb6ac5244223034e1f961f64986f9eb41ab9b420e2bca26dd407335fe29",
+    "source_sha256": "d9f9b21a701d643b5c04be7607ec33b407b8b03a5c19227cbca375639abe8071"
+  },
+  "coordination": {
+    "status": "USER_CONFIRMED",
+    "start_utc": "2026-10-08T11:37:38.344249+00:00",
+    "end_utc": "2026-10-08T11:57:38.344249+00:00",
+    "duration_seconds": 1200.0,
+    "scope": "no other large shared-disk writes; not a global writer lock"
+  },
+  "validation_commands": [
+    {
+      "command": "bash scripts/validate-isolated-storage.sh --prettier6604-task <pinned task> --prettier6604-checkpoint --expected-official-audit <original strict failure> --confirmed-window --window-start-utc <agreed start> --window-end-utc <start+20m>",
+      "result": "PASS exit 0",
+      "exact_command_log": ".artifacts/prettier6604/checkpoint-preparation-20261008/run-once.sh"
+    },
+    {
+      "command": "python3 -B scripts/report_prettier6604.py <raw> <new report>",
+      "result": "PASS exit 0; official_task_status FAIL; repeated report and input hashes equal"
+    }
+  ],
+  "limits": [
+    "one prepared host and one fixed boundary",
+    "not a task fix: original official test failure preserved",
+    "success snapshot deliberately removed; long-term retention not validated",
+    "snapshot recoverable locally; remote durable upload not validated",
+    "physical page cache NOT_MEASURED",
+    "VMM PSS NOT_MEASURED",
+    "Slab not collected by original runner",
+    "monitoring effect for task6604 NOT_VALIDATED",
+    "guest curve covers runner windows only; timestamp alignment not independently calibrated",
+    "no rollout or performance comparison; no memory-saving conclusion"
+  ],
+  "next_step": "Prepare one existing GRPO rollout with pinned actions and per-path expected outcomes; verify capacity and resource budget first. Preserve model failures; do not change original patch.",
+  "memory_figure": "docs/records/evidence/prettier6604-checkpoint-20261008.svg",
+  "memory_figure_sha256": "fb3c3ca79596dec75eddb603b955afc1ff15e5e88f7dc024e2897e644227dd4d"
+}

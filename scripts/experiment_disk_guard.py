@@ -10,7 +10,7 @@ import subprocess
 import time
 
 RESERVE_BYTES = 20 * 1024**3
-LOCK = Path(__file__).resolve().parents[1]/'.artifacts/trenvx-disk-writer.lock'
+LOCK = Path(os.environ.get('ASB_WRITER_LOCK', str(Path(__file__).resolve().parents[1]/'.artifacts/trenvx-disk-writer.lock')))
 
 
 @contextmanager
@@ -22,19 +22,26 @@ def writer_lock():
 
 
 def guarded_run(argv, *, directory, log, timeout, reserve=RESERVE_BYTES,
-                interval=.25, free_bytes=None):
-    free_bytes = free_bytes or (lambda: shutil.disk_usage(directory).free)
+                interval=.25, free_bytes=None, env=None, stderr_log=None):
+    boundary = None
+    if free_bytes is None:
+        from isolated_storage import configured_boundary
+        boundary = configured_boundary(directory)
+        free_bytes = boundary.host_free if boundary else (lambda: shutil.disk_usage(directory).free)
     started = time.monotonic()
     record = dict(command=list(map(str, argv)), reserve_bytes=reserve,
                   interval_seconds=interval, status='FAIL', sample_count=0)
+    if boundary:
+        record['storage_boundary'] = boundary.value
+        record['free_space_scope'] = 'host; separate owned-volume reserve and mount identity checked'
     process = None
     try:
         available = free_bytes()
         record['observed_min_free_bytes'] = available
         if available <= reserve:
             raise RuntimeError(f'disk reserve reached before launch: {available} <= {reserve}')
-        process = subprocess.Popen(list(map(str, argv)), stdout=log, stderr=subprocess.STDOUT,
-                                   start_new_session=True)
+        process = subprocess.Popen(list(map(str, argv)), stdout=log, stderr=stderr_log if stderr_log is not None else subprocess.STDOUT,
+                                   start_new_session=True, env=env)
         record['process_group'] = process.pid
         while True:
             available = free_bytes()

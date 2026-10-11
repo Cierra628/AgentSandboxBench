@@ -1,0 +1,163 @@
+{
+  "version": 1,
+  "status": "PARTIAL_TEMPORARY_ISOLATED_ENTRIES_VERIFIED",
+  "scope": "bulk image, checkpoint, service cache, run data and logs; does not constrain other users",
+  "facts": {
+    "host_available_bytes": 68838625280,
+    "host_reserve_bytes": 21474836480,
+    "cleanup_and_background_margin_bytes": 6442450944,
+    "independent_spare_disk": false,
+    "lvm_free_bytes": 0,
+    "root_features_quota": false,
+    "root_features_project": false,
+    "root_project_quota_bypass_verified": true,
+    "agentenv_home_allocated_unique_bytes": 10833780736,
+    "checked_utc": "2026-10-08T08:19:21.465816+00:00"
+  },
+  "recommended": {
+    "type": "independent disk or partition",
+    "requested_capacity_bytes": 107374182400,
+    "capacity_is_planning_value": true,
+    "initial_action": "verify supplied device/mount and ownership; do not format an existing device without approval",
+    "scope": "100 GiB remains a larger-storage planning option; not a measured minimum for verified sequential AgentENV 20 GiB or TrEnv-X 24 GiB single-trajectory workflows"
+  },
+  "fallback": {
+    "type": "fully allocated file-backed ext4 on shared root; not independent physical storage",
+    "proposed_capacity_bytes": 85899345920,
+    "required_parent_available_bytes": 113816633344,
+    "additional_parent_available_needed_bytes": 44978008064,
+    "sizing": "80 GiB is a planning estimate: preserve >60 GiB launch check after copying about 10.09 GiB service state and ext4 metadata; measure actual available space before proceeding",
+    "allocation": "posix_fallocate plus verify st_blocks; mkfs nodiscard; own loop discard_max_bytes=0; no automatic expansion or punching holes",
+    "performance": "changed I/O stack and caches; validate functionality separately; never combine with old latency/memory comparison",
+    "scope": "historical 80 GiB full-state-copy plan; not the only option and not a measured per-run minimum"
+  },
+  "writes": [
+    {
+      "owner": "AgentENV",
+      "source": "/workspace/env",
+      "destination": "<volume>/agentenv/env",
+      "contents": [
+        "image-cache",
+        "snapshot-store",
+        "snapshot-local-cache",
+        "template-builds",
+        "firecracker-work",
+        "logs",
+        "persisted-sandboxes",
+        "deps",
+        "secrets"
+      ],
+      "proof": "actual pinned container environment, directory sizes and writable regular-file FDs"
+    },
+    {
+      "owner": "AgentENV",
+      "source": "/run/aenv and /tmp",
+      "destination": "<volume>/agentenv/run and <volume>/agentenv/tmp",
+      "contents": [
+        "pool placeholder data",
+        "runtime sockets",
+        "conversion/temp files"
+      ],
+      "proof": "actual writable FDs and mount namespace; both currently on Docker overlay"
+    },
+    {
+      "owner": "TrEnv-X",
+      "source": ".artifacts/trenvx-service-smoke/<run_id>",
+      "destination": "<volume>/trenvx-runs/<run_id>",
+      "contents": [
+        "data/templates/cache",
+        "private upper",
+        "sealed checkpoint lower",
+        "controller/checkpoint-1-runtime-tmp.tar",
+        "data.tar.gz",
+        "raw data and logs"
+      ],
+      "proof": "ASB_STORAGE_BOUNDARY validated owned raw-root, device and backing identity; temporary 24 GiB smoke and step-022 restore plus archive/cleanup verified"
+    },
+    {
+      "owner": "platform",
+      "source": ".artifacts/platform-use/<run_id>",
+      "destination": "host .artifacts/platform-use and storage-isolated-* receipts; bulk backend logs on temporary volume",
+      "contents": [
+        "inputs",
+        "events",
+        "samples",
+        "reports",
+        "stdout/stderr"
+      ],
+      "proof": "small host inputs/code/receipts and final raw/report export are outside bulk-volume limits, documented separately"
+    },
+    {
+      "owner": "Docker daemon",
+      "source": "project container JSON log and writable root",
+      "destination": "log output within volume; container root readonly with explicit owned write mounts",
+      "contents": [
+        "container stdout/stderr",
+        "unexpected write prevention"
+      ],
+      "proof": "temporary AgentENV actual readonly root, log-driver none, allowed write mounts and writable-FD audit; original container remains unchanged"
+    }
+  ],
+  "activation": [
+    "Confirm storage choice; verify mount/device/UUID and available capacity; refuse fallback onto host directory if mount is absent.",
+    "Prepare owned volume and paths; inventory all writable mounts/FDs; keep kernels, source and immutable inputs read-only.",
+    "For project AgentENV service migration, obtain approval for only that service interruption; confirm API empty and VM ownership; quiesce writes, copy state and compare hashes/permissions/hard links. Keep old container/layer as recoverable backup.",
+    "Preserve pinned image/config/guest resources/seed, env secrets and snapshot paths; bound stdout/stderr and all mutable cache paths; no global Docker restart.",
+    "Add only needed new run-root/mount-identity checks; independently check host reserve and volume capacity; do not lower existing 60 GiB launch threshold.",
+    "Agree a fresh 20-minute window after provisioning; historical window expired 2026-10-07T08:28:05Z and does not renew automatically.",
+    "Run one small template/tool/delete smoke; then only one full/step-022 restore workflow with correctness, metrics and cleanup. Stop on first new failure. No long performance series."
+  ],
+  "exclusions": [
+    "No partition shrink or change to existing root filesystem features/mount settings.",
+    "No deletion of further archives or other user data.",
+    "No restart of shared Docker/system services.",
+    "Quota or fixed file capacity alone cannot guarantee 20 GiB host availability against other writers."
+  ],
+  "coordination": {
+    "status": "USER_CONFIRMED_COMPLETED_NO_AUTORENEW",
+    "user_confirmation": "prepared window permitted; no other large writes",
+    "start_utc": "2026-10-08T08:05:28.881557+00:00",
+    "end_utc": "2026-10-08T08:25:28.881557+00:00",
+    "scope": "only TrEnv-X checkpoint022 and resume023-026"
+  },
+  "validated_agentenv": {
+    "evidence": "docs/records/evidence/storage-isolated-agentenv-20261008.json",
+    "method": "temporary fully allocated 20 GiB ext4; readonly new container root; env/run/tmp and bulk logs inside volume",
+    "observed_volume_used_peak_bytes": 5531516928,
+    "host_available_after_cleanup_bytes": 75265638400,
+    "full_exp1_and_step_022_restore": "PASS",
+    "formal_backend_migration": "NOT_CONFIGURED",
+    "trenvx_boundary": "VERIFIED_TEMPORARY_ENTRY"
+  },
+  "next_steps": [
+    "Do not repeat validated four subcases or long performance runs without a new hypothesis. Prior combined workflow remains FAIL; separate missing TrEnv-X restore now PASS.",
+    "Before future runs verify >60 GiB available and obtain a new shared-write window; current window does not auto-renew.",
+    "Journal-only private-copy replay and file restore are validated; allocation-count warnings remain separately recorded, no full filesystem health claim.",
+    "Formal service migration, persistent isolated checkpoint storage and real VM ENOSPC cleanup remain separate unverified work."
+  ],
+  "prepared_trenvx": {
+    "evidence": "docs/records/evidence/storage-isolated-trenvx-preparation-20261008.json",
+    "capacity_bytes": 25769803776,
+    "entry": "bash scripts/validate-isolated-trenvx.sh",
+    "live_status": "SMOKE_AND_STEP_022_PASS",
+    "host_launch_minimum_bytes": 64424509440,
+    "live_evidence": "docs/records/evidence/storage-isolated-trenvx-20261008.json",
+    "observed_volume_used_peak_bytes": 19975655424,
+    "report_recomputation": "PASS"
+  },
+  "activation_scope": "historical full-state-migration steps below; temporary fixed-capacity entries are verified separately and do not migrate the existing service",
+  "unified_entry": {
+    "config": "configs/platform-exp1-isolated.json",
+    "evidence": "docs/records/evidence/platform-isolated-integration-20261008.json",
+    "workflow_status": "FAIL",
+    "completed_subruns": 3,
+    "failed_subrun": "trenvx checkpoint-022; EBADMSG before template construction",
+    "failed_volume": ".artifacts/storage-isolated-trenvx/20261008T054807Z-3575596/volume.ext4",
+    "failed_volume_retained": false,
+    "checkpoint_diagnostic": "docs/records/evidence/checkpoint-journal-diagnostic-20261008.json",
+    "failed_archive_backed_up": true,
+    "failed_volume_removal": "user approved this turn; verified backup retained",
+    "missing_restore_verification": "docs/records/evidence/trenvx-checkpoint-journal-fix-20261008.json",
+    "missing_restore_status": "PASS_SEPARATE_RUN"
+  }
+}

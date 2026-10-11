@@ -1,0 +1,2263 @@
+{
+  "status": "PASS",
+  "third_initial_acceptance": "PARTIAL",
+  "driver_id": "20261006T035902Z-3290689-checkpoint",
+  "task": "Exp1 Prettier #14400",
+  "resources": {
+    "cpu": 2,
+    "memory_mib": 4096,
+    "host_kernel": "6.19.9+"
+  },
+  "effective_input_sha256": {
+    "seed_sha256": "5e22e3f6d1cd5cfcbb9e5a17a34f0f1705833a9357f214845a8fcdfa627e8d82",
+    "ch_sha256": "244c0113a64d40efa2c6ccd886deb9135153869cfacca0a50647e8ed844d1fb9",
+    "kernel_sha256": "a50bbc107954f603fce3c8eb8105c6c65290dbe2224402061acc022c95968730",
+    "envd_sha256": "7d3f123cce61232824f8f054725c641658d4fff0be8ef8672bec72b1c1dfc07a",
+    "action_manifest_sha256": "6ea843b464f5f7ec3c081c539386593027ede2335c5309b945a9462feddceaa7",
+    "patch_sha256": "f1cc23ac4f5ac1cff87eb7f8c54f8176c1a47cec37fa4cb6907b9dd8ad199af2",
+    "runner_sha256": "551dd2d6cbac50fb6a503d8abc38fba4f8c26ab3b681c6af068139b65fcd5764"
+  },
+  "protocol": {
+    "mode": "checkpoint",
+    "pair_count": 5,
+    "orders": [
+      [
+        "off",
+        "on"
+      ],
+      [
+        "on",
+        "off"
+      ],
+      [
+        "off",
+        "on"
+      ],
+      [
+        "on",
+        "off"
+      ],
+      [
+        "off",
+        "on"
+      ]
+    ],
+    "threshold": null,
+    "treatment": "persistent guest/host 100ms + boundary PSS + two declared-file analyses at restore/continuation",
+    "shared_condition": "same persistent runner, frozen actions, source checks, official tests, resource settings and image input",
+    "cache_policy": "fresh private VM; host cache preserved; no global drop",
+    "timing_units": "nanoseconds; percentages are paired (on/off - 1) * 100",
+    "retention": "raw, hashes, results retained; successful private images removed; failures archived",
+    "stop_policy": "first failure; first pair must pass before remaining four pairs; no retry",
+    "performance_scope": "combined collection impact, not pure periodic-sampler overhead; inventory/cleanup in full_run"
+  },
+  "pairs": [
+    [
+      {
+        "label": "off",
+        "run_id": "20261006T035902Z-3290692",
+        "guest_tools_ns": 2158921252,
+        "runner_calls_ns": 24722389610,
+        "task_and_final_checks_ns": 80690918510,
+        "checkpoint_ns": 11740119658,
+        "restore_ns": 2279157653,
+        "full_run_ns": 151312599461,
+        "retained_bytes": 1093632,
+        "guest_samples": 0,
+        "host_samples": 0,
+        "physical_analysis_ns": 0,
+        "final_checks": {
+          "status": "PASS",
+          "action_order": "PASS",
+          "expected_failures": "PASS",
+          "key_output_024": "PASS",
+          "final_patch": "PASS",
+          "independent_svg": "PASS",
+          "official_task_tests": "PASS",
+          "recovery": {
+            "interface": "PASS",
+            "file_state": "PASS",
+            "process_state": "NOT_APPLICABLE"
+          },
+          "official_full_tests": "NOT_RUN",
+          "patch_sha256": "f1cc23ac4f5ac1cff87eb7f8c54f8176c1a47cec37fa4cb6907b9dd8ad199af2",
+          "scope": "frozen replay and task-specific checks; patch equality does not prove full upstream tests"
+        },
+        "cleanup": {
+          "status": "PASS",
+          "sandbox": "PASS",
+          "service": "PASS",
+          "cgroup_and_loop": "PASS",
+          "archived_images": "SUCCESS_IMAGES_REMOVED; RAW_AND_HASHES_RETAINED",
+          "evidence": "run checks, cgroup/loop receipt, archive manifest and current retention state"
+        },
+        "phase_breakdown": {
+          "guest_action_sum": {
+            "status": "MEASURED",
+            "duration_ns": 2158921252,
+            "source": "replay/steps.tsv",
+            "boundary": "sum of 26 guest runner action durations; excludes controller and setup"
+          },
+          "controller_runner_calls": {
+            "status": "MEASURED",
+            "duration_ns": 24722389610,
+            "source": "replay-*.json",
+            "boundary": "sum of controller calls that launch frozen runner segments"
+          },
+          "create_to_first_success": {
+            "status": "MEASURED",
+            "duration_ns": 1078253710,
+            "source": "diagnostic-events.jsonl",
+            "boundary": "SDK create through first successful mkdir command"
+          },
+          "checkpoint": {
+            "status": "MEASURED",
+            "duration_ns": 11740119658,
+            "source": "diagnostic-events.jsonl",
+            "boundary": "controller file capture, sealing and template construction"
+          },
+          "restore_interface": {
+            "status": "MEASURED",
+            "duration_ns": 1103562443,
+            "source": "diagnostic-events.jsonl",
+            "boundary": "controller start of child VM from sealed file layer"
+          },
+          "restore_to_first_success": {
+            "status": "MEASURED",
+            "duration_ns": 2279157653,
+            "source": "diagnostic-events.jsonl",
+            "boundary": "start restored VM through first successful environment command"
+          },
+          "template_build": {
+            "status": "MEASURED",
+            "duration_ns": 12481013737,
+            "source": "diagnostic-events.jsonl",
+            "boundary": "prepare private template before trajectory"
+          },
+          "parent_delete": {
+            "status": "MEASURED",
+            "duration_ns": 16587631422,
+            "source": "diagnostic-events.jsonl",
+            "boundary": "delete parent VM after checkpoint"
+          },
+          "full_run_including_cleanup": {
+            "status": "MEASURED",
+            "duration_ns": 151312599461,
+            "source": "result.json",
+            "boundary": "outer start through sandbox cleanup and verified image archiving when enabled"
+          }
+        },
+        "named_file_mapping": {
+          "status": "NOT_MEASURED",
+          "bytes": null,
+          "scope": "no named-file mapping measurement"
+        },
+        "recorded_phase_timing_ns": {
+          "private-template-prepare": 6482154186,
+          "template-build": 12481013737,
+          "sdk-create": 87916018,
+          "tool:mkdir-inputs": 989545079,
+          "create-to-first-tool-success": 1078253710,
+          "tool:guest-input-hashes": 1179105355,
+          "tool:guest-environment": 1578356033,
+          "tool:independent-before": 1994290996,
+          "tool:replay-prefix": 11558657359,
+          "tool:pack-prefix": 1166807760,
+          "tool:source-before": 1118854021,
+          "tool:source-diff-before": 1162360508,
+          "checkpoint": 11740119658,
+          "parent-delete": 16587631422,
+          "restore-interface": 1103562443,
+          "tool:restore-environment": 1174705762,
+          "restore-to-first-tool-success": 2279157653,
+          "tool:source-after": 1175246352,
+          "tool:source-diff-after": 1156129934,
+          "tool:replay-continuation": 13163032599,
+          "tool:pack-replay": 1120825167,
+          "tool:independent-after": 1786913625,
+          "tool:official-task-tests": 16598685051
+        }
+      },
+      {
+        "label": "on",
+        "run_id": "20261006T040134Z-3291849",
+        "guest_tools_ns": 1948055300,
+        "runner_calls_ns": 25245698931,
+        "task_and_final_checks_ns": 89299473801,
+        "checkpoint_ns": 11734346819,
+        "restore_ns": 2262801592,
+        "full_run_ns": 160983758200,
+        "retained_bytes": 1454080,
+        "guest_samples": 228,
+        "host_samples": 1119,
+        "physical_analysis_ns": 101446424,
+        "final_checks": {
+          "status": "PASS",
+          "action_order": "PASS",
+          "expected_failures": "PASS",
+          "key_output_024": "PASS",
+          "final_patch": "PASS",
+          "independent_svg": "PASS",
+          "official_task_tests": "PASS",
+          "recovery": {
+            "interface": "PASS",
+            "file_state": "PASS",
+            "process_state": "NOT_APPLICABLE"
+          },
+          "official_full_tests": "NOT_RUN",
+          "patch_sha256": "f1cc23ac4f5ac1cff87eb7f8c54f8176c1a47cec37fa4cb6907b9dd8ad199af2",
+          "scope": "frozen replay and task-specific checks; patch equality does not prove full upstream tests"
+        },
+        "cleanup": {
+          "status": "PASS",
+          "sandbox": "PASS",
+          "service": "PASS",
+          "cgroup_and_loop": "PASS",
+          "archived_images": "SUCCESS_IMAGES_REMOVED; RAW_AND_HASHES_RETAINED",
+          "evidence": "run checks, cgroup/loop receipt, archive manifest and current retention state"
+        },
+        "phase_breakdown": {
+          "guest_action_sum": {
+            "status": "MEASURED",
+            "duration_ns": 1948055300,
+            "source": "replay/steps.tsv",
+            "boundary": "sum of 26 guest runner action durations; excludes controller and setup"
+          },
+          "controller_runner_calls": {
+            "status": "MEASURED",
+            "duration_ns": 25245698931,
+            "source": "replay-*.json",
+            "boundary": "sum of controller calls that launch frozen runner segments"
+          },
+          "create_to_first_success": {
+            "status": "MEASURED",
+            "duration_ns": 997956872,
+            "source": "diagnostic-events.jsonl",
+            "boundary": "SDK create through first successful mkdir command"
+          },
+          "checkpoint": {
+            "status": "MEASURED",
+            "duration_ns": 11734346819,
+            "source": "diagnostic-events.jsonl",
+            "boundary": "controller file capture, sealing and template construction"
+          },
+          "restore_interface": {
+            "status": "MEASURED",
+            "duration_ns": 1108587255,
+            "source": "diagnostic-events.jsonl",
+            "boundary": "controller start of child VM from sealed file layer"
+          },
+          "restore_to_first_success": {
+            "status": "MEASURED",
+            "duration_ns": 2262801592,
+            "source": "diagnostic-events.jsonl",
+            "boundary": "start restored VM through first successful environment command"
+          },
+          "template_build": {
+            "status": "MEASURED",
+            "duration_ns": 12581357691,
+            "source": "diagnostic-events.jsonl",
+            "boundary": "prepare private template before trajectory"
+          },
+          "parent_delete": {
+            "status": "MEASURED",
+            "duration_ns": 16594207629,
+            "source": "diagnostic-events.jsonl",
+            "boundary": "delete parent VM after checkpoint"
+          },
+          "full_run_including_cleanup": {
+            "status": "MEASURED",
+            "duration_ns": 160983758200,
+            "source": "result.json",
+            "boundary": "outer start through sandbox cleanup and verified image archiving when enabled"
+          }
+        },
+        "named_file_mapping": {
+          "status": "MEASURED",
+          "bytes": 36864,
+          "file_pages": 9,
+          "verified_anonymous_pages": 0,
+          "unknown_pages": 0,
+          "scope": "explicit named files in sealed checkpoint and base; resident mapped pages only; not whole task",
+          "files": [
+            {
+              "path": "/testbed/src/language-html/utils/index.js",
+              "origin": "checkpoint"
+            },
+            {
+              "path": "/testbed/src/language-html/parser-html.js",
+              "origin": "base"
+            },
+            {
+              "path": "/testbed/package.json",
+              "origin": "base"
+            }
+          ]
+        },
+        "recorded_phase_timing_ns": {
+          "private-template-prepare": 6539221812,
+          "template-build": 12581357691,
+          "sdk-create": 63293210,
+          "tool:mkdir-inputs": 934036555,
+          "create-to-first-tool-success": 997956872,
+          "tool:guest-input-hashes": 1080993555,
+          "tool:guest-environment": 1584693053,
+          "tool:independent-before": 1871891002,
+          "tool:guest-memory-before-replay": 1033848127,
+          "vmm-scan:before-replay": 7060244,
+          "tool:replay-prefix": 12200281256,
+          "tool:pack-prefix": 1176399241,
+          "tool:source-before": 1163241536,
+          "tool:source-diff-before": 1167916152,
+          "tool:guest-memory-before-checkpoint": 1161896719,
+          "vmm-scan:before-checkpoint": 7373726,
+          "checkpoint": 11734346819,
+          "parent-delete": 16594207629,
+          "restore-interface": 1108587255,
+          "tool:restore-environment": 1153319508,
+          "restore-to-first-tool-success": 2262801592,
+          "tool:guest-memory-restored-before-source-read": 1167769739,
+          "tool:layer-state-before-restored-before-source-read": 1214359781,
+          "file-physical:restored-before-source-read": 48305946,
+          "tool:layer-state-after-restored-before-source-read": 1158417982,
+          "vmm-scan:restored": 6236968,
+          "tool:source-after": 1143406102,
+          "tool:source-diff-after": 1287867958,
+          "tool:replay-continuation": 13044901963,
+          "tool:guest-memory-after-continuation": 1170073899,
+          "tool:layer-state-before-after-continuation": 1218014134,
+          "file-physical:after-continuation": 53140478,
+          "tool:layer-state-after-after-continuation": 1218947449,
+          "vmm-scan:after-replay": 9042190,
+          "tool:pack-replay": 1171034256,
+          "tool:independent-after": 1783965157,
+          "tool:official-task-tests": 16041893174
+        },
+        "guest_memory": {
+          "status": "PASS",
+          "sample_count": 228,
+          "observed_peak_nonfree_bytes": 251658240,
+          "composition_at_observed_peak": {
+            "timestamp_ns": 1791259379998744612,
+            "phase": "after",
+            "step": "026",
+            "status": "PASS",
+            "missing_fields": [],
+            "unit": "bytes",
+            "scope": "guest logical counters at one sample; not host physical residency",
+            "used_definition": "MemTotal - MemFree",
+            "percentage_denominator": "same-sample nonfree memory",
+            "slab_rule": "Slab includes SReclaimable and SUnreclaim; do not add them again",
+            "nonfree_bytes": 251658240,
+            "used_estimate_bytes": 335331328,
+            "components_bytes": {
+              "file_cache_and_buffers": 34283520,
+              "anonymous": 61034496,
+              "slab": 61960192,
+              "shared_memory": 1069056,
+              "kernel_stack": 1605632,
+              "page_tables": 1482752,
+              "percpu": 581632,
+              "unclassified_residual": 89640960
+            },
+            "percentages": {
+              "file_cache_and_buffers": 13.623046875,
+              "anonymous": 24.2529296875,
+              "slab": 24.620768229166668,
+              "shared_memory": 0.4248046875,
+              "kernel_stack": 0.6380208333333334,
+              "page_tables": 0.5891927083333334,
+              "percpu": 0.23111979166666666,
+              "unclassified_residual": 35.6201171875
+            },
+            "reclaimable_slab_bytes": 44433408,
+            "unreclaimable_slab_bytes": 17526784
+          },
+          "peak_scope": "sample maximum, not instantaneous peak; incomplete samples excluded and counted",
+          "sampling_mode": "persistent asynchronous process; advisory phase markers",
+          "time_scope": "includes runner preparation; short actions may have no sample; per-runner lifetime only"
+        },
+        "host_memory": {
+          "sample_count": 1119,
+          "scope": "run-owned TrEnv-X sandbox parent cgroup; excludes orchestrator",
+          "observed_peak_current_bytes": 355033088,
+          "observed_peak_file_bytes": 7110656,
+          "observed_peak_anon_bytes": 340811776,
+          "observed_peak_vmm_pss_kib": "NOT_MEASURED",
+          "vmm_boundary_observations": [
+            {
+              "label": "vmm-after-replay",
+              "pss_bytes": 376664064,
+              "scan_elapsed_ns": 8656691,
+              "scope": "host VMM process smaps_rollup; not guest memory or complete DAX residency"
+            },
+            {
+              "label": "vmm-before-checkpoint",
+              "pss_bytes": 435056640,
+              "scan_elapsed_ns": 7110116,
+              "scope": "host VMM process smaps_rollup; not guest memory or complete DAX residency"
+            },
+            {
+              "label": "vmm-before-replay",
+              "pss_bytes": 412725248,
+              "scan_elapsed_ns": 6841849,
+              "scope": "host VMM process smaps_rollup; not guest memory or complete DAX residency"
+            },
+            {
+              "label": "vmm-restored",
+              "pss_bytes": 209731584,
+              "scan_elapsed_ns": 5875590,
+              "scope": "host VMM process smaps_rollup; not guest memory or complete DAX residency"
+            }
+          ]
+        },
+        "guest_collector_segments": [
+          {
+            "status": "PASS",
+            "error": null,
+            "samples": 110,
+            "samples_before": 0,
+            "samples_in_file": 110,
+            "interval_seconds": 0.1,
+            "elapsed_ns": 10939054618,
+            "cpu_user_seconds": 0.11161399999999999,
+            "cpu_system_seconds": 0.02895,
+            "maxrss_kib": 5648,
+            "scope": "collector process resource usage; maxrss is not private memory"
+          },
+          {
+            "status": "PASS",
+            "error": null,
+            "samples": 118,
+            "samples_before": 110,
+            "samples_in_file": 228,
+            "interval_seconds": 0.1,
+            "elapsed_ns": 11764168266,
+            "cpu_user_seconds": 0.1105,
+            "cpu_system_seconds": 0.034351,
+            "maxrss_kib": 5648,
+            "scope": "collector process resource usage; maxrss is not private memory"
+          }
+        ],
+        "extra_phases_in_task_window_ns": {
+          "tool:guest-memory-before-checkpoint": 1161896719,
+          "vmm-scan:before-checkpoint": 7373726,
+          "tool:guest-memory-restored-before-source-read": 1167769739,
+          "tool:layer-state-before-restored-before-source-read": 1214359781,
+          "file-physical:restored-before-source-read": 48305946,
+          "tool:layer-state-after-restored-before-source-read": 1158417982,
+          "vmm-scan:restored": 6236968,
+          "tool:guest-memory-after-continuation": 1170073899,
+          "tool:layer-state-before-after-continuation": 1218014134,
+          "file-physical:after-continuation": 53140478,
+          "tool:layer-state-after-after-continuation": 1218947449,
+          "vmm-scan:after-replay": 9042190
+        }
+      }
+    ],
+    [
+      {
+        "label": "on",
+        "run_id": "20261006T040416Z-3293051",
+        "guest_tools_ns": 1933694425,
+        "runner_calls_ns": 25157763346,
+        "task_and_final_checks_ns": 89399565211,
+        "checkpoint_ns": 11720780700,
+        "restore_ns": 2320584986,
+        "full_run_ns": 161449942270,
+        "retained_bytes": 1458176,
+        "guest_samples": 228,
+        "host_samples": 1123,
+        "physical_analysis_ns": 468696418,
+        "final_checks": {
+          "status": "PASS",
+          "action_order": "PASS",
+          "expected_failures": "PASS",
+          "key_output_024": "PASS",
+          "final_patch": "PASS",
+          "independent_svg": "PASS",
+          "official_task_tests": "PASS",
+          "recovery": {
+            "interface": "PASS",
+            "file_state": "PASS",
+            "process_state": "NOT_APPLICABLE"
+          },
+          "official_full_tests": "NOT_RUN",
+          "patch_sha256": "f1cc23ac4f5ac1cff87eb7f8c54f8176c1a47cec37fa4cb6907b9dd8ad199af2",
+          "scope": "frozen replay and task-specific checks; patch equality does not prove full upstream tests"
+        },
+        "cleanup": {
+          "status": "PASS",
+          "sandbox": "PASS",
+          "service": "PASS",
+          "cgroup_and_loop": "PASS",
+          "archived_images": "SUCCESS_IMAGES_REMOVED; RAW_AND_HASHES_RETAINED",
+          "evidence": "run checks, cgroup/loop receipt, archive manifest and current retention state"
+        },
+        "phase_breakdown": {
+          "guest_action_sum": {
+            "status": "MEASURED",
+            "duration_ns": 1933694425,
+            "source": "replay/steps.tsv",
+            "boundary": "sum of 26 guest runner action durations; excludes controller and setup"
+          },
+          "controller_runner_calls": {
+            "status": "MEASURED",
+            "duration_ns": 25157763346,
+            "source": "replay-*.json",
+            "boundary": "sum of controller calls that launch frozen runner segments"
+          },
+          "create_to_first_success": {
+            "status": "MEASURED",
+            "duration_ns": 1034707985,
+            "source": "diagnostic-events.jsonl",
+            "boundary": "SDK create through first successful mkdir command"
+          },
+          "checkpoint": {
+            "status": "MEASURED",
+            "duration_ns": 11720780700,
+            "source": "diagnostic-events.jsonl",
+            "boundary": "controller file capture, sealing and template construction"
+          },
+          "restore_interface": {
+            "status": "MEASURED",
+            "duration_ns": 1137143915,
+            "source": "diagnostic-events.jsonl",
+            "boundary": "controller start of child VM from sealed file layer"
+          },
+          "restore_to_first_success": {
+            "status": "MEASURED",
+            "duration_ns": 2320584986,
+            "source": "diagnostic-events.jsonl",
+            "boundary": "start restored VM through first successful environment command"
+          },
+          "template_build": {
+            "status": "MEASURED",
+            "duration_ns": 12530594928,
+            "source": "diagnostic-events.jsonl",
+            "boundary": "prepare private template before trajectory"
+          },
+          "parent_delete": {
+            "status": "MEASURED",
+            "duration_ns": 16579989578,
+            "source": "diagnostic-events.jsonl",
+            "boundary": "delete parent VM after checkpoint"
+          },
+          "full_run_including_cleanup": {
+            "status": "MEASURED",
+            "duration_ns": 161449942270,
+            "source": "result.json",
+            "boundary": "outer start through sandbox cleanup and verified image archiving when enabled"
+          }
+        },
+        "named_file_mapping": {
+          "status": "MEASURED",
+          "bytes": 36864,
+          "file_pages": 8,
+          "verified_anonymous_pages": 1,
+          "unknown_pages": 0,
+          "scope": "explicit named files in sealed checkpoint and base; resident mapped pages only; not whole task",
+          "files": [
+            {
+              "path": "/testbed/src/language-html/utils/index.js",
+              "origin": "checkpoint"
+            },
+            {
+              "path": "/testbed/src/language-html/parser-html.js",
+              "origin": "base"
+            },
+            {
+              "path": "/testbed/package.json",
+              "origin": "base"
+            }
+          ]
+        },
+        "recorded_phase_timing_ns": {
+          "private-template-prepare": 6485585429,
+          "template-build": 12530594928,
+          "sdk-create": 66356713,
+          "tool:mkdir-inputs": 967594587,
+          "create-to-first-tool-success": 1034707985,
+          "tool:guest-input-hashes": 1184528823,
+          "tool:guest-environment": 1575725442,
+          "tool:independent-before": 1953961911,
+          "tool:guest-memory-before-replay": 1113985503,
+          "vmm-scan:before-replay": 6980529,
+          "tool:replay-prefix": 12147863837,
+          "tool:pack-prefix": 1176896612,
+          "tool:source-before": 1161817467,
+          "tool:source-diff-before": 1170219727,
+          "tool:guest-memory-before-checkpoint": 1097082595,
+          "vmm-scan:before-checkpoint": 6981011,
+          "checkpoint": 11720780700,
+          "parent-delete": 16579989578,
+          "restore-interface": 1137143915,
+          "tool:restore-environment": 1182350289,
+          "restore-to-first-tool-success": 2320584986,
+          "tool:guest-memory-restored-before-source-read": 1198145977,
+          "tool:layer-state-before-restored-before-source-read": 1233400436,
+          "file-physical:restored-before-source-read": 332316845,
+          "tool:layer-state-after-restored-before-source-read": 1235331914,
+          "vmm-scan:restored": 7284878,
+          "tool:source-after": 1172649336,
+          "tool:source-diff-after": 1233576926,
+          "tool:replay-continuation": 13009400040,
+          "tool:guest-memory-after-continuation": 1175086891,
+          "tool:layer-state-before-after-continuation": 1226759791,
+          "file-physical:after-continuation": 136379573,
+          "tool:layer-state-after-after-continuation": 1238458854,
+          "vmm-scan:after-replay": 43077366,
+          "tool:pack-replay": 1210250331,
+          "tool:independent-after": 1856825885,
+          "tool:official-task-tests": 15614458739
+        },
+        "guest_memory": {
+          "status": "PASS",
+          "sample_count": 228,
+          "observed_peak_nonfree_bytes": 251731968,
+          "composition_at_observed_peak": {
+            "timestamp_ns": 1791259551972392540,
+            "phase": "after",
+            "step": "026",
+            "status": "PASS",
+            "missing_fields": [],
+            "unit": "bytes",
+            "scope": "guest logical counters at one sample; not host physical residency",
+            "used_definition": "MemTotal - MemFree",
+            "percentage_denominator": "same-sample nonfree memory",
+            "slab_rule": "Slab includes SReclaimable and SUnreclaim; do not add them again",
+            "nonfree_bytes": 251731968,
+            "used_estimate_bytes": 335249408,
+            "components_bytes": {
+              "file_cache_and_buffers": 34344960,
+              "anonymous": 60264448,
+              "slab": 62033920,
+              "shared_memory": 1064960,
+              "kernel_stack": 1638400,
+              "page_tables": 1413120,
+              "percpu": 581632,
+              "unclassified_residual": 90390528
+            },
+            "percentages": {
+              "file_cache_and_buffers": 13.64346382895636,
+              "anonymous": 23.939926453838392,
+              "slab": 24.642845520518076,
+              "shared_memory": 0.423053141983143,
+              "kernel_stack": 0.6508509876663738,
+              "page_tables": 0.5613589768622473,
+              "percpu": 0.2310521006215627,
+              "unclassified_residual": 35.90744898955384
+            },
+            "reclaimable_slab_bytes": 44687360,
+            "unreclaimable_slab_bytes": 17346560
+          },
+          "peak_scope": "sample maximum, not instantaneous peak; incomplete samples excluded and counted",
+          "sampling_mode": "persistent asynchronous process; advisory phase markers",
+          "time_scope": "includes runner preparation; short actions may have no sample; per-runner lifetime only"
+        },
+        "host_memory": {
+          "sample_count": 1123,
+          "scope": "run-owned TrEnv-X sandbox parent cgroup; excludes orchestrator",
+          "observed_peak_current_bytes": 355237888,
+          "observed_peak_file_bytes": 6320128,
+          "observed_peak_anon_bytes": 341000192,
+          "observed_peak_vmm_pss_kib": "NOT_MEASURED",
+          "vmm_boundary_observations": [
+            {
+              "label": "vmm-after-replay",
+              "pss_bytes": 376126464,
+              "scan_elapsed_ns": 10080382,
+              "scope": "host VMM process smaps_rollup; not guest memory or complete DAX residency"
+            },
+            {
+              "label": "vmm-before-checkpoint",
+              "pss_bytes": 437402624,
+              "scan_elapsed_ns": 6730802,
+              "scope": "host VMM process smaps_rollup; not guest memory or complete DAX residency"
+            },
+            {
+              "label": "vmm-before-replay",
+              "pss_bytes": 411454464,
+              "scan_elapsed_ns": 6782813,
+              "scope": "host VMM process smaps_rollup; not guest memory or complete DAX residency"
+            },
+            {
+              "label": "vmm-restored",
+              "pss_bytes": 206400512,
+              "scan_elapsed_ns": 6874233,
+              "scope": "host VMM process smaps_rollup; not guest memory or complete DAX residency"
+            }
+          ]
+        },
+        "guest_collector_segments": [
+          {
+            "status": "PASS",
+            "error": null,
+            "samples": 110,
+            "samples_before": 0,
+            "samples_in_file": 110,
+            "interval_seconds": 0.1,
+            "elapsed_ns": 10879660820,
+            "cpu_user_seconds": 0.121524,
+            "cpu_system_seconds": 0.016626,
+            "maxrss_kib": 5644,
+            "scope": "collector process resource usage; maxrss is not private memory"
+          },
+          {
+            "status": "PASS",
+            "error": null,
+            "samples": 118,
+            "samples_before": 110,
+            "samples_in_file": 228,
+            "interval_seconds": 0.1,
+            "elapsed_ns": 11759859722,
+            "cpu_user_seconds": 0.107613,
+            "cpu_system_seconds": 0.031901,
+            "maxrss_kib": 5644,
+            "scope": "collector process resource usage; maxrss is not private memory"
+          }
+        ],
+        "extra_phases_in_task_window_ns": {
+          "tool:guest-memory-before-checkpoint": 1097082595,
+          "vmm-scan:before-checkpoint": 6981011,
+          "tool:guest-memory-restored-before-source-read": 1198145977,
+          "tool:layer-state-before-restored-before-source-read": 1233400436,
+          "file-physical:restored-before-source-read": 332316845,
+          "tool:layer-state-after-restored-before-source-read": 1235331914,
+          "vmm-scan:restored": 7284878,
+          "tool:guest-memory-after-continuation": 1175086891,
+          "tool:layer-state-before-after-continuation": 1226759791,
+          "file-physical:after-continuation": 136379573,
+          "tool:layer-state-after-after-continuation": 1238458854,
+          "vmm-scan:after-replay": 43077366
+        }
+      },
+      {
+        "label": "off",
+        "run_id": "20261006T040658Z-3294245",
+        "guest_tools_ns": 2104724198,
+        "runner_calls_ns": 24893069301,
+        "task_and_final_checks_ns": 79380896227,
+        "checkpoint_ns": 11784134340,
+        "restore_ns": 2090780971,
+        "full_run_ns": 150106752287,
+        "retained_bytes": 1093632,
+        "guest_samples": 0,
+        "host_samples": 0,
+        "physical_analysis_ns": 0,
+        "final_checks": {
+          "status": "PASS",
+          "action_order": "PASS",
+          "expected_failures": "PASS",
+          "key_output_024": "PASS",
+          "final_patch": "PASS",
+          "independent_svg": "PASS",
+          "official_task_tests": "PASS",
+          "recovery": {
+            "interface": "PASS",
+            "file_state": "PASS",
+            "process_state": "NOT_APPLICABLE"
+          },
+          "official_full_tests": "NOT_RUN",
+          "patch_sha256": "f1cc23ac4f5ac1cff87eb7f8c54f8176c1a47cec37fa4cb6907b9dd8ad199af2",
+          "scope": "frozen replay and task-specific checks; patch equality does not prove full upstream tests"
+        },
+        "cleanup": {
+          "status": "PASS",
+          "sandbox": "PASS",
+          "service": "PASS",
+          "cgroup_and_loop": "PASS",
+          "archived_images": "SUCCESS_IMAGES_REMOVED; RAW_AND_HASHES_RETAINED",
+          "evidence": "run checks, cgroup/loop receipt, archive manifest and current retention state"
+        },
+        "phase_breakdown": {
+          "guest_action_sum": {
+            "status": "MEASURED",
+            "duration_ns": 2104724198,
+            "source": "replay/steps.tsv",
+            "boundary": "sum of 26 guest runner action durations; excludes controller and setup"
+          },
+          "controller_runner_calls": {
+            "status": "MEASURED",
+            "duration_ns": 24893069301,
+            "source": "replay-*.json",
+            "boundary": "sum of controller calls that launch frozen runner segments"
+          },
+          "create_to_first_success": {
+            "status": "MEASURED",
+            "duration_ns": 987001284,
+            "source": "diagnostic-events.jsonl",
+            "boundary": "SDK create through first successful mkdir command"
+          },
+          "checkpoint": {
+            "status": "MEASURED",
+            "duration_ns": 11784134340,
+            "source": "diagnostic-events.jsonl",
+            "boundary": "controller file capture, sealing and template construction"
+          },
+          "restore_interface": {
+            "status": "MEASURED",
+            "duration_ns": 1029847430,
+            "source": "diagnostic-events.jsonl",
+            "boundary": "controller start of child VM from sealed file layer"
+          },
+          "restore_to_first_success": {
+            "status": "MEASURED",
+            "duration_ns": 2090780971,
+            "source": "diagnostic-events.jsonl",
+            "boundary": "start restored VM through first successful environment command"
+          },
+          "template_build": {
+            "status": "MEASURED",
+            "duration_ns": 12480392145,
+            "source": "diagnostic-events.jsonl",
+            "boundary": "prepare private template before trajectory"
+          },
+          "parent_delete": {
+            "status": "MEASURED",
+            "duration_ns": 16590471814,
+            "source": "diagnostic-events.jsonl",
+            "boundary": "delete parent VM after checkpoint"
+          },
+          "full_run_including_cleanup": {
+            "status": "MEASURED",
+            "duration_ns": 150106752287,
+            "source": "result.json",
+            "boundary": "outer start through sandbox cleanup and verified image archiving when enabled"
+          }
+        },
+        "named_file_mapping": {
+          "status": "NOT_MEASURED",
+          "bytes": null,
+          "scope": "no named-file mapping measurement"
+        },
+        "recorded_phase_timing_ns": {
+          "private-template-prepare": 6495149075,
+          "template-build": 12480392145,
+          "sdk-create": 66132095,
+          "tool:mkdir-inputs": 920238501,
+          "create-to-first-tool-success": 987001284,
+          "tool:guest-input-hashes": 1192454693,
+          "tool:guest-environment": 1581875406,
+          "tool:independent-before": 1763220933,
+          "tool:replay-prefix": 11774746169,
+          "tool:pack-prefix": 1183064610,
+          "tool:source-before": 1157012136,
+          "tool:source-diff-before": 1196815484,
+          "checkpoint": 11784134340,
+          "parent-delete": 16590471814,
+          "restore-interface": 1029847430,
+          "tool:restore-environment": 1060048686,
+          "restore-to-first-tool-success": 2090780971,
+          "tool:source-after": 1186696759,
+          "tool:source-diff-after": 1249103244,
+          "tool:replay-continuation": 13117606476,
+          "tool:pack-replay": 1200211193,
+          "tool:independent-after": 1755468178,
+          "tool:official-task-tests": 15018044557
+        }
+      }
+    ],
+    [
+      {
+        "label": "off",
+        "run_id": "20261006T040928Z-3295368",
+        "guest_tools_ns": 2033763632,
+        "runner_calls_ns": 25058002883,
+        "task_and_final_checks_ns": 80518923600,
+        "checkpoint_ns": 11688818769,
+        "restore_ns": 2213436242,
+        "full_run_ns": 151050665085,
+        "retained_bytes": 1093632,
+        "guest_samples": 0,
+        "host_samples": 0,
+        "physical_analysis_ns": 0,
+        "final_checks": {
+          "status": "PASS",
+          "action_order": "PASS",
+          "expected_failures": "PASS",
+          "key_output_024": "PASS",
+          "final_patch": "PASS",
+          "independent_svg": "PASS",
+          "official_task_tests": "PASS",
+          "recovery": {
+            "interface": "PASS",
+            "file_state": "PASS",
+            "process_state": "NOT_APPLICABLE"
+          },
+          "official_full_tests": "NOT_RUN",
+          "patch_sha256": "f1cc23ac4f5ac1cff87eb7f8c54f8176c1a47cec37fa4cb6907b9dd8ad199af2",
+          "scope": "frozen replay and task-specific checks; patch equality does not prove full upstream tests"
+        },
+        "cleanup": {
+          "status": "PASS",
+          "sandbox": "PASS",
+          "service": "PASS",
+          "cgroup_and_loop": "PASS",
+          "archived_images": "SUCCESS_IMAGES_REMOVED; RAW_AND_HASHES_RETAINED",
+          "evidence": "run checks, cgroup/loop receipt, archive manifest and current retention state"
+        },
+        "phase_breakdown": {
+          "guest_action_sum": {
+            "status": "MEASURED",
+            "duration_ns": 2033763632,
+            "source": "replay/steps.tsv",
+            "boundary": "sum of 26 guest runner action durations; excludes controller and setup"
+          },
+          "controller_runner_calls": {
+            "status": "MEASURED",
+            "duration_ns": 25058002883,
+            "source": "replay-*.json",
+            "boundary": "sum of controller calls that launch frozen runner segments"
+          },
+          "create_to_first_success": {
+            "status": "MEASURED",
+            "duration_ns": 1080554529,
+            "source": "diagnostic-events.jsonl",
+            "boundary": "SDK create through first successful mkdir command"
+          },
+          "checkpoint": {
+            "status": "MEASURED",
+            "duration_ns": 11688818769,
+            "source": "diagnostic-events.jsonl",
+            "boundary": "controller file capture, sealing and template construction"
+          },
+          "restore_interface": {
+            "status": "MEASURED",
+            "duration_ns": 967041309,
+            "source": "diagnostic-events.jsonl",
+            "boundary": "controller start of child VM from sealed file layer"
+          },
+          "restore_to_first_success": {
+            "status": "MEASURED",
+            "duration_ns": 2213436242,
+            "source": "diagnostic-events.jsonl",
+            "boundary": "start restored VM through first successful environment command"
+          },
+          "template_build": {
+            "status": "MEASURED",
+            "duration_ns": 12480825456,
+            "source": "diagnostic-events.jsonl",
+            "boundary": "prepare private template before trajectory"
+          },
+          "parent_delete": {
+            "status": "MEASURED",
+            "duration_ns": 16588819333,
+            "source": "diagnostic-events.jsonl",
+            "boundary": "delete parent VM after checkpoint"
+          },
+          "full_run_including_cleanup": {
+            "status": "MEASURED",
+            "duration_ns": 151050665085,
+            "source": "result.json",
+            "boundary": "outer start through sandbox cleanup and verified image archiving when enabled"
+          }
+        },
+        "named_file_mapping": {
+          "status": "NOT_MEASURED",
+          "bytes": null,
+          "scope": "no named-file mapping measurement"
+        },
+        "recorded_phase_timing_ns": {
+          "private-template-prepare": 6481311067,
+          "template-build": 12480825456,
+          "sdk-create": 80115892,
+          "tool:mkdir-inputs": 999725675,
+          "create-to-first-tool-success": 1080554529,
+          "tool:guest-input-hashes": 1165900139,
+          "tool:guest-environment": 1603931395,
+          "tool:independent-before": 1955580671,
+          "tool:replay-prefix": 11998654609,
+          "tool:pack-prefix": 1179246039,
+          "tool:source-before": 1163988890,
+          "tool:source-diff-before": 1181967482,
+          "checkpoint": 11688818769,
+          "parent-delete": 16588819333,
+          "restore-interface": 967041309,
+          "tool:restore-environment": 1245352713,
+          "restore-to-first-tool-success": 2213436242,
+          "tool:source-after": 1211006592,
+          "tool:source-diff-after": 1251848614,
+          "tool:replay-continuation": 13058646699,
+          "tool:pack-replay": 1192953911,
+          "tool:independent-after": 1891578728,
+          "tool:official-task-tests": 15822151094
+        }
+      },
+      {
+        "label": "on",
+        "run_id": "20261006T041159Z-3296470",
+        "guest_tools_ns": 2051472585,
+        "runner_calls_ns": 25306803870,
+        "task_and_final_checks_ns": 89832560820,
+        "checkpoint_ns": 11723597998,
+        "restore_ns": 2283443931,
+        "full_run_ns": 161514022936,
+        "retained_bytes": 1454080,
+        "guest_samples": 229,
+        "host_samples": 1127,
+        "physical_analysis_ns": 95244770,
+        "final_checks": {
+          "status": "PASS",
+          "action_order": "PASS",
+          "expected_failures": "PASS",
+          "key_output_024": "PASS",
+          "final_patch": "PASS",
+          "independent_svg": "PASS",
+          "official_task_tests": "PASS",
+          "recovery": {
+            "interface": "PASS",
+            "file_state": "PASS",
+            "process_state": "NOT_APPLICABLE"
+          },
+          "official_full_tests": "NOT_RUN",
+          "patch_sha256": "f1cc23ac4f5ac1cff87eb7f8c54f8176c1a47cec37fa4cb6907b9dd8ad199af2",
+          "scope": "frozen replay and task-specific checks; patch equality does not prove full upstream tests"
+        },
+        "cleanup": {
+          "status": "PASS",
+          "sandbox": "PASS",
+          "service": "PASS",
+          "cgroup_and_loop": "PASS",
+          "archived_images": "SUCCESS_IMAGES_REMOVED; RAW_AND_HASHES_RETAINED",
+          "evidence": "run checks, cgroup/loop receipt, archive manifest and current retention state"
+        },
+        "phase_breakdown": {
+          "guest_action_sum": {
+            "status": "MEASURED",
+            "duration_ns": 2051472585,
+            "source": "replay/steps.tsv",
+            "boundary": "sum of 26 guest runner action durations; excludes controller and setup"
+          },
+          "controller_runner_calls": {
+            "status": "MEASURED",
+            "duration_ns": 25306803870,
+            "source": "replay-*.json",
+            "boundary": "sum of controller calls that launch frozen runner segments"
+          },
+          "create_to_first_success": {
+            "status": "MEASURED",
+            "duration_ns": 1067459911,
+            "source": "diagnostic-events.jsonl",
+            "boundary": "SDK create through first successful mkdir command"
+          },
+          "checkpoint": {
+            "status": "MEASURED",
+            "duration_ns": 11723597998,
+            "source": "diagnostic-events.jsonl",
+            "boundary": "controller file capture, sealing and template construction"
+          },
+          "restore_interface": {
+            "status": "MEASURED",
+            "duration_ns": 1101647953,
+            "source": "diagnostic-events.jsonl",
+            "boundary": "controller start of child VM from sealed file layer"
+          },
+          "restore_to_first_success": {
+            "status": "MEASURED",
+            "duration_ns": 2283443931,
+            "source": "diagnostic-events.jsonl",
+            "boundary": "start restored VM through first successful environment command"
+          },
+          "template_build": {
+            "status": "MEASURED",
+            "duration_ns": 12580887506,
+            "source": "diagnostic-events.jsonl",
+            "boundary": "prepare private template before trajectory"
+          },
+          "parent_delete": {
+            "status": "MEASURED",
+            "duration_ns": 16581023287,
+            "source": "diagnostic-events.jsonl",
+            "boundary": "delete parent VM after checkpoint"
+          },
+          "full_run_including_cleanup": {
+            "status": "MEASURED",
+            "duration_ns": 161514022936,
+            "source": "result.json",
+            "boundary": "outer start through sandbox cleanup and verified image archiving when enabled"
+          }
+        },
+        "named_file_mapping": {
+          "status": "MEASURED",
+          "bytes": 36864,
+          "file_pages": 8,
+          "verified_anonymous_pages": 1,
+          "unknown_pages": 0,
+          "scope": "explicit named files in sealed checkpoint and base; resident mapped pages only; not whole task",
+          "files": [
+            {
+              "path": "/testbed/src/language-html/utils/index.js",
+              "origin": "checkpoint"
+            },
+            {
+              "path": "/testbed/src/language-html/parser-html.js",
+              "origin": "base"
+            },
+            {
+              "path": "/testbed/package.json",
+              "origin": "base"
+            }
+          ]
+        },
+        "recorded_phase_timing_ns": {
+          "private-template-prepare": 6488871145,
+          "template-build": 12580887506,
+          "sdk-create": 85729427,
+          "tool:mkdir-inputs": 980826454,
+          "create-to-first-tool-success": 1067459911,
+          "tool:guest-input-hashes": 1232962706,
+          "tool:guest-environment": 1625706527,
+          "tool:independent-before": 1856257585,
+          "tool:guest-memory-before-replay": 1060278806,
+          "vmm-scan:before-replay": 6958089,
+          "tool:replay-prefix": 12162518201,
+          "tool:pack-prefix": 1218498840,
+          "tool:source-before": 1207711507,
+          "tool:source-diff-before": 1222631196,
+          "tool:guest-memory-before-checkpoint": 1214771442,
+          "vmm-scan:before-checkpoint": 7296458,
+          "checkpoint": 11723597998,
+          "parent-delete": 16581023287,
+          "restore-interface": 1101647953,
+          "tool:restore-environment": 1180897499,
+          "restore-to-first-tool-success": 2283443931,
+          "tool:guest-memory-restored-before-source-read": 1184747265,
+          "tool:layer-state-before-restored-before-source-read": 1238829114,
+          "file-physical:restored-before-source-read": 44287759,
+          "tool:layer-state-after-restored-before-source-read": 1225716922,
+          "vmm-scan:restored": 6342352,
+          "tool:source-after": 1173371666,
+          "tool:source-diff-after": 1184223474,
+          "tool:replay-continuation": 13143921450,
+          "tool:guest-memory-after-continuation": 1159353248,
+          "tool:layer-state-before-after-continuation": 1226245851,
+          "file-physical:after-continuation": 50957011,
+          "tool:layer-state-after-after-continuation": 1185460677,
+          "vmm-scan:after-replay": 9488701,
+          "tool:pack-replay": 1183885302,
+          "tool:independent-after": 1805532529,
+          "tool:official-task-tests": 16294916267
+        },
+        "guest_memory": {
+          "status": "PASS",
+          "sample_count": 229,
+          "observed_peak_nonfree_bytes": 253022208,
+          "composition_at_observed_peak": {
+            "timestamp_ns": 1791260005938334810,
+            "phase": "after",
+            "step": "026",
+            "status": "PASS",
+            "missing_fields": [],
+            "unit": "bytes",
+            "scope": "guest logical counters at one sample; not host physical residency",
+            "used_definition": "MemTotal - MemFree",
+            "percentage_denominator": "same-sample nonfree memory",
+            "slab_rule": "Slab includes SReclaimable and SUnreclaim; do not add them again",
+            "nonfree_bytes": 253022208,
+            "used_estimate_bytes": 336609280,
+            "components_bytes": {
+              "file_cache_and_buffers": 34312192,
+              "anonymous": 61689856,
+              "slab": 62197760,
+              "shared_memory": 1069056,
+              "kernel_stack": 1638400,
+              "page_tables": 1511424,
+              "percpu": 573440,
+              "unclassified_residual": 90030080
+            },
+            "percentages": {
+              "file_cache_and_buffers": 13.56094086413158,
+              "anonymous": 24.38120214333123,
+              "slab": 24.581937092257135,
+              "shared_memory": 0.42251469088436694,
+              "kernel_stack": 0.6475320933093747,
+              "page_tables": 0.5973483560778982,
+              "percpu": 0.22663623265828112,
+              "unclassified_residual": 35.58188852735014
+            },
+            "reclaimable_slab_bytes": 44580864,
+            "unreclaimable_slab_bytes": 17616896
+          },
+          "peak_scope": "sample maximum, not instantaneous peak; incomplete samples excluded and counted",
+          "sampling_mode": "persistent asynchronous process; advisory phase markers",
+          "time_scope": "includes runner preparation; short actions may have no sample; per-runner lifetime only"
+        },
+        "host_memory": {
+          "sample_count": 1127,
+          "scope": "run-owned TrEnv-X sandbox parent cgroup; excludes orchestrator",
+          "observed_peak_current_bytes": 350785536,
+          "observed_peak_file_bytes": 7086080,
+          "observed_peak_anon_bytes": 335884288,
+          "observed_peak_vmm_pss_kib": "NOT_MEASURED",
+          "vmm_boundary_observations": [
+            {
+              "label": "vmm-after-replay",
+              "pss_bytes": 377023488,
+              "scan_elapsed_ns": 9104962,
+              "scope": "host VMM process smaps_rollup; not guest memory or complete DAX residency"
+            },
+            {
+              "label": "vmm-before-checkpoint",
+              "pss_bytes": 435690496,
+              "scan_elapsed_ns": 7055497,
+              "scope": "host VMM process smaps_rollup; not guest memory or complete DAX residency"
+            },
+            {
+              "label": "vmm-before-replay",
+              "pss_bytes": 413735936,
+              "scan_elapsed_ns": 6771394,
+              "scope": "host VMM process smaps_rollup; not guest memory or complete DAX residency"
+            },
+            {
+              "label": "vmm-restored",
+              "pss_bytes": 209198080,
+              "scan_elapsed_ns": 5962308,
+              "scope": "host VMM process smaps_rollup; not guest memory or complete DAX residency"
+            }
+          ]
+        },
+        "guest_collector_segments": [
+          {
+            "status": "PASS",
+            "error": null,
+            "samples": 110,
+            "samples_before": 0,
+            "samples_in_file": 110,
+            "interval_seconds": 0.1,
+            "elapsed_ns": 10905426112,
+            "cpu_user_seconds": 0.120905,
+            "cpu_system_seconds": 0.018848999999999998,
+            "maxrss_kib": 5648,
+            "scope": "collector process resource usage; maxrss is not private memory"
+          },
+          {
+            "status": "PASS",
+            "error": null,
+            "samples": 119,
+            "samples_before": 110,
+            "samples_in_file": 229,
+            "interval_seconds": 0.1,
+            "elapsed_ns": 11875506620,
+            "cpu_user_seconds": 0.126626,
+            "cpu_system_seconds": 0.024548999999999998,
+            "maxrss_kib": 5644,
+            "scope": "collector process resource usage; maxrss is not private memory"
+          }
+        ],
+        "extra_phases_in_task_window_ns": {
+          "tool:guest-memory-before-checkpoint": 1214771442,
+          "vmm-scan:before-checkpoint": 7296458,
+          "tool:guest-memory-restored-before-source-read": 1184747265,
+          "tool:layer-state-before-restored-before-source-read": 1238829114,
+          "file-physical:restored-before-source-read": 44287759,
+          "tool:layer-state-after-restored-before-source-read": 1225716922,
+          "vmm-scan:restored": 6342352,
+          "tool:guest-memory-after-continuation": 1159353248,
+          "tool:layer-state-before-after-continuation": 1226245851,
+          "file-physical:after-continuation": 50957011,
+          "tool:layer-state-after-after-continuation": 1185460677,
+          "vmm-scan:after-replay": 9488701
+        }
+      }
+    ],
+    [
+      {
+        "label": "on",
+        "run_id": "20261006T041442Z-3297630",
+        "guest_tools_ns": 2263279493,
+        "runner_calls_ns": 25591870492,
+        "task_and_final_checks_ns": 90030160912,
+        "checkpoint_ns": 11816840880,
+        "restore_ns": 2197232045,
+        "full_run_ns": 162824977075,
+        "retained_bytes": 1454080,
+        "guest_samples": 232,
+        "host_samples": 1129,
+        "physical_analysis_ns": 99848766,
+        "final_checks": {
+          "status": "PASS",
+          "action_order": "PASS",
+          "expected_failures": "PASS",
+          "key_output_024": "PASS",
+          "final_patch": "PASS",
+          "independent_svg": "PASS",
+          "official_task_tests": "PASS",
+          "recovery": {
+            "interface": "PASS",
+            "file_state": "PASS",
+            "process_state": "NOT_APPLICABLE"
+          },
+          "official_full_tests": "NOT_RUN",
+          "patch_sha256": "f1cc23ac4f5ac1cff87eb7f8c54f8176c1a47cec37fa4cb6907b9dd8ad199af2",
+          "scope": "frozen replay and task-specific checks; patch equality does not prove full upstream tests"
+        },
+        "cleanup": {
+          "status": "PASS",
+          "sandbox": "PASS",
+          "service": "PASS",
+          "cgroup_and_loop": "PASS",
+          "archived_images": "SUCCESS_IMAGES_REMOVED; RAW_AND_HASHES_RETAINED",
+          "evidence": "run checks, cgroup/loop receipt, archive manifest and current retention state"
+        },
+        "phase_breakdown": {
+          "guest_action_sum": {
+            "status": "MEASURED",
+            "duration_ns": 2263279493,
+            "source": "replay/steps.tsv",
+            "boundary": "sum of 26 guest runner action durations; excludes controller and setup"
+          },
+          "controller_runner_calls": {
+            "status": "MEASURED",
+            "duration_ns": 25591870492,
+            "source": "replay-*.json",
+            "boundary": "sum of controller calls that launch frozen runner segments"
+          },
+          "create_to_first_success": {
+            "status": "MEASURED",
+            "duration_ns": 1084954138,
+            "source": "diagnostic-events.jsonl",
+            "boundary": "SDK create through first successful mkdir command"
+          },
+          "checkpoint": {
+            "status": "MEASURED",
+            "duration_ns": 11816840880,
+            "source": "diagnostic-events.jsonl",
+            "boundary": "controller file capture, sealing and template construction"
+          },
+          "restore_interface": {
+            "status": "MEASURED",
+            "duration_ns": 1043665473,
+            "source": "diagnostic-events.jsonl",
+            "boundary": "controller start of child VM from sealed file layer"
+          },
+          "restore_to_first_success": {
+            "status": "MEASURED",
+            "duration_ns": 2197232045,
+            "source": "diagnostic-events.jsonl",
+            "boundary": "start restored VM through first successful environment command"
+          },
+          "template_build": {
+            "status": "MEASURED",
+            "duration_ns": 12530601318,
+            "source": "diagnostic-events.jsonl",
+            "boundary": "prepare private template before trajectory"
+          },
+          "parent_delete": {
+            "status": "MEASURED",
+            "duration_ns": 16581628298,
+            "source": "diagnostic-events.jsonl",
+            "boundary": "delete parent VM after checkpoint"
+          },
+          "full_run_including_cleanup": {
+            "status": "MEASURED",
+            "duration_ns": 162824977075,
+            "source": "result.json",
+            "boundary": "outer start through sandbox cleanup and verified image archiving when enabled"
+          }
+        },
+        "named_file_mapping": {
+          "status": "MEASURED",
+          "bytes": 36864,
+          "file_pages": 8,
+          "verified_anonymous_pages": 1,
+          "unknown_pages": 0,
+          "scope": "explicit named files in sealed checkpoint and base; resident mapped pages only; not whole task",
+          "files": [
+            {
+              "path": "/testbed/src/language-html/utils/index.js",
+              "origin": "checkpoint"
+            },
+            {
+              "path": "/testbed/src/language-html/parser-html.js",
+              "origin": "base"
+            },
+            {
+              "path": "/testbed/package.json",
+              "origin": "base"
+            }
+          ]
+        },
+        "recorded_phase_timing_ns": {
+          "private-template-prepare": 6467157765,
+          "template-build": 12530601318,
+          "sdk-create": 87290308,
+          "tool:mkdir-inputs": 996890052,
+          "create-to-first-tool-success": 1084954138,
+          "tool:guest-input-hashes": 1174431450,
+          "tool:guest-environment": 1614108938,
+          "tool:independent-before": 1956904950,
+          "tool:guest-memory-before-replay": 998335484,
+          "vmm-scan:before-replay": 7777774,
+          "tool:replay-prefix": 12153208260,
+          "tool:pack-prefix": 1140619290,
+          "tool:source-before": 886408203,
+          "tool:source-diff-before": 1154563034,
+          "tool:guest-memory-before-checkpoint": 1165504507,
+          "vmm-scan:before-checkpoint": 8000899,
+          "checkpoint": 11816840880,
+          "parent-delete": 16581628298,
+          "restore-interface": 1043665473,
+          "tool:restore-environment": 1152699683,
+          "restore-to-first-tool-success": 2197232045,
+          "tool:guest-memory-restored-before-source-read": 1218489021,
+          "tool:layer-state-before-restored-before-source-read": 1294893134,
+          "file-physical:restored-before-source-read": 45744501,
+          "tool:layer-state-after-restored-before-source-read": 1243653111,
+          "vmm-scan:restored": 6783790,
+          "tool:source-after": 1154222711,
+          "tool:source-diff-after": 1211600463,
+          "tool:replay-continuation": 13438186696,
+          "tool:guest-memory-after-continuation": 1226076581,
+          "tool:layer-state-before-after-continuation": 1255984185,
+          "file-physical:after-continuation": 54104265,
+          "tool:layer-state-after-after-continuation": 1245194590,
+          "vmm-scan:after-replay": 9113402,
+          "tool:pack-replay": 1220089573,
+          "tool:independent-after": 1742731125,
+          "tool:official-task-tests": 16466916342
+        },
+        "guest_memory": {
+          "status": "PASS",
+          "sample_count": 232,
+          "observed_peak_nonfree_bytes": 252997632,
+          "composition_at_observed_peak": {
+            "timestamp_ns": 1791260177533419604,
+            "phase": "after",
+            "step": "026",
+            "status": "PASS",
+            "missing_fields": [],
+            "unit": "bytes",
+            "scope": "guest logical counters at one sample; not host physical residency",
+            "used_definition": "MemTotal - MemFree",
+            "percentage_denominator": "same-sample nonfree memory",
+            "slab_rule": "Slab includes SReclaimable and SUnreclaim; do not add them again",
+            "nonfree_bytes": 252997632,
+            "used_estimate_bytes": 336588800,
+            "components_bytes": {
+              "file_cache_and_buffers": 34291712,
+              "anonymous": 60628992,
+              "slab": 61698048,
+              "shared_memory": 1064960,
+              "kernel_stack": 1622016,
+              "page_tables": 1409024,
+              "percpu": 565248,
+              "unclassified_residual": 91717632
+            },
+            "percentages": {
+              "file_cache_and_buffers": 13.554163226318261,
+              "anonymous": 23.964252756326193,
+              "slab": 24.386808489970374,
+              "shared_memory": 0.4209367461589522,
+              "kernel_stack": 0.6411190441497887,
+              "page_tables": 0.5569316949179983,
+              "percpu": 0.22342027296129002,
+              "unclassified_residual": 36.25236776919714
+            },
+            "reclaimable_slab_bytes": 44589056,
+            "unreclaimable_slab_bytes": 17108992
+          },
+          "peak_scope": "sample maximum, not instantaneous peak; incomplete samples excluded and counted",
+          "sampling_mode": "persistent asynchronous process; advisory phase markers",
+          "time_scope": "includes runner preparation; short actions may have no sample; per-runner lifetime only"
+        },
+        "host_memory": {
+          "sample_count": 1129,
+          "scope": "run-owned TrEnv-X sandbox parent cgroup; excludes orchestrator",
+          "observed_peak_current_bytes": 346615808,
+          "observed_peak_file_bytes": 7090176,
+          "observed_peak_anon_bytes": 331882496,
+          "observed_peak_vmm_pss_kib": "NOT_MEASURED",
+          "vmm_boundary_observations": [
+            {
+              "label": "vmm-after-replay",
+              "pss_bytes": 374533120,
+              "scan_elapsed_ns": 8748340,
+              "scope": "host VMM process smaps_rollup; not guest memory or complete DAX residency"
+            },
+            {
+              "label": "vmm-before-checkpoint",
+              "pss_bytes": 441719808,
+              "scan_elapsed_ns": 7770017,
+              "scope": "host VMM process smaps_rollup; not guest memory or complete DAX residency"
+            },
+            {
+              "label": "vmm-before-replay",
+              "pss_bytes": 418937856,
+              "scan_elapsed_ns": 7569596,
+              "scope": "host VMM process smaps_rollup; not guest memory or complete DAX residency"
+            },
+            {
+              "label": "vmm-restored",
+              "pss_bytes": 205097984,
+              "scan_elapsed_ns": 6390348,
+              "scope": "host VMM process smaps_rollup; not guest memory or complete DAX residency"
+            }
+          ]
+        },
+        "guest_collector_segments": [
+          {
+            "status": "PASS",
+            "error": null,
+            "samples": 110,
+            "samples_before": 0,
+            "samples_in_file": 110,
+            "interval_seconds": 0.1,
+            "elapsed_ns": 10893132739,
+            "cpu_user_seconds": 0.11148999999999999,
+            "cpu_system_seconds": 0.031772,
+            "maxrss_kib": 5644,
+            "scope": "collector process resource usage; maxrss is not private memory"
+          },
+          {
+            "status": "PASS",
+            "error": null,
+            "samples": 122,
+            "samples_before": 110,
+            "samples_in_file": 232,
+            "interval_seconds": 0.1,
+            "elapsed_ns": 12136684019,
+            "cpu_user_seconds": 0.107638,
+            "cpu_system_seconds": 0.033139999999999996,
+            "maxrss_kib": 5648,
+            "scope": "collector process resource usage; maxrss is not private memory"
+          }
+        ],
+        "extra_phases_in_task_window_ns": {
+          "tool:guest-memory-before-checkpoint": 1165504507,
+          "vmm-scan:before-checkpoint": 8000899,
+          "tool:guest-memory-restored-before-source-read": 1218489021,
+          "tool:layer-state-before-restored-before-source-read": 1294893134,
+          "file-physical:restored-before-source-read": 45744501,
+          "tool:layer-state-after-restored-before-source-read": 1243653111,
+          "vmm-scan:restored": 6783790,
+          "tool:guest-memory-after-continuation": 1226076581,
+          "tool:layer-state-before-after-continuation": 1255984185,
+          "file-physical:after-continuation": 54104265,
+          "tool:layer-state-after-after-continuation": 1245194590,
+          "vmm-scan:after-replay": 9113402
+        }
+      },
+      {
+        "label": "off",
+        "run_id": "20261006T041725Z-3298819",
+        "guest_tools_ns": 2306253850,
+        "runner_calls_ns": 25348705735,
+        "task_and_final_checks_ns": 81769851351,
+        "checkpoint_ns": 11788367836,
+        "restore_ns": 2268916960,
+        "full_run_ns": 152067290721,
+        "retained_bytes": 1093632,
+        "guest_samples": 0,
+        "host_samples": 0,
+        "physical_analysis_ns": 0,
+        "final_checks": {
+          "status": "PASS",
+          "action_order": "PASS",
+          "expected_failures": "PASS",
+          "key_output_024": "PASS",
+          "final_patch": "PASS",
+          "independent_svg": "PASS",
+          "official_task_tests": "PASS",
+          "recovery": {
+            "interface": "PASS",
+            "file_state": "PASS",
+            "process_state": "NOT_APPLICABLE"
+          },
+          "official_full_tests": "NOT_RUN",
+          "patch_sha256": "f1cc23ac4f5ac1cff87eb7f8c54f8176c1a47cec37fa4cb6907b9dd8ad199af2",
+          "scope": "frozen replay and task-specific checks; patch equality does not prove full upstream tests"
+        },
+        "cleanup": {
+          "status": "PASS",
+          "sandbox": "PASS",
+          "service": "PASS",
+          "cgroup_and_loop": "PASS",
+          "archived_images": "SUCCESS_IMAGES_REMOVED; RAW_AND_HASHES_RETAINED",
+          "evidence": "run checks, cgroup/loop receipt, archive manifest and current retention state"
+        },
+        "phase_breakdown": {
+          "guest_action_sum": {
+            "status": "MEASURED",
+            "duration_ns": 2306253850,
+            "source": "replay/steps.tsv",
+            "boundary": "sum of 26 guest runner action durations; excludes controller and setup"
+          },
+          "controller_runner_calls": {
+            "status": "MEASURED",
+            "duration_ns": 25348705735,
+            "source": "replay-*.json",
+            "boundary": "sum of controller calls that launch frozen runner segments"
+          },
+          "create_to_first_success": {
+            "status": "MEASURED",
+            "duration_ns": 1093119074,
+            "source": "diagnostic-events.jsonl",
+            "boundary": "SDK create through first successful mkdir command"
+          },
+          "checkpoint": {
+            "status": "MEASURED",
+            "duration_ns": 11788367836,
+            "source": "diagnostic-events.jsonl",
+            "boundary": "controller file capture, sealing and template construction"
+          },
+          "restore_interface": {
+            "status": "MEASURED",
+            "duration_ns": 1053578771,
+            "source": "diagnostic-events.jsonl",
+            "boundary": "controller start of child VM from sealed file layer"
+          },
+          "restore_to_first_success": {
+            "status": "MEASURED",
+            "duration_ns": 2268916960,
+            "source": "diagnostic-events.jsonl",
+            "boundary": "start restored VM through first successful environment command"
+          },
+          "template_build": {
+            "status": "MEASURED",
+            "duration_ns": 12530694130,
+            "source": "diagnostic-events.jsonl",
+            "boundary": "prepare private template before trajectory"
+          },
+          "parent_delete": {
+            "status": "MEASURED",
+            "duration_ns": 16589105921,
+            "source": "diagnostic-events.jsonl",
+            "boundary": "delete parent VM after checkpoint"
+          },
+          "full_run_including_cleanup": {
+            "status": "MEASURED",
+            "duration_ns": 152067290721,
+            "source": "result.json",
+            "boundary": "outer start through sandbox cleanup and verified image archiving when enabled"
+          }
+        },
+        "named_file_mapping": {
+          "status": "NOT_MEASURED",
+          "bytes": null,
+          "scope": "no named-file mapping measurement"
+        },
+        "recorded_phase_timing_ns": {
+          "private-template-prepare": 6473235688,
+          "template-build": 12530694130,
+          "sdk-create": 68908000,
+          "tool:mkdir-inputs": 1023842554,
+          "create-to-first-tool-success": 1093119074,
+          "tool:guest-input-hashes": 1174029890,
+          "tool:guest-environment": 1607087341,
+          "tool:independent-before": 1216785135,
+          "tool:replay-prefix": 12034509426,
+          "tool:pack-prefix": 1169954415,
+          "tool:source-before": 1155986291,
+          "tool:source-diff-before": 1160407108,
+          "checkpoint": 11788367836,
+          "parent-delete": 16589105921,
+          "restore-interface": 1053578771,
+          "tool:restore-environment": 1214386188,
+          "restore-to-first-tool-success": 2268916960,
+          "tool:source-after": 1218998076,
+          "tool:source-diff-after": 1331986881,
+          "tool:replay-continuation": 13313536001,
+          "tool:pack-replay": 1218413428,
+          "tool:independent-after": 1876577716,
+          "tool:official-task-tests": 16566990341
+        }
+      }
+    ],
+    [
+      {
+        "label": "off",
+        "run_id": "20261006T041957Z-3299946",
+        "guest_tools_ns": 1634575798,
+        "runner_calls_ns": 24601155817,
+        "task_and_final_checks_ns": 80756747347,
+        "checkpoint_ns": 11813915484,
+        "restore_ns": 2254003586,
+        "full_run_ns": 151668722490,
+        "retained_bytes": 1093632,
+        "guest_samples": 0,
+        "host_samples": 0,
+        "physical_analysis_ns": 0,
+        "final_checks": {
+          "status": "PASS",
+          "action_order": "PASS",
+          "expected_failures": "PASS",
+          "key_output_024": "PASS",
+          "final_patch": "PASS",
+          "independent_svg": "PASS",
+          "official_task_tests": "PASS",
+          "recovery": {
+            "interface": "PASS",
+            "file_state": "PASS",
+            "process_state": "NOT_APPLICABLE"
+          },
+          "official_full_tests": "NOT_RUN",
+          "patch_sha256": "f1cc23ac4f5ac1cff87eb7f8c54f8176c1a47cec37fa4cb6907b9dd8ad199af2",
+          "scope": "frozen replay and task-specific checks; patch equality does not prove full upstream tests"
+        },
+        "cleanup": {
+          "status": "PASS",
+          "sandbox": "PASS",
+          "service": "PASS",
+          "cgroup_and_loop": "PASS",
+          "archived_images": "SUCCESS_IMAGES_REMOVED; RAW_AND_HASHES_RETAINED",
+          "evidence": "run checks, cgroup/loop receipt, archive manifest and current retention state"
+        },
+        "phase_breakdown": {
+          "guest_action_sum": {
+            "status": "MEASURED",
+            "duration_ns": 1634575798,
+            "source": "replay/steps.tsv",
+            "boundary": "sum of 26 guest runner action durations; excludes controller and setup"
+          },
+          "controller_runner_calls": {
+            "status": "MEASURED",
+            "duration_ns": 24601155817,
+            "source": "replay-*.json",
+            "boundary": "sum of controller calls that launch frozen runner segments"
+          },
+          "create_to_first_success": {
+            "status": "MEASURED",
+            "duration_ns": 1056678892,
+            "source": "diagnostic-events.jsonl",
+            "boundary": "SDK create through first successful mkdir command"
+          },
+          "checkpoint": {
+            "status": "MEASURED",
+            "duration_ns": 11813915484,
+            "source": "diagnostic-events.jsonl",
+            "boundary": "controller file capture, sealing and template construction"
+          },
+          "restore_interface": {
+            "status": "MEASURED",
+            "duration_ns": 1097019399,
+            "source": "diagnostic-events.jsonl",
+            "boundary": "controller start of child VM from sealed file layer"
+          },
+          "restore_to_first_success": {
+            "status": "MEASURED",
+            "duration_ns": 2254003586,
+            "source": "diagnostic-events.jsonl",
+            "boundary": "start restored VM through first successful environment command"
+          },
+          "template_build": {
+            "status": "MEASURED",
+            "duration_ns": 12530835873,
+            "source": "diagnostic-events.jsonl",
+            "boundary": "prepare private template before trajectory"
+          },
+          "parent_delete": {
+            "status": "MEASURED",
+            "duration_ns": 16591815787,
+            "source": "diagnostic-events.jsonl",
+            "boundary": "delete parent VM after checkpoint"
+          },
+          "full_run_including_cleanup": {
+            "status": "MEASURED",
+            "duration_ns": 151668722490,
+            "source": "result.json",
+            "boundary": "outer start through sandbox cleanup and verified image archiving when enabled"
+          }
+        },
+        "named_file_mapping": {
+          "status": "NOT_MEASURED",
+          "bytes": null,
+          "scope": "no named-file mapping measurement"
+        },
+        "recorded_phase_timing_ns": {
+          "private-template-prepare": 6486961475,
+          "template-build": 12530835873,
+          "sdk-create": 85763917,
+          "tool:mkdir-inputs": 970404764,
+          "create-to-first-tool-success": 1056678892,
+          "tool:guest-input-hashes": 1164308405,
+          "tool:guest-environment": 1585870300,
+          "tool:independent-before": 1870898573,
+          "tool:replay-prefix": 11984827169,
+          "tool:pack-prefix": 1160174358,
+          "tool:source-before": 1151961445,
+          "tool:source-diff-before": 1157088527,
+          "checkpoint": 11813915484,
+          "parent-delete": 16591815787,
+          "restore-interface": 1097019399,
+          "tool:restore-environment": 1156085811,
+          "restore-to-first-tool-success": 2254003586,
+          "tool:source-after": 1185051291,
+          "tool:source-diff-after": 1129096513,
+          "tool:replay-continuation": 12615646762,
+          "tool:pack-replay": 1061288609,
+          "tool:independent-after": 1916464930,
+          "tool:official-task-tests": 16659161458
+        }
+      },
+      {
+        "label": "on",
+        "run_id": "20261006T042229Z-3301035",
+        "guest_tools_ns": 2241876139,
+        "runner_calls_ns": 25473112084,
+        "task_and_final_checks_ns": 90245812659,
+        "checkpoint_ns": 11782902110,
+        "restore_ns": 2380417650,
+        "full_run_ns": 162115724846,
+        "retained_bytes": 1454080,
+        "guest_samples": 231,
+        "host_samples": 1130,
+        "physical_analysis_ns": 418165145,
+        "final_checks": {
+          "status": "PASS",
+          "action_order": "PASS",
+          "expected_failures": "PASS",
+          "key_output_024": "PASS",
+          "final_patch": "PASS",
+          "independent_svg": "PASS",
+          "official_task_tests": "PASS",
+          "recovery": {
+            "interface": "PASS",
+            "file_state": "PASS",
+            "process_state": "NOT_APPLICABLE"
+          },
+          "official_full_tests": "NOT_RUN",
+          "patch_sha256": "f1cc23ac4f5ac1cff87eb7f8c54f8176c1a47cec37fa4cb6907b9dd8ad199af2",
+          "scope": "frozen replay and task-specific checks; patch equality does not prove full upstream tests"
+        },
+        "cleanup": {
+          "status": "PASS",
+          "sandbox": "PASS",
+          "service": "PASS",
+          "cgroup_and_loop": "PASS",
+          "archived_images": "SUCCESS_IMAGES_REMOVED; RAW_AND_HASHES_RETAINED",
+          "evidence": "run checks, cgroup/loop receipt, archive manifest and current retention state"
+        },
+        "phase_breakdown": {
+          "guest_action_sum": {
+            "status": "MEASURED",
+            "duration_ns": 2241876139,
+            "source": "replay/steps.tsv",
+            "boundary": "sum of 26 guest runner action durations; excludes controller and setup"
+          },
+          "controller_runner_calls": {
+            "status": "MEASURED",
+            "duration_ns": 25473112084,
+            "source": "replay-*.json",
+            "boundary": "sum of controller calls that launch frozen runner segments"
+          },
+          "create_to_first_success": {
+            "status": "MEASURED",
+            "duration_ns": 1122622907,
+            "source": "diagnostic-events.jsonl",
+            "boundary": "SDK create through first successful mkdir command"
+          },
+          "checkpoint": {
+            "status": "MEASURED",
+            "duration_ns": 11782902110,
+            "source": "diagnostic-events.jsonl",
+            "boundary": "controller file capture, sealing and template construction"
+          },
+          "restore_interface": {
+            "status": "MEASURED",
+            "duration_ns": 1135188941,
+            "source": "diagnostic-events.jsonl",
+            "boundary": "controller start of child VM from sealed file layer"
+          },
+          "restore_to_first_success": {
+            "status": "MEASURED",
+            "duration_ns": 2380417650,
+            "source": "diagnostic-events.jsonl",
+            "boundary": "start restored VM through first successful environment command"
+          },
+          "template_build": {
+            "status": "MEASURED",
+            "duration_ns": 12530690178,
+            "source": "diagnostic-events.jsonl",
+            "boundary": "prepare private template before trajectory"
+          },
+          "parent_delete": {
+            "status": "MEASURED",
+            "duration_ns": 16580829941,
+            "source": "diagnostic-events.jsonl",
+            "boundary": "delete parent VM after checkpoint"
+          },
+          "full_run_including_cleanup": {
+            "status": "MEASURED",
+            "duration_ns": 162115724846,
+            "source": "result.json",
+            "boundary": "outer start through sandbox cleanup and verified image archiving when enabled"
+          }
+        },
+        "named_file_mapping": {
+          "status": "MEASURED",
+          "bytes": 36864,
+          "file_pages": 8,
+          "verified_anonymous_pages": 1,
+          "unknown_pages": 0,
+          "scope": "explicit named files in sealed checkpoint and base; resident mapped pages only; not whole task",
+          "files": [
+            {
+              "path": "/testbed/src/language-html/utils/index.js",
+              "origin": "checkpoint"
+            },
+            {
+              "path": "/testbed/src/language-html/parser-html.js",
+              "origin": "base"
+            },
+            {
+              "path": "/testbed/package.json",
+              "origin": "base"
+            }
+          ]
+        },
+        "recorded_phase_timing_ns": {
+          "private-template-prepare": 6584342732,
+          "template-build": 12530690178,
+          "sdk-create": 77111494,
+          "tool:mkdir-inputs": 1044563243,
+          "create-to-first-tool-success": 1122622907,
+          "tool:guest-input-hashes": 1184045965,
+          "tool:guest-environment": 1588986000,
+          "tool:independent-before": 1686020865,
+          "tool:guest-memory-before-replay": 1068411158,
+          "vmm-scan:before-replay": 6916457,
+          "tool:replay-prefix": 12188767725,
+          "tool:pack-prefix": 1180131392,
+          "tool:source-before": 1164969692,
+          "tool:source-diff-before": 1169517811,
+          "tool:guest-memory-before-checkpoint": 1175445439,
+          "vmm-scan:before-checkpoint": 6971338,
+          "checkpoint": 11782902110,
+          "parent-delete": 16580829941,
+          "restore-interface": 1135188941,
+          "tool:restore-environment": 1244340536,
+          "restore-to-first-tool-success": 2380417650,
+          "tool:guest-memory-restored-before-source-read": 1177966246,
+          "tool:layer-state-before-restored-before-source-read": 1233312233,
+          "file-physical:restored-before-source-read": 312332079,
+          "tool:layer-state-after-restored-before-source-read": 1258002608,
+          "vmm-scan:restored": 6724334,
+          "tool:source-after": 1169317028,
+          "tool:source-diff-after": 1187584486,
+          "tool:replay-continuation": 13283861082,
+          "tool:guest-memory-after-continuation": 1178180284,
+          "tool:layer-state-before-after-continuation": 1233032142,
+          "file-physical:after-continuation": 105833066,
+          "tool:layer-state-after-after-continuation": 1232010574,
+          "vmm-scan:after-replay": 10468055,
+          "tool:pack-replay": 1189904812,
+          "tool:independent-after": 1967999305,
+          "tool:official-task-tests": 15971058546
+        },
+        "guest_memory": {
+          "status": "PASS",
+          "sample_count": 231,
+          "observed_peak_nonfree_bytes": 252903424,
+          "composition_at_observed_peak": {
+            "timestamp_ns": 1791260590932363768,
+            "phase": "running",
+            "step": "022",
+            "status": "PASS",
+            "missing_fields": [],
+            "unit": "bytes",
+            "scope": "guest logical counters at one sample; not host physical residency",
+            "used_definition": "MemTotal - MemFree",
+            "percentage_denominator": "same-sample nonfree memory",
+            "slab_rule": "Slab includes SReclaimable and SUnreclaim; do not add them again",
+            "nonfree_bytes": 252903424,
+            "used_estimate_bytes": 337297408,
+            "components_bytes": {
+              "file_cache_and_buffers": 31682560,
+              "anonymous": 59912192,
+              "slab": 62795776,
+              "shared_memory": 1060864,
+              "kernel_stack": 1650688,
+              "page_tables": 1376256,
+              "percpu": 573440,
+              "unclassified_residual": 93851648
+            },
+            "percentages": {
+              "file_cache_and_buffers": 12.527533039647578,
+              "anonymous": 23.68975123088883,
+              "slab": 24.829942990412025,
+              "shared_memory": 0.4194739569836745,
+              "kernel_stack": 0.6526949987043276,
+              "page_tables": 0.5441824306815237,
+              "percpu": 0.2267426794506349,
+              "unclassified_residual": 37.10967867323141
+            },
+            "reclaimable_slab_bytes": 45694976,
+            "unreclaimable_slab_bytes": 17100800
+          },
+          "peak_scope": "sample maximum, not instantaneous peak; incomplete samples excluded and counted",
+          "sampling_mode": "persistent asynchronous process; advisory phase markers",
+          "time_scope": "includes runner preparation; short actions may have no sample; per-runner lifetime only"
+        },
+        "host_memory": {
+          "sample_count": 1130,
+          "scope": "run-owned TrEnv-X sandbox parent cgroup; excludes orchestrator",
+          "observed_peak_current_bytes": 349421568,
+          "observed_peak_file_bytes": 7081984,
+          "observed_peak_anon_bytes": 329515008,
+          "observed_peak_vmm_pss_kib": "NOT_MEASURED",
+          "vmm_boundary_observations": [
+            {
+              "label": "vmm-after-replay",
+              "pss_bytes": 371608576,
+              "scan_elapsed_ns": 10084735,
+              "scope": "host VMM process smaps_rollup; not guest memory or complete DAX residency"
+            },
+            {
+              "label": "vmm-before-checkpoint",
+              "pss_bytes": 428588032,
+              "scan_elapsed_ns": 6708996,
+              "scope": "host VMM process smaps_rollup; not guest memory or complete DAX residency"
+            },
+            {
+              "label": "vmm-before-replay",
+              "pss_bytes": 406227968,
+              "scan_elapsed_ns": 6711090,
+              "scope": "host VMM process smaps_rollup; not guest memory or complete DAX residency"
+            },
+            {
+              "label": "vmm-restored",
+              "pss_bytes": 210086912,
+              "scan_elapsed_ns": 6311194,
+              "scope": "host VMM process smaps_rollup; not guest memory or complete DAX residency"
+            }
+          ]
+        },
+        "guest_collector_segments": [
+          {
+            "status": "PASS",
+            "error": null,
+            "samples": 110,
+            "samples_before": 0,
+            "samples_in_file": 110,
+            "interval_seconds": 0.1,
+            "elapsed_ns": 10923471573,
+            "cpu_user_seconds": 0.12553699999999998,
+            "cpu_system_seconds": 0.019029,
+            "maxrss_kib": 5644,
+            "scope": "collector process resource usage; maxrss is not private memory"
+          },
+          {
+            "status": "PASS",
+            "error": null,
+            "samples": 121,
+            "samples_before": 110,
+            "samples_in_file": 231,
+            "interval_seconds": 0.1,
+            "elapsed_ns": 12050735372,
+            "cpu_user_seconds": 0.10421799999999999,
+            "cpu_system_seconds": 0.038541,
+            "maxrss_kib": 5644,
+            "scope": "collector process resource usage; maxrss is not private memory"
+          }
+        ],
+        "extra_phases_in_task_window_ns": {
+          "tool:guest-memory-before-checkpoint": 1175445439,
+          "vmm-scan:before-checkpoint": 6971338,
+          "tool:guest-memory-restored-before-source-read": 1177966246,
+          "tool:layer-state-before-restored-before-source-read": 1233312233,
+          "file-physical:restored-before-source-read": 312332079,
+          "tool:layer-state-after-restored-before-source-read": 1258002608,
+          "vmm-scan:restored": 6724334,
+          "tool:guest-memory-after-continuation": 1178180284,
+          "tool:layer-state-before-after-continuation": 1233032142,
+          "file-physical:after-continuation": 105833066,
+          "tool:layer-state-after-after-continuation": 1232010574,
+          "vmm-scan:after-replay": 10468055
+        }
+      }
+    ]
+  ],
+  "mean_timing_ns": {
+    "off": {
+      "guest_tools_ns": 2047647746,
+      "runner_calls_ns": 24924664669.2,
+      "task_and_final_checks_ns": 80623467407,
+      "checkpoint_ns": 11763071217.4,
+      "restore_ns": 2221259082.4,
+      "full_run_ns": 151241206008.8
+    },
+    "on": {
+      "guest_tools_ns": 2087675588.4,
+      "runner_calls_ns": 25355049744.6,
+      "task_and_final_checks_ns": 89761514680.6,
+      "checkpoint_ns": 11755693701.4,
+      "restore_ns": 2288896040.8,
+      "full_run_ns": 161777685065.4
+    }
+  },
+  "paired_comparison": {
+    "guest_tools_ns": {
+      "group_percent": [
+        -9.767190526502812,
+        -8.1259945204469,
+        0.8707478450966866,
+        -1.863383642698313,
+        37.15339121887573
+      ],
+      "geometric_mean_percent": 2.39340853632453,
+      "mean_log_ratio_t95_percent": [
+        -17.060238496309672,
+        26.40993802737379
+      ]
+    },
+    "runner_calls_ns": {
+      "group_percent": [
+        2.1167424721286965,
+        1.0633242602565263,
+        0.9929003047916218,
+        0.9592787874145969,
+        3.5443711404707923
+      ],
+      "geometric_mean_percent": 1.730416384850208,
+      "mean_log_ratio_t95_percent": [
+        0.3548548234656018,
+        3.124832735198312
+      ]
+    },
+    "task_and_final_checks_ns": {
+      "group_percent": [
+        10.668555334307106,
+        12.621007648175597,
+        11.567016551622157,
+        10.101901158585115,
+        11.750182645701246
+      ],
+      "geometric_mean_percent": 11.338279463209844,
+      "mean_log_ratio_t95_percent": [
+        10.127555714000913,
+        12.562313704850892
+      ]
+    },
+    "checkpoint_ns": {
+      "group_percent": [
+        -0.04917189235006392,
+        -0.5376181072966335,
+        0.2975427174235712,
+        0.2415350826858953,
+        -0.2625156244092208
+      ],
+      "geometric_mean_percent": -0.06253413323862295,
+      "mean_log_ratio_t95_percent": [
+        -0.4954664266104589,
+        0.3722817966260766
+      ]
+    },
+    "restore_ns": {
+      "group_percent": [
+        -0.7176362275102321,
+        10.991300293406002,
+        3.1628509406145255,
+        -3.1594331685016797,
+        5.608423375418714
+      ],
+      "geometric_mean_percent": 3.0595052047783113,
+      "mean_log_ratio_t95_percent": [
+        -3.5402268843708478,
+        10.110787844397175
+      ]
+    },
+    "full_run_ns": {
+      "group_percent": [
+        6.39150921565701,
+        7.556748653992673,
+        6.927051824043273,
+        7.0742934282542524,
+        6.8880400549881315
+      ],
+      "geometric_mean_percent": 6.966875863217547,
+      "mean_log_ratio_t95_percent": [
+        6.4493709051592,
+        7.486896678150741
+      ]
+    }
+  },
+  "unit": {
+    "memory": "bytes",
+    "timing": "nanoseconds",
+    "relative_change": "percent"
+  },
+  "monitoring_impact": "matched combined-mode effect measured; all functional/restore checks passed",
+  "limitations": [
+    "five pairs; order count 3/2; uncontrolled host cache/frequency/load; no PPT threshold",
+    "checkpoint controls include periodic sampling, boundary PSS and two named-file analyses",
+    "whole-cache analysis performance is a different, unmeasured protocol",
+    "named-file cache is not whole-task cache; guest/host/PSS/physical bytes are not added",
+    "TrEnv-X restore inherits files, not arbitrary parent process or open-file state",
+    "guest samples stop between runner segments; peaks are observed sample maxima"
+  ],
+  "evidence_sha256": {
+    "driver/result.json": "0851dae3489edd6237d35747e866745b3d9f5ae067055c1383c30603cbf5b152",
+    "driver/code/sha256.json": "a2b2943ef6df2c4ef099f8ac1db619ba73e79ee68e166ae5155800b7c2794498",
+    "20261006T035902Z-3290692/result.json": "3a6bfb39062df1fea6f7232c133ba0005cde76bb272c10c109ddfc654531b229",
+    "20261006T035902Z-3290692/config.json": "2b02d8ef0cc964eddd0227d507427ea690dc8a81cb287d895fb0d2c0c6af7ecc",
+    "20261006T035902Z-3290692/diagnostic-events.jsonl": "36b8d4c3150f659c5ffffd3ede4e976637495b770053784a503f57e8e7df469f",
+    "20261006T035902Z-3290692/replay/steps.tsv": "f55541e5670f499b1573f9d82a9468dcc882a4590c4b73117e63e84db1ec3c63",
+    "20261006T035902Z-3290692/image-cleanup.json": "e3b50198eeaa9475d4b2a670980169e3a556d3ad36f276d7abeaae2727b865f0",
+    "20261006T035902Z-3290692/official-task-result.json": "41711baf67dd69014ecf1b28eea1314de1a84936239583f7d34081fb29262971",
+    "20261006T040134Z-3291849/result.json": "fe12f7754bebc2b93486aecbb13342ff57b73484fb44e446ae3f19eaa020febd",
+    "20261006T040134Z-3291849/config.json": "efc2e48216ddf107016de1f632094ee5c45e6e5ea4a8269a4356963e8ab7ac80",
+    "20261006T040134Z-3291849/diagnostic-events.jsonl": "f15167fe28599dcdf46fa6afaeea37ac8d38ff2eca5293f500400259462c5ffd",
+    "20261006T040134Z-3291849/replay/steps.tsv": "2b2afad2df4904bc79087df6be40cff5a4e79e73ee071ef1f4d54e96527ee8b0",
+    "20261006T040134Z-3291849/image-cleanup.json": "cd83efa4b9534319cae10bc8e12860f7ef6113544f0f1d8f279bfd1c3b4e972a",
+    "20261006T040134Z-3291849/official-task-result.json": "41711baf67dd69014ecf1b28eea1314de1a84936239583f7d34081fb29262971",
+    "20261006T040134Z-3291849/replay/guest-memory.tsv": "460ba1e6808d46d19e35815211aa3f8d175c40421929b132eca2428c3f6686ef",
+    "20261006T040134Z-3291849/host/memory-samples.tsv": "06a0608927d173e231632d7c746696c0ea33542e16f7e5b0dd4ea6ee6cf2a75d",
+    "20261006T040416Z-3293051/result.json": "cec03499070d481c3c33fd5aaa40ff8b5b12a8119a1d2f6a93e9150772edefe7",
+    "20261006T040416Z-3293051/config.json": "e06d90f66a92e561eefc1a0240901dec27cb531f46d723c53ccfb3aeccab852f",
+    "20261006T040416Z-3293051/diagnostic-events.jsonl": "f19ce3b26200768e96af857e8ff9c2d7145d780e38c3b22760ab983e4d252bcd",
+    "20261006T040416Z-3293051/replay/steps.tsv": "f05d496fded9c7c4ba028b785ff93358acd0bf639821a1cbb4226c3a13a3b12f",
+    "20261006T040416Z-3293051/image-cleanup.json": "075005cf422a077c00c49ad0a68aa94253216510e941428ba7311b07fa9840ed",
+    "20261006T040416Z-3293051/official-task-result.json": "41711baf67dd69014ecf1b28eea1314de1a84936239583f7d34081fb29262971",
+    "20261006T040416Z-3293051/replay/guest-memory.tsv": "5693eb23d458aa67be191bcc4344d030f81988240248b3024062aba90c466576",
+    "20261006T040416Z-3293051/host/memory-samples.tsv": "2bb033f9087b98f3cd74aab369b8284704bea4a961acaaf14684d34193ee7971",
+    "20261006T040658Z-3294245/result.json": "ad8d1c1cf3c97c315dc8d53147166ad56f8ccdf1db2065f8dfa7008f39f42aea",
+    "20261006T040658Z-3294245/config.json": "88eee176f6ea9e963918aad0f6de6821dfb1776b1be5389508183517cd15d35b",
+    "20261006T040658Z-3294245/diagnostic-events.jsonl": "9b2150cbab0f752a1b6f0aff880431ee28ebfd2366bc4d540f0ca365b58e1628",
+    "20261006T040658Z-3294245/replay/steps.tsv": "e79ed66c599a65b70ca658a7efb5acd9bc073a8826d2de8ab874d5b8680bc95b",
+    "20261006T040658Z-3294245/image-cleanup.json": "8009dba011f3196691ec3232b2f5925b4cb8b647fe978e64926c7df8520dcde2",
+    "20261006T040658Z-3294245/official-task-result.json": "41711baf67dd69014ecf1b28eea1314de1a84936239583f7d34081fb29262971",
+    "20261006T040928Z-3295368/result.json": "24c9001f222c9a3a69c5eeec357a222cc58b79ad754e049b6bf2c20c84865939",
+    "20261006T040928Z-3295368/config.json": "7a9b477cba76e8fc3053849aa4e709d4dd4561097b976e8874221f32946e14f6",
+    "20261006T040928Z-3295368/diagnostic-events.jsonl": "27fa79130002aaf816d00def1fc9ed64381d096f80b7ecbbc23708a0d4aadf4b",
+    "20261006T040928Z-3295368/replay/steps.tsv": "9973fc642493c1dc8cdd3eb45cbb69bb346f0998ceb8c0ec992d6e3a5646425f",
+    "20261006T040928Z-3295368/image-cleanup.json": "9283e6371562ab8ba422f41610c81dd47dfa72eabd025dff35c9e56a34ff73db",
+    "20261006T040928Z-3295368/official-task-result.json": "41711baf67dd69014ecf1b28eea1314de1a84936239583f7d34081fb29262971",
+    "20261006T041159Z-3296470/result.json": "e52b2261f71f344a8d40e462bfe69f322854e053fdc7936e20da9d92df4d7040",
+    "20261006T041159Z-3296470/config.json": "1853edf593bf53b1ba7d9f4ad66221db5e2a6786b930bc04f2acbbe52b5af75b",
+    "20261006T041159Z-3296470/diagnostic-events.jsonl": "b88db37912a815433aa28074b3b6027f0946df0de10b71c8676e68632413a58e",
+    "20261006T041159Z-3296470/replay/steps.tsv": "408a344388ae464aea73039e91e52c904797e4f0d975e4764b751ed1d39ebd97",
+    "20261006T041159Z-3296470/image-cleanup.json": "11ec32dfa42f6b0c053ba7e11858303680de397686f6c1b662723edc489a3682",
+    "20261006T041159Z-3296470/official-task-result.json": "41711baf67dd69014ecf1b28eea1314de1a84936239583f7d34081fb29262971",
+    "20261006T041159Z-3296470/replay/guest-memory.tsv": "7362fde39e57e21506efbcf211f8008d16486909c7aa591fbf98d6e15bd6e85f",
+    "20261006T041159Z-3296470/host/memory-samples.tsv": "60c853fbb26748a4bbe304fc42432443fc8fe361d8cd30cb7622d45735fc7a5c",
+    "20261006T041442Z-3297630/result.json": "bc5883f47bf9face6a1a1a7fde6529ec50409690ad6530ee4a6be2b8d7f42997",
+    "20261006T041442Z-3297630/config.json": "36780e2616379b27ec58521d173856a2a7866df3c5c70ee9cd8bbeb51540caff",
+    "20261006T041442Z-3297630/diagnostic-events.jsonl": "63451fe9665482bcc4c584db37c4c4410c77490f21c95be807b0fc31925f87e1",
+    "20261006T041442Z-3297630/replay/steps.tsv": "a13d3a9f193861b43713ac9bfc128df1436547a74f241daa81d15d44aa36e29a",
+    "20261006T041442Z-3297630/image-cleanup.json": "02bf6e79c28d9690e4a122fbf52dd30071a35258888bd8cbe8b15350772eecb5",
+    "20261006T041442Z-3297630/official-task-result.json": "41711baf67dd69014ecf1b28eea1314de1a84936239583f7d34081fb29262971",
+    "20261006T041442Z-3297630/replay/guest-memory.tsv": "8f632daec38a11ca796242c99a0bc9e42b0e1d2c8f48cfef0dd6bf554d772c66",
+    "20261006T041442Z-3297630/host/memory-samples.tsv": "f0bfca59324cf8dac3bc779e777dcac8e71274f5d212ff1fcf6188eb573c7229",
+    "20261006T041725Z-3298819/result.json": "b01c9d1e46a0852115196486002d5efaa09179594c6b385b6ad9c3d12c37d551",
+    "20261006T041725Z-3298819/config.json": "1687d6d785baeb671729ff568072a3d701a75c8d42685031bbda5f81258665b1",
+    "20261006T041725Z-3298819/diagnostic-events.jsonl": "87711b154662448e8eacca49df98f37e9bd79e0479a97e18c8dc511725d7c5fa",
+    "20261006T041725Z-3298819/replay/steps.tsv": "33d834c840c29cc8c838b749416f3c4b8d73fb95a567ad394b59513df1b68c10",
+    "20261006T041725Z-3298819/image-cleanup.json": "70c44fe0825fac665276eab3288095f34d1395a1e37210e634a7ce7490e28eea",
+    "20261006T041725Z-3298819/official-task-result.json": "41711baf67dd69014ecf1b28eea1314de1a84936239583f7d34081fb29262971",
+    "20261006T041957Z-3299946/result.json": "5bc0be543d5cac52b132202941facf0738ddce8cefec2abc1e3f0cefa12be7b9",
+    "20261006T041957Z-3299946/config.json": "d97c1c25296465e077837c6b48a446a225ef474d1f3f3a3cc84f4dbe04f70be2",
+    "20261006T041957Z-3299946/diagnostic-events.jsonl": "5ecbbfffd799b945d559c9a0e76c19c5abb93ae5351fbba4387e0feeb68f5810",
+    "20261006T041957Z-3299946/replay/steps.tsv": "aa91ca8dce2984a8b42e71ad9629a0e9cd26dc66b2b0550c695e70a009126ad9",
+    "20261006T041957Z-3299946/image-cleanup.json": "15a56604f9a07ed6bc389b3592571e290e34eb60f8003ba584d5e2085b9e3a74",
+    "20261006T041957Z-3299946/official-task-result.json": "41711baf67dd69014ecf1b28eea1314de1a84936239583f7d34081fb29262971",
+    "20261006T042229Z-3301035/result.json": "101831d869ce42cfe762e71fc29e42903fd8ed16923d95e81744ba1f5149ecb7",
+    "20261006T042229Z-3301035/config.json": "9e1307352cd8bd566b054578bebd707c516b3c1f1fc93eeed264359dfdbeb537",
+    "20261006T042229Z-3301035/diagnostic-events.jsonl": "4b4f896cf0341b5c69f462e08d258091cee86c745d277a4cb725a95f733d7010",
+    "20261006T042229Z-3301035/replay/steps.tsv": "38f71a46cabcac17c3b855525eaaa6ec4587c0924084ef5d71b90b57ae4b7e75",
+    "20261006T042229Z-3301035/image-cleanup.json": "32c6092285268eb3d5bc49e6369dfc36756fd605aa0ff97daf429ad5fea9e11c",
+    "20261006T042229Z-3301035/official-task-result.json": "41711baf67dd69014ecf1b28eea1314de1a84936239583f7d34081fb29262971",
+    "20261006T042229Z-3301035/replay/guest-memory.tsv": "dede637b0b8a6b13ae0bd0a553d87ca956c78ebac0948c4960d127121877604a",
+    "20261006T042229Z-3301035/host/memory-samples.tsv": "20b9505dd817407b9f59ce54bc6501a887ad4d05e17ca8f026561bd081f54f8e"
+  }
+}

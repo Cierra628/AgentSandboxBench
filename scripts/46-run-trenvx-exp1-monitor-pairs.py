@@ -31,7 +31,7 @@ def pressure():
         (Path('/proc/pressure')/name).read_text().strip() for name in ('cpu', 'io', 'memory')})
 
 
-def verify(run, mode):
+def verify(run, mode, *, discard_images=False):
     result = json.loads((run/'result.json').read_text())
     assert result['status']=='PASS' and result['full_trajectory_verified'] is True
     assert result['host_cleanup']['cgroup_removed'] is True
@@ -39,10 +39,18 @@ def verify(run, mode):
     assert result['data_retention']['status']=='PASS'
     assert result['data_retention']['source_removed'] is True
     assert not (run/'data').exists()
-    manifest = json.loads((run/'archive-manifest.json').read_text())
-    assert (run/'data.tar.gz').stat().st_size==manifest['archive_bytes']
-    assert manifest['gzip_test']=='PASS' and manifest['tar_compare']=='PASS'
-    assert manifest['archive_sha256']==result['data_retention']['archive_sha256']
+    if discard_images:
+        manifest = json.loads((run/'image-cleanup.json').read_text())
+        assert manifest['run_id']==run.name and manifest['source_removed'] is True
+        assert manifest['mode']==result['data_retention']['mode']=='successful-exp1-images-discarded'
+        assert result['checks']['successful_image_cleanup']=='PASS'
+        assert manifest['entries'] and not (run/'data.tar.gz').exists()
+        assert all(len(entry['sha256'])==64 for entry in manifest['entries'] if entry['kind']=='file')
+    else:
+        manifest = json.loads((run/'archive-manifest.json').read_text())
+        assert (run/'data.tar.gz').stat().st_size==manifest['archive_bytes']
+        assert manifest['gzip_test']=='PASS' and manifest['tar_compare']=='PASS'
+        assert manifest['archive_sha256']==result['data_retention']['archive_sha256']
     assert (run/'replay/actions.tsv').read_bytes()==(REFERENCE/'actions.tsv').read_bytes()
     assert (run/'replay/original-head.txt').read_bytes()==(REFERENCE/'original-head.txt').read_bytes()
     assert (run/'replay/patch.diff').read_bytes()==(REFERENCE/'patch.diff').read_bytes()
@@ -63,17 +71,24 @@ def verify(run, mode):
     timing=json.loads((run/'replay-all.json').read_text())['controller_elapsed_ns']
     assert timing>0
     guards=[json.loads(line) for line in (run/'disk-guard.jsonl').read_text().splitlines()]
-    assert len(guards)==4 and all(row['status']=='PASS' for row in guards)
+    assert len(guards)==(1 if discard_images else 4) and all(row['status']=='PASS' for row in guards)
     config=json.loads((run/'config.json').read_text())
     assert config['archive_compressor']=='pigz-fast'
     assert config['host_sample_interval_seconds']==(1.0 if mode=='light' else 0)
+    correctness=json.loads((run/'correctness.json').read_text())
+    assert correctness['independent_svg_properties']=='PASS'
+    assert correctness['patch_sha256']==digest(run/'replay/patch.diff')
+    if discard_images:
+        assert config['discard_success_images'] is True and config['checkpoint_after'] is None
+        assert config['seed_sha256']==manifest['seed_sha256']
+        assert config['diagnostic_metrics'] is False and config['file_physical_diagnostic'] is False
     return dict(run_id=run.name, mode=mode, status='PASS',
         observed_min_free_bytes=min(row['observed_min_free_bytes'] for row in guards),
         controller_runner_call_ns=timing,
         guest_action_sum_ns=sum(int(row['duration_ns']) for row in steps),
-        host_sample_count=len(samples), archive_bytes=manifest['archive_bytes'],
-        archive_compressor=manifest.get('compressor','gzip'),
-        archive_elapsed_seconds=manifest['archive_elapsed_seconds'],
+        host_sample_count=len(samples), archive_bytes=manifest.get('archive_bytes',0),
+        archive_compressor=None if discard_images else manifest.get('compressor','gzip'),
+        archive_elapsed_seconds=manifest.get('archive_elapsed_seconds',manifest.get('elapsed_seconds')),
         input_sha256=digest(run/'replay/actions.tsv'),patch_sha256=digest(run/'replay/patch.diff'))
 
 

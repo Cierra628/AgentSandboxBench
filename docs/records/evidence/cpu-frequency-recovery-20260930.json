@@ -1,0 +1,94 @@
+{
+  "status": "PASS",
+  "scope": "recovery checks and one B smoke; not ABBA or monitoring overhead acceptance",
+  "recovery_result": ".artifacts/cpu-frequency-recovery/20260930T021310Z/result.json",
+  "replay_result": ".artifacts/guest-perf-scope/20260930T021334Z-2492335/result.json",
+  "replay_result_sha256": "b2cec0accad027503f827372c2e33ee6f307ece363f9873b0c2c42efe5275e20",
+  "audit": {
+    "kind": "exp1",
+    "status": "PASS",
+    "run_id": "20260930T021334Z-2492335",
+    "phases": [
+      {
+        "step": "023",
+        "guest_instructions": 3101653339,
+        "guest_cycles": 2020155235,
+        "vm_guest_cycles_per_instruction": 0.6513156095166056,
+        "tool_call_seconds": 1.123456943,
+        "action_wall_seconds": 1.045,
+        "action_cpu_seconds": 1.006,
+        "counter_coverage_min": 1.0,
+        "guest_reference_cycles": 2839776240,
+        "cycles_per_reference_cycle": 0.7113783144407181,
+        "host_vcpu_runtime_seconds": 1.298781597,
+        "observed_runnable_wait_seconds": 0.003007428,
+        "wait_window_scope": "runnable queue wait only, excludes sleeping; window includes counter startup/teardown"
+      },
+      {
+        "step": "024",
+        "guest_instructions": 3035541187,
+        "guest_cycles": 1780538736,
+        "vm_guest_cycles_per_instruction": 0.5865638534655139,
+        "tool_call_seconds": 0.795665011,
+        "action_wall_seconds": 0.72,
+        "action_cpu_seconds": 0.853,
+        "counter_coverage_min": 1.0,
+        "guest_reference_cycles": 2502818640,
+        "cycles_per_reference_cycle": 0.7114134070857008,
+        "host_vcpu_runtime_seconds": 0.939649729,
+        "observed_runnable_wait_seconds": 0.004261369,
+        "wait_window_scope": "runnable queue wait only, excludes sleeping; window includes counter startup/teardown"
+      }
+    ],
+    "settle_seconds": 10
+  },
+  "frequency_restoration": {
+    "status": "PASS",
+    "reason": "controller_finally",
+    "after": {
+      "2": {
+        "scaling_min_freq": "800000",
+        "scaling_max_freq": "2801000",
+        "scaling_governor": "schedutil"
+      },
+      "4": {
+        "scaling_min_freq": "800000",
+        "scaling_max_freq": "2801000",
+        "scaling_governor": "schedutil"
+      },
+      "66": {
+        "scaling_min_freq": "800000",
+        "scaling_max_freq": "2801000",
+        "scaling_governor": "schedutil"
+      },
+      "68": {
+        "scaling_min_freq": "800000",
+        "scaling_max_freq": "2801000",
+        "scaling_governor": "schedutil"
+      }
+    },
+    "errors": []
+  },
+  "applied_policies": {
+    "2": {
+      "scaling_min_freq": "2000000",
+      "scaling_max_freq": "2000000",
+      "scaling_governor": "schedutil"
+    },
+    "4": {
+      "scaling_min_freq": "2000000",
+      "scaling_max_freq": "2000000",
+      "scaling_governor": "schedutil"
+    },
+    "66": {
+      "scaling_min_freq": "2000000",
+      "scaling_max_freq": "2000000",
+      "scaling_governor": "schedutil"
+    },
+    "68": {
+      "scaling_min_freq": "2000000",
+      "scaling_max_freq": "2000000",
+      "scaling_governor": "schedutil"
+    }
+  }
+}

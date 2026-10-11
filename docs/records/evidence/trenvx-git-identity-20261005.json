@@ -1,0 +1,185 @@
+{
+  "status": "PASS",
+  "third_acceptance": "PARTIAL",
+  "run_id": "20261005T111229Z-3185323",
+  "scope": "one owned VM; ABBA reset and identity-generation probes followed by original frozen replay",
+  "identity_probe": [
+    {
+      "label": "default",
+      "exit_code": 0,
+      "command_result": "SUCCESS",
+      "seconds": 10.054008291,
+      "cpu_seconds": 0.066943,
+      "realtime_minus_monotonic_ns": -109030,
+      "sockets": {
+        "total_samples": 100,
+        "poll_samples": 98,
+        "udp_dns_53_samples": 98,
+        "descriptor_read_errors": 0,
+        "probe_scan_total_ns": 156661021
+      }
+    },
+    {
+      "label": "explicit",
+      "exit_code": 0,
+      "command_result": "SUCCESS",
+      "seconds": 0.054267583,
+      "cpu_seconds": 0.075482,
+      "realtime_minus_monotonic_ns": 73,
+      "sockets": {
+        "total_samples": 1,
+        "poll_samples": 0,
+        "udp_dns_53_samples": 0,
+        "descriptor_read_errors": 0,
+        "probe_scan_total_ns": 1043015
+      }
+    },
+    {
+      "label": "explicit",
+      "exit_code": 0,
+      "command_result": "SUCCESS",
+      "seconds": 0.041664915,
+      "cpu_seconds": 0.062032,
+      "realtime_minus_monotonic_ns": 103,
+      "sockets": {
+        "total_samples": 1,
+        "poll_samples": 0,
+        "udp_dns_53_samples": 0,
+        "descriptor_read_errors": 0,
+        "probe_scan_total_ns": 874622
+      }
+    },
+    {
+      "label": "default",
+      "exit_code": 0,
+      "command_result": "SUCCESS",
+      "seconds": 10.059412595,
+      "cpu_seconds": 0.069863,
+      "realtime_minus_monotonic_ns": -16380,
+      "sockets": {
+        "total_samples": 99,
+        "poll_samples": 98,
+        "udp_dns_53_samples": 98,
+        "descriptor_read_errors": 0,
+        "probe_scan_total_ns": 163507967
+      }
+    },
+    {
+      "label": "identity-default",
+      "exit_code": 128,
+      "command_result": "IDENTITY_UNAVAILABLE",
+      "seconds": 10.016435008,
+      "cpu_seconds": 0.005956,
+      "realtime_minus_monotonic_ns": -215427,
+      "sockets": {
+        "total_samples": 99,
+        "poll_samples": 98,
+        "udp_dns_53_samples": 98,
+        "descriptor_read_errors": 0,
+        "probe_scan_total_ns": 163728934
+      }
+    },
+    {
+      "label": "identity-explicit",
+      "exit_code": 0,
+      "command_result": "SUCCESS",
+      "seconds": 0.005349152,
+      "cpu_seconds": 0.005266,
+      "realtime_minus_monotonic_ns": 717,
+      "sockets": {
+        "total_samples": 1,
+        "poll_samples": 0,
+        "udp_dns_53_samples": 0,
+        "descriptor_read_errors": 0,
+        "probe_scan_total_ns": 966961
+      }
+    }
+  ],
+  "reset_means_seconds": {
+    "default": 10.056710443,
+    "explicit": 0.047966249
+  },
+  "state_checks": "HEAD, index tree and working diff identical after each probe; reflog identities may differ",
+  "original_replay": {
+    "official_assertions": 4,
+    "timing_ns": {
+      "guest_runner_action_sum_ns": 1829129623,
+      "controller_runner_call_ns": 23617437258,
+      "checkpoint_call_ns": "NOT_MEASURED",
+      "restore_call_ns": "NOT_MEASURED",
+      "create_to_tool_ready_ns": "NOT_MEASURED",
+      "controller_end_to_end_ns": 143426182522
+    },
+    "commands": {
+      "baseline": {
+        "add": {
+          "real_seconds": 0.085,
+          "user_seconds": 0.021,
+          "system_seconds": 0.083,
+          "boundary_ns": 85702000,
+          "native_exit_seconds": 0.082016
+        },
+        "write_tree": {
+          "real_seconds": 0.013,
+          "user_seconds": 0.009,
+          "system_seconds": 0.004,
+          "boundary_ns": 13462000,
+          "native_exit_seconds": 0.011372
+        },
+        "reset": {
+          "real_seconds": 10.041,
+          "user_seconds": 0.005,
+          "system_seconds": 0.037,
+          "boundary_ns": 10078389000,
+          "native_exit_seconds": 10.039093
+        },
+        "rev_parse": {
+          "real_seconds": 0.006,
+          "user_seconds": 0.001,
+          "system_seconds": 0.006,
+          "boundary_ns": 6732000,
+          "native_exit_seconds": 0.002395
+        }
+      },
+      "final": {
+        "add": {
+          "real_seconds": 0.049,
+          "user_seconds": 0.011,
+          "system_seconds": 0.05,
+          "boundary_ns": 49834000,
+          "native_exit_seconds": 0.046313
+        },
+        "diff": {
+          "real_seconds": 0.013,
+          "user_seconds": 0.009,
+          "system_seconds": 0.004,
+          "boundary_ns": 17379000,
+          "native_exit_seconds": 0.009799
+        },
+        "reset": {
+          "real_seconds": 10.037,
+          "user_seconds": 0.005,
+          "system_seconds": 0.03,
+          "boundary_ns": 10074221000,
+          "native_exit_seconds": 10.034879
+        },
+        "status": {
+          "real_seconds": 0.102,
+          "user_seconds": 0.023,
+          "system_seconds": 0.102,
+          "boundary_ns": 102940000,
+          "native_exit_seconds": 0.098645
+        }
+      }
+    }
+  },
+  "units": "seconds, except explicit _ns fields; sample counts are observations, not syscall invocation counts",
+  "conclusion": "Observed default Git identity generation waits on UDP DNS port 53; command-scoped identity removes the observed reset wait.",
+  "limits": [
+    "one VM diagnostic, not independent repeated performance trials",
+    "original frozen runner still uses original identity environment",
+    "no full-run speedup or new monitoring overhead estimate measured",
+    "no memory sampling, physical page scans or checkpoint/restore impact measured",
+    "legacy failed probe remains FAIL and its missing guest data cannot be reconstructed"
+  ]
+}

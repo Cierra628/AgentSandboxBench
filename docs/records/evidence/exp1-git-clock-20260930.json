@@ -1,0 +1,1737 @@
+{
+  "status": "PASS",
+  "run_count": 9,
+  "cause_status": "DIRECTORY_SCAN_LOCALIZED; moderate slow cases captured; original 340ms not reproduced",
+  "runs": [
+    {
+      "position": 1,
+      "raw_dir": "/home/yyxie/agentenv_experiment/.artifacts/exp1-git-diagnostic/20260930T051609Z-2523224/run-01-off/raw/20260930T051609Z-2523326",
+      "wall_seconds": 0.177,
+      "user_seconds": 0.03,
+      "system_seconds": 0.042,
+      "wall_minus_summed_cpu_seconds": 0.10499999999999998,
+      "commands": [
+        {
+          "argv": [
+            "git",
+            "add",
+            "-A"
+          ],
+          "regions": [
+            {
+              "category": "cache_tree",
+              "label": "read",
+              "t_rel": 0.000758,
+              "nesting": 2
+            },
+            {
+              "category": "index",
+              "label": "do_read_index",
+              "t_rel": 0.00209,
+              "nesting": 1
+            },
+            {
+              "category": "index",
+              "label": "preload",
+              "t_rel": 0.00766,
+              "nesting": 1
+            },
+            {
+              "category": "index",
+              "label": "name-hash-init",
+              "t_rel": 0.000819,
+              "nesting": 2
+            },
+            {
+              "category": "dir",
+              "label": "read_directory",
+              "t_rel": 0.137238,
+              "nesting": 1
+            },
+            {
+              "category": "cache_tree",
+              "label": "write",
+              "t_rel": 0.000506,
+              "nesting": 2
+            },
+            {
+              "category": "index",
+              "label": "do_write_index",
+              "t_rel": 0.005535,
+              "nesting": 1
+            }
+          ],
+          "data": [
+            {
+              "category": "index",
+              "key": "read/version",
+              "value": "2"
+            },
+            {
+              "category": "index",
+              "key": "read/cache_nr",
+              "value": "8261"
+            },
+            {
+              "category": "index",
+              "key": "preload/sum_lstat",
+              "value": "8261"
+            },
+            {
+              "category": "read_directory",
+              "key": "path",
+              "value": ""
+            },
+            {
+              "category": "read_directory",
+              "key": "directories-visited",
+              "value": "2743"
+            },
+            {
+              "category": "read_directory",
+              "key": "paths-visited",
+              "value": "11007"
+            },
+            {
+              "category": "index",
+              "key": "write/version",
+              "value": "2"
+            },
+            {
+              "category": "index",
+              "key": "write/cache_nr",
+              "value": "8262"
+            }
+          ],
+          "wall_seconds": 0.162482
+        },
+        {
+          "argv": [
+            "git",
+            "diff",
+            "--cached"
+          ],
+          "regions": [
+            {
+              "category": "cache_tree",
+              "label": "read",
+              "t_rel": 0.000714,
+              "nesting": 2
+            },
+            {
+              "category": "index",
+              "label": "do_read_index",
+              "t_rel": 0.001678,
+              "nesting": 1
+            },
+            {
+              "category": "unpack_trees",
+              "label": "traverse_trees",
+              "t_rel": 0.000106,
+              "nesting": 2
+            },
+            {
+              "category": "unpack_trees",
+              "label": "unpack_trees",
+              "t_rel": 0.000225,
+              "nesting": 1
+            },
+            {
+              "category": "diff",
+              "label": "setup",
+              "t_rel": 1e-05,
+              "nesting": 1
+            },
+            {
+              "category": "diff",
+              "label": "write back to queue",
+              "t_rel": 7e-06,
+              "nesting": 1
+            }
+          ],
+          "data": [
+            {
+              "category": "index",
+              "key": "read/version",
+              "value": "2"
+            },
+            {
+              "category": "index",
+              "key": "read/cache_nr",
+              "value": "8262"
+            }
+          ],
+          "wall_seconds": 0.00462
+        }
+      ],
+      "vmstat_delta": {
+        "pgfault": 2806,
+        "pgmajfault": 23,
+        "pgpgin": 6684,
+        "pgpgout": 1044,
+        "pswpin": 0,
+        "pswpout": 0
+      },
+      "guest_iowait_ticks_delta": 10,
+      "stdout_sha256": "9a64ed707c224734715f7af4fea2d84f0b51d128e5c8d05535fc9de7d5b6162f",
+      "command_clock": {
+        "realtime_ns": 174060994,
+        "monotonic_raw_ns": 174060587,
+        "user_ns": 30001000,
+        "system_ns": 40388000,
+        "minor_faults": 1879,
+        "major_faults": 29,
+        "voluntary_switches": 1080,
+        "involuntary_switches": 18,
+        "exit_code": 0
+      },
+      "realtime_minus_monotonic_ms": 0.000407,
+      "source_batch": ".artifacts/exp1-git-diagnostic/20260930T051609Z-2523224",
+      "original_runner_step_025_ms": 178.979826
+    },
+    {
+      "position": 1,
+      "label": "off",
+      "raw_dir": "/home/yyxie/agentenv_experiment/.artifacts/exp1-git-diagnostic/20260930T051737Z-2524298/run-01-off/raw/20260930T051737Z-2524349",
+      "wall_seconds": 0.067,
+      "user_seconds": 0.025,
+      "system_seconds": 0.04,
+      "wall_minus_summed_cpu_seconds": 0.0020000000000000018,
+      "commands": [
+        {
+          "argv": [
+            "git",
+            "add",
+            "-A"
+          ],
+          "regions": [
+            {
+              "category": "cache_tree",
+              "label": "read",
+              "t_rel": 0.000731,
+              "nesting": 2
+            },
+            {
+              "category": "index",
+              "label": "do_read_index",
+              "t_rel": 0.001775,
+              "nesting": 1
+            },
+            {
+              "category": "index",
+              "label": "preload",
+              "t_rel": 0.007518,
+              "nesting": 1
+            },
+            {
+              "category": "index",
+              "label": "name-hash-init",
+              "t_rel": 0.000827,
+              "nesting": 2
+            },
+            {
+              "category": "dir",
+              "label": "read_directory",
+              "t_rel": 0.032811,
+              "nesting": 1
+            },
+            {
+              "category": "cache_tree",
+              "label": "write",
+              "t_rel": 0.000519,
+              "nesting": 2
+            },
+            {
+              "category": "index",
+              "label": "do_write_index",
+              "t_rel": 0.005763,
+              "nesting": 1
+            }
+          ],
+          "data": [
+            {
+              "category": "index",
+              "key": "read/version",
+              "value": "2"
+            },
+            {
+              "category": "index",
+              "key": "read/cache_nr",
+              "value": "8261"
+            },
+            {
+              "category": "index",
+              "key": "preload/sum_lstat",
+              "value": "8261"
+            },
+            {
+              "category": "read_directory",
+              "key": "path",
+              "value": ""
+            },
+            {
+              "category": "read_directory",
+              "key": "directories-visited",
+              "value": "2743"
+            },
+            {
+              "category": "read_directory",
+              "key": "paths-visited",
+              "value": "11007"
+            },
+            {
+              "category": "index",
+              "key": "write/version",
+              "value": "2"
+            },
+            {
+              "category": "index",
+              "key": "write/cache_nr",
+              "value": "8262"
+            }
+          ],
+          "wall_seconds": 0.055173
+        },
+        {
+          "argv": [
+            "git",
+            "diff",
+            "--cached"
+          ],
+          "regions": [
+            {
+              "category": "cache_tree",
+              "label": "read",
+              "t_rel": 0.000735,
+              "nesting": 2
+            },
+            {
+              "category": "index",
+              "label": "do_read_index",
+              "t_rel": 0.001713,
+              "nesting": 1
+            },
+            {
+              "category": "unpack_trees",
+              "label": "traverse_trees",
+              "t_rel": 0.000127,
+              "nesting": 2
+            },
+            {
+              "category": "unpack_trees",
+              "label": "unpack_trees",
+              "t_rel": 0.000233,
+              "nesting": 1
+            },
+            {
+              "category": "diff",
+              "label": "setup",
+              "t_rel": 9e-06,
+              "nesting": 1
+            },
+            {
+              "category": "diff",
+              "label": "write back to queue",
+              "t_rel": 7e-06,
+              "nesting": 1
+            }
+          ],
+          "data": [
+            {
+              "category": "index",
+              "key": "read/version",
+              "value": "2"
+            },
+            {
+              "category": "index",
+              "key": "read/cache_nr",
+              "value": "8262"
+            }
+          ],
+          "wall_seconds": 0.003866
+        }
+      ],
+      "vmstat_delta": {
+        "pgfault": 2772,
+        "pgmajfault": 3,
+        "pgpgin": 848,
+        "pgpgout": 1044,
+        "pswpin": 0,
+        "pswpout": 0
+      },
+      "guest_iowait_ticks_delta": 1,
+      "stdout_sha256": "9a64ed707c224734715f7af4fea2d84f0b51d128e5c8d05535fc9de7d5b6162f",
+      "command_clock": {
+        "realtime_ns": 64295418,
+        "monotonic_raw_ns": 64295095,
+        "user_ns": 24932000,
+        "system_ns": 39185000,
+        "minor_faults": 1902,
+        "major_faults": 1,
+        "voluntary_switches": 62,
+        "involuntary_switches": 12,
+        "exit_code": 0
+      },
+      "realtime_minus_monotonic_ms": 0.000323,
+      "source_batch": ".artifacts/exp1-git-diagnostic/20260930T051737Z-2524298",
+      "original_runner_step_025_ms": 69.193306
+    },
+    {
+      "position": 2,
+      "label": "control_A",
+      "raw_dir": "/home/yyxie/agentenv_experiment/.artifacts/exp1-git-diagnostic/20260930T051737Z-2524298/run-02-control_A/raw/20260930T051756Z-2524935",
+      "wall_seconds": 0.105,
+      "user_seconds": 0.024,
+      "system_seconds": 0.042,
+      "wall_minus_summed_cpu_seconds": 0.038999999999999986,
+      "commands": [
+        {
+          "argv": [
+            "git",
+            "add",
+            "-A"
+          ],
+          "regions": [
+            {
+              "category": "cache_tree",
+              "label": "read",
+              "t_rel": 0.000728,
+              "nesting": 2
+            },
+            {
+              "category": "index",
+              "label": "do_read_index",
+              "t_rel": 0.00177,
+              "nesting": 1
+            },
+            {
+              "category": "index",
+              "label": "preload",
+              "t_rel": 0.007397,
+              "nesting": 1
+            },
+            {
+              "category": "index",
+              "label": "name-hash-init",
+              "t_rel": 0.000826,
+              "nesting": 2
+            },
+            {
+              "category": "dir",
+              "label": "read_directory",
+              "t_rel": 0.064181,
+              "nesting": 1
+            },
+            {
+              "category": "cache_tree",
+              "label": "write",
+              "t_rel": 0.000563,
+              "nesting": 2
+            },
+            {
+              "category": "index",
+              "label": "do_write_index",
+              "t_rel": 0.005662,
+              "nesting": 1
+            }
+          ],
+          "data": [
+            {
+              "category": "index",
+              "key": "read/version",
+              "value": "2"
+            },
+            {
+              "category": "index",
+              "key": "read/cache_nr",
+              "value": "8261"
+            },
+            {
+              "category": "index",
+              "key": "preload/sum_lstat",
+              "value": "8261"
+            },
+            {
+              "category": "read_directory",
+              "key": "path",
+              "value": ""
+            },
+            {
+              "category": "read_directory",
+              "key": "directories-visited",
+              "value": "2743"
+            },
+            {
+              "category": "read_directory",
+              "key": "paths-visited",
+              "value": "11007"
+            },
+            {
+              "category": "index",
+              "key": "write/version",
+              "value": "2"
+            },
+            {
+              "category": "index",
+              "key": "write/cache_nr",
+              "value": "8262"
+            }
+          ],
+          "wall_seconds": 0.092087
+        },
+        {
+          "argv": [
+            "git",
+            "diff",
+            "--cached"
+          ],
+          "regions": [
+            {
+              "category": "cache_tree",
+              "label": "read",
+              "t_rel": 0.000738,
+              "nesting": 2
+            },
+            {
+              "category": "index",
+              "label": "do_read_index",
+              "t_rel": 0.001683,
+              "nesting": 1
+            },
+            {
+              "category": "unpack_trees",
+              "label": "traverse_trees",
+              "t_rel": 0.000104,
+              "nesting": 2
+            },
+            {
+              "category": "unpack_trees",
+              "label": "unpack_trees",
+              "t_rel": 0.000213,
+              "nesting": 1
+            },
+            {
+              "category": "diff",
+              "label": "setup",
+              "t_rel": 9e-06,
+              "nesting": 1
+            },
+            {
+              "category": "diff",
+              "label": "write back to queue",
+              "t_rel": 7e-06,
+              "nesting": 1
+            }
+          ],
+          "data": [
+            {
+              "category": "index",
+              "key": "read/version",
+              "value": "2"
+            },
+            {
+              "category": "index",
+              "key": "read/cache_nr",
+              "value": "8262"
+            }
+          ],
+          "wall_seconds": 0.00463
+        }
+      ],
+      "vmstat_delta": {
+        "pgfault": 2781,
+        "pgmajfault": 9,
+        "pgpgin": 2356,
+        "pgpgout": 1044,
+        "pswpin": 0,
+        "pswpout": 0
+      },
+      "guest_iowait_ticks_delta": 4,
+      "stdout_sha256": "9a64ed707c224734715f7af4fea2d84f0b51d128e5c8d05535fc9de7d5b6162f",
+      "command_clock": {
+        "realtime_ns": 101853585,
+        "monotonic_raw_ns": 101853298,
+        "user_ns": 22878000,
+        "system_ns": 42069000,
+        "minor_faults": 1895,
+        "major_faults": 8,
+        "voluntary_switches": 367,
+        "involuntary_switches": 14,
+        "exit_code": 0
+      },
+      "realtime_minus_monotonic_ms": 0.000287,
+      "source_batch": ".artifacts/exp1-git-diagnostic/20260930T051737Z-2524298",
+      "original_runner_step_025_ms": 106.806716
+    },
+    {
+      "position": 3,
+      "label": "control_B",
+      "raw_dir": "/home/yyxie/agentenv_experiment/.artifacts/exp1-git-diagnostic/20260930T051737Z-2524298/run-03-control_B/raw/20260930T051818Z-2525558",
+      "wall_seconds": 0.066,
+      "user_seconds": 0.019,
+      "system_seconds": 0.046,
+      "wall_minus_summed_cpu_seconds": 0.0010000000000000009,
+      "commands": [
+        {
+          "argv": [
+            "git",
+            "add",
+            "-A"
+          ],
+          "regions": [
+            {
+              "category": "cache_tree",
+              "label": "read",
+              "t_rel": 0.000728,
+              "nesting": 2
+            },
+            {
+              "category": "index",
+              "label": "do_read_index",
+              "t_rel": 0.002508,
+              "nesting": 1
+            },
+            {
+              "category": "index",
+              "label": "preload",
+              "t_rel": 0.007705,
+              "nesting": 1
+            },
+            {
+              "category": "index",
+              "label": "name-hash-init",
+              "t_rel": 0.000838,
+              "nesting": 2
+            },
+            {
+              "category": "dir",
+              "label": "read_directory",
+              "t_rel": 0.030571,
+              "nesting": 1
+            },
+            {
+              "category": "cache_tree",
+              "label": "write",
+              "t_rel": 0.000513,
+              "nesting": 2
+            },
+            {
+              "category": "index",
+              "label": "do_write_index",
+              "t_rel": 0.005904,
+              "nesting": 1
+            }
+          ],
+          "data": [
+            {
+              "category": "index",
+              "key": "read/version",
+              "value": "2"
+            },
+            {
+              "category": "index",
+              "key": "read/cache_nr",
+              "value": "8261"
+            },
+            {
+              "category": "index",
+              "key": "preload/sum_lstat",
+              "value": "8261"
+            },
+            {
+              "category": "read_directory",
+              "key": "path",
+              "value": ""
+            },
+            {
+              "category": "read_directory",
+              "key": "directories-visited",
+              "value": "2743"
+            },
+            {
+              "category": "read_directory",
+              "key": "paths-visited",
+              "value": "11007"
+            },
+            {
+              "category": "index",
+              "key": "write/version",
+              "value": "2"
+            },
+            {
+              "category": "index",
+              "key": "write/cache_nr",
+              "value": "8262"
+            }
+          ],
+          "wall_seconds": 0.054282
+        },
+        {
+          "argv": [
+            "git",
+            "diff",
+            "--cached"
+          ],
+          "regions": [
+            {
+              "category": "cache_tree",
+              "label": "read",
+              "t_rel": 0.000727,
+              "nesting": 2
+            },
+            {
+              "category": "index",
+              "label": "do_read_index",
+              "t_rel": 0.001728,
+              "nesting": 1
+            },
+            {
+              "category": "unpack_trees",
+              "label": "traverse_trees",
+              "t_rel": 0.000114,
+              "nesting": 2
+            },
+            {
+              "category": "unpack_trees",
+              "label": "unpack_trees",
+              "t_rel": 0.000215,
+              "nesting": 1
+            },
+            {
+              "category": "diff",
+              "label": "setup",
+              "t_rel": 8e-06,
+              "nesting": 1
+            },
+            {
+              "category": "diff",
+              "label": "write back to queue",
+              "t_rel": 7e-06,
+              "nesting": 1
+            }
+          ],
+          "data": [
+            {
+              "category": "index",
+              "key": "read/version",
+              "value": "2"
+            },
+            {
+              "category": "index",
+              "key": "read/cache_nr",
+              "value": "8262"
+            }
+          ],
+          "wall_seconds": 0.003838
+        }
+      ],
+      "vmstat_delta": {
+        "pgfault": 2776,
+        "pgmajfault": 7,
+        "pgpgin": 1076,
+        "pgpgout": 1044,
+        "pswpin": 0,
+        "pswpout": 0
+      },
+      "guest_iowait_ticks_delta": 0,
+      "stdout_sha256": "9a64ed707c224734715f7af4fea2d84f0b51d128e5c8d05535fc9de7d5b6162f",
+      "command_clock": {
+        "realtime_ns": 63187054,
+        "monotonic_raw_ns": 63186763,
+        "user_ns": 17614000,
+        "system_ns": 46370000,
+        "minor_faults": 1890,
+        "major_faults": 7,
+        "voluntary_switches": 50,
+        "involuntary_switches": 12,
+        "exit_code": 0
+      },
+      "realtime_minus_monotonic_ms": 0.000291,
+      "source_batch": ".artifacts/exp1-git-diagnostic/20260930T051737Z-2524298",
+      "original_runner_step_025_ms": 67.769206
+    },
+    {
+      "position": 4,
+      "label": "light",
+      "raw_dir": "/home/yyxie/agentenv_experiment/.artifacts/exp1-git-diagnostic/20260930T051737Z-2524298/run-04-light/raw/20260930T051837Z-2526161",
+      "wall_seconds": 0.066,
+      "user_seconds": 0.028,
+      "system_seconds": 0.035,
+      "wall_minus_summed_cpu_seconds": 0.0030000000000000027,
+      "commands": [
+        {
+          "argv": [
+            "git",
+            "add",
+            "-A"
+          ],
+          "regions": [
+            {
+              "category": "cache_tree",
+              "label": "read",
+              "t_rel": 0.000724,
+              "nesting": 2
+            },
+            {
+              "category": "index",
+              "label": "do_read_index",
+              "t_rel": 0.001682,
+              "nesting": 1
+            },
+            {
+              "category": "index",
+              "label": "preload",
+              "t_rel": 0.007714,
+              "nesting": 1
+            },
+            {
+              "category": "index",
+              "label": "name-hash-init",
+              "t_rel": 0.000818,
+              "nesting": 2
+            },
+            {
+              "category": "dir",
+              "label": "read_directory",
+              "t_rel": 0.029654,
+              "nesting": 1
+            },
+            {
+              "category": "cache_tree",
+              "label": "write",
+              "t_rel": 0.000499,
+              "nesting": 2
+            },
+            {
+              "category": "index",
+              "label": "do_write_index",
+              "t_rel": 0.006215,
+              "nesting": 1
+            }
+          ],
+          "data": [
+            {
+              "category": "index",
+              "key": "read/version",
+              "value": "2"
+            },
+            {
+              "category": "index",
+              "key": "read/cache_nr",
+              "value": "8261"
+            },
+            {
+              "category": "index",
+              "key": "preload/sum_lstat",
+              "value": "8261"
+            },
+            {
+              "category": "read_directory",
+              "key": "path",
+              "value": ""
+            },
+            {
+              "category": "read_directory",
+              "key": "directories-visited",
+              "value": "2743"
+            },
+            {
+              "category": "read_directory",
+              "key": "paths-visited",
+              "value": "11007"
+            },
+            {
+              "category": "index",
+              "key": "write/version",
+              "value": "2"
+            },
+            {
+              "category": "index",
+              "key": "write/cache_nr",
+              "value": "8262"
+            }
+          ],
+          "wall_seconds": 0.055916
+        },
+        {
+          "argv": [
+            "git",
+            "diff",
+            "--cached"
+          ],
+          "regions": [
+            {
+              "category": "cache_tree",
+              "label": "read",
+              "t_rel": 0.00072,
+              "nesting": 2
+            },
+            {
+              "category": "index",
+              "label": "do_read_index",
+              "t_rel": 0.001721,
+              "nesting": 1
+            },
+            {
+              "category": "unpack_trees",
+              "label": "traverse_trees",
+              "t_rel": 0.000114,
+              "nesting": 2
+            },
+            {
+              "category": "unpack_trees",
+              "label": "unpack_trees",
+              "t_rel": 0.000218,
+              "nesting": 1
+            },
+            {
+              "category": "diff",
+              "label": "setup",
+              "t_rel": 1.3e-05,
+              "nesting": 1
+            },
+            {
+              "category": "diff",
+              "label": "write back to queue",
+              "t_rel": 7e-06,
+              "nesting": 1
+            }
+          ],
+          "data": [
+            {
+              "category": "index",
+              "key": "read/version",
+              "value": "2"
+            },
+            {
+              "category": "index",
+              "key": "read/cache_nr",
+              "value": "8262"
+            }
+          ],
+          "wall_seconds": 0.003837
+        }
+      ],
+      "vmstat_delta": {
+        "pgfault": 2763,
+        "pgmajfault": 0,
+        "pgpgin": 0,
+        "pgpgout": 1044,
+        "pswpin": 0,
+        "pswpout": 0
+      },
+      "guest_iowait_ticks_delta": 1,
+      "stdout_sha256": "9a64ed707c224734715f7af4fea2d84f0b51d128e5c8d05535fc9de7d5b6162f",
+      "command_clock": {
+        "realtime_ns": 64652640,
+        "monotonic_raw_ns": 64652327,
+        "user_ns": 27132000,
+        "system_ns": 35014000,
+        "minor_faults": 1899,
+        "major_faults": 1,
+        "voluntary_switches": 74,
+        "involuntary_switches": 12,
+        "exit_code": 0
+      },
+      "realtime_minus_monotonic_ms": 0.000313,
+      "source_batch": ".artifacts/exp1-git-diagnostic/20260930T051737Z-2524298",
+      "original_runner_step_025_ms": 67.512185
+    },
+    {
+      "position": 5,
+      "label": "light",
+      "raw_dir": "/home/yyxie/agentenv_experiment/.artifacts/exp1-git-diagnostic/20260930T051737Z-2524298/run-05-light/raw/20260930T051858Z-2526813",
+      "wall_seconds": 0.068,
+      "user_seconds": 0.026,
+      "system_seconds": 0.038,
+      "wall_minus_summed_cpu_seconds": 0.0040000000000000105,
+      "commands": [
+        {
+          "argv": [
+            "git",
+            "add",
+            "-A"
+          ],
+          "regions": [
+            {
+              "category": "cache_tree",
+              "label": "read",
+              "t_rel": 0.000891,
+              "nesting": 2
+            },
+            {
+              "category": "index",
+              "label": "do_read_index",
+              "t_rel": 0.0021,
+              "nesting": 1
+            },
+            {
+              "category": "index",
+              "label": "preload",
+              "t_rel": 0.007227,
+              "nesting": 1
+            },
+            {
+              "category": "index",
+              "label": "name-hash-init",
+              "t_rel": 0.000811,
+              "nesting": 2
+            },
+            {
+              "category": "dir",
+              "label": "read_directory",
+              "t_rel": 0.034531,
+              "nesting": 1
+            },
+            {
+              "category": "cache_tree",
+              "label": "write",
+              "t_rel": 0.000506,
+              "nesting": 2
+            },
+            {
+              "category": "index",
+              "label": "do_write_index",
+              "t_rel": 0.005749,
+              "nesting": 1
+            }
+          ],
+          "data": [
+            {
+              "category": "index",
+              "key": "read/version",
+              "value": "2"
+            },
+            {
+              "category": "index",
+              "key": "read/cache_nr",
+              "value": "8261"
+            },
+            {
+              "category": "index",
+              "key": "preload/sum_lstat",
+              "value": "8261"
+            },
+            {
+              "category": "read_directory",
+              "key": "path",
+              "value": ""
+            },
+            {
+              "category": "read_directory",
+              "key": "directories-visited",
+              "value": "2743"
+            },
+            {
+              "category": "read_directory",
+              "key": "paths-visited",
+              "value": "11007"
+            },
+            {
+              "category": "index",
+              "key": "write/version",
+              "value": "2"
+            },
+            {
+              "category": "index",
+              "key": "write/cache_nr",
+              "value": "8262"
+            }
+          ],
+          "wall_seconds": 0.056052
+        },
+        {
+          "argv": [
+            "git",
+            "diff",
+            "--cached"
+          ],
+          "regions": [
+            {
+              "category": "cache_tree",
+              "label": "read",
+              "t_rel": 0.000792,
+              "nesting": 2
+            },
+            {
+              "category": "index",
+              "label": "do_read_index",
+              "t_rel": 0.001692,
+              "nesting": 1
+            },
+            {
+              "category": "unpack_trees",
+              "label": "traverse_trees",
+              "t_rel": 0.000113,
+              "nesting": 2
+            },
+            {
+              "category": "unpack_trees",
+              "label": "unpack_trees",
+              "t_rel": 0.000228,
+              "nesting": 1
+            },
+            {
+              "category": "diff",
+              "label": "setup",
+              "t_rel": 8e-06,
+              "nesting": 1
+            },
+            {
+              "category": "diff",
+              "label": "write back to queue",
+              "t_rel": 7e-06,
+              "nesting": 1
+            }
+          ],
+          "data": [
+            {
+              "category": "index",
+              "key": "read/version",
+              "value": "2"
+            },
+            {
+              "category": "index",
+              "key": "read/cache_nr",
+              "value": "8262"
+            }
+          ],
+          "wall_seconds": 0.003806
+        }
+      ],
+      "vmstat_delta": {
+        "pgfault": 2776,
+        "pgmajfault": 6,
+        "pgpgin": 964,
+        "pgpgout": 1044,
+        "pswpin": 0,
+        "pswpout": 0
+      },
+      "guest_iowait_ticks_delta": 1,
+      "stdout_sha256": "9a64ed707c224734715f7af4fea2d84f0b51d128e5c8d05535fc9de7d5b6162f",
+      "command_clock": {
+        "realtime_ns": 65027222,
+        "monotonic_raw_ns": 65026806,
+        "user_ns": 24886000,
+        "system_ns": 37958000,
+        "minor_faults": 1896,
+        "major_faults": 4,
+        "voluntary_switches": 86,
+        "involuntary_switches": 11,
+        "exit_code": 0
+      },
+      "realtime_minus_monotonic_ms": 0.000416,
+      "source_batch": ".artifacts/exp1-git-diagnostic/20260930T051737Z-2524298",
+      "original_runner_step_025_ms": 69.601704
+    },
+    {
+      "position": 6,
+      "label": "control_B",
+      "raw_dir": "/home/yyxie/agentenv_experiment/.artifacts/exp1-git-diagnostic/20260930T051737Z-2524298/run-06-control_B/raw/20260930T051916Z-2527488",
+      "wall_seconds": 0.066,
+      "user_seconds": 0.025,
+      "system_seconds": 0.04,
+      "wall_minus_summed_cpu_seconds": 0.0010000000000000009,
+      "commands": [
+        {
+          "argv": [
+            "git",
+            "add",
+            "-A"
+          ],
+          "regions": [
+            {
+              "category": "cache_tree",
+              "label": "read",
+              "t_rel": 0.000731,
+              "nesting": 2
+            },
+            {
+              "category": "index",
+              "label": "do_read_index",
+              "t_rel": 0.001759,
+              "nesting": 1
+            },
+            {
+              "category": "index",
+              "label": "preload",
+              "t_rel": 0.007629,
+              "nesting": 1
+            },
+            {
+              "category": "index",
+              "label": "name-hash-init",
+              "t_rel": 0.000835,
+              "nesting": 2
+            },
+            {
+              "category": "dir",
+              "label": "read_directory",
+              "t_rel": 0.030718,
+              "nesting": 1
+            },
+            {
+              "category": "cache_tree",
+              "label": "write",
+              "t_rel": 0.000523,
+              "nesting": 2
+            },
+            {
+              "category": "index",
+              "label": "do_write_index",
+              "t_rel": 0.005566,
+              "nesting": 1
+            }
+          ],
+          "data": [
+            {
+              "category": "index",
+              "key": "read/version",
+              "value": "2"
+            },
+            {
+              "category": "index",
+              "key": "read/cache_nr",
+              "value": "8261"
+            },
+            {
+              "category": "index",
+              "key": "preload/sum_lstat",
+              "value": "8261"
+            },
+            {
+              "category": "read_directory",
+              "key": "path",
+              "value": ""
+            },
+            {
+              "category": "read_directory",
+              "key": "directories-visited",
+              "value": "2743"
+            },
+            {
+              "category": "read_directory",
+              "key": "paths-visited",
+              "value": "11007"
+            },
+            {
+              "category": "index",
+              "key": "write/version",
+              "value": "2"
+            },
+            {
+              "category": "index",
+              "key": "write/cache_nr",
+              "value": "8262"
+            }
+          ],
+          "wall_seconds": 0.053026
+        },
+        {
+          "argv": [
+            "git",
+            "diff",
+            "--cached"
+          ],
+          "regions": [
+            {
+              "category": "cache_tree",
+              "label": "read",
+              "t_rel": 0.000754,
+              "nesting": 2
+            },
+            {
+              "category": "index",
+              "label": "do_read_index",
+              "t_rel": 0.001716,
+              "nesting": 1
+            },
+            {
+              "category": "unpack_trees",
+              "label": "traverse_trees",
+              "t_rel": 0.000372,
+              "nesting": 2
+            },
+            {
+              "category": "unpack_trees",
+              "label": "unpack_trees",
+              "t_rel": 0.000487,
+              "nesting": 1
+            },
+            {
+              "category": "diff",
+              "label": "setup",
+              "t_rel": 1e-05,
+              "nesting": 1
+            },
+            {
+              "category": "diff",
+              "label": "write back to queue",
+              "t_rel": 8e-06,
+              "nesting": 1
+            }
+          ],
+          "data": [
+            {
+              "category": "index",
+              "key": "read/version",
+              "value": "2"
+            },
+            {
+              "category": "index",
+              "key": "read/cache_nr",
+              "value": "8262"
+            }
+          ],
+          "wall_seconds": 0.004154
+        }
+      ],
+      "vmstat_delta": {
+        "pgfault": 2769,
+        "pgmajfault": 4,
+        "pgpgin": 840,
+        "pgpgout": 1044,
+        "pswpin": 0,
+        "pswpout": 0
+      },
+      "guest_iowait_ticks_delta": 1,
+      "stdout_sha256": "9a64ed707c224734715f7af4fea2d84f0b51d128e5c8d05535fc9de7d5b6162f",
+      "command_clock": {
+        "realtime_ns": 62369029,
+        "monotonic_raw_ns": 62368643,
+        "user_ns": 23948000,
+        "system_ns": 40195000,
+        "minor_faults": 1894,
+        "major_faults": 2,
+        "voluntary_switches": 46,
+        "involuntary_switches": 10,
+        "exit_code": 0
+      },
+      "realtime_minus_monotonic_ms": 0.000386,
+      "source_batch": ".artifacts/exp1-git-diagnostic/20260930T051737Z-2524298",
+      "original_runner_step_025_ms": 67.152402
+    },
+    {
+      "position": 7,
+      "label": "control_A",
+      "raw_dir": "/home/yyxie/agentenv_experiment/.artifacts/exp1-git-diagnostic/20260930T051737Z-2524298/run-07-control_A/raw/20260930T051934Z-2528076",
+      "wall_seconds": 0.065,
+      "user_seconds": 0.041,
+      "system_seconds": 0.024,
+      "wall_minus_summed_cpu_seconds": 0.0,
+      "commands": [
+        {
+          "argv": [
+            "git",
+            "add",
+            "-A"
+          ],
+          "regions": [
+            {
+              "category": "cache_tree",
+              "label": "read",
+              "t_rel": 0.000741,
+              "nesting": 2
+            },
+            {
+              "category": "index",
+              "label": "do_read_index",
+              "t_rel": 0.001774,
+              "nesting": 1
+            },
+            {
+              "category": "index",
+              "label": "preload",
+              "t_rel": 0.007884,
+              "nesting": 1
+            },
+            {
+              "category": "index",
+              "label": "name-hash-init",
+              "t_rel": 0.000863,
+              "nesting": 2
+            },
+            {
+              "category": "dir",
+              "label": "read_directory",
+              "t_rel": 0.030314,
+              "nesting": 1
+            },
+            {
+              "category": "cache_tree",
+              "label": "write",
+              "t_rel": 0.00051,
+              "nesting": 2
+            },
+            {
+              "category": "index",
+              "label": "do_write_index",
+              "t_rel": 0.005775,
+              "nesting": 1
+            }
+          ],
+          "data": [
+            {
+              "category": "index",
+              "key": "read/version",
+              "value": "2"
+            },
+            {
+              "category": "index",
+              "key": "read/cache_nr",
+              "value": "8261"
+            },
+            {
+              "category": "index",
+              "key": "preload/sum_lstat",
+              "value": "8261"
+            },
+            {
+              "category": "read_directory",
+              "key": "path",
+              "value": ""
+            },
+            {
+              "category": "read_directory",
+              "key": "directories-visited",
+              "value": "2743"
+            },
+            {
+              "category": "read_directory",
+              "key": "paths-visited",
+              "value": "11007"
+            },
+            {
+              "category": "index",
+              "key": "write/version",
+              "value": "2"
+            },
+            {
+              "category": "index",
+              "key": "write/cache_nr",
+              "value": "8262"
+            }
+          ],
+          "wall_seconds": 0.052713
+        },
+        {
+          "argv": [
+            "git",
+            "diff",
+            "--cached"
+          ],
+          "regions": [
+            {
+              "category": "cache_tree",
+              "label": "read",
+              "t_rel": 0.000732,
+              "nesting": 2
+            },
+            {
+              "category": "index",
+              "label": "do_read_index",
+              "t_rel": 0.001748,
+              "nesting": 1
+            },
+            {
+              "category": "unpack_trees",
+              "label": "traverse_trees",
+              "t_rel": 0.000114,
+              "nesting": 2
+            },
+            {
+              "category": "unpack_trees",
+              "label": "unpack_trees",
+              "t_rel": 0.000215,
+              "nesting": 1
+            },
+            {
+              "category": "diff",
+              "label": "setup",
+              "t_rel": 9e-06,
+              "nesting": 1
+            },
+            {
+              "category": "diff",
+              "label": "write back to queue",
+              "t_rel": 7e-06,
+              "nesting": 1
+            }
+          ],
+          "data": [
+            {
+              "category": "index",
+              "key": "read/version",
+              "value": "2"
+            },
+            {
+              "category": "index",
+              "key": "read/cache_nr",
+              "value": "8262"
+            }
+          ],
+          "wall_seconds": 0.003839
+        }
+      ],
+      "vmstat_delta": {
+        "pgfault": 2768,
+        "pgmajfault": 3,
+        "pgpgin": 784,
+        "pgpgout": 1044,
+        "pswpin": 0,
+        "pswpout": 0
+      },
+      "guest_iowait_ticks_delta": 1,
+      "stdout_sha256": "9a64ed707c224734715f7af4fea2d84f0b51d128e5c8d05535fc9de7d5b6162f",
+      "command_clock": {
+        "realtime_ns": 61793793,
+        "monotonic_raw_ns": 61793395,
+        "user_ns": 39609000,
+        "system_ns": 23901000,
+        "minor_faults": 1896,
+        "major_faults": 1,
+        "voluntary_switches": 45,
+        "involuntary_switches": 15,
+        "exit_code": 0
+      },
+      "realtime_minus_monotonic_ms": 0.000398,
+      "source_batch": ".artifacts/exp1-git-diagnostic/20260930T051737Z-2524298",
+      "original_runner_step_025_ms": 66.538496
+    },
+    {
+      "position": 8,
+      "label": "off",
+      "raw_dir": "/home/yyxie/agentenv_experiment/.artifacts/exp1-git-diagnostic/20260930T051737Z-2524298/run-08-off/raw/20260930T051952Z-2528648",
+      "wall_seconds": 0.066,
+      "user_seconds": 0.032,
+      "system_seconds": 0.034,
+      "wall_minus_summed_cpu_seconds": 0.0,
+      "commands": [
+        {
+          "argv": [
+            "git",
+            "add",
+            "-A"
+          ],
+          "regions": [
+            {
+              "category": "cache_tree",
+              "label": "read",
+              "t_rel": 0.000711,
+              "nesting": 2
+            },
+            {
+              "category": "index",
+              "label": "do_read_index",
+              "t_rel": 0.001737,
+              "nesting": 1
+            },
+            {
+              "category": "index",
+              "label": "preload",
+              "t_rel": 0.007684,
+              "nesting": 1
+            },
+            {
+              "category": "index",
+              "label": "name-hash-init",
+              "t_rel": 0.000841,
+              "nesting": 2
+            },
+            {
+              "category": "dir",
+              "label": "read_directory",
+              "t_rel": 0.0304,
+              "nesting": 1
+            },
+            {
+              "category": "cache_tree",
+              "label": "write",
+              "t_rel": 0.000527,
+              "nesting": 2
+            },
+            {
+              "category": "index",
+              "label": "do_write_index",
+              "t_rel": 0.00575,
+              "nesting": 1
+            }
+          ],
+          "data": [
+            {
+              "category": "index",
+              "key": "read/version",
+              "value": "2"
+            },
+            {
+              "category": "index",
+              "key": "read/cache_nr",
+              "value": "8261"
+            },
+            {
+              "category": "index",
+              "key": "preload/sum_lstat",
+              "value": "8261"
+            },
+            {
+              "category": "read_directory",
+              "key": "path",
+              "value": ""
+            },
+            {
+              "category": "read_directory",
+              "key": "directories-visited",
+              "value": "2743"
+            },
+            {
+              "category": "read_directory",
+              "key": "paths-visited",
+              "value": "11007"
+            },
+            {
+              "category": "index",
+              "key": "write/version",
+              "value": "2"
+            },
+            {
+              "category": "index",
+              "key": "write/cache_nr",
+              "value": "8262"
+            }
+          ],
+          "wall_seconds": 0.053333
+        },
+        {
+          "argv": [
+            "git",
+            "diff",
+            "--cached"
+          ],
+          "regions": [
+            {
+              "category": "cache_tree",
+              "label": "read",
+              "t_rel": 0.000734,
+              "nesting": 2
+            },
+            {
+              "category": "index",
+              "label": "do_read_index",
+              "t_rel": 0.001678,
+              "nesting": 1
+            },
+            {
+              "category": "unpack_trees",
+              "label": "traverse_trees",
+              "t_rel": 0.000117,
+              "nesting": 2
+            },
+            {
+              "category": "unpack_trees",
+              "label": "unpack_trees",
+              "t_rel": 0.000222,
+              "nesting": 1
+            },
+            {
+              "category": "diff",
+              "label": "setup",
+              "t_rel": 9e-06,
+              "nesting": 1
+            },
+            {
+              "category": "diff",
+              "label": "write back to queue",
+              "t_rel": 7e-06,
+              "nesting": 1
+            }
+          ],
+          "data": [
+            {
+              "category": "index",
+              "key": "read/version",
+              "value": "2"
+            },
+            {
+              "category": "index",
+              "key": "read/cache_nr",
+              "value": "8262"
+            }
+          ],
+          "wall_seconds": 0.003824
+        }
+      ],
+      "vmstat_delta": {
+        "pgfault": 2756,
+        "pgmajfault": 3,
+        "pgpgin": 784,
+        "pgpgout": 1044,
+        "pswpin": 0,
+        "pswpout": 0
+      },
+      "guest_iowait_ticks_delta": 1,
+      "stdout_sha256": "9a64ed707c224734715f7af4fea2d84f0b51d128e5c8d05535fc9de7d5b6162f",
+      "command_clock": {
+        "realtime_ns": 62627467,
+        "monotonic_raw_ns": 62627166,
+        "user_ns": 31589000,
+        "system_ns": 32526000,
+        "minor_faults": 1893,
+        "major_faults": 1,
+        "voluntary_switches": 48,
+        "involuntary_switches": 9,
+        "exit_code": 0
+      },
+      "realtime_minus_monotonic_ms": 0.000301,
+      "source_batch": ".artifacts/exp1-git-diagnostic/20260930T051737Z-2524298",
+      "original_runner_step_025_ms": 67.456064
+    }
+  ],
+  "evidence": [
+    {
+      "directory": ".artifacts/exp1-git-diagnostic/20260930T051609Z-2523224",
+      "result_sha256": "1c0252de9b117f76b5d39aac55653f68e0b7e3a128eb715b016ce4e8f321a3d6",
+      "clock_binary_sha256": "e64dcf25ab468433898e2f8fc16cde7ad11b112aab542a14404e54e9657fd4e6"
+    },
+    {
+      "directory": ".artifacts/exp1-git-diagnostic/20260930T051737Z-2524298",
+      "result_sha256": "59e3a8e97f5ddceb53976d6cc2e379834399be44c91a1efceed6d7dfd7a35d73",
+      "clock_binary_sha256": "e64dcf25ab468433898e2f8fc16cde7ad11b112aab542a14404e54e9657fd4e6"
+    }
+  ],
+  "max_abs_realtime_minus_monotonic_ms": 0.000416,
+  "all_stdout_equal": true,
+  "scope": "Git/dual-clock diagnostic only; no monitoring overhead acceptance",
+  "configuration": {
+    "seed": 20260930,
+    "balanced_order": [
+      "off",
+      "control_A",
+      "control_B",
+      "light",
+      "light",
+      "control_B",
+      "control_A",
+      "off"
+    ],
+    "vcpu_binding": [
+      2,
+      4
+    ],
+    "policy_cpus": [
+      2,
+      4,
+      66,
+      68
+    ],
+    "requested_min_max_khz": 2000000,
+    "settle_seconds": 10
+  },
+  "limitations": [
+    "Clock agreement covers C wrapper command interval only, not outer date or full task window",
+    "Clock and Git tracing add unquantified overhead",
+    "Child rusage includes timeout/bash/Git descendants, not one Git phase",
+    "Faults/context switches do not alone attribute exact wait or distinguish host scheduling from file I/O",
+    "Original 340ms case not reproduced; cannot generalize this interval check to all historical results",
+    "Full official task tests NOT_RUN"
+  ]
+}

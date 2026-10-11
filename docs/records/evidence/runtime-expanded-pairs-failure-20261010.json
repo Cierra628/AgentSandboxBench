@@ -1,0 +1,111 @@
+{
+  "status": "FAIL",
+  "verification_status": "PASS",
+  "scope": "second formal pair stopped outside the approved first-step exception; not a completed five-pair cost estimate",
+  "source_directory": ".artifacts/storage-isolated-service/20261010T050818Z-133209",
+  "formal_directory": ".artifacts/runtime-monitor-pairs/20261010T050511Z-124782",
+  "planned_pairs": 5,
+  "completed_pairs": 1,
+  "second_pair_continuous_completed": true,
+  "cache_released": true,
+  "failed_stage": "remaining-frozen-segments",
+  "executed_actions": 22,
+  "remaining_actions_not_run": 13,
+  "official_tests": "NOT_RUN",
+  "monitor_mode": "off",
+  "sampler_absent": true,
+  "segments": [
+    "read_repo",
+    "trace_cpp_parser",
+    "core_patch"
+  ],
+  "exit_differences": [
+    {
+      "global_step": 14,
+      "segment": "core_patch",
+      "step": "001",
+      "expected": 141,
+      "actual": 0,
+      "command_sha256": "30a9a23d8d5d3f43a51a5904f65dfe97f9136e5ba6aa8d62e2f3c9b7501a7d4b",
+      "stdout_sha256": "7335217a4c4e4d886ff4472f0622133c195e987c5cdf6e1b35170109dd7559f5",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  ],
+  "all_executed_stdout_stderr_equal_reference": true,
+  "all_completed_segment_patches_equal_reference": true,
+  "first_complete_pair_metrics": {
+    "guest_action_seconds": {
+      "off_seconds": [
+        10.796190633
+      ],
+      "continuous_seconds": [
+        10.749014037
+      ],
+      "paired_percent": [
+        -0.43697446260163586
+      ],
+      "mean_paired_percent": -0.43697446260163586,
+      "median_paired_percent": -0.43697446260163586,
+      "min_paired_percent": -0.43697446260163586,
+      "max_paired_percent": -0.43697446260163586,
+      "bootstrap_mean_95_percent_interval": null,
+      "off_cv_percent": null,
+      "continuous_cv_percent": null
+    },
+    "frozen_replay_seconds": {
+      "off_seconds": [
+        13.364727552
+      ],
+      "continuous_seconds": [
+        14.020820956
+      ],
+      "paired_percent": [
+        4.909141630065017
+      ],
+      "mean_paired_percent": 4.909141630065017,
+      "median_paired_percent": 4.909141630065017,
+      "min_paired_percent": 4.909141630065017,
+      "max_paired_percent": 4.909141630065017,
+      "bootstrap_mean_95_percent_interval": null,
+      "off_cv_percent": null,
+      "continuous_cv_percent": null
+    },
+    "lifecycle_seconds": {
+      "off_seconds": [
+        23.841131159
+      ],
+      "continuous_seconds": [
+        25.551511093
+      ],
+      "paired_percent": [
+        7.174072079857385
+      ],
+      "mean_paired_percent": 7.174072079857385,
+      "median_paired_percent": 7.174072079857385,
+      "min_paired_percent": 7.174072079857385,
+      "max_paired_percent": 7.174072079857385,
+      "bootstrap_mean_95_percent_interval": null,
+      "off_cv_percent": null,
+      "continuous_cv_percent": null
+    }
+  },
+  "statistics_limits": "one complete formal pair plus an unmatched on run; aborted series and selection prevent five-pair or stable overhead claims; pilot remains separate",
+  "cleanup": {
+    "owned_container_removed": true,
+    "mount_and_loop_removed": true,
+    "failed_fixture_retained": true,
+    "original_firecracker_identities_unchanged": true,
+    "original_service_unchanged": true
+  },
+  "backup": {
+    "source_sha256": "adfcc97f22f8eca2393b28cf887abba05b4eb706b4f9b0741e87fa4ff19f4df8",
+    "backup_sha256": "8707177f671a9815ac00fedb009faffaf0d093cb8ca92a89cda4f9ca68262dc4",
+    "uncompressed_bytes": 8589934592,
+    "compressed_bytes": 83974965,
+    "source_retained": true
+  },
+  "raw_files": 395,
+  "raw_hashes_unchanged": true,
+  "diagnostic_limits": "No PIPESTATUS captured in failed guest. Similar grep/head behavior is an hypothesis; an off run does not establish causal attribution.",
+  "next_step": "Discuss a separately pinned core_patch/001 diagnostic policy; no other exit relaxation; preserve original strict failure and incomplete study"
+}

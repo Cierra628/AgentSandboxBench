@@ -1,0 +1,50 @@
+{
+  "scope": "one four-page file from real checkpoint; not a complete Exp1 replay",
+  "runs": [
+    {
+      "run_id": "20260929T030746Z-2366128",
+      "status": "PASS",
+      "cleanup": "PASS",
+      "snapshot_archive": "PASS",
+      "content_accounting": {
+        "status": "PASS",
+        "file_cache_unique_pages": 4,
+        "verified_anonymous_unique_pages": 1,
+        "unknown_unique_pages": 0,
+        "attributed_physical_bytes": 20480,
+        "scope": "resident declared mappings only; includes full allocated tail page; not total backing cache"
+      },
+      "scan_elapsed_ns": 7968555,
+      "direct_before_read_cached_pages": 0,
+      "restored_before_read_cached_pages": 4,
+      "observed_min_free_gib": 39.35084915161133,
+      "offline_audit": "PASS"
+    },
+    {
+      "run_id": "20260929T030848Z-2366619",
+      "status": "PASS",
+      "cleanup": "PASS",
+      "snapshot_archive": "PASS",
+      "content_accounting": {
+        "status": "PASS",
+        "file_cache_unique_pages": 4,
+        "verified_anonymous_unique_pages": 0,
+        "unknown_unique_pages": 0,
+        "attributed_physical_bytes": 16384,
+        "scope": "resident declared mappings only; includes full allocated tail page; not total backing cache"
+      },
+      "scan_elapsed_ns": 8205375,
+      "direct_before_read_cached_pages": 4,
+      "restored_before_read_cached_pages": 4,
+      "observed_min_free_gib": 39.016536712646484,
+      "offline_audit": "PASS"
+    }
+  ],
+  "remaining_free_gib": 43.01633834838867,
+  "limitations": [
+    "anonymous content verification can warm backing cache",
+    "declared mapped pages only; not all host cache",
+    "cgroup contains other session members; not task memory",
+    "no full Exp1 run: free disk below 48 GiB"
+  ]
+}

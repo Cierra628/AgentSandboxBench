@@ -1,0 +1,130 @@
+{
+  "status": "PASS",
+  "scope": "independent closeout; new host physical memory measurement NOT_MEASURED",
+  "tests": {
+    "count": 17,
+    "exit_codes": {
+      "test_trenvx_kvm_capture.py": 0,
+      "test_trenvx_named_guest_files.py": 0,
+      "test_named_guest_file_physical.py": 0
+    }
+  },
+  "capture_fixture": {
+    "status": "PASS",
+    "raw_dir": ".artifacts/trenvx-kvm-capture/20261005T144230Z-3234917",
+    "page_bytes": 4096,
+    "foreign_namespace_excluded": true,
+    "scope": "one owned KVM registration; declared fixture range, no guest boot, no sandbox memory result",
+    "result_sha256": "9c9d8341eddb6bf39b831d106febff5d254d5022790bd865aab5d35e783da6e4"
+  },
+  "runs": [
+    {
+      "run_id": "20261005T145029Z-3235785",
+      "status": "FAIL",
+      "raw_dir": ".artifacts/trenvx-service-smoke/20261005T145029Z-3235785",
+      "error": "AssertionError('named-wait-ready: exit 1')",
+      "frozen_actions": 26,
+      "expected_failures": {
+        "008": 127,
+        "016": 127
+      },
+      "official_task_assertions": 4,
+      "full_official_suite": "NOT_RUN",
+      "host_physical_bytes": null,
+      "host_physical_status": "NOT_MEASURED",
+      "runner_controller_elapsed_ns": 3376750195,
+      "guest_tool_sum_ns": 1747627114,
+      "capture_shutdown": "PASS",
+      "sdk_cleanup": "PASS",
+      "service_shutdown": "PASS",
+      "host_cleanup": "PASS",
+      "archive_bytes": 3158136273,
+      "archive_sha256": "118995a23bb94ec8a869eb8e4e46058a88245dd864aaa565dc9b202f3602372f",
+      "archive_verification": "PASS",
+      "minimum_observed_free_bytes": 32082714624
+    },
+    {
+      "run_id": "20261005T145656Z-3236700",
+      "status": "FAIL",
+      "raw_dir": ".artifacts/trenvx-service-smoke/20261005T145656Z-3236700",
+      "error": "AssertionError()",
+      "frozen_actions": 26,
+      "expected_failures": {
+        "008": 127,
+        "016": 127
+      },
+      "official_task_assertions": 4,
+      "full_official_suite": "NOT_RUN",
+      "host_physical_bytes": null,
+      "host_physical_status": "NOT_MEASURED",
+      "runner_controller_elapsed_ns": 3002731476,
+      "guest_tool_sum_ns": 1530818522,
+      "capture_shutdown": "PASS",
+      "sdk_cleanup": "PASS",
+      "service_shutdown": "PASS",
+      "host_cleanup": "PASS",
+      "archive_bytes": 3158138748,
+      "archive_sha256": "be5655f46508067258b359aed801aebae50f1f1f9be9e9793b91fb1c6572ab35",
+      "archive_verification": "PASS",
+      "minimum_observed_free_bytes": 28920737792
+    }
+  ],
+  "mapping_diagnosis": {
+    "status": "PASS",
+    "scope": "offline source/map identity check only; repair not validated in a live VM",
+    "path": "/testbed/src/language-html/utils/index.js",
+    "visible_device": 21,
+    "mapped_device": 65024,
+    "logical_file_bytes": 16198,
+    "initially_resident_guest_pages": 4,
+    "guest_file_lru_pages": 4,
+    "host_physical_bytes": null
+  },
+  "legacy_recounts": [
+    {
+      "run_id": "20261001T144843Z-3014019",
+      "bytes": 16384,
+      "status": "PASS"
+    },
+    {
+      "run_id": "20261001T145206Z-3015223",
+      "bytes": 36864,
+      "status": "PASS"
+    }
+  ],
+  "preserved_public_hashes": {
+    "file-origins-20261005.json": "648b347eba31b96486bfd606a322823d4aa5b124dd45f0797b992a0f80b314be",
+    "guest-collector-calibration-20261005.json": "797cee2988aea410eba9e6ac811a70fe26e16693cc4339d84192d91f19f3daaf"
+  },
+  "storage": {
+    "status": "BLOCKED",
+    "free_bytes": 40799629312,
+    "remaining_runs": 1,
+    "launch_margin_bytes": 42949672960,
+    "retained_bytes_per_run": 134217728,
+    "required_free_bytes": 43083890688,
+    "shortfall_bytes": 2284261376,
+    "scope": "serial successful non-checkpoint runs discard private images; 128 MiB raw-result allowance per run; stop on failure, oversized results or disk guard; failed images still use verified archive or remain for diagnosis"
+  },
+  "cpu_policies": "UNCHANGED",
+  "git_staged": [],
+  "final_validation": {
+    "status": "PASS",
+    "final_code_sha256": {
+      "smoke_trenvx_service.py": "d597133ca1f2bbb911b00b443032d6b77128d2fb11602b3d28f7ffc53d712fee",
+      "trenvx_named_guest_files.py": "951a413f3e224d14a83147f19d51fd96d8150957a1d00e67652dda55ea49cce8",
+      "run_trenvx_file_origins.py": "f48b42a9fd19fb014625243d0146af674f7b38973d79f0a626ab3fbda718a78c",
+      "replay_trenvx_exp1.py": "a515ca7f49383439cdf649624363a315f36be255b10c9a5bd8fb2b0d0c47fde1",
+      "smoke_trenvx_kvm_capture.py": "caef0f77c9f36b97275ea19da476f6764b39d64b9bc42e2e133d1dac0a9dbf28",
+      "trenvx_kvm_capture.py": "2173367cd4cac8b58167a5667831f741c8575d7458bfdcdb11be6ad23fabaf82",
+      "named_guest_file_physical.py": "0dc432d83da6ff94d307bce04a17beefe4a5e1b2fc91b45c84e26e2f754febfa"
+    },
+    "test_count": 18,
+    "baseline_firecracker_pids_preserved": true,
+    "owned_processes": [],
+    "free_gib": 37.99715805053711,
+    "guest_error_download": "mocked failure regression PASS; live failure download unverified",
+    "repair_live_validation": "NOT_RUN",
+    "test_sha256": "daebe01bdc4dd15e2924d90764f81426daa9d3a289124e0dc2f5dcb1a225836d"
+  }
+}

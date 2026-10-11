@@ -1,0 +1,102 @@
+{
+  "status": "PREPARED_LIVE_NOT_RUN",
+  "timestamp_utc": "2026-10-09T04:32:00.659164+00:00",
+  "task_id": "sphinx-doc__sphinx-7590",
+  "raw_directory": ".artifacts/sphinx-backbone/prepare-20261009T041720Z",
+  "config": "configs/sphinx7590-backbone.json",
+  "source_image": "ghcr.io/epoch-research/swe-bench.eval.x86_64.sphinx-doc__sphinx-7590@sha256:577ebfcce825e4c9621e066dc1c8375443be94bbc6de30b9368e422b8f123731",
+  "manifest_sha256": "577ebfcce825e4c9621e066dc1c8375443be94bbc6de30b9368e422b8f123731",
+  "image_layers": 13,
+  "compressed_layer_bytes": 935158562,
+  "base_commit": "2e506c5ab457cba743bb47eb5b8c8eb9dd51d23d",
+  "base_file_sha256": {
+    "sphinx/domains/cpp.py": "34fb211d20f3a9412e8064d65fc75b227cf00071f3fde37f413de4a317ffbb13",
+    "sphinx/util/cfamily.py": "45bf23be5e50f317963c5a7f629a7b6f7628eaada83fdf13a9eefbe94f53977a"
+  },
+  "final_file_sha256": {
+    "sphinx/domains/cpp.py": "9078984c15b74f76d82da70bf0d50b6d37f79c242302ec4bdb23ab6bb58716aa",
+    "sphinx/util/cfamily.py": "8cb3a52dd01667c84e4ac03cdc7996a22a2ec43b07420dda7095bec2d485b47c"
+  },
+  "reference_patch_sha256": "806a82648442ec67ec34d2813d087c237e65d1efbd90e89a92ba6427fae9b69e",
+  "original_edit_blocks": 5,
+  "original_backbone_actions": 35,
+  "path_action_counts": {
+    "backbone": 35,
+    "early_1": 25,
+    "early_2": 25,
+    "early_3": 25,
+    "late_1": 40,
+    "late_2": 40,
+    "late_3": 40
+  },
+  "all_paths_manifest_matches_original_sampling": true,
+  "official_test_counts": {
+    "F2P": 1,
+    "P2P": 24,
+    "total": 25
+  },
+  "official_task_sha256": "b3ca77701d5f297dec004c2032e17078de1d15ab7992c68963e4754a4eb1d415",
+  "official_fetch": {
+    "filter": "HTTP 500 on initial call and short retry",
+    "fallback": "cached rows endpoint: selected row found uniquely",
+    "gold_source_patch_saved": false,
+    "parquet_revision_enforced": false
+  },
+  "checks": {
+    "sphinx_tests": 5,
+    "xarray_tests": 22,
+    "isolated_storage_tests": 23,
+    "original_xarray_checkpoint_report": "PASS",
+    "reference_rebuild": "PASS"
+  },
+  "frozen_shell_path": "/opt/miniconda3/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin",
+  "sampling": "explicit existing persistent sampler variant; original commands unchanged; new-task impact unverified",
+  "validation_commands": [
+    "python3 -B scripts/run_xarray6992.py --task-profile sphinx7590 --inputs .artifacts/sphinx-backbone/prepare-20261009T041720Z --check-only",
+    "python3 -B scripts/prepare_sphinx7590.py .artifacts/sphinx-backbone/reference-recheck-20261009",
+    "python3 -B -m unittest discover -s tests -p test_sphinx7590.py",
+    "python3 -B -m unittest discover -s tests -p test_xarray6992*.py",
+    "python3 -B -m unittest discover -s tests -p test_isolated_storage.py"
+  ],
+  "disk": {
+    "available_bytes": 51633516544,
+    "candidate_fixed_volumes": {
+      "20": {
+        "ready": true,
+        "available_bytes": 51633516544,
+        "required_available_bytes": 49392123904,
+        "capacity_bytes": 21474836480,
+        "host_reserve_bytes": 21474836480,
+        "host_margin_bytes": 6442450944
+      },
+      "22": {
+        "ready": true,
+        "available_bytes": 51633516544,
+        "required_available_bytes": 51539607552,
+        "capacity_bytes": 23622320128,
+        "host_reserve_bytes": 21474836480,
+        "host_margin_bytes": 6442450944
+      },
+      "24": {
+        "ready": false,
+        "available_bytes": 51633516544,
+        "required_available_bytes": 53687091200,
+        "capacity_bytes": 25769803776,
+        "host_reserve_bytes": 21474836480,
+        "host_margin_bytes": 6442450944
+      }
+    },
+    "existing_immutable_cache_allocated_bytes": 5834698752,
+    "source_sphinx_cache_found": false,
+    "unpacked_bytes": "NOT_YET_MEASURED",
+    "native_conversion_budget": "PENDING_ACTUAL_TAR_SIZES"
+  },
+  "execution": {
+    "real_vm_started": false,
+    "benchmark_tests_run": false,
+    "checkpoint_restore": "NOT_RUN",
+    "memory_latency_results": "NOT_MEASURED",
+    "shared_window": "AWAITING_USER_CONFIRMATION"
+  },
+  "scope": "offline frozen-input and adapter validation only; no sandbox, image conversion or task-test success claimed"
+}

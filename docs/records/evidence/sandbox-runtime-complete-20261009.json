@@ -1,0 +1,1210 @@
+{
+  "status": "PASS",
+  "scope": "continuous per-sandbox memory curves, complete frozen paths and seven concurrent roots; measured monitoring time cost, not zero overhead",
+  "units": "memory bytes in JSON, KiB in raw meminfo, MiB in curves; timing seconds and paired percent",
+  "tasks": {
+    "sphinx7590": {
+      "run_id": "20261009T103508Z-4056042",
+      "raw_directory": ".artifacts/storage-isolated-service/20261009T103508Z-4056042/python-backbone",
+      "cpu": 2,
+      "memory_mib": 4096,
+      "action_count": 35,
+      "platform_status": "PASS",
+      "strict_replay_status": "PASS",
+      "official": {
+        "status": "FAIL",
+        "exit_code": 1,
+        "passed": 24,
+        "failed": 1,
+        "skipped": 0,
+        "failed_tests": [
+          "tests/test_domain_cpp.py::test_expressions"
+        ],
+        "skipped_tests": [],
+        "F2P_passed": 0,
+        "F2P_total": 1,
+        "P2P_passed": 24,
+        "P2P_total": 24,
+        "scope": "SWE-bench selected C++ tests and test patch; direct image pytest, not full official Docker harness"
+      },
+      "per_sandbox": [
+        {
+          "sandbox_id": "01a1203b-495c-7a72-9f74-39e14441124d",
+          "role": "backbone",
+          "sample_count": 227,
+          "observed_nonfree_peak_bytes": 324198400,
+          "components_at_peak_bytes": {
+            "Cached": 136650752,
+            "AnonPages": 91660288,
+            "Buffers": 32325632,
+            "Shmem": 831488,
+            "Slab": 40075264
+          },
+          "components_at_peak_percent": {
+            "Cached": 42.150347441566645,
+            "AnonPages": 28.272899557801644,
+            "Buffers": 9.97094125078964,
+            "Shmem": 0.25647504737839544,
+            "Slab": 12.361339229311435
+          },
+          "cached_min_bytes": 30416896,
+          "cached_observed_peak_bytes": 136900608,
+          "slab_status": "MEASURED",
+          "sessions": [
+            {
+              "stop_reason": "cleanup",
+              "status": "PASS",
+              "error": null,
+              "pid": 347,
+              "start_ticks": "126",
+              "boot_id": "a62e9932-a69c-4435-9388-83e4f90d54b0",
+              "sandbox_id": "01a1203b-495c-7a72-9f74-39e14441124d",
+              "role": "backbone",
+              "session_id": "fe94d39c-952f-4eea-b854-ab773d79170a",
+              "samples": 227,
+              "interval_seconds": 0.1,
+              "elapsed_ns": 22684629706,
+              "cpu_user_seconds": 0.191017,
+              "cpu_system_seconds": 0.052897,
+              "maxrss_kib": 13760,
+              "scope": "guest logical counters; collector maxrss is not private memory; no physical deduplication"
+            }
+          ]
+        }
+      ],
+      "phase_coverage": [
+        {
+          "role": "backbone",
+          "sandbox_id": "01a1203b-495c-7a72-9f74-39e14441124d",
+          "phases": [
+            "after",
+            "before",
+            "benchmark-tests",
+            "cleanup",
+            "complete",
+            "running",
+            "setup",
+            "tool:backbone_finish",
+            "tool:core_patch",
+            "tool:core_verify",
+            "tool:read_repo",
+            "tool:trace_cpp_parser",
+            "waiting"
+          ],
+          "max_recorded_interval_ms": 102.44434
+        }
+      ],
+      "original_service_unchanged": true,
+      "original_firecracker_identities_unchanged": true,
+      "cleanup": {
+        "owned_container_removed": true,
+        "mount_and_loop_removed": true,
+        "successful_fixture_removed": true,
+        "original_firecracker_identities_unchanged": true,
+        "original_service_unchanged": true
+      },
+      "observed_volume_used_peak_bytes": 673193984,
+      "observed_host_available_min_bytes": 39424163840,
+      "report_files_identical": 6,
+      "raw_hashes_unchanged": true,
+      "raw_file_count": 269
+    },
+    "prettier6604": {
+      "run_id": "20261009T103750Z-4060181",
+      "raw_directory": ".artifacts/storage-isolated-service/20261009T103750Z-4060181/prettier6604",
+      "cpu": 2,
+      "memory_mib": 4096,
+      "action_count": 189,
+      "platform_status": "PASS",
+      "strict_replay_status": "PASS",
+      "official": {
+        "backbone": {
+          "passed": 0,
+          "failed": 2,
+          "status": "FAIL"
+        },
+        "early_1": {
+          "passed": 0,
+          "failed": 2,
+          "status": "FAIL"
+        },
+        "early_2": {
+          "passed": 0,
+          "failed": 2,
+          "status": "FAIL"
+        },
+        "early_3": {
+          "passed": 0,
+          "failed": 2,
+          "status": "FAIL"
+        },
+        "late_1": {
+          "passed": 0,
+          "failed": 2,
+          "status": "FAIL"
+        },
+        "late_2": {
+          "passed": 0,
+          "failed": 2,
+          "status": "FAIL"
+        },
+        "late_3": {
+          "passed": 0,
+          "failed": 2,
+          "status": "FAIL"
+        }
+      },
+      "per_sandbox": [
+        {
+          "sandbox_id": "01a1203d-ea5b-7e21-9619-963c967f29dd",
+          "role": "late_3",
+          "sample_count": 289,
+          "observed_nonfree_peak_bytes": 745029632,
+          "components_at_peak_bytes": {
+            "Cached": 211673088,
+            "AnonPages": 409894912,
+            "Buffers": 46989312,
+            "Shmem": 1089536,
+            "Slab": 45723648
+          },
+          "components_at_peak_percent": {
+            "Cached": 28.41136498581576,
+            "AnonPages": 55.017262991225564,
+            "Buffers": 6.307039342027137,
+            "Shmem": 0.14624062630571988,
+            "Slab": 6.137158313724628
+          },
+          "cached_min_bytes": 41144320,
+          "cached_observed_peak_bytes": 211709952,
+          "slab_status": "MEASURED",
+          "sessions": [
+            {
+              "stop_reason": "cleanup",
+              "status": "PASS",
+              "error": null,
+              "pid": 431,
+              "start_ticks": "84",
+              "boot_id": "e0d1033d-dcdc-4b25-976f-b124d15b12d9",
+              "sandbox_id": "01a1203d-ea5b-7e21-9619-963c967f29dd",
+              "role": "late_3",
+              "session_id": "60b5fbdb-f575-43cb-8768-a30543a09a72",
+              "samples": 289,
+              "interval_seconds": 0.1,
+              "elapsed_ns": 28985298468,
+              "cpu_user_seconds": 0.19772599999999999,
+              "cpu_system_seconds": 0.057039,
+              "maxrss_kib": 13284,
+              "scope": "guest logical counters; collector maxrss is not private memory; no physical deduplication"
+            }
+          ]
+        },
+        {
+          "sandbox_id": "01a1203d-ead9-7831-80c3-fac6f79c8e6c",
+          "role": "early_2",
+          "sample_count": 307,
+          "observed_nonfree_peak_bytes": 445370368,
+          "components_at_peak_bytes": {
+            "Cached": 126164992,
+            "AnonPages": 210149376,
+            "Buffers": 38342656,
+            "Shmem": 1089536,
+            "Slab": 46354432
+          },
+          "components_at_peak_percent": {
+            "Cached": 28.328106462619445,
+            "AnonPages": 47.185307128470654,
+            "Buffers": 8.609161891973917,
+            "Shmem": 0.2446359430899543,
+            "Slab": 10.408063789282002
+          },
+          "cached_min_bytes": 5140480,
+          "cached_observed_peak_bytes": 194289664,
+          "slab_status": "MEASURED",
+          "sessions": [
+            {
+              "stop_reason": "cleanup",
+              "status": "PASS",
+              "error": null,
+              "pid": 360,
+              "start_ticks": "86",
+              "boot_id": "4f171c55-44e6-4859-9bcb-0e4fca52130e",
+              "sandbox_id": "01a1203d-ead9-7831-80c3-fac6f79c8e6c",
+              "role": "early_2",
+              "session_id": "6fa985b7-868b-4698-a652-784c491d271d",
+              "samples": 307,
+              "interval_seconds": 0.1,
+              "elapsed_ns": 30783449940,
+              "cpu_user_seconds": 0.227685,
+              "cpu_system_seconds": 0.050393999999999994,
+              "maxrss_kib": 13188,
+              "scope": "guest logical counters; collector maxrss is not private memory; no physical deduplication"
+            }
+          ]
+        },
+        {
+          "sandbox_id": "01a1203d-eb07-77a2-89a9-e78ad5508ee9",
+          "role": "early_1",
+          "sample_count": 310,
+          "observed_nonfree_peak_bytes": 474398720,
+          "components_at_peak_bytes": {
+            "Cached": 149901312,
+            "AnonPages": 212672512,
+            "Buffers": 38903808,
+            "Shmem": 1089536,
+            "Slab": 46379008
+          },
+          "components_at_peak_percent": {
+            "Cached": 31.598169573476085,
+            "AnonPages": 44.8299084786738,
+            "Buffers": 8.200656190640649,
+            "Shmem": 0.22966672422724918,
+            "Slab": 9.776377136936626
+          },
+          "cached_min_bytes": 3735552,
+          "cached_observed_peak_bytes": 198115328,
+          "slab_status": "MEASURED",
+          "sessions": [
+            {
+              "stop_reason": "cleanup",
+              "status": "PASS",
+              "error": null,
+              "pid": 367,
+              "start_ticks": "103",
+              "boot_id": "2ebc06e9-61f8-4b2d-be6b-5d55031bdec4",
+              "sandbox_id": "01a1203d-eb07-77a2-89a9-e78ad5508ee9",
+              "role": "early_1",
+              "session_id": "4110e78e-6d78-45ec-8aba-d3af2c166974",
+              "samples": 310,
+              "interval_seconds": 0.1,
+              "elapsed_ns": 31052794106,
+              "cpu_user_seconds": 0.20635599999999998,
+              "cpu_system_seconds": 0.06222,
+              "maxrss_kib": 13168,
+              "scope": "guest logical counters; collector maxrss is not private memory; no physical deduplication"
+            }
+          ]
+        },
+        {
+          "sandbox_id": "01a1203d-eb7a-7873-bf95-39bba95dad78",
+          "role": "early_3",
+          "sample_count": 315,
+          "observed_nonfree_peak_bytes": 450342912,
+          "components_at_peak_bytes": {
+            "Cached": 132337664,
+            "AnonPages": 209068032,
+            "Buffers": 29650944,
+            "Shmem": 1089536,
+            "Slab": 46309376
+          },
+          "components_at_peak_percent": {
+            "Cached": 29.385976879769345,
+            "AnonPages": 46.424186198804875,
+            "Buffers": 6.584081421048324,
+            "Shmem": 0.24193475037972842,
+            "Slab": 10.283136420275223
+          },
+          "cached_min_bytes": 3584000,
+          "cached_observed_peak_bytes": 193835008,
+          "slab_status": "MEASURED",
+          "sessions": [
+            {
+              "stop_reason": "cleanup",
+              "status": "PASS",
+              "error": null,
+              "pid": 659,
+              "start_ticks": "90",
+              "boot_id": "778ae880-e834-4ac4-941f-7185308a573e",
+              "sandbox_id": "01a1203d-eb7a-7873-bf95-39bba95dad78",
+              "role": "early_3",
+              "session_id": "206e0eee-23bd-4787-a70e-4411c3ab9123",
+              "samples": 315,
+              "interval_seconds": 0.1,
+              "elapsed_ns": 31611797063,
+              "cpu_user_seconds": 0.212588,
+              "cpu_system_seconds": 0.044128,
+              "maxrss_kib": 13116,
+              "scope": "guest logical counters; collector maxrss is not private memory; no physical deduplication"
+            }
+          ]
+        },
+        {
+          "sandbox_id": "01a1203d-ead6-7112-9151-5dffc6c71247",
+          "role": "late_1",
+          "sample_count": 318,
+          "observed_nonfree_peak_bytes": 802590720,
+          "components_at_peak_bytes": {
+            "Cached": 204713984,
+            "AnonPages": 474902528,
+            "Buffers": 45666304,
+            "Shmem": 1089536,
+            "Slab": 45297664
+          },
+          "components_at_peak_percent": {
+            "Cached": 25.506647273469596,
+            "AnonPages": 59.17119599887724,
+            "Buffers": 5.689861951057694,
+            "Shmem": 0.13575237949424585,
+            "Slab": 5.643930694837837
+          },
+          "cached_min_bytes": 10764288,
+          "cached_observed_peak_bytes": 263815168,
+          "slab_status": "MEASURED",
+          "sessions": [
+            {
+              "stop_reason": "cleanup",
+              "status": "PASS",
+              "error": null,
+              "pid": 360,
+              "start_ticks": "98",
+              "boot_id": "1a9b0e14-b89e-4d89-a29b-4fab015d8df5",
+              "sandbox_id": "01a1203d-ead6-7112-9151-5dffc6c71247",
+              "role": "late_1",
+              "session_id": "152245e0-2232-4e1f-8538-a8bba10363ec",
+              "samples": 318,
+              "interval_seconds": 0.1,
+              "elapsed_ns": 31970669299,
+              "cpu_user_seconds": 0.230345,
+              "cpu_system_seconds": 0.074156,
+              "maxrss_kib": 13164,
+              "scope": "guest logical counters; collector maxrss is not private memory; no physical deduplication"
+            }
+          ]
+        },
+        {
+          "sandbox_id": "01a1203d-eadb-7692-af86-4bb489e6261f",
+          "role": "late_2",
+          "sample_count": 323,
+          "observed_nonfree_peak_bytes": 447774720,
+          "components_at_peak_bytes": {
+            "Cached": 121708544,
+            "AnonPages": 218845184,
+            "Buffers": 34619392,
+            "Shmem": 1089536,
+            "Slab": 46333952
+          },
+          "components_at_peak_percent": {
+            "Cached": 27.180753750457374,
+            "AnonPages": 48.8739480424442,
+            "Buffers": 7.731430662275887,
+            "Shmem": 0.243322356384925,
+            "Slab": 10.34760336626418
+          },
+          "cached_min_bytes": 5984256,
+          "cached_observed_peak_bytes": 192823296,
+          "slab_status": "MEASURED",
+          "sessions": [
+            {
+              "stop_reason": "cleanup",
+              "status": "PASS",
+              "error": null,
+              "pid": 361,
+              "start_ticks": "101",
+              "boot_id": "f2cadcd2-ce86-4e97-ba7d-c6d9782c534c",
+              "sandbox_id": "01a1203d-eadb-7692-af86-4bb489e6261f",
+              "role": "late_2",
+              "session_id": "23f313de-abac-4552-a9fe-37a94ced6121",
+              "samples": 323,
+              "interval_seconds": 0.1,
+              "elapsed_ns": 32417783883,
+              "cpu_user_seconds": 0.210039,
+              "cpu_system_seconds": 0.072867,
+              "maxrss_kib": 13216,
+              "scope": "guest logical counters; collector maxrss is not private memory; no physical deduplication"
+            }
+          ]
+        },
+        {
+          "sandbox_id": "01a1203d-ecf4-7db2-adab-d652bd7795b5",
+          "role": "backbone",
+          "sample_count": 325,
+          "observed_nonfree_peak_bytes": 701181952,
+          "components_at_peak_bytes": {
+            "Cached": 205692928,
+            "AnonPages": 373923840,
+            "Buffers": 46391296,
+            "Shmem": 1089536,
+            "Slab": 45383680
+          },
+          "components_at_peak_percent": {
+            "Cached": 29.33517147914269,
+            "AnonPages": 53.32764754332981,
+            "Buffers": 6.616156600676454,
+            "Shmem": 0.15538563091823562,
+            "Slab": 6.472454099902446
+          },
+          "cached_min_bytes": 9134080,
+          "cached_observed_peak_bytes": 205807616,
+          "slab_status": "MEASURED",
+          "sessions": [
+            {
+              "stop_reason": "cleanup",
+              "status": "PASS",
+              "error": null,
+              "pid": 605,
+              "start_ticks": "84",
+              "boot_id": "da02d027-8474-4c59-be68-7942f8abbaf3",
+              "sandbox_id": "01a1203d-ecf4-7db2-adab-d652bd7795b5",
+              "role": "backbone",
+              "session_id": "b7e6ba55-2e1e-465b-afdc-e6bc999973dd",
+              "samples": 325,
+              "interval_seconds": 0.1,
+              "elapsed_ns": 32608509071,
+              "cpu_user_seconds": 0.220263,
+              "cpu_system_seconds": 0.056049999999999996,
+              "maxrss_kib": 13120,
+              "scope": "guest logical counters; collector maxrss is not private memory; no physical deduplication"
+            }
+          ]
+        }
+      ],
+      "phase_coverage": [
+        {
+          "role": "late_3",
+          "sandbox_id": "01a1203d-ea5b-7e21-9619-963c967f29dd",
+          "phases": [
+            "after",
+            "before",
+            "cleanup",
+            "complete",
+            "official-task-tests",
+            "running",
+            "setup",
+            "tool:core_patch",
+            "tool:core_verify",
+            "tool:read_repo",
+            "unknown",
+            "waiting"
+          ],
+          "max_recorded_interval_ms": 104.347335
+        },
+        {
+          "role": "early_2",
+          "sandbox_id": "01a1203d-ead9-7831-80c3-fac6f79c8e6c",
+          "phases": [
+            "after",
+            "cleanup",
+            "complete",
+            "official-task-tests",
+            "running",
+            "setup",
+            "tool:early_2_inspect",
+            "tool:read_repo",
+            "tool:read_typescript",
+            "waiting"
+          ],
+          "max_recorded_interval_ms": 109.899107
+        },
+        {
+          "role": "early_1",
+          "sandbox_id": "01a1203d-eb07-77a2-89a9-e78ad5508ee9",
+          "phases": [
+            "after",
+            "cleanup",
+            "complete",
+            "official-task-tests",
+            "running",
+            "setup",
+            "tool:early_1",
+            "tool:early_1_inspect",
+            "tool:read_repo",
+            "tool:read_typescript",
+            "waiting"
+          ],
+          "max_recorded_interval_ms": 103.14224
+        },
+        {
+          "role": "early_3",
+          "sandbox_id": "01a1203d-eb7a-7873-bf95-39bba95dad78",
+          "phases": [
+            "after",
+            "baseline",
+            "cleanup",
+            "complete",
+            "official-task-tests",
+            "running",
+            "setup",
+            "tool:early_3",
+            "tool:read_repo",
+            "tool:read_typescript",
+            "waiting"
+          ],
+          "max_recorded_interval_ms": 109.609988
+        },
+        {
+          "role": "late_1",
+          "sandbox_id": "01a1203d-ead6-7112-9151-5dffc6c71247",
+          "phases": [
+            "after",
+            "baseline",
+            "before",
+            "cleanup",
+            "complete",
+            "official-task-tests",
+            "running",
+            "setup",
+            "tool:core_verify",
+            "tool:read_repo",
+            "tool:read_typescript",
+            "waiting"
+          ],
+          "max_recorded_interval_ms": 105.863957
+        },
+        {
+          "role": "late_2",
+          "sandbox_id": "01a1203d-eadb-7692-af86-4bb489e6261f",
+          "phases": [
+            "after",
+            "baseline",
+            "before",
+            "cleanup",
+            "complete",
+            "official-task-tests",
+            "running",
+            "setup",
+            "tool:core_patch",
+            "tool:core_verify",
+            "tool:late_2",
+            "tool:late_2_inspect",
+            "tool:read_repo",
+            "waiting"
+          ],
+          "max_recorded_interval_ms": 101.638265
+        },
+        {
+          "role": "backbone",
+          "sandbox_id": "01a1203d-ecf4-7db2-adab-d652bd7795b5",
+          "phases": [
+            "after",
+            "before",
+            "cleanup",
+            "complete",
+            "official-task-tests",
+            "running",
+            "setup",
+            "tool:backbone_finish",
+            "tool:core_patch",
+            "tool:core_verify",
+            "tool:read_repo",
+            "tool:read_typescript",
+            "waiting"
+          ],
+          "max_recorded_interval_ms": 105.400856
+        }
+      ],
+      "original_service_unchanged": true,
+      "original_firecracker_identities_unchanged": true,
+      "cleanup": {
+        "owned_container_removed": true,
+        "mount_and_loop_removed": true,
+        "successful_fixture_removed": true,
+        "original_firecracker_identities_unchanged": true,
+        "original_service_unchanged": true
+      },
+      "observed_volume_used_peak_bytes": 6081040384,
+      "observed_host_available_min_bytes": 30828503040,
+      "report_files_identical": 11,
+      "raw_hashes_unchanged": true,
+      "raw_file_count": 1247
+    },
+    "xarray6992": {
+      "run_id": "20261009T104831Z-4089706",
+      "raw_directory": ".artifacts/storage-isolated-service/20261009T104831Z-4089706/python-backbone",
+      "cpu": 2,
+      "memory_mib": 4096,
+      "action_count": 35,
+      "platform_status": "PASS",
+      "strict_replay_status": "FAIL",
+      "official": {
+        "status": "FAIL",
+        "exit_code": 1,
+        "passed": 945,
+        "failed": 12,
+        "skipped": 0,
+        "failed_tests": [
+          "xarray/tests/test_dataarray.py::TestDataArray::test_reset_index",
+          "xarray/tests/test_dataset.py::TestDataset::test_reset_index",
+          "xarray/tests/test_dataset.py::TestDataset::test_reset_index_drop_dims",
+          "xarray/tests/test_dataset.py::TestDataset::test_reset_index_drop_convert[foo-False-dropped0-converted0-renamed0]",
+          "xarray/tests/test_dataset.py::TestDataset::test_reset_index_drop_convert[foo-True-dropped1-converted1-renamed1]",
+          "xarray/tests/test_dataset.py::TestDataset::test_reset_index_drop_convert[x-False-dropped2-converted2-renamed2]",
+          "xarray/tests/test_dataset.py::TestDataset::test_reset_index_drop_convert[x-True-dropped3-converted3-renamed3]",
+          "xarray/tests/test_dataset.py::TestDataset::test_reset_index_drop_convert[arg4-False-dropped4-converted4-renamed4]",
+          "xarray/tests/test_dataset.py::TestDataset::test_reset_index_drop_convert[arg5-True-dropped5-converted5-renamed5]",
+          "xarray/tests/test_dataset.py::TestDataset::test_reset_index_drop_convert[arg6-False-dropped6-converted6-renamed6]",
+          "xarray/tests/test_dataset.py::TestDataset::test_reset_index_drop_convert[arg7-True-dropped7-converted7-renamed7]",
+          "xarray/tests/test_groupby.py::test_groupby_drops_nans"
+        ],
+        "skipped_tests": [],
+        "F2P_passed": 0,
+        "F2P_total": 12,
+        "P2P_passed": 945,
+        "P2P_total": 945,
+        "scope": "SWE-bench test patch and exact F2P/P2P case selection; direct image pytest, not full official Docker harness"
+      },
+      "per_sandbox": [
+        {
+          "sandbox_id": "01a12047-8e18-7d02-bf67-1d376a68e284",
+          "role": "backbone",
+          "sample_count": 655,
+          "observed_nonfree_peak_bytes": 804569088,
+          "components_at_peak_bytes": {
+            "Cached": 157044736,
+            "AnonPages": 563810304,
+            "Buffers": 9461760,
+            "Shmem": 839680,
+            "Slab": 49229824
+          },
+          "components_at_peak_percent": {
+            "Cached": 19.519111328323863,
+            "AnonPages": 70.07605840307899,
+            "Buffers": 1.1760034211008614,
+            "Shmem": 0.10436393996782536,
+            "Slab": 6.118781436455087
+          },
+          "cached_min_bytes": 30613504,
+          "cached_observed_peak_bytes": 326705152,
+          "slab_status": "MEASURED",
+          "sessions": [
+            {
+              "stop_reason": "cleanup",
+              "status": "PASS",
+              "error": null,
+              "pid": 346,
+              "start_ticks": "103",
+              "boot_id": "2ca3b878-e38c-4950-b734-96c8816ae784",
+              "sandbox_id": "01a12047-8e18-7d02-bf67-1d376a68e284",
+              "role": "backbone",
+              "session_id": "7762cccf-ba6c-4f2e-81e1-94093e2739d3",
+              "samples": 655,
+              "interval_seconds": 0.1,
+              "elapsed_ns": 65931695327,
+              "cpu_user_seconds": 0.38599,
+              "cpu_system_seconds": 0.110029,
+              "maxrss_kib": 13760,
+              "scope": "guest logical counters; collector maxrss is not private memory; no physical deduplication"
+            }
+          ]
+        }
+      ],
+      "phase_coverage": [
+        {
+          "role": "backbone",
+          "sandbox_id": "01a12047-8e18-7d02-bf67-1d376a68e284",
+          "phases": [
+            "after",
+            "baseline",
+            "before",
+            "benchmark-tests",
+            "cleanup",
+            "complete",
+            "running",
+            "setup",
+            "tool:backbone_finish",
+            "tool:core_patch",
+            "tool:core_verify",
+            "tool:read_repo",
+            "tool:trace_index_state",
+            "waiting"
+          ],
+          "max_recorded_interval_ms": 128.067545
+        }
+      ],
+      "original_service_unchanged": true,
+      "original_firecracker_identities_unchanged": true,
+      "cleanup": {
+        "owned_container_removed": true,
+        "mount_and_loop_removed": true,
+        "successful_fixture_removed": true,
+        "original_firecracker_identities_unchanged": true,
+        "original_service_unchanged": true
+      },
+      "observed_volume_used_peak_bytes": 681119744,
+      "observed_host_available_min_bytes": 39376056320,
+      "report_files_identical": 6,
+      "raw_hashes_unchanged": true,
+      "raw_file_count": 267
+    }
+  },
+  "monitor_pairs": {
+    "status": "PASS",
+    "scope": "100 ms guest continuous + boundary reads and 100 ms host service cgroup monitoring; off removes all those reads; tool timing, safety disk sampler and correctness checks retained in both",
+    "plan": {
+      "pairs": 5,
+      "orders": [
+        [
+          "off",
+          "continuous"
+        ],
+        [
+          "continuous",
+          "off"
+        ],
+        [
+          "off",
+          "continuous"
+        ],
+        [
+          "continuous",
+          "off"
+        ],
+        [
+          "off",
+          "continuous"
+        ]
+      ],
+      "scope": "100 ms guest continuous + boundary reads and 100 ms host service cgroup monitoring; off removes all those reads; tool timing, safety disk sampler and correctness checks retained in both",
+      "cache_state": "fresh 2 CPU/4096 MiB VM each run; same verified RAM immutable seed; no host/guest drop_caches; warm image preparation; not cold-download performance",
+      "thresholds": "none; five pairs do not prove an arbitrary performance threshold",
+      "timing": {
+        "guest_action_seconds": "sum of original 35 command intervals",
+        "frozen_replay_seconds": "first segment through all five segments and replay validation; includes phase updates/downloads",
+        "lifecycle_seconds": "controller preflight through owned VM/monitor cleanup; excludes cache preparation, outer service create/delete and offline plotting"
+      },
+      "order_limitation": "odd pair count leaves one extra off-first pair; both orders reported"
+    },
+    "metrics": {
+      "guest_action_seconds": {
+        "off_seconds": [
+          10.347241233,
+          10.770431921,
+          10.711123249,
+          10.283878245,
+          10.293447007
+        ],
+        "continuous_seconds": [
+          10.711460989,
+          10.321666868,
+          10.602613593,
+          10.393801118,
+          10.518952441
+        ],
+        "paired_percent": [
+          3.5199696981878636,
+          -4.166639335280564,
+          -1.0130558063565442,
+          1.0688853988858105,
+          2.1907669398467444
+        ],
+        "mean_paired_percent": 0.319985379056662,
+        "median_paired_percent": 1.0688853988858105,
+        "min_paired_percent": -4.166639335280564,
+        "max_paired_percent": 3.5199696981878636,
+        "bootstrap_mean_95_percent_interval": [
+          -2.0724294416140143,
+          2.4980717349910053
+        ],
+        "off_cv_percent": 2.281105196185026,
+        "continuous_cv_percent": 1.490969456321906
+      },
+      "frozen_replay_seconds": {
+        "off_seconds": [
+          12.796523024,
+          13.291661402,
+          12.865550211,
+          12.737871368,
+          12.755066182
+        ],
+        "continuous_seconds": [
+          15.642707428,
+          15.091544471,
+          15.317033104,
+          15.365901031,
+          15.427749234
+        ],
+        "paired_percent": [
+          22.24185740659359,
+          13.541445381155825,
+          19.05462924472512,
+          20.6316235034538,
+          20.953894036016063
+        ],
+        "mean_paired_percent": 19.284689914388878,
+        "median_paired_percent": 20.6316235034538,
+        "min_paired_percent": 13.541445381155825,
+        "max_paired_percent": 22.24185740659359,
+        "bootstrap_mean_95_percent_interval": [
+          16.12657188484173,
+          21.40462527773462
+        ],
+        "off_cv_percent": 1.7861728433790476,
+        "continuous_cv_percent": 1.2934043580762788
+      },
+      "lifecycle_seconds": {
+        "off_seconds": [
+          22.833042502,
+          23.370860904,
+          22.794142894,
+          22.879347629,
+          22.831401057
+        ],
+        "continuous_seconds": [
+          27.037406951,
+          25.838111327,
+          26.236280403,
+          27.11129009,
+          26.833618364
+        ],
+        "paired_percent": [
+          18.413509494548208,
+          10.556951381186487,
+          15.100973636109206,
+          18.496779408325146,
+          17.529442442048193
+        ],
+        "mean_paired_percent": 16.019531272443448,
+        "median_paired_percent": 17.529442442048193,
+        "min_paired_percent": 10.556951381186487,
+        "max_paired_percent": 18.496779408325146,
+        "bootstrap_mean_95_percent_interval": [
+          13.053721437598762,
+          18.27000404955898
+        ],
+        "off_cv_percent": 1.053845533886643,
+        "continuous_cv_percent": 2.0748371060744066
+      }
+    },
+    "completed_pairs": 5,
+    "source_directory": ".artifacts/runtime-monitor-pairs/20261009T103917Z-4064887",
+    "raw_files": 2450,
+    "raw_hashes_unchanged": true,
+    "semantic_checks": "35 frozen actions, expected exits, key outputs, source/patch, all 25 independent test outcomes, zero unexpected cleanup changes",
+    "runs": [
+      {
+        "pair": 1,
+        "order": [
+          "off",
+          "continuous"
+        ],
+        "off": {
+          "raw": ".artifacts/storage-isolated-service/20261009T104048Z-4065680/python-backbone",
+          "mode": "off",
+          "official": {
+            "status": "FAIL",
+            "exit_code": 1,
+            "passed": 24,
+            "failed": 1,
+            "skipped": 0,
+            "failed_tests": [
+              "tests/test_domain_cpp.py::test_expressions"
+            ],
+            "skipped_tests": [],
+            "F2P_passed": 0,
+            "F2P_total": 1,
+            "P2P_passed": 24,
+            "P2P_total": 24,
+            "scope": "SWE-bench selected C++ tests and test patch; direct image pytest, not full official Docker harness"
+          },
+          "final_patch_sha256": "758df0c82aeaa255c27d075fa0ddbb6a621b61fe63ddb31fd6d6f16c753a1cf6",
+          "guest_action_seconds": 10.347241233,
+          "frozen_replay_seconds": 12.796523024,
+          "lifecycle_seconds": 22.833042502,
+          "observed_volume_used_peak_bytes": 673312768
+        },
+        "continuous": {
+          "raw": ".artifacts/storage-isolated-service/20261009T104119Z-4067129/python-backbone",
+          "mode": "continuous",
+          "official": {
+            "status": "FAIL",
+            "exit_code": 1,
+            "passed": 24,
+            "failed": 1,
+            "skipped": 0,
+            "failed_tests": [
+              "tests/test_domain_cpp.py::test_expressions"
+            ],
+            "skipped_tests": [],
+            "F2P_passed": 0,
+            "F2P_total": 1,
+            "P2P_passed": 24,
+            "P2P_total": 24,
+            "scope": "SWE-bench selected C++ tests and test patch; direct image pytest, not full official Docker harness"
+          },
+          "final_patch_sha256": "758df0c82aeaa255c27d075fa0ddbb6a621b61fe63ddb31fd6d6f16c753a1cf6",
+          "guest_action_seconds": 10.711460989,
+          "frozen_replay_seconds": 15.642707428,
+          "lifecycle_seconds": 27.037406951,
+          "observed_volume_used_peak_bytes": 673312768
+        }
+      },
+      {
+        "pair": 2,
+        "order": [
+          "continuous",
+          "off"
+        ],
+        "off": {
+          "raw": ".artifacts/storage-isolated-service/20261009T104231Z-4073123/python-backbone",
+          "mode": "off",
+          "official": {
+            "status": "FAIL",
+            "exit_code": 1,
+            "passed": 24,
+            "failed": 1,
+            "skipped": 0,
+            "failed_tests": [
+              "tests/test_domain_cpp.py::test_expressions"
+            ],
+            "skipped_tests": [],
+            "F2P_passed": 0,
+            "F2P_total": 1,
+            "P2P_passed": 24,
+            "P2P_total": 24,
+            "scope": "SWE-bench selected C++ tests and test patch; direct image pytest, not full official Docker harness"
+          },
+          "final_patch_sha256": "758df0c82aeaa255c27d075fa0ddbb6a621b61fe63ddb31fd6d6f16c753a1cf6",
+          "guest_action_seconds": 10.770431921,
+          "frozen_replay_seconds": 13.291661402,
+          "lifecycle_seconds": 23.370860904,
+          "observed_volume_used_peak_bytes": 673247232
+        },
+        "continuous": {
+          "raw": ".artifacts/storage-isolated-service/20261009T104156Z-4070167/python-backbone",
+          "mode": "continuous",
+          "official": {
+            "status": "FAIL",
+            "exit_code": 1,
+            "passed": 24,
+            "failed": 1,
+            "skipped": 0,
+            "failed_tests": [
+              "tests/test_domain_cpp.py::test_expressions"
+            ],
+            "skipped_tests": [],
+            "F2P_passed": 0,
+            "F2P_total": 1,
+            "P2P_passed": 24,
+            "P2P_total": 24,
+            "scope": "SWE-bench selected C++ tests and test patch; direct image pytest, not full official Docker harness"
+          },
+          "final_patch_sha256": "758df0c82aeaa255c27d075fa0ddbb6a621b61fe63ddb31fd6d6f16c753a1cf6",
+          "guest_action_seconds": 10.321666868,
+          "frozen_replay_seconds": 15.091544471,
+          "lifecycle_seconds": 25.838111327,
+          "observed_volume_used_peak_bytes": 673730560
+        }
+      },
+      {
+        "pair": 3,
+        "order": [
+          "off",
+          "continuous"
+        ],
+        "off": {
+          "raw": ".artifacts/storage-isolated-service/20261009T104303Z-4075228/python-backbone",
+          "mode": "off",
+          "official": {
+            "status": "FAIL",
+            "exit_code": 1,
+            "passed": 24,
+            "failed": 1,
+            "skipped": 0,
+            "failed_tests": [
+              "tests/test_domain_cpp.py::test_expressions"
+            ],
+            "skipped_tests": [],
+            "F2P_passed": 0,
+            "F2P_total": 1,
+            "P2P_passed": 24,
+            "P2P_total": 24,
+            "scope": "SWE-bench selected C++ tests and test patch; direct image pytest, not full official Docker harness"
+          },
+          "final_patch_sha256": "758df0c82aeaa255c27d075fa0ddbb6a621b61fe63ddb31fd6d6f16c753a1cf6",
+          "guest_action_seconds": 10.711123249,
+          "frozen_replay_seconds": 12.865550211,
+          "lifecycle_seconds": 22.794142894,
+          "observed_volume_used_peak_bytes": 673165312
+        },
+        "continuous": {
+          "raw": ".artifacts/storage-isolated-service/20261009T104335Z-4076670/python-backbone",
+          "mode": "continuous",
+          "official": {
+            "status": "FAIL",
+            "exit_code": 1,
+            "passed": 24,
+            "failed": 1,
+            "skipped": 0,
+            "failed_tests": [
+              "tests/test_domain_cpp.py::test_expressions"
+            ],
+            "skipped_tests": [],
+            "F2P_passed": 0,
+            "F2P_total": 1,
+            "P2P_passed": 24,
+            "P2P_total": 24,
+            "scope": "SWE-bench selected C++ tests and test patch; direct image pytest, not full official Docker harness"
+          },
+          "final_patch_sha256": "758df0c82aeaa255c27d075fa0ddbb6a621b61fe63ddb31fd6d6f16c753a1cf6",
+          "guest_action_seconds": 10.602613593,
+          "frozen_replay_seconds": 15.317033104,
+          "lifecycle_seconds": 26.236280403,
+          "observed_volume_used_peak_bytes": 673742848
+        }
+      },
+      {
+        "pair": 4,
+        "order": [
+          "continuous",
+          "off"
+        ],
+        "off": {
+          "raw": ".artifacts/storage-isolated-service/20261009T104447Z-4082721/python-backbone",
+          "mode": "off",
+          "official": {
+            "status": "FAIL",
+            "exit_code": 1,
+            "passed": 24,
+            "failed": 1,
+            "skipped": 0,
+            "failed_tests": [
+              "tests/test_domain_cpp.py::test_expressions"
+            ],
+            "skipped_tests": [],
+            "F2P_passed": 0,
+            "F2P_total": 1,
+            "P2P_passed": 24,
+            "P2P_total": 24,
+            "scope": "SWE-bench selected C++ tests and test patch; direct image pytest, not full official Docker harness"
+          },
+          "final_patch_sha256": "758df0c82aeaa255c27d075fa0ddbb6a621b61fe63ddb31fd6d6f16c753a1cf6",
+          "guest_action_seconds": 10.283878245,
+          "frozen_replay_seconds": 12.737871368,
+          "lifecycle_seconds": 22.879347629,
+          "observed_volume_used_peak_bytes": 673161216
+        },
+        "continuous": {
+          "raw": ".artifacts/storage-isolated-service/20261009T104410Z-4079670/python-backbone",
+          "mode": "continuous",
+          "official": {
+            "status": "FAIL",
+            "exit_code": 1,
+            "passed": 24,
+            "failed": 1,
+            "skipped": 0,
+            "failed_tests": [
+              "tests/test_domain_cpp.py::test_expressions"
+            ],
+            "skipped_tests": [],
+            "F2P_passed": 0,
+            "F2P_total": 1,
+            "P2P_passed": 24,
+            "P2P_total": 24,
+            "scope": "SWE-bench selected C++ tests and test patch; direct image pytest, not full official Docker harness"
+          },
+          "final_patch_sha256": "758df0c82aeaa255c27d075fa0ddbb6a621b61fe63ddb31fd6d6f16c753a1cf6",
+          "guest_action_seconds": 10.393801118,
+          "frozen_replay_seconds": 15.365901031,
+          "lifecycle_seconds": 27.11129009,
+          "observed_volume_used_peak_bytes": 673746944
+        }
+      },
+      {
+        "pair": 5,
+        "order": [
+          "off",
+          "continuous"
+        ],
+        "off": {
+          "raw": ".artifacts/storage-isolated-service/20261009T104519Z-4084148/python-backbone",
+          "mode": "off",
+          "official": {
+            "status": "FAIL",
+            "exit_code": 1,
+            "passed": 24,
+            "failed": 1,
+            "skipped": 0,
+            "failed_tests": [
+              "tests/test_domain_cpp.py::test_expressions"
+            ],
+            "skipped_tests": [],
+            "F2P_passed": 0,
+            "F2P_total": 1,
+            "P2P_passed": 24,
+            "P2P_total": 24,
+            "scope": "SWE-bench selected C++ tests and test patch; direct image pytest, not full official Docker harness"
+          },
+          "final_patch_sha256": "758df0c82aeaa255c27d075fa0ddbb6a621b61fe63ddb31fd6d6f16c753a1cf6",
+          "guest_action_seconds": 10.293447007,
+          "frozen_replay_seconds": 12.755066182,
+          "lifecycle_seconds": 22.831401057,
+          "observed_volume_used_peak_bytes": 673320960
+        },
+        "continuous": {
+          "raw": ".artifacts/storage-isolated-service/20261009T104550Z-4085572/python-backbone",
+          "mode": "continuous",
+          "official": {
+            "status": "FAIL",
+            "exit_code": 1,
+            "passed": 24,
+            "failed": 1,
+            "skipped": 0,
+            "failed_tests": [
+              "tests/test_domain_cpp.py::test_expressions"
+            ],
+            "skipped_tests": [],
+            "F2P_passed": 0,
+            "F2P_total": 1,
+            "P2P_passed": 24,
+            "P2P_total": 24,
+            "scope": "SWE-bench selected C++ tests and test patch; direct image pytest, not full official Docker harness"
+          },
+          "final_patch_sha256": "758df0c82aeaa255c27d075fa0ddbb6a621b61fe63ddb31fd6d6f16c753a1cf6",
+          "guest_action_seconds": 10.518952441,
+          "frozen_replay_seconds": 15.427749234,
+          "lifecycle_seconds": 26.833618364,
+          "observed_volume_used_peak_bytes": 673304576
+        }
+      }
+    ],
+    "measured_monitoring_costs": [
+      {
+        "pair": 1,
+        "replay_phase_update_calls": 10,
+        "replay_phase_update_seconds": 1.787997843,
+        "guest_collector_cpu_seconds": 0.24386099999999997,
+        "guest_collector_maxrss_kib": 13728,
+        "scope": "directly measured calls and collector CPU; remaining paired difference not solely attributed to sampler CPU"
+      },
+      {
+        "pair": 2,
+        "replay_phase_update_calls": 10,
+        "replay_phase_update_seconds": 1.720629255,
+        "guest_collector_cpu_seconds": 0.24303599999999997,
+        "guest_collector_maxrss_kib": 13760,
+        "scope": "directly measured calls and collector CPU; remaining paired difference not solely attributed to sampler CPU"
+      },
+      {
+        "pair": 3,
+        "replay_phase_update_calls": 10,
+        "replay_phase_update_seconds": 1.844543759,
+        "guest_collector_cpu_seconds": 0.24237699999999998,
+        "guest_collector_maxrss_kib": 13688,
+        "scope": "directly measured calls and collector CPU; remaining paired difference not solely attributed to sampler CPU"
+      },
+      {
+        "pair": 4,
+        "replay_phase_update_calls": 10,
+        "replay_phase_update_seconds": 1.834546363,
+        "guest_collector_cpu_seconds": 0.23915799999999998,
+        "guest_collector_maxrss_kib": 13772,
+        "scope": "directly measured calls and collector CPU; remaining paired difference not solely attributed to sampler CPU"
+      },
+      {
+        "pair": 5,
+        "replay_phase_update_calls": 10,
+        "replay_phase_update_seconds": 1.796511106,
+        "guest_collector_cpu_seconds": 0.237141,
+        "guest_collector_maxrss_kib": 13688,
+        "scope": "directly measured calls and collector CPU; remaining paired difference not solely attributed to sampler CPU"
+      }
+    ],
+    "statistics_limits": "small paired study, both orders reported; bootstrap interval is exploratory; host frequency/background load not fixed; no formal performance threshold or cross-task generalization"
+  },
+  "physical_page_cache": "NOT_MEASURED",
+  "limits": [
+    "Cached is a guest logical counter; Shmem overlaps; no cross-VM physical deduplication.",
+    "Xarray retains the historical strict replay FAIL; complete diagnosis is a separate PASS.",
+    "All three model-generated fixes retain original task test failures.",
+    "Five Sphinx pairs quantify this configuration only; host frequency/background load not fixed; no new acceptance threshold.",
+    "BPO/TVCache parent sampling after snapshots, per-VMM host metrics and CPU/I/O curves remain unverified."
+  ]
+}

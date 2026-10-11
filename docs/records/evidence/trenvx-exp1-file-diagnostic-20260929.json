@@ -1,0 +1,72 @@
+{
+  "run_id": "20260929T031621Z-2369653",
+  "status": "PASS",
+  "full_trajectory_verified": true,
+  "restore_semantics": "file-state-only",
+  "checks": {
+    "checkpoint_after_022": "PASS",
+    "file_restore_interface": "PASS",
+    "modified_source_preserved": "PASS",
+    "file_physical_restored-before-source-read": "PASS",
+    "file_physical_after-continuation": "PASS",
+    "patch_matches_full_replay": "PASS",
+    "exp1_replay_correctness": "PASS",
+    "sdk_cleanup": "PASS",
+    "service_shutdown": "PASS",
+    "data_archive": "PASS"
+  },
+  "snapshots": {
+    "restored-before-source-read": {
+      "status": "PASS",
+      "page_size": 4096,
+      "nonresident_mappings": 4,
+      "content_accounting": {
+        "status": "PASS",
+        "file_cache_unique_pages": 0,
+        "verified_anonymous_unique_pages": 0,
+        "unknown_unique_pages": 0,
+        "attributed_physical_bytes": 0,
+        "scope": "resident declared mappings only; includes full allocated tail page; not total backing cache"
+      },
+      "scan_elapsed_ns": 19466702
+    },
+    "after-continuation": {
+      "status": "PASS",
+      "page_size": 4096,
+      "nonresident_mappings": 0,
+      "content_accounting": {
+        "status": "PASS",
+        "file_cache_unique_pages": 3,
+        "verified_anonymous_unique_pages": 1,
+        "unknown_unique_pages": 0,
+        "attributed_physical_bytes": 16384,
+        "scope": "resident declared mappings only; includes full allocated tail page; not total backing cache"
+      },
+      "scan_elapsed_ns": 20293409
+    }
+  },
+  "selected_phase_seconds": {
+    "private-template-prepare": 6.463501631,
+    "template-build": 12.380576393,
+    "create-to-first-tool-success": 1.10615364,
+    "checkpoint": 11.706671703,
+    "parent-delete": 19.561912262,
+    "restore-to-first-tool-success": 1.53861911,
+    "file-physical:restored-before-source-read": 0.0285059,
+    "file-physical:after-continuation": 0.032434951
+  },
+  "disk": {
+    "observed_min_free_gib": 42.55451583862305,
+    "free_after_gib": 57.65043640136719,
+    "archive_gib": 3.0073542445898056,
+    "archive_verified": true,
+    "source_removed": true
+  },
+  "limitations": [
+    "file-state-only restore",
+    "only one named file measured; not task-wide physical memory",
+    "pre-read zero means target mappings nonresident, not empty host cache",
+    "anonymous verification may warm backing cache",
+    "host periodic sampling disabled; no new memory curve or monitoring-overhead estimate"
+  ]
+}

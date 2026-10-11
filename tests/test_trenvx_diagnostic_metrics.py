@@ -5,10 +5,23 @@ import tempfile
 import unittest
 
 sys.path.insert(0,str(Path(__file__).resolve().parents[1]/'scripts'))
-from trenvx_diagnostic_metrics import DiagnosticMetrics, vmm_snapshot
+from trenvx_diagnostic_metrics import DiagnosticMetrics, guest_meminfo, vmm_snapshot
 
 
 class DiagnosticTests(unittest.TestCase):
+    def test_guest_meminfo_units_and_missing_fields(self):
+        raw='MemTotal: 100 kB\nMemAvailable: 80 kB\nCached: 20 kB\nAnonPages: 5 kB\nSlab: 3 kB\n4096\n'
+        self.assertEqual(guest_meminfo(raw)['meminfo_bytes']['Cached'],20480)
+        for bad in (raw.replace('4096','65536'),raw.replace('Slab: 3 kB\n','')):
+            with self.assertRaises(RuntimeError):guest_meminfo(bad)
+
+    def test_guest_meminfo_keeps_composition_fields(self):
+        raw='MemTotal: 100 kB\nMemFree: 20 kB\nMemAvailable: 40 kB\nBuffers: 5 kB\nCached: 20 kB\nShmem: 2 kB\nAnonPages: 5 kB\nSlab: 3 kB\nSReclaimable: 1 kB\n4096\n'
+        values=guest_meminfo(raw)['meminfo_bytes']
+        self.assertEqual(values['MemFree'],20*1024)
+        self.assertEqual(values['Shmem'],2*1024)
+        self.assertEqual(values['SReclaimable'],1024)
+
     def fixture(self, root, membership='0::/owned/sandbox\n'):
         proc = root/'proc/12'
         proc.mkdir(parents=True)
@@ -64,3 +77,15 @@ class DiagnosticTests(unittest.TestCase):
             row=json.loads((root/'diagnostic-events.jsonl').read_text())
             self.assertEqual(row['status'],'FAIL')
             self.assertGreater(row['elapsed_ns'],0)
+
+    def test_phase_only_does_not_enable_memory_scan(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            root=Path(tmp)
+            metrics=DiagnosticMetrics(root,False,record_phases=True)
+            with metrics.phase('restore'):
+                metrics.snapshot('should-not-scan','missing','other',Path('/missing'))
+            row=json.loads((root/'diagnostic-events.jsonl').read_text())
+            self.assertEqual(row['phase'],'restore')
+            self.assertEqual(row['status'],'PASS')
+            self.assertGreater(row['elapsed_ns'],0)
+            self.assertEqual([p.name for p in root.iterdir()],['diagnostic-events.jsonl'])

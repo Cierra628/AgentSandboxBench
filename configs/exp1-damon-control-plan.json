@@ -1,0 +1,536 @@
+{
+  "status": "COMPLETED_DIAGNOSTIC_ONLY",
+  "purpose": "test whether DAMON proactive reclamation causes natural directory-scan variation",
+  "baseline": "official fixed image and guest kernel; existing default DAMON remains enabled",
+  "variants": {
+    "default": "do not change the guest DAMON setting",
+    "damon_disabled": "write N only to this run-owned guest /sys/module/damon_reclaim/parameters/enabled immediately after create, before uploads and frequency wait; bound wait for kdamond_pid=-1"
+  },
+  "smoke_order": [
+    "default",
+    "damon_disabled"
+  ],
+  "comparison_order": [
+    "default",
+    "damon_disabled",
+    "damon_disabled",
+    "default"
+  ],
+  "constant_settings": {
+    "guest_memory_mib": 4096,
+    "vcpu_count": 2,
+    "vcpu_affinity": [
+      2,
+      4
+    ],
+    "frequency_request_khz": 2000000,
+    "host_monitor": "off",
+    "guest_periodic_monitor": "off",
+    "guest_drop_caches": 0,
+    "directory_prewarm": false
+  },
+  "measurement": "use calibrated vmstat/meminfo and root device endpoints, add-native Trace2 and owned-vCPU wait/KVM counters; do not enable the two rejected DAMON statistics collectors",
+  "gate": "smoke correctness, guest enabled/worker-state check, exact action/stdout/patch hashes, targeted functional checks, CPU restore, project resource cleanup and offline audit must pass before four-run comparison",
+  "cleanup": "delete only newly created owned VMs; no template or shared service setting changes; guest parameter disappears with VM deletion",
+  "disk": {
+    "start_free_gib": 32,
+    "stop_free_gib": 20,
+    "serialize_writers": true,
+    "archive_raw_data": true
+  },
+  "limits": [
+    "separate diagnostic variation, not replacement of official baseline",
+    "four replays do not establish monitoring confidence interval or fairness of memory comparison"
+  ],
+  "approval_reason": "The local AGENTS.md requires discussion of important changes affecting research conclusions; changing guest cache policy needs explicit agreement on the separate comparison group",
+  "user_approval": "2026-09-30 user: 同意执行",
+  "entrypoint": "python3 scripts/run_fixed_frequency_monitor_smoke.py --git-clock-only --git-command-times --git-add-performance --git-add-trace2 --guest-diskstats --host-wait --host-kvm-faults --guest-cache-state --damon-control {smoke,comparison}",
+  "smoke_result_dir": ".artifacts/exp1-damon-control-smoke/20260930T141845Z-2709047",
+  "smoke_offline_audit": "PASS",
+  "comparison_result_dir": ".artifacts/exp1-damon-control-comparison/20260930T142029Z-2710751",
+  "comparison_offline_audit": "PASS",
+  "full_exp1_replays": 6,
+  "evidence": "docs/records/evidence/exp1-damon-control-20260930.json",
+  "followup": {
+    "status": "COMPLETED_DIAGNOSTIC_ONLY",
+    "user_authorization": "按照你的计划继续实验，等到有重要事项需要汇报讨论再停下。",
+    "maximum_groups": 3,
+    "maximum_full_replays": 12,
+    "orders": [
+      [
+        "default",
+        "damon_disabled",
+        "damon_disabled",
+        "default"
+      ],
+      [
+        "damon_disabled",
+        "default",
+        "default",
+        "damon_disabled"
+      ],
+      [
+        "default",
+        "damon_disabled",
+        "damon_disabled",
+        "default"
+      ]
+    ],
+    "gate": "reuse prior passed smoke; offline audit and cleanup after each group; no protocol change besides order",
+    "stop_rule": "after an audited group: disabled scan >=100 ms, any correctness/state/cleanup error or disk risk; after two audited groups: default scan >=200 ms; otherwise stop at three groups",
+    "stop_rule_scope": "descriptive diagnosis only; optional stopping, no formal statistical inference",
+    "baseline_policy": "retain official default, no cache clearing or prewarming",
+    "groups": [
+      {
+        "group": 1,
+        "result_dir": ".artifacts/exp1-damon-control-comparison/20260930T144922Z-2717565",
+        "status": "PASS",
+        "offline_audit": "PASS"
+      },
+      {
+        "group": 2,
+        "result_dir": ".artifacts/exp1-damon-control-comparison-reverse/20260930T145332Z-2721788",
+        "status": "PASS",
+        "offline_audit": "PASS"
+      },
+      {
+        "group": 3,
+        "result_dir": ".artifacts/exp1-damon-control-comparison/20260930T145704Z-2725098",
+        "status": "PASS",
+        "offline_audit": "PASS"
+      }
+    ],
+    "completed_groups": 3,
+    "completed_full_replays": 12,
+    "stop_reason": "MAXIMUM_THREE_GROUPS_REACHED; neither >=200ms default nor >=100ms disabled scan occurred",
+    "evidence": "docs/records/evidence/exp1-damon-followup-20260930.json",
+    "next_step": "time runner preparation and final patch phases outside frozen actions; then assess monitoring separately under each explicit DAMON policy, preserving official default"
+  },
+  "runner_phase_diagnosis": {
+    "status": "COMPLETED_DIAGNOSTIC_ONLY",
+    "calibration_result_dir": ".artifacts/runner-phase-calibration/20260930T152625Z-2735258",
+    "calibration_gate": "PASS",
+    "calibration_scope": "256 measured fixture calls plus 32 warmup; new guest DAMON disabled, no cache flush",
+    "smoke_order": [
+      "default",
+      "damon_disabled"
+    ],
+    "comparison_order": [
+      "default",
+      "damon_disabled",
+      "damon_disabled",
+      "default"
+    ],
+    "maximum_full_replays": 6,
+    "purpose": "locate setup/finalization and control-channel residual without changing frozen actions",
+    "stop_rule": "stop on calibration rejection, first failed correctness/state/audit/cleanup boundary or disk risk; otherwise audit smoke before four-run comparison",
+    "stages": [
+      "environment",
+      "baseline_git",
+      "action_loop",
+      "final_patch"
+    ],
+    "monitoring_acceptance": false,
+    "smoke_result_dir": ".artifacts/exp1-damon-control-smoke-runner-phases/20260930T153017Z-2736618",
+    "smoke_audit": "PASS",
+    "comparison_result_dir": ".artifacts/exp1-damon-control-comparison-runner-phases/20260930T153317Z-2738743",
+    "comparison_audit": "PASS",
+    "full_replays": 6,
+    "evidence": "docs/records/evidence/exp1-runner-phases-20260930.json",
+    "documentation_completed": "2026-10-01",
+    "next_step": "calibrate and time individual initial git add/write-tree/reset/rev-parse subcommands; preserve frozen actions and existing whole-task metric; no formal monitoring acceptance yet"
+  },
+  "baseline_command_diagnosis": {
+    "status": "COMPLETED_DIAGNOSTIC_ONLY",
+    "purpose": "split original initial Git preparation into add/write-tree/reset/rev-parse wall and CPU times",
+    "calibration": "32 warmup plus 8x32 measured warm-fixture calls; DAMON disabled, existing runner phases in both groups; incremental new command records only",
+    "smoke_order": [
+      "default",
+      "damon_disabled"
+    ],
+    "comparison_order": [
+      "default",
+      "damon_disabled",
+      "damon_disabled",
+      "default"
+    ],
+    "maximum_full_replays": 6,
+    "gate": "calibration abs AA <=5 and AB <=5 for both elapsed scopes; smoke correctness/state/cleanup/offline audit before four replays",
+    "limits": "no frozen action or primary whole-task metric change; no cache flush; descriptive diagnostics only, no 5% monitoring acceptance",
+    "calibration_result_dir": ".artifacts/baseline-git-calibration/20260930T163033Z-2749774",
+    "calibration_gate": "PASS",
+    "smoke_result_dir": ".artifacts/exp1-damon-control-smoke-runner-phases-baseline-git/20260930T163304Z-2750759",
+    "smoke_audit": "PASS",
+    "comparison_result_dir": ".artifacts/exp1-damon-control-comparison-runner-phases-baseline-git/20260930T164054Z-2754411",
+    "comparison_audit": "PASS",
+    "full_replays": 6,
+    "evidence": "docs/records/evidence/exp1-baseline-git-20261001.json",
+    "documentation_completed": "2026-10-01",
+    "stop_reason": "MAXIMUM_SIX_REPLAYS_REACHED; initial add accounts for about 97% of baseline preparation; correctness, state and cleanup passed",
+    "next_step": "calibrate native tracing of initial add internals and bounded I/O records before further replays; preserve official default and whole-task metric; no monitoring acceptance"
+  },
+  "baseline_add_trace_diagnosis": {
+    "status": "COMPLETED_DIAGNOSTIC_ONLY",
+    "purpose": "locate initial add internal regions and guest block I/O deltas",
+    "calibration": "32 warmup plus 8x32 warm-fixture calls; DAMON disabled; existing phase and Git command timers in both groups; only new native trace and diskstats differ",
+    "smoke_order": [
+      "default",
+      "damon_disabled"
+    ],
+    "comparison_order": [
+      "default",
+      "damon_disabled",
+      "damon_disabled",
+      "default"
+    ],
+    "maximum_full_replays": 6,
+    "gate": "abs AA <=5% and AB <=5% for both elapsed scopes; audit smoke before comparison",
+    "limits": "no frozen action change, cache flush or prewarming; block counters are guest device-wide, nested Git timers are not additive; no monitoring acceptance",
+    "stop_rule": "stop on first calibration rejection, correctness/state/cleanup error or disk risk; otherwise stop after six full replays and offline audit",
+    "calibration_result_dir": ".artifacts/baseline-add-trace-calibration/20260930T171140Z-2761724",
+    "calibration_gate": "PASS",
+    "smoke_result_dir": ".artifacts/exp1-damon-control-smoke-runner-phases-baseline-git-add-trace/20260930T171340Z-2762546",
+    "smoke_audit": "PASS",
+    "comparison_result_dir": ".artifacts/exp1-damon-control-comparison-runner-phases-baseline-git-add-trace/20260930T171546Z-2764337",
+    "comparison_audit": "PASS",
+    "full_replays": 6,
+    "evidence": "docs/records/evidence/exp1-baseline-add-trace-20261001.json",
+    "documentation_completed": "2026-10-01",
+    "stop_reason": "Six replays completed; initial diff-files accounts for 91-92% of add with about 68 MiB root-device reads; default step 025 again reached 322 ms while disabled scans stayed near 30 ms",
+    "next_step": "inspect initial index stat metadata versus file attributes in a separate bounded fixture; test why initial diff-files reads contents; then assess monitoring within explicit cache policies using same-batch controls; retain official default and whole-task metric"
+  },
+  "initial_index_diagnosis": {
+    "status": "COMPLETED_DIAGNOSTIC_ONLY",
+    "purpose": "test index stat mismatch versus repeated content validation without changing file contents",
+    "maximum_guests": 2,
+    "modes": [
+      "damon_disabled",
+      "default"
+    ],
+    "index_order": [
+      "first",
+      "original",
+      "updated",
+      "updated",
+      "original"
+    ],
+    "maximum_add_calls": 10,
+    "limits": "independent intervention diagnosis; metadata inspection before first add; no natural replay timing or monitoring acceptance; no cache flush",
+    "gate": "local fixture passed; finish and audit first guest before second; all tree/object/state/CPU restoration/cleanup checks required",
+    "next_step": "retain complete per-file stat rows; test stat refresh only for unchanged objects without adding Dockerfile or staging package.json early; preserve original whole-task baseline and treat any normalization as a separate variant",
+    "result_dir": ".artifacts/initial-git-index/20260930T174659Z-2774888",
+    "offline_audit": "PASS",
+    "completed_guests": 2,
+    "completed_add_calls": 10,
+    "evidence": "docs/records/evidence/initial-git-index-20261001.json",
+    "full_stat_recompute": "NOT_AVAILABLE",
+    "documentation_completed": "2026-10-01",
+    "stop_reason": "Maximum two guests reached; original index stat differs on all 8261 entries, 8260 file objects unchanged; disabled warm original add 393-402ms versus updated 38-40ms, all trees identical"
+  },
+  "monitoring_return_to_original_replay": {
+    "status": "COMPLETED",
+    "purpose": "retest periodic monitoring with original frozen guest runner and initial index; preserve complete preparation costs",
+    "smoke_modes": [
+      "damon_disabled",
+      "default"
+    ],
+    "smoke_order_per_mode": [
+      "off",
+      "light",
+      "light",
+      "off"
+    ],
+    "maximum_smoke_replays": 8,
+    "balanced_policy": "damon_disabled; official default retained as independent smoke, never pooled",
+    "maximum_balanced_groups": 5,
+    "runs_per_balanced_group": 8,
+    "balanced_seed_base": 20261001,
+    "schedule": "same-batch control_A/control_B both off and off/light; randomized four labels then mirror",
+    "primary_metric": "task_window_ns includes sampler startup/stop and all initial preparation; no deductions",
+    "sampling": "host service cgroup every 1 second; guest periodic sampling disabled",
+    "guest_runner_sha256": "bb3f50aa03b7424855556920d3808be5b6b8c3046e9bc0687c4229fc344efd9a",
+    "limits": "same fixed image, 2 vCPU, 4096 MiB, requested 2 GHz and vCPU 2/4; no BPF/Git diagnostic, cache flush, prewarm or index refresh; shared CPUs",
+    "gate": "correctness, targeted functional checks, original guest hash, three DAMON boundaries, CPU restoration, cleanup and offline audit after smoke and every group",
+    "decision": "only five complete groups allow original 95% t log-ratio rule: off/off interval within [-5,+5], monitor upper bound <=+5; early stop is descriptive, not statistical acceptance",
+    "stop_rule": "first correctness/state/cleanup failure or disk risk; after first balanced group, stop for important baseline variability if absolute off/off group difference exceeds 5%; otherwise complete up to five groups then report conclusion",
+    "disk": "start >=32 GiB, stop <20 GiB; shared writer lock, quarter-second checks; owned VM cleanup after each run; raw data retained without per-run image archive",
+    "smoke": [
+      {
+        "mode": "damon_disabled",
+        "result_dir": ".artifacts/exp1-monitor-fixed-smoke-damon_disabled/20261001T030302Z-2793489",
+        "status": "PASS",
+        "offline_audit": "PASS"
+      },
+      {
+        "mode": "default",
+        "result_dir": ".artifacts/exp1-monitor-fixed-smoke-default/20261001T030438Z-2796130",
+        "status": "PASS",
+        "offline_audit": "PASS"
+      }
+    ],
+    "groups": [
+      {
+        "group": 1,
+        "seed": 20261001,
+        "result_dir": ".artifacts/exp1-monitor-fixed-balanced-damon_disabled/20261001T030628Z-2798853",
+        "status": "PASS",
+        "offline_audit": "PASS",
+        "differences": {
+          "means": {
+            "control_A": 3.8448755425,
+            "control_B": 3.8551443389999998,
+            "off": 3.859910092,
+            "light": 3.8447363685
+          },
+          "light_vs_off_percent": -0.39311080150412625,
+          "control_B_vs_A_percent": 0.2670774745890059
+        }
+      },
+      {
+        "group": 2,
+        "seed": 20261002,
+        "result_dir": ".artifacts/exp1-monitor-fixed-balanced-damon_disabled/20261001T031110Z-2804487",
+        "status": "PASS",
+        "offline_audit": "PASS",
+        "differences": {
+          "means": {
+            "control_A": 3.83947039,
+            "control_B": 3.766054339,
+            "off": 3.82914105,
+            "light": 3.871972491
+          },
+          "light_vs_off_percent": 1.1185652458532536,
+          "control_B_vs_A_percent": -1.9121400490862972
+        }
+      },
+      {
+        "group": 3,
+        "seed": 20261003,
+        "result_dir": ".artifacts/exp1-monitor-fixed-balanced-damon_disabled/20261001T031344Z-2809475",
+        "status": "PASS",
+        "offline_audit": "PASS",
+        "differences": {
+          "means": {
+            "control_A": 3.7536395405,
+            "control_B": 3.7940968369999997,
+            "off": 3.871095724,
+            "light": 3.7904890050000004
+          },
+          "light_vs_off_percent": -2.0822713967069917,
+          "control_B_vs_A_percent": 1.077815172807206
+        }
+      },
+      {
+        "group": 4,
+        "seed": 20261004,
+        "result_dir": ".artifacts/exp1-monitor-fixed-balanced-damon_disabled/20261001T031618Z-2814502",
+        "status": "PASS",
+        "offline_audit": "PASS",
+        "differences": {
+          "means": {
+            "control_A": 3.866977722,
+            "control_B": 3.7863609315,
+            "off": 3.8260197335,
+            "light": 3.7857641055
+          },
+          "light_vs_off_percent": -1.052154217803114,
+          "control_B_vs_A_percent": -2.084749287314358
+        }
+      },
+      {
+        "group": 5,
+        "seed": 20261005,
+        "result_dir": ".artifacts/exp1-monitor-fixed-balanced-damon_disabled/20261001T031851Z-2819449",
+        "status": "PASS",
+        "offline_audit": "PASS",
+        "differences": {
+          "means": {
+            "control_A": 3.8287591115,
+            "control_B": 3.7832425855,
+            "off": 3.8901100455,
+            "light": 3.8023812450000003
+          },
+          "light_vs_off_percent": -2.255175290001954,
+          "control_B_vs_A_percent": -1.1888062078203698
+        }
+      }
+    ],
+    "result_dir": ".artifacts/exp1-monitor-damon-followup/20261001T031110Z-2804486",
+    "monitoring_acceptance": "WITHIN_5_PERCENT_FOR_THIS_PROTOCOL",
+    "offline_audit": "PASS",
+    "completed_full_replays": 48,
+    "completed_balanced_groups": 5,
+    "evidence": "docs/records/evidence/exp1-monitor-damon-balanced-20261001.json",
+    "documentation_completed": "2026-10-01",
+    "stop_reason": "Five complete groups passed declared 95% interval rule for original replay with DAMON disabled and host-only 1Hz sampling; bounded total 48 replays reached; important scoped acceptance result",
+    "official_default_monitoring_acceptance": "INCONCLUSIVE_SEPARATE_FIVE_GROUPS_UNSTABLE_CONTROL",
+    "guest_periodic_sampling_acceptance": "NOT_TESTED_IN_THIS_PROTOCOL",
+    "trenvx_acceptance": "NOT_TESTED_IN_THIS_PROTOCOL",
+    "final_resource_check": ".artifacts/exp1-monitor-damon-followup/20261001T031110Z-2804486/final-resource-check.json",
+    "next_step": "Keep this measured profile explicit; assess default policy separately without pooling; then TrEnv-X same-batch controls after preparing bounded disk retention, plus clean-directory reproduction of selected configuration; no blanket 5% acceptance for all collectors",
+    "official_default_evidence": "docs/records/evidence/exp1-monitor-default-balanced-20261001.json"
+  },
+  "initial_index_stat_only_diagnosis": {
+    "status": "COMPLETED_DIAGNOSTIC_ONLY",
+    "purpose": "refresh unchanged-file stat records while preserving original staged paths, modes, OIDs and stages; retain full per-file attributes",
+    "maximum_guests": 2,
+    "modes": [
+      "damon_disabled",
+      "default"
+    ],
+    "index_order": [
+      "first",
+      "original",
+      "refreshed",
+      "refreshed",
+      "original"
+    ],
+    "maximum_add_calls": 10,
+    "periodic_monitoring": false,
+    "gate": "three local regression tests and historical offline audit passed; first guest correctness/state/CPU restoration/cleanup before second",
+    "limits": "independent intervention only, no frozen trajectory, no cache flush; metadata inspection and first add warm caches; refresh cost recorded separately, not excluded from any future end-to-end variant",
+    "stop_rule": "stop on first failure or disk guard; otherwise stop at two guests and ten calls for audit and important findings",
+    "result_dir": ".artifacts/initial-git-index-stat-only/20261001T025002Z-2788961",
+    "offline_audit": "PASS",
+    "completed_guests": 2,
+    "completed_add_calls": 10,
+    "full_stat_recompute": "PASS",
+    "staged_objects_preserved": "PASS",
+    "evidence": "docs/records/evidence/initial-git-index-stat-only-20261001.json",
+    "documentation_completed": "2026-10-01",
+    "stop_reason": "Important finding: all 8261 staged paths/modes/OIDs/stages preserved; unchanged-file refresh reduces warm add from 389-410ms to 44-47ms, diff-files to 0.4-0.6ms; refresh itself costs 355/591ms; maximum two guests reached",
+    "next_step": "Return to complete frozen replay monitoring comparison, preserving original index and all initial preparation cost; bounded off/light smoke within authorized DAMON-disabled policy, official default separate; retain same-batch AA controls and mirrored order before five-group inference; no early index refresh as baseline replacement"
+  },
+  "monitoring_default_policy": {
+    "status": "COMPLETED",
+    "purpose": "evaluate official default DAMON policy separately with original frozen replay and complete preparation cost",
+    "balanced_mode": "default",
+    "smoke": [
+      {
+        "mode": "damon_disabled",
+        "result_dir": ".artifacts/exp1-monitor-fixed-smoke-damon_disabled/20261001T030302Z-2793489",
+        "status": "PASS",
+        "offline_audit": "PASS"
+      },
+      {
+        "mode": "default",
+        "result_dir": ".artifacts/exp1-monitor-fixed-smoke-default/20261001T030438Z-2796130",
+        "status": "PASS",
+        "offline_audit": "PASS"
+      }
+    ],
+    "groups": [
+      {
+        "group": 1,
+        "seed": 20261001,
+        "result_dir": ".artifacts/exp1-monitor-fixed-balanced-default/20261001T034918Z-2828119",
+        "status": "PASS",
+        "offline_audit": "PASS",
+        "differences": {
+          "means": {
+            "control_A": 3.8389745815,
+            "control_B": 3.798238401,
+            "off": 3.8121573585,
+            "light": 3.833299373
+          },
+          "light_vs_off_percent": 0.5545944857931806,
+          "control_B_vs_A_percent": -1.0611213915379336
+        }
+      },
+      {
+        "group": 2,
+        "seed": 20261002,
+        "result_dir": ".artifacts/exp1-monitor-fixed-balanced-default/20261001T035258Z-2833444",
+        "status": "PASS",
+        "offline_audit": "PASS",
+        "differences": {
+          "means": {
+            "control_A": 4.0385840855,
+            "control_B": 3.720154614,
+            "off": 4.0040139745,
+            "light": 3.8443027165
+          },
+          "light_vs_off_percent": -3.9887787359669247,
+          "control_B_vs_A_percent": -7.884680986172321
+        }
+      },
+      {
+        "group": 3,
+        "seed": 20261003,
+        "result_dir": ".artifacts/exp1-monitor-fixed-balanced-default/20261001T035531Z-2838584",
+        "status": "PASS",
+        "offline_audit": "PASS",
+        "differences": {
+          "means": {
+            "control_A": 3.9645082795000004,
+            "control_B": 3.9014750620000003,
+            "off": 3.969075684,
+            "light": 3.7666600775
+          },
+          "light_vs_off_percent": -5.099817252565142,
+          "control_B_vs_A_percent": -1.5899378449009016
+        }
+      },
+      {
+        "group": 4,
+        "seed": 20261004,
+        "result_dir": ".artifacts/exp1-monitor-fixed-balanced-default/20261001T035806Z-2843578",
+        "status": "PASS",
+        "offline_audit": "PASS",
+        "differences": {
+          "means": {
+            "control_A": 3.9111724345,
+            "control_B": 3.8475407445,
+            "off": 4.18803746,
+            "light": 3.955365707
+          },
+          "light_vs_off_percent": -5.555627312846445,
+          "control_B_vs_A_percent": -1.626921110373769
+        }
+      },
+      {
+        "group": 5,
+        "seed": 20261005,
+        "result_dir": ".artifacts/exp1-monitor-fixed-balanced-default/20261001T040045Z-2849244",
+        "status": "PASS",
+        "offline_audit": "PASS",
+        "differences": {
+          "means": {
+            "control_A": 3.8174267515,
+            "control_B": 3.80424943,
+            "off": 3.758147086,
+            "light": 3.901528398
+          },
+          "light_vs_off_percent": 3.8152128886633996,
+          "control_B_vs_A_percent": -0.34518858796235286
+        }
+      }
+    ],
+    "maximum_balanced_groups": 5,
+    "runs_per_balanced_group": 8,
+    "maximum_new_full_replays": 40,
+    "balanced_seed_base": 20261001,
+    "primary_metric": "task_window_ns; includes sampler startup/stop, original initial index and complete preparation",
+    "sampling": "host service cgroup 1Hz; guest periodic sampling disabled",
+    "settings": "same fixed image; 2 vCPU/4096 MiB; vCPU 2/4; authorized four CPU 2 GHz request and restoration; DAMON remains enabled",
+    "schedule": "same-batch control_A/control_B both off plus off/light; randomized four labels then mirror; same seeds as disabled groups, separately analyzed",
+    "gate": "reuse passed default smoke; first balanced group must pass correctness, state, original guest hash, functional checks, CPU restoration, cleanup and offline audit before extension",
+    "decision": "only five complete groups allow original 95% t log-ratio rule: off/off interval within [-5,+5], monitor upper bound <=+5; early stop is descriptive, not statistical acceptance",
+    "stop_rule": "first correctness/state/cleanup error or disk risk; after first balanced group stop and report if abs(off/off difference)>5%; otherwise finish five groups for declared t intervals; no extra groups",
+    "disk": "start >=32 GiB, stop <20 GiB; shared writer lock, quarter-second checks; owned VM cleanup after each run; raw data retained without per-run image archive",
+    "limits": "no Git/BPF tracing, cache clearing/prewarming or index refresh; no pooling with DAMON-disabled groups; shared CPUs; only 1Hz host sampling acceptance",
+    "result_dir": ".artifacts/exp1-monitor-default-followup/20261001T035257Z-2833443",
+    "monitoring_acceptance": "INCONCLUSIVE",
+    "offline_audit": "PASS",
+    "completed_balanced_groups": 5,
+    "new_full_replays": 40,
+    "reused_smoke_full_replays": 8,
+    "referenced_full_replays": 48,
+    "evidence": "docs/records/evidence/exp1-monitor-default-balanced-20261001.json",
+    "documentation_completed": "2026-10-01",
+    "stop_reason": "Five planned default-policy groups completed; monitor upper 95% bound +3.02% but off/off interval [-6.33,+1.40] outside equivalence range; stop at 40 new replays, no extra groups or discarded slow calls",
+    "final_resource_check": ".artifacts/exp1-monitor-default-followup/20261001T035257Z-2833443/final-resource-check.json",
+    "trenvx_existing_storage_budget": ".artifacts/exp1-monitor-default-followup/20261001T035257Z-2833443/trenvx-five-pair-storage-readonly.json",
+    "next_step": "Preserve official default baseline as separate inconclusive group and disabled-policy accepted profile; prepare bounded TrEnv-X image retention before same-batch controls, then selected-profile clean-directory reproduction including checkpoint; no extra default repetitions without a new hypothesis/protocol"
+  }
+}

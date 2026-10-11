@@ -1,0 +1,17 @@
+/* Appended to the existing owned-vCPU wait probe. No per-event output. */
+BEGIN {
+  @tries[$1]=0; @tries[$2]=0; @setups[$1]=0; @setups[$2]=0;
+  @returns[$1]=0; @returns[$2]=0; @success[$1]=0; @success[$2]=0;
+}
+tracepoint:kvm:kvm_try_async_get_page /tid==$1 || tid==$2/ { @tries[tid]+=1; }
+kprobe:kvm_setup_async_pf /tid==$1 || tid==$2/ {
+  @setups[tid]+=1; @in_setup[tid]=1;
+}
+kretprobe:kvm_setup_async_pf /(tid==$1 || tid==$2) && @in_setup[tid]/ {
+  @returns[tid]+=1; if ((uint8)retval) { @success[tid]+=1; } delete(@in_setup[tid]);
+}
+END {
+  printf("KVM %d %llu %llu %llu %llu %llu\n",$1,@tries[$1],@setups[$1],@returns[$1],@success[$1],@in_setup[$1]);
+  printf("KVM %d %llu %llu %llu %llu %llu\n",$2,@tries[$2],@setups[$2],@returns[$2],@success[$2],@in_setup[$2]);
+  clear(@tries); clear(@setups); clear(@returns); clear(@success); clear(@in_setup);
+}

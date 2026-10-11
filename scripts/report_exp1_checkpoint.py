@@ -21,23 +21,27 @@ guest = read_tsv(raw / 'replay/guest-memory.tsv')
 host = read_tsv(raw / 'host/memory-samples.tsv')
 result = json.loads((audit / 'result.json').read_text())
 config = json.loads((audit / 'effective-config.json').read_text())
+step = config['checkpoint_after_step']
+next_step = config.get('continuation_start_step', f'{int(step)+1:03d}')
+official_path = audit / 'official-task-result.json'
+official_status = json.loads(official_path.read_text())['status'] if official_path.exists() else 'NOT_RUN'
 phase_ns = {
     'cold_start_api': events['cold-start'],
     'create_to_first_tool_ready': events['cold-start'] + events['initial-ready'],
     'upload_inputs': sum(events[k] for k in ('upload-actions', 'upload-manifest', 'upload-runner', 'upload-probe')),
-    'first_segment_controller': events['actions-001-013'],
+    'first_segment_controller': events[f'actions-001-{step}'],
     'guest_actions_total': sum(int(s['duration_ns']) for s in steps),
     'checkpoint_api': events['checkpoint'],
     'delete_original': events['delete-original'],
     'restore_api': events['restore'],
     'restore_to_tool_ready': events['restore'] + events['restored-ready'],
-    'second_segment_controller': events['actions-014-026'],
+    'second_segment_controller': events[f'actions-{next_step}-026'],
     'download_artifacts': events['download-replay'],
     'delete_restored_and_snapshot': events['delete-restored'] + events['delete-snapshot'],
 }
 host_all_peak = max(int(x['cgroup_current_bytes']) for x in host)
 host_file_peak = max(int(x['cgroup_file_bytes']) for x in host)
-guest_peak = max(int(x['MemTotal_kib']) - int(x['MemAvailable_kib']) for x in guest)
+guest_peak = max((int(x['MemTotal_kib']) - int(x['MemAvailable_kib']) for x in guest), default=None)
 summary = {
     'run_id': run_id,
     'image': config['image'],
@@ -50,9 +54,11 @@ summary = {
     'guest_working_set_observed_peak_kib': guest_peak,
     'host_sample_count': len(host),
     'guest_sample_count': len(guest),
+    'guest_memory_status': 'MEASURED' if guest else 'DISABLED; NOT_MEASURED',
     'cache_policy': config['cache_policy'],
     'monitor_overhead': 'NOT_MEASURED',
     'checkpoint_remote_durability': 'NOT_VERIFIED',
+    'official_task_tests': official_status,
 }
 (audit / 'phase-breakdown.json').write_text(json.dumps(summary, indent=2) + '\n')
 lines = [f'# Exp1 第 {config["checkpoint_after_step"]} 步 checkpoint 验证', '',
@@ -61,11 +67,11 @@ lines = [f'# Exp1 第 {config["checkpoint_after_step"]} 步 checkpoint 验证', 
 labels = {
     'create_to_first_tool_ready': '创建至首次工具通道可用',
     'upload_inputs': '上传冻结动作与探针',
-    'first_segment_controller': '步骤 001–013 工具调用',
+    'first_segment_controller': f'步骤 001–{step} 工具调用',
     'checkpoint_api': 'checkpoint API',
     'delete_original': '删除原沙箱',
     'restore_to_tool_ready': '恢复至工具通道可用',
-    'second_segment_controller': '步骤 014–026 工具调用',
+    'second_segment_controller': f'步骤 {next_step}–026 工具调用',
     'download_artifacts': '下载原始结果',
     'delete_restored_and_snapshot': '删除恢复实例及 snapshot',
 }
@@ -73,10 +79,11 @@ for key, label in labels.items():
     lines.append(f'| {label} | {phase_ns[key] / 1e6:.1f} |')
 lines.extend(['', f'guest 内 26 步工具执行时间之和：{phase_ns["guest_actions_total"] / 1e6:.1f} ms；与两段控制器调用耗时口径不同。',
               '控制器端到端时间：' + (f'{result["controller_elapsed_ns"] / 1e6:.1f} ms。' if 'controller_elapsed_ns' in result else '本轮未记录，不能用阶段耗时之和代替。'),
-              f'host 服务 cgroup 观测峰值 {host_all_peak / 1048576:.1f} MiB，其中 file 观测峰值 {host_file_peak / 1048576:.1f} MiB；guest working-set 观测峰值 {guest_peak / 1024:.1f} MiB。',
-              f'原始采样：host {len(host)} 条、guest {len(guest)} 条；采样周期配置 {config["sample_interval_seconds"]} 秒，采集开销未测。',
+              f'host 服务 cgroup 观测峰值 {host_all_peak / 1048576:.1f} MiB，其中 file 观测峰值 {host_file_peak / 1048576:.1f} MiB。',
+              (f'guest working-set 观测峰值 {guest_peak / 1024:.1f} MiB。' if guest_peak is not None else 'guest 周期采样已关闭，本轮不报告 guest 内存数值。'),
+              f'原始采样：host {len(host)} 条、guest {len(guest)} 条；采样周期配置 {config["sample_interval_seconds"]} 秒，本次功能诊断不作开销估计。',
               '', '恢复前后 PID、start_ticks、boot ID 相同，进程计数继续增长；26 步顺序、预期失败集合、关键输出和最终 patch 与完整重放一致。',
-              'checkpoint 已验证本机可恢复；远端持久化完成未验证。独立任务测试与跨系统性能结论未验证。',
+              f'官方任务专属评测：{official_status}；整个 Prettier 测试集未运行。checkpoint 已验证本机可恢复，远端持久化和跨系统性能结论未验证。',
               '完整原始数据、CLI 日志和采样位于同一运行 ID 的 raw/audit 目录；图表见 output_root/figures。', ''])
 (audit / 'phase-report.md').write_text('\n'.join(lines))
 print(f'status=PASS run_id={run_id} report={audit / "phase-report.md"}')

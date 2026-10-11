@@ -1,0 +1,249 @@
+{
+  "status": "PASS",
+  "date": "2026-10-08",
+  "scope": "prepared-host frozen Prettier #14400 isolated TrEnv-X checkpoint022 and resume023-026; no performance or full filesystem-health acceptance",
+  "storage_result_dir": ".artifacts/storage-isolated-trenvx/20261008T080529Z-3611661",
+  "raw": ".artifacts/storage-isolated-trenvx/20261008T080529Z-3611661/raw/20261008T080529Z-3611676",
+  "local_checks": ".artifacts/checkpoint-journal-fix/20261008T075845Z",
+  "configuration": {
+    "cpu": 2,
+    "memory_mib": 4096,
+    "sample_interval_seconds": 0.1,
+    "capacity_bytes": 25769803776,
+    "cache_policy": "no manual host/guest cache clearing"
+  },
+  "coordination": {
+    "user_confirmation": "prepared window permitted; no other large writes",
+    "start_utc": "2026-10-08T08:05:28.881557+00:00",
+    "end_utc": "2026-10-08T08:25:28.881557+00:00",
+    "scope": "only TrEnv-X checkpoint022 and resume023-026"
+  },
+  "tests": {
+    "checkpoint_unit_tests": 11,
+    "private_diagnostic_archive": "PASS; 66 entries",
+    "pinned_clean_bundle": "PREPARED with source parity; no new VM in bundle"
+  },
+  "capture": {
+    "status": "PASS",
+    "point": "exp1-after-022",
+    "image_present_before_archive": true,
+    "copy_verification": {
+      "source_sha256_before": "36eb01ebb4052bc773c54470137921e0a91875f2b190d55f4a15eb4eea082c3a",
+      "source_sha256_after": "36eb01ebb4052bc773c54470137921e0a91875f2b190d55f4a15eb4eea082c3a",
+      "captured_sha256": "36eb01ebb4052bc773c54470137921e0a91875f2b190d55f4a15eb4eea082c3a",
+      "bytes": 4294967296,
+      "verified_while_paused": true,
+      "duration_ns": 8493693196
+    }
+  },
+  "journal": {
+    "status": "COUNTER_WARNINGS",
+    "processing": "journal-only; no general repair",
+    "source_sha256": "36eb01ebb4052bc773c54470137921e0a91875f2b190d55f4a15eb4eea082c3a",
+    "source_sha256_after": "36eb01ebb4052bc773c54470137921e0a91875f2b190d55f4a15eb4eea082c3a",
+    "private_copy_sha256": "c2cf8c962a63782ef024d80ab68caba897ad7a458b3a750b56e6ae2a2d2a06f3",
+    "needs_recovery_before": true,
+    "needs_recovery_after": false,
+    "journal_exit_code": 0,
+    "readonly_fsck_exit_code": 0,
+    "allocation_count_warnings": [
+      "Free blocks count wrong (1011634, counted=1009158).",
+      "Free inodes count wrong (262133, counted=261958)."
+    ],
+    "filesystem_fully_clean": false,
+    "source_unchanged": true
+  },
+  "final_checks": {
+    "status": "PASS",
+    "action_order": "PASS",
+    "expected_failures": "PASS",
+    "key_output_024": "PASS",
+    "final_patch": "PASS",
+    "independent_svg": "PASS",
+    "official_task_tests": "PASS",
+    "recovery": {
+      "interface": "PASS",
+      "file_state": "PASS",
+      "process_state": "NOT_APPLICABLE"
+    },
+    "official_full_tests": "NOT_RUN",
+    "patch_sha256": "f1cc23ac4f5ac1cff87eb7f8c54f8176c1a47cec37fa4cb6907b9dd8ad199af2",
+    "scope": "frozen replay and task-specific checks; patch equality does not prove full upstream tests"
+  },
+  "cleanup": {
+    "status": "PASS",
+    "sandbox": "PASS",
+    "service": "PASS",
+    "cgroup_and_loop": "PASS",
+    "archived_images": "REMOVED_AFTER_VERIFICATION",
+    "evidence": "run checks, cgroup/loop receipt, archive manifest and current retention state"
+  },
+  "phase_breakdown": {
+    "guest_action_sum": {
+      "status": "MEASURED",
+      "duration_ns": 2150128722,
+      "source": "replay/steps.tsv",
+      "boundary": "sum of 26 guest runner action durations; excludes controller and setup"
+    },
+    "controller_runner_calls": {
+      "status": "MEASURED",
+      "duration_ns": 25508449242,
+      "source": "replay-*.json",
+      "boundary": "sum of controller calls that launch frozen runner segments"
+    },
+    "create_to_first_success": {
+      "status": "MEASURED",
+      "duration_ns": 1152263901,
+      "source": "diagnostic-events.jsonl",
+      "boundary": "SDK create through first successful mkdir command"
+    },
+    "checkpoint": {
+      "status": "MEASURED",
+      "duration_ns": 31634011524,
+      "source": "diagnostic-events.jsonl",
+      "boundary": "controller file capture, sealing and template construction"
+    },
+    "restore_interface": {
+      "status": "MEASURED",
+      "duration_ns": 874942846,
+      "source": "diagnostic-events.jsonl",
+      "boundary": "controller start of child VM from sealed file layer"
+    },
+    "restore_to_first_success": {
+      "status": "MEASURED",
+      "duration_ns": 1936114524,
+      "source": "diagnostic-events.jsonl",
+      "boundary": "start restored VM through first successful environment command"
+    },
+    "template_build": {
+      "status": "MEASURED",
+      "duration_ns": 12481133122,
+      "source": "diagnostic-events.jsonl",
+      "boundary": "prepare private template before trajectory"
+    },
+    "parent_delete": {
+      "status": "MEASURED",
+      "duration_ns": 16576381202,
+      "source": "diagnostic-events.jsonl",
+      "boundary": "delete parent VM after checkpoint"
+    },
+    "full_run_including_cleanup": {
+      "status": "MEASURED",
+      "duration_ns": 445645837365,
+      "source": "result.json",
+      "boundary": "outer start through sandbox cleanup and verified image archiving when enabled"
+    }
+  },
+  "guest_memory": {
+    "sample_count": 232,
+    "observed_peak_used_estimate_kib": 340736,
+    "observed_peak_cached_kib": 4656,
+    "observed_peak_anon_pages_kib": 98824,
+    "observed_peak_slab_kib": 62112,
+    "sampling_mode": "periodic",
+    "boundary_observations": []
+  },
+  "host_memory": {
+    "sample_count": 1222,
+    "scope": "run-owned TrEnv-X sandbox parent cgroup; excludes orchestrator",
+    "observed_peak_current_bytes": 352899072,
+    "observed_peak_file_bytes": 6832128,
+    "observed_peak_anon_bytes": 334823424,
+    "observed_peak_vmm_pss_kib": "NOT_MEASURED"
+  },
+  "guest_composition_summary": {
+    "status": "PASS",
+    "sample_count": 232,
+    "valid_sample_count": 232,
+    "observed_peak_nonfree_bytes": 252076032,
+    "composition_at_observed_peak": {
+      "timestamp_ns": 1791446830565738733,
+      "phase": "after",
+      "step": "026",
+      "status": "PASS",
+      "missing_fields": [],
+      "unit": "bytes",
+      "scope": "guest logical counters at one sample; not host physical residency",
+      "used_definition": "MemTotal - MemFree",
+      "percentage_denominator": "same-sample nonfree memory",
+      "slab_rule": "Slab includes SReclaimable and SUnreclaim; do not add them again",
+      "nonfree_bytes": 252076032,
+      "used_estimate_bytes": 335749120,
+      "components_bytes": {
+        "file_cache_and_buffers": 34332672,
+        "anonymous": 61681664,
+        "slab": 61665280,
+        "shared_memory": 1069056,
+        "kernel_stack": 1589248,
+        "page_tables": 1474560,
+        "percpu": 581632,
+        "unclassified_residual": 89681920
+      },
+      "percentages": {
+        "file_cache_and_buffers": 13.619966851906016,
+        "anonymous": 24.46946800558968,
+        "slab": 24.462968379318188,
+        "shared_memory": 0.42410061421468265,
+        "kernel_stack": 0.6304637483344707,
+        "page_tables": 0.584966364434045,
+        "percpu": 0.2307367326378733,
+        "unclassified_residual": 35.577329303565044
+      },
+      "reclaimable_slab_bytes": 44384256,
+      "unreclaimable_slab_bytes": 17281024
+    },
+    "peak_scope": "sample maximum, not instantaneous peak; incomplete samples excluded and counted",
+    "sampling_mode": "persistent asynchronous process; advisory phase markers",
+    "time_scope": "includes runner preparation; short actions may have no sample; per-runner lifetime only"
+  },
+  "storage": {
+    "mode": "isolated",
+    "capacity_bytes": 25769803776,
+    "observed_volume_used_peak_bytes": 20044054528,
+    "observed_host_available_min_bytes": 43072516096,
+    "cleanup": {
+      "mount_and_loop_removed": true,
+      "successful_fixture_removed": true,
+      "original_firecracker_identities_unchanged": true
+    },
+    "temporary_checkpoint_images_retained": false,
+    "scope": "fixed capacity for temporary bulk writes; host raw export and other users excluded"
+  },
+  "report_verification": {
+    "recomputed_reports_equal": true,
+    "raw_hashes_unchanged": true,
+    "source_file_count": 237,
+    "original_firecracker_identities_unchanged": true,
+    "original_service_unchanged": true
+  },
+  "source_sha256": {
+    "backend/trenvx/checkpoint_dax.py": "664629e0dca3480e8cf0237926cb35f97fa28aaee627868e0b8894d006d8384d",
+    "backend/trenvx/quiesced_checkpoint.py": "e1b9c8d51a2ac8f822e23eace1c86c855c8cf7150458f7923d65eaff82a85766",
+    "patches/incrementaldax-task-checkpoint.patch": "e3110c10be30f8b27fffd5b339796527bf771797af19f7013a3404b45cd0e2b9",
+    "scripts/40-apply-trenvx-task-cgroup.py": "b8edff36162ec08217b66454f74c70c75f4a348fdf9c753b8f56fad7549b11f7",
+    "scripts/smoke_trenvx_service.py": "975802b369d113fe8e3d1f11576eaee907da9266306cacc9980ff5136733d28c",
+    "tests/test_trenvx_checkpoint_image.py": "20fa593b61293be96f8a85cfa5ebd618676e9968d82d30a756f331d6a17e4775"
+  },
+  "approved_cleanup": {
+    "status": "PASS",
+    "authorization": "user confirmed precise failed volume removal this turn",
+    "volume": ".artifacts/storage-isolated-trenvx/20261008T054807Z-3575596/volume.ext4",
+    "removed": true,
+    "allocated_bytes": 25769848832,
+    "backup": ".artifacts/checkpoint-image-diagnostic/20261008T061239Z-3582812/failure-image.tar.gz",
+    "backup_sha256": "6559740fb109f418c2ccb3b378e8d74bfd26142ee742d948b59405743273961c",
+    "backup_hash_verified": true,
+    "host_available_before_bytes": 43106914304,
+    "host_available_after_bytes": 68876763136,
+    "raw_logs_preserved": true
+  },
+  "limitations": [
+    "TrEnv-X inherits file state; no arbitrary process/anonymous-memory restoration",
+    "journal-only replay clears pending journal and permits archive; allocation count warnings remain, full filesystem health is not PASS",
+    "new copy hashing/journal checks add checkpoint work; no causal latency/monitoring-impact comparison",
+    "raw metrics do not supply physical page cache or VMM PSS in this storage run",
+    "successful temporary checkpoint/captured images deleted with verified volume; raw and hashes remain; cannot reload this new checkpoint",
+    "prior unified batch stays FAIL; this is a separate missing-subrun verification",
+    "original failed captured upper was lost; new PASS does not prove every detail of that historical failure"
+  ]
+}

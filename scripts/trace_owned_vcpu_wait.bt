@@ -1,0 +1,25 @@
+/* Arguments are two identity-checked owned TIDs. No global scheduler knob changes. */
+BEGIN { @wait_ns[$1]=0; @wait_ns[$2]=0; @switches[$1]=0; @switches[$2]=0; printf("READY\n"); }
+tracepoint:sched:sched_wakeup /args->pid==$1 || args->pid==$2/ {
+  if (!@queued[args->pid]) { @queued[args->pid]=nsecs; }
+}
+tracepoint:sched:sched_switch /args->prev_pid==$1 || args->prev_pid==$2 || args->next_pid==$1 || args->next_pid==$2/ {
+  if (args->prev_pid==$1 || args->prev_pid==$2) {
+    if (args->prev_state==0 || args->prev_state==256) { @queued[args->prev_pid]=nsecs; }
+    else { delete(@queued[args->prev_pid]); }
+  }
+  if (args->next_pid==$1 || args->next_pid==$2) {
+    if (@queued[args->next_pid]) {
+      @wait_ns[args->next_pid]+=nsecs-@queued[args->next_pid];
+      @switches[args->next_pid]+=1;
+      delete(@queued[args->next_pid]);
+    }
+  }
+}
+END {
+  if (@queued[$1]) { @wait_ns[$1]+=nsecs-@queued[$1]; }
+  if (@queued[$2]) { @wait_ns[$2]+=nsecs-@queued[$2]; }
+  printf("WAIT %d %llu %llu\n",$1,@wait_ns[$1],@switches[$1]);
+  printf("WAIT %d %llu %llu\n",$2,@wait_ns[$2],@switches[$2]);
+  clear(@queued); clear(@wait_ns); clear(@switches);
+}

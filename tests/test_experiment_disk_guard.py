@@ -12,6 +12,24 @@ from experiment_disk_guard import guarded_run, writer_lock
 
 
 class DiskGuardContract(unittest.TestCase):
+    def test_machine_readable_stdout_separated_from_stderr(self):
+        with tempfile.TemporaryDirectory() as folder:
+            out=Path(folder)
+            with (out/'log').open('w') as log,(out/'stderr').open('w') as stderr:
+                guarded_run([sys.executable,'-c','import sys; print("result"); print("diagnostic",file=sys.stderr)'],
+                            directory=out,log=log,stderr_log=stderr,timeout=2,reserve=10,interval=.01,free_bytes=lambda:100)
+            self.assertEqual((out/'log').read_text(),'result\n')
+            self.assertEqual((out/'stderr').read_text(),'diagnostic\n')
+
+    def test_explicit_child_environment_is_forwarded(self):
+        with tempfile.TemporaryDirectory() as folder:
+            out=Path(folder)
+            with (out/'log').open('w') as log:
+                guarded_run([sys.executable,'-c','import os; print(os.environ["BENCH_CALIBRATION_CHILD"])'],
+                            directory=out,log=log,timeout=2,reserve=10,interval=.01,
+                            free_bytes=lambda:100,env={'BENCH_CALIBRATION_CHILD':'expected'})
+            self.assertEqual((out/'log').read_text().strip(),'expected')
+
     def test_low_space_never_launches_writer(self):
         with tempfile.TemporaryDirectory() as folder:
             out=Path(folder)

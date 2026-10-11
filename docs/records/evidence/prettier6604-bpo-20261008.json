@@ -1,0 +1,416 @@
+{
+  "date_utc": "2026-10-08",
+  "task_id": "prettier__prettier-6604",
+  "variant": "role-specific inspect manifests from unchanged original sampling",
+  "platform_status": "PASS",
+  "official_task_status": "FAIL",
+  "resource_configuration": {
+    "cpu_per_vm": 2,
+    "memory_mib_per_vm": 4096,
+    "max_instances": 7,
+    "configured_memory_gib": 28
+  },
+  "smoke": {
+    "status": "PASS",
+    "actions": 21,
+    "segments": 4,
+    "checkpoint_count": 1,
+    "instance_count": 2,
+    "controller_elapsed_ns": 19091098312
+  },
+  "bpo": {
+    "status": "PASS",
+    "instance_count": 7,
+    "physical_segments": 17,
+    "physical_actions": 84,
+    "logical_paths": 7,
+    "logical_actions": 189,
+    "checkpoints": [
+      {
+        "after_global_step": 11,
+        "files_compared": 58,
+        "progress_steps": 11,
+        "parent_next_segment": "core_patch",
+        "status": "PASS"
+      },
+      {
+        "after_global_step": 24,
+        "files_compared": 100,
+        "progress_steps": 24,
+        "parent_next_segment": "backbone_finish",
+        "status": "PASS"
+      }
+    ],
+    "restores": {
+      "early_1": {
+        "status": "PASS",
+        "checkpoint_after_global_step": 11,
+        "next_branch_segment": "early_1_inspect",
+        "files_compared": 58,
+        "process_identity_preserved": true,
+        "count_before": 27,
+        "count_after": 33
+      },
+      "early_2": {
+        "status": "PASS",
+        "checkpoint_after_global_step": 11,
+        "next_branch_segment": "early_2_inspect",
+        "files_compared": 58,
+        "process_identity_preserved": true,
+        "count_before": 27,
+        "count_after": 33
+      },
+      "early_3": {
+        "status": "PASS",
+        "checkpoint_after_global_step": 11,
+        "next_branch_segment": "early_3_inspect",
+        "files_compared": 58,
+        "process_identity_preserved": true,
+        "count_before": 27,
+        "count_after": 33
+      },
+      "late_1": {
+        "status": "PASS",
+        "checkpoint_after_global_step": 24,
+        "next_branch_segment": "late_1_inspect",
+        "files_compared": 100,
+        "process_identity_preserved": true,
+        "count_before": 119,
+        "count_after": 125
+      },
+      "late_2": {
+        "status": "PASS",
+        "checkpoint_after_global_step": 24,
+        "next_branch_segment": "late_2_inspect",
+        "files_compared": 100,
+        "process_identity_preserved": true,
+        "count_before": 119,
+        "count_after": 125
+      },
+      "late_3": {
+        "status": "PASS",
+        "checkpoint_after_global_step": 24,
+        "next_branch_segment": "late_3_inspect",
+        "files_compared": 100,
+        "process_identity_preserved": true,
+        "count_before": 119,
+        "count_after": 125
+      }
+    },
+    "per_role": {
+      "backbone": {
+        "action_count": 29,
+        "guest_action_sum_ns": 15303132908,
+        "guest_observed_peak_bytes": 554795008,
+        "final_patch_sha256": "73eb5f9d0c5582c5b1be464aa6915cfba621a27b80d953b69db74c6d1fa3da5a",
+        "sample_count": 228,
+        "components_at_peak_bytes": {
+          "AnonPages": 356917248,
+          "Cached": 98656256,
+          "Buffers": 22351872,
+          "Shmem": 1089536
+        },
+        "components_at_peak_percent": {
+          "AnonPages": 64.33317583131534,
+          "Cached": 17.7824700253972,
+          "Buffers": 4.028852400921386,
+          "Shmem": 0.1963853286870238
+        },
+        "official_task_status": "FAIL",
+        "official_passed": 0,
+        "official_failed": 2
+      },
+      "early_1": {
+        "action_count": 10,
+        "guest_action_sum_ns": 2231697934,
+        "guest_observed_peak_bytes": 387997696,
+        "final_patch_sha256": "6a74b179e74a2fb00f4cf334c3cccd3405168025974c9a3b3550614cb1976de5",
+        "sample_count": 51,
+        "components_at_peak_bytes": {
+          "AnonPages": 96608256,
+          "Cached": 198119424,
+          "Buffers": 26062848,
+          "Shmem": 1093632
+        },
+        "components_at_peak_percent": {
+          "AnonPages": 24.899182906488186,
+          "Cached": 51.06201043008255,
+          "Buffers": 6.717268754090746,
+          "Shmem": 0.28186559128433586
+        },
+        "official_task_status": "FAIL",
+        "official_passed": 0,
+        "official_failed": 2
+      },
+      "early_2": {
+        "action_count": 10,
+        "guest_action_sum_ns": 2372969093,
+        "guest_observed_peak_bytes": 397545472,
+        "final_patch_sha256": "5721325c7f24fc147069e055f431aa294b0762824a44056afe378955de15fa24",
+        "sample_count": 52,
+        "components_at_peak_bytes": {
+          "AnonPages": 106262528,
+          "Cached": 196833280,
+          "Buffers": 26120192,
+          "Shmem": 1093632
+        },
+        "components_at_peak_percent": {
+          "AnonPages": 26.729653708645436,
+          "Cached": 49.51214234934111,
+          "Buffers": 6.570365867479935,
+          "Shmem": 0.27509607756266935
+        },
+        "official_task_status": "FAIL",
+        "official_passed": 0,
+        "official_failed": 2
+      },
+      "early_3": {
+        "action_count": 10,
+        "guest_action_sum_ns": 3606717583,
+        "guest_observed_peak_bytes": 388235264,
+        "final_patch_sha256": "6a74b179e74a2fb00f4cf334c3cccd3405168025974c9a3b3550614cb1976de5",
+        "sample_count": 64,
+        "components_at_peak_bytes": {
+          "AnonPages": 99266560,
+          "Cached": 195956736,
+          "Buffers": 25894912,
+          "Shmem": 1093632
+        },
+        "components_at_peak_percent": {
+          "AnonPages": 25.568661377447672,
+          "Cached": 50.473708642808916,
+          "Buffers": 6.6699020931802835,
+          "Shmem": 0.28169311276164755
+        },
+        "official_task_status": "FAIL",
+        "official_passed": 0,
+        "official_failed": 2
+      },
+      "late_1": {
+        "action_count": 8,
+        "guest_action_sum_ns": 13167661049,
+        "guest_observed_peak_bytes": 591671296,
+        "final_patch_sha256": "6a74b179e74a2fb00f4cf334c3cccd3405168025974c9a3b3550614cb1976de5",
+        "sample_count": 146,
+        "components_at_peak_bytes": {
+          "AnonPages": 338399232,
+          "Cached": 144461824,
+          "Buffers": 33374208,
+          "Shmem": 1089536
+        },
+        "components_at_peak_percent": {
+          "AnonPages": 57.19378889727312,
+          "Cached": 24.41589189413711,
+          "Buffers": 5.640667077417255,
+          "Shmem": 0.18414548878166298
+        },
+        "official_task_status": "FAIL",
+        "official_passed": 0,
+        "official_failed": 2
+      },
+      "late_2": {
+        "action_count": 8,
+        "guest_action_sum_ns": 4093382969,
+        "guest_observed_peak_bytes": 455401472,
+        "final_patch_sha256": "6a74b179e74a2fb00f4cf334c3cccd3405168025974c9a3b3550614cb1976de5",
+        "sample_count": 64,
+        "components_at_peak_bytes": {
+          "AnonPages": 188608512,
+          "Cached": 145289216,
+          "Buffers": 35827712,
+          "Shmem": 1089536
+        },
+        "components_at_peak_percent": {
+          "AnonPages": 41.415876670684106,
+          "Cached": 31.90354553794679,
+          "Buffers": 7.867280674929395,
+          "Shmem": 0.23924736018420248
+        },
+        "official_task_status": "FAIL",
+        "official_passed": 0,
+        "official_failed": 2
+      },
+      "late_3": {
+        "action_count": 9,
+        "guest_action_sum_ns": 10491031634,
+        "guest_observed_peak_bytes": 478040064,
+        "final_patch_sha256": "6a74b179e74a2fb00f4cf334c3cccd3405168025974c9a3b3550614cb1976de5",
+        "sample_count": 125,
+        "components_at_peak_bytes": {
+          "AnonPages": 216399872,
+          "Cached": 151044096,
+          "Buffers": 35176448,
+          "Shmem": 1089536
+        },
+        "components_at_peak_percent": {
+          "AnonPages": 45.26814555861159,
+          "Cached": 31.59653497159602,
+          "Buffers": 7.358472782733123,
+          "Shmem": 0.22791729858022947
+        },
+        "official_task_status": "FAIL",
+        "official_passed": 0,
+        "official_failed": 2
+      }
+    },
+    "host": {
+      "sample_count": 470,
+      "observed_peak_bytes": 6910017536,
+      "components_at_peak_bytes": {
+        "anon": 3026202624,
+        "file": 3737575424,
+        "kernel": 128278528
+      }
+    },
+    "timing": {
+      "controller_elapsed_ns": 51653156710,
+      "cold_request_span_ns": 2677811539,
+      "cold_request_per_role_ns": {
+        "backbone": 2677811539
+      },
+      "cold_requests_overlap": null,
+      "checkpoint_call_ns": [
+        3313317769,
+        1171965663
+      ],
+      "restore_request_per_role_ns": {
+        "early_1": 260291633,
+        "early_2": 262122889,
+        "early_3": 262851682,
+        "late_1": 236000092,
+        "late_2": 237343011,
+        "late_3": 235423906
+      },
+      "frozen_tools_and_downloads_span_ns": 38590658738,
+      "frozen_tools_and_downloads_call_sum_ns": 59379536530
+    },
+    "guest_action_sum_ns": 51266593170,
+    "raw_file_count": 551
+  },
+  "cache_preparation": {
+    "source_backup": ".artifacts/storage-isolated-service/20261008T102942Z-3642885/volume.ext4.gz",
+    "backup_sha256": "502b8bb6ac5244223034e1f961f64986f9eb41ab9b420e2bca26dd407335fe29",
+    "uncompressed_sha256": "d9f9b21a701d643b5c04be7607ec33b407b8b03a5c19227cbca375639abe8071",
+    "elapsed_ns": 84831854701,
+    "tmpfs_file_allocated_bytes": 7604273152,
+    "readonly_seed_verified": true,
+    "scope": "immutable cache only; original VM state, RocksDB, secrets and uppers are not copied; functional warm-cache preparation"
+  },
+  "storage": {
+    "smoke_volume_bytes": 25769803776,
+    "full_volume_bytes": 34359738368,
+    "smoke_observed_volume_peak_bytes": 6564188160,
+    "full_observed_volume_peak_bytes": 7284948992,
+    "full_observed_host_available_min_bytes": 28673327104,
+    "host_available_after_cleanup_bytes": 63030878208,
+    "planned_full_volume_gib": 27
+  },
+  "cleanup": {
+    "smoke": {
+      "owned_container_removed": true,
+      "mount_and_loop_removed": true,
+      "successful_fixture_removed": true,
+      "original_firecracker_identities_unchanged": true,
+      "original_service_unchanged": true
+    },
+    "full": {
+      "owned_container_removed": true,
+      "mount_and_loop_removed": true,
+      "successful_fixture_removed": true,
+      "original_firecracker_identities_unchanged": true,
+      "original_service_unchanged": true
+    },
+    "bpo": {
+      "sandboxes_removed": [
+        "01a11be2-8582-7262-bdfb-b06a98956c41",
+        "01a11be2-ebea-7b83-a064-8390f3f7f815",
+        "01a11be2-ebea-7b83-a064-83aab7f034b4",
+        "01a11be2-ebea-7b83-a064-83bd31b10387",
+        "01a11be2-ef31-7d31-b3cc-2609c9a117f0",
+        "01a11be2-ef31-7d31-b3cc-2627c9dc2afa",
+        "01a11be2-ef31-7d31-b3cc-261ce81b343e"
+      ],
+      "snapshots_removed": [
+        "01a11be2-9d7c-7d31-9776-9733d3dd0679",
+        "01a11be2-c480-7e20-b09c-df7ce1f5534b"
+      ],
+      "service_sandbox_list_empty": true,
+      "monitor_stopped": true
+    },
+    "ram_seed_released": true,
+    "launcher_exit_code": 0,
+    "cache_release_exit_code": 0
+  },
+  "checks": {
+    "raw_unchanged": true,
+    "reports_recomputed_identically": true,
+    "full_patch_matches_prior_grpo_by_role": {
+      "backbone": {
+        "bpo": "73eb5f9d0c5582c5b1be464aa6915cfba621a27b80d953b69db74c6d1fa3da5a",
+        "grpo": "73eb5f9d0c5582c5b1be464aa6915cfba621a27b80d953b69db74c6d1fa3da5a",
+        "equal": true
+      },
+      "early_1": {
+        "bpo": "6a74b179e74a2fb00f4cf334c3cccd3405168025974c9a3b3550614cb1976de5",
+        "grpo": "6a74b179e74a2fb00f4cf334c3cccd3405168025974c9a3b3550614cb1976de5",
+        "equal": true
+      },
+      "early_2": {
+        "bpo": "5721325c7f24fc147069e055f431aa294b0762824a44056afe378955de15fa24",
+        "grpo": "5721325c7f24fc147069e055f431aa294b0762824a44056afe378955de15fa24",
+        "equal": true
+      },
+      "early_3": {
+        "bpo": "6a74b179e74a2fb00f4cf334c3cccd3405168025974c9a3b3550614cb1976de5",
+        "grpo": "6a74b179e74a2fb00f4cf334c3cccd3405168025974c9a3b3550614cb1976de5",
+        "equal": true
+      },
+      "late_1": {
+        "bpo": "6a74b179e74a2fb00f4cf334c3cccd3405168025974c9a3b3550614cb1976de5",
+        "grpo": "6a74b179e74a2fb00f4cf334c3cccd3405168025974c9a3b3550614cb1976de5",
+        "equal": true
+      },
+      "late_2": {
+        "bpo": "6a74b179e74a2fb00f4cf334c3cccd3405168025974c9a3b3550614cb1976de5",
+        "grpo": "6a74b179e74a2fb00f4cf334c3cccd3405168025974c9a3b3550614cb1976de5",
+        "equal": true
+      },
+      "late_3": {
+        "bpo": "6a74b179e74a2fb00f4cf334c3cccd3405168025974c9a3b3550614cb1976de5",
+        "grpo": "6a74b179e74a2fb00f4cf334c3cccd3405168025974c9a3b3550614cb1976de5",
+        "equal": true
+      }
+    },
+    "regression_tests": {
+      "prettier6604_related": 25,
+      "isolated_storage": 23
+    }
+  },
+  "physical_page_cache": "NOT_MEASURED",
+  "VMM_PSS": "NOT_MEASURED",
+  "monitoring_impact": "NOT_VALIDATED",
+  "raw_dirs": [
+    ".artifacts/storage-isolated-service/20261008T141854Z-3734525/prettier6604",
+    ".artifacts/storage-isolated-service/20261008T141932Z-3737154/prettier6604"
+  ],
+  "report_dir": ".artifacts/prettier6604/bpo-preparation-20261008T141707Z/bpo-report",
+  "window_utc": {
+    "start": "2026-10-08T14:18:54.339836+00:00",
+    "end": "2026-10-08T14:38:54.339836+00:00",
+    "finished": "2026-10-08T14:20:44.029789+00:00"
+  },
+  "measurement_notes": [
+    "Guest: /proc/meminfo KiB converted to bytes; MemTotal-MemFree; runner windows only.",
+    "Per-guest peaks are not summed into a concurrent peak. Guest and host counters are not added.",
+    "Cached is a logical guest counter, not deduplicated physical page cache. Shmem overlaps Cached; Slab not collected.",
+    "Host: memory charged to one temporary service cgroup; includes its VMMs, excludes controller and RAM cache preparation. This is not total project memory. Zero VMM columns are unmeasured placeholders.",
+    "Times are ns. Cold creation includes missing layers. Controller tools include execution and downloads.",
+    "Parallel call sums are not elapsed time. Host phase names may overlap between branches.",
+    "BPO child curves contain executed suffixes only; inherited prefix actions and memory samples are not counted again. Logical action count is separate.",
+    "Guest/host curves use recorded wall clocks; no independent clock calibration. Sampling maxima are observed peaks.",
+    "Frozen tools/downloads span is first execution to last download; in BPO it also contains interleaved checkpoint/restore and verification gaps, not exclusive tool time.",
+    "Snapshots are local full-VM recovery; remote persistence and durable lifecycle after cleanup are not validated.",
+    "This is one functional run; GRPO/BPO performance differences are not attributed to scheduling or sharing."
+  ],
+  "next": "corrected TVCache functionality; no additional BPO/GRPO performance rounds"
+}

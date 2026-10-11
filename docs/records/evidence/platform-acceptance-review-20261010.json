@@ -1,0 +1,179 @@
+{
+  "status": "PARTIAL",
+  "review_date": "2026-10-10",
+  "decision": "Fixed prepared-host Exp1 acceptance remains PASS. Expanded current sampling/platform is not fully accepted; no Git staging requested condition is satisfied for that expanded scope.",
+  "fixed_acceptance": {
+    "status": "PASS",
+    "initial_acceptance": {
+      "trajectory": "PASS",
+      "checkpoint_restore_continuation": "PASS",
+      "memory_timing_and_collection_validation": "PASS"
+    },
+    "formal_run_count": 20,
+    "historical_run_count": 4,
+    "input_file_count": 8244,
+    "input_metadata_unchanged": true,
+    "existing_report_identical": true,
+    "elapsed_ns": 41455889186,
+    "result": ".artifacts/initial-acceptance-delivery/20261010T040904Z-71549"
+  },
+  "new_sampling": {
+    "success_source_status": "PASS",
+    "failure_source_status": "FAIL",
+    "success_monitor_report_status": "PASS",
+    "failure_monitor_report_status": "PASS",
+    "success_vm_count": 4,
+    "success_raw_file_count": 296,
+    "failure_raw_file_count": 315,
+    "raw_hashes_unchanged": true,
+    "source_directories": [
+      ".artifacts/storage-isolated-service/20261009T140753Z-4161273/python-backbone",
+      ".artifacts/storage-isolated-service/20261009T141327Z-4165070/python-backbone"
+    ],
+    "first_failure": "trace_cpp_parser/005 (global step 11): exit 1 vs reference 0; identical stdout/stderr; root cause unknown",
+    "second_child_original_continuation_executed": false,
+    "new_metric_monitoring_impact": "NOT_VALIDATED",
+    "physical_time_series": "NOT_MEASURED; logical Cached time series and separate bounded physical frozen points"
+  },
+  "extra_raw_audits": [
+    {
+      "task": "Sphinx7590",
+      "checkpoint": "PASS",
+      "strict_replay": "PASS",
+      "task_correctness": "FAIL",
+      "raw": ".artifacts/storage-isolated-service/20261009T061949Z-3968260/python-backbone"
+    },
+    {
+      "task": "Xarray6992",
+      "checkpoint": "PASS",
+      "strict_replay": "FAIL",
+      "task_correctness": "FAIL",
+      "raw": ".artifacts/storage-isolated-service/20261009T035819Z-3909078/python-backbone"
+    },
+    {
+      "task": "Prettier6604",
+      "rollout": "BPO",
+      "audit": "PASS",
+      "actions": 84,
+      "roles": 7,
+      "task_correctness": "FAIL",
+      "raw": ".artifacts/storage-isolated-service/20261008T141932Z-3737154/prettier6604"
+    },
+    {
+      "task": "Prettier6604",
+      "rollout": "TVCache",
+      "audit": "PASS",
+      "actions": 84,
+      "roles": 7,
+      "task_correctness": "FAIL",
+      "raw": ".artifacts/storage-isolated-service/20261008T144041Z-3754218/prettier6604"
+    }
+  ],
+  "current_preflight": {
+    "agentenv_shared": "READY",
+    "agentenv_isolated": "READY",
+    "both_isolated": "BLOCKED",
+    "both_isolated_reason": "57.47 GiB available; configured minimum >60 GiB; no allocation attempted",
+    "host_free_gib_at_review": 57.47023391723633,
+    "short_runtime_validation_required_gib": 42,
+    "source_versions": {
+      "AgentENV": "2f48c9c78ec58e4d73c49aa07cb81d984a4a4184",
+      "IncrementalDAX_moti": "a9bc7deadb68a6e24b7242eab343dfedf953ea38"
+    }
+  },
+  "checks": {
+    "local_unit_tests": 42,
+    "status": "PASS",
+    "patterns": [
+      "test_sandbox_performance.py",
+      "test_sandbox_runtime_monitor.py",
+      "test_initial_acceptance_delivery.py",
+      "test_platform_use.py"
+    ],
+    "live_experiments_started": 0,
+    "platform_code_modified": false,
+    "git_staged": false,
+    "committed": false,
+    "pushed": false
+  },
+  "matrix": [
+    {
+      "id": 1,
+      "target": "完整重放单条trajectory",
+      "status": "已验证通过",
+      "scope": "固定Exp1；Sphinx历史35步严格重放通过；不代表全部任务均通过",
+      "evidence": "configs/initial-acceptance-delivery.json"
+    },
+    {
+      "id": 2,
+      "target": "指定边界保存、恢复状态及下一步续跑",
+      "status": "已验证通过",
+      "scope": "Exp1与历史Sphinx等指定边界；AgentENV完整VM恢复，TrEnv-X仅文件继承；最新CPU/I/O采样的原轨迹分支续跑另记失败",
+      "evidence": "docs/records/evidence/third-acceptance-final-20261007.json"
+    },
+    {
+      "id": 3,
+      "target": "当前默认采样的内存/CPU/I/O/host曲线、阶段时延及采集影响",
+      "status": "部分完成",
+      "scope": "旧固定Exp1范围通过；新扩展范围仅四VM五会话短功能验证，严格续跑及新范围采集影响未完成",
+      "evidence": "docs/records/evidence/sandbox-performance-20261009.json"
+    },
+    {
+      "id": 4,
+      "target": "部署、模板/checkpoint管理、模板启动",
+      "status": "部分完成",
+      "scope": "本机生命周期已验证；全新机器部署和通用多任务统一入口未验收；当前AgentENV READY，双后端统一入口受60 GiB门槛阻塞",
+      "evidence": "scripts/use_platform.py"
+    },
+    {
+      "id": 5,
+      "target": "已有轨迹接入/重放与在线收集",
+      "status": "部分完成",
+      "scope": "固定已有轨迹支持；任意轨迹需适配；在线采集未实现",
+      "evidence": "docs/USAGE.md"
+    },
+    {
+      "id": 6,
+      "target": "不同rollout方案",
+      "status": "部分完成",
+      "scope": "Prettier GRPO/BPO/TVCache有成功功能证据，BPO/TVCache本次raw审计通过；新CPU/I/O范围完整调度未验证；无RL策略训练",
+      "evidence": "scripts/report_prettier6604_grpo.py"
+    },
+    {
+      "id": 7,
+      "target": "PPT三任务总内存、物理缓存及阶段时延",
+      "status": "部分完成",
+      "scope": "三任务均有运行、逻辑内存与阶段指标；完整三任务统一物理缓存比较未完成，模型修复失败单列",
+      "evidence": "docs/records/evidence/sandbox-runtime-complete-20261009.json"
+    },
+    {
+      "id": 8,
+      "target": "缓存控制及不同配置对时延的影响",
+      "status": "部分完成",
+      "scope": "历史Exp1控制/观测存在；未形成三任务匹配的因果对照，guest Cached不能代替host去重物理量",
+      "evidence": "docs/records/FILE_PHYSICAL_MEMORY.md"
+    }
+  ],
+  "verification_commands": [
+    "bash scripts/verify-initial-acceptance.sh",
+    "bash scripts/use-platform.sh check",
+    "bash scripts/use-platform.sh check configs/platform-exp1-isolated.json --backend agentenv",
+    "bash scripts/use-platform.sh check configs/platform-exp1-isolated.json",
+    "python3 -B scripts/report_sandbox_runtime.py <actual raw> <new review output>",
+    "report_xarray6992.audit(<actual restored Sphinx/Xarray raw>)",
+    "report_prettier6604_grpo.audit(<actual BPO/TVCache raw>, .artifacts/prettier6604/20261008T082850Z/shared-prepare-check)"
+  ],
+  "acceptance_gate": [
+    "Keep original frozen command exits and outputs; identify the find failure before fresh replay validation.",
+    "Validate both children original continuation plus parent sampler restart, files/progress/process identity, per-VM samples and owned cleanup.",
+    "One normal complete Sphinx and one seven-instance run with expanded sampling; preserve baseline task failures.",
+    "Quantify expanded monitoring with one smoke pair then the previously agreed five pairs, without introducing a performance threshold."
+  ],
+  "later_research_not_initial_acceptance_gates": [
+    "online trajectory capture",
+    "clean new-machine deployment",
+    "RL training",
+    "full DAX/provider attribution",
+    "multi-task physical sharing benefit"
+  ]
+}

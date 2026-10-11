@@ -1,0 +1,58 @@
+{
+  "version": 1,
+  "status": "PASS",
+  "scope": "user-approved exact-ten archive cleanup; not a new experiment",
+  "timestamp_utc": "2026-10-07T07:48:00Z",
+  "evidence_dir": ".artifacts/archive-cleanup/20261007T074258Z-3449819",
+  "authorization": "user confirmed both listed batches, exact ten files",
+  "removed_count": 10,
+  "removed_run_ids": [
+    "20260927T034202Z-2072804",
+    "20260927T034250Z-2072926",
+    "20260927T034339Z-2073039",
+    "20260927T133457Z-2124323",
+    "20260927T160728Z-2165849",
+    "20260928T080653Z-2238410",
+    "20260928T081219Z-2242073",
+    "20260929T031621Z-2369653",
+    "20260929T033857Z-2379996",
+    "20260929T075239Z-2407857"
+  ],
+  "archive_sha256": {
+    "20260927T034202Z-2072804": "86f980ff29b577a376e50bbd7dc25b7f5bd5c057b144966856d4158c4a4ed6ea",
+    "20260927T034250Z-2072926": "e5757dd29170ffc93e46aabef5d03b5cd854232ae8306906decb7a5a837adda6",
+    "20260927T034339Z-2073039": "0c7c53727fcc8dc965d64d91d98574db403076a4bf75a2cc234a71ef4156b5eb",
+    "20260927T133457Z-2124323": "74c450c1d07b00bcc6651e7dbee014008be8d0d735e840fb4eafa389e38a3418",
+    "20260927T160728Z-2165849": "f833763aa7def6ab5198226d8e7d5a9b0896657828f757f7e590ffeddccf3ae3",
+    "20260928T080653Z-2238410": "83390da85f8468beb4d92cf6e2cdc07eeda04b7630ea761d6a558ed67606fb79",
+    "20260928T081219Z-2242073": "fbcbc2b34eace0f213ab02114aed6c5f798a7a7d7f586d2332d3e1241a6927fa",
+    "20260929T031621Z-2369653": "6f5b7e74a1181573e35cc95d7859bd6124de2a8e2d3266cef69e30247b46632f",
+    "20260929T033857Z-2379996": "905f06998416a6d9f224d7f1d2a6b5da2578430be191943c662469d2b1820f7b",
+    "20260929T075239Z-2407857": "36421f1c2bebe8b0d66d540665c901a520c84237c5ea3e089790dbe2087729d4"
+  },
+  "allocated_bytes_removed": 26811916288,
+  "free_before_bytes": 44694917120,
+  "free_after_bytes": 71498207232,
+  "raw_backup_bytes": 4515254,
+  "retained_archive_count": 10,
+  "checks": {
+    "preserved_files_hash_check": "PASS",
+    "retained_archive_identity_check": "PASS",
+    "firecracker_identity_check": "PASS"
+  },
+  "successful_raw_audits_after_deletion": 7,
+  "original_failure_count_preserved": 3,
+  "firecracker_count": 12,
+  "removal_receipts": "one archive-removal.json per deleted run; original result and archive-manifest unchanged",
+  "cleanup_script_sha256": "63979e47ab2283487ca4a6588ce46befa0076043fce73ec6aa1dfcb49a103bdd",
+  "limitations": [
+    "space values are sampled; other writers can change available space",
+    "archived image/checkpoint reload and image-content reanalysis no longer available for these ten runs",
+    "remaining archive identities verified; remaining large archive contents not reread",
+    "no partition/quota installed, shared-writer window not coordinated, real VM experiments not resumed"
+  ],
+  "no_service_restart": true,
+  "no_cache_clear": true,
+  "no_unapproved_deletion": true,
+  "no_staging_commit_push": true
+}

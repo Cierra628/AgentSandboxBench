@@ -1,0 +1,229 @@
+{
+  "status": "PASS",
+  "verdict": "INCONCLUSIVE_SMOKE_ONLY",
+  "source_sha256": "806003798011167e0f6036cbe3ac91d0021f4361cef323c70b0cb28302d21d5a",
+  "observations": [
+    {
+      "position": 1,
+      "mode": "off",
+      "task_window_seconds": 3.765658088,
+      "controller_exec_seconds": 3.761866604,
+      "guest_action_sum_seconds": 1.988360426,
+      "sample_count": 0,
+      "steps_ms": {
+        "023": 1010.833425,
+        "024": 709.631845,
+        "025": 62.357557
+      },
+      "observed_min_free_gib": 50.50373840332031
+    },
+    {
+      "position": 2,
+      "mode": "control_A",
+      "task_window_seconds": 4.156358411,
+      "controller_exec_seconds": 4.152622802,
+      "guest_action_sum_seconds": 2.352515159,
+      "sample_count": 0,
+      "steps_ms": {
+        "023": 1028.267827,
+        "024": 757.824208,
+        "025": 353.163505
+      },
+      "observed_min_free_gib": 50.507137298583984
+    },
+    {
+      "position": 3,
+      "mode": "control_B",
+      "task_window_seconds": 3.860164496,
+      "controller_exec_seconds": 3.855089053,
+      "guest_action_sum_seconds": 2.00881639,
+      "sample_count": 0,
+      "steps_ms": {
+        "023": 1021.958665,
+        "024": 714.341818,
+        "025": 64.340099
+      },
+      "observed_min_free_gib": 50.50639343261719
+    },
+    {
+      "position": 4,
+      "mode": "light",
+      "task_window_seconds": 4.112825562,
+      "controller_exec_seconds": 4.106237751,
+      "guest_action_sum_seconds": 2.28614584,
+      "sample_count": 5,
+      "steps_ms": {
+        "023": 1001.161598,
+        "024": 706.788458,
+        "025": 345.011002
+      },
+      "observed_min_free_gib": 50.50590133666992
+    },
+    {
+      "position": 5,
+      "mode": "light",
+      "task_window_seconds": 3.864114246,
+      "controller_exec_seconds": 3.857070489,
+      "guest_action_sum_seconds": 2.05402725,
+      "sample_count": 4,
+      "steps_ms": {
+        "023": 1061.070716,
+        "024": 705.228185,
+        "025": 71.100094
+      },
+      "observed_min_free_gib": 50.50521469116211
+    },
+    {
+      "position": 6,
+      "mode": "control_B",
+      "task_window_seconds": 3.952604263,
+      "controller_exec_seconds": 3.947470029,
+      "guest_action_sum_seconds": 2.024845047,
+      "sample_count": 0,
+      "steps_ms": {
+        "023": 1012.592397,
+        "024": 728.724033,
+        "025": 68.907866
+      },
+      "observed_min_free_gib": 50.50474166870117
+    },
+    {
+      "position": 7,
+      "mode": "control_A",
+      "task_window_seconds": 4.097903981,
+      "controller_exec_seconds": 4.094517962,
+      "guest_action_sum_seconds": 2.274942372,
+      "sample_count": 0,
+      "steps_ms": {
+        "023": 1011.041415,
+        "024": 710.4247,
+        "025": 328.916395
+      },
+      "observed_min_free_gib": 50.499778747558594
+    },
+    {
+      "position": 8,
+      "mode": "off",
+      "task_window_seconds": 3.689903325,
+      "controller_exec_seconds": 3.685243654,
+      "guest_action_sum_seconds": 2.01615781,
+      "sample_count": 0,
+      "steps_ms": {
+        "023": 1016.45582,
+        "024": 715.850717,
+        "025": 72.598642
+      },
+      "observed_min_free_gib": 50.50328063964844
+    }
+  ],
+  "differences": {
+    "task_window_seconds": {
+      "means": {
+        "control_A": 4.127131196000001,
+        "control_B": 3.9063843795,
+        "off": 3.7277807065,
+        "light": 3.9884699040000005
+      },
+      "light_vs_off_percent": 6.993147344891981,
+      "control_B_vs_A_percent": -5.348674563918577
+    },
+    "controller_exec_seconds": {
+      "means": {
+        "control_A": 4.1235703820000005,
+        "control_B": 3.901279541,
+        "off": 3.723555129,
+        "light": 3.98165412
+      },
+      "light_vs_off_percent": 6.931520604861174,
+      "control_B_vs_A_percent": -5.390737162395309
+    },
+    "guest_action_sum_seconds": {
+      "means": {
+        "control_A": 2.3137287655,
+        "control_B": 2.0168307184999996,
+        "off": 2.002259118,
+        "light": 2.170086545
+      },
+      "light_vs_off_percent": 8.381903495469567,
+      "control_B_vs_A_percent": -12.832016069776452
+    }
+  },
+  "limitations": [
+    "One eight-run group; no statistical confidence interval",
+    "Host service cgroup sampling only; no guest memory or VMM PSS sampling",
+    "No hardware counter or BPF diagnosis in this comparison",
+    "Policy and affinity checked at window boundaries; transient external changes cannot be excluded",
+    "Shared CPUs; symmetric positions do not eliminate arbitrary background load",
+    "Full official task tests NOT_RUN"
+  ],
+  "balanced_analysis": {
+    "monitor": {
+      "group_percent": [
+        6.993147344891981
+      ],
+      "geometric_mean_percent": 6.993147344891981,
+      "mean_log_ratio_t95_percent": null
+    },
+    "control": {
+      "group_percent": [
+        -5.348674563918565
+      ],
+      "geometric_mean_percent": -5.348674563918565,
+      "mean_log_ratio_t95_percent": null
+    },
+    "verdict": "INCONCLUSIVE"
+  },
+  "step_025_diagnostic": {
+    "means_ms": {
+      "control_A": 341.03995,
+      "control_B": 66.6239825,
+      "off": 67.4780995,
+      "light": 208.05554800000002
+    },
+    "control_A_minus_B_ms": 274.41596749999997,
+    "light_minus_off_ms": 140.5774485,
+    "control_guest_sum_difference_fraction": 0.9242767686511578,
+    "monitor_guest_sum_difference_fraction": 0.8376309582580911,
+    "cause": "NOT_IDENTIFIED; original frozen git add -A and git diff --cached"
+  },
+  "raw_result_dir": ".artifacts/exp1-monitor-fixed-balanced/20260930T025035Z-2505452",
+  "step_025_stdout_sha256": [
+    "9a64ed707c224734715f7af4fea2d84f0b51d128e5c8d05535fc9de7d5b6162f",
+    "9a64ed707c224734715f7af4fea2d84f0b51d128e5c8d05535fc9de7d5b6162f",
+    "9a64ed707c224734715f7af4fea2d84f0b51d128e5c8d05535fc9de7d5b6162f",
+    "9a64ed707c224734715f7af4fea2d84f0b51d128e5c8d05535fc9de7d5b6162f",
+    "9a64ed707c224734715f7af4fea2d84f0b51d128e5c8d05535fc9de7d5b6162f",
+    "9a64ed707c224734715f7af4fea2d84f0b51d128e5c8d05535fc9de7d5b6162f",
+    "9a64ed707c224734715f7af4fea2d84f0b51d128e5c8d05535fc9de7d5b6162f",
+    "9a64ed707c224734715f7af4fea2d84f0b51d128e5c8d05535fc9de7d5b6162f"
+  ],
+  "step_025_stdout_equal": true,
+  "configuration": {
+    "vcpu_binding": [
+      2,
+      4
+    ],
+    "affected_policy_cpus": [
+      2,
+      4,
+      66,
+      68
+    ],
+    "requested_min_max_khz": 2000000,
+    "settle_seconds": 10,
+    "host_sample_interval_seconds": 1.0,
+    "guest_sampling": false,
+    "order": [
+      "off",
+      "control_A",
+      "control_B",
+      "light",
+      "light",
+      "control_B",
+      "control_A",
+      "off"
+    ],
+    "seed": 20260930,
+    "cache_policy": "no cache clearing; fresh VM per replay"
+  }
+}

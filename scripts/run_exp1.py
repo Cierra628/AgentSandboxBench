@@ -3,6 +3,7 @@ import csv,datetime,hashlib,json,os,pathlib,subprocess,sys,time,tomllib
 run_started_ns=time.monotonic_ns()
 root=pathlib.Path(__file__).resolve().parent.parent
 cfg=json.loads(pathlib.Path(sys.argv[1]).read_text())
+runtime=(root/cfg.get('runtime_dir','runtime')).resolve()
 repo=(root/cfg['repository']).resolve()
 server=root/cfg['server_result']
 output=(root/cfg['output_root']).resolve()
@@ -11,6 +12,16 @@ audit=output/'audit'/run_id
 os.umask(0o077);audit.mkdir(parents=True)
 raw=output/'raw'/run_id
 checks={};rc=1
+# Forward bounded-run cancellation to the separately owned shell group for its EXIT cleanup.
+import signal
+p=None
+def cancel_run(signum, frame):
+ if p is not None and p.poll() is None:
+  os.killpg(p.pid,signal.SIGTERM)
+  try:p.wait(timeout=70)
+  except subprocess.TimeoutExpired:os.killpg(p.pid,signal.SIGKILL);p.wait(timeout=10)
+ raise RuntimeError('controller cancelled')
+signal.signal(signal.SIGTERM,cancel_run)
 
 def capture(args):
  return subprocess.run(args,capture_output=True,text=True,check=True,timeout=15).stdout
@@ -18,7 +29,7 @@ try:
  cid=(server/'container-id.txt').read_text().strip()
  info=json.loads(capture(['docker','inspect',cid]))[0]
  assert info['State']['Running'] and info['Config']['Labels'].get('agentenv.experiment')=='initial-smoke'
- cred=tomllib.loads((root/'runtime/config/aenv/credentials').read_text())
+ cred=tomllib.loads((runtime/'config/aenv/credentials').read_text())
  assert cred['url']=='http://'+(server/'address.txt').read_text().strip()
  workload=repo/'motivation/experiments/exp1-single-app-smoke/workloads/prettier-14400'
  rows=[x.split('\t',2) for x in (workload/'actions.tsv').read_text().splitlines()]
@@ -28,7 +39,7 @@ try:
  (audit/'effective-config.json').write_text(json.dumps(dict(cfg,container=cid,server_image_id=info['Image'],run_id=run_id,cwd='/testbed',session_semantics='one bash per frozen action',cache_policy='preserve; no host/guest drop_caches',measurement=('light host cgroup sampling' if cfg.get('host_monitor_light',False) else 'diagnostic; overhead not validated'),vmm_scope=('not sampled' if cfg.get('host_monitor_light',False) else 'largest RSS Firecracker within selected service cgroup; includes pool')),indent=2)+'\n')
  for name,args in {'repository-version':['git','-C',str(repo),'rev-parse','HEAD'],'submodules':['git','-C',str(repo),'submodule','status'],'local-changes':['git','-C',str(repo),'diff'],'server-config':['docker','exec',cid,'cat','/workspace/config/default.toml']}.items():
   (audit/(name+'.txt')).write_text(capture(args))
- env=dict(os.environ,PATH=str(root/'runtime/bin')+':'+os.environ['PATH'],XDG_CONFIG_HOME=str(root/'runtime/config'),AGENTENV_CONTAINER=cid,OUTPUT_ROOT=str(output),RUN_ID=run_id,DROP_GUEST_CACHES=str(cfg['drop_guest_caches']),SANDBOX_CPU=str(cfg['sandbox_cpu']),SANDBOX_MEMORY_MIB=str(cfg['sandbox_memory_mib']),MEMORY_SAMPLE_INTERVAL_SECONDS=str(cfg['sample_interval_seconds']),ACTION_TIMEOUT_SECONDS=str(cfg['action_timeout_seconds']),GUEST_MEMORY_SAMPLING='1' if cfg.get('guest_sampling',True) else '0',HOST_MEMORY_SAMPLING='1' if cfg.get('host_sampling',True) else '0',HOST_MONITOR_LIGHT='1' if cfg.get('host_monitor_light',False) else '0',GENERATE_ANALYSIS='1' if cfg.get('generate_analysis',True) else '0')
+ env=dict(os.environ,PATH=str(runtime/'bin')+':'+os.environ['PATH'],XDG_CONFIG_HOME=str(runtime/'config'),AGENTENV_CONTAINER=cid,OUTPUT_ROOT=str(output),RUN_ID=run_id,DROP_GUEST_CACHES=str(cfg['drop_guest_caches']),SANDBOX_CPU=str(cfg['sandbox_cpu']),SANDBOX_MEMORY_MIB=str(cfg['sandbox_memory_mib']),MEMORY_SAMPLE_INTERVAL_SECONDS=str(cfg['sample_interval_seconds']),ACTION_TIMEOUT_SECONDS=str(cfg['action_timeout_seconds']),GUEST_MEMORY_SAMPLING='1' if cfg.get('guest_sampling',True) else '0',HOST_MEMORY_SAMPLING='1' if cfg.get('host_sampling',True) else '0',HOST_MONITOR_LIGHT='1' if cfg.get('host_monitor_light',False) else '0',GENERATE_ANALYSIS='1' if cfg.get('generate_analysis',True) else '0')
  runner=repo/'motivation/experiments/exp1-single-app-smoke/systems/agentenv/run.sh'
  print(f'status=RUNNING run_id={run_id} result_dir={raw}',flush=True)
  with (audit/'controller.log').open('w') as log:
@@ -48,7 +59,16 @@ try:
   assert failures=={'008':127,'016':127},failures
   assert (raw/'oracle-exit-code.txt').read_text().strip()=='0'
   patch=raw/'replay/patch.diff';assert patch.stat().st_size>0
-  (audit/'correctness.json').write_text(json.dumps({'action_order':'PASS','expected_failures':failures,'oracle':'PASS','patch_sha256':hashlib.sha256(patch.read_bytes()).hexdigest(),'patch_reference_match':'NOT_VERIFIED; historical raw absent','independent_task_tests':'NOT_RUN'},indent=2)+'\n')
+  correctness={'action_order':'PASS','expected_failures':failures,'oracle':'PASS','patch_sha256':hashlib.sha256(patch.read_bytes()).hexdigest(),'patch_reference_match':'NOT_VERIFIED; historical raw absent','independent_task_tests':'NOT_RUN'}
+  if cfg.get('expected_patch_sha256'):
+   assert correctness['patch_sha256']==cfg['expected_patch_sha256']
+   correctness['patch_reference_match']='PASS'
+  if cfg.get('fixed_frequency_window'):
+   independent=json.loads((raw/'independent.json').read_text())
+   assert set(independent)=={'svg','nested_svg','html_control'}
+   assert all(row['javascript_formatted'] and row['idempotent'] for row in independent.values())
+   correctness.update(independent_task_tests='PASS',independent_result_file='independent.json')
+  (audit/'correctness.json').write_text(json.dumps(correctness,indent=2)+'\n')
   checks['replay_correctness']='PASS'
   if cfg.get('host_sampling',True):
    with (raw/'host/memory-samples.tsv').open() as f:host=list(csv.DictReader(f,delimiter='\t'))
@@ -64,7 +84,7 @@ try:
   checks['guest_sampling']='PASS' if guest else 'DISABLED'
   assert int((raw/'task-window-duration-ns.txt').read_text())>0
   checks['task_window']='PASS'
-  listing=json.loads(subprocess.run([str(root/'runtime/bin/aenv'),'list','--output','json'],env=env,capture_output=True,text=True,timeout=15,check=True).stdout)
+  listing=json.loads(subprocess.run([str(runtime/'bin/aenv'),'list','--output','json'],env=env,capture_output=True,text=True,timeout=15,check=True).stdout)
   sid=(raw/'sandbox-id.txt').read_text().strip()
   assert not any(x['sandboxID']==sid for x in listing)
   checks['cleanup']='PASS'

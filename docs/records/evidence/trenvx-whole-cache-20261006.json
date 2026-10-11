@@ -1,0 +1,161 @@
+{
+  "status": "PASS",
+  "physical_interval_status": "PARTIAL",
+  "third_acceptance": "PARTIAL",
+  "driver": ".artifacts/trenvx-monitoring-acceptance/20261006T034029Z-3284820",
+  "raw": ".artifacts/trenvx-service-smoke/20261006T034029Z-3284824",
+  "configuration": {
+    "cpu": 2,
+    "memory_mib": 4096,
+    "guest_interval_seconds": 0.1,
+    "host_interval_seconds": 0.1,
+    "cache_policy": "preserve; no global cache drop",
+    "checkpoint": false
+  },
+  "whole_cache": {
+    "status": "PASS",
+    "measurement_status": "PARTIAL",
+    "page_size": 4096,
+    "guest_file_lru_before_pages": 9400,
+    "guest_file_lru_after_pages": 9403,
+    "guest_classification_added_pages": 3,
+    "guest_classification_removed_pages": 0,
+    "guest_file_cache_stable_physical_bytes": 38465536,
+    "guest_file_lru_backing_resident_without_vmm_pte_pages": 448,
+    "guest_file_lru_nonresident_without_backing_cache_pages": 0,
+    "guest_file_lru_unresolved_pages": 0,
+    "backing_cache_stable_physical_bytes": 3766022144,
+    "memory_snapshot_backing_cache_stable_physical_bytes": 4294930432,
+    "vmm_image_file_mapping_stable_physical_bytes": 238149632,
+    "vmm_image_private_mapping_stable_physical_bytes": 8192,
+    "cache_union_stable_physical_bytes": 3804487680,
+    "cache_and_private_image_union_stable_physical_bytes": 3804495872,
+    "all_cache_including_memory_snapshot_union_stable_physical_bytes": 8089968640,
+    "duplicate_cache_pages_removed": 58142,
+    "unstable_observed_unique_pages": 9,
+    "whole_task_file_content_physical_bytes": null,
+    "scope": "one sandbox: all guest RAM file-LRU, mapped/open owned ext4 images and RAM snapshot backing; host PFN dedup",
+    "limitations": [
+      "non-atomic boundary observations; changed pages excluded, new guest pages not mapped",
+      "file-LRU and image cache may include filesystem metadata; not inode-attributed task contents",
+      "private image mappings are not page cache or byte-verified file copies",
+      "probe tmpfs and Python memory affect guest/host totals; scanner faults initially resident backing pages",
+      "not a multi-VM sharing result; never add this physical subset to cgroup memory or VMM PSS"
+    ],
+    "protocol_version": 2,
+    "guest_file_cache_end_observed_physical_bytes": 38514688,
+    "guest_file_cache_end_unknown_pages": 0,
+    "guest_file_cache_end_nonresident_pages": 0,
+    "cache_union_end_observed_physical_bytes": 3804536832,
+    "cache_observation_scope": "all final guest file-LRU and whole owned filesystem images across one analysis interval; not atomic",
+    "exclusive_attribute_only_changes": 0,
+    "controller_elapsed_ns": 11750972846
+  },
+  "periodic_metrics": {
+    "label": "both",
+    "run_id": "20261006T034029Z-3284824",
+    "task_window_ns": 3565224371,
+    "guest_action_sum_ns": 2044865061,
+    "controller_end_to_end_ns": 116983824611,
+    "guest_sample_count": 27,
+    "host_sample_count": 731,
+    "guest_peak_nonfree_bytes": 283013120,
+    "host_peak_current_bytes": 373882880,
+    "action_manifest_sha256": "6ea843b464f5f7ec3c081c539386593027ede2335c5309b945a9462feddceaa7",
+    "patch_sha256": "f1cc23ac4f5ac1cff87eb7f8c54f8176c1a47cec37fa4cb6907b9dd8ad199af2",
+    "retained_allocated_bytes": 73330688,
+    "observed_min_free_bytes": 36924542976,
+    "guest_collector": {
+      "status": "PASS",
+      "error": null,
+      "pid": 3491,
+      "samples": 27,
+      "samples_before": 0,
+      "samples_in_file": 27,
+      "interval_seconds": 0.1,
+      "elapsed_ns": 2576925880,
+      "cpu_user_seconds": 0.062508,
+      "cpu_system_seconds": 0.015627,
+      "maxrss_kib": 5648,
+      "scope": "collector process resource usage; maxrss is not private memory"
+    },
+    "runner_sha256": "bba705020297fa51a33e57c363fab3622034a1cbf4d46bc26e11eb3f2e626a47"
+  },
+  "declared_files": {
+    "status": "PASS",
+    "file_cache_unique_pages": 9,
+    "verified_anonymous_unique_pages": 0,
+    "unknown_unique_pages": 0,
+    "attributed_physical_bytes": 36864,
+    "scope": "declared upper/base mappings across one analysis interval; host PFNs deduplicated",
+    "page_size": 4096,
+    "declared_file_count": 3,
+    "limitation": "non-atomic; not whole-task or unmapped backing cache; does not prove sharing between VMs",
+    "controller_elapsed_ns": 47792586
+  },
+  "checks": {
+    "private_template_prepare": "PASS",
+    "template_build": "PASS",
+    "frozen_input_hashes": "PASS",
+    "owned_ram_registration": "PASS",
+    "unfixed_seed_oracle": "PASS",
+    "guest_memory_sampling": "PASS",
+    "patch_matches_full_replay": "PASS",
+    "exp1_replay_correctness": "PASS",
+    "official_task_tests": "PASS",
+    "whole_cache_collection": "PASS",
+    "upper_file_physical_proof": "PASS",
+    "combined_file_physical_proof": "PASS",
+    "merged_file_origins": "PASS",
+    "base_file_contents": "PASS",
+    "post_scan_correctness": "PASS",
+    "sdk_cleanup": "PASS",
+    "host_light_sampling": "PASS",
+    "owned_kvm_capture_shutdown": "PASS",
+    "service_shutdown": "PASS",
+    "successful_image_cleanup": "PASS"
+  },
+  "post_scan_correctness": {
+    "status": "PASS",
+    "independent_properties": "PASS",
+    "task_patch_unchanged": "PASS",
+    "official_task_tests": "PASS",
+    "scope": "final task state after physical/source probes; no performance-impact comparison"
+  },
+  "offline_audit_status": "PASS",
+  "timing_ns": {
+    "whole_cache_analysis": 12914401925,
+    "template_build": 12531002667,
+    "create_to_first_tool_success": 1162198118,
+    "controller_full": 116983824611
+  },
+  "backing_observation": [
+    {
+      "role": "filesystem-image",
+      "name": "rootfs.ext4",
+      "new_resident_pages": 0,
+      "lost_resident_pages": 0
+    },
+    {
+      "role": "vm-memory-snapshot",
+      "name": "memory-ranges",
+      "new_resident_pages": 0,
+      "lost_resident_pages": 0
+    },
+    {
+      "role": "filesystem-image",
+      "name": "writable-rootfs.ext4",
+      "new_resident_pages": 0,
+      "lost_resident_pages": 0
+    }
+  ],
+  "limitations": [
+    "non-atomic boundary observations; changed pages excluded, new guest pages not mapped",
+    "file-LRU and image cache may include filesystem metadata; not inode-attributed task contents",
+    "private image mappings are not page cache or byte-verified file copies",
+    "probe tmpfs and Python memory affect guest/host totals; scanner faults initially resident backing pages",
+    "not a multi-VM sharing result; never add this physical subset to cgroup memory or VMM PSS",
+    "matched current-combination checkpoint off/on controls not yet run; disk permission pending",
+    "not AgentENV whole-cache coverage; no cross-backend comparison"
+  ]
+}

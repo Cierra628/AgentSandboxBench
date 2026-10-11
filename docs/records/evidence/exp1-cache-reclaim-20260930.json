@@ -1,0 +1,1508 @@
+{
+  "date": "2026-09-30",
+  "scope": "original-cache Exp1 and guest reclaim diagnosis; not monitoring acceptance",
+  "full_exp1_replays": 5,
+  "calibration": [
+    {
+      "result_dir": ".artifacts/guest-cache-state-calibration/20260930T132506Z-2691198",
+      "status": "PASS",
+      "cleanup": "PASS",
+      "diagnostic_gate": "PASS",
+      "differences_percent": {
+        "command_total_ns": {
+          "aa": 2.8766722184938365,
+          "ab": -2.960939223540726
+        },
+        "phase_ns": {
+          "aa": 2.111952831693764,
+          "ab": 4.4533524215187414
+        }
+      },
+      "offline_status": "PASS",
+      "source_result_sha256": "f5cec75a3a003718274808ace6c30c7870425e72699888b4075d1a68b0fea1a1"
+    },
+    {
+      "result_dir": ".artifacts/guest-damon-state-calibration/20260930T134126Z-2699114",
+      "status": "PASS",
+      "cleanup": "PASS",
+      "diagnostic_gate": "NOT_ACCEPTED",
+      "differences_percent": {
+        "command_total_ns": {
+          "aa": -0.9843799083707583,
+          "ab": -1.098143516766048
+        },
+        "phase_ns": {
+          "aa": -0.6870020064008275,
+          "ab": 8.649322597476194
+        }
+      },
+      "offline_status": "PASS",
+      "source_result_sha256": "7dd53c0003b383de79095b68b159b54df49dc066ea48c98c4b954955270a921c"
+    },
+    {
+      "result_dir": ".artifacts/guest-damon-state-calibration/20260930T134717Z-2701390",
+      "status": "PASS",
+      "cleanup": "PASS",
+      "diagnostic_gate": "NOT_ACCEPTED",
+      "differences_percent": {
+        "command_total_ns": {
+          "aa": -2.4823808448953155,
+          "ab": -2.0153376912279364
+        },
+        "phase_ns": {
+          "aa": -1.7054056002855478,
+          "ab": 7.759472660481115
+        }
+      },
+      "offline_status": "PASS",
+      "source_result_sha256": "b4d931d6f7a6f283b8e8bd697836ce4bcdfd8edb109cb211a376b576926263ae"
+    }
+  ],
+  "exp1": [
+    {
+      "run_id": "20260930T132731Z-2692748",
+      "position": 1,
+      "monitoring": "off",
+      "directory_scan_ms": 34.492000000000004,
+      "command_ms": 65.681488,
+      "directory_counts": {
+        "directories-visited": 2743,
+        "paths-visited": 11007
+      },
+      "guest_vdb": {
+        "major": 254,
+        "minor": 16,
+        "reads_completed": 228,
+        "sectors_read": 1824,
+        "read_ms": 76,
+        "writes_completed": 131,
+        "sectors_written": 2088,
+        "write_ms": 18,
+        "io_ms": 8,
+        "weighted_io_ms": 94
+      },
+      "guest_cpu_ms": 63.128,
+      "voluntary_switches": 75,
+      "guest_cache_state": {
+        "before": {
+          "vmstat": {
+            "gauges": {
+              "nr_free_pages": 948864,
+              "nr_file_pages": 36241,
+              "nr_active_file": 18132,
+              "nr_inactive_file": 17842,
+              "nr_shmem": 266,
+              "nr_dirty": 1462,
+              "nr_writeback": 0
+            },
+            "counters": {
+              "pgscan_kswapd": 0,
+              "pgscan_direct": 0,
+              "pgscan_file": 0,
+              "pgsteal_kswapd": 0,
+              "pgsteal_direct": 0,
+              "pgsteal_file": 0,
+              "pgmajfault": 1447,
+              "pgpgin": 256308,
+              "pgpgout": 11720,
+              "workingset_refault_file": 7106,
+              "workingset_activate_file": 958,
+              "workingset_restore_file": 0,
+              "allocstall_dma": 0,
+              "allocstall_dma32": 0,
+              "allocstall_normal": 0,
+              "allocstall_movable": 0
+            }
+          },
+          "meminfo_kib": {
+            "MemTotal": 4034096,
+            "MemFree": 3795204,
+            "MemAvailable": 3761056,
+            "Buffers": 21740,
+            "Cached": 123224,
+            "AnonPages": 28928,
+            "Slab": 41364,
+            "SReclaimable": 28076,
+            "SUnreclaim": 13288,
+            "Shmem": 1064,
+            "Dirty": 5848,
+            "Writeback": 0,
+            "SwapTotal": 0,
+            "SwapFree": 0
+          }
+        },
+        "after": {
+          "vmstat": {
+            "gauges": {
+              "nr_free_pages": 947170,
+              "nr_file_pages": 36480,
+              "nr_active_file": 18278,
+              "nr_inactive_file": 17935,
+              "nr_shmem": 266,
+              "nr_dirty": 1493,
+              "nr_writeback": 0
+            },
+            "counters": {
+              "pgscan_kswapd": 0,
+              "pgscan_direct": 0,
+              "pgscan_file": 0,
+              "pgsteal_kswapd": 0,
+              "pgsteal_direct": 0,
+              "pgsteal_file": 0,
+              "pgmajfault": 1450,
+              "pgpgin": 257220,
+              "pgpgout": 12764,
+              "workingset_refault_file": 7315,
+              "workingset_activate_file": 983,
+              "workingset_restore_file": 0,
+              "allocstall_dma": 0,
+              "allocstall_dma32": 0,
+              "allocstall_normal": 0,
+              "allocstall_movable": 0
+            }
+          },
+          "meminfo_kib": {
+            "MemTotal": 4034096,
+            "MemFree": 3788680,
+            "MemAvailable": 3755012,
+            "Buffers": 21872,
+            "Cached": 124048,
+            "AnonPages": 28940,
+            "Slab": 41452,
+            "SReclaimable": 28076,
+            "SUnreclaim": 13376,
+            "Shmem": 1064,
+            "Dirty": 5972,
+            "Writeback": 0,
+            "SwapTotal": 0,
+            "SwapFree": 0
+          }
+        },
+        "during_command": {
+          "counter_deltas": {
+            "pgscan_kswapd": 0,
+            "pgscan_direct": 0,
+            "pgscan_file": 0,
+            "pgsteal_kswapd": 0,
+            "pgsteal_direct": 0,
+            "pgsteal_file": 0,
+            "pgmajfault": 3,
+            "pgpgin": 912,
+            "pgpgout": 1044,
+            "workingset_refault_file": 209,
+            "workingset_activate_file": 25,
+            "workingset_restore_file": 0,
+            "allocstall_dma": 0,
+            "allocstall_dma32": 0,
+            "allocstall_normal": 0,
+            "allocstall_movable": 0
+          },
+          "gauge_deltas_pages": {
+            "nr_free_pages": -1694,
+            "nr_file_pages": 239,
+            "nr_active_file": 146,
+            "nr_inactive_file": 93,
+            "nr_shmem": 0,
+            "nr_dirty": 31,
+            "nr_writeback": 0
+          },
+          "meminfo_deltas_kib": {
+            "MemTotal": 0,
+            "MemFree": -6524,
+            "MemAvailable": -6044,
+            "Buffers": 132,
+            "Cached": 824,
+            "AnonPages": 12,
+            "Slab": 88,
+            "SReclaimable": 0,
+            "SUnreclaim": 88,
+            "Shmem": 0,
+            "Dirty": 124,
+            "Writeback": 0,
+            "SwapTotal": 0,
+            "SwapFree": 0
+          }
+        },
+        "scope": "guest-wide endpoints; vmstat gauges in pages and meminfo in KiB; no exact file attribution",
+        "limits": "non-atomic snapshots and delayed per-CPU accounting; counters are not durations; zero reclaim does not exclude manual cache invalidation or an evicted page inherited from the template",
+        "start": {
+          "vmstat": {
+            "gauges": {
+              "nr_free_pages": 957488,
+              "nr_file_pages": 27738,
+              "nr_active_file": 7235,
+              "nr_inactive_file": 20235,
+              "nr_shmem": 266,
+              "nr_dirty": 1233,
+              "nr_writeback": 0
+            },
+            "counters": {
+              "pgscan_kswapd": 0,
+              "pgscan_direct": 0,
+              "pgscan_file": 0,
+              "pgsteal_kswapd": 0,
+              "pgsteal_direct": 0,
+              "pgsteal_file": 0,
+              "pgmajfault": 1253,
+              "pgpgin": 221932,
+              "pgpgout": 9412,
+              "workingset_refault_file": 6930,
+              "workingset_activate_file": 955,
+              "workingset_restore_file": 0,
+              "allocstall_dma": 0,
+              "allocstall_dma32": 0,
+              "allocstall_normal": 0,
+              "allocstall_movable": 0
+            }
+          },
+          "meminfo_kib": {
+            "MemTotal": 4034096,
+            "MemFree": 3829952,
+            "MemAvailable": 3777400,
+            "Buffers": 16208,
+            "Cached": 94744,
+            "AnonPages": 28716,
+            "Slab": 38432,
+            "SReclaimable": 25288,
+            "SUnreclaim": 13144,
+            "Shmem": 1064,
+            "Dirty": 4932,
+            "Writeback": 0,
+            "SwapTotal": 0,
+            "SwapFree": 0
+          }
+        },
+        "before_command": {
+          "counter_deltas": {
+            "pgscan_kswapd": 0,
+            "pgscan_direct": 0,
+            "pgscan_file": 0,
+            "pgsteal_kswapd": 0,
+            "pgsteal_direct": 0,
+            "pgsteal_file": 0,
+            "pgmajfault": 194,
+            "pgpgin": 34376,
+            "pgpgout": 2308,
+            "workingset_refault_file": 176,
+            "workingset_activate_file": 3,
+            "workingset_restore_file": 0,
+            "allocstall_dma": 0,
+            "allocstall_dma32": 0,
+            "allocstall_normal": 0,
+            "allocstall_movable": 0
+          },
+          "gauge_deltas_pages": {
+            "nr_free_pages": -8624,
+            "nr_file_pages": 8503,
+            "nr_active_file": 10897,
+            "nr_inactive_file": -2393,
+            "nr_shmem": 0,
+            "nr_dirty": 229,
+            "nr_writeback": 0
+          },
+          "meminfo_deltas_kib": {
+            "MemTotal": 0,
+            "MemFree": -34748,
+            "MemAvailable": -16344,
+            "Buffers": 5532,
+            "Cached": 28480,
+            "AnonPages": 212,
+            "Slab": 2932,
+            "SReclaimable": 2788,
+            "SUnreclaim": 144,
+            "Shmem": 0,
+            "Dirty": 916,
+            "Writeback": 0,
+            "SwapTotal": 0,
+            "SwapFree": 0
+          }
+        }
+      },
+      "owned_vcpu_queue_upper_bound_ms": 8.334444,
+      "kvm_successful_async_setup": 0,
+      "observed_min_free_gib": 49.497718811035156,
+      "stdout_025_sha256": "9a64ed707c224734715f7af4fea2d84f0b51d128e5c8d05535fc9de7d5b6162f",
+      "patch_sha256": "f1cc23ac4f5ac1cff87eb7f8c54f8176c1a47cec37fa4cb6907b9dd8ad199af2",
+      "offline_audit": "PASS",
+      "source_result_sha256": "90d9de3371d84db33e2c8ea885102702a1fffc508e67e59efda8eab68d0ee3a7"
+    },
+    {
+      "run_id": "20260930T132923Z-2693986",
+      "position": 1,
+      "monitoring": "off",
+      "directory_scan_ms": 213.332,
+      "command_ms": 243.049516,
+      "directory_counts": {
+        "directories-visited": 2743,
+        "paths-visited": 11007
+      },
+      "guest_vdb": {
+        "major": 254,
+        "minor": 16,
+        "reads_completed": 1740,
+        "sectors_read": 14112,
+        "read_ms": 258,
+        "writes_completed": 46,
+        "sectors_written": 2088,
+        "write_ms": 11,
+        "io_ms": 180,
+        "weighted_io_ms": 268
+      },
+      "guest_cpu_ms": 72.134,
+      "voluntary_switches": 1561,
+      "guest_cache_state": {
+        "before": {
+          "vmstat": {
+            "gauges": {
+              "nr_free_pages": 957250,
+              "nr_file_pages": 27077,
+              "nr_active_file": 16612,
+              "nr_inactive_file": 10198,
+              "nr_shmem": 266,
+              "nr_dirty": 1468,
+              "nr_writeback": 0
+            },
+            "counters": {
+              "pgscan_kswapd": 0,
+              "pgscan_direct": 0,
+              "pgscan_file": 0,
+              "pgsteal_kswapd": 0,
+              "pgsteal_direct": 0,
+              "pgsteal_file": 0,
+              "pgmajfault": 1453,
+              "pgpgin": 267468,
+              "pgpgout": 11720,
+              "workingset_refault_file": 9947,
+              "workingset_activate_file": 1281,
+              "workingset_restore_file": 0,
+              "allocstall_dma": 0,
+              "allocstall_dma32": 0,
+              "allocstall_normal": 0,
+              "allocstall_movable": 0
+            }
+          },
+          "meminfo_kib": {
+            "MemTotal": 4034096,
+            "MemFree": 3829000,
+            "MemAvailable": 3776432,
+            "Buffers": 14304,
+            "Cached": 94004,
+            "AnonPages": 28964,
+            "Slab": 41172,
+            "SReclaimable": 27896,
+            "SUnreclaim": 13276,
+            "Shmem": 1064,
+            "Dirty": 5872,
+            "Writeback": 0,
+            "SwapTotal": 0,
+            "SwapFree": 0
+          }
+        },
+        "after": {
+          "vmstat": {
+            "gauges": {
+              "nr_free_pages": 954547,
+              "nr_file_pages": 28831,
+              "nr_active_file": 18274,
+              "nr_inactive_file": 10315,
+              "nr_shmem": 266,
+              "nr_dirty": 1494,
+              "nr_writeback": 0
+            },
+            "counters": {
+              "pgscan_kswapd": 0,
+              "pgscan_direct": 0,
+              "pgscan_file": 0,
+              "pgsteal_kswapd": 0,
+              "pgsteal_direct": 0,
+              "pgsteal_file": 0,
+              "pgmajfault": 1459,
+              "pgpgin": 274524,
+              "pgpgout": 12764,
+              "workingset_refault_file": 11675,
+              "workingset_activate_file": 1284,
+              "workingset_restore_file": 0,
+              "allocstall_dma": 0,
+              "allocstall_dma32": 0,
+              "allocstall_normal": 0,
+              "allocstall_movable": 0
+            }
+          },
+          "meminfo_kib": {
+            "MemTotal": 4034096,
+            "MemFree": 3818188,
+            "MemAvailable": 3769280,
+            "Buffers": 20452,
+            "Cached": 94872,
+            "AnonPages": 29012,
+            "Slab": 41432,
+            "SReclaimable": 28096,
+            "SUnreclaim": 13336,
+            "Shmem": 1064,
+            "Dirty": 5976,
+            "Writeback": 0,
+            "SwapTotal": 0,
+            "SwapFree": 0
+          }
+        },
+        "during_command": {
+          "counter_deltas": {
+            "pgscan_kswapd": 0,
+            "pgscan_direct": 0,
+            "pgscan_file": 0,
+            "pgsteal_kswapd": 0,
+            "pgsteal_direct": 0,
+            "pgsteal_file": 0,
+            "pgmajfault": 6,
+            "pgpgin": 7056,
+            "pgpgout": 1044,
+            "workingset_refault_file": 1728,
+            "workingset_activate_file": 3,
+            "workingset_restore_file": 0,
+            "allocstall_dma": 0,
+            "allocstall_dma32": 0,
+            "allocstall_normal": 0,
+            "allocstall_movable": 0
+          },
+          "gauge_deltas_pages": {
+            "nr_free_pages": -2703,
+            "nr_file_pages": 1754,
+            "nr_active_file": 1662,
+            "nr_inactive_file": 117,
+            "nr_shmem": 0,
+            "nr_dirty": 26,
+            "nr_writeback": 0
+          },
+          "meminfo_deltas_kib": {
+            "MemTotal": 0,
+            "MemFree": -10812,
+            "MemAvailable": -7152,
+            "Buffers": 6148,
+            "Cached": 868,
+            "AnonPages": 48,
+            "Slab": 260,
+            "SReclaimable": 200,
+            "SUnreclaim": 60,
+            "Shmem": 0,
+            "Dirty": 104,
+            "Writeback": 0,
+            "SwapTotal": 0,
+            "SwapFree": 0
+          }
+        },
+        "scope": "guest-wide endpoints; vmstat gauges in pages and meminfo in KiB; no exact file attribution",
+        "limits": "non-atomic snapshots and delayed per-CPU accounting; counters are not durations; zero reclaim does not exclude manual cache invalidation or an evicted page inherited from the template",
+        "start": {
+          "vmstat": {
+            "gauges": {
+              "nr_free_pages": 971736,
+              "nr_file_pages": 13879,
+              "nr_active_file": 5316,
+              "nr_inactive_file": 8296,
+              "nr_shmem": 266,
+              "nr_dirty": 1240,
+              "nr_writeback": 11
+            },
+            "counters": {
+              "pgscan_kswapd": 0,
+              "pgscan_direct": 0,
+              "pgscan_file": 0,
+              "pgsteal_kswapd": 0,
+              "pgsteal_direct": 0,
+              "pgsteal_file": 0,
+              "pgmajfault": 1110,
+              "pgpgin": 214040,
+              "pgpgout": 9412,
+              "workingset_refault_file": 4971,
+              "workingset_activate_file": 587,
+              "workingset_restore_file": 0,
+              "allocstall_dma": 0,
+              "allocstall_dma32": 0,
+              "allocstall_normal": 0,
+              "allocstall_movable": 0
+            }
+          },
+          "meminfo_kib": {
+            "MemTotal": 4034096,
+            "MemFree": 3886944,
+            "MemAvailable": 3806584,
+            "Buffers": 8004,
+            "Cached": 47612,
+            "AnonPages": 28748,
+            "Slab": 38252,
+            "SReclaimable": 25104,
+            "SUnreclaim": 13148,
+            "Shmem": 1064,
+            "Dirty": 4960,
+            "Writeback": 44,
+            "SwapTotal": 0,
+            "SwapFree": 0
+          }
+        },
+        "before_command": {
+          "counter_deltas": {
+            "pgscan_kswapd": 0,
+            "pgscan_direct": 0,
+            "pgscan_file": 0,
+            "pgsteal_kswapd": 0,
+            "pgsteal_direct": 0,
+            "pgsteal_file": 0,
+            "pgmajfault": 343,
+            "pgpgin": 53428,
+            "pgpgout": 2308,
+            "workingset_refault_file": 4976,
+            "workingset_activate_file": 694,
+            "workingset_restore_file": 0,
+            "allocstall_dma": 0,
+            "allocstall_dma32": 0,
+            "allocstall_normal": 0,
+            "allocstall_movable": 0
+          },
+          "gauge_deltas_pages": {
+            "nr_free_pages": -14486,
+            "nr_file_pages": 13198,
+            "nr_active_file": 11296,
+            "nr_inactive_file": 1902,
+            "nr_shmem": 0,
+            "nr_dirty": 228,
+            "nr_writeback": -11
+          },
+          "meminfo_deltas_kib": {
+            "MemTotal": 0,
+            "MemFree": -57944,
+            "MemAvailable": -30152,
+            "Buffers": 6300,
+            "Cached": 46392,
+            "AnonPages": 216,
+            "Slab": 2920,
+            "SReclaimable": 2792,
+            "SUnreclaim": 128,
+            "Shmem": 0,
+            "Dirty": 912,
+            "Writeback": -44,
+            "SwapTotal": 0,
+            "SwapFree": 0
+          }
+        }
+      },
+      "owned_vcpu_queue_upper_bound_ms": 9.732841,
+      "kvm_successful_async_setup": 0,
+      "observed_min_free_gib": 49.49135971069336,
+      "stdout_025_sha256": "9a64ed707c224734715f7af4fea2d84f0b51d128e5c8d05535fc9de7d5b6162f",
+      "patch_sha256": "f1cc23ac4f5ac1cff87eb7f8c54f8176c1a47cec37fa4cb6907b9dd8ad199af2",
+      "offline_audit": "PASS",
+      "source_result_sha256": "aaa57fd6407cad640c601004928211879a87f3cacd3910808c99903684e9608e"
+    },
+    {
+      "run_id": "20260930T132923Z-2693986",
+      "position": 2,
+      "monitoring": "off",
+      "directory_scan_ms": 336.227,
+      "command_ms": 383.734048,
+      "directory_counts": {
+        "directories-visited": 2743,
+        "paths-visited": 11007
+      },
+      "guest_vdb": {
+        "major": 254,
+        "minor": 16,
+        "reads_completed": 4164,
+        "sectors_read": 35816,
+        "read_ms": 781,
+        "writes_completed": 68,
+        "sectors_written": 2088,
+        "write_ms": 12,
+        "io_ms": 276,
+        "weighted_io_ms": 793
+      },
+      "guest_cpu_ms": 80.963,
+      "voluntary_switches": 2819,
+      "guest_cache_state": {
+        "before": {
+          "vmstat": {
+            "gauges": {
+              "nr_free_pages": 968548,
+              "nr_file_pages": 16598,
+              "nr_active_file": 13794,
+              "nr_inactive_file": 2537,
+              "nr_shmem": 266,
+              "nr_dirty": 1480,
+              "nr_writeback": 0
+            },
+            "counters": {
+              "pgscan_kswapd": 0,
+              "pgscan_direct": 0,
+              "pgscan_file": 0,
+              "pgsteal_kswapd": 0,
+              "pgsteal_direct": 0,
+              "pgsteal_file": 0,
+              "pgmajfault": 1378,
+              "pgpgin": 250820,
+              "pgpgout": 11688,
+              "workingset_refault_file": 6073,
+              "workingset_activate_file": 945,
+              "workingset_restore_file": 0,
+              "allocstall_dma": 0,
+              "allocstall_dma32": 0,
+              "allocstall_normal": 0,
+              "allocstall_movable": 0
+            }
+          },
+          "meminfo_kib": {
+            "MemTotal": 4034096,
+            "MemFree": 3873940,
+            "MemAvailable": 3800336,
+            "Buffers": 9056,
+            "Cached": 57336,
+            "AnonPages": 29148,
+            "Slab": 41096,
+            "SReclaimable": 27732,
+            "SUnreclaim": 13364,
+            "Shmem": 1064,
+            "Dirty": 5920,
+            "Writeback": 0,
+            "SwapTotal": 0,
+            "SwapFree": 0
+          }
+        },
+        "after": {
+          "vmstat": {
+            "gauges": {
+              "nr_free_pages": 962941,
+              "nr_file_pages": 21066,
+              "nr_active_file": 17435,
+              "nr_inactive_file": 3384,
+              "nr_shmem": 266,
+              "nr_dirty": 1506,
+              "nr_writeback": 0
+            },
+            "counters": {
+              "pgscan_kswapd": 0,
+              "pgscan_direct": 0,
+              "pgscan_file": 0,
+              "pgsteal_kswapd": 0,
+              "pgsteal_direct": 0,
+              "pgsteal_file": 0,
+              "pgmajfault": 1426,
+              "pgpgin": 268740,
+              "pgpgout": 12732,
+              "workingset_refault_file": 10515,
+              "workingset_activate_file": 2124,
+              "workingset_restore_file": 0,
+              "allocstall_dma": 0,
+              "allocstall_dma32": 0,
+              "allocstall_normal": 0,
+              "allocstall_movable": 0
+            }
+          },
+          "meminfo_kib": {
+            "MemTotal": 4034096,
+            "MemFree": 3851764,
+            "MemAvailable": 3787284,
+            "Buffers": 19976,
+            "Cached": 64288,
+            "AnonPages": 29304,
+            "Slab": 41332,
+            "SReclaimable": 28032,
+            "SUnreclaim": 13300,
+            "Shmem": 1064,
+            "Dirty": 6024,
+            "Writeback": 0,
+            "SwapTotal": 0,
+            "SwapFree": 0
+          }
+        },
+        "during_command": {
+          "counter_deltas": {
+            "pgscan_kswapd": 0,
+            "pgscan_direct": 0,
+            "pgscan_file": 0,
+            "pgsteal_kswapd": 0,
+            "pgsteal_direct": 0,
+            "pgsteal_file": 0,
+            "pgmajfault": 48,
+            "pgpgin": 17920,
+            "pgpgout": 1044,
+            "workingset_refault_file": 4442,
+            "workingset_activate_file": 1179,
+            "workingset_restore_file": 0,
+            "allocstall_dma": 0,
+            "allocstall_dma32": 0,
+            "allocstall_normal": 0,
+            "allocstall_movable": 0
+          },
+          "gauge_deltas_pages": {
+            "nr_free_pages": -5607,
+            "nr_file_pages": 4468,
+            "nr_active_file": 3641,
+            "nr_inactive_file": 847,
+            "nr_shmem": 0,
+            "nr_dirty": 26,
+            "nr_writeback": 0
+          },
+          "meminfo_deltas_kib": {
+            "MemTotal": 0,
+            "MemFree": -22176,
+            "MemAvailable": -13052,
+            "Buffers": 10920,
+            "Cached": 6952,
+            "AnonPages": 156,
+            "Slab": 236,
+            "SReclaimable": 300,
+            "SUnreclaim": -64,
+            "Shmem": 0,
+            "Dirty": 104,
+            "Writeback": 0,
+            "SwapTotal": 0,
+            "SwapFree": 0
+          }
+        },
+        "scope": "guest-wide endpoints; vmstat gauges in pages and meminfo in KiB; no exact file attribution",
+        "limits": "non-atomic snapshots and delayed per-CPU accounting; counters are not durations; zero reclaim does not exclude manual cache invalidation or an evicted page inherited from the template",
+        "start": {
+          "vmstat": {
+            "gauges": {
+              "nr_free_pages": 956957,
+              "nr_file_pages": 27671,
+              "nr_active_file": 7241,
+              "nr_inactive_file": 20161,
+              "nr_shmem": 266,
+              "nr_dirty": 1238,
+              "nr_writeback": 0
+            },
+            "counters": {
+              "pgscan_kswapd": 0,
+              "pgscan_direct": 0,
+              "pgscan_file": 0,
+              "pgsteal_kswapd": 0,
+              "pgsteal_direct": 0,
+              "pgsteal_file": 0,
+              "pgmajfault": 1149,
+              "pgpgin": 212952,
+              "pgpgout": 9380,
+              "workingset_refault_file": 4987,
+              "workingset_activate_file": 724,
+              "workingset_restore_file": 0,
+              "allocstall_dma": 0,
+              "allocstall_dma32": 0,
+              "allocstall_normal": 0,
+              "allocstall_movable": 0
+            }
+          },
+          "meminfo_kib": {
+            "MemTotal": 4034096,
+            "MemFree": 3827828,
+            "MemAvailable": 3775100,
+            "Buffers": 16072,
+            "Cached": 94612,
+            "AnonPages": 29116,
+            "Slab": 38352,
+            "SReclaimable": 25208,
+            "SUnreclaim": 13144,
+            "Shmem": 1064,
+            "Dirty": 4952,
+            "Writeback": 0,
+            "SwapTotal": 0,
+            "SwapFree": 0
+          }
+        },
+        "before_command": {
+          "counter_deltas": {
+            "pgscan_kswapd": 0,
+            "pgscan_direct": 0,
+            "pgscan_file": 0,
+            "pgsteal_kswapd": 0,
+            "pgsteal_direct": 0,
+            "pgsteal_file": 0,
+            "pgmajfault": 229,
+            "pgpgin": 37868,
+            "pgpgout": 2308,
+            "workingset_refault_file": 1086,
+            "workingset_activate_file": 221,
+            "workingset_restore_file": 0,
+            "allocstall_dma": 0,
+            "allocstall_dma32": 0,
+            "allocstall_normal": 0,
+            "allocstall_movable": 0
+          },
+          "gauge_deltas_pages": {
+            "nr_free_pages": 11591,
+            "nr_file_pages": -11073,
+            "nr_active_file": 6553,
+            "nr_inactive_file": -17624,
+            "nr_shmem": 0,
+            "nr_dirty": 242,
+            "nr_writeback": 0
+          },
+          "meminfo_deltas_kib": {
+            "MemTotal": 0,
+            "MemFree": 46112,
+            "MemAvailable": 25236,
+            "Buffers": -7016,
+            "Cached": -37276,
+            "AnonPages": 32,
+            "Slab": 2744,
+            "SReclaimable": 2524,
+            "SUnreclaim": 220,
+            "Shmem": 0,
+            "Dirty": 968,
+            "Writeback": 0,
+            "SwapTotal": 0,
+            "SwapFree": 0
+          }
+        }
+      },
+      "owned_vcpu_queue_upper_bound_ms": 8.96346,
+      "kvm_successful_async_setup": 0,
+      "observed_min_free_gib": 49.4908447265625,
+      "stdout_025_sha256": "9a64ed707c224734715f7af4fea2d84f0b51d128e5c8d05535fc9de7d5b6162f",
+      "patch_sha256": "f1cc23ac4f5ac1cff87eb7f8c54f8176c1a47cec37fa4cb6907b9dd8ad199af2",
+      "offline_audit": "PASS",
+      "source_result_sha256": "aaa57fd6407cad640c601004928211879a87f3cacd3910808c99903684e9608e"
+    },
+    {
+      "run_id": "20260930T132923Z-2693986",
+      "position": 3,
+      "monitoring": "off",
+      "directory_scan_ms": 44.106,
+      "command_ms": 76.365816,
+      "directory_counts": {
+        "directories-visited": 2743,
+        "paths-visited": 11007
+      },
+      "guest_vdb": {
+        "major": 254,
+        "minor": 16,
+        "reads_completed": 312,
+        "sectors_read": 2672,
+        "read_ms": 96,
+        "writes_completed": 133,
+        "sectors_written": 2088,
+        "write_ms": 19,
+        "io_ms": 28,
+        "weighted_io_ms": 116
+      },
+      "guest_cpu_ms": 65.609,
+      "voluntary_switches": 159,
+      "guest_cache_state": {
+        "before": {
+          "vmstat": {
+            "gauges": {
+              "nr_free_pages": 951569,
+              "nr_file_pages": 33395,
+              "nr_active_file": 17692,
+              "nr_inactive_file": 15436,
+              "nr_shmem": 266,
+              "nr_dirty": 1079,
+              "nr_writeback": 0
+            },
+            "counters": {
+              "pgscan_kswapd": 0,
+              "pgscan_direct": 0,
+              "pgscan_file": 0,
+              "pgsteal_kswapd": 0,
+              "pgsteal_direct": 0,
+              "pgsteal_file": 0,
+              "pgmajfault": 1463,
+              "pgpgin": 272504,
+              "pgpgout": 11860,
+              "workingset_refault_file": 11298,
+              "workingset_activate_file": 1382,
+              "workingset_restore_file": 0,
+              "allocstall_dma": 0,
+              "allocstall_dma32": 0,
+              "allocstall_normal": 0,
+              "allocstall_movable": 0
+            }
+          },
+          "meminfo_kib": {
+            "MemTotal": 4034096,
+            "MemFree": 3806036,
+            "MemAvailable": 3766184,
+            "Buffers": 20300,
+            "Cached": 113280,
+            "AnonPages": 29060,
+            "Slab": 41204,
+            "SReclaimable": 28052,
+            "SUnreclaim": 13152,
+            "Shmem": 1064,
+            "Dirty": 4316,
+            "Writeback": 0,
+            "SwapTotal": 0,
+            "SwapFree": 0
+          }
+        },
+        "after": {
+          "vmstat": {
+            "gauges": {
+              "nr_free_pages": 949935,
+              "nr_file_pages": 33713,
+              "nr_active_file": 17929,
+              "nr_inactive_file": 15538,
+              "nr_shmem": 266,
+              "nr_dirty": 1106,
+              "nr_writeback": 0
+            },
+            "counters": {
+              "pgscan_kswapd": 0,
+              "pgscan_direct": 0,
+              "pgscan_file": 0,
+              "pgsteal_kswapd": 0,
+              "pgsteal_direct": 0,
+              "pgsteal_file": 0,
+              "pgmajfault": 1468,
+              "pgpgin": 273840,
+              "pgpgout": 12904,
+              "workingset_refault_file": 11589,
+              "workingset_activate_file": 1382,
+              "workingset_restore_file": 0,
+              "allocstall_dma": 0,
+              "allocstall_dma32": 0,
+              "allocstall_normal": 0,
+              "allocstall_movable": 0
+            }
+          },
+          "meminfo_kib": {
+            "MemTotal": 4034096,
+            "MemFree": 3799500,
+            "MemAvailable": 3760332,
+            "Buffers": 20752,
+            "Cached": 114100,
+            "AnonPages": 29120,
+            "Slab": 41316,
+            "SReclaimable": 28064,
+            "SUnreclaim": 13252,
+            "Shmem": 1064,
+            "Dirty": 4424,
+            "Writeback": 0,
+            "SwapTotal": 0,
+            "SwapFree": 0
+          }
+        },
+        "during_command": {
+          "counter_deltas": {
+            "pgscan_kswapd": 0,
+            "pgscan_direct": 0,
+            "pgscan_file": 0,
+            "pgsteal_kswapd": 0,
+            "pgsteal_direct": 0,
+            "pgsteal_file": 0,
+            "pgmajfault": 5,
+            "pgpgin": 1336,
+            "pgpgout": 1044,
+            "workingset_refault_file": 291,
+            "workingset_activate_file": 0,
+            "workingset_restore_file": 0,
+            "allocstall_dma": 0,
+            "allocstall_dma32": 0,
+            "allocstall_normal": 0,
+            "allocstall_movable": 0
+          },
+          "gauge_deltas_pages": {
+            "nr_free_pages": -1634,
+            "nr_file_pages": 318,
+            "nr_active_file": 237,
+            "nr_inactive_file": 102,
+            "nr_shmem": 0,
+            "nr_dirty": 27,
+            "nr_writeback": 0
+          },
+          "meminfo_deltas_kib": {
+            "MemTotal": 0,
+            "MemFree": -6536,
+            "MemAvailable": -5852,
+            "Buffers": 452,
+            "Cached": 820,
+            "AnonPages": 60,
+            "Slab": 112,
+            "SReclaimable": 12,
+            "SUnreclaim": 100,
+            "Shmem": 0,
+            "Dirty": 108,
+            "Writeback": 0,
+            "SwapTotal": 0,
+            "SwapFree": 0
+          }
+        },
+        "scope": "guest-wide endpoints; vmstat gauges in pages and meminfo in KiB; no exact file attribution",
+        "limits": "non-atomic snapshots and delayed per-CPU accounting; counters are not durations; zero reclaim does not exclude manual cache invalidation or an evicted page inherited from the template",
+        "start": {
+          "vmstat": {
+            "gauges": {
+              "nr_free_pages": 964667,
+              "nr_file_pages": 20347,
+              "nr_active_file": 6456,
+              "nr_inactive_file": 13605,
+              "nr_shmem": 266,
+              "nr_dirty": 867,
+              "nr_writeback": 0
+            },
+            "counters": {
+              "pgscan_kswapd": 0,
+              "pgscan_direct": 0,
+              "pgscan_file": 0,
+              "pgsteal_kswapd": 0,
+              "pgsteal_direct": 0,
+              "pgsteal_file": 0,
+              "pgmajfault": 1121,
+              "pgpgin": 220508,
+              "pgpgout": 9552,
+              "workingset_refault_file": 6666,
+              "workingset_activate_file": 649,
+              "workingset_restore_file": 0,
+              "allocstall_dma": 0,
+              "allocstall_dma32": 0,
+              "allocstall_normal": 0,
+              "allocstall_movable": 0
+            }
+          },
+          "meminfo_kib": {
+            "MemTotal": 4034096,
+            "MemFree": 3858668,
+            "MemAvailable": 3791248,
+            "Buffers": 14056,
+            "Cached": 67332,
+            "AnonPages": 28940,
+            "Slab": 38216,
+            "SReclaimable": 25180,
+            "SUnreclaim": 13036,
+            "Shmem": 1064,
+            "Dirty": 3468,
+            "Writeback": 0,
+            "SwapTotal": 0,
+            "SwapFree": 0
+          }
+        },
+        "before_command": {
+          "counter_deltas": {
+            "pgscan_kswapd": 0,
+            "pgscan_direct": 0,
+            "pgscan_file": 0,
+            "pgsteal_kswapd": 0,
+            "pgsteal_direct": 0,
+            "pgsteal_file": 0,
+            "pgmajfault": 342,
+            "pgpgin": 51996,
+            "pgpgout": 2308,
+            "workingset_refault_file": 4632,
+            "workingset_activate_file": 733,
+            "workingset_restore_file": 0,
+            "allocstall_dma": 0,
+            "allocstall_dma32": 0,
+            "allocstall_normal": 0,
+            "allocstall_movable": 0
+          },
+          "gauge_deltas_pages": {
+            "nr_free_pages": -13098,
+            "nr_file_pages": 13048,
+            "nr_active_file": 11236,
+            "nr_inactive_file": 1831,
+            "nr_shmem": 0,
+            "nr_dirty": 212,
+            "nr_writeback": 0
+          },
+          "meminfo_deltas_kib": {
+            "MemTotal": 0,
+            "MemFree": -52632,
+            "MemAvailable": -25064,
+            "Buffers": 6244,
+            "Cached": 45948,
+            "AnonPages": 120,
+            "Slab": 2988,
+            "SReclaimable": 2872,
+            "SUnreclaim": 116,
+            "Shmem": 0,
+            "Dirty": 848,
+            "Writeback": 0,
+            "SwapTotal": 0,
+            "SwapFree": 0
+          }
+        }
+      },
+      "owned_vcpu_queue_upper_bound_ms": 8.877408,
+      "kvm_successful_async_setup": 0,
+      "observed_min_free_gib": 49.490020751953125,
+      "stdout_025_sha256": "9a64ed707c224734715f7af4fea2d84f0b51d128e5c8d05535fc9de7d5b6162f",
+      "patch_sha256": "f1cc23ac4f5ac1cff87eb7f8c54f8176c1a47cec37fa4cb6907b9dd8ad199af2",
+      "offline_audit": "PASS",
+      "source_result_sha256": "aaa57fd6407cad640c601004928211879a87f3cacd3910808c99903684e9608e"
+    },
+    {
+      "run_id": "20260930T132923Z-2693986",
+      "position": 4,
+      "monitoring": "off",
+      "directory_scan_ms": 30.183,
+      "command_ms": 60.125134,
+      "directory_counts": {
+        "directories-visited": 2743,
+        "paths-visited": 11007
+      },
+      "guest_vdb": {
+        "major": 254,
+        "minor": 16,
+        "reads_completed": 0,
+        "sectors_read": 0,
+        "read_ms": 0,
+        "writes_completed": 150,
+        "sectors_written": 2088,
+        "write_ms": 27,
+        "io_ms": 4,
+        "weighted_io_ms": 27
+      },
+      "guest_cpu_ms": 63.109,
+      "voluntary_switches": 30,
+      "guest_cache_state": {
+        "before": {
+          "vmstat": {
+            "gauges": {
+              "nr_free_pages": 925808,
+              "nr_file_pages": 59097,
+              "nr_active_file": 21971,
+              "nr_inactive_file": 36884,
+              "nr_shmem": 266,
+              "nr_dirty": 1049,
+              "nr_writeback": 0
+            },
+            "counters": {
+              "pgscan_kswapd": 0,
+              "pgscan_direct": 0,
+              "pgscan_file": 0,
+              "pgsteal_kswapd": 0,
+              "pgsteal_direct": 0,
+              "pgsteal_file": 0,
+              "pgmajfault": 1152,
+              "pgpgin": 227028,
+              "pgpgout": 11860,
+              "workingset_refault_file": 17,
+              "workingset_activate_file": 17,
+              "workingset_restore_file": 0,
+              "allocstall_dma": 0,
+              "allocstall_dma32": 0,
+              "allocstall_normal": 0,
+              "allocstall_movable": 0
+            }
+          },
+          "meminfo_kib": {
+            "MemTotal": 4034096,
+            "MemFree": 3703232,
+            "MemAvailable": 3748204,
+            "Buffers": 29372,
+            "Cached": 207016,
+            "AnonPages": 28852,
+            "Slab": 41736,
+            "SReclaimable": 28300,
+            "SUnreclaim": 13436,
+            "Shmem": 1064,
+            "Dirty": 4196,
+            "Writeback": 0,
+            "SwapTotal": 0,
+            "SwapFree": 0
+          }
+        },
+        "after": {
+          "vmstat": {
+            "gauges": {
+              "nr_free_pages": 924614,
+              "nr_file_pages": 59124,
+              "nr_active_file": 22071,
+              "nr_inactive_file": 36761,
+              "nr_shmem": 266,
+              "nr_dirty": 1076,
+              "nr_writeback": 0
+            },
+            "counters": {
+              "pgscan_kswapd": 0,
+              "pgscan_direct": 0,
+              "pgscan_file": 0,
+              "pgsteal_kswapd": 0,
+              "pgsteal_direct": 0,
+              "pgsteal_file": 0,
+              "pgmajfault": 1152,
+              "pgpgin": 227028,
+              "pgpgout": 12904,
+              "workingset_refault_file": 17,
+              "workingset_activate_file": 17,
+              "workingset_restore_file": 0,
+              "allocstall_dma": 0,
+              "allocstall_dma32": 0,
+              "allocstall_normal": 0,
+              "allocstall_movable": 0
+            }
+          },
+          "meminfo_kib": {
+            "MemTotal": 4034096,
+            "MemFree": 3698456,
+            "MemAvailable": 3743336,
+            "Buffers": 29380,
+            "Cached": 207116,
+            "AnonPages": 28900,
+            "Slab": 41744,
+            "SReclaimable": 28300,
+            "SUnreclaim": 13444,
+            "Shmem": 1064,
+            "Dirty": 4304,
+            "Writeback": 0,
+            "SwapTotal": 0,
+            "SwapFree": 0
+          }
+        },
+        "during_command": {
+          "counter_deltas": {
+            "pgscan_kswapd": 0,
+            "pgscan_direct": 0,
+            "pgscan_file": 0,
+            "pgsteal_kswapd": 0,
+            "pgsteal_direct": 0,
+            "pgsteal_file": 0,
+            "pgmajfault": 0,
+            "pgpgin": 0,
+            "pgpgout": 1044,
+            "workingset_refault_file": 0,
+            "workingset_activate_file": 0,
+            "workingset_restore_file": 0,
+            "allocstall_dma": 0,
+            "allocstall_dma32": 0,
+            "allocstall_normal": 0,
+            "allocstall_movable": 0
+          },
+          "gauge_deltas_pages": {
+            "nr_free_pages": -1194,
+            "nr_file_pages": 27,
+            "nr_active_file": 100,
+            "nr_inactive_file": -123,
+            "nr_shmem": 0,
+            "nr_dirty": 27,
+            "nr_writeback": 0
+          },
+          "meminfo_deltas_kib": {
+            "MemTotal": 0,
+            "MemFree": -4776,
+            "MemAvailable": -4868,
+            "Buffers": 8,
+            "Cached": 100,
+            "AnonPages": 48,
+            "Slab": 8,
+            "SReclaimable": 0,
+            "SUnreclaim": 8,
+            "Shmem": 0,
+            "Dirty": 108,
+            "Writeback": 0,
+            "SwapTotal": 0,
+            "SwapFree": 0
+          }
+        },
+        "scope": "guest-wide endpoints; vmstat gauges in pages and meminfo in KiB; no exact file attribution",
+        "limits": "non-atomic snapshots and delayed per-CPU accounting; counters are not durations; zero reclaim does not exclude manual cache invalidation or an evicted page inherited from the template",
+        "start": {
+          "vmstat": {
+            "gauges": {
+              "nr_free_pages": 934889,
+              "nr_file_pages": 50631,
+              "nr_active_file": 11092,
+              "nr_inactive_file": 39266,
+              "nr_shmem": 266,
+              "nr_dirty": 818,
+              "nr_writeback": 0
+            },
+            "counters": {
+              "pgscan_kswapd": 0,
+              "pgscan_direct": 0,
+              "pgscan_file": 0,
+              "pgsteal_kswapd": 0,
+              "pgsteal_direct": 0,
+              "pgsteal_file": 0,
+              "pgmajfault": 961,
+              "pgpgin": 193296,
+              "pgpgout": 9552,
+              "workingset_refault_file": 13,
+              "workingset_activate_file": 13,
+              "workingset_restore_file": 0,
+              "allocstall_dma": 0,
+              "allocstall_dma32": 0,
+              "allocstall_normal": 0,
+              "allocstall_movable": 0
+            }
+          },
+          "meminfo_kib": {
+            "MemTotal": 4034096,
+            "MemFree": 3739556,
+            "MemAvailable": 3749140,
+            "Buffers": 23700,
+            "Cached": 178824,
+            "AnonPages": 28084,
+            "Slab": 38800,
+            "SReclaimable": 25500,
+            "SUnreclaim": 13300,
+            "Shmem": 1064,
+            "Dirty": 3272,
+            "Writeback": 0,
+            "SwapTotal": 0,
+            "SwapFree": 0
+          }
+        },
+        "before_command": {
+          "counter_deltas": {
+            "pgscan_kswapd": 0,
+            "pgscan_direct": 0,
+            "pgscan_file": 0,
+            "pgsteal_kswapd": 0,
+            "pgsteal_direct": 0,
+            "pgsteal_file": 0,
+            "pgmajfault": 191,
+            "pgpgin": 33732,
+            "pgpgout": 2308,
+            "workingset_refault_file": 4,
+            "workingset_activate_file": 4,
+            "workingset_restore_file": 0,
+            "allocstall_dma": 0,
+            "allocstall_dma32": 0,
+            "allocstall_normal": 0,
+            "allocstall_movable": 0
+          },
+          "gauge_deltas_pages": {
+            "nr_free_pages": -9081,
+            "nr_file_pages": 8466,
+            "nr_active_file": 10879,
+            "nr_inactive_file": -2382,
+            "nr_shmem": 0,
+            "nr_dirty": 231,
+            "nr_writeback": 0
+          },
+          "meminfo_deltas_kib": {
+            "MemTotal": 0,
+            "MemFree": -36324,
+            "MemAvailable": -936,
+            "Buffers": 5672,
+            "Cached": 28192,
+            "AnonPages": 768,
+            "Slab": 2936,
+            "SReclaimable": 2800,
+            "SUnreclaim": 136,
+            "Shmem": 0,
+            "Dirty": 924,
+            "Writeback": 0,
+            "SwapTotal": 0,
+            "SwapFree": 0
+          }
+        }
+      },
+      "owned_vcpu_queue_upper_bound_ms": 11.990177,
+      "kvm_successful_async_setup": 0,
+      "observed_min_free_gib": 49.48918533325195,
+      "stdout_025_sha256": "9a64ed707c224734715f7af4fea2d84f0b51d128e5c8d05535fc9de7d5b6162f",
+      "patch_sha256": "f1cc23ac4f5ac1cff87eb7f8c54f8176c1a47cec37fa4cb6907b9dd8ad199af2",
+      "offline_audit": "PASS",
+      "source_result_sha256": "aaa57fd6407cad640c601004928211879a87f3cacd3910808c99903684e9608e"
+    }
+  ],
+  "damon_read_only_check": {
+    "result_dir": ".artifacts/guest-damon-probe/20260930T133451Z-2697795",
+    "status": "PASS",
+    "cleanup": "PASS",
+    "kernel": "6.1.175",
+    "observations": {
+      "before": {
+        "damon_aggr_interval": "100000",
+        "damon_bytes_reclaim_tried_regions": "0",
+        "damon_bytes_reclaimed_regions": "0",
+        "damon_commit_inputs": "N",
+        "damon_enabled": "Y",
+        "damon_kdamond_pid": "64",
+        "damon_max_nr_regions": "1000",
+        "damon_min_age": "100000",
+        "damon_min_nr_regions": "10",
+        "damon_monitor_region_end": "5368709120",
+        "damon_monitor_region_start": "4096",
+        "damon_nr_quota_exceeds": "0",
+        "damon_nr_reclaim_tried_regions": "0",
+        "damon_nr_reclaimed_regions": "0",
+        "damon_quota_ms": "20",
+        "damon_quota_reset_interval_ms": "500",
+        "damon_quota_sz": "1073741824",
+        "damon_sample_interval": "5000",
+        "damon_wmarks_high": "990",
+        "damon_wmarks_interval": "1000000",
+        "damon_wmarks_low": "200",
+        "damon_wmarks_mid": "990",
+        "memory_available_kib": "3855804"
+      },
+      "after": {
+        "damon_aggr_interval": "100000",
+        "damon_bytes_reclaim_tried_regions": "251658240",
+        "damon_bytes_reclaimed_regions": "0",
+        "damon_commit_inputs": "N",
+        "damon_enabled": "Y",
+        "damon_kdamond_pid": "64",
+        "damon_max_nr_regions": "1000",
+        "damon_min_age": "100000",
+        "damon_min_nr_regions": "10",
+        "damon_monitor_region_end": "5368709120",
+        "damon_monitor_region_start": "4096",
+        "damon_nr_quota_exceeds": "2",
+        "damon_nr_reclaim_tried_regions": "3",
+        "damon_nr_reclaimed_regions": "0",
+        "damon_quota_ms": "20",
+        "damon_quota_reset_interval_ms": "500",
+        "damon_quota_sz": "1073741824",
+        "damon_sample_interval": "5000",
+        "damon_wmarks_high": "990",
+        "damon_wmarks_interval": "1000000",
+        "damon_wmarks_low": "200",
+        "damon_wmarks_mid": "990",
+        "memory_available_kib": "3760004"
+      }
+    },
+    "source_result_sha256": "237467661e36cda1cc70c59b784d3489de71d70e0a5864b7ca104d3158f808a6",
+    "limits": "read-only check in a different new VM; DAMON region attempts are not evidence of the cause of the preceding Exp1 delays"
+  },
+  "final_check": {
+    "status": "PASS",
+    "project_sandbox_count": 0,
+    "owned_probe_processes": [],
+    "cpu_policies": {
+      "2": {
+        "scaling_min_freq": "800000",
+        "scaling_max_freq": "2801000",
+        "scaling_governor": "schedutil"
+      },
+      "4": {
+        "scaling_min_freq": "800000",
+        "scaling_max_freq": "2801000",
+        "scaling_governor": "schedutil"
+      },
+      "66": {
+        "scaling_min_freq": "800000",
+        "scaling_max_freq": "2801000",
+        "scaling_governor": "schedutil"
+      },
+      "68": {
+        "scaling_min_freq": "800000",
+        "scaling_max_freq": "2801000",
+        "scaling_governor": "schedutil"
+      }
+    },
+    "free_bytes": 52978900992
+  },
+  "observations": [
+    "Two slow scans coincide with higher root block reads and workingset file refault counters",
+    "Selected conventional reclaim/allocstall counters do not increase from step 001 through step 025 in all five replays",
+    "One slow run has a Cached decrease of 37276 KiB before step 025, with plentiful available memory",
+    "Separate owned VM verifies DAMON enabled, cold age threshold 100ms; attempted region bytes increase over two seconds",
+    "Both versions of DAMON endpoint sampling exceed the <=5% incremental phase gate and were not used in Exp1"
+  ],
+  "inference": "Simple memory-pressure reclaim does not explain these observations; proactive DAMON is a candidate requiring a separately labelled intervention",
+  "not_established": [
+    "DAMON causes the captured delays",
+    "which exact files lost residency",
+    "precise number of bytes reclaimed by DAMON",
+    "5% monitoring overhead acceptance",
+    "official task full tests"
+  ],
+  "limits": [
+    "Non-atomic guest-wide snapshots; delayed counter updates; endpoint availability is not an interval memory minimum",
+    "workingset refault suggests previously evicted pages with preserved shadow entries, not necessarily eviction in this experiment",
+    "No per-file cache attribution, synchronous host fault or backend I/O timing",
+    "DAMON is checked in another VM; enabled status alone does not establish causal effect",
+    "Each calibration is one warm mirrored group; gates do not certify full platform overhead"
+  ]
+}

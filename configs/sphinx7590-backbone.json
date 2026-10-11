@@ -1,0 +1,133 @@
+{
+  "task_id": "sphinx-doc__sphinx-7590",
+  "base_commit": "2e506c5ab457cba743bb47eb5b8c8eb9dd51d23d",
+  "source_image": "ghcr.io/epoch-research/swe-bench.eval.x86_64.sphinx-doc__sphinx-7590@sha256:577ebfcce825e4c9621e066dc1c8375443be94bbc6de30b9368e422b8f123731",
+  "workload": "IncrementalDAX_moti/motivation/experiments/exp3-RL-fork/workloads/sphinx-7590-rl-fork",
+  "path": [
+    "read_repo",
+    "trace_cpp_parser",
+    "core_patch",
+    "core_verify",
+    "backbone_finish"
+  ],
+  "guest_cpu": 2,
+  "guest_memory_mib": 4096,
+  "sample_interval_seconds": 0.1,
+  "action_timeout_seconds": 600,
+  "frozen_shell_environment": {
+    "PATH": "/opt/miniconda3/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin",
+    "unset": [
+      "CONDA_PREFIX",
+      "CONDA_DEFAULT_ENV",
+      "CONDA_SHLVL"
+    ]
+  },
+  "expected_exit_codes": {
+    "read_repo": [
+      141,
+      0,
+      0,
+      0,
+      0,
+      0
+    ],
+    "trace_cpp_parser": [
+      0,
+      0,
+      1,
+      1,
+      0,
+      1,
+      1
+    ],
+    "core_patch": [
+      141,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+    ],
+    "core_verify": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+    ],
+    "backbone_finish": [
+      0,
+      0,
+      0,
+      0,
+      1,
+      0
+    ]
+  },
+  "input_sha256": {
+    "task.json": "f421f73f269cbe4e8c2678d857c8fbf55029106061967d85ca7d9ba383dfd75b",
+    "agent-sampling.json": "0f866f4a49864c7dd0a3201c179134c856f332c955f3d1f03854ff37e2b6967a",
+    "rollouts.json": "c564926e3f84ee511b5b5b20c65eb5f0fb41d450bd56b75b83b0670120eb1a62",
+    "guest-runner.sh": "8bc17248c054342d169a9bae1eea9240a39ff802e28ada8422e9df53628f544d",
+    "segments/backbone_finish/actions.tsv": "9d47f106572804d5eab92a5e4c9d78155a84a334520374cf2df523e4c2a722e2",
+    "segments/core_patch/actions.tsv": "5b897438f9bee7899a5f1199ca86a3d4d9f79562a7f37c4cfb15eb27e8165116",
+    "segments/core_verify/actions.tsv": "815a7e245ffce5130c697e0a6c6d826413a679127ec4b08d489893205fd08a33",
+    "segments/early_1_finish/actions.tsv": "c710f4b34d9e8895236f2d3c220697721cdab52b78be84bb1c3cffa84b76b961",
+    "segments/early_1_inspect/actions.tsv": "178cdda613540bb454b5bd504fc0f46675a109cca3b6255c5247d69d91fb210a",
+    "segments/early_2_finish/actions.tsv": "0141e5a45702880313c2afc5e71530cd38aa0fd47bde8c2276e4846b62b90f94",
+    "segments/early_2_inspect/actions.tsv": "c3b3921b4cca57988a15dfad19ea4f9e18cba9b832d654298f54c286f026756d",
+    "segments/early_3_finish/actions.tsv": "6ccd74b35a107f8fe0f954af3e32af4e6e59de0e5b5f93a711dfd3d750083b22",
+    "segments/early_3_inspect/actions.tsv": "9e5f4619c607ed864641aa86acbe60abd29ca41f98bf592fbeca99773559706c",
+    "segments/late_1_finish/actions.tsv": "778bf4047a9c0243f0e713b29bce8cf51da3e7d2d319ec3bcdf255cd23f71a29",
+    "segments/late_1_inspect/actions.tsv": "c29ba13d103a0efa57168ea2a334e1ce89474b6cfc791ba8aa22af457363fe7d",
+    "segments/late_2_finish/actions.tsv": "80c4816d105c840023abb428fd6b545bafd3a0518be72f6d2ed47e393553860a",
+    "segments/late_2_inspect/actions.tsv": "61237dbb90bee309f36fc585fb7fb6732de2310a38a43fad1ec027c3938a8c8d",
+    "segments/late_3_finish/actions.tsv": "52aa61ac38c3e159d8339224f3c340bc7c522b00a3fdd3c7f08b0076797bd742",
+    "segments/late_3_inspect/actions.tsv": "e37221ed3fd604f5fca4929671ce731005fb73b48cfdef3fb35e260b0da3aebc",
+    "segments/read_repo/actions.tsv": "6a41e01621cf6f7d07bf587dcd991e5bb7b003276624020105135fedc5eb8fb9",
+    "segments/trace_cpp_parser/actions.tsv": "930a4f2afbe03451920b33fcad9bdeef47fa9e011f721fde9b9631e63c7834e9"
+  },
+  "base_file_sha256": {
+    "sphinx/domains/cpp.py": "34fb211d20f3a9412e8064d65fc75b227cf00071f3fde37f413de4a317ffbb13",
+    "sphinx/util/cfamily.py": "45bf23be5e50f317963c5a7f629a7b6f7628eaada83fdf13a9eefbe94f53977a"
+  },
+  "final_file_sha256": {
+    "sphinx/domains/cpp.py": "9078984c15b74f76d82da70bf0d50b6d37f79c242302ec4bdb23ab6bb58716aa",
+    "sphinx/util/cfamily.py": "8cb3a52dd01667c84e4ac03cdc7996a22a2ec43b07420dda7095bec2d485b47c"
+  },
+  "reference_patch_sha256": "806a82648442ec67ec34d2813d087c237e65d1efbd90e89a92ba6427fae9b69e",
+  "official_task_sha256": "b3ca77701d5f297dec004c2032e17078de1d15ab7992c68963e4754a4eb1d415",
+  "scope": "one original frozen Sphinx backbone; five original edit blocks and 25 selected tests",
+  "key_outputs": [
+    [
+      "trace_cpp_parser",
+      3,
+      "ModuleNotFoundError"
+    ],
+    [
+      "core_verify",
+      7,
+      "Expected end of definition"
+    ],
+    [
+      "backbone_finish",
+      4,
+      "'42_udl'"
+    ],
+    [
+      "backbone_finish",
+      5,
+      "unknown objectType"
+    ],
+    [
+      "backbone_finish",
+      6,
+      "25 passed"
+    ]
+  ]
+}

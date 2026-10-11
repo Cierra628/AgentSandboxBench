@@ -1,0 +1,290 @@
+{
+  "status": "PASS",
+  "third_initial_acceptance": "PARTIAL",
+  "driver_id": "20261006T025145Z-3271524",
+  "run_id": "20261006T025145Z-3271526",
+  "protocol": {
+    "vm_count": 1,
+    "checkpoint_after": "022",
+    "restore_semantics": "file-state-only",
+    "guest_sampling": "persistent 100ms per runner segment",
+    "host_sampling": "owned parent cgroup 100ms",
+    "minimum_free_gib": 48,
+    "cache_policy": "preserve; no global drops",
+    "performance_comparison": "NOT_RUN",
+    "stop_policy": "first failure; no retry",
+    "image_retention": "verified archive"
+  },
+  "guest_memory": {
+    "status": "PASS",
+    "sample_count": 231,
+    "observed_peak_nonfree_bytes": 253681664,
+    "composition_at_observed_peak": {
+      "timestamp_ns": 1791255200546257945,
+      "phase": "after",
+      "step": "026",
+      "status": "PASS",
+      "missing_fields": [],
+      "unit": "bytes",
+      "scope": "guest logical counters at one sample; not host physical residency",
+      "used_definition": "MemTotal - MemFree",
+      "percentage_denominator": "same-sample nonfree memory",
+      "slab_rule": "Slab includes SReclaimable and SUnreclaim; do not add them again",
+      "nonfree_bytes": 253681664,
+      "used_estimate_bytes": 337289216,
+      "components_bytes": {
+        "file_cache_and_buffers": 34340864,
+        "anonymous": 59985920,
+        "slab": 61526016,
+        "shared_memory": 1064960,
+        "kernel_stack": 1609728,
+        "page_tables": 1384448,
+        "percpu": 573440,
+        "unclassified_residual": 93196288
+      },
+      "percentages": {
+        "file_cache_and_buffers": 13.536990990409146,
+        "anonymous": 23.646139438757388,
+        "slab": 24.253237317144055,
+        "shared_memory": 0.41980172441631414,
+        "kernel_stack": 0.6345464526754286,
+        "page_tables": 0.5457422417412083,
+        "percpu": 0.2260470823780153,
+        "unclassified_residual": 36.73749475247845
+      },
+      "reclaimable_slab_bytes": 44507136,
+      "unreclaimable_slab_bytes": 17018880
+    },
+    "peak_scope": "sample maximum, not instantaneous peak; incomplete samples excluded and counted",
+    "sampling_mode": "persistent asynchronous process; advisory phase markers",
+    "time_scope": "includes runner preparation; short actions may have no sample; per-runner lifetime only"
+  },
+  "guest_collector_segments": [
+    {
+      "status": "PASS",
+      "error": null,
+      "samples": 110,
+      "samples_before": 0,
+      "samples_in_file": 110,
+      "interval_seconds": 0.1,
+      "elapsed_ns": 10911072668,
+      "cpu_user_seconds": 0.107695,
+      "cpu_system_seconds": 0.037339,
+      "maxrss_kib": 5644,
+      "scope": "collector process resource usage; maxrss is not private memory"
+    },
+    {
+      "status": "PASS",
+      "error": null,
+      "samples": 121,
+      "samples_before": 110,
+      "samples_in_file": 231,
+      "interval_seconds": 0.1,
+      "elapsed_ns": 12034289528,
+      "cpu_user_seconds": 0.121848,
+      "cpu_system_seconds": 0.020989,
+      "maxrss_kib": 5648,
+      "scope": "collector process resource usage; maxrss is not private memory"
+    }
+  ],
+  "largest_guest_sample_gap_seconds": 42.332803431,
+  "gap_scope": "guest wall timestamps across distinct VMs; not a checkpoint latency measurement",
+  "host_memory": {
+    "sample_count": 1115,
+    "scope": "run-owned TrEnv-X sandbox parent cgroup; excludes orchestrator",
+    "observed_peak_current_bytes": 348213248,
+    "observed_peak_file_bytes": 6307840,
+    "observed_peak_anon_bytes": 331354112,
+    "observed_peak_vmm_pss_kib": "NOT_MEASURED",
+    "vmm_boundary_observations": [
+      {
+        "label": "vmm-after-replay",
+        "pss_bytes": 378568704,
+        "scan_elapsed_ns": 8861059,
+        "scope": "host VMM process smaps_rollup; not guest memory or complete DAX residency"
+      },
+      {
+        "label": "vmm-before-checkpoint",
+        "pss_bytes": 435036160,
+        "scan_elapsed_ns": 6477885,
+        "scope": "host VMM process smaps_rollup; not guest memory or complete DAX residency"
+      },
+      {
+        "label": "vmm-before-replay",
+        "pss_bytes": 411844608,
+        "scan_elapsed_ns": 6393743,
+        "scope": "host VMM process smaps_rollup; not guest memory or complete DAX residency"
+      },
+      {
+        "label": "vmm-restored",
+        "pss_bytes": 210898944,
+        "scan_elapsed_ns": 5775126,
+        "scope": "host VMM process smaps_rollup; not guest memory or complete DAX residency"
+      }
+    ]
+  },
+  "phase_breakdown": {
+    "guest_action_sum": {
+      "status": "MEASURED",
+      "duration_ns": 2177721876,
+      "source": "replay/steps.tsv",
+      "boundary": "sum of 26 guest runner action durations; excludes controller and setup"
+    },
+    "controller_runner_calls": {
+      "status": "MEASURED",
+      "duration_ns": 25416404598,
+      "source": "replay-*.json",
+      "boundary": "sum of controller calls that launch frozen runner segments"
+    },
+    "create_to_first_success": {
+      "status": "MEASURED",
+      "duration_ns": 1039396365,
+      "source": "diagnostic-events.jsonl",
+      "boundary": "SDK create through first successful mkdir command"
+    },
+    "checkpoint": {
+      "status": "MEASURED",
+      "duration_ns": 11831210124,
+      "source": "diagnostic-events.jsonl",
+      "boundary": "controller file capture, sealing and template construction"
+    },
+    "restore_interface": {
+      "status": "MEASURED",
+      "duration_ns": 1112284103,
+      "source": "diagnostic-events.jsonl",
+      "boundary": "controller start of child VM from sealed file layer"
+    },
+    "restore_to_first_success": {
+      "status": "MEASURED",
+      "duration_ns": 2298948491,
+      "source": "diagnostic-events.jsonl",
+      "boundary": "start restored VM through first successful environment command"
+    },
+    "template_build": {
+      "status": "MEASURED",
+      "duration_ns": 12530802223,
+      "source": "diagnostic-events.jsonl",
+      "boundary": "prepare private template before trajectory"
+    },
+    "parent_delete": {
+      "status": "MEASURED",
+      "duration_ns": 16580555792,
+      "source": "diagnostic-events.jsonl",
+      "boundary": "delete parent VM after checkpoint"
+    },
+    "full_run_including_cleanup": {
+      "status": "MEASURED",
+      "duration_ns": 386098057021,
+      "source": "result.json",
+      "boundary": "outer start through sandbox cleanup and verified image archiving when enabled"
+    }
+  },
+  "named_file_mapping": {
+    "status": "MEASURED",
+    "bytes": 36864,
+    "file_pages": 8,
+    "verified_anonymous_pages": 1,
+    "unknown_pages": 0,
+    "scope": "explicit named files in sealed checkpoint and base; resident mapped pages only; not whole task",
+    "files": [
+      {
+        "path": "/testbed/src/language-html/utils/index.js",
+        "origin": "checkpoint"
+      },
+      {
+        "path": "/testbed/src/language-html/parser-html.js",
+        "origin": "base"
+      },
+      {
+        "path": "/testbed/package.json",
+        "origin": "base"
+      }
+    ]
+  },
+  "physical_boundaries": [
+    {
+      "label": "after-continuation",
+      "status": "PASS",
+      "scan_elapsed_ns": 36190661,
+      "content_accounting": {
+        "status": "PASS",
+        "file_cache_unique_pages": 8,
+        "verified_anonymous_unique_pages": 1,
+        "unknown_unique_pages": 0,
+        "attributed_physical_bytes": 36864,
+        "scope": "resident declared mappings only; includes full allocated tail page; not total backing cache"
+      }
+    },
+    {
+      "label": "restored-before-source-read",
+      "status": "PASS",
+      "scan_elapsed_ns": 35694768,
+      "content_accounting": {
+        "status": "PASS",
+        "file_cache_unique_pages": 0,
+        "verified_anonymous_unique_pages": 0,
+        "unknown_unique_pages": 0,
+        "attributed_physical_bytes": 0,
+        "scope": "resident declared mappings only; includes full allocated tail page; not total backing cache"
+      }
+    }
+  ],
+  "final_checks": {
+    "status": "PASS",
+    "action_order": "PASS",
+    "expected_failures": "PASS",
+    "key_output_024": "PASS",
+    "final_patch": "PASS",
+    "independent_svg": "PASS",
+    "official_task_tests": "PASS",
+    "recovery": {
+      "interface": "PASS",
+      "file_state": "PASS",
+      "process_state": "NOT_APPLICABLE"
+    },
+    "official_full_tests": "NOT_RUN",
+    "patch_sha256": "f1cc23ac4f5ac1cff87eb7f8c54f8176c1a47cec37fa4cb6907b9dd8ad199af2",
+    "scope": "frozen replay and task-specific checks; patch equality does not prove full upstream tests"
+  },
+  "cleanup": {
+    "status": "PASS",
+    "sandbox": "PASS",
+    "service": "PASS",
+    "cgroup_and_loop": "PASS",
+    "archived_images": "RETAINED_WITH_VERIFIED_MANIFEST",
+    "evidence": "run checks, cgroup/loop receipt, archive manifest and current retention state"
+  },
+  "monitoring_impact": "functional replay/restore checks passed; matched checkpoint performance control NOT_RUN",
+  "limitations": [
+    "file-state inheritance; no arbitrary process or open-file continuation",
+    "guest sampler stops between runner segments; no invented samples during checkpoint/restore",
+    "three declared files; not whole-task or unmapped host cache",
+    "analysis reads can warm cache; this run is not a performance comparison"
+  ],
+  "evidence_sha256": {
+    "result.json@driver": "a95f06028c9f4c12ab03b082813c8c54c9e278b0a6d374c1c3c2c503345096e6",
+    "code/sha256.json@driver": "ce912748468187c2820b062d77fe08ea149e529f63c42b7288a597b88478f9d0",
+    "memory/summary.json@driver": "7042bbe6e50f8151e1fbfb6be043bb16e0482124ede8e8522d14bc21fb6976de",
+    "result.json@raw": "021fb8fbd19fa2293216edf0cbbc0c68aa5dccedd7e2fe910b9574b177191dbd",
+    "config.json@raw": "44cb0e44191a0d3e3f974d0dce5efaaed6454c2a93be3b337962838464fa125d",
+    "checkpoint.json@raw": "91bab1a17b21c2172df54f31abe0b3951e7f7e14366e11b7634de3e539971a2f",
+    "source-before.json@raw": "767c01c90a62054435c36f380647d6f4acb6bcee08e2a6f31ed071a00c69c188",
+    "source-after.json@raw": "5cfb451fa2757d7bcbf273a86ed576f94e33ee638dd92dda2eccec810cad2479",
+    "correctness.json@raw": "7f78896e86e6e8d68b0640f401a30d6bcf167196841b2c6850744c3dd7847ab9",
+    "official-task-result.json@raw": "41711baf67dd69014ecf1b28eea1314de1a84936239583f7d34081fb29262971",
+    "host/memory-samples.tsv@raw": "918e08f9126bde94906e68992e8b3b94538279db9f9ae09189994808bf54a4ab",
+    "replay/guest-memory.tsv@raw": "81b43142c3eb09d574c3cef0f4f37aad31cfec862dac6c9e2e9ed90bfefe302b",
+    "replay/collector-status.json@raw": "cc4f75020f11314b0a2165c2aecd40732fdbbc2066d3a6f7880c4c509187fd76",
+    "replay/steps.tsv@raw": "2fa335e160b4e1660cc046d1ff3d7393b665c7de4fde6c55b8cedbe996c7abd0",
+    "replay/collector-segments/16962134635-3492.json@raw": "f692ba284805407ef44b97fe530c7da021b5dcc0cb4643ecd4d1b95e6c49ce2c",
+    "replay/collector-segments/19175368418-4246.json@raw": "cc4f75020f11314b0a2165c2aecd40732fdbbc2066d3a6f7880c4c509187fd76",
+    "file-physical/after-continuation/result.json@raw": "99f5b67cb41ee31cadf4867eba58e2e5501f7021bddd397e05d4528fae02db75",
+    "file-physical/after-continuation/pages.json@raw": "921466de807e92aa03796f651d8c69e1a1433c5b2fa5b352caca8f5b57b9abb4",
+    "file-physical/after-continuation/manifest.json@raw": "c5bc53022bb408b5542e973eb9f0069858ec6a4f2b06cf99c26ebdf178f3ccd3",
+    "file-physical/after-continuation/guest-layer-proof.json@raw": "406f736dd065c839ef35fdd51a861d76131e012da2ab28cdad32cac5877b41f3",
+    "file-physical/restored-before-source-read/result.json@raw": "0ec7b743c6c6b739460aecd6a28288ce449c51e34eee4fa9b50c9ea1fae5fdcc",
+    "file-physical/restored-before-source-read/pages.json@raw": "1cf1f13a621467cbd7592b9c42212befbe34af12febd5c4c9a0e19331e3716b5",
+    "file-physical/restored-before-source-read/manifest.json@raw": "2b1904c62c8cb100ace535e03ba22e5bec841155bc42e211df653881b6014a2a",
+    "file-physical/restored-before-source-read/guest-layer-proof.json@raw": "406f736dd065c839ef35fdd51a861d76131e012da2ab28cdad32cac5877b41f3"
+  }
+}

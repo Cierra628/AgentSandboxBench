@@ -1,0 +1,612 @@
+{
+  "status": "PASS",
+  "task_id": "pydata__xarray-6992",
+  "schedule": "single frozen backbone",
+  "actions": 35,
+  "segments": 5,
+  "report_validation_status": "PASS",
+  "scope": "offline report audit; diagnostic completion, strict replay and task evaluation have separate statuses",
+  "official_task_status": "FAIL",
+  "official": {
+    "status": "FAIL",
+    "exit_code": 1,
+    "passed": 945,
+    "failed": 12,
+    "skipped": 0,
+    "failed_tests": [
+      "xarray/tests/test_dataarray.py::TestDataArray::test_reset_index",
+      "xarray/tests/test_dataset.py::TestDataset::test_reset_index",
+      "xarray/tests/test_dataset.py::TestDataset::test_reset_index_drop_dims",
+      "xarray/tests/test_dataset.py::TestDataset::test_reset_index_drop_convert[foo-False-dropped0-converted0-renamed0]",
+      "xarray/tests/test_dataset.py::TestDataset::test_reset_index_drop_convert[foo-True-dropped1-converted1-renamed1]",
+      "xarray/tests/test_dataset.py::TestDataset::test_reset_index_drop_convert[x-False-dropped2-converted2-renamed2]",
+      "xarray/tests/test_dataset.py::TestDataset::test_reset_index_drop_convert[x-True-dropped3-converted3-renamed3]",
+      "xarray/tests/test_dataset.py::TestDataset::test_reset_index_drop_convert[arg4-False-dropped4-converted4-renamed4]",
+      "xarray/tests/test_dataset.py::TestDataset::test_reset_index_drop_convert[arg5-True-dropped5-converted5-renamed5]",
+      "xarray/tests/test_dataset.py::TestDataset::test_reset_index_drop_convert[arg6-False-dropped6-converted6-renamed6]",
+      "xarray/tests/test_dataset.py::TestDataset::test_reset_index_drop_convert[arg7-True-dropped7-converted7-renamed7]",
+      "xarray/tests/test_groupby.py::test_groupby_drops_nans"
+    ],
+    "skipped_tests": [],
+    "F2P_passed": 0,
+    "F2P_total": 12,
+    "P2P_passed": 945,
+    "P2P_total": 945,
+    "scope": "SWE-bench test patch and exact F2P/P2P case selection; direct image pytest, not full official Docker harness"
+  },
+  "guest": {
+    "sample_count": 364,
+    "observed_peak_bytes": 656224256,
+    "components_at_peak_bytes": {
+      "AnonPages": 220368896,
+      "Cached": 328605696,
+      "Buffers": 37359616,
+      "Shmem": 835584
+    },
+    "components_at_peak_percent": {
+      "AnonPages": 33.58133960839143,
+      "Cached": 50.07521331244421,
+      "Buffers": 5.693117201690271,
+      "Shmem": 0.1273320808184207
+    }
+  },
+  "host": {
+    "sample_count": 458,
+    "observed_peak_bytes": 905306112,
+    "components_at_peak_bytes": {
+      "anon": 860180480,
+      "file": 17051648,
+      "kernel": 16764928
+    }
+  },
+  "timing": {
+    "controller_elapsed_ns": 50234531289,
+    "cold_request_ns": 3523470759,
+    "guest_action_sum_ns": 34875878784,
+    "controller_exec_ns": [
+      741503671,
+      4921172788,
+      8786658465,
+      12837816682,
+      10096845260
+    ],
+    "controller_download_ns": [
+      54262518,
+      57336761,
+      53812308,
+      57579831,
+      61094291
+    ],
+    "frozen_exec_and_download_span_ns": 37693926453,
+    "benchmark_test_call_ns": 22290658297,
+    "cleanup_call_ns": 183538534,
+    "stages": [
+      {
+        "index": 0,
+        "stage": "service-state",
+        "start_monotonic_ns": 13286657482978722,
+        "timestamp_ns": 1791516424618237333,
+        "duration_ns": 25577547,
+        "exit_code": 0
+      },
+      {
+        "index": 1,
+        "stage": "service-labels",
+        "start_monotonic_ns": 13286657508651417,
+        "timestamp_ns": 1791516424643910161,
+        "duration_ns": 20936389,
+        "exit_code": 0
+      },
+      {
+        "index": 2,
+        "stage": "cold-start",
+        "start_monotonic_ns": 13286657541485222,
+        "timestamp_ns": 1791516424676743726,
+        "duration_ns": 3523470759,
+        "exit_code": 0
+      },
+      {
+        "index": 3,
+        "stage": "source",
+        "start_monotonic_ns": 13286661065522326,
+        "timestamp_ns": 1791516428200781242,
+        "duration_ns": 545433902,
+        "exit_code": 0
+      },
+      {
+        "index": 4,
+        "stage": "login-environment",
+        "start_monotonic_ns": 13286661611430303,
+        "timestamp_ns": 1791516428746689287,
+        "duration_ns": 216456647,
+        "exit_code": 0
+      },
+      {
+        "index": 5,
+        "stage": "frozen-environment",
+        "start_monotonic_ns": 13286661828394952,
+        "timestamp_ns": 1791516428963654118,
+        "duration_ns": 214293774,
+        "exit_code": 0
+      },
+      {
+        "index": 6,
+        "stage": "upload-oracle",
+        "start_monotonic_ns": 13286662042977279,
+        "timestamp_ns": 1791516429178236045,
+        "duration_ns": 32863500,
+        "exit_code": 0
+      },
+      {
+        "index": 7,
+        "stage": "negative-control",
+        "start_monotonic_ns": 13286662076200624,
+        "timestamp_ns": 1791516429211459684,
+        "duration_ns": 2601351417,
+        "exit_code": 0
+      },
+      {
+        "index": 8,
+        "stage": "upload-frozen",
+        "start_monotonic_ns": 13286664677954507,
+        "timestamp_ns": 1791516431813213633,
+        "duration_ns": 102447961,
+        "exit_code": 0
+      },
+      {
+        "index": 9,
+        "stage": "upload-collector",
+        "start_monotonic_ns": 13286664780909308,
+        "timestamp_ns": 1791516431916168548,
+        "duration_ns": 32186398,
+        "exit_code": 0
+      },
+      {
+        "index": 10,
+        "stage": "upload-counter-reader",
+        "start_monotonic_ns": 13286664813488340,
+        "timestamp_ns": 1791516431948747036,
+        "duration_ns": 29897950,
+        "exit_code": 0
+      },
+      {
+        "index": 11,
+        "stage": "controller-exec",
+        "start_monotonic_ns": 13286664848107945,
+        "timestamp_ns": 1791516431983366756,
+        "duration_ns": 741503671,
+        "exit_code": 0
+      },
+      {
+        "index": 12,
+        "stage": "controller-download",
+        "start_monotonic_ns": 13286665590412674,
+        "timestamp_ns": 1791516432725671285,
+        "duration_ns": 54262518,
+        "exit_code": 0
+      },
+      {
+        "index": 13,
+        "stage": "controller-exec",
+        "start_monotonic_ns": 13286665649796424,
+        "timestamp_ns": 1791516432785055175,
+        "duration_ns": 4921172788,
+        "exit_code": 0
+      },
+      {
+        "index": 14,
+        "stage": "controller-download",
+        "start_monotonic_ns": 13286670571775032,
+        "timestamp_ns": 1791516437707033698,
+        "duration_ns": 57336761,
+        "exit_code": 0
+      },
+      {
+        "index": 15,
+        "stage": "controller-exec",
+        "start_monotonic_ns": 13286670634158434,
+        "timestamp_ns": 1791516437769417275,
+        "duration_ns": 8786658465,
+        "exit_code": 0
+      },
+      {
+        "index": 16,
+        "stage": "controller-download",
+        "start_monotonic_ns": 13286679421632889,
+        "timestamp_ns": 1791516446556891822,
+        "duration_ns": 53812308,
+        "exit_code": 0
+      },
+      {
+        "index": 17,
+        "stage": "controller-exec",
+        "start_monotonic_ns": 13286679480989441,
+        "timestamp_ns": 1791516446616248190,
+        "duration_ns": 12837816682,
+        "exit_code": 0
+      },
+      {
+        "index": 18,
+        "stage": "controller-download",
+        "start_monotonic_ns": 13286692319462725,
+        "timestamp_ns": 1791516459454721524,
+        "duration_ns": 57579831,
+        "exit_code": 0
+      },
+      {
+        "index": 19,
+        "stage": "controller-exec",
+        "start_monotonic_ns": 13286692383307240,
+        "timestamp_ns": 1791516459518566486,
+        "duration_ns": 10096845260,
+        "exit_code": 0
+      },
+      {
+        "index": 20,
+        "stage": "controller-download",
+        "start_monotonic_ns": 13286702480940107,
+        "timestamp_ns": 1791516469616198958,
+        "duration_ns": 61094291,
+        "exit_code": 0
+      },
+      {
+        "index": 21,
+        "stage": "final-files",
+        "start_monotonic_ns": 13286702556337866,
+        "timestamp_ns": 1791516469691597189,
+        "duration_ns": 342949330,
+        "exit_code": 0
+      },
+      {
+        "index": 22,
+        "stage": "final-patch",
+        "start_monotonic_ns": 13286702900075332,
+        "timestamp_ns": 1791516470035334593,
+        "duration_ns": 219542966,
+        "exit_code": 0
+      },
+      {
+        "index": 23,
+        "stage": "small-invariant",
+        "start_monotonic_ns": 13286703120833367,
+        "timestamp_ns": 1791516470256092348,
+        "duration_ns": 1348135020,
+        "exit_code": 0
+      },
+      {
+        "index": 24,
+        "stage": "upload-evaluation",
+        "start_monotonic_ns": 13286704470903528,
+        "timestamp_ns": 1791516471606162468,
+        "duration_ns": 39267144,
+        "exit_code": 0
+      },
+      {
+        "index": 25,
+        "stage": "benchmark-pytest",
+        "start_monotonic_ns": 13286704510857634,
+        "timestamp_ns": 1791516471646116551,
+        "duration_ns": 2959344886,
+        "exit_code": 0
+      },
+      {
+        "index": 26,
+        "stage": "download-evaluation",
+        "start_monotonic_ns": 13286707471038080,
+        "timestamp_ns": 1791516474606297339,
+        "duration_ns": 39799028,
+        "exit_code": 0
+      },
+      {
+        "index": 27,
+        "stage": "delete-owned",
+        "start_monotonic_ns": 13286707515134609,
+        "timestamp_ns": 1791516474650393525,
+        "duration_ns": 183538534,
+        "exit_code": 0
+      },
+      {
+        "index": 28,
+        "stage": "list-after",
+        "start_monotonic_ns": 13286707699768336,
+        "timestamp_ns": 1791516474835027289,
+        "duration_ns": 15899070,
+        "exit_code": 0
+      }
+    ],
+    "initial_test_collection_attempt_ns": 2959344886,
+    "independent_evaluation_controller_ns": 31138114224,
+    "independent_evaluation_cleanup_ns": 212287832
+  },
+  "page_cache": {
+    "physical_bytes": "NOT_MEASURED",
+    "control": "no manual host or guest cache drop",
+    "state": "verified task-converted layers bound from read-only RAM cache; baseline oracle precedes replay; not a cold-download comparison"
+  },
+  "readonly_cache_preparation": {
+    "source_backup": "/home/yyxie/agentenv_experiment/.artifacts/storage-isolated-service/20261008T165515Z-3834076/volume.ext4.gz",
+    "backup_sha256": "95f51006d3233887335c89f0cd5314dfd65cc836fc11bd59f8bc35b24e1d3ee2",
+    "uncompressed_sha256": "fd0e6381ed819c8fad6d2ab6be87ea7cc089d1c935e50b87f761fd4c3bb9fda5",
+    "task_id": "pydata__xarray-6992",
+    "ram_allocated_bytes": 11161042944,
+    "elapsed_ns": 99513545112
+  },
+  "checkpoint_restore": "NOT_RUN",
+  "monitoring_impact": "NOT_VALIDATED",
+  "VMM_PSS": "NOT_MEASURED",
+  "config": {
+    "task_id": "pydata__xarray-6992",
+    "base_commit": "45c0a114e2b7b27b83c9618bc05b36afac82183c",
+    "source_image": "ghcr.io/epoch-research/swe-bench.eval.x86_64.pydata__xarray-6992@sha256:c05101ef7105599eca1b7d15279a2928ac5453876cd2b83008deb9165d752655",
+    "workload": "IncrementalDAX_moti/motivation/experiments/exp3-RL-fork/workloads/xarray-6992-rl-fork",
+    "path": [
+      "read_repo",
+      "trace_index_state",
+      "core_patch",
+      "core_verify",
+      "backbone_finish"
+    ],
+    "guest_cpu": 2,
+    "guest_memory_mib": 4096,
+    "sample_interval_seconds": 0.1,
+    "action_timeout_seconds": 600,
+    "frozen_shell_environment": {
+      "PATH": "/opt/miniconda3/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin",
+      "unset": [
+        "CONDA_PREFIX",
+        "CONDA_DEFAULT_ENV",
+        "CONDA_SHLVL"
+      ],
+      "reason": "restore image-configured PATH; original sampled which/python outputs select base interpreter"
+    },
+    "expected_exit_codes": {
+      "read_repo": [
+        1,
+        0,
+        127,
+        0,
+        1,
+        1
+      ],
+      "trace_index_state": [
+        0,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0
+      ],
+      "core_patch": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0
+      ],
+      "core_verify": [
+        1,
+        1,
+        0,
+        1,
+        1,
+        0,
+        0
+      ],
+      "backbone_finish": [
+        0,
+        1,
+        0,
+        0,
+        1,
+        1
+      ]
+    },
+    "input_sha256": {
+      "task.json": "cbb5e089798dee077162e4f19266e09f0ccc5d6aecf3299fcd78f2552eb5b7a4",
+      "agent-sampling.json": "112f158bfc8659d871651371cd212aedf5b1801f28c208f3acb717243b5f6cf3",
+      "rollouts.json": "42a4dc63058f85820cfb04369da48a2a902ef49f738607ee71545fdcb8be4628",
+      "guest-runner.sh": "8bc17248c054342d169a9bae1eea9240a39ff802e28ada8422e9df53628f544d",
+      "segments/backbone_finish/actions.tsv": "84317c176ccb379478c98fdb1208878e947e4b5a0bedac64ab30c6d7028d1c17",
+      "segments/core_patch/actions.tsv": "775d91ffcc76ac869324e9b8aa4befe1ef65893b6f4872bd8ea7ffd05dac132e",
+      "segments/core_verify/actions.tsv": "9c18572b676daa5f2e3ca268a1835850540eaad212069a9f42d821cdd9e2600d",
+      "segments/early_1_finish/actions.tsv": "f5268df650630ce153906635abfa6f952c57564608009b33c79d796e1522a3f0",
+      "segments/early_1_inspect/actions.tsv": "8509dca2989466d7212fdc1f00b21164dabe65644b0ff54b4994acfd38675015",
+      "segments/early_2_finish/actions.tsv": "6ab192c060a1dbfa4cad25f7ac1c04c0a2d09fb72d53b542698e1676f9f64200",
+      "segments/early_2_inspect/actions.tsv": "464ef9fc75f3ed4ec76ed3c5c3196612d03bf2139839f5a7625f06e0e45913bd",
+      "segments/early_3_finish/actions.tsv": "ff38c60ad72801a15c2f14d2c525eae3fc115159a2e12a194f8a11133c208693",
+      "segments/early_3_inspect/actions.tsv": "ce7593edc95b225311455cb2f1ff8a8559f1bb0d43f0a463f57e826c7419dbda",
+      "segments/late_1_finish/actions.tsv": "a9f2146a90412c71ed22873dc6298ebbe4fc2ad15ede29fd043737ef653ab4e4",
+      "segments/late_1_inspect/actions.tsv": "adedced686a7ec6020d0552bfaa865505a527102e5d011c7faf54424f1cb3870",
+      "segments/late_2_finish/actions.tsv": "7b8e583e702267111fa9f117b9a705d5d5ceee2986fc576d23a1e2c0d7490223",
+      "segments/late_2_inspect/actions.tsv": "c818d39b89622778d7ca3927c36e8d9c8e8749a06ec0c42a5d583fd3ed984b0f",
+      "segments/late_3_finish/actions.tsv": "dc12fba421b525fe346d11b057b8c10c438bb0de834464508b9a4224c98ff7d5",
+      "segments/late_3_inspect/actions.tsv": "a9c80a3f919b75329302657e8e724807c14e818360ceb2bc07b1fcfde8d5b253",
+      "segments/read_repo/actions.tsv": "91e99456d859e792b64434eca006523fe4f98d092bf86c8fbee21715f5d951be",
+      "segments/trace_index_state/actions.tsv": "b149675abcf8591504b91c693d1d175a262ba058dd19baa71cec7925d2fa1318"
+    },
+    "base_file_sha256": {
+      "xarray/core/dataset.py": "ad2a1dcde480fffe1d49027746b9cc79e0268d6ef34dab4b14fea8fdd29e3ba8",
+      "xarray/tests/test_dataset.py": "565ab0a37e046aa13955b1e3ef2aad54f82a0c617f3c923cf5d949e08bd63bc2"
+    },
+    "final_file_sha256": {
+      "xarray/core/dataset.py": "b5be1fd52f72b00703514203d4cc399f14d7a9290fc5597dcaae8dcf6b61f267",
+      "xarray/tests/test_dataset.py": "369fee4f3cefa6666d14a5241433d674f47bcbf6ce553d4291d1806300661c85"
+    },
+    "reference_patch_sha256": "e7c07a31bafbb7ee2a73883b83a551b11add14c15f17d24e4402f77464f21de1",
+    "official_task_sha256": "13eb11ba4b031793553cfa26ec94cab4a72476025b8571f993f1d9021b6ca06b",
+    "scope": "one frozen Xarray backbone; complete patch reference from sampled edits; direct SWE-bench selected-case evaluation"
+  },
+  "sampling_variant": {
+    "mode": "single persistent process per segment",
+    "original_runner_sha256": "8bc17248c054342d169a9bae1eea9240a39ff802e28ada8422e9df53628f544d",
+    "executed_runner_sha256": "c8807f9352ba35075d3547f479c5304e3a17553ec056bfa43f82eb569aa89854",
+    "frozen_actions": "unchanged"
+  },
+  "shell_environment": {
+    "login": {
+      "python": "/opt/miniconda3/envs/testbed/bin/python",
+      "PATH": "/opt/miniconda3/envs/testbed/bin:/opt/miniconda3/condabin:/opt/miniconda3/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin",
+      "CONDA_PREFIX": "/opt/miniconda3/envs/testbed"
+    },
+    "frozen": {
+      "python": "/opt/miniconda3/bin/python",
+      "PATH": "/opt/miniconda3/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin",
+      "CONDA_PREFIX": null
+    },
+    "scope": "PATH and conda activation reset at each original runner invocation; other inherited environment not claimed identical"
+  },
+  "cleanup": {
+    "owned_container_removed": true,
+    "mount_and_loop_removed": true,
+    "failed_fixture_retained": true,
+    "original_firecracker_identities_unchanged": true,
+    "original_service_unchanged": true
+  },
+  "storage": {
+    "capacity_bytes": 8589934592,
+    "observed_volume_used_peak_bytes": 674664448,
+    "observed_host_available_min_bytes": 35004198912,
+    "host_available_after_cleanup_bytes": 35001249792
+  },
+  "notes": [
+    "Guest /proc/meminfo KiB converted to bytes; used = MemTotal - MemFree; only original runner windows.",
+    "Cached is a logical counter, not deduplicated physical page cache; Shmem overlaps Cached; Slab not sampled.",
+    "Host memory.current/stat: memory charged to the temporary service cgroup, including VMM and charged image caches; excludes controller and separate RAM preparation caches. Read-only lower-layer RAM file allocation and preparation time are listed separately.",
+    "Guest and host memory are not added; sample maxima are observed peaks, not exact instantaneous peaks.",
+    "Stage durations are ns; nested stages overlap and must not be summed into total elapsed time.",
+    "Original final self-tests contain one failure; benchmark tests run separately after archiving frozen patch.",
+    "Evaluation uses selected SWE-bench test patch and all 957 listed F2P/P2P nodes directly in the image; full official Docker harness not run.",
+    "One functional run does not establish performance variance, cache causality, monitoring impact or shared-memory benefit.",
+    "One sampler process per segment replaces shell process churn; asynchronous advisory markers may miss short phase boundaries. Frozen actions and expected exits unchanged; overhead NOT_VALIDATED.",
+    "Complete diagnostic mode only: historical strict replay FAIL is retained. Only trace_index_state/002 SIGPIPE 141 with exact original stdout is permitted; expected code remains 0.",
+    "Replay run remains FAIL because its first test collection used three whitespace-truncated IDs. Independent evaluation applied the actual archived patch in a fresh VM; it did not replay actions or restore VM state. Unique collected full IDs map to original benchmark labels; all 957 cases must exist. Guest test-phase memory is not sampled. Report completion does not overwrite either source run."
+  ],
+  "diagnostic_status": "PASS",
+  "strict_replay_status": "FAIL",
+  "strict_replay_scope": "historical strict failure retained; this mode never awards strict replay PASS",
+  "exit_differences": [
+    {
+      "segment": "trace_index_state",
+      "step": "002",
+      "expected": 0,
+      "actual": 141,
+      "reason": "SIGPIPE with exact original stdout; diagnostic continuation only",
+      "stdout_sha256": "66a4fc50cddc48f5feac753a6dde7cc8f246d6ad6f9bcf74a60370ad04496f6d"
+    }
+  ],
+  "observed_exit_codes_status": "FAIL",
+  "test_id_aliases": {
+    "xarray/tests/test_dataset.py::TestDataset::test_setitem_using_list_errors[var_list0-data0-Different lengths]": "xarray/tests/test_dataset.py::TestDataset::test_setitem_using_list_errors[var_list0-data0-Different",
+    "xarray/tests/test_dataset.py::TestDataset::test_setitem_using_list_errors[var_list1-data1-Empty list of variables]": "xarray/tests/test_dataset.py::TestDataset::test_setitem_using_list_errors[var_list1-data1-Empty",
+    "xarray/tests/test_dataset.py::TestDataset::test_setitem_using_list_errors[var_list2-data2-assign single DataArray]": "xarray/tests/test_dataset.py::TestDataset::test_setitem_using_list_errors[var_list2-data2-assign"
+  },
+  "evaluation_only_raw": "/home/yyxie/agentenv_experiment/.artifacts/storage-isolated-service/20261009T033359Z-3893120/python-backbone",
+  "source_statuses": {
+    "frozen_replay_run": "FAIL",
+    "independent_evaluation_run": "PASS"
+  },
+  "evaluation_cleanup": {
+    "owned_container_removed": true,
+    "mount_and_loop_removed": true,
+    "successful_fixture_removed": true,
+    "original_firecracker_identities_unchanged": true,
+    "original_service_unchanged": true
+  },
+  "evaluation_storage": {
+    "capacity_bytes": 2147483648,
+    "observed_volume_used_peak_bytes": 668233728,
+    "observed_host_available_min_bytes": 32855404544
+  },
+  "independent_evaluation_host": {
+    "sample_count": 285,
+    "observed_peak_bytes": 1239134208
+  },
+  "raw_file_count": 337,
+  "raw_hashes_unchanged": true,
+  "date": "2026-10-09",
+  "replay_raw": ".artifacts/storage-isolated-service/20261009T032655Z-3886078/python-backbone",
+  "independent_evaluation_raw": ".artifacts/storage-isolated-service/20261009T033359Z-3893120/python-backbone",
+  "report_dir": ".artifacts/python-backbone/complete-diagnostic-report-20261009-final",
+  "repeat_report_dir": ".artifacts/python-backbone/complete-diagnostic-report-20261009-final-repeat",
+  "repeat_reports_byte_identical": true,
+  "first_attempt": {
+    "status": "FAIL",
+    "failed_stage": "benchmark-tests",
+    "exit_code": 4,
+    "tests_run": 0,
+    "collected_selected_count": 954,
+    "reason": "Three original benchmark parameter IDs truncated at first space; not a task assertion result",
+    "raw_unchanged": true
+  },
+  "actual_evaluation": {
+    "status": "FAIL",
+    "tests_run": 957,
+    "passed": 945,
+    "failed": 12,
+    "skipped": 0,
+    "F2P_passed": 0,
+    "F2P_total": 12,
+    "P2P_passed": 945,
+    "P2P_total": 945,
+    "failure_type": "All 12 fail at task assertions about reset_index coordinates, dimensions and groupby values; no setup/collection errors",
+    "pytest_reported_seconds": 17.2,
+    "scope": "direct image pytest with SWE-bench test patch and exact mapped selection; full official Docker harness NOT_RUN"
+  },
+  "latest_failed_fixture_backup": {
+    "status": "PASS",
+    "source": "/home/yyxie/agentenv_experiment/.artifacts/storage-isolated-service/20261009T032655Z-3886078/volume.ext4",
+    "backup": "/home/yyxie/agentenv_experiment/.artifacts/storage-isolated-service/20261009T032655Z-3886078/volume.ext4.gz",
+    "source_sha256": "1f196aa56c083ec91eb469f55e8ccacd5453262661cddc24e2a191c7005fa407",
+    "backup_sha256": "62f4984591515cc418372cf85184bfeb8c740fd6191cc58616706de45d2eab5e",
+    "uncompressed_bytes": 8589934592,
+    "compressed_bytes": 84975148,
+    "source_retained": true,
+    "elapsed_ns": 11608029923,
+    "host_available_bytes": 34912489472
+  },
+  "latest_failed_source_retained": true,
+  "cache_resources": {
+    "memory_mounted": false,
+    "readonly_mounted": false,
+    "loop_device": null,
+    "released": true
+  },
+  "first_cleanup": {
+    "owned_container_removed": true,
+    "mount_and_loop_removed": true,
+    "failed_fixture_retained": true,
+    "original_firecracker_identities_unchanged": true,
+    "original_service_unchanged": true
+  },
+  "independent_evaluation_cleanup": {
+    "owned_container_removed": true,
+    "mount_and_loop_removed": true,
+    "successful_fixture_removed": true,
+    "original_firecracker_identities_unchanged": true,
+    "original_service_unchanged": true
+  },
+  "window": {
+    "start_utc": "2026-10-09T03:26:55.340317+00:00",
+    "end_utc": "2026-10-09T03:46:55.340317+00:00",
+    "authorization": "同意完整诊断，继续实验；仍无人大量写盘；准备完成后可开始"
+  },
+  "offline_checks": {
+    "xarray": 18,
+    "cache": 3,
+    "isolated_storage": 23,
+    "persistent_collector_compatibility": 5,
+    "syntax": "PASS",
+    "json": "VALID"
+  },
+  "current_host_available_bytes": 34463649792,
+  "next_steps": [
+    "Budget writable layers and complete-VM snapshot before Xarray checkpoint/restore; confirm capacity and a new window.",
+    "Check files, completed tool progress, next step and process continuity; preserve diagnostic SIGPIPE policy and task-failure set.",
+    "Then prepare Sphinx one-path functional replay. Keep physical page cache, VMM PSS and Xarray monitoring overhead unverified."
+  ]
+}

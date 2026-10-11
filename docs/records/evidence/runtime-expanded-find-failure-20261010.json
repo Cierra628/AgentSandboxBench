@@ -1,0 +1,220 @@
+{
+  "status": "FAIL",
+  "verification_status": "PASS",
+  "scope": "policy v2: two completed pairs, third off run failed at frozen find; not five completed pairs or stable overhead",
+  "source_directory": ".artifacts/storage-isolated-service/20261010T052658Z-148862",
+  "formal_directory": ".artifacts/runtime-monitor-pairs/20261010T052318Z-140347",
+  "planned_pairs": 5,
+  "completed_pairs": 2,
+  "sphinx_pipeline_policy_version": 2,
+  "cache_released": true,
+  "failed_stage": "remaining-frozen-segments",
+  "error": "AssertionError('trace_cpp_parser/005: expected 0, actual 1; outside approved Sphinx pipeline policy')",
+  "executed_actions": 13,
+  "remaining_actions_not_run": 22,
+  "official_tests_failed_run": "NOT_RUN",
+  "monitor_mode": "off",
+  "runtime_samplers_absent": true,
+  "all_executed_stdout_stderr_equal_reference": true,
+  "all_completed_segment_patches_equal_reference": true,
+  "exit_differences": [
+    {
+      "global_step": 11,
+      "segment": "trace_cpp_parser",
+      "step": "005",
+      "expected": 0,
+      "actual": 1
+    }
+  ],
+  "completed_pairs_metrics": {
+    "guest_action_seconds": {
+      "off_seconds": [
+        10.273742666,
+        11.363310526
+      ],
+      "continuous_seconds": [
+        11.385992939,
+        11.041286286
+      ],
+      "paired_percent": [
+        10.826144951838135,
+        -2.8338945702767404
+      ],
+      "mean_paired_percent": 3.996125190780697,
+      "median_paired_percent": 3.996125190780697,
+      "min_paired_percent": -2.8338945702767404,
+      "max_paired_percent": 10.826144951838135,
+      "bootstrap_mean_95_percent_interval": [
+        -2.8338945702767404,
+        10.826144951838135
+      ],
+      "off_cv_percent": 7.121494923844564,
+      "continuous_cv_percent": 2.173642281001366
+    },
+    "frozen_replay_seconds": {
+      "off_seconds": [
+        12.459630138,
+        13.843141826
+      ],
+      "continuous_seconds": [
+        14.519246778,
+        13.823128554
+      ],
+      "paired_percent": [
+        16.53031925657631,
+        -0.14457174716228094
+      ],
+      "mean_paired_percent": 8.192873754707014,
+      "median_paired_percent": 8.192873754707014,
+      "min_paired_percent": -0.14457174716228094,
+      "max_paired_percent": 16.53031925657631,
+      "bootstrap_mean_95_percent_interval": [
+        -0.14457174716228094,
+        16.53031925657631
+      ],
+      "off_cv_percent": 7.43868743396788,
+      "continuous_cv_percent": 3.473455636177273
+    },
+    "lifecycle_seconds": {
+      "off_seconds": [
+        22.754843281,
+        23.765980392
+      ],
+      "continuous_seconds": [
+        26.538728986,
+        25.369614374
+      ],
+      "paired_percent": [
+        16.628924481143304,
+        6.747602899394001
+      ],
+      "mean_paired_percent": 11.688263690268652,
+      "median_paired_percent": 11.688263690268652,
+      "min_paired_percent": 6.747602899394001,
+      "max_paired_percent": 16.628924481143304,
+      "bootstrap_mean_95_percent_interval": [
+        6.747602899394001,
+        16.628924481143304
+      ],
+      "off_cv_percent": 3.0738144832652217,
+      "continuous_cv_percent": 3.1851868760139053
+    }
+  },
+  "statistics_limits": "only two completed pairs in an aborted study; preserve all results; not a five-pair estimate, not stable or zero monitoring impact",
+  "completed_run_receipts": [
+    {
+      "pair": 1,
+      "mode": "off",
+      "raw": ".artifacts/storage-isolated-service/20261010T052442Z-140644/python-backbone",
+      "official": {
+        "status": "FAIL",
+        "exit_code": 1,
+        "passed": 24,
+        "failed": 1,
+        "skipped": 0,
+        "failed_tests": [
+          "tests/test_domain_cpp.py::test_expressions"
+        ],
+        "skipped_tests": [],
+        "F2P_passed": 0,
+        "F2P_total": 1,
+        "P2P_passed": 24,
+        "P2P_total": 24,
+        "scope": "SWE-bench selected C++ tests and test patch; direct image pytest, not full official Docker harness"
+      },
+      "exit_differences": [
+        {
+          "segment": "read_repo",
+          "step": "001",
+          "expected": 141,
+          "actual": 0
+        }
+      ]
+    },
+    {
+      "pair": 1,
+      "mode": "continuous",
+      "raw": ".artifacts/storage-isolated-service/20261010T052514Z-141926/python-backbone",
+      "official": {
+        "status": "FAIL",
+        "exit_code": 1,
+        "passed": 24,
+        "failed": 1,
+        "skipped": 0,
+        "failed_tests": [
+          "tests/test_domain_cpp.py::test_expressions"
+        ],
+        "skipped_tests": [],
+        "F2P_passed": 0,
+        "F2P_total": 1,
+        "P2P_passed": 24,
+        "P2P_total": 24,
+        "scope": "SWE-bench selected C++ tests and test patch; direct image pytest, not full official Docker harness"
+      },
+      "exit_differences": []
+    },
+    {
+      "pair": 2,
+      "mode": "off",
+      "raw": ".artifacts/storage-isolated-service/20261010T052625Z-147575/python-backbone",
+      "official": {
+        "status": "FAIL",
+        "exit_code": 1,
+        "passed": 24,
+        "failed": 1,
+        "skipped": 0,
+        "failed_tests": [
+          "tests/test_domain_cpp.py::test_expressions"
+        ],
+        "skipped_tests": [],
+        "F2P_passed": 0,
+        "F2P_total": 1,
+        "P2P_passed": 24,
+        "P2P_total": 24,
+        "scope": "SWE-bench selected C++ tests and test patch; direct image pytest, not full official Docker harness"
+      },
+      "exit_differences": []
+    },
+    {
+      "pair": 2,
+      "mode": "continuous",
+      "raw": ".artifacts/storage-isolated-service/20261010T052550Z-144768/python-backbone",
+      "official": {
+        "status": "FAIL",
+        "exit_code": 1,
+        "passed": 24,
+        "failed": 1,
+        "skipped": 0,
+        "failed_tests": [
+          "tests/test_domain_cpp.py::test_expressions"
+        ],
+        "skipped_tests": [],
+        "F2P_passed": 0,
+        "F2P_total": 1,
+        "P2P_passed": 24,
+        "P2P_total": 24,
+        "scope": "SWE-bench selected C++ tests and test patch; direct image pytest, not full official Docker harness"
+      },
+      "exit_differences": []
+    }
+  ],
+  "cleanup": {
+    "owned_container_removed": true,
+    "mount_and_loop_removed": true,
+    "failed_fixture_retained": true,
+    "original_firecracker_identities_unchanged": true,
+    "original_service_unchanged": true
+  },
+  "backup": {
+    "source_sha256": "fe218baa64a0f8de439e3b2a5c92cbb398176f6d672a528a7c8f407639cae44f",
+    "backup_sha256": "e2d257f48d9b65e02da735bb5a0f0b3f910b1b5b02118051bea80a8fce6bbe14",
+    "uncompressed_bytes": 8589934592,
+    "compressed_bytes": 83956880,
+    "source_retained": true
+  },
+  "raw_files": 1337,
+  "raw_hashes_unchanged": true,
+  "original_hidden_find_error": "NOT_CAPTURED; original command redirects find stderr to /dev/null",
+  "diagnostic_limits": "No runtime sampler in failing run; error path and cause unknown. Newly added failure diagnostic is tested offline but not yet run in guest.",
+  "next_step": "short isolated find diagnosis with error paths, pipeline statuses and affected process identities; no find exit-code relaxation; 8 GiB requires more than 34 GiB available"
+}

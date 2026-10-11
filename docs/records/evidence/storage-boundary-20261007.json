@@ -1,0 +1,127 @@
+{
+  "version": 1,
+  "date": "2026-10-07",
+  "third_task_status": "部分完成",
+  "fourth_task_status": "部分完成：短窗口已确认，真实重放仍受存储条件阻塞",
+  "environment_audit": ".artifacts/storage-boundary/20261007T081212Z-3455689/environment-audit.json",
+  "final_probe_result": ".artifacts/storage-boundary/20261007T081640Z-3457159/result.json",
+  "command": "python3 -B scripts/probe_storage_boundary.py",
+  "exit_code": 0,
+  "probe_status": "PASS",
+  "earlier_attempts": [
+    {
+      "path": ".artifacts/storage-boundary/20261007T081049Z-3455175/result.json",
+      "status": "FAIL",
+      "reason": "local mkfs.ext4 does not support -Q; corrected to -E quotatype=prjquota; owned fixture cleanup PASS"
+    },
+    {
+      "path": ".artifacts/storage-boundary/20261007T081106Z-3455271/result.json",
+      "status": "PASS",
+      "scope": "before disabling loop TRIM"
+    },
+    {
+      "path": ".artifacts/storage-boundary/20261007T081212Z-3455689/result.json",
+      "status": "PASS",
+      "scope": "TRIM disabled and reserve cleanup verified"
+    }
+  ],
+  "source_sha256": {
+    "scripts/probe_storage_boundary.py": "3c22ac4a0f44bacd432be69e358f343c96a584d69d7f8a8188975b56e34eb8af",
+    "scripts/experiment_disk_guard.py": "159811ce29dd1153a4f46f3089bdaa2736aad42fab1835f7b5483f3fd9e10033"
+  },
+  "probe": {
+    "status": "PASS",
+    "scope": "256 MiB isolated fixture, not production storage",
+    "mount": "{\n   \"filesystems\": [\n      {\n         \"target\": \"/home/yyxie/agentenv_experiment/.artifacts/storage-boundary/20261007T081640Z-3457159/mount\",\n         \"source\": \"/dev/loop2\",\n         \"fstype\": \"ext4\",\n         \"options\": \"rw,relatime,prjquota\"\n      }\n   ]\n}",
+    "backing_allocated_after_mkfs_bytes": 268439552,
+    "quota_before": {
+      "hard_blocks": 8192,
+      "soft_blocks": 0,
+      "space_bytes": 0,
+      "hard_inodes": 0,
+      "soft_inodes": 0,
+      "inodes": 0,
+      "block_time": 0,
+      "inode_time": 0,
+      "valid": 1
+    },
+    "root_has_cap_sys_resource": true,
+    "quota_after_root": {
+      "hard_blocks": 8192,
+      "soft_blocks": 0,
+      "space_bytes": 16781312,
+      "hard_inodes": 0,
+      "soft_inodes": 0,
+      "inodes": 2,
+      "block_time": 0,
+      "inode_time": 0,
+      "valid": 63
+    },
+    "privileged_root_bypassed_project_hard_limit": true,
+    "without_capability_rejected_with_edquot": true,
+    "root_capacity_limit_errno": 28,
+    "fill_written_bytes": 220200960,
+    "backing_allocated_at_full_bytes": 268439552,
+    "cleanup_write_after_reserve_release": true,
+    "backing_allocated_after_delete_bytes": 268439552,
+    "trim_exit_code": 1,
+    "backing_allocated_after_trim_attempt_bytes": 268439552,
+    "unmount": "PASS"
+  },
+  "fixture_cleanup": "PASS",
+  "original_firecracker_count": 12,
+  "original_firecracker_identities_unchanged": true,
+  "production_boundary": "NOT_CONFIGURED",
+  "independent_spare_storage": false,
+  "quota_tools_present": false,
+  "project_service_has_cap_sys_resource": true,
+  "agentenv_allocated_unique_bytes": 10833780736,
+  "agentenv_subdirectory_allocated_bytes": {
+    "overlaybd": 311296,
+    "image-cache": 5759057920,
+    "deps": 189149184,
+    "firecracker-work": 73728,
+    "snapshot-local-cache": 335872,
+    "logs": 33140736,
+    "template-builds": 2351104,
+    "secrets": 12288,
+    "snapshot-store": 10575310848,
+    "persisted-sandboxes": 2433024
+  },
+  "metric_scope": "du -sx -B1; individual subtree totals can overlap via hard links and must not be summed; bytes, not resident RAM",
+  "storage_plan": "configs/storage-boundary-plan.json",
+  "coordination": {
+    "status": "USER_CONFIRMED",
+    "user_statement": "暂无人使用；可以，现在就开始",
+    "start_utc": "2026-10-07T08:08:05Z",
+    "end_utc": "2026-10-07T08:28:05Z",
+    "duration_seconds": 1200,
+    "scope": "no other large shared-disk writes during agreed window; not a global writer lock",
+    "resumption": "small owned filesystem probe only; VM replay not resumed"
+  },
+  "readonly_window_observation": {
+    "command": "bash scripts/observe-storage.sh --output .artifacts/storage-boundary/20261007T081212Z-3455689/window-observation --duration 10",
+    "exit_code": 0,
+    "status": "PASS",
+    "samples": 11,
+    "observed_min_available_bytes": 71493599232,
+    "scan_elapsed_ns": 1073961477,
+    "interval_seconds": 1.0,
+    "directory_interval_seconds": 5.0,
+    "error": null,
+    "unit": "bytes; timestamps/durations ns",
+    "limitations": [
+      "sampled extrema, not exact instantaneous minima",
+      "directory scans and filesystem reads are not atomic; cached directory scans carry their timestamp",
+      "process I/O is across all devices; exited/between-sample writers can be missed",
+      "I/O byte deltas are not disk allocation deltas; unexplained changes have no assigned cause",
+      "diagnostic sampling cost is recorded; task/monitoring impact is NOT_MEASURED"
+    ]
+  },
+  "limitations": [
+    "Small filesystem probe is not real VM ENOSPC/cleanup validation.",
+    "Actual AgentENV/TrEnv-X runtime writes have not been migrated or bounded.",
+    "Host availability and process I/O are sampled; short observation cannot ensure later idleness.",
+    "No VM replay, quota installation, system service restart or root filesystem change this turn."
+  ]
+}

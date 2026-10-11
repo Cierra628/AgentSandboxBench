@@ -1,0 +1,76 @@
+{
+  "status": "IMPLEMENTED_OFFLINE_VERIFIED_LIVE_PENDING",
+  "recorded_utc": "2026-10-08T04:35:12.656369+00:00",
+  "scope": "temporary TrEnv-X fixed-capacity storage; no real VM experiment in this preparation",
+  "capacity_bytes": 25769803776,
+  "host_launch_minimum_bytes": 64424509440,
+  "host_reserve_bytes": 21474836480,
+  "volume_cleanup_reserve_bytes": 536870912,
+  "archive_volume_headroom_bytes": 6442450944,
+  "host_available_at_record_bytes": 75257163776,
+  "historical_capacity_evidence": {
+    "manifest": ".artifacts/trenvx-service-smoke/20261006T025145Z-3271526/archive-manifest.json",
+    "source_allocated_bytes": 16207753216,
+    "archive_bytes": 3229091403,
+    "limitation": "existing step-022 run only; no new archive hash verification this turn"
+  },
+  "offline_tests": {
+    "isolated": {
+      "status": "PASS",
+      "tests": 18,
+      "path": ".artifacts/storage-safety/isolated-trenvx-prep-20261008T043320Z"
+    },
+    "storage_safety": {
+      "status": "PASS",
+      "tests": 53,
+      "path": ".artifacts/storage-safety/tests-20261008T043343Z-W2T7oV"
+    },
+    "first_attempt": {
+      "status": "FAIL",
+      "path": ".artifacts/storage-safety/tests-20261008T043303Z-Dd0w9o",
+      "cause": "test discard wrapper provided root twice after caller began passing owned raw root",
+      "resolution": "test wrapper validates supplied root then forwards it once; failure record kept"
+    }
+  },
+  "live_status": "NOT_RUN",
+  "coordination": "previous window expired; fresh user confirmation requested and not received",
+  "retention": "success temporary images discarded only after all checks; raw/config/logs/hash retained; failed volume kept",
+  "write_scope": {
+    "bounded": [
+      "private template/image/cache",
+      "sealed file checkpoints",
+      "runtime-tmp archive",
+      "data.tar.gz",
+      "controller logs/events/samples"
+    ],
+    "excluded": [
+      "private /tmp and /run/netns tmpfs use RAM",
+      "small host control receipts",
+      "shared immutable seed/binaries/kernels",
+      "other users"
+    ]
+  },
+  "remaining": [
+    "real smoke then one complete Exp1/step-022 file-state restore",
+    "unified use-platform entry integration",
+    "real VM ENOSPC cleanup validation",
+    "formal AgentENV backend storage selection"
+  ],
+  "source_sha256": {
+    "scripts/isolated_storage.py": "f589392cfd1e9432f260dd4139452799375faf493b1a6be47b147d8d0dde251e",
+    "scripts/validate_isolated_trenvx.py": "0b397c00db32763beba2029284aaf1d17a9693d955fbbba87c66eb75812cd98b",
+    "scripts/validate-isolated-trenvx.sh": "c598aa9dce8822a3e87aa0563e89fa3544fcf345e0464b8d0004e62dbc865995",
+    "scripts/experiment_disk_guard.py": "a1ed4beb50f7d2a39373cb0fe9a384644dba4da92266fc4c4f086f2f349f8680",
+    "scripts/smoke_trenvx_service.py": "52c68b042fb13bccfee9b520761bbb9f435f3195143a76a6be693f94e8e082f9",
+    "scripts/archive_trenvx_run_data.py": "e05c69645e53d6660a2fa0466c0531839070134d464ebbdea9da65d979e43a3f",
+    "tests/test_isolated_storage.py": "1de517e9beeea32ca7301d0505bda1cf47c53d3df824f78cc42487c7276487e9",
+    "tests/test_storage_safety.py": "4485e7bd4067af72ee959b9b259dc7b2b28aeb6a32f0d5bda77c7875e53d651e"
+  },
+  "readonly_resource_check": {
+    "firecracker_count": 12,
+    "original_firecracker_identities_unchanged": true,
+    "original_agentenv_running": true,
+    "original_agentenv_pid": 1387609,
+    "new_trenvx_fixture_loops": []
+  }
+}

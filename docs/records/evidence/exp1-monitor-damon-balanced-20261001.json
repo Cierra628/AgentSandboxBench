@@ -1,0 +1,1048 @@
+{
+  "status": "PASS",
+  "smoke": [
+    {
+      "result_dir": ".artifacts/exp1-monitor-fixed-smoke-damon_disabled/20261001T030302Z-2793489",
+      "source_result_sha256": "cdc40a6edb64a0510d16c1554e64874ee9cee9aa5f490b9221b836affc1de3da",
+      "mode": "damon_disabled",
+      "differences": {
+        "task_window_seconds": {
+          "means": {
+            "off": 3.8147184485,
+            "light": 3.8293173475
+          },
+          "light_vs_off_percent": 0.38269925283058726
+        },
+        "controller_exec_seconds": {
+          "means": {
+            "off": 3.8104372105,
+            "light": 3.8225662505
+          },
+          "light_vs_off_percent": 0.3183109792907146
+        },
+        "guest_action_sum_seconds": {
+          "means": {
+            "off": 2.0017608355,
+            "light": 1.9961271375
+          },
+          "light_vs_off_percent": -0.28143711776600355
+        }
+      },
+      "order": [
+        "off",
+        "light",
+        "light",
+        "off"
+      ],
+      "runs": [
+        {
+          "position": 1,
+          "mode": "off",
+          "task_window_seconds": 3.871070162,
+          "controller_exec_seconds": 3.866644802,
+          "guest_action_sum_seconds": 2.016686143,
+          "sample_count": 0,
+          "steps_ms": {
+            "023": 1032.020505,
+            "024": 713.524723,
+            "025": 62.909817
+          },
+          "observed_min_free_gib": 47.28596496582031
+        },
+        {
+          "position": 2,
+          "mode": "light",
+          "task_window_seconds": 3.768532402,
+          "controller_exec_seconds": 3.761607984,
+          "guest_action_sum_seconds": 1.975014726,
+          "sample_count": 4,
+          "steps_ms": {
+            "023": 1007.763857,
+            "024": 698.801982,
+            "025": 61.22014
+          },
+          "observed_min_free_gib": 47.281280517578125
+        },
+        {
+          "position": 3,
+          "mode": "light",
+          "task_window_seconds": 3.890102293,
+          "controller_exec_seconds": 3.883524517,
+          "guest_action_sum_seconds": 2.017239549,
+          "sample_count": 4,
+          "steps_ms": {
+            "023": 1040.880532,
+            "024": 705.182119,
+            "025": 61.608487
+          },
+          "observed_min_free_gib": 47.28497314453125
+        },
+        {
+          "position": 4,
+          "mode": "off",
+          "task_window_seconds": 3.758366735,
+          "controller_exec_seconds": 3.754229619,
+          "guest_action_sum_seconds": 1.986835528,
+          "sample_count": 0,
+          "steps_ms": {
+            "023": 1007.260184,
+            "024": 711.696615,
+            "025": 60.651602
+          },
+          "observed_min_free_gib": 47.28447723388672
+        }
+      ]
+    },
+    {
+      "result_dir": ".artifacts/exp1-monitor-fixed-smoke-default/20261001T030438Z-2796130",
+      "source_result_sha256": "0810b527b62a0cde3f2fa3564338da5af2237881b634e2c316f70c784e02c787",
+      "mode": "default",
+      "differences": {
+        "task_window_seconds": {
+          "means": {
+            "off": 4.0501055694999994,
+            "light": 3.746616992
+          },
+          "light_vs_off_percent": -7.493349797730486
+        },
+        "controller_exec_seconds": {
+          "means": {
+            "off": 4.045340295,
+            "light": 3.7400721079999997
+          },
+          "light_vs_off_percent": -7.546168300780742
+        },
+        "guest_action_sum_seconds": {
+          "means": {
+            "off": 2.0754616725,
+            "light": 2.058014865
+          },
+          "light_vs_off_percent": -0.84062296746652
+        }
+      },
+      "order": [
+        "off",
+        "light",
+        "light",
+        "off"
+      ],
+      "runs": [
+        {
+          "position": 1,
+          "mode": "off",
+          "task_window_seconds": 3.918524324,
+          "controller_exec_seconds": 3.913486099,
+          "guest_action_sum_seconds": 2.034476028,
+          "sample_count": 0,
+          "steps_ms": {
+            "023": 1030.656151,
+            "024": 725.849047,
+            "025": 67.722265
+          },
+          "observed_min_free_gib": 47.27937698364258
+        },
+        {
+          "position": 2,
+          "mode": "light",
+          "task_window_seconds": 3.806376216,
+          "controller_exec_seconds": 3.800463626,
+          "guest_action_sum_seconds": 2.094607802,
+          "sample_count": 4,
+          "steps_ms": {
+            "023": 1027.263269,
+            "024": 718.273628,
+            "025": 130.552665
+          },
+          "observed_min_free_gib": 47.278045654296875
+        },
+        {
+          "position": 3,
+          "mode": "light",
+          "task_window_seconds": 3.686857768,
+          "controller_exec_seconds": 3.67968059,
+          "guest_action_sum_seconds": 2.021421928,
+          "sample_count": 4,
+          "steps_ms": {
+            "023": 1023.072434,
+            "024": 720.7354,
+            "025": 66.003241
+          },
+          "observed_min_free_gib": 47.277713775634766
+        },
+        {
+          "position": 4,
+          "mode": "off",
+          "task_window_seconds": 4.181686815,
+          "controller_exec_seconds": 4.177194491,
+          "guest_action_sum_seconds": 2.116447317,
+          "sample_count": 0,
+          "steps_ms": {
+            "023": 1068.475883,
+            "024": 716.17341,
+            "025": 110.681128
+          },
+          "observed_min_free_gib": 47.277156829833984
+        }
+      ]
+    }
+  ],
+  "groups": [
+    {
+      "result_dir": ".artifacts/exp1-monitor-fixed-balanced-damon_disabled/20261001T030628Z-2798853",
+      "source_result_sha256": "9b058ae0cf442b9a78e7700268a55ccefada1529eb23af92e1be140007eb44d5",
+      "mode": "damon_disabled",
+      "differences": {
+        "task_window_seconds": {
+          "means": {
+            "control_A": 3.8448755425,
+            "control_B": 3.8551443389999998,
+            "off": 3.859910092,
+            "light": 3.8447363685
+          },
+          "light_vs_off_percent": -0.39311080150412625,
+          "control_B_vs_A_percent": 0.2670774745890059
+        },
+        "controller_exec_seconds": {
+          "means": {
+            "control_A": 3.8394213665,
+            "control_B": 3.8507690285000002,
+            "off": 3.855004279,
+            "light": 3.8386060595
+          },
+          "light_vs_off_percent": -0.4253748715488781,
+          "control_B_vs_A_percent": 0.2955565674299665
+        },
+        "guest_action_sum_seconds": {
+          "means": {
+            "control_A": 1.9951728055000002,
+            "control_B": 1.9933978395,
+            "off": 2.016977701,
+            "light": 2.0033103925
+          },
+          "light_vs_off_percent": -0.6776132672772661,
+          "control_B_vs_A_percent": -0.08896302090261043
+        }
+      },
+      "order": [
+        "control_A",
+        "off",
+        "light",
+        "control_B",
+        "control_B",
+        "light",
+        "off",
+        "control_A"
+      ],
+      "runs": [
+        {
+          "position": 1,
+          "mode": "control_A",
+          "task_window_seconds": 3.924508841,
+          "controller_exec_seconds": 3.918771441,
+          "guest_action_sum_seconds": 2.010940949,
+          "sample_count": 0,
+          "steps_ms": {
+            "023": 1031.402832,
+            "024": 709.314952,
+            "025": 61.946475
+          },
+          "observed_min_free_gib": 47.27217102050781
+        },
+        {
+          "position": 2,
+          "mode": "off",
+          "task_window_seconds": 3.933523783,
+          "controller_exec_seconds": 3.928835519,
+          "guest_action_sum_seconds": 2.036326363,
+          "sample_count": 0,
+          "steps_ms": {
+            "023": 1045.735602,
+            "024": 722.350612,
+            "025": 61.104306
+          },
+          "observed_min_free_gib": 47.27143859863281
+        },
+        {
+          "position": 3,
+          "mode": "light",
+          "task_window_seconds": 3.764710422,
+          "controller_exec_seconds": 3.760063914,
+          "guest_action_sum_seconds": 1.992140932,
+          "sample_count": 4,
+          "steps_ms": {
+            "023": 1008.29121,
+            "024": 713.737639,
+            "025": 62.948354
+          },
+          "observed_min_free_gib": 47.27090072631836
+        },
+        {
+          "position": 4,
+          "mode": "control_B",
+          "task_window_seconds": 3.836608996,
+          "controller_exec_seconds": 3.832499862,
+          "guest_action_sum_seconds": 1.992129554,
+          "sample_count": 0,
+          "steps_ms": {
+            "023": 1016.890215,
+            "024": 705.335889,
+            "025": 61.573219
+          },
+          "observed_min_free_gib": 47.270408630371094
+        },
+        {
+          "position": 5,
+          "mode": "control_B",
+          "task_window_seconds": 3.873679682,
+          "controller_exec_seconds": 3.869038195,
+          "guest_action_sum_seconds": 1.994666125,
+          "sample_count": 0,
+          "steps_ms": {
+            "023": 1011.276466,
+            "024": 716.72937,
+            "025": 61.126738
+          },
+          "observed_min_free_gib": 47.26991653442383
+        },
+        {
+          "position": 6,
+          "mode": "light",
+          "task_window_seconds": 3.924762315,
+          "controller_exec_seconds": 3.917148205,
+          "guest_action_sum_seconds": 2.014479853,
+          "sample_count": 4,
+          "steps_ms": {
+            "023": 1039.156408,
+            "024": 703.013613,
+            "025": 62.926838
+          },
+          "observed_min_free_gib": 47.265220642089844
+        },
+        {
+          "position": 7,
+          "mode": "off",
+          "task_window_seconds": 3.786296401,
+          "controller_exec_seconds": 3.781173039,
+          "guest_action_sum_seconds": 1.997629039,
+          "sample_count": 0,
+          "steps_ms": {
+            "023": 1018.144058,
+            "024": 707.357173,
+            "025": 64.040824
+          },
+          "observed_min_free_gib": 47.26888656616211
+        },
+        {
+          "position": 8,
+          "mode": "control_A",
+          "task_window_seconds": 3.765242244,
+          "controller_exec_seconds": 3.760071292,
+          "guest_action_sum_seconds": 1.979404662,
+          "sample_count": 0,
+          "steps_ms": {
+            "023": 1003.839729,
+            "024": 708.704185,
+            "025": 62.827669
+          },
+          "observed_min_free_gib": 47.26852798461914
+        }
+      ]
+    },
+    {
+      "result_dir": ".artifacts/exp1-monitor-fixed-balanced-damon_disabled/20261001T031110Z-2804487",
+      "source_result_sha256": "74eafd78dd624e2afc021bfec784d90a8c0e91840aa6a91f40b7471e3cc20409",
+      "mode": "damon_disabled",
+      "differences": {
+        "task_window_seconds": {
+          "means": {
+            "control_A": 3.83947039,
+            "control_B": 3.766054339,
+            "off": 3.82914105,
+            "light": 3.871972491
+          },
+          "light_vs_off_percent": 1.1185652458532536,
+          "control_B_vs_A_percent": -1.9121400490862972
+        },
+        "controller_exec_seconds": {
+          "means": {
+            "control_A": 3.8347609030000003,
+            "control_B": 3.7612256975,
+            "off": 3.825273192,
+            "light": 3.8665068624999996
+          },
+          "light_vs_off_percent": 1.0779274689774798,
+          "control_B_vs_A_percent": -1.917595577926967
+        },
+        "guest_action_sum_seconds": {
+          "means": {
+            "control_A": 1.991072133,
+            "control_B": 1.9793555409999999,
+            "off": 2.001433049,
+            "light": 2.014570961
+          },
+          "light_vs_off_percent": 0.6564252552222039,
+          "control_B_vs_A_percent": -0.5884564303728412
+        }
+      },
+      "order": [
+        "light",
+        "control_A",
+        "off",
+        "control_B",
+        "control_B",
+        "off",
+        "control_A",
+        "light"
+      ],
+      "runs": [
+        {
+          "position": 1,
+          "mode": "light",
+          "task_window_seconds": 3.823111087,
+          "controller_exec_seconds": 3.817198482,
+          "guest_action_sum_seconds": 2.008680305,
+          "sample_count": 4,
+          "steps_ms": {
+            "023": 1016.805625,
+            "024": 724.006021,
+            "025": 62.09681
+          },
+          "observed_min_free_gib": 47.258758544921875
+        },
+        {
+          "position": 2,
+          "mode": "control_A",
+          "task_window_seconds": 3.92900202,
+          "controller_exec_seconds": 3.92452457,
+          "guest_action_sum_seconds": 2.01986883,
+          "sample_count": 0,
+          "steps_ms": {
+            "023": 1031.769665,
+            "024": 718.418463,
+            "025": 62.624239
+          },
+          "observed_min_free_gib": 47.26231384277344
+        },
+        {
+          "position": 3,
+          "mode": "off",
+          "task_window_seconds": 3.75760825,
+          "controller_exec_seconds": 3.753857472,
+          "guest_action_sum_seconds": 1.986060762,
+          "sample_count": 0,
+          "steps_ms": {
+            "023": 1005.057471,
+            "024": 711.588504,
+            "025": 62.223828
+          },
+          "observed_min_free_gib": 47.26181411743164
+        },
+        {
+          "position": 4,
+          "mode": "control_B",
+          "task_window_seconds": 3.755148763,
+          "controller_exec_seconds": 3.751426529,
+          "guest_action_sum_seconds": 1.9737909,
+          "sample_count": 0,
+          "steps_ms": {
+            "023": 1006.493276,
+            "024": 700.999983,
+            "025": 62.116191
+          },
+          "observed_min_free_gib": 47.26131057739258
+        },
+        {
+          "position": 5,
+          "mode": "control_B",
+          "task_window_seconds": 3.776959915,
+          "controller_exec_seconds": 3.771024866,
+          "guest_action_sum_seconds": 1.984920182,
+          "sample_count": 0,
+          "steps_ms": {
+            "023": 994.709624,
+            "024": 720.097943,
+            "025": 61.874666
+          },
+          "observed_min_free_gib": 47.26080322265625
+        },
+        {
+          "position": 6,
+          "mode": "off",
+          "task_window_seconds": 3.90067385,
+          "controller_exec_seconds": 3.896688912,
+          "guest_action_sum_seconds": 2.016805336,
+          "sample_count": 0,
+          "steps_ms": {
+            "023": 1031.072645,
+            "024": 714.051197,
+            "025": 62.350237
+          },
+          "observed_min_free_gib": 47.25613784790039
+        },
+        {
+          "position": 7,
+          "mode": "control_A",
+          "task_window_seconds": 3.74993876,
+          "controller_exec_seconds": 3.744997236,
+          "guest_action_sum_seconds": 1.962275436,
+          "sample_count": 0,
+          "steps_ms": {
+            "023": 979.466432,
+            "024": 713.659287,
+            "025": 62.356759
+          },
+          "observed_min_free_gib": 47.25979995727539
+        },
+        {
+          "position": 8,
+          "mode": "light",
+          "task_window_seconds": 3.920833895,
+          "controller_exec_seconds": 3.915815243,
+          "guest_action_sum_seconds": 2.020461617,
+          "sample_count": 4,
+          "steps_ms": {
+            "023": 1037.606657,
+            "024": 714.368118,
+            "025": 62.602418
+          },
+          "observed_min_free_gib": 47.25932693481445
+        }
+      ]
+    },
+    {
+      "result_dir": ".artifacts/exp1-monitor-fixed-balanced-damon_disabled/20261001T031344Z-2809475",
+      "source_result_sha256": "967e45e65b91cc857cd90a1e57ff7259c5a6b534c5b2126a671c4df931f520ff",
+      "mode": "damon_disabled",
+      "differences": {
+        "task_window_seconds": {
+          "means": {
+            "control_A": 3.7536395405,
+            "control_B": 3.7940968369999997,
+            "off": 3.871095724,
+            "light": 3.7904890050000004
+          },
+          "light_vs_off_percent": -2.0822713967069917,
+          "control_B_vs_A_percent": 1.077815172807206
+        },
+        "controller_exec_seconds": {
+          "means": {
+            "control_A": 3.748921786,
+            "control_B": 3.7899428735000003,
+            "off": 3.86622179,
+            "light": 3.7837252914999997
+          },
+          "light_vs_off_percent": -2.13377563370466,
+          "control_B_vs_A_percent": 1.0942102780908902
+        },
+        "guest_action_sum_seconds": {
+          "means": {
+            "control_A": 1.9787719305,
+            "control_B": 1.9908717755,
+            "off": 2.0053057670000003,
+            "light": 1.9902398595
+          },
+          "light_vs_off_percent": -0.7513022576372208,
+          "control_B_vs_A_percent": 0.6114825470029173
+        }
+      },
+      "order": [
+        "control_B",
+        "light",
+        "off",
+        "control_A",
+        "control_A",
+        "off",
+        "light",
+        "control_B"
+      ],
+      "runs": [
+        {
+          "position": 1,
+          "mode": "control_B",
+          "task_window_seconds": 3.823682108,
+          "controller_exec_seconds": 3.819204747,
+          "guest_action_sum_seconds": 2.002803107,
+          "sample_count": 0,
+          "steps_ms": {
+            "023": 1018.354914,
+            "024": 713.193493,
+            "025": 63.324743
+          },
+          "observed_min_free_gib": 47.254268646240234
+        },
+        {
+          "position": 2,
+          "mode": "light",
+          "task_window_seconds": 3.803441632,
+          "controller_exec_seconds": 3.796237676,
+          "guest_action_sum_seconds": 1.991917886,
+          "sample_count": 4,
+          "steps_ms": {
+            "023": 1007.960276,
+            "024": 713.498414,
+            "025": 63.800657
+          },
+          "observed_min_free_gib": 47.25357437133789
+        },
+        {
+          "position": 3,
+          "mode": "off",
+          "task_window_seconds": 3.83064735,
+          "controller_exec_seconds": 3.826049265,
+          "guest_action_sum_seconds": 2.00102824,
+          "sample_count": 0,
+          "steps_ms": {
+            "023": 1016.958245,
+            "024": 714.582564,
+            "025": 62.258863
+          },
+          "observed_min_free_gib": 47.253074645996094
+        },
+        {
+          "position": 4,
+          "mode": "control_A",
+          "task_window_seconds": 3.741401924,
+          "controller_exec_seconds": 3.736162437,
+          "guest_action_sum_seconds": 1.985307438,
+          "sample_count": 0,
+          "steps_ms": {
+            "023": 1002.177422,
+            "024": 717.305273,
+            "025": 60.744041
+          },
+          "observed_min_free_gib": 47.25241470336914
+        },
+        {
+          "position": 5,
+          "mode": "control_A",
+          "task_window_seconds": 3.765877157,
+          "controller_exec_seconds": 3.761681135,
+          "guest_action_sum_seconds": 1.972236423,
+          "sample_count": 0,
+          "steps_ms": {
+            "023": 1005.844758,
+            "024": 699.730536,
+            "025": 63.266372
+          },
+          "observed_min_free_gib": 47.25191116333008
+        },
+        {
+          "position": 6,
+          "mode": "off",
+          "task_window_seconds": 3.911544098,
+          "controller_exec_seconds": 3.906394315,
+          "guest_action_sum_seconds": 2.009583294,
+          "sample_count": 0,
+          "steps_ms": {
+            "023": 1016.921382,
+            "024": 724.009201,
+            "025": 60.811354
+          },
+          "observed_min_free_gib": 47.247257232666016
+        },
+        {
+          "position": 7,
+          "mode": "light",
+          "task_window_seconds": 3.777536378,
+          "controller_exec_seconds": 3.771212907,
+          "guest_action_sum_seconds": 1.988561833,
+          "sample_count": 4,
+          "steps_ms": {
+            "023": 1008.260868,
+            "024": 712.188544,
+            "025": 62.986879
+          },
+          "observed_min_free_gib": 47.25091552734375
+        },
+        {
+          "position": 8,
+          "mode": "control_B",
+          "task_window_seconds": 3.764511566,
+          "controller_exec_seconds": 3.760681,
+          "guest_action_sum_seconds": 1.978940444,
+          "sample_count": 0,
+          "steps_ms": {
+            "023": 1009.095514,
+            "024": 701.783691,
+            "025": 60.634927
+          },
+          "observed_min_free_gib": 47.2503662109375
+        }
+      ]
+    },
+    {
+      "result_dir": ".artifacts/exp1-monitor-fixed-balanced-damon_disabled/20261001T031618Z-2814502",
+      "source_result_sha256": "46843f7d3c3c6f6eaea2533633e4c87ea6211af3485e86234c393f73de204db1",
+      "mode": "damon_disabled",
+      "differences": {
+        "task_window_seconds": {
+          "means": {
+            "control_A": 3.866977722,
+            "control_B": 3.7863609315,
+            "off": 3.8260197335,
+            "light": 3.7857641055
+          },
+          "light_vs_off_percent": -1.052154217803114,
+          "control_B_vs_A_percent": -2.084749287314358
+        },
+        "controller_exec_seconds": {
+          "means": {
+            "control_A": 3.8621217985,
+            "control_B": 3.781778056,
+            "off": 3.8211064955,
+            "light": 3.7795449875
+          },
+          "light_vs_off_percent": -1.0876825351228914,
+          "control_B_vs_A_percent": -2.0803005884279635
+        },
+        "guest_action_sum_seconds": {
+          "means": {
+            "control_A": 1.9808950885,
+            "control_B": 1.9834135145,
+            "off": 2.006401231,
+            "light": 2.0060398074999997
+          },
+          "light_vs_off_percent": -0.018013520646620318,
+          "control_B_vs_A_percent": 0.12713575870930693
+        }
+      },
+      "order": [
+        "off",
+        "light",
+        "control_A",
+        "control_B",
+        "control_B",
+        "control_A",
+        "light",
+        "off"
+      ],
+      "runs": [
+        {
+          "position": 1,
+          "mode": "off",
+          "task_window_seconds": 3.862790735,
+          "controller_exec_seconds": 3.857218734,
+          "guest_action_sum_seconds": 2.019190848,
+          "sample_count": 0,
+          "steps_ms": {
+            "023": 1021.692868,
+            "024": 729.681198,
+            "025": 63.749274
+          },
+          "observed_min_free_gib": 47.24524688720703
+        },
+        {
+          "position": 2,
+          "mode": "light",
+          "task_window_seconds": 3.76510272,
+          "controller_exec_seconds": 3.758109662,
+          "guest_action_sum_seconds": 1.992684298,
+          "sample_count": 4,
+          "steps_ms": {
+            "023": 1011.470862,
+            "024": 711.95998,
+            "025": 63.218629
+          },
+          "observed_min_free_gib": 47.24473571777344
+        },
+        {
+          "position": 3,
+          "mode": "control_A",
+          "task_window_seconds": 3.843562248,
+          "controller_exec_seconds": 3.838086742,
+          "guest_action_sum_seconds": 1.955855922,
+          "sample_count": 0,
+          "steps_ms": {
+            "023": 992.925246,
+            "024": 697.029434,
+            "025": 63.509358
+          },
+          "observed_min_free_gib": 47.24436950683594
+        },
+        {
+          "position": 4,
+          "mode": "control_B",
+          "task_window_seconds": 3.81110708,
+          "controller_exec_seconds": 3.805621751,
+          "guest_action_sum_seconds": 1.987890067,
+          "sample_count": 0,
+          "steps_ms": {
+            "023": 1016.472472,
+            "024": 699.975331,
+            "025": 62.343225
+          },
+          "observed_min_free_gib": 47.24385452270508
+        },
+        {
+          "position": 5,
+          "mode": "control_B",
+          "task_window_seconds": 3.761614783,
+          "controller_exec_seconds": 3.757934361,
+          "guest_action_sum_seconds": 1.978936962,
+          "sample_count": 0,
+          "steps_ms": {
+            "023": 1007.395199,
+            "024": 702.56905,
+            "025": 62.401783
+          },
+          "observed_min_free_gib": 47.23902130126953
+        },
+        {
+          "position": 6,
+          "mode": "control_A",
+          "task_window_seconds": 3.890393196,
+          "controller_exec_seconds": 3.886156855,
+          "guest_action_sum_seconds": 2.005934255,
+          "sample_count": 0,
+          "steps_ms": {
+            "023": 1027.603824,
+            "024": 708.726552,
+            "025": 61.973901
+          },
+          "observed_min_free_gib": 47.238548278808594
+        },
+        {
+          "position": 7,
+          "mode": "light",
+          "task_window_seconds": 3.806425491,
+          "controller_exec_seconds": 3.800980313,
+          "guest_action_sum_seconds": 2.019395317,
+          "sample_count": 4,
+          "steps_ms": {
+            "023": 1022.791022,
+            "024": 727.9474,
+            "025": 63.352836
+          },
+          "observed_min_free_gib": 47.24220657348633
+        },
+        {
+          "position": 8,
+          "mode": "off",
+          "task_window_seconds": 3.789248732,
+          "controller_exec_seconds": 3.784994257,
+          "guest_action_sum_seconds": 1.993611614,
+          "sample_count": 0,
+          "steps_ms": {
+            "023": 1014.455844,
+            "024": 713.721917,
+            "025": 63.513003
+          },
+          "observed_min_free_gib": 47.23753356933594
+        }
+      ]
+    },
+    {
+      "result_dir": ".artifacts/exp1-monitor-fixed-balanced-damon_disabled/20261001T031851Z-2819449",
+      "source_result_sha256": "de137774f491addc4bbd6252225241a378a8fd62a1831340663756187ca246a7",
+      "mode": "damon_disabled",
+      "differences": {
+        "task_window_seconds": {
+          "means": {
+            "control_A": 3.8287591115,
+            "control_B": 3.7832425855,
+            "off": 3.8901100455,
+            "light": 3.8023812450000003
+          },
+          "light_vs_off_percent": -2.255175290001954,
+          "control_B_vs_A_percent": -1.1888062078203698
+        },
+        "controller_exec_seconds": {
+          "means": {
+            "control_A": 3.8241977499999997,
+            "control_B": 3.778354468,
+            "off": 3.8858685325,
+            "light": 3.7966812885000003
+          },
+          "light_vs_off_percent": -2.295168847172002,
+          "control_B_vs_A_percent": -1.1987686044739654
+        },
+        "guest_action_sum_seconds": {
+          "means": {
+            "control_A": 1.995670761,
+            "control_B": 1.9909013355,
+            "off": 2.0128577389999998,
+            "light": 2.01624057
+          },
+          "light_vs_off_percent": 0.16806110707459077,
+          "control_B_vs_A_percent": -0.23898859437164743
+        }
+      },
+      "order": [
+        "control_A",
+        "control_B",
+        "light",
+        "off",
+        "off",
+        "light",
+        "control_B",
+        "control_A"
+      ],
+      "runs": [
+        {
+          "position": 1,
+          "mode": "control_A",
+          "task_window_seconds": 3.770303728,
+          "controller_exec_seconds": 3.765206375,
+          "guest_action_sum_seconds": 1.991535499,
+          "sample_count": 0,
+          "steps_ms": {
+            "023": 1015.196905,
+            "024": 710.172741,
+            "025": 62.583777
+          },
+          "observed_min_free_gib": 47.23251724243164
+        },
+        {
+          "position": 2,
+          "mode": "control_B",
+          "task_window_seconds": 3.800657552,
+          "controller_exec_seconds": 3.796979299,
+          "guest_action_sum_seconds": 1.990779447,
+          "sample_count": 0,
+          "steps_ms": {
+            "023": 1026.546413,
+            "024": 698.018247,
+            "025": 61.901284
+          },
+          "observed_min_free_gib": 47.23633575439453
+        },
+        {
+          "position": 3,
+          "mode": "light",
+          "task_window_seconds": 3.776740459,
+          "controller_exec_seconds": 3.770722842,
+          "guest_action_sum_seconds": 2.016066265,
+          "sample_count": 4,
+          "steps_ms": {
+            "023": 1030.617039,
+            "024": 717.093166,
+            "025": 62.625933
+          },
+          "observed_min_free_gib": 47.23579025268555
+        },
+        {
+          "position": 4,
+          "mode": "off",
+          "task_window_seconds": 4.00443757,
+          "controller_exec_seconds": 4.000569404,
+          "guest_action_sum_seconds": 2.044331603,
+          "sample_count": 0,
+          "steps_ms": {
+            "023": 1047.401149,
+            "024": 726.274445,
+            "025": 64.443979
+          },
+          "observed_min_free_gib": 47.23511505126953
+        },
+        {
+          "position": 5,
+          "mode": "off",
+          "task_window_seconds": 3.775782521,
+          "controller_exec_seconds": 3.771167661,
+          "guest_action_sum_seconds": 1.981383875,
+          "sample_count": 0,
+          "steps_ms": {
+            "023": 1001.606159,
+            "024": 710.641008,
+            "025": 62.324722
+          },
+          "observed_min_free_gib": 47.23463821411133
+        },
+        {
+          "position": 6,
+          "mode": "light",
+          "task_window_seconds": 3.828022031,
+          "controller_exec_seconds": 3.822639735,
+          "guest_action_sum_seconds": 2.016414875,
+          "sample_count": 4,
+          "steps_ms": {
+            "023": 1038.38101,
+            "024": 708.577006,
+            "025": 62.785524
+          },
+          "observed_min_free_gib": 47.23412322998047
+        },
+        {
+          "position": 7,
+          "mode": "control_B",
+          "task_window_seconds": 3.765827619,
+          "controller_exec_seconds": 3.759729637,
+          "guest_action_sum_seconds": 1.991023224,
+          "sample_count": 0,
+          "steps_ms": {
+            "023": 1001.459775,
+            "024": 717.670948,
+            "025": 64.084642
+          },
+          "observed_min_free_gib": 47.2335205078125
+        },
+        {
+          "position": 8,
+          "mode": "control_A",
+          "task_window_seconds": 3.887214495,
+          "controller_exec_seconds": 3.883189125,
+          "guest_action_sum_seconds": 1.999806023,
+          "sample_count": 0,
+          "steps_ms": {
+            "023": 1020.751226,
+            "024": 711.796107,
+            "025": 64.02711
+          },
+          "observed_min_free_gib": 47.23301315307617
+        }
+      ]
+    }
+  ],
+  "checks": {
+    "original_runner": "PASS",
+    "correctness": "PASS",
+    "targeted_function": "PASS",
+    "damon_state": "PASS",
+    "cpu_restoration": "PASS",
+    "cleanup": "PASS",
+    "full_official_tests": "NOT_RUN"
+  },
+  "analysis": {
+    "monitor": {
+      "group_percent": [
+        -0.39311080150412625,
+        1.1185652458532536,
+        -2.082271396707003,
+        -1.0521542178031251,
+        -2.255175290001965
+      ],
+      "geometric_mean_percent": -0.9404514524498154,
+      "mean_log_ratio_t95_percent": [
+        -2.6299643662392973,
+        0.7783769881060111
+      ]
+    },
+    "control": {
+      "group_percent": [
+        0.2670774745890281,
+        -1.9121400490862972,
+        1.077815172807206,
+        -2.084749287314358,
+        -1.1888062078203698
+      ],
+      "geometric_mean_percent": -0.7758951343071063,
+      "mean_log_ratio_t95_percent": [
+        -2.479666667459495,
+        0.9576428827977302
+      ]
+    },
+    "verdict": "WITHIN_5_PERCENT_FOR_THIS_PROTOCOL"
+  },
+  "monitoring_acceptance": "WITHIN_5_PERCENT_FOR_THIS_PROTOCOL",
+  "completed_full_replays": 48,
+  "workload_image": "ghcr.io/timesler/swe-polybench.eval.x86_64.prettier__prettier-14400@sha256:e625c9b9776870e2cc87172e886bbc90cfc3d6ce1521492f113a46b3f6dfcf44",
+  "action_manifest_sha256": "6ea843b464f5f7ec3c081c539386593027ede2335c5309b945a9462feddceaa7",
+  "limitations": [
+    "Host service cgroup sampled at 1 second; guest periodic sampling disabled; only this workload/configuration",
+    "Original initial index and complete preparation retained; no pre-refresh, cache flush or prewarm",
+    "Default and DAMON-disabled smoke are separate; formal groups use DAMON-disabled policy only",
+    "Only five completed groups produce a 95% t interval; approximate independent normal log ratios assumed",
+    "Early stopping or incomplete groups cannot establish 5% acceptance; shared CPUs and background load remain",
+    "Independent SVG/HTML checks passed; full official task tests not run"
+  ]
+}

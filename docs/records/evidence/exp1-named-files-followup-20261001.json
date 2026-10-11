@@ -1,0 +1,811 @@
+{
+  "status": "PARTIAL",
+  "initial_acceptance_item": 3,
+  "agentenv": [
+    {
+      "status": "PASS",
+      "raw_dir": ".artifacts/vm-pfn-smoke/20261001T144843Z-3014019",
+      "task": "Prettier #14400; frozen full 26 actions",
+      "cpu": 2,
+      "memory_mib": 4096,
+      "image": "ghcr.io/timesler/swe-polybench.eval.x86_64.prettier__prettier-14400@sha256:e625c9b9776870e2cc87172e886bbc90cfc3d6ce1521492f113a46b3f6dfcf44",
+      "file_accounting": {
+        "status": "PASS",
+        "page_size": 4096,
+        "files": [
+          {
+            "path": "/testbed/src/language-html/utils/index.js",
+            "identity": {
+              "st_dev": 65040,
+              "st_ino": 3620866,
+              "st_size": 16198,
+              "st_mtime_ns": 1790866130401187789,
+              "st_ctime_ns": 1790866130401187789
+            },
+            "total_pages": 4,
+            "initially_resident_pages": 4,
+            "type_and_pfn_verified_pages": 4,
+            "initially_nonresident_pages": 0
+          }
+        ],
+        "selected_mapping_pages": 4,
+        "verified_mapping_pages": 4,
+        "verified_unique_host_pages": 4,
+        "verified_file_cache_physical_bytes": 16384,
+        "unknown_resident_unique_pages": 0,
+        "classification_conflict_pages": 0,
+        "nonresident_host_mappings": 0,
+        "allocated_tail_page_rule": "count full 4096-byte page, validate only logical content bytes",
+        "scope": "declared files and pages resident before this probe; single VM; not all task or host cache",
+        "limitations": [
+          "Non-atomic rechecks cannot rule out intervening PFN reuse",
+          "Residency checked after prior file-LRU analysis; mincore and mapping reads can change cache",
+          "File pages absent before the probe are not read; full file hashes taken after both host checks",
+          "No upper/backing-layer classification, complete host cache or multi-VM sharing conclusion"
+        ]
+      },
+      "file_hashes": [
+        {
+          "path": "/testbed/src/language-html/utils/index.js",
+          "sha256": "51d07fd7752ca36d8f059b7897ee6c8a77e9946c1ce22f129ad8f7dc6a1c1ea5"
+        }
+      ],
+      "latency_ns": {
+        "controller_elapsed_ns": 500997697,
+        "host_read_elapsed_ns": 368232,
+        "guest_before_elapsed_ns": 864750,
+        "guest_after_elapsed_ns": 1242586
+      },
+      "correctness": {
+        "status": "PASS",
+        "action_count": 26,
+        "expected_failures": {
+          "008": 127,
+          "016": 127
+        },
+        "patch_sha256": "f1cc23ac4f5ac1cff87eb7f8c54f8176c1a47cec37fa4cb6907b9dd8ad199af2",
+        "action_manifest_sha256": "6ea843b464f5f7ec3c081c539386593027ede2335c5309b945a9462feddceaa7",
+        "guest_action_sum_ns": 1642528090,
+        "controller_runner_ns": 2027272917,
+        "independent_svg_properties": "PASS",
+        "official_task_tests": "NOT_RUN",
+        "environment": {
+          "ACTIONS_DIR": "/workspace/asb-exp1-physical/actions",
+          "OUTPUT_DIR": "/workspace/asb-exp1-physical/replay",
+          "ACTION_TIMEOUT_SECONDS": "60",
+          "GUEST_MEMORY_SAMPLING": "0",
+          "DROP_GUEST_CACHES": "0",
+          "START_STEP": "001",
+          "END_STEP": "026"
+        },
+        "cwd": "/testbed",
+        "session_semantics": "one bash per frozen action",
+        "cache_policy": "no cache flush; fresh guest; existing host cache",
+        "scope": "physical analysis after full replay and independent check; not a performance comparison"
+      },
+      "cleanup": "PASS"
+    },
+    {
+      "status": "PASS",
+      "raw_dir": ".artifacts/vm-pfn-smoke/20261001T145206Z-3015223",
+      "task": "Prettier #14400; frozen full 26 actions",
+      "cpu": 2,
+      "memory_mib": 4096,
+      "image": "ghcr.io/timesler/swe-polybench.eval.x86_64.prettier__prettier-14400@sha256:e625c9b9776870e2cc87172e886bbc90cfc3d6ce1521492f113a46b3f6dfcf44",
+      "file_accounting": {
+        "status": "PASS",
+        "page_size": 4096,
+        "files": [
+          {
+            "path": "/testbed/src/language-html/utils/index.js",
+            "identity": {
+              "st_dev": 65040,
+              "st_ino": 3620866,
+              "st_size": 16198,
+              "st_mtime_ns": 1790866333763902785,
+              "st_ctime_ns": 1790866333763902785
+            },
+            "total_pages": 4,
+            "initially_resident_pages": 4,
+            "type_and_pfn_verified_pages": 4,
+            "initially_nonresident_pages": 0
+          },
+          {
+            "path": "/testbed/src/language-html/parser-html.js",
+            "identity": {
+              "st_dev": 65040,
+              "st_ino": 76198,
+              "st_size": 11163,
+              "st_mtime_ns": 1756344941000000000,
+              "st_ctime_ns": 1756344941000000000
+            },
+            "total_pages": 3,
+            "initially_resident_pages": 3,
+            "type_and_pfn_verified_pages": 3,
+            "initially_nonresident_pages": 0
+          },
+          {
+            "path": "/testbed/package.json",
+            "identity": {
+              "st_dev": 65040,
+              "st_ino": 113028,
+              "st_size": 6525,
+              "st_mtime_ns": 1756344958000000000,
+              "st_ctime_ns": 1756344958000000000
+            },
+            "total_pages": 2,
+            "initially_resident_pages": 2,
+            "type_and_pfn_verified_pages": 2,
+            "initially_nonresident_pages": 0
+          }
+        ],
+        "selected_mapping_pages": 9,
+        "verified_mapping_pages": 9,
+        "verified_unique_host_pages": 9,
+        "verified_file_cache_physical_bytes": 36864,
+        "unknown_resident_unique_pages": 0,
+        "classification_conflict_pages": 0,
+        "nonresident_host_mappings": 0,
+        "allocated_tail_page_rule": "count full 4096-byte page, validate only logical content bytes",
+        "scope": "declared files and pages resident before this probe; single VM; not all task or host cache",
+        "limitations": [
+          "Non-atomic rechecks cannot rule out intervening PFN reuse",
+          "Residency checked after prior file-LRU analysis; mincore and mapping reads can change cache",
+          "File pages absent before the probe are not read; full file hashes taken after both host checks",
+          "No upper/backing-layer classification, complete host cache or multi-VM sharing conclusion"
+        ]
+      },
+      "file_hashes": [
+        {
+          "path": "/testbed/src/language-html/utils/index.js",
+          "sha256": "51d07fd7752ca36d8f059b7897ee6c8a77e9946c1ce22f129ad8f7dc6a1c1ea5"
+        },
+        {
+          "path": "/testbed/src/language-html/parser-html.js",
+          "sha256": "230e472bbe0d55042120bc00fa4e3bfe470a19481d6ef6d1c5c83266abd041dc"
+        },
+        {
+          "path": "/testbed/package.json",
+          "sha256": "bb691b626e405717f77542daedee927f81b55f826694060075b4b8c09e112500"
+        }
+      ],
+      "latency_ns": {
+        "controller_elapsed_ns": 506917066,
+        "host_read_elapsed_ns": 876950,
+        "guest_before_elapsed_ns": 1491705,
+        "guest_after_elapsed_ns": 2340278
+      },
+      "correctness": {
+        "status": "PASS",
+        "action_count": 26,
+        "expected_failures": {
+          "008": 127,
+          "016": 127
+        },
+        "patch_sha256": "f1cc23ac4f5ac1cff87eb7f8c54f8176c1a47cec37fa4cb6907b9dd8ad199af2",
+        "action_manifest_sha256": "6ea843b464f5f7ec3c081c539386593027ede2335c5309b945a9462feddceaa7",
+        "guest_action_sum_ns": 2436788396,
+        "controller_runner_ns": 2915922966,
+        "independent_svg_properties": "PASS",
+        "official_task_tests": "NOT_RUN",
+        "environment": {
+          "ACTIONS_DIR": "/workspace/asb-exp1-physical/actions",
+          "OUTPUT_DIR": "/workspace/asb-exp1-physical/replay",
+          "ACTION_TIMEOUT_SECONDS": "60",
+          "GUEST_MEMORY_SAMPLING": "0",
+          "DROP_GUEST_CACHES": "0",
+          "START_STEP": "001",
+          "END_STEP": "026"
+        },
+        "cwd": "/testbed",
+        "session_semantics": "one bash per frozen action",
+        "cache_policy": "no cache flush; fresh guest; existing host cache",
+        "scope": "physical analysis after full replay and independent check; not a performance comparison"
+      },
+      "cleanup": "PASS"
+    }
+  ],
+  "trenvx": {
+    "status": "FAIL",
+    "raw_dir": ".artifacts/trenvx-service-smoke/20261001T150534Z-3016384",
+    "completed_steps": 22,
+    "first_failure": "file-origin check rejects trusted.overlay.impure on upper root",
+    "file_measurement": "NOT_RUN",
+    "continuation": "NOT_RUN",
+    "official_task_tests": "NOT_RUN",
+    "checks": {
+      "private_template_prepare": "PASS",
+      "template_build": "PASS",
+      "frozen_input_hashes": "PASS",
+      "unfixed_seed_oracle": "PASS",
+      "checkpoint_after_022": "PASS",
+      "file_restore_interface": "PASS",
+      "sdk_cleanup": "PASS",
+      "service_shutdown": "PASS",
+      "data_archive": "PASS"
+    },
+    "host_cleanup": {
+      "cgroup_removed": true,
+      "loop_query_exit_code": 0,
+      "owned_loop_backings": []
+    },
+    "data_retention": {
+      "status": "PASS",
+      "mode": "verified-archive",
+      "archive": "data.tar.gz",
+      "compressor": "pigz-fast",
+      "archive_sha256": "0a8d6d0afc83e5777495ca7395041391984fc253a180b3aaa41fa47828be23be",
+      "source_removed": true,
+      "elapsed_seconds": 250.445
+    },
+    "observed_min_free_bytes": 35154710528,
+    "initial_minimum_free_bytes": 51539607552,
+    "archive_bytes": 3229097256
+  },
+  "fix": {
+    "status": "REAL_VM_PASS; earlier failed run retained separately",
+    "source": "https://github.com/gregkh/linux/blob/v6.1.134/fs/overlayfs/dir.c#L1183",
+    "change": "accept impure=y on directories; still reject upper file shadows, opaque, redirect, metacopy and unknown values"
+  },
+  "limitations": [
+    "AgentENV results cover a declared resident file subset after file-LRU analysis, not the complete task",
+    "Two successful runs are integration smoke, not repeats for variance or a cross-backend comparison",
+    "No multi-VM sharing measurement, upper-layer classification or full host cache accounting",
+    "Diagnostic read/transfer times are not low-overhead monitoring estimates; prior monitoring intervals remain separately scoped"
+  ],
+  "trenvx_followup": {
+    "status": "PASS",
+    "raw_dir": ".artifacts/trenvx-service-smoke/20261001T153457Z-3020904",
+    "files": [
+      {
+        "path": "/testbed/src/language-html/utils/index.js",
+        "origin": "checkpoint",
+        "bytes": 16198,
+        "sha256": "51d07fd7752ca36d8f059b7897ee6c8a77e9946c1ce22f129ad8f7dc6a1c1ea5"
+      },
+      {
+        "path": "/testbed/src/language-html/parser-html.js",
+        "origin": "base",
+        "bytes": 11163,
+        "sha256": "230e472bbe0d55042120bc00fa4e3bfe470a19481d6ef6d1c5c83266abd041dc"
+      },
+      {
+        "path": "/testbed/package.json",
+        "origin": "base",
+        "bytes": 6525,
+        "sha256": "bb691b626e405717f77542daedee927f81b55f826694060075b4b8c09e112500"
+      }
+    ],
+    "stages": {
+      "restored-before-source-read": {
+        "status": "PASS",
+        "offline_audit": {
+          "audit_status": "PASS",
+          "measurement_status": "PASS",
+          "file_content": {
+            "nonresident_mappings": 9,
+            "swapped_mappings": 0,
+            "resident_mappings": 0,
+            "file_content_unique_pages": 0,
+            "file_content_physical_bytes": 0,
+            "observed_file_content_unique_pages": 0,
+            "unattributed_unique_pages": 0,
+            "anonymous_cow_unique_pages": 0,
+            "deduplication": "one host PFN counted once across all declared VMs/files",
+            "scope": "declared file data only; not all guest files or whole-machine memory"
+          },
+          "scope": "offline counter/hash consistency only; not live mapping validation",
+          "content_accounting": {
+            "status": "PASS",
+            "file_cache_unique_pages": 0,
+            "verified_anonymous_unique_pages": 0,
+            "unknown_unique_pages": 0,
+            "attributed_physical_bytes": 0,
+            "scope": "resident declared mappings only; includes full allocated tail page; not total backing cache"
+          }
+        },
+        "scan_elapsed_ns": 36587907,
+        "upper_file_content": {
+          "status": "NOT_MEASURED",
+          "bytes": null
+        }
+      },
+      "after-continuation": {
+        "status": "PASS",
+        "offline_audit": {
+          "audit_status": "PASS",
+          "measurement_status": "PASS",
+          "file_content": {
+            "nonresident_mappings": 0,
+            "swapped_mappings": 0,
+            "resident_mappings": 9,
+            "file_content_unique_pages": 8,
+            "file_content_physical_bytes": 32768,
+            "observed_file_content_unique_pages": 8,
+            "unattributed_unique_pages": 0,
+            "anonymous_cow_unique_pages": 1,
+            "deduplication": "one host PFN counted once across all declared VMs/files",
+            "scope": "declared file data only; not all guest files or whole-machine memory"
+          },
+          "scope": "offline counter/hash consistency only; not live mapping validation",
+          "content_accounting": {
+            "status": "PASS",
+            "file_cache_unique_pages": 8,
+            "verified_anonymous_unique_pages": 1,
+            "unknown_unique_pages": 0,
+            "attributed_physical_bytes": 36864,
+            "scope": "resident declared mappings only; includes full allocated tail page; not total backing cache"
+          }
+        },
+        "scan_elapsed_ns": 34382358,
+        "upper_file_content": {
+          "status": "NOT_MEASURED",
+          "bytes": null
+        }
+      }
+    },
+    "cpu": 2,
+    "memory_mib": 4096,
+    "seed_sha256": "5e22e3f6d1cd5cfcbb9e5a17a34f0f1705833a9357f214845a8fcdfa627e8d82",
+    "restore_semantics": "file-state-only",
+    "correctness": {
+      "action_order": "PASS",
+      "input_hashes": "PASS",
+      "expected_failures": {
+        "008": 127,
+        "016": 127
+      },
+      "action_024_oracle": "PASS",
+      "independent_svg_properties": "PASS",
+      "official_full_tests": "NOT_RUN",
+      "patch_sha256": "f1cc23ac4f5ac1cff87eb7f8c54f8176c1a47cec37fa4cb6907b9dd8ad199af2",
+      "patch_reference_match": "PASS",
+      "official_task_tests": "PASS"
+    },
+    "official_task": {
+      "status": "PASS",
+      "phase": "replayed_patch",
+      "exit_code": 0,
+      "parser_results": {
+        "num_tests_passed": 4,
+        "num_tests_failed": 0,
+        "failed_tests": [],
+        "passed_tests": [
+          "/testbed/tests/format/html/svg/embeded/jsfmt.spec.js->format",
+          "/testbed/tests/format/html/svg/embeded/jsfmt.spec.js->format",
+          "/testbed/tests/format/html/svg/embeded/jsfmt.spec.js->format",
+          "/testbed/tests/format/html/svg/embeded/jsfmt.spec.js->format"
+        ]
+      },
+      "F2P": [
+        "/testbed/tests/format/html/svg/embeded/jsfmt.spec.js->format"
+      ],
+      "P2P": [],
+      "P2P_scope": "empty in official dataset",
+      "manifest": {
+        "instance_id": "prettier__prettier-14400",
+        "base_commit": "6905b39ec7bc6ed38732e26ceced5b57677e2600",
+        "dataset_revision": "d56445f9940eae4e9d2974ec66820c2f1d7754e6",
+        "dataset_url": "https://huggingface.co/datasets/AmazonScience/SWE-PolyBench/resolve/d56445f9940eae4e9d2974ec66820c2f1d7754e6/test.csv",
+        "dataset_sha256": "17ad661b20e9af1e2067fbbc2e2658a21137d56693570d1d07f966d8bc0408b7",
+        "harness_revision": "9c836c5d7f3cb991934132b77d29e6941d912a07",
+        "parser_sources": {
+          "javascript_parsers.py": {
+            "url": "https://raw.githubusercontent.com/amazon-science/SWE-PolyBench/9c836c5d7f3cb991934132b77d29e6941d912a07/src/poly_bench_evaluation/parsers/javascript_parsers.py",
+            "sha256": "4a83ceab7802e4c187dece23a9d9421b81b56181fa8cdd4812944d6b7646b8a2"
+          },
+          "parser_results.py": {
+            "url": "https://raw.githubusercontent.com/amazon-science/SWE-PolyBench/9c836c5d7f3cb991934132b77d29e6941d912a07/src/poly_bench_evaluation/parsers/parser_results.py",
+            "sha256": "29c4d0e26c9cceea18457ee108eb8c747722276705e48a4414c3f6f9a3de7555"
+          },
+          "parser_protocol.py": {
+            "url": "https://raw.githubusercontent.com/amazon-science/SWE-PolyBench/9c836c5d7f3cb991934132b77d29e6941d912a07/src/poly_bench_evaluation/parsers/parser_protocol.py",
+            "sha256": "1094c1b7b29e2a9089f75b60b158e64e358d5332e8ea13f74c1e2d8199794b27"
+          }
+        },
+        "test_patch_sha256": "8f71b31fcb2a471626ca4d5f4a7042989880449522139ace01db5bf45615b01a",
+        "task_sha256": "1ebc948cd6f51af71eac66734a981229c8ec95e4da9d768247215a8ba9ddb15b",
+        "scope": "official task-specific test command and F2P/P2P; not entire Prettier suite"
+      },
+      "scope": "official task-specific evaluation; entire Prettier suite NOT_RUN"
+    },
+    "phase_elapsed_ns": {
+      "private-template-prepare": 6488565256,
+      "template-build": 12380594944,
+      "sdk-create": 68629019,
+      "tool:mkdir-inputs": 993639066,
+      "create-to-first-tool-success": 1063168124,
+      "tool:guest-input-hashes": 1216361264,
+      "tool:guest-environment": 1675023539,
+      "tool:independent-before": 1920550394,
+      "tool:guest-memory-before-replay": 1159202399,
+      "vmm-scan:before-replay": 6374305,
+      "tool:replay-prefix": 12068346517,
+      "tool:pack-prefix": 1129163259,
+      "tool:source-before": 1161699803,
+      "tool:source-diff-before": 1211464739,
+      "tool:guest-memory-before-checkpoint": 1183812350,
+      "vmm-scan:before-checkpoint": 6484775,
+      "checkpoint": 11608101650,
+      "parent-delete": 16581714092,
+      "restore-interface": 1090395615,
+      "tool:restore-environment": 1150336302,
+      "restore-to-first-tool-success": 2241644524,
+      "tool:guest-memory-restored-before-source-read": 1143415252,
+      "tool:layer-state-before-restored-before-source-read": 1269309837,
+      "file-physical:restored-before-source-read": 46949634,
+      "tool:layer-state-after-restored-before-source-read": 1226144876,
+      "vmm-scan:restored": 6096988,
+      "tool:source-after": 1164407763,
+      "tool:source-diff-after": 1194318156,
+      "tool:replay-continuation": 12917007925,
+      "tool:guest-memory-after-continuation": 1178409597,
+      "tool:layer-state-before-after-continuation": 1217668617,
+      "file-physical:after-continuation": 46847515,
+      "tool:layer-state-after-after-continuation": 1221433283,
+      "vmm-scan:after-replay": 7652450,
+      "tool:pack-replay": 1195759673,
+      "tool:independent-after": 1961527745,
+      "tool:official-task-tests": 16128668639
+    },
+    "checks": {
+      "private_template_prepare": "PASS",
+      "template_build": "PASS",
+      "frozen_input_hashes": "PASS",
+      "unfixed_seed_oracle": "PASS",
+      "checkpoint_after_022": "PASS",
+      "file_restore_interface": "PASS",
+      "file_physical_restored-before-source-read": "PASS",
+      "modified_source_preserved": "PASS",
+      "file_physical_after-continuation": "PASS",
+      "vmm_membership_and_pss": "PASS",
+      "prefix_state_preserved": "PASS",
+      "patch_matches_full_replay": "PASS",
+      "exp1_replay_correctness": "PASS",
+      "official_task_tests": "PASS",
+      "sdk_cleanup": "PASS",
+      "host_light_sampling": "PASS",
+      "service_shutdown": "PASS",
+      "data_archive": "PASS"
+    },
+    "cleanup": {
+      "cgroup_removed": true,
+      "loop_query_exit_code": 0,
+      "owned_loop_backings": []
+    },
+    "archive": {
+      "run_id": "20261001T153457Z-3020904",
+      "source": "data/",
+      "archive": "data.tar.gz",
+      "compressor": "pigz-fast",
+      "source_allocated_scope": "sum of distinct inode st_blocks; reflink sharing not resolved",
+      "source_allocated_bytes": 16207872000,
+      "archive_bytes": 3229478279,
+      "archive_sha256": "2d6facc693b3a09d7a93b7d0ab6fe64de2d642254eace6dabd161357ac265ebd",
+      "gzip_test": "PASS",
+      "tar_compare": "PASS",
+      "source_removed": true,
+      "archive_elapsed_seconds": 250.95
+    },
+    "memory_metrics": {
+      "guest_composition": {
+        "status": "PASS",
+        "sample_count": 4,
+        "valid_sample_count": 4,
+        "samples": [
+          {
+            "timestamp_ns": 1790868926337151258,
+            "phase": "before-replay",
+            "step": null,
+            "status": "PASS",
+            "missing_fields": [],
+            "unit": "bytes",
+            "scope": "guest logical counters at one sample; not host physical residency",
+            "used_definition": "MemTotal - MemFree",
+            "percentage_denominator": "same-sample nonfree memory",
+            "slab_rule": "Slab includes SReclaimable and SUnreclaim; do not add them again",
+            "nonfree_bytes": 239767552,
+            "used_estimate_bytes": 324464640,
+            "components_bytes": {
+              "file_cache_and_buffers": 31322112,
+              "anonymous": 57491456,
+              "slab": 62443520,
+              "shared_memory": 1060864,
+              "kernel_stack": 1568768,
+              "page_tables": 1314816,
+              "percpu": 557056,
+              "unclassified_residual": 84008960
+            },
+            "percentages": {
+              "file_cache_and_buffers": 13.063532466645029,
+              "anonymous": 23.977996822522506,
+              "slab": 26.04335719288655,
+              "shared_memory": 0.4424551992756718,
+              "kernel_stack": 0.6542870321335224,
+              "page_tables": 0.5483711157045971,
+              "percpu": 0.23233168765054582,
+              "unclassified_residual": 35.03766848318158
+            },
+            "reclaimable_slab_bytes": 45350912,
+            "unreclaimable_slab_bytes": 17092608
+          },
+          {
+            "timestamp_ns": 1790868943134130997,
+            "phase": "before-checkpoint",
+            "step": null,
+            "status": "PASS",
+            "missing_fields": [],
+            "unit": "bytes",
+            "scope": "guest logical counters at one sample; not host physical residency",
+            "used_definition": "MemTotal - MemFree",
+            "percentage_denominator": "same-sample nonfree memory",
+            "slab_rule": "Slab includes SReclaimable and SUnreclaim; do not add them again",
+            "nonfree_bytes": 249991168,
+            "used_estimate_bytes": 334315520,
+            "components_bytes": {
+              "file_cache_and_buffers": 31748096,
+              "anonymous": 57159680,
+              "slab": 62791680,
+              "shared_memory": 1077248,
+              "kernel_stack": 1556480,
+              "page_tables": 1277952,
+              "percpu": 557056,
+              "unclassified_residual": 93822976
+            },
+            "percentages": {
+              "file_cache_and_buffers": 12.699687054544263,
+              "anonymous": 22.86467976340668,
+              "slab": 25.117559353136826,
+              "shared_memory": 0.43091442334474794,
+              "kernel_stack": 0.6226139957072403,
+              "page_tables": 0.5111988596333131,
+              "percpu": 0.22283027214785445,
+              "unclassified_residual": 37.53051627807907
+            },
+            "reclaimable_slab_bytes": 45666304,
+            "unreclaimable_slab_bytes": 17125376
+          },
+          {
+            "timestamp_ns": 1790868974722364279,
+            "phase": "restored-before-source-read",
+            "step": null,
+            "status": "PASS",
+            "missing_fields": [],
+            "unit": "bytes",
+            "scope": "guest logical counters at one sample; not host physical residency",
+            "used_definition": "MemTotal - MemFree",
+            "percentage_denominator": "same-sample nonfree memory",
+            "slab_rule": "Slab includes SReclaimable and SUnreclaim; do not add them again",
+            "nonfree_bytes": 193994752,
+            "used_estimate_bytes": 304234496,
+            "components_bytes": {
+              "file_cache_and_buffers": 13180928,
+              "anonymous": 56827904,
+              "slab": 26783744,
+              "shared_memory": 1069056,
+              "kernel_stack": 1605632,
+              "page_tables": 1351680,
+              "percpu": 581632,
+              "unclassified_residual": 92594176
+            },
+            "percentages": {
+              "file_cache_and_buffers": 6.79447658460369,
+              "anonymous": 29.293526455808454,
+              "slab": 13.806427093450445,
+              "shared_memory": 0.5510747012372789,
+              "kernel_stack": 0.8276677505172924,
+              "page_tables": 0.6967611165069043,
+              "percpu": 0.29981841983024365,
+              "unclassified_residual": 47.73024787804569
+            },
+            "reclaimable_slab_bytes": 12398592,
+            "unreclaimable_slab_bytes": 14385152
+          },
+          {
+            "timestamp_ns": 1790868993730295577,
+            "phase": "after-continuation",
+            "step": null,
+            "status": "PASS",
+            "missing_fields": [],
+            "unit": "bytes",
+            "scope": "guest logical counters at one sample; not host physical residency",
+            "used_definition": "MemTotal - MemFree",
+            "percentage_denominator": "same-sample nonfree memory",
+            "slab_rule": "Slab includes SReclaimable and SUnreclaim; do not add them again",
+            "nonfree_bytes": 247115776,
+            "used_estimate_bytes": 330752000,
+            "components_bytes": {
+              "file_cache_and_buffers": 34353152,
+              "anonymous": 56676352,
+              "slab": 61612032,
+              "shared_memory": 1064960,
+              "kernel_stack": 1605632,
+              "page_tables": 1290240,
+              "percpu": 581632,
+              "unclassified_residual": 89931776
+            },
+            "percentages": {
+              "file_cache_and_buffers": 13.901642604962623,
+              "anonymous": 22.935141138055062,
+              "slab": 24.932455951335136,
+              "shared_memory": 0.4309558933218412,
+              "kernel_stack": 0.6497488853160067,
+              "page_tables": 0.5221196399860768,
+              "percpu": 0.23536821866039018,
+              "unclassified_residual": 36.392567668362865
+            },
+            "reclaimable_slab_bytes": 44441600,
+            "unreclaimable_slab_bytes": 17170432
+          }
+        ],
+        "observed_peak_nonfree_bytes": 249991168,
+        "composition_at_observed_peak": {
+          "timestamp_ns": 1790868943134130997,
+          "phase": "before-checkpoint",
+          "step": null,
+          "status": "PASS",
+          "missing_fields": [],
+          "unit": "bytes",
+          "scope": "guest logical counters at one sample; not host physical residency",
+          "used_definition": "MemTotal - MemFree",
+          "percentage_denominator": "same-sample nonfree memory",
+          "slab_rule": "Slab includes SReclaimable and SUnreclaim; do not add them again",
+          "nonfree_bytes": 249991168,
+          "used_estimate_bytes": 334315520,
+          "components_bytes": {
+            "file_cache_and_buffers": 31748096,
+            "anonymous": 57159680,
+            "slab": 62791680,
+            "shared_memory": 1077248,
+            "kernel_stack": 1556480,
+            "page_tables": 1277952,
+            "percpu": 557056,
+            "unclassified_residual": 93822976
+          },
+          "percentages": {
+            "file_cache_and_buffers": 12.699687054544263,
+            "anonymous": 22.86467976340668,
+            "slab": 25.117559353136826,
+            "shared_memory": 0.43091442334474794,
+            "kernel_stack": 0.6226139957072403,
+            "page_tables": 0.5111988596333131,
+            "percpu": 0.22283027214785445,
+            "unclassified_residual": 37.53051627807907
+          },
+          "reclaimable_slab_bytes": 45666304,
+          "unreclaimable_slab_bytes": 17125376
+        },
+        "peak_scope": "sample maximum, not instantaneous peak; incomplete samples excluded and counted",
+        "sampling_mode": "controller_boundary"
+      },
+      "host_memory": {
+        "sample_count": 1123,
+        "scope": "run-owned TrEnv-X sandbox parent cgroup; excludes orchestrator",
+        "observed_peak_current_bytes": 348098560,
+        "observed_peak_file_bytes": 5865472,
+        "observed_peak_anon_bytes": 176328704,
+        "observed_peak_vmm_pss_kib": "NOT_MEASURED",
+        "vmm_boundary_observations": [
+          {
+            "label": "vmm-after-replay",
+            "pss_bytes": 356137984,
+            "scan_elapsed_ns": 7288794,
+            "sandbox_id": "c30d5464-b42b-44b3-9aa9-583a8bcb9e5d",
+            "scope": "host VMM process smaps_rollup; not guest memory or complete DAX residency"
+          },
+          {
+            "label": "vmm-before-checkpoint",
+            "pss_bytes": 422108160,
+            "scan_elapsed_ns": 6214217,
+            "sandbox_id": "d8dd4317-2e07-4e50-8b62-ee69cc30e047",
+            "scope": "host VMM process smaps_rollup; not guest memory or complete DAX residency"
+          },
+          {
+            "label": "vmm-before-replay",
+            "pss_bytes": 406981632,
+            "scan_elapsed_ns": 6163631,
+            "sandbox_id": "d8dd4317-2e07-4e50-8b62-ee69cc30e047",
+            "scope": "host VMM process smaps_rollup; not guest memory or complete DAX residency"
+          },
+          {
+            "label": "vmm-restored",
+            "pss_bytes": 209443840,
+            "scan_elapsed_ns": 5735739,
+            "sandbox_id": "c30d5464-b42b-44b3-9aa9-583a8bcb9e5d",
+            "scope": "host VMM process smaps_rollup; not guest memory or complete DAX residency"
+          }
+        ]
+      },
+      "phase_breakdown": {
+        "guest_action_sum": {
+          "status": "MEASURED",
+          "duration_ns": 1894040270,
+          "source": "replay/steps.tsv",
+          "boundary": "sum of 26 guest runner action durations; excludes controller and setup"
+        },
+        "controller_runner_calls": {
+          "status": "MEASURED",
+          "duration_ns": 24985851123,
+          "source": "replay-*.json",
+          "boundary": "sum of controller calls that launch frozen runner segments"
+        },
+        "create_to_first_success": {
+          "status": "MEASURED",
+          "duration_ns": 1063168124,
+          "source": "diagnostic-events.jsonl",
+          "boundary": "SDK create through first successful mkdir command"
+        },
+        "checkpoint": {
+          "status": "MEASURED",
+          "duration_ns": 11608101650,
+          "source": "diagnostic-events.jsonl",
+          "boundary": "controller file capture, sealing and template construction"
+        },
+        "restore_interface": {
+          "status": "MEASURED",
+          "duration_ns": 1090395615,
+          "source": "diagnostic-events.jsonl",
+          "boundary": "controller start of child VM from sealed file layer"
+        },
+        "restore_to_first_success": {
+          "status": "MEASURED",
+          "duration_ns": 2241644524,
+          "source": "diagnostic-events.jsonl",
+          "boundary": "start restored VM through first successful environment command"
+        },
+        "template_build": {
+          "status": "MEASURED",
+          "duration_ns": 12380594944,
+          "source": "diagnostic-events.jsonl",
+          "boundary": "prepare private template before trajectory"
+        },
+        "parent_delete": {
+          "status": "MEASURED",
+          "duration_ns": 16581714092,
+          "source": "diagnostic-events.jsonl",
+          "boundary": "delete parent VM after checkpoint"
+        },
+        "full_run_including_cleanup": {
+          "status": "MEASURED",
+          "duration_ns": 387257021616,
+          "source": "result.json",
+          "boundary": "outer start through sandbox cleanup and verified image archiving when enabled"
+        }
+      },
+      "named_file_mapping": {
+        "status": "MEASURED",
+        "bytes": 36864,
+        "file_pages": 8,
+        "verified_anonymous_pages": 1,
+        "unknown_pages": 0,
+        "scope": "explicit named files in sealed checkpoint and base; resident mapped pages only; not whole task",
+        "files": [
+          {
+            "path": "/testbed/src/language-html/utils/index.js",
+            "origin": "checkpoint"
+          },
+          {
+            "path": "/testbed/src/language-html/parser-html.js",
+            "origin": "base"
+          },
+          {
+            "path": "/testbed/package.json",
+            "origin": "base"
+          }
+        ]
+      },
+      "monitoring_impact": "NOT_VALIDATED_BY_THIS_RUN; see separate matched controls"
+    },
+    "observed_min_free_bytes": 34137436160,
+    "measurement_scope": "declared file data in VMM mappings; not all backing-cache residency",
+    "cache_intervention": "full declared files read for origin/content checks after first scan, before continuation"
+  },
+  "declared_file_hashes_equal_across_backends": true,
+  "report_source_sha256": {
+    "report_named_file_metrics.py": "a8fc61ddb30f191f4231b05e10cce5c21afdbb1e787bba24f2c912f67f98a4d9",
+    "report_memory_metrics.py": "b91679fa45b7f75eb704d408fd54a99e10b602a971731822fb8cdd6d805b9d85",
+    "audit_exp1_metrics.py": "062b2563b071b3a2b8237a18c0a5e6ca4be8322e89c379cf428660835d987fa5",
+    "measure_file_physical.py": "610cd2766b4d11b166781d748987fae4808adab4713c342979dd9327ef583ef9",
+    "memory_composition.py": "38cf2a9709954a68071b6406c27b5840b12b0a7ba4c62929a5ea4e9c1e63b125"
+  }
+}

@@ -1,0 +1,329 @@
+{
+  "status": "PASS",
+  "task_id": "sphinx-doc__sphinx-7590",
+  "scope": "Sphinx first six frozen actions; one short three-case smoke, not full task acceptance",
+  "cases": [
+    {
+      "mode": "sampling_off",
+      "prefix": {
+        "status": "PASS",
+        "action_count": 6,
+        "guest_action_sum_ns": 109723189,
+        "output_matches_archived_full_replay": true,
+        "guest_sample_count": 0,
+        "guest_observed_peak_bytes": null,
+        "scope": "first six original actions only; exact order, exits, stdout/stderr and patch; not full trajectory or task grading"
+      },
+      "host": {
+        "sample_count": 1,
+        "sampling": "one preparation point",
+        "observed_vmm_pss_max_bytes": 246120448,
+        "observed_vmm_rss_max_bytes": 246177792,
+        "observed_service_cgroup_max_bytes": 319299584
+      },
+      "checks": {
+        "capture_attach": "PASS",
+        "capture_detach": "PASS",
+        "frozen_task_prefix": "PASS",
+        "whole_cache": "DISABLED",
+        "post_scan_correctness": "PASS",
+        "host_samples": "PASS",
+        "cleanup": "PASS"
+      },
+      "cleanup": "PASS",
+      "timing_ns": {
+        "prefix_runner_call": 314702806,
+        "prefix_download_call": 52554393,
+        "guest_tools": 109723189,
+        "full_case": 14694145080
+      },
+      "physical": null
+    },
+    {
+      "mode": "sampling_on",
+      "prefix": {
+        "status": "PASS",
+        "action_count": 6,
+        "guest_action_sum_ns": 87886040,
+        "output_matches_archived_full_replay": true,
+        "guest_sample_count": 3,
+        "guest_observed_peak_bytes": 149807104,
+        "scope": "first six original actions only; exact order, exits, stdout/stderr and patch; not full trajectory or task grading"
+      },
+      "host": {
+        "sample_count": 30,
+        "sampling": "periodic 100ms",
+        "observed_vmm_pss_max_bytes": 340934656,
+        "observed_vmm_rss_max_bytes": 340992000,
+        "observed_service_cgroup_max_bytes": 421949440
+      },
+      "checks": {
+        "capture_attach": "PASS",
+        "capture_detach": "PASS",
+        "frozen_task_prefix": "PASS",
+        "whole_cache": "DISABLED",
+        "post_scan_correctness": "PASS",
+        "host_samples": "PASS",
+        "cleanup": "PASS"
+      },
+      "cleanup": "PASS",
+      "timing_ns": {
+        "prefix_runner_call": 400146743,
+        "prefix_download_call": 52116542,
+        "guest_tools": 87886040,
+        "full_case": 12302784775
+      },
+      "physical": null
+    },
+    {
+      "mode": "analysis_on",
+      "prefix": {
+        "status": "PASS",
+        "action_count": 6,
+        "guest_action_sum_ns": 193383496,
+        "output_matches_archived_full_replay": true,
+        "guest_sample_count": 5,
+        "guest_observed_peak_bytes": 154292224,
+        "scope": "first six original actions only; exact order, exits, stdout/stderr and patch; not full trajectory or task grading"
+      },
+      "host": {
+        "sample_count": 109,
+        "sampling": "periodic 100ms",
+        "observed_vmm_pss_max_bytes": 371429376,
+        "observed_vmm_rss_max_bytes": 371486720,
+        "observed_service_cgroup_max_bytes": 459452416
+      },
+      "checks": {
+        "capture_attach": "PASS",
+        "capture_detach": "PASS",
+        "frozen_task_prefix": "PASS",
+        "kernel_file_types": "PASS",
+        "paused_boundary": "PASS",
+        "file_inventory": "PASS",
+        "whole_cache": "PASS",
+        "post_scan_correctness": "PASS",
+        "host_samples": "PASS",
+        "cleanup": "PASS"
+      },
+      "cleanup": "PASS",
+      "timing_ns": {
+        "prefix_runner_call": 624990595,
+        "prefix_download_call": 60764434,
+        "guest_tools": 193383496,
+        "full_case": 15698969341,
+        "analysis": 8633094450,
+        "paused_interval": 4148244024,
+        "kernel_decoder": 1742302978
+      },
+      "physical": {
+        "frozen_guest_file_lru": {
+          "inode_type_pages": {
+            "block_device": 3054,
+            "filesystem_allocation_metadata": 959,
+            "regular_file": 20053
+          },
+          "inode_type_unique_physical_bytes": {
+            "block_device": 12509184,
+            "filesystem_allocation_metadata": 3928064,
+            "regular_file": 82137088
+          },
+          "frozen_guest_file_cache_physical_bytes": 98574336,
+          "host_unknown_pages": 0,
+          "cross_type_duplicate_host_pages": 0,
+          "snapshot_fallback_pages": 0,
+          "proven_nonresident_pages": 0,
+          "classification_status": "PASS",
+          "frozen_cache_physical_status": "PASS",
+          "allocation_objects_verified": 1,
+          "offline_recount": "PASS",
+          "selected_guest_pages": 24066,
+          "compound_tail_records_in_all_ram": 2391,
+          "cache_scope_status": "PASS",
+          "internal_flag_bit_used": 4,
+          "scope_error": null,
+          "correct_file_lru_guest_pages": 24066,
+          "saved_classification_status": "PASS",
+          "kernel_sha256": "cd7c5a06a2026a2d8a0cddf60b41a5d76a6ac025e54439eb3ee5c9e57a60c67b",
+          "decoder_elapsed_ns": 1742302978,
+          "metadata_read_bytes": 71258112,
+          "damon_reclaim_boot_options": [
+            "damon_reclaim.enabled=Y",
+            "damon_reclaim.min_age=100000",
+            "damon_reclaim.quota_ms=20",
+            "damon_reclaim.quota_sz=1073741824",
+            "damon_reclaim.quota_reset_interval_ms=500",
+            "damon_reclaim.wmarks_high=990",
+            "damon_reclaim.wmarks_mid=990",
+            "damon_reclaim.wmarks_low=200",
+            "damon_reclaim.skip_anon=Y",
+            "damon_reclaim.wmarks_interval=1000000",
+            "damon_reclaim.monitor_region_start=4096",
+            "damon_reclaim.monitor_region_end=5368709120"
+          ],
+          "unique_regular_file_inodes": 2127
+        },
+        "known_fixture": {
+          "status": "PASS",
+          "scope": "known paused-point identity/content plus post-measurement file content; no interval stability claim",
+          "known_pages": 3,
+          "interval_fixture_status": "PASS",
+          "after_export_nonresident_pages": 0,
+          "post_measurement_content": "PASS",
+          "content_read_cost_in_analysis": true
+        },
+        "backing_cache_interval": {
+          "measurement_status": "PARTIAL",
+          "shared_layer_cache_stable_physical_bytes": 2995900416,
+          "private_upper_cache_stable_physical_bytes": 315392,
+          "attached_drive_cache_stable_physical_bytes": 0,
+          "backing_cache_stable_physical_bytes": 2996215808,
+          "unstable_unique_pages": 0
+        },
+        "fixture_regular_content_included_bytes": 12288,
+        "whole_task_file_content_physical_bytes": null,
+        "scope": "paused SystemRAM file-LRU, tmpfs/anonymous excluded, host PFN deduplicated; regular files and metadata separately typed; specified backing cache is an interval, not the frozen-point total"
+      },
+      "analysis_resources": {
+        "collector_cpu_user_seconds": 3.9370540000000003,
+        "collector_cpu_system_seconds": 1.2418040000000001,
+        "collector_process_maxrss_kib": 914204,
+        "collector_scope": "controller process, includes async host sampler; peak RSS is not private memory"
+      }
+    }
+  ],
+  "page_size": 4096,
+  "physical_protocol": "exact-kernel-frozen-v1",
+  "threshold": null,
+  "monitoring_impact": "SHORT_SMOKE_ONLY; no repeated or balanced statistical validation",
+  "smoke_comparison_percent": {
+    "periodic_sampling": {
+      "guest_tools": -19.902036387221667,
+      "prefix_runner_call": 27.150675294582527,
+      "full_case": -16.27423910666873
+    },
+    "precision_analysis": {
+      "guest_tools": 120.0389231327296,
+      "prefix_runner_call": 56.19034914898708,
+      "full_case": 27.605006737184024
+    }
+  },
+  "limitations": [
+    "只有一组固定顺序短验证，顺序、缓存热度、主机负载和频率可能影响比较；不能判定稳定开销或无影响。",
+    "精细分析在六步之后执行，包括探针、三页校准、暂停、扫描和恢复检查，不只计纯扫描时间。",
+    "三页已知文件计入所测缓存；没有遍历全部任务文件，完整任务物理内容量未测。",
+    "Host PSS和服务cgroup分别计量；与guest物理缓存、逻辑Cached和RAM准备量不得相加。",
+    "未执行剩余29步、任务测试或checkpoint；原完整重放和恢复证据保持不变。"
+  ],
+  "pre_pause_logical_guest_memory": {
+    "timestamp_ns": 1791528507405286913,
+    "used_bytes": 170688512,
+    "components_bytes": {
+      "AnonPages": 21000192,
+      "Cached": 95232000,
+      "Buffers": 12509184,
+      "Shmem": 9236480,
+      "Slab": 17342464,
+      "SReclaimable": 8900608,
+      "SUnreclaim": 8441856
+    },
+    "components_percent_of_used": {
+      "AnonPages": 12.303225187176041,
+      "Cached": 55.79285851411019,
+      "Buffers": 7.328661931272797,
+      "Shmem": 5.411307352658859,
+      "Slab": 10.160299481666346,
+      "SReclaimable": 5.214532539834901,
+      "SUnreclaim": 4.945766941831446
+    },
+    "scope": "guest /proc/meminfo before pause, not the atomic physical point; Shmem overlaps Cached; SReclaimable/SUnreclaim are parts of Slab"
+  },
+  "raw_directory": ".artifacts/storage-isolated-service/20261009T064745Z-3982475/python-backbone",
+  "raw_file_count": 596,
+  "raw_hashes_unchanged": true,
+  "report_directory": ".artifacts/task-metrics/smoke-20261009T064541Z/report",
+  "repeated_report_byte_identical": true,
+  "execution_command": [
+    "bash",
+    "scripts/validate-isolated-storage.sh",
+    "--confirmed-window",
+    "--window-start-utc",
+    "2026-10-09T06:45:41.068735+00:00",
+    "--window-end-utc",
+    "2026-10-09T07:05:41.068735+00:00",
+    "--python-task-profile",
+    "sphinx7590",
+    "--python-backbone-inputs",
+    ".artifacts/sphinx-backbone/prepare-20261009T041720Z",
+    "--python-readonly-replay",
+    "--python-persistent-sampling",
+    "--immutable-cache-seed",
+    ".artifacts/sphinx-backbone/metrics-cache-20261009T063607Z",
+    "--python-cache-smoke",
+    "--python-cache-reference",
+    ".artifacts/storage-isolated-service/20261009T055637Z-3955483/python-backbone"
+  ],
+  "storage": {
+    "capacity_bytes": 8589934592,
+    "observed_volume_used_peak_bytes": 800030720,
+    "observed_host_available_min_bytes": 31562477568,
+    "host_available_after_cleanup_bytes": 40012845056
+  },
+  "immutable_cache_preparation": {
+    "source_backup": "/home/yyxie/agentenv_experiment/.artifacts/storage-isolated-service/20261009T050703Z-3934019/volume.ext4.gz",
+    "backup_sha256": "d8a4632358c88b7f0852f14794cf35f5eccc34481544d29b7326d6eaea80a8b9",
+    "uncompressed_sha256": "a273235fc639fd1b60a1acbe03d61fd60a69aacca4fc857f7cd9b2b63e02966d",
+    "task_id": "sphinx-doc__sphinx-7590",
+    "ram_allocated_bytes": 9130999808,
+    "elapsed_ns": 82277489063
+  },
+  "cleanup": {
+    "owned_container_removed": true,
+    "mount_and_loop_removed": true,
+    "successful_fixture_removed": true,
+    "original_firecracker_identities_unchanged": true,
+    "original_service_unchanged": true
+  },
+  "independent_post_cleanup_check": {
+    "status": "PASS",
+    "timestamp_utc": "2026-10-09T08:15:11.810620+00:00",
+    "original_vm_count": 12,
+    "original_vm_identities_unchanged": true,
+    "original_service_unchanged": true,
+    "owned_containers_absent": true,
+    "owned_mounts_and_loops_absent": true,
+    "successful_volume_removed": true,
+    "failed_volume_retained_bytes": 8589934592,
+    "failed_backup_verified_bytes": 84009349,
+    "cache_released": true,
+    "host_available_bytes": 40256962560
+  },
+  "first_failure": {
+    "status": "FAIL",
+    "raw": ".artifacts/storage-isolated-service/20261009T064541Z-3980552",
+    "boundary": "vendor controller import before original trajectory actions",
+    "reason": "missing vendor dependency directory in sys.path",
+    "fixed_by": "explicit vendor path and offline controller import regression",
+    "source_volume_retained_bytes": 8589934592,
+    "backup_compressed_bytes": 84009349,
+    "backup_sha256": "ed6caa2833aeeac8dde2070dd3631b01f40c23e061ac93df1b6e5269331e5b12",
+    "source_sha256": "070771b8de673ddce88ec38c6878a35894aab8ad5745665211ccff3cf621668f",
+    "backup_verified": true
+  },
+  "policy_update": {
+    "empty_window_confirmation": "not required under standing user authorization",
+    "runtime_timestamps": "bounded execution only; not shared-disk exclusivity",
+    "agents_md": "local ignored file"
+  },
+  "validation": {
+    "prefix_checks": 4,
+    "sphinx_checks": 10,
+    "post_analysis_checks": 3,
+    "kernel_checks": 10,
+    "paused_boundary_checks": 10,
+    "isolated_storage_checks": 24,
+    "platform_checks": 19,
+    "xarray_checks": 22,
+    "automatic_runtime_live": "NOT_RUN; offline logic and CLI checked"
+  },
+  "finished_utc": "2026-10-09T06:48:37.720350+00:00"
+}

@@ -1,0 +1,109 @@
+{
+  "status": "PASS",
+  "verdict": "INCONCLUSIVE_SMOKE_ONLY",
+  "source_sha256": "77ffe81d9191d57a01191bb2d57c8a702e15c44989dbf22a3dcc41ea9c1ca7b9",
+  "observations": [
+    {
+      "position": 1,
+      "mode": "off",
+      "task_window_seconds": 3.694382765,
+      "controller_exec_seconds": 3.690880125,
+      "guest_action_sum_seconds": 2.055710682,
+      "sample_count": 0,
+      "steps_ms": {
+        "023": 1045.855756,
+        "024": 708.64486
+      },
+      "observed_min_free_gib": 50.515689849853516
+    },
+    {
+      "position": 2,
+      "mode": "light",
+      "task_window_seconds": 3.892940713,
+      "controller_exec_seconds": 3.887440671,
+      "guest_action_sum_seconds": 2.077352206,
+      "sample_count": 4,
+      "steps_ms": {
+        "023": 1058.554051,
+        "024": 734.869053
+      },
+      "observed_min_free_gib": 50.5151252746582
+    },
+    {
+      "position": 3,
+      "mode": "light",
+      "task_window_seconds": 3.907214376,
+      "controller_exec_seconds": 3.899722304,
+      "guest_action_sum_seconds": 2.268033093,
+      "sample_count": 4,
+      "steps_ms": {
+        "023": 973.517929,
+        "024": 717.814932
+      },
+      "observed_min_free_gib": 50.51020431518555
+    },
+    {
+      "position": 4,
+      "mode": "off",
+      "task_window_seconds": 4.157585084,
+      "controller_exec_seconds": 4.153850423,
+      "guest_action_sum_seconds": 2.120844677,
+      "sample_count": 0,
+      "steps_ms": {
+        "023": 1051.497176,
+        "024": 718.554092
+      },
+      "observed_min_free_gib": 50.51405715942383
+    }
+  ],
+  "differences": {
+    "task_window_seconds": {
+      "means": {
+        "off": 3.9259839244999997,
+        "light": 3.9000775445
+      },
+      "light_vs_off_percent": -0.659869742164032
+    },
+    "controller_exec_seconds": {
+      "means": {
+        "off": 3.9223652739999997,
+        "light": 3.8935814874999997
+      },
+      "light_vs_off_percent": -0.7338374804304326
+    },
+    "guest_action_sum_seconds": {
+      "means": {
+        "off": 2.0882776795,
+        "light": 2.1726926495
+      },
+      "light_vs_off_percent": 4.0423249661037275
+    }
+  },
+  "limitations": [
+    "Four-run smoke has no same-batch off/off control or statistical confidence interval",
+    "Host service cgroup sampling only; no guest memory or VMM PSS sampling",
+    "No hardware counter or BPF diagnosis in this comparison",
+    "Policy and affinity checked at window boundaries; transient external changes cannot be excluded",
+    "Shared CPUs; symmetric positions do not eliminate arbitrary background load",
+    "Full official task tests NOT_RUN"
+  ],
+  "raw_result_dir": ".artifacts/exp1-monitor-fixed-smoke/20260930T024246Z-2499388",
+  "configuration": {
+    "vcpu_binding": [
+      2,
+      4
+    ],
+    "affected_policy_cpus": [
+      2,
+      4,
+      66,
+      68
+    ],
+    "requested_min_max_khz": 2000000,
+    "settle_seconds": 10,
+    "host_sample_interval_seconds": 1.0,
+    "guest_sampling": false,
+    "host_metric_scope": "AgentENV service cgroup",
+    "cache_policy": "no cache clearing; fresh VM per replay"
+  }
+}

@@ -1,0 +1,448 @@
+{
+  "status": "PASS",
+  "timestamp_utc": "2026-10-09T06:00:36.452888+00:00",
+  "task_id": "sphinx-doc__sphinx-7590",
+  "run_id": "20261009T055637Z-3955483",
+  "raw_directory": ".artifacts/storage-isolated-service/20261009T055637Z-3955483/python-backbone",
+  "report_directory": ".artifacts/sphinx-backbone/report-20261009T055637Z",
+  "repeat_report_directory": ".artifacts/sphinx-backbone/report-repeat-20261009T055637Z",
+  "source_image": "ghcr.io/epoch-research/swe-bench.eval.x86_64.sphinx-doc__sphinx-7590@sha256:577ebfcce825e4c9621e066dc1c8375443be94bbc6de30b9368e422b8f123731",
+  "config": "configs/sphinx7590-backbone.json",
+  "base_commit": "2e506c5ab457cba743bb47eb5b8c8eb9dd51d23d",
+  "schedule": "single frozen backbone",
+  "actions": 35,
+  "guest_cpu": 2,
+  "guest_memory_mib": 4096,
+  "strict_replay_status": "PASS",
+  "official_task_status": "FAIL",
+  "official": {
+    "status": "FAIL",
+    "exit_code": 1,
+    "passed": 24,
+    "failed": 1,
+    "skipped": 0,
+    "failed_tests": [
+      "tests/test_domain_cpp.py::test_expressions"
+    ],
+    "skipped_tests": [],
+    "F2P_passed": 0,
+    "F2P_total": 1,
+    "P2P_passed": 24,
+    "P2P_total": 24,
+    "scope": "SWE-bench selected C++ tests and test patch; direct image pytest, not full official Docker harness"
+  },
+  "checks": {
+    "first_segment_smoke": "PASS",
+    "key_outputs": "PASS",
+    "actions_hash_order_expected_failures": "PASS",
+    "final_patch_and_source_hashes": "PASS",
+    "complete_benchmark_results_and_source_unchanged": "PASS"
+  },
+  "seven_final_udl_cases": {
+    "status": "PASS",
+    "imported_source": "/testbed/sphinx/domains/cpp.py",
+    "cases": [
+      {
+        "input": "1q_s",
+        "status": "PASS",
+        "id2": "L1Eq_s"
+      },
+      {
+        "input": "6.62607015e-34q_J",
+        "status": "PASS",
+        "id2": "L6.62607015e-34Eq_J"
+      },
+      {
+        "input": "42_udl",
+        "status": "PASS",
+        "id2": "L42E_udl"
+      },
+      {
+        "input": "1.0_km",
+        "status": "PASS",
+        "id2": "L1.0E_km"
+      },
+      {
+        "input": "0x1p3_udl",
+        "status": "PASS",
+        "id2": "L0x1p3E_udl"
+      },
+      {
+        "input": "'a'_udl",
+        "status": "PASS",
+        "id2": "c97_udl"
+      },
+      {
+        "input": "\"str\"_udl",
+        "status": "PASS",
+        "id2": "LA3_KcE_udl"
+      }
+    ],
+    "scope": "seven original UDL inputs, round-trip and ID generation; not full task correctness"
+  },
+  "image_background": {
+    "status": "PASS",
+    "files": {
+      "setup.py": "7e8c6c8f96c63535bb41a86f12c033ec9a7f4c03a0aa143766b50bb6ba55bfdf",
+      "tox.ini": "654947836074db1b29bbd30b8544533bb2f089ef78a902fbeb8253f0cdc5031b"
+    },
+    "normalized_patch_sha256": "75bb065627153500da2efe97397370b08e15981a91b51da7261c5e3a9c303437",
+    "scope": "fixed-image setup.py/tox.ini modifications; captured before tools and unchanged afterward"
+  },
+  "guest": {
+    "sample_count": 131,
+    "observed_peak_bytes": 259149824,
+    "components_at_peak_bytes": {
+      "AnonPages": 86802432,
+      "Cached": 101621760,
+      "Buffers": 11329536,
+      "Shmem": 831488
+    },
+    "components_at_peak_percent": {
+      "AnonPages": 33.49507657778691,
+      "Cached": 39.213516888207494,
+      "Buffers": 4.371809258878756,
+      "Shmem": 0.3208522341114922
+    }
+  },
+  "host": {
+    "sample_count": 436,
+    "observed_peak_bytes": 5391560704,
+    "components_at_peak_bytes": {
+      "anon": 466984960,
+      "file": 4759334912,
+      "kernel": 152043520
+    }
+  },
+  "timing": {
+    "controller_elapsed_ns": 47674901935,
+    "cold_request_ns": 26317288675,
+    "guest_action_sum_ns": 11091935168,
+    "controller_exec_ns": [
+      727555877,
+      4418447925,
+      1469827242,
+      1772536118,
+      5367704204
+    ],
+    "controller_download_ns": [
+      60587897,
+      55609145,
+      57435274,
+      48169959,
+      46375206
+    ],
+    "frozen_exec_and_download_span_ns": 14046038243,
+    "benchmark_test_call_ns": 4082015287,
+    "cleanup_call_ns": 165208193,
+    "stages": [
+      {
+        "stage": "service-state",
+        "duration_ns": 20196786,
+        "exit_code": 0
+      },
+      {
+        "stage": "service-labels",
+        "duration_ns": 21095556,
+        "exit_code": 0
+      },
+      {
+        "stage": "cold-start",
+        "duration_ns": 26317288675,
+        "exit_code": 0
+      },
+      {
+        "stage": "source",
+        "duration_ns": 830630482,
+        "exit_code": 0
+      },
+      {
+        "stage": "login-environment",
+        "duration_ns": 168758429,
+        "exit_code": 0
+      },
+      {
+        "stage": "frozen-environment",
+        "duration_ns": 155961234,
+        "exit_code": 0
+      },
+      {
+        "stage": "upload-oracle",
+        "duration_ns": 33384196,
+        "exit_code": 0
+      },
+      {
+        "stage": "upload-test-id-resolver",
+        "duration_ns": 28570009,
+        "exit_code": 0
+      },
+      {
+        "stage": "negative-control",
+        "duration_ns": 598085313,
+        "exit_code": 0
+      },
+      {
+        "stage": "upload-frozen",
+        "duration_ns": 101702538,
+        "exit_code": 0
+      },
+      {
+        "stage": "upload-collector",
+        "duration_ns": 32661451,
+        "exit_code": 0
+      },
+      {
+        "stage": "upload-counter-reader",
+        "duration_ns": 32015351,
+        "exit_code": 0
+      },
+      {
+        "stage": "controller-exec",
+        "duration_ns": 727555877,
+        "exit_code": 0
+      },
+      {
+        "stage": "controller-download",
+        "duration_ns": 60587897,
+        "exit_code": 0
+      },
+      {
+        "stage": "controller-exec",
+        "duration_ns": 4418447925,
+        "exit_code": 0
+      },
+      {
+        "stage": "controller-download",
+        "duration_ns": 55609145,
+        "exit_code": 0
+      },
+      {
+        "stage": "controller-exec",
+        "duration_ns": 1469827242,
+        "exit_code": 0
+      },
+      {
+        "stage": "controller-download",
+        "duration_ns": 57435274,
+        "exit_code": 0
+      },
+      {
+        "stage": "controller-exec",
+        "duration_ns": 1772536118,
+        "exit_code": 0
+      },
+      {
+        "stage": "controller-download",
+        "duration_ns": 48169959,
+        "exit_code": 0
+      },
+      {
+        "stage": "controller-exec",
+        "duration_ns": 5367704204,
+        "exit_code": 0
+      },
+      {
+        "stage": "controller-download",
+        "duration_ns": 46375206,
+        "exit_code": 0
+      },
+      {
+        "stage": "final-files",
+        "duration_ns": 300803636,
+        "exit_code": 0
+      },
+      {
+        "stage": "final-patch",
+        "duration_ns": 185021296,
+        "exit_code": 0
+      },
+      {
+        "stage": "small-invariant",
+        "duration_ns": 428621665,
+        "exit_code": 0
+      },
+      {
+        "stage": "upload-evaluation",
+        "duration_ns": 36149893,
+        "exit_code": 0
+      },
+      {
+        "stage": "benchmark-pytest",
+        "duration_ns": 4082015287,
+        "exit_code": 0
+      },
+      {
+        "stage": "download-evaluation",
+        "duration_ns": 37785740,
+        "exit_code": 0
+      },
+      {
+        "stage": "delete-owned",
+        "duration_ns": 165208193,
+        "exit_code": 0
+      },
+      {
+        "stage": "list-after",
+        "duration_ns": 15032297,
+        "exit_code": 0
+      }
+    ]
+  },
+  "storage": {
+    "capacity_bytes": 19327352832,
+    "observed_volume_used_peak_bytes": 8998158336,
+    "observed_host_available_min_bytes": 29430628352,
+    "host_available_after_cleanup_bytes": 48759435264
+  },
+  "cleanup": {
+    "owned_container_removed": true,
+    "mount_and_loop_removed": true,
+    "successful_fixture_removed": true,
+    "original_firecracker_identities_unchanged": true,
+    "original_service_unchanged": true
+  },
+  "image_preparation": {
+    "status": "PASS",
+    "image": "ghcr.io/epoch-research/swe-bench.eval.x86_64.sphinx-doc__sphinx-7590@sha256:577ebfcce825e4c9621e066dc1c8375443be94bbc6de30b9368e422b8f123731",
+    "transport": "Python urllib HTTP/1.1, 8 MiB ranges, 3 workers",
+    "source_manifest_sha256": "577ebfcce825e4c9621e066dc1c8375443be94bbc6de30b9368e422b8f123731",
+    "tmpfs_capacity_bytes": 2147483648,
+    "volatile_cache": true,
+    "preparation_mode": "bounded RAM only; no VM or fixed disk volume; separate confirmed window required for experiment",
+    "previous_preparation": {
+      "status": "FAIL",
+      "image": "ghcr.io/epoch-research/swe-bench.eval.x86_64.sphinx-doc__sphinx-7590@sha256:577ebfcce825e4c9621e066dc1c8375443be94bbc6de30b9368e422b8f123731",
+      "transport": "Python urllib HTTP/1.1, 8 MiB ranges, 3 workers",
+      "source_manifest_sha256": "577ebfcce825e4c9621e066dc1c8375443be94bbc6de30b9368e422b8f123731",
+      "tmpfs_capacity_bytes": 2147483648,
+      "volatile_cache": true,
+      "preparation_mode": "bounded RAM only; no VM or fixed disk volume; separate confirmed window required for experiment",
+      "error": "TimeoutError('download budget expired')",
+      "scope": "incomplete volatile download cache retained; no VM or conversion started",
+      "elapsed_ns": 875710714439,
+      "successful_ranges": 113,
+      "failed_range_attempts": 1
+    },
+    "requested_ranges_this_attempt": 11,
+    "requested_bytes_this_attempt": 18684732,
+    "downloaded_bytes": 935166685,
+    "unpacked_regular_rounded_bytes": 2033913856,
+    "regular_file_entries": 45132,
+    "scope": "all compressed blob digests verified; tar sizes counted without extraction; native conversion not yet run",
+    "elapsed_ns": 35105119509,
+    "successful_ranges": 124,
+    "failed_range_attempts": 1,
+    "cumulative_elapsed_ns": 910815833948
+  },
+  "window": {
+    "start_utc": "2026-10-09T05:56:34.512728+00:00",
+    "end_utc": "2026-10-09T06:16:34.512728+00:00",
+    "confirmation": "用户：仍无人大量写盘；准备完成后可开始",
+    "cache": ".artifacts/python-image-cache/sphinx7590-ram-20261009T053906Z",
+    "preparation_record": ".artifacts/sphinx-backbone/ram-preparation-20261009T053906Z",
+    "initial_available_bytes": 48758358016
+  },
+  "previous_failure": "docs/records/evidence/sphinx7590-final-state-failure-20261009.json",
+  "approved_old_volume_cleanup": {
+    "status": "PASS",
+    "authorization": "用户确认：同意删除，目前可直接开始；仅删除此20 GiB源卷，完整备份与记录保留",
+    "deleted": "/home/yyxie/agentenv_experiment/.artifacts/storage-isolated-service/20261009T050703Z-3934019/volume.ext4",
+    "allocated_bytes": 21475356672,
+    "backup": "/home/yyxie/agentenv_experiment/.artifacts/storage-isolated-service/20261009T050703Z-3934019/volume.ext4.gz",
+    "backup_sha256": "d8a4632358c88b7f0852f14794cf35f5eccc34481544d29b7326d6eaea80a8b9",
+    "source_sha256": "a273235fc639fd1b60a1acbe03d61fd60a69aacca4fc857f7cd9b2b63e02966d",
+    "host_available_before_bytes": 27285581824,
+    "host_available_immediate_after_bytes": 48760938496,
+    "timestamp_ns": 1791523467396349327,
+    "scope": "only explicitly approved volume; complete backup and all other files retained"
+  },
+  "intermediate_time_guard": {
+    "status": "FAIL",
+    "record": ".artifacts/sphinx-backbone/live-20261009T052444Z",
+    "cache_preparation_status": "PASS",
+    "elapsed_ns": 645132197759,
+    "VM_started": false,
+    "error": "local orchestration required 600 seconds remaining; mirror download consumed that margin; no task or disk-capacity failure"
+  },
+  "ram_preparation_record": ".artifacts/sphinx-backbone/ram-preparation-20261009T053906Z",
+  "ram_preparation_initial_status": "FAIL_TIMEOUT_RETAINED",
+  "resume_command": [
+    "timeout",
+    "-k",
+    "20s",
+    "240s",
+    "python3",
+    "-B",
+    "scripts/prepare_xarray6992_image.py",
+    "--ram-only-preparation",
+    "--image",
+    "ghcr.io/epoch-research/swe-bench.eval.x86_64.sphinx-doc__sphinx-7590@sha256:577ebfcce825e4c9621e066dc1c8375443be94bbc6de30b9368e422b8f123731",
+    "--manifest",
+    "configs/sphinx7590-image-manifest.json",
+    "--output",
+    ".artifacts/python-image-cache/sphinx7590-ram-20261009T053906Z",
+    "--resume-incomplete",
+    "--download-timeout-seconds",
+    "180"
+  ],
+  "failure_explanation": {
+    "test": "tests/test_domain_cpp.py::test_expressions",
+    "input": "template<> C<a[5_udl]>",
+    "actual_id_versions_3_4": "IE1CIAL5E_udl_1aE",
+    "expected_id_versions_3_4": "IE1CIAclL_Zli4_udlEL5EE_1aE",
+    "scope": "first failing assertion in selected F2P test; seven simple UDL parses do not cover full identifier correctness"
+  },
+  "report_validation": {
+    "status": "PASS",
+    "byte_identical_files": [
+      "summary.json",
+      "raw-sha256.json",
+      "memory.svg"
+    ],
+    "raw_files": 242,
+    "raw_hashes_unchanged": true
+  },
+  "offline_checks": {
+    "sphinx_tests": 8,
+    "xarray_tests": 22,
+    "isolated_storage_tests": 23
+  },
+  "page_cache": {
+    "physical_bytes": "NOT_MEASURED",
+    "control": "no manual host or guest cache drop",
+    "state": "reused immutable service cache; missing task layers fetched at creation; baseline oracle precedes frozen replay"
+  },
+  "monitoring_impact": "NOT_VALIDATED",
+  "VMM_PSS": "NOT_MEASURED",
+  "checkpoint_restore": "NOT_RUN",
+  "current_host_available_bytes": 48757968896,
+  "independent_owned_cleanup": "PASS",
+  "oci_cache_released": true,
+  "notes": [
+    "Guest /proc/meminfo KiB converted to bytes; used = MemTotal - MemFree; only original runner windows.",
+    "Cached is a logical counter, not deduplicated physical page cache; Shmem overlaps Cached; Slab not sampled.",
+    "Host memory.current/stat: memory charged to the temporary service cgroup, including VMM and charged image caches; excludes controller and separate RAM preparation caches. Read-only lower-layer RAM file allocation and preparation time are listed separately.",
+    "Guest and host memory are not added; sample maxima are observed peaks, not exact instantaneous peaks.",
+    "Stage durations are ns; nested stages overlap and must not be summed into total elapsed time.",
+    "One functional run does not establish performance variance, cache causality, monitoring impact or shared-memory benefit.",
+    "One sampler process per segment replaces shell process churn; asynchronous advisory markers may miss short phase boundaries. Frozen actions and expected exits unchanged; overhead NOT_VALIDATED.",
+    "Original Sphinx final focused tests: 25 passed; exploratory nonzero exits retained.",
+    "Evaluation applies the selected SWE-bench test patch and all 25 original nodes; direct image pytest, not full official Docker harness.",
+    "RAM preparation cumulative elapsed is 910.816 seconds, including the preserved first timeout and successful 35.105-second resume; the earlier 645.132-second discarded cache/window-guard stop remains separate history.",
+    "Former failed source volume deletion was explicitly approved; complete verified backup remains.",
+    "Sphinx physical cache, Slab, VMM PSS and monitoring influence are unverified. Neither 24 passing independent tests nor seven simple parse examples establishes task repair success."
+  ],
+  "next_step": "budget Sphinx full VM checkpoint/restore, choose a tool boundary and verify files, progress, process continuity and original independent failure; no repeated full ordinary replay",
+  "source_hash_manifest": ".artifacts/storage-isolated-service/20261009T055637Z-3955483/source-sha256.json",
+  "source_hash_manifest_sha256": "04a759ecba6aadcb64e2bafb7969401d466180259ddaddfef8eed7d792c79537",
+  "verification_commands": [
+    "python3 -B scripts/prepare_xarray6992_image.py --ram-only-preparation --resume-incomplete --download-timeout-seconds 180 --image ghcr.io/epoch-research/swe-bench.eval.x86_64.sphinx-doc__sphinx-7590@sha256:577ebfcce825e4c9621e066dc1c8375443be94bbc6de30b9368e422b8f123731 --manifest configs/sphinx7590-image-manifest.json --output .artifacts/python-image-cache/sphinx7590-ram-20261009T053906Z",
+    "bash scripts/validate-isolated-storage.sh --confirmed-window --window-start-utc 2026-10-09T05:56:34.512728+00:00 --window-end-utc 2026-10-09T06:16:34.512728+00:00 --python-task-profile sphinx7590 --python-backbone-inputs .artifacts/sphinx-backbone/prepare-20261009T041720Z --python-backbone-oci .artifacts/python-image-cache/sphinx7590-ram-20261009T053906Z --python-backbone-capacity-gib 18 --python-persistent-sampling",
+    "python3 -B scripts/report_xarray6992.py .artifacts/storage-isolated-service/20261009T055637Z-3955483/python-backbone .artifacts/sphinx-backbone/report-20261009T055637Z",
+    "python3 -B scripts/report_xarray6992.py .artifacts/storage-isolated-service/20261009T055637Z-3955483/python-backbone .artifacts/sphinx-backbone/report-repeat-20261009T055637Z",
+    "python3 -B -m unittest discover -s tests -p test_sphinx7590.py",
+    "python3 -B -m unittest discover -s tests -p 'test_xarray6992*.py'",
+    "python3 -B -m unittest discover -s tests -p test_isolated_storage.py",
+    "git diff --check"
+  ]
+}

@@ -1,0 +1,85 @@
+{
+  "status": "PARTIAL",
+  "date": "2026-10-07",
+  "scope": "prepared-host frozen Exp1 platform-use integration; no new performance acceptance",
+  "agentenv": {
+    "status": "PASS",
+    "workflow": "20261007T055813Z-3428242",
+    "runs": 2,
+    "checkpoint_after": "022",
+    "continuation_start": "023",
+    "completed_prefix_steps": 22,
+    "restored_files_outputs_progress": "PASS",
+    "process_identity_preserved": true,
+    "counter_before": 29,
+    "counter_after": 36,
+    "official_tests": "PASS; 4 assertions per run",
+    "reports": [
+      {
+        "mode": "full",
+        "guest_samples": 97,
+        "host_samples": 86,
+        "controller_elapsed_seconds": 12.253312926
+      },
+      {
+        "mode": "checkpoint-022",
+        "guest_samples": 98,
+        "host_samples": 127,
+        "controller_elapsed_seconds": 17.226448776
+      }
+    ],
+    "resources": {
+      "status": "PASS",
+      "existing_nonpool_identities_unchanged": true,
+      "project_pool_count": 4,
+      "scope": "only same-service Not started pool entries may be replenished; running/unrelated VMs must be unchanged"
+    }
+  },
+  "trenvx": {
+    "status": "PARTIAL",
+    "backend_successful_full_runs": [
+      "20261007T055905Z-3430501",
+      "20261007T060143Z-3431915"
+    ],
+    "successful_new_workflow_count": 0,
+    "first_failure": "source-list variable overwritten; fixed and regression passed",
+    "second_failure": "disk reserve reached; outer wrapper terminated before success-image disposal",
+    "second_retention_recovery": "successful owned images removed with separate verified receipt; ~11.06 GiB freed; original FAIL preserved",
+    "checkpoint_new_workflow": "BLOCKED; minimum free raised to 60 GiB after reserve failure",
+    "restore_semantics": "file-state-only"
+  },
+  "validation": {
+    "platform_regressions": 9,
+    "related_regressions": 14,
+    "historical_runs_reaudited": 4,
+    "agentenv_offline_reports_match": true,
+    "existing_output_refused": true,
+    "failed_workflow_refused": true
+  },
+  "storage": {
+    "agentenv_start_minimum_gib": 32,
+    "trenvx_new_start_minimum_gib": 60,
+    "reserve_gib": 20,
+    "observed_low_point_gib_approx": 6.4,
+    "continuous_exact_minimum": "NOT_MEASURED after termination",
+    "extra_space_change_cause": "UNDETERMINED; concurrent/shared filesystem changes are not attributed to our run",
+    "hard_disk_quota": "NOT_CONFIGURED; polling is not a hard bound",
+    "observed_free_gib_at_report": 17.38378143310547,
+    "final_observed_free_gib": 40.1175651550293,
+    "final_check_path": ".artifacts/platform-use-preparation/20261007-current/final-checks.json"
+  },
+  "evidence_paths": {
+    "agentenv": ".artifacts/platform-use/20261007T055813Z-3428242",
+    "first_agentenv_failure": ".artifacts/platform-use/20261007T055606Z-3425438",
+    "trenvx_first_failure": ".artifacts/platform-use/20261007T055905Z-3430417",
+    "trenvx_second_failure": ".artifacts/platform-use/20261007T060143Z-3431821",
+    "retention": ".artifacts/trenvx-service-smoke/20261007T060143Z-3431915/interrupted-retention-recovery.json",
+    "recount": ".artifacts/platform-use-recount-20261007T060051Z",
+    "trenvx_offline_audit": ".artifacts/platform-use-trenvx-postfailure-audit-20261007"
+  },
+  "limitations": [
+    "001..025 configurable; only new boundary 022 live tested",
+    "only Prettier #14400 accepted; PPT task/online trajectory/fresh-host deployment unsupported",
+    "new workflow does not perform physical file-LRU analysis or re-estimate monitoring impact"
+  ]
+}

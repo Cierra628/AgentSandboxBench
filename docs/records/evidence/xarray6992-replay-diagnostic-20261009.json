@@ -1,0 +1,358 @@
+{
+  "status": "FAIL",
+  "scope": "offline audit of failed frozen replay; not task acceptance",
+  "task_id": "pydata__xarray-6992",
+  "rollout": "single frozen backbone",
+  "actions": 35,
+  "action_hashes_and_order": "PASS",
+  "exit_codes_matched": 34,
+  "exit_mismatches": [
+    {
+      "segment": "trace_index_state",
+      "step": "001",
+      "global_step": 7,
+      "expected_exit_code": 0,
+      "actual_exit_code": 1
+    }
+  ],
+  "final_patch_matches_reference": true,
+  "final_patch_sha256": "ca41c70724c2ce367b5f0431c55de4b68724b29ee35110afe40c68ab781c6556",
+  "normalized_patch_sha256": "c6f75a2aea66f6575556e75c685198b61bd8aa85176467e6ae15120431f56d9d",
+  "final_file_hashes": "not captured by driver after strict exit-code failure; equal normalized patch checked separately",
+  "benchmark_tests": "NOT_RUN",
+  "checkpoint_restore": "NOT_RUN",
+  "physical_page_cache": "NOT_MEASURED",
+  "monitoring_impact": "NOT_VALIDATED",
+  "VMM_PSS": "NOT_MEASURED",
+  "guest": {
+    "sample_count": 479,
+    "observed_peak_bytes": 613806080,
+    "components_at_peak_bytes": {
+      "AnonPages": 209895424,
+      "Cached": 312856576,
+      "Buffers": 26206208,
+      "Shmem": 835584
+    },
+    "components_at_peak_percent": {
+      "AnonPages": 34.195722531780724,
+      "Cached": 50.96993760635281,
+      "Buffers": 4.269460478462514,
+      "Shmem": 0.13613159387407828
+    }
+  },
+  "host": {
+    "sample_count": 756,
+    "observed_peak_bytes": 11122225152,
+    "components_at_peak_bytes": {
+      "anon": 817623040,
+      "file": 9991024640,
+      "kernel": 302157824
+    }
+  },
+  "timing": {
+    "controller_elapsed_ns": 82416759193,
+    "guest_action_sum_ns": 39796646255,
+    "cold_request_ns": 35509504526,
+    "controller_exec_ns": [
+      1065126069,
+      5173167902,
+      9634402485,
+      15581766680,
+      11651685071
+    ],
+    "controller_download_ns": [
+      52140736,
+      57518138,
+      50771239,
+      65975120,
+      55551711
+    ]
+  },
+  "config": {
+    "image": "ghcr.io/epoch-research/swe-bench.eval.x86_64.pydata__xarray-6992@sha256:c05101ef7105599eca1b7d15279a2928ac5453876cd2b83008deb9165d752655",
+    "cpu": 2,
+    "memory_mib": 4096
+  },
+  "cache": "no manual host/guest cache drop; private mirrored OCI and converted cache; baseline probe precedes replay",
+  "cleanup": {
+    "owned_container_removed": true,
+    "mount_and_loop_removed": true,
+    "failed_fixture_retained": true,
+    "original_firecracker_identities_unchanged": true,
+    "original_service_unchanged": true
+  },
+  "storage": {
+    "capacity_bytes": 25769803776,
+    "observed_volume_used_peak_bytes": 14082707456,
+    "observed_host_available_min_bytes": 30602244096
+  },
+  "measurement_scope": [
+    "Guest MemTotal-MemFree; KiB converted to bytes; sampled original runner windows.",
+    "Cached is logical and Shmem overlaps it; not unique physical page cache. Slab is not sampled.",
+    "Host temporary service cgroup includes VMM and charged image cache; excludes controller and separate RAM OCI preparation cache.",
+    "Observed peaks are not exact instantaneous peaks. Guest and host are not added.",
+    "Guest durations cover timeout/bash execution and timestamp instrumentation; nested times are not added to controller total.",
+    "Exit-code mismatch remains a failure despite final patch equality. No benchmark results inferred from original self-tests."
+  ],
+  "date": "2026-10-09",
+  "run_id": "20261008T165515Z-3834076",
+  "result_dir": ".artifacts/storage-isolated-service/20261008T165515Z-3834076/python-backbone",
+  "preparation": {
+    "status": "PASS",
+    "image": "ghcr.io/epoch-research/swe-bench.eval.x86_64.pydata__xarray-6992@sha256:c05101ef7105599eca1b7d15279a2928ac5453876cd2b83008deb9165d752655",
+    "transport": "Python urllib HTTP/1.1, 8 MiB ranges, 3 workers",
+    "source_manifest_sha256": "c05101ef7105599eca1b7d15279a2928ac5453876cd2b83008deb9165d752655",
+    "tmpfs_capacity_bytes": 2147483648,
+    "volatile_cache": true,
+    "downloaded_bytes": 1646232339,
+    "unpacked_regular_rounded_bytes": 3974459392,
+    "regular_file_entries": 109114,
+    "scope": "all compressed blob digests verified; tar sizes counted without extraction; native conversion not yet run",
+    "elapsed_ns": 320364182481,
+    "successful_ranges": 208,
+    "failed_range_attempts": 0,
+    "resources_released": true
+  },
+  "diagnostic": {
+    "result_dir": ".artifacts/storage-isolated-service/20261008T170826Z-3844392/python-backbone",
+    "capture_status": "PASS",
+    "cases": [
+      {
+        "index": 0,
+        "mode": "none",
+        "exit_code": 0,
+        "elapsed_ns": 337362966,
+        "error_lines": [],
+        "stdout": ""
+      },
+      {
+        "index": 1,
+        "mode": "shell",
+        "exit_code": 1,
+        "elapsed_ns": 107898364,
+        "error_lines": [
+          "find: ‘/proc/392’: No such file or directory"
+        ],
+        "stdout": ""
+      },
+      {
+        "index": 2,
+        "mode": "none",
+        "exit_code": 1,
+        "elapsed_ns": 106910027,
+        "error_lines": [
+          "find: ‘/proc/398/net’: Invalid argument"
+        ],
+        "stdout": ""
+      },
+      {
+        "index": 3,
+        "mode": "shell",
+        "exit_code": 1,
+        "elapsed_ns": 104973153,
+        "error_lines": [
+          "find: ‘/proc/398/net’: Invalid argument",
+          "find: ‘/proc/408’: No such file or directory"
+        ],
+        "stdout": ""
+      },
+      {
+        "index": 4,
+        "mode": "none",
+        "exit_code": 1,
+        "elapsed_ns": 104827813,
+        "error_lines": [
+          "find: ‘/proc/398/net’: Invalid argument",
+          "find: ‘/proc/414/net’: Invalid argument"
+        ],
+        "stdout": ""
+      },
+      {
+        "index": 5,
+        "mode": "shell",
+        "exit_code": 1,
+        "elapsed_ns": 253867052,
+        "error_lines": [
+          "find: ‘/proc/398/net’: Invalid argument",
+          "find: ‘/proc/414/net’: Invalid argument",
+          "find: ‘/proc/424’: No such file or directory"
+        ],
+        "stdout": ""
+      },
+      {
+        "index": 6,
+        "mode": "none",
+        "exit_code": 1,
+        "elapsed_ns": 113893990,
+        "error_lines": [
+          "find: ‘/proc/398/net’: Invalid argument",
+          "find: ‘/proc/414/net’: Invalid argument",
+          "find: ‘/proc/433/net’: Invalid argument"
+        ],
+        "stdout": ""
+      },
+      {
+        "index": 7,
+        "mode": "persistent",
+        "exit_code": 1,
+        "elapsed_ns": 107308044,
+        "error_lines": [
+          "find: ‘/proc/398/net’: Invalid argument",
+          "find: ‘/proc/414/net’: Invalid argument",
+          "find: ‘/proc/433/net’: Invalid argument"
+        ],
+        "stdout": ""
+      },
+      {
+        "index": 8,
+        "mode": "none",
+        "exit_code": 1,
+        "elapsed_ns": 106361775,
+        "error_lines": [
+          "find: ‘/proc/398/net’: Invalid argument",
+          "find: ‘/proc/414/net’: Invalid argument",
+          "find: ‘/proc/433/net’: Invalid argument"
+        ],
+        "stdout": ""
+      },
+      {
+        "index": 9,
+        "mode": "persistent",
+        "exit_code": 1,
+        "elapsed_ns": 105888658,
+        "error_lines": [
+          "find: ‘/proc/398/net’: Invalid argument",
+          "find: ‘/proc/414/net’: Invalid argument",
+          "find: ‘/proc/433/net’: Invalid argument"
+        ],
+        "stdout": ""
+      },
+      {
+        "index": 10,
+        "mode": "none",
+        "exit_code": 1,
+        "elapsed_ns": 292842914,
+        "error_lines": [
+          "find: ‘/proc/398/net’: Invalid argument",
+          "find: ‘/proc/414/net’: Invalid argument",
+          "find: ‘/proc/433/net’: Invalid argument"
+        ],
+        "stdout": ""
+      },
+      {
+        "index": 11,
+        "mode": "persistent",
+        "exit_code": 1,
+        "elapsed_ns": 105010723,
+        "error_lines": [
+          "find: ‘/proc/398/net’: Invalid argument",
+          "find: ‘/proc/414/net’: Invalid argument",
+          "find: ‘/proc/433/net’: Invalid argument"
+        ],
+        "stdout": ""
+      }
+    ],
+    "counts": {
+      "none": {
+        "cases": 6,
+        "exit_zero": 1,
+        "exit_one": 5
+      },
+      "shell": {
+        "cases": 3,
+        "exit_zero": 0,
+        "exit_one": 3
+      },
+      "persistent": {
+        "cases": 3,
+        "exit_zero": 0,
+        "exit_one": 3
+      }
+    },
+    "interpretation": "First unmonitored find succeeds; each shell-sampled case reports a disappearing /proc PID. Later controls retain /proc/PID/net EINVAL. Process states were not captured; zombie attribution and persistent-reader repair are unverified. Same-VM ordering contaminates later controls.",
+    "revised_probe": "persistent/none controls precede shell sampling; record per-case process state, parent PID and start ticks. Offline regression passed; revised guest probe NOT_RUN.",
+    "cleanup": {
+      "owned_container_removed": true,
+      "mount_and_loop_removed": true,
+      "readonly_source_unmounted_and_unchanged": true,
+      "successful_fixture_removed": true,
+      "original_firecracker_identities_unchanged": true,
+      "original_service_unchanged": true
+    }
+  },
+  "original_self_tests": {
+    "finish_005": "1 failed, 3 passed",
+    "finish_006": "1 failed, 129 passed, 695 deselected, 2 warnings",
+    "scope": "matches original frozen self-test failures; not 957 selected benchmark tests"
+  },
+  "shell_fix": {
+    "initial_failure_run": "20261008T164316Z-3828546",
+    "cause": "login shell auto-activated testbed; sampled image PATH used base conda",
+    "verified": "first segment all six exits match after restoring image PATH and unsetting three conda activation variables; action text unchanged"
+  },
+  "approved_volume_removals": {
+    "20261008T154958Z-3773515": {
+      "status": "PASS",
+      "authorization": "同意删除，继续实验，目前无人使用",
+      "deleted": "/home/yyxie/agentenv_experiment/.artifacts/storage-isolated-service/20261008T154958Z-3773515/volume.ext4",
+      "allocated_bytes": 34360188928,
+      "backup": "/home/yyxie/agentenv_experiment/.artifacts/storage-isolated-service/20261008T154958Z-3773515/volume.ext4.gz",
+      "backup_sha256": "d0c7f16130a96e3da6fe2e8387f4e8ab5b1229f287e1a3a8de4a9ba97175a264",
+      "source_sha256": "e398b19a9596d68374f3ec83e50a879ca68628bb0241c4393869b8a7ec668106",
+      "host_available_before_bytes": 25814478848,
+      "host_available_immediate_after_bytes": 60174667776,
+      "timestamp_ns": 1791477122448572366,
+      "scope": "only the explicitly approved failed volume; backup and all other files retained"
+    },
+    "20261008T164316Z-3828546": {
+      "status": "PASS",
+      "authorization": "同意删除；仍无人使用，可开始新窗口",
+      "deleted": "/home/yyxie/agentenv_experiment/.artifacts/storage-isolated-service/20261008T164316Z-3828546/volume.ext4",
+      "allocated_bytes": 30065250304,
+      "backup": "/home/yyxie/agentenv_experiment/.artifacts/storage-isolated-service/20261008T164316Z-3828546/volume.ext4.gz",
+      "backup_sha256": "a4fea39afb5bb165d419e75966caa4254312ea0619f69113a9f458931f77e457",
+      "source_sha256": "95f368162f44e1d897e188c2ac6562e497c2c17c43da3273e85966498de96222",
+      "host_available_before_bytes": 26308313088,
+      "host_available_immediate_after_bytes": 56373563392,
+      "timestamp_ns": 1791478479543415089,
+      "scope": "only explicitly approved volume; complete backup and all other files retained"
+    }
+  },
+  "latest_failed_fixture": {
+    "backup": {
+      "status": "PASS",
+      "source": "/home/yyxie/agentenv_experiment/.artifacts/storage-isolated-service/20261008T165515Z-3834076/volume.ext4",
+      "backup": "/home/yyxie/agentenv_experiment/.artifacts/storage-isolated-service/20261008T165515Z-3834076/volume.ext4.gz",
+      "source_sha256": "fd0e6381ed819c8fad6d2ab6be87ea7cc089d1c935e50b87f761fd4c3bb9fda5",
+      "backup_sha256": "95f51006d3233887335c89f0cd5314dfd65cc836fc11bd59f8bc35b24e1d3ee2",
+      "uncompressed_bytes": 25769803776,
+      "compressed_bytes": 3644879815,
+      "source_retained": true,
+      "elapsed_ns": 75722184515,
+      "host_available_bytes": 26952523776
+    },
+    "source_retained": true,
+    "deletion": "NOT_AUTHORIZED"
+  },
+  "offline_checks": {
+    "xarray_tests": 11,
+    "isolated_storage_tests": 23,
+    "syntax": "PASS",
+    "prepared_input_check": "VALIDATED 35 actions"
+  },
+  "current_host_available_bytes": 26569576448,
+  "current_window": "2026-10-08T16:55:13.902434+00:00 to 2026-10-08T17:15:13.902434+00:00; expired",
+  "next_steps": [
+    "Fresh-VM persistent/none diagnostics before shell sampling with /proc process-state evidence.",
+    "Fix collector only after diagnosis; preserve frozen commands and expected exits. Short smoke precedes full replay.",
+    "Then independently run all 957 benchmark cases, recompute metrics and validate checkpoint/restore."
+  ],
+  "failure_audit_recompute": {
+    "status": "PASS",
+    "raw_files": 191,
+    "repeat_equal": true,
+    "raw_hashes_unchanged": true,
+    "result_file": ".artifacts/python-backbone/xarray6992-failure-audit-verification-20261009.json",
+    "scope": "recomputation only; strict replay remains FAIL"
+  }
+}

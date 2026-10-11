@@ -1,0 +1,120 @@
+{
+  "status": "PARTIAL_ROOT_CAUSE; VERIFIED_JOURNAL_LOOKUP_MECHANISM",
+  "date": "2026-10-08",
+  "diagnostic_dir": ".artifacts/checkpoint-image-diagnostic/20261008T061239Z-3582812",
+  "failed_run": ".artifacts/storage-isolated-trenvx/20261008T054807Z-3575596",
+  "scope": "readonly diagnosis; no VM rollout, code repair or checkpoint acceptance",
+  "observations": {
+    "original_kernel_error": "ext4_lookup inode 131073 iget checksum invalid; private selected log retained",
+    "exact_failed_copy_retained": false,
+    "original_failed_parent_upper_retained": false,
+    "retained_upper_members": [
+      "data/templates/asb-task-base/image/writable-rootfs.ext4",
+      "data/templates/asb-task-base/cache/writable-rootfs.ext4"
+    ],
+    "failed_copy_deletion": "controller capture_template TemporaryDirectory; removed on promote_snapshot exception",
+    "parent_deletion": "SDK cleanup removes parent instance; preserved archive has empty instances directory",
+    "built_template": {
+      "needs_recovery": true,
+      "readonly_fsck_exit_code": 4,
+      "root_inode_131073_uninitialized_without_replay": true,
+      "bitmap_checksum_error": true
+    },
+    "unused_template_cache": {
+      "needs_recovery": false,
+      "readonly_fsck_exit_code": 0,
+      "root_directory_not_created": true
+    }
+  },
+  "controlled_comparison": {
+    "input_kind": "archived built-template upper, not exact failed captured upper",
+    "before": {
+      "status": "READ_ERROR",
+      "read_only": true,
+      "noload": true,
+      "errno": 74,
+      "error": "Bad message",
+      "owned_mount_and_loop_removed": true
+    },
+    "journal_only_exit_code": 0,
+    "after": {
+      "status": "READABLE",
+      "read_only": true,
+      "noload": true,
+      "root_inode": 131073,
+      "root_is_directory": true,
+      "owned_mount_and_loop_removed": true
+    },
+    "after_readonly_fsck_exit_code": 0,
+    "allocation_count_warnings": [
+      "Free blocks count wrong (1011634, counted=1009529).",
+      "Free inodes count wrong (262133, counted=262066)."
+    ],
+    "filesystem_fully_consistent": false,
+    "source_sha256": "2e22ca653d5637fc5188e002af44e306d89bd593562af8e131e42fc7cf2ac0d8",
+    "source_sha256_after": "2e22ca653d5637fc5188e002af44e306d89bd593562af8e131e42fc7cf2ac0d8",
+    "replayed_copy_sha256": "248f093a9b33d9ef18c02e9ecc13bd175f9cc99fda3a6c5b6d7ddf72547a5272",
+    "source_unchanged": true,
+    "only_disposable_copy_was_replayed": true
+  },
+  "backup": {
+    "path": ".artifacts/checkpoint-image-diagnostic/20261008T061239Z-3582812/failure-image.tar.gz",
+    "bytes": 3157982885,
+    "sha256": "6559740fb109f418c2ccb3b378e8d74bfd26142ee742d948b59405743273961c",
+    "matches_previously_verified_archive": true,
+    "original_gzip_test": "PASS",
+    "original_tar_compare": "PASS"
+  },
+  "diagnostic_copies": [
+    {
+      "kind": "built_template_upper",
+      "path": ".artifacts/checkpoint-image-diagnostic/20261008T061239Z-3582812/probe-sources/built_template_upper.ext4",
+      "sha256": "2e22ca653d5637fc5188e002af44e306d89bd593562af8e131e42fc7cf2ac0d8",
+      "logical_bytes": 4294967296,
+      "allocated_bytes": 5713920,
+      "temporary_full_extract_removed": true
+    },
+    {
+      "kind": "unused_cache_upper",
+      "path": ".artifacts/checkpoint-image-diagnostic/20261008T061239Z-3582812/probe-sources/unused_cache_upper.ext4",
+      "sha256": "ca0808e74261413e70c83a833621a56a128cd79d2dc6c4cb1b1df42552713872",
+      "logical_bytes": 4294967296,
+      "allocated_bytes": 2207744,
+      "temporary_full_extract_removed": true
+    }
+  ],
+  "resources": {
+    "status": "PASS",
+    "original_firecracker_count": 12,
+    "original_firecracker_identities_unchanged": true,
+    "original_agentenv_service_unchanged": true,
+    "diagnostic_loops_detached": true,
+    "failed_volume_retained": true,
+    "failed_volume_logical_bytes": 25769803776,
+    "host_available_bytes": 43132473344
+  },
+  "validation": {
+    "path_guard_tests": 4,
+    "packaged_script": "bash scripts/diagnose-ext4-journal.sh <diagnostic-image> <new-diagnostic-output>",
+    "packaged_script_live_run": "NOT_RUN; paths-only/syntax and path guards verified; same operations were executed by preserved one-off scripts",
+    "executed_commands_and_source": ".artifacts/checkpoint-image-diagnostic/20261008T061239Z-3582812/code",
+    "original_workflow_result": "FAIL_UNCHANGED"
+  },
+  "conclusions": [
+    "On an archived template upper requiring recovery, ro,noload reproduces EBADMSG 74; journal-only replay on a new copy makes root inode 131073 readable.",
+    "This proves an unsafe journal-handling condition in the sealing path; exact original capture causality is limited because critical failed images were deleted.",
+    "Do not equate fsck exit 0 with full integrity: free block/inode count warnings remain after journal-only replay.",
+    "No evidence attributes the original failure to 0.1-second monitoring or capacity exhaustion."
+  ],
+  "next_steps": [
+    "Retain the exact failed captured upper and copy-state evidence before TemporaryDirectory and parent cleanup; verify space within the owned fixed-capacity volume.",
+    "Inspect needs_recovery on captured private copies; never assume a paused live filesystem can safely skip journal recovery.",
+    "Validate journal handling and remaining allocation-count warnings on disposable captures; do not use generic repair of original images.",
+    "After a verified fix, new space approval and a fresh shared-write window, run only missing TrEnv-X step-022 restore, correctness and cleanup."
+  ],
+  "reference": {
+    "title": "Linux kernel ext4 mounting options",
+    "url": "https://docs.kernel.org/admin-guide/ext4.html",
+    "support": "ro,noload prevents journal writes; skipping recovery on an unclean filesystem leaves inconsistencies"
+  }
+}

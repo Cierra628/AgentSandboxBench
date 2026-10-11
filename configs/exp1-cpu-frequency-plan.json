@@ -1,0 +1,144 @@
+{
+  "schema_version": 1,
+  "status": "AUTHORIZED_TEMPORARY_ADJUSTMENT",
+  "scope": "short AgentENV Exp1 frequency-policy diagnostic; not 5% monitoring acceptance",
+  "candidate_vcpu_binding": {
+    "vcpu0": 2,
+    "vcpu1": 4
+  },
+  "affected_logical_cpus": [
+    2,
+    4,
+    66,
+    68
+  ],
+  "topology": "two physical cores on socket 0 / NUMA node 0, each with two SMT threads",
+  "reservation": "User authorized temporary adjustment of CPUs 2,4,66,68; no kernel exclusivity claimed",
+  "inventory_path": ".artifacts/cpu-allocation/20260929T134436Z-2460192/inventory.json",
+  "inventory_sha256": "591cbfeac8965aa8ba2497631846ac089e7ccebdb6decb66065e836a1de81091",
+  "original_policies": {
+    "2": {
+      "related_cpus": "2",
+      "affected_cpus": "2",
+      "scaling_driver": "acpi-cpufreq",
+      "scaling_governor": "schedutil",
+      "scaling_available_frequencies": "2801000 2800000 2700000 2600000 2500000 2400000 2300000 2200000 2100000 2000000 1900000 1800000 1700000 1600000 1500000 1400000 1300000 1200000 1100000 1000000 900000 800000",
+      "scaling_available_governors": "conservative ondemand userspace powersave performance schedutil",
+      "scaling_min_freq": "800000",
+      "scaling_max_freq": "2801000",
+      "policy_path": "/sys/devices/system/cpu/cpufreq/policy2",
+      "physical_package_id": "0",
+      "core_id": "19",
+      "siblings": "2,66"
+    },
+    "4": {
+      "related_cpus": "4",
+      "affected_cpus": "4",
+      "scaling_driver": "acpi-cpufreq",
+      "scaling_governor": "schedutil",
+      "scaling_available_frequencies": "2801000 2800000 2700000 2600000 2500000 2400000 2300000 2200000 2100000 2000000 1900000 1800000 1700000 1600000 1500000 1400000 1300000 1200000 1100000 1000000 900000 800000",
+      "scaling_available_governors": "conservative ondemand userspace powersave performance schedutil",
+      "scaling_min_freq": "800000",
+      "scaling_max_freq": "2801000",
+      "policy_path": "/sys/devices/system/cpu/cpufreq/policy4",
+      "physical_package_id": "0",
+      "core_id": "9",
+      "siblings": "4,68"
+    },
+    "66": {
+      "related_cpus": "66",
+      "affected_cpus": "66",
+      "scaling_driver": "acpi-cpufreq",
+      "scaling_governor": "schedutil",
+      "scaling_available_frequencies": "2801000 2800000 2700000 2600000 2500000 2400000 2300000 2200000 2100000 2000000 1900000 1800000 1700000 1600000 1500000 1400000 1300000 1200000 1100000 1000000 900000 800000",
+      "scaling_available_governors": "conservative ondemand userspace powersave performance schedutil",
+      "scaling_min_freq": "800000",
+      "scaling_max_freq": "2801000",
+      "policy_path": "/sys/devices/system/cpu/cpufreq/policy66",
+      "physical_package_id": "0",
+      "core_id": "19",
+      "siblings": "2,66"
+    },
+    "68": {
+      "related_cpus": "68",
+      "affected_cpus": "68",
+      "scaling_driver": "acpi-cpufreq",
+      "scaling_governor": "schedutil",
+      "scaling_available_frequencies": "2801000 2800000 2700000 2600000 2500000 2400000 2300000 2200000 2100000 2000000 1900000 1800000 1700000 1600000 1500000 1400000 1300000 1200000 1100000 1000000 900000 800000",
+      "scaling_available_governors": "conservative ondemand userspace powersave performance schedutil",
+      "scaling_min_freq": "800000",
+      "scaling_max_freq": "2801000",
+      "policy_path": "/sys/devices/system/cpu/cpufreq/policy68",
+      "physical_package_id": "0",
+      "core_id": "9",
+      "siblings": "4,68"
+    }
+  },
+  "variants": {
+    "A": {
+      "governor": "schedutil",
+      "minimum_khz": 800000,
+      "maximum_khz": 2801000
+    },
+    "B": {
+      "governor": "schedutil",
+      "minimum_khz": 2000000,
+      "maximum_khz": 2000000
+    }
+  },
+  "smoke_order": [
+    "A",
+    "B"
+  ],
+  "diagnostic_order": [
+    "A",
+    "B",
+    "B",
+    "A"
+  ],
+  "maximum_new_replays": 7,
+  "estimated_window_minutes": "3\u20135 excluding unexpected failures; stop on first failure",
+  "workload": {
+    "cpu": 2,
+    "memory_mib": 4096,
+    "settle_seconds": 10,
+    "host_memory_sampling": false,
+    "guest_memory_sampling": false,
+    "actions": "unchanged frozen Exp1 trajectory; segmented runner for steps 023/024",
+    "metrics": [
+      "guest instructions/cycles/reference cycles",
+      "owned vCPU runtime and observed runnable wait",
+      "guest action time",
+      "correctness and cleanup"
+    ]
+  },
+  "preparation": [
+    "confirm resource permission; reread topology, policies and current workload eligibility",
+    "take fresh policy backup; do not overwrite differing current settings with this historical snapshot",
+    "verify sandbox identity via service cgroup and MMDS before binding only its two vCPU threads",
+    "record VMM NUMA placement; do not migrate memory or change other process affinity"
+  ],
+  "policy_change_sequence": [
+    "apply only four named policy min/max settings, preserving governor",
+    "when moving from current A to B: set max to 2000000 then min to 2000000; read back each value",
+    "after each run or failure: restore saved min then max; read back and compare backup",
+    "abort if topology or original settings differ; build a fresh plan instead"
+  ],
+  "validation": [
+    "smoke correctness and cleanup PASS before ABBA",
+    "reference-cycle ratio confirms actual frequency behavior; requested limit is not proof of exact 2.0 GHz",
+    "no unrelated process/cgroup migration; no global turbo, scheduler, cache or service changes",
+    "20 GiB disk reserve; no large mirror archives"
+  ],
+  "failure_policy": [
+    "stop on first tool/counter/correctness/restore failure; preserve logs",
+    "keep ownership-limited sandbox cleanup and policy restoration separate",
+    "external SIGKILL/host failure cannot be handled by an in-process finally; prepare a bounded recovery watchdog before live application"
+  ],
+  "sharing_risks": [
+    "other runnable tasks may enter these cores until separately reserved",
+    "SMT siblings share physical-core resources; package power/turbo interactions are not isolated",
+    "user confirmation is authorization, not proof of kernel isolation"
+  ],
+  "replay_limit_note": "User approved seven total replays after one failed B smoke and its successful retry; four ABBA replays remain."
+}

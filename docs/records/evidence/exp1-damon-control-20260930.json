@@ -1,0 +1,595 @@
+{
+  "date": "2026-09-30",
+  "scope": "approved new-guest DAMON default/disabled diagnostic; not monitoring acceptance",
+  "full_exp1_replays": 6,
+  "smoke_order": [
+    "default",
+    "damon_disabled"
+  ],
+  "comparison_order": [
+    "default",
+    "damon_disabled",
+    "damon_disabled",
+    "default"
+  ],
+  "runs": [
+    {
+      "group": "smoke",
+      "position": 1,
+      "mode": "default",
+      "raw_dir": ".artifacts/exp1-damon-control-smoke/20260930T141845Z-2709047/run-01-off/raw/20260930T141846Z-2709101",
+      "scan_ms": 32.044999999999995,
+      "scan_counts": {
+        "directories-visited": 2743,
+        "paths-visited": 11007
+      },
+      "step_025_ms": 73.214384,
+      "task_window_seconds": 4.031774838,
+      "controller_exec_seconds": 4.028158926,
+      "guest_action_sum_seconds": 2.087150474,
+      "guest_root_device": "vdb",
+      "guest_root_reads_completed": 197,
+      "workingset_refault_file": 199,
+      "mem_available_before_mib": 3674.46484375,
+      "buffers_before_kib": 21196,
+      "cached_start_kib": 84220,
+      "cached_before_kib": 118472,
+      "regular_pgscan_pgsteal_deltas": {
+        "before_command": {
+          "pgscan_kswapd": 0,
+          "pgscan_direct": 0,
+          "pgscan_file": 0,
+          "pgsteal_kswapd": 0,
+          "pgsteal_direct": 0,
+          "pgsteal_file": 0,
+          "allocstall_dma": 0,
+          "allocstall_dma32": 0,
+          "allocstall_normal": 0,
+          "allocstall_movable": 0
+        },
+        "during_command": {
+          "pgscan_kswapd": 0,
+          "pgscan_direct": 0,
+          "pgscan_file": 0,
+          "pgsteal_kswapd": 0,
+          "pgsteal_direct": 0,
+          "pgsteal_file": 0,
+          "allocstall_dma": 0,
+          "allocstall_dma32": 0,
+          "allocstall_normal": 0,
+          "allocstall_movable": 0
+        }
+      },
+      "owned_whole_capture_wait_upper_bound_ms": 8.80503,
+      "kvm_successful_async_setup": 0,
+      "damon_states": {
+        "prepare": {
+          "kernel": "6.1.175",
+          "enabled_before": "Y",
+          "worker_before": "65",
+          "enabled_after": "Y",
+          "worker_after": "65"
+        },
+        "before_task": {
+          "kernel": "6.1.175",
+          "enabled_before": "Y",
+          "worker_before": "65",
+          "enabled_after": "Y",
+          "worker_after": "65"
+        },
+        "after_task": {
+          "kernel": "6.1.175",
+          "enabled_before": "Y",
+          "worker_before": "65",
+          "enabled_after": "Y",
+          "worker_after": "65"
+        }
+      },
+      "damon_controller_phase_ms": {
+        "prepare": 64.201546,
+        "before_task": 61.504257,
+        "after_task": 43.333015
+      },
+      "step_025_stdout_sha256": "9a64ed707c224734715f7af4fea2d84f0b51d128e5c8d05535fc9de7d5b6162f",
+      "patch_sha256": "f1cc23ac4f5ac1cff87eb7f8c54f8176c1a47cec37fa4cb6907b9dd8ad199af2",
+      "observed_min_free_gib": 49.31781768798828
+    },
+    {
+      "group": "smoke",
+      "position": 2,
+      "mode": "damon_disabled",
+      "raw_dir": ".artifacts/exp1-damon-control-smoke/20260930T141845Z-2709047/run-02-off/raw/20260930T141907Z-2709777",
+      "scan_ms": 30.232,
+      "scan_counts": {
+        "directories-visited": 2743,
+        "paths-visited": 11007
+      },
+      "step_025_ms": 65.414202,
+      "task_window_seconds": 3.957316163,
+      "controller_exec_seconds": 3.953182653,
+      "guest_action_sum_seconds": 2.025472537,
+      "guest_root_device": "vdb",
+      "guest_root_reads_completed": 0,
+      "workingset_refault_file": 0,
+      "mem_available_before_mib": 3657.3125,
+      "buffers_before_kib": 29544,
+      "cached_start_kib": 179752,
+      "cached_before_kib": 207988,
+      "regular_pgscan_pgsteal_deltas": {
+        "before_command": {
+          "pgscan_kswapd": 0,
+          "pgscan_direct": 0,
+          "pgscan_file": 0,
+          "pgsteal_kswapd": 0,
+          "pgsteal_direct": 0,
+          "pgsteal_file": 0,
+          "allocstall_dma": 0,
+          "allocstall_dma32": 0,
+          "allocstall_normal": 0,
+          "allocstall_movable": 0
+        },
+        "during_command": {
+          "pgscan_kswapd": 0,
+          "pgscan_direct": 0,
+          "pgscan_file": 0,
+          "pgsteal_kswapd": 0,
+          "pgsteal_direct": 0,
+          "pgsteal_file": 0,
+          "allocstall_dma": 0,
+          "allocstall_dma32": 0,
+          "allocstall_normal": 0,
+          "allocstall_movable": 0
+        }
+      },
+      "owned_whole_capture_wait_upper_bound_ms": 8.841544,
+      "kvm_successful_async_setup": 0,
+      "damon_states": {
+        "prepare": {
+          "kernel": "6.1.175",
+          "enabled_before": "Y",
+          "worker_before": "64",
+          "enabled_after": "N",
+          "worker_after": "-1"
+        },
+        "before_task": {
+          "kernel": "6.1.175",
+          "enabled_before": "N",
+          "worker_before": "-1",
+          "enabled_after": "N",
+          "worker_after": "-1"
+        },
+        "after_task": {
+          "kernel": "6.1.175",
+          "enabled_before": "N",
+          "worker_before": "-1",
+          "enabled_after": "N",
+          "worker_after": "-1"
+        }
+      },
+      "damon_controller_phase_ms": {
+        "prepare": 59.066162,
+        "before_task": 41.639369,
+        "after_task": 40.244073
+      },
+      "step_025_stdout_sha256": "9a64ed707c224734715f7af4fea2d84f0b51d128e5c8d05535fc9de7d5b6162f",
+      "patch_sha256": "f1cc23ac4f5ac1cff87eb7f8c54f8176c1a47cec37fa4cb6907b9dd8ad199af2",
+      "observed_min_free_gib": 49.31721496582031
+    },
+    {
+      "group": "comparison",
+      "position": 1,
+      "mode": "default",
+      "raw_dir": ".artifacts/exp1-damon-control-comparison/20260930T142029Z-2710751/run-01-off/raw/20260930T142029Z-2710805",
+      "scan_ms": 106.847,
+      "scan_counts": {
+        "directories-visited": 2743,
+        "paths-visited": 11007
+      },
+      "step_025_ms": 146.031793,
+      "task_window_seconds": 4.142832218,
+      "controller_exec_seconds": 4.137592375,
+      "guest_action_sum_seconds": 2.147125465,
+      "guest_root_device": "vdb",
+      "guest_root_reads_completed": 913,
+      "workingset_refault_file": 886,
+      "mem_available_before_mib": 3681.57421875,
+      "buffers_before_kib": 17684,
+      "cached_start_kib": 63704,
+      "cached_before_kib": 109696,
+      "regular_pgscan_pgsteal_deltas": {
+        "before_command": {
+          "pgscan_kswapd": 0,
+          "pgscan_direct": 0,
+          "pgscan_file": 0,
+          "pgsteal_kswapd": 0,
+          "pgsteal_direct": 0,
+          "pgsteal_file": 0,
+          "allocstall_dma": 0,
+          "allocstall_dma32": 0,
+          "allocstall_normal": 0,
+          "allocstall_movable": 0
+        },
+        "during_command": {
+          "pgscan_kswapd": 0,
+          "pgscan_direct": 0,
+          "pgscan_file": 0,
+          "pgsteal_kswapd": 0,
+          "pgsteal_direct": 0,
+          "pgsteal_file": 0,
+          "allocstall_dma": 0,
+          "allocstall_dma32": 0,
+          "allocstall_normal": 0,
+          "allocstall_movable": 0
+        }
+      },
+      "owned_whole_capture_wait_upper_bound_ms": 12.409914,
+      "kvm_successful_async_setup": 0,
+      "damon_states": {
+        "prepare": {
+          "kernel": "6.1.175",
+          "enabled_before": "Y",
+          "worker_before": "64",
+          "enabled_after": "Y",
+          "worker_after": "64"
+        },
+        "before_task": {
+          "kernel": "6.1.175",
+          "enabled_before": "Y",
+          "worker_before": "64",
+          "enabled_after": "Y",
+          "worker_after": "64"
+        },
+        "after_task": {
+          "kernel": "6.1.175",
+          "enabled_before": "Y",
+          "worker_before": "64",
+          "enabled_after": "Y",
+          "worker_after": "64"
+        }
+      },
+      "damon_controller_phase_ms": {
+        "prepare": 57.031558,
+        "before_task": 59.513961,
+        "after_task": 47.487086
+      },
+      "step_025_stdout_sha256": "9a64ed707c224734715f7af4fea2d84f0b51d128e5c8d05535fc9de7d5b6162f",
+      "patch_sha256": "f1cc23ac4f5ac1cff87eb7f8c54f8176c1a47cec37fa4cb6907b9dd8ad199af2",
+      "observed_min_free_gib": 49.31079864501953
+    },
+    {
+      "group": "comparison",
+      "position": 2,
+      "mode": "damon_disabled",
+      "raw_dir": ".artifacts/exp1-damon-control-comparison/20260930T142029Z-2710751/run-02-off/raw/20260930T142050Z-2711436",
+      "scan_ms": 30.194,
+      "scan_counts": {
+        "directories-visited": 2743,
+        "paths-visited": 11007
+      },
+      "step_025_ms": 66.998205,
+      "task_window_seconds": 3.870722099,
+      "controller_exec_seconds": 3.866979297,
+      "guest_action_sum_seconds": 2.020787101,
+      "guest_root_device": "vdb",
+      "guest_root_reads_completed": 0,
+      "workingset_refault_file": 0,
+      "mem_available_before_mib": 3660.86328125,
+      "buffers_before_kib": 29544,
+      "cached_start_kib": 184504,
+      "cached_before_kib": 212724,
+      "regular_pgscan_pgsteal_deltas": {
+        "before_command": {
+          "pgscan_kswapd": 0,
+          "pgscan_direct": 0,
+          "pgscan_file": 0,
+          "pgsteal_kswapd": 0,
+          "pgsteal_direct": 0,
+          "pgsteal_file": 0,
+          "allocstall_dma": 0,
+          "allocstall_dma32": 0,
+          "allocstall_normal": 0,
+          "allocstall_movable": 0
+        },
+        "during_command": {
+          "pgscan_kswapd": 0,
+          "pgscan_direct": 0,
+          "pgscan_file": 0,
+          "pgsteal_kswapd": 0,
+          "pgsteal_direct": 0,
+          "pgsteal_file": 0,
+          "allocstall_dma": 0,
+          "allocstall_dma32": 0,
+          "allocstall_normal": 0,
+          "allocstall_movable": 0
+        }
+      },
+      "owned_whole_capture_wait_upper_bound_ms": 12.081553,
+      "kvm_successful_async_setup": 0,
+      "damon_states": {
+        "prepare": {
+          "kernel": "6.1.175",
+          "enabled_before": "Y",
+          "worker_before": "65",
+          "enabled_after": "N",
+          "worker_after": "-1"
+        },
+        "before_task": {
+          "kernel": "6.1.175",
+          "enabled_before": "N",
+          "worker_before": "-1",
+          "enabled_after": "N",
+          "worker_after": "-1"
+        },
+        "after_task": {
+          "kernel": "6.1.175",
+          "enabled_before": "N",
+          "worker_before": "-1",
+          "enabled_after": "N",
+          "worker_after": "-1"
+        }
+      },
+      "damon_controller_phase_ms": {
+        "prepare": 63.774565,
+        "before_task": 41.736089,
+        "after_task": 54.433562
+      },
+      "step_025_stdout_sha256": "9a64ed707c224734715f7af4fea2d84f0b51d128e5c8d05535fc9de7d5b6162f",
+      "patch_sha256": "f1cc23ac4f5ac1cff87eb7f8c54f8176c1a47cec37fa4cb6907b9dd8ad199af2",
+      "observed_min_free_gib": 49.30622100830078
+    },
+    {
+      "group": "comparison",
+      "position": 3,
+      "mode": "damon_disabled",
+      "raw_dir": ".artifacts/exp1-damon-control-comparison/20260930T142029Z-2710751/run-03-off/raw/20260930T142112Z-2712094",
+      "scan_ms": 30.551,
+      "scan_counts": {
+        "directories-visited": 2743,
+        "paths-visited": 11007
+      },
+      "step_025_ms": 68.999695,
+      "task_window_seconds": 3.931860759,
+      "controller_exec_seconds": 3.927373395,
+      "guest_action_sum_seconds": 2.031015567,
+      "guest_root_device": "vdb",
+      "guest_root_reads_completed": 0,
+      "workingset_refault_file": 0,
+      "mem_available_before_mib": 3660.75,
+      "buffers_before_kib": 29552,
+      "cached_start_kib": 179908,
+      "cached_before_kib": 208104,
+      "regular_pgscan_pgsteal_deltas": {
+        "before_command": {
+          "pgscan_kswapd": 0,
+          "pgscan_direct": 0,
+          "pgscan_file": 0,
+          "pgsteal_kswapd": 0,
+          "pgsteal_direct": 0,
+          "pgsteal_file": 0,
+          "allocstall_dma": 0,
+          "allocstall_dma32": 0,
+          "allocstall_normal": 0,
+          "allocstall_movable": 0
+        },
+        "during_command": {
+          "pgscan_kswapd": 0,
+          "pgscan_direct": 0,
+          "pgscan_file": 0,
+          "pgsteal_kswapd": 0,
+          "pgsteal_direct": 0,
+          "pgsteal_file": 0,
+          "allocstall_dma": 0,
+          "allocstall_dma32": 0,
+          "allocstall_normal": 0,
+          "allocstall_movable": 0
+        }
+      },
+      "owned_whole_capture_wait_upper_bound_ms": 11.715794,
+      "kvm_successful_async_setup": 0,
+      "damon_states": {
+        "prepare": {
+          "kernel": "6.1.175",
+          "enabled_before": "Y",
+          "worker_before": "65",
+          "enabled_after": "N",
+          "worker_after": "-1"
+        },
+        "before_task": {
+          "kernel": "6.1.175",
+          "enabled_before": "N",
+          "worker_before": "-1",
+          "enabled_after": "N",
+          "worker_after": "-1"
+        },
+        "after_task": {
+          "kernel": "6.1.175",
+          "enabled_before": "N",
+          "worker_before": "-1",
+          "enabled_after": "N",
+          "worker_after": "-1"
+        }
+      },
+      "damon_controller_phase_ms": {
+        "prepare": 53.411456,
+        "before_task": 41.81944,
+        "after_task": 52.989639
+      },
+      "step_025_stdout_sha256": "9a64ed707c224734715f7af4fea2d84f0b51d128e5c8d05535fc9de7d5b6162f",
+      "patch_sha256": "f1cc23ac4f5ac1cff87eb7f8c54f8176c1a47cec37fa4cb6907b9dd8ad199af2",
+      "observed_min_free_gib": 49.30961990356445
+    },
+    {
+      "group": "comparison",
+      "position": 4,
+      "mode": "default",
+      "raw_dir": ".artifacts/exp1-damon-control-comparison/20260930T142029Z-2710751/run-04-off/raw/20260930T142133Z-2712771",
+      "scan_ms": 33.613,
+      "scan_counts": {
+        "directories-visited": 2743,
+        "paths-visited": 11007
+      },
+      "step_025_ms": 75.703524,
+      "task_window_seconds": 3.817874178,
+      "controller_exec_seconds": 3.812110334,
+      "guest_action_sum_seconds": 2.05748099,
+      "guest_root_device": "vdb",
+      "guest_root_reads_completed": 242,
+      "workingset_refault_file": 225,
+      "mem_available_before_mib": 3671.63671875,
+      "buffers_before_kib": 21772,
+      "cached_start_kib": 93024,
+      "cached_before_kib": 119112,
+      "regular_pgscan_pgsteal_deltas": {
+        "before_command": {
+          "pgscan_kswapd": 0,
+          "pgscan_direct": 0,
+          "pgscan_file": 0,
+          "pgsteal_kswapd": 0,
+          "pgsteal_direct": 0,
+          "pgsteal_file": 0,
+          "allocstall_dma": 0,
+          "allocstall_dma32": 0,
+          "allocstall_normal": 0,
+          "allocstall_movable": 0
+        },
+        "during_command": {
+          "pgscan_kswapd": 0,
+          "pgscan_direct": 0,
+          "pgscan_file": 0,
+          "pgsteal_kswapd": 0,
+          "pgsteal_direct": 0,
+          "pgsteal_file": 0,
+          "allocstall_dma": 0,
+          "allocstall_dma32": 0,
+          "allocstall_normal": 0,
+          "allocstall_movable": 0
+        }
+      },
+      "owned_whole_capture_wait_upper_bound_ms": 14.167211,
+      "kvm_successful_async_setup": 0,
+      "damon_states": {
+        "prepare": {
+          "kernel": "6.1.175",
+          "enabled_before": "Y",
+          "worker_before": "64",
+          "enabled_after": "Y",
+          "worker_after": "64"
+        },
+        "before_task": {
+          "kernel": "6.1.175",
+          "enabled_before": "Y",
+          "worker_before": "64",
+          "enabled_after": "Y",
+          "worker_after": "64"
+        },
+        "after_task": {
+          "kernel": "6.1.175",
+          "enabled_before": "Y",
+          "worker_before": "64",
+          "enabled_after": "Y",
+          "worker_after": "64"
+        }
+      },
+      "damon_controller_phase_ms": {
+        "prepare": 59.116935,
+        "before_task": 61.801853,
+        "after_task": 47.459272
+      },
+      "step_025_stdout_sha256": "9a64ed707c224734715f7af4fea2d84f0b51d128e5c8d05535fc9de7d5b6162f",
+      "patch_sha256": "f1cc23ac4f5ac1cff87eb7f8c54f8176c1a47cec37fa4cb6907b9dd8ad199af2",
+      "observed_min_free_gib": 49.30913162231445
+    }
+  ],
+  "batches": [
+    {
+      "group": "smoke",
+      "result_dir": ".artifacts/exp1-damon-control-smoke/20260930T141845Z-2709047",
+      "status": "PASS",
+      "offline_status": "PASS",
+      "source_result_sha256": "4bdc575d06977ee9a17dd640a03066410957208652ca91f2596dd58e97927315",
+      "offline_report_sha256": "4b46f2e5a6a4c7a2d9086158d5c2cecb3ab52a37a89daed58539883c58293edc",
+      "damon_control_source_sha256": "f4858a0d02ee51eb7d3ee55f47477a9d0f9f593133a4084005819033f481b90d"
+    },
+    {
+      "group": "comparison",
+      "result_dir": ".artifacts/exp1-damon-control-comparison/20260930T142029Z-2710751",
+      "status": "PASS",
+      "offline_status": "PASS",
+      "source_result_sha256": "0c0f1ef5fab7189c69944cdcf6af5a5c8f82878a4ccce4540f051dc9cda1d19e",
+      "offline_report_sha256": "7a06bfbdc7422541cf718089006f5eb009d5fc60a97ba38354c14fdf2a58004e",
+      "damon_control_source_sha256": "f4858a0d02ee51eb7d3ee55f47477a9d0f9f593133a4084005819033f481b90d"
+    }
+  ],
+  "checks": {
+    "frozen_actions": "PASS",
+    "action_order": "PASS",
+    "expected_failures": {
+      "008": 127,
+      "016": 127
+    },
+    "step_025_stdout": "PASS",
+    "patch": "PASS",
+    "targeted_svg_html": "PASS",
+    "full_official_task_tests": "NOT_RUN",
+    "cleanup": "PASS",
+    "cpu_restore": "PASS",
+    "offline_audit": "PASS",
+    "damon_state_at_three_boundaries": "PASS",
+    "monitor_overhead_acceptance": "NOT_ACCEPTED"
+  },
+  "comparison_descriptive_means": {
+    "default": {
+      "scan_ms": 70.22999999999999,
+      "task_window_seconds": 3.9803531979999995,
+      "guest_root_reads_completed": 577.5
+    },
+    "damon_disabled": {
+      "scan_ms": 30.3725,
+      "task_window_seconds": 3.901291429,
+      "guest_root_reads_completed": 0
+    }
+  },
+  "final_resource_check": {
+    "status": "PASS",
+    "project_sandboxes": [],
+    "owned_probe_processes": [],
+    "cpu_policies": {
+      "2": {
+        "scaling_min_freq": "800000",
+        "scaling_max_freq": "2801000",
+        "scaling_governor": "schedutil"
+      },
+      "4": {
+        "scaling_min_freq": "800000",
+        "scaling_max_freq": "2801000",
+        "scaling_governor": "schedutil"
+      },
+      "66": {
+        "scaling_min_freq": "800000",
+        "scaling_max_freq": "2801000",
+        "scaling_governor": "schedutil"
+      },
+      "68": {
+        "scaling_min_freq": "800000",
+        "scaling_max_freq": "2801000",
+        "scaling_governor": "schedutil"
+      }
+    },
+    "free_bytes": 52954034176
+  },
+  "unit_tests": {
+    "guest_damon_control": 5,
+    "fixed_frequency_monitor": 15,
+    "status": "PASS"
+  },
+  "limits": [
+    "Three observations per condition (smoke included); comparison batch has two per condition, no confidence interval",
+    "Previously observed ~320ms scans did not recur; all historical slow cases cannot be attributed to DAMON",
+    "Disabling DAMON before uploads retains more guest cache; initial state inherited from fixed template is not guaranteed identical",
+    "Guest-wide block/refault endpoints are not per-file or host physical disk I/O; no rejected DAMON counters used",
+    "Default group remains official; no guest/host drop_caches or directory prewarm",
+    "All host/guest periodic monitoring off, so this comparison cannot accept the 5% monitoring target",
+    "Shared CPUs and changing host load remain; full task-specific official evaluation NOT_RUN"
+  ],
+  "next_step": "Bounded further mirrored default/disabled groups to reproduce the previous long tail, then validate low-overhead monitoring separately within each declared cache policy; do not replace official default or subtract slow steps."
+}

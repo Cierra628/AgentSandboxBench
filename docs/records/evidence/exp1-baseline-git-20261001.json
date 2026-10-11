@@ -1,0 +1,453 @@
+{
+  "status": "PASS",
+  "calibration": {
+    "result_dir": ".artifacts/baseline-git-calibration/20260930T163033Z-2749774",
+    "status": "PASS",
+    "diagnostic_gate": "PASS",
+    "differences_percent": {
+      "command_total_ns": {
+        "aa": 0.05856965434418715,
+        "ab": 0.23989399450208282
+      },
+      "phase_ns": {
+        "aa": 0.05787688474125918,
+        "ab": 0.2376199758667763
+      }
+    },
+    "scope": "incremental initial Git timestamps and Bash command CPU/wall timers; existing phase/envelope probes in both groups; warm DAMON-disabled fixture; not monitoring acceptance",
+    "iterations_per_phase": 32,
+    "phases": 8,
+    "source_result_sha256": "b07dbe682ec1a74a427232ce492a11fe6e4d0aadb9242230309853f512c5c107"
+  },
+  "full_replays": 6,
+  "batches": [
+    {
+      "group": "smoke",
+      "result_dir": ".artifacts/exp1-damon-control-smoke-runner-phases-baseline-git/20260930T163304Z-2750759",
+      "status": "PASS",
+      "source_result_sha256": "443557284af5129aacb3f24e5e044bbb78b819485af31802bdac35f8b347c087"
+    },
+    {
+      "group": "comparison",
+      "result_dir": ".artifacts/exp1-damon-control-comparison-runner-phases-baseline-git/20260930T164054Z-2754411",
+      "status": "PASS",
+      "source_result_sha256": "5865a6a5b6f6df6fbc97b38e50e9a012eb7ce89245dce47cb578229cb03fd17a"
+    }
+  ],
+  "runs": [
+    {
+      "group": "smoke",
+      "position": 1,
+      "mode": "default",
+      "phase_ms": {
+        "entry": 70.283,
+        "baseline": 1529.79,
+        "actions": 2085.55,
+        "finalize": 107.055
+      },
+      "guest_envelope_ms": 3794.27563,
+      "envelope_realtime_minus_monotonic_ms": 0.000355,
+      "loop_outside_action_timers_ms": 55.757678,
+      "controller_minus_guest_envelope_ms": 40.886641,
+      "task_ms": 3839.555437,
+      "action_sum_ms": 2029.792322,
+      "scan_ms": 30.568,
+      "observed_min_free_gib": 48.387996673583984,
+      "baseline_commands": {
+        "add": {
+          "boundary_ns": 1477689000,
+          "real_seconds": 1.478,
+          "user_seconds": 0.373,
+          "system_seconds": 0.27
+        },
+        "write_tree": {
+          "boundary_ns": 29118000,
+          "real_seconds": 0.029,
+          "user_seconds": 0.012,
+          "system_seconds": 0.008
+        },
+        "reset": {
+          "boundary_ns": 21307000,
+          "real_seconds": 0.021,
+          "user_seconds": 0.003,
+          "system_seconds": 0.02
+        },
+        "rev_parse": {
+          "boundary_ns": 1569000,
+          "real_seconds": 0.001,
+          "user_seconds": 0.001,
+          "system_seconds": 0.0
+        }
+      },
+      "baseline_outside_command_boundaries_ms": 0.107
+    },
+    {
+      "group": "smoke",
+      "position": 2,
+      "mode": "damon_disabled",
+      "phase_ms": {
+        "entry": 57.964,
+        "baseline": 1554.407,
+        "actions": 2044.793,
+        "finalize": 106.106
+      },
+      "guest_envelope_ms": 3764.672597,
+      "envelope_realtime_minus_monotonic_ms": 0.000388,
+      "loop_outside_action_timers_ms": 55.354262,
+      "controller_minus_guest_envelope_ms": 37.582802,
+      "task_ms": 3807.500476,
+      "action_sum_ms": 1989.438738,
+      "scan_ms": 29.999000000000002,
+      "observed_min_free_gib": 48.39167785644531,
+      "baseline_commands": {
+        "add": {
+          "boundary_ns": 1500537000,
+          "real_seconds": 1.5,
+          "user_seconds": 0.358,
+          "system_seconds": 0.342
+        },
+        "write_tree": {
+          "boundary_ns": 28371000,
+          "real_seconds": 0.028,
+          "user_seconds": 0.017,
+          "system_seconds": 0.003
+        },
+        "reset": {
+          "boundary_ns": 23814000,
+          "real_seconds": 0.024,
+          "user_seconds": 0.01,
+          "system_seconds": 0.015
+        },
+        "rev_parse": {
+          "boundary_ns": 1582000,
+          "real_seconds": 0.001,
+          "user_seconds": 0.002,
+          "system_seconds": 0.0
+        }
+      },
+      "baseline_outside_command_boundaries_ms": 0.103
+    },
+    {
+      "group": "comparison",
+      "position": 1,
+      "mode": "default",
+      "phase_ms": {
+        "entry": 60.738,
+        "baseline": 1639.299,
+        "actions": 2106.732,
+        "finalize": 107.744
+      },
+      "guest_envelope_ms": 3915.912538,
+      "envelope_realtime_minus_monotonic_ms": 0.000338,
+      "loop_outside_action_timers_ms": 54.331021,
+      "controller_minus_guest_envelope_ms": 37.679474,
+      "task_ms": 3958.1681510000003,
+      "action_sum_ms": 2052.400979,
+      "scan_ms": 30.719,
+      "observed_min_free_gib": 48.386051177978516,
+      "baseline_commands": {
+        "add": {
+          "boundary_ns": 1585966000,
+          "real_seconds": 1.586,
+          "user_seconds": 0.309,
+          "system_seconds": 0.395
+        },
+        "write_tree": {
+          "boundary_ns": 29538000,
+          "real_seconds": 0.029,
+          "user_seconds": 0.01,
+          "system_seconds": 0.01
+        },
+        "reset": {
+          "boundary_ns": 22104000,
+          "real_seconds": 0.022,
+          "user_seconds": 0.007,
+          "system_seconds": 0.017
+        },
+        "rev_parse": {
+          "boundary_ns": 1579000,
+          "real_seconds": 0.001,
+          "user_seconds": 0.001,
+          "system_seconds": 0.0
+        }
+      },
+      "baseline_outside_command_boundaries_ms": 0.112
+    },
+    {
+      "group": "comparison",
+      "position": 2,
+      "mode": "damon_disabled",
+      "phase_ms": {
+        "entry": 58.693,
+        "baseline": 1552.506,
+        "actions": 2033.281,
+        "finalize": 104.284
+      },
+      "guest_envelope_ms": 3750.157512,
+      "envelope_realtime_minus_monotonic_ms": 0.000315,
+      "loop_outside_action_timers_ms": 55.205836,
+      "controller_minus_guest_envelope_ms": 38.329494,
+      "task_ms": 3792.750522,
+      "action_sum_ms": 1978.075164,
+      "scan_ms": 29.853,
+      "observed_min_free_gib": 48.38435745239258,
+      "baseline_commands": {
+        "add": {
+          "boundary_ns": 1502266000,
+          "real_seconds": 1.502,
+          "user_seconds": 0.295,
+          "system_seconds": 0.395
+        },
+        "write_tree": {
+          "boundary_ns": 28371000,
+          "real_seconds": 0.028,
+          "user_seconds": 0.02,
+          "system_seconds": 0.0
+        },
+        "reset": {
+          "boundary_ns": 20116000,
+          "real_seconds": 0.02,
+          "user_seconds": 0.008,
+          "system_seconds": 0.016
+        },
+        "rev_parse": {
+          "boundary_ns": 1654000,
+          "real_seconds": 0.002,
+          "user_seconds": 0.002,
+          "system_seconds": 0.0
+        }
+      },
+      "baseline_outside_command_boundaries_ms": 0.099
+    },
+    {
+      "group": "comparison",
+      "position": 3,
+      "mode": "damon_disabled",
+      "phase_ms": {
+        "entry": 65.957,
+        "baseline": 1574.339,
+        "actions": 2065.734,
+        "finalize": 106.117
+      },
+      "guest_envelope_ms": 3813.51821,
+      "envelope_realtime_minus_monotonic_ms": 0.000365,
+      "loop_outside_action_timers_ms": 54.614459,
+      "controller_minus_guest_envelope_ms": 38.867289,
+      "task_ms": 3857.789586,
+      "action_sum_ms": 2011.1195409999998,
+      "scan_ms": 30.033,
+      "observed_min_free_gib": 48.38361740112305,
+      "baseline_commands": {
+        "add": {
+          "boundary_ns": 1523612000,
+          "real_seconds": 1.523,
+          "user_seconds": 0.39,
+          "system_seconds": 0.302
+        },
+        "write_tree": {
+          "boundary_ns": 28064000,
+          "real_seconds": 0.028,
+          "user_seconds": 0.016,
+          "system_seconds": 0.004
+        },
+        "reset": {
+          "boundary_ns": 21024000,
+          "real_seconds": 0.021,
+          "user_seconds": 0.005,
+          "system_seconds": 0.019
+        },
+        "rev_parse": {
+          "boundary_ns": 1536000,
+          "real_seconds": 0.001,
+          "user_seconds": 0.001,
+          "system_seconds": 0.0
+        }
+      },
+      "baseline_outside_command_boundaries_ms": 0.103
+    },
+    {
+      "group": "comparison",
+      "position": 4,
+      "mode": "default",
+      "phase_ms": {
+        "entry": 65.238,
+        "baseline": 1530.717,
+        "actions": 2077.483,
+        "finalize": 104.278
+      },
+      "guest_envelope_ms": 3779.333045,
+      "envelope_realtime_minus_monotonic_ms": 0.000317,
+      "loop_outside_action_timers_ms": 54.729373,
+      "controller_minus_guest_envelope_ms": 39.359659,
+      "task_ms": 3823.907417,
+      "action_sum_ms": 2022.753627,
+      "scan_ms": 30.627000000000002,
+      "observed_min_free_gib": 48.382442474365234,
+      "baseline_commands": {
+        "add": {
+          "boundary_ns": 1474854000,
+          "real_seconds": 1.475,
+          "user_seconds": 0.357,
+          "system_seconds": 0.297
+        },
+        "write_tree": {
+          "boundary_ns": 29799000,
+          "real_seconds": 0.03,
+          "user_seconds": 0.02,
+          "system_seconds": 0.0
+        },
+        "reset": {
+          "boundary_ns": 24124000,
+          "real_seconds": 0.024,
+          "user_seconds": 0.012,
+          "system_seconds": 0.012
+        },
+        "rev_parse": {
+          "boundary_ns": 1643000,
+          "real_seconds": 0.002,
+          "user_seconds": 0.002,
+          "system_seconds": 0.0
+        }
+      },
+      "baseline_outside_command_boundaries_ms": 0.297
+    }
+  ],
+  "comparison_means": {
+    "default": {
+      "phase_ms": {
+        "entry": 62.988,
+        "baseline": 1585.008,
+        "actions": 2092.1075,
+        "finalize": 106.011
+      },
+      "task_ms": 3891.037784,
+      "controller_minus_guest_envelope_ms": 38.519566499999996,
+      "baseline_commands": {
+        "add": {
+          "boundary_ns": 1530410000,
+          "real_seconds": 1.5305,
+          "user_seconds": 0.33299999999999996,
+          "system_seconds": 0.346
+        },
+        "write_tree": {
+          "boundary_ns": 29668500,
+          "real_seconds": 0.0295,
+          "user_seconds": 0.015,
+          "system_seconds": 0.005
+        },
+        "reset": {
+          "boundary_ns": 23114000,
+          "real_seconds": 0.023,
+          "user_seconds": 0.0095,
+          "system_seconds": 0.0145
+        },
+        "rev_parse": {
+          "boundary_ns": 1611000,
+          "real_seconds": 0.0015,
+          "user_seconds": 0.0015,
+          "system_seconds": 0.0
+        }
+      }
+    },
+    "damon_disabled": {
+      "phase_ms": {
+        "entry": 62.324999999999996,
+        "baseline": 1563.4225000000001,
+        "actions": 2049.5074999999997,
+        "finalize": 105.2005
+      },
+      "task_ms": 3825.2700539999996,
+      "controller_minus_guest_envelope_ms": 38.5983915,
+      "baseline_commands": {
+        "add": {
+          "boundary_ns": 1512939000,
+          "real_seconds": 1.5125,
+          "user_seconds": 0.3425,
+          "system_seconds": 0.34850000000000003
+        },
+        "write_tree": {
+          "boundary_ns": 28217500,
+          "real_seconds": 0.028,
+          "user_seconds": 0.018000000000000002,
+          "system_seconds": 0.002
+        },
+        "reset": {
+          "boundary_ns": 20570000,
+          "real_seconds": 0.0205,
+          "user_seconds": 0.006500000000000001,
+          "system_seconds": 0.0175
+        },
+        "rev_parse": {
+          "boundary_ns": 1595000,
+          "real_seconds": 0.0015,
+          "user_seconds": 0.0015,
+          "system_seconds": 0.0
+        }
+      }
+    }
+  },
+  "baseline_git_commands": true,
+  "source_identity": {
+    "workload_image": "ghcr.io/timesler/swe-polybench.eval.x86_64.prettier__prettier-14400@sha256:e625c9b9776870e2cc87172e886bbc90cfc3d6ce1521492f113a46b3f6dfcf44",
+    "sandbox_cpu": "2",
+    "sandbox_memory_mib": "4096",
+    "action_manifest_sha256": "6ea843b464f5f7ec3c081c539386593027ede2335c5309b945a9462feddceaa7",
+    "aenv_version": "aenv 0.2.2",
+    "host_kernel": "6.19.9+",
+    "agentenv_container_image": "sha256:db9eb044ae3d85f9b276b9d2e5dea28cb0be95263d217ea4989f095e1d828681",
+    "overlaybd_io_engine": "0",
+    "overlaybd_direct_io": "false"
+  },
+  "initial_state": {
+    "baseline_tree": "94ab79f8caf3c568fead53aade5a784f41455d50",
+    "original_head": "6905b39ec7bc6ed38732e26ceced5b57677e2600"
+  },
+  "checks": {
+    "replay": "PASS",
+    "stdout_patch_hashes": "PASS",
+    "independent_svg_html": "PASS",
+    "state": "PASS",
+    "cleanup": "PASS",
+    "cpu_restore": "PASS",
+    "offline_audit": "PASS",
+    "full_official_task_tests": "NOT_RUN",
+    "monitoring_overhead": "NOT_ACCEPTED"
+  },
+  "limitations": [
+    "Calibration only on warm fixture in DAMON-disabled guest; not total combined instrumentation overhead",
+    "Five Bash realtime boundaries; outer dual clock checked; phase clocks not independently monotonic",
+    "Two observations per condition in comparison; descriptive means only, no confidence interval",
+    "Initial Git wall/CPU timers have 1ms precision; boundaries include record cost; no instruction/byte/path counts or per-command I/O measured; wall minus CPU is not exact waiting",
+    "Controller minus guest envelope includes control channel and boundaries, not pure network time",
+    "All periodic monitoring off; preserve official default and original whole-task metric"
+  ],
+  "final_resource_check": {
+    "status": "PASS",
+    "checked_date": "2026-10-01",
+    "project_sandboxes": [],
+    "owned_probe_processes": [],
+    "cpu_policies": {
+      "2": {
+        "scaling_min_freq": "800000",
+        "scaling_max_freq": "2801000",
+        "scaling_governor": "schedutil"
+      },
+      "4": {
+        "scaling_min_freq": "800000",
+        "scaling_max_freq": "2801000",
+        "scaling_governor": "schedutil"
+      },
+      "66": {
+        "scaling_min_freq": "800000",
+        "scaling_max_freq": "2801000",
+        "scaling_governor": "schedutil"
+      },
+      "68": {
+        "scaling_min_freq": "800000",
+        "scaling_max_freq": "2801000",
+        "scaling_governor": "schedutil"
+      }
+    },
+    "free_bytes": 51957100544
+  }
+}

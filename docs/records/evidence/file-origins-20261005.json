@@ -1,0 +1,289 @@
+{
+  "status": "PASS",
+  "third_acceptance": "PARTIAL",
+  "units": {
+    "time": "ns",
+    "memory": "bytes"
+  },
+  "scope": "file source checks plus defensive offline fix; no new physical-cache measurement",
+  "host_fixture": {
+    "status": "PASS",
+    "kernel": "6.19.9+",
+    "vm_count": 0,
+    "scope": "real host OverlayFS directories; no VM, DAX, checkpoint sealer or physical memory measurement",
+    "checks": {
+      "metadata_sources": "PASS",
+      "content_and_equal_content_source": "PASS",
+      "deletion_and_opaque": "PASS",
+      "ordered_three_lowers_and_upper": "PASS",
+      "cleanup": "PASS"
+    },
+    "source_sha256": {
+      "check_file_origins.py": "c1368d35ddf292c272d5a1c36e45b42da92ea5da54bcca82c4f43ba81eb2ed84",
+      "guest_file_origins.py": "4aa794adff01339aa952b5bc249e62860f023a6fdbe7c215bb88bfe57c1ef91a",
+      "experiment_disk_guard.py": "159811ce29dd1153a4f46f3089bdaa2736aad42fab1835f7b5483f3fd9e10033"
+    },
+    "metadata_elapsed_ns": 3017046,
+    "content_elapsed_ns": 3074253,
+    "files": [
+      {
+        "path": "/testbed/base",
+        "status": "SOURCE_VERIFIED",
+        "origin": "lower:2",
+        "content_verified": true,
+        "sha256": "59cfa9bdec605c55c809f7482d4d748ad2613b3cd1040fc8ef671b2db7279057",
+        "physical_memory": {
+          "status": "NOT_MEASURED",
+          "bytes": null
+        }
+      },
+      {
+        "path": "/testbed/change",
+        "status": "SOURCE_VERIFIED",
+        "origin": "lower:0",
+        "content_verified": true,
+        "sha256": "61e14c700ef4224d67ff8cf2b0d62693d8c0d5f99f7f960d01e9933d77fe1b05",
+        "physical_memory": {
+          "status": "NOT_MEASURED",
+          "bytes": null
+        }
+      },
+      {
+        "path": "/testbed/old",
+        "status": "SOURCE_VERIFIED",
+        "origin": "lower:1",
+        "content_verified": true,
+        "sha256": "f5c4be120ef233989b86f2f4374e47f5bb12ce1d94165bb7f976e7d1c14c42a1",
+        "physical_memory": {
+          "status": "NOT_MEASURED",
+          "bytes": null
+        }
+      },
+      {
+        "path": "/testbed/same",
+        "status": "SOURCE_VERIFIED",
+        "origin": "upper",
+        "content_verified": true,
+        "sha256": "5a00baf97e110d7aca61f7be6e773bb280425a33f94ce290c9f4e9c2150a6aca",
+        "physical_memory": {
+          "status": "NOT_MEASURED",
+          "bytes": null
+        }
+      },
+      {
+        "path": "/testbed/private",
+        "status": "SOURCE_VERIFIED",
+        "origin": "upper",
+        "content_verified": true,
+        "sha256": "684275a22ded69ed0f6753fd94ac56907c90bcc24dcbcfd189f0b8bfdba00994",
+        "physical_memory": {
+          "status": "NOT_MEASURED",
+          "bytes": null
+        }
+      },
+      {
+        "path": "/testbed/gone",
+        "status": "DELETED",
+        "origin": "lower:1",
+        "physical_memory": {
+          "status": "NOT_MEASURED",
+          "bytes": null
+        }
+      },
+      {
+        "path": "/testbed/opaque/old",
+        "status": "DELETED",
+        "origin": "lower:1",
+        "physical_memory": {
+          "status": "NOT_MEASURED",
+          "bytes": null
+        }
+      },
+      {
+        "path": "/testbed/opaque/child",
+        "status": "SOURCE_VERIFIED",
+        "origin": "lower:1",
+        "content_verified": true,
+        "sha256": "50e3d8408cb8698b0a4dfdd4a01ad05895bff68e66d2429afc2b5adafb5f92e2",
+        "physical_memory": {
+          "status": "NOT_MEASURED",
+          "bytes": null
+        }
+      },
+      {
+        "path": "/testbed/missing",
+        "status": "NOT_FOUND",
+        "origin": null,
+        "physical_memory": {
+          "status": "NOT_MEASURED",
+          "bytes": null
+        }
+      }
+    ]
+  },
+  "first_host_failure": {
+    "status": "FAIL",
+    "reason": "root UUID identity xattr was conservatively rejected",
+    "correction": "accept only a 16-byte UUID on a layer root directory; regression added",
+    "cleanup": "PASS",
+    "superseded_by_separate_run": true
+  },
+  "trenvx": {
+    "status": "PASS",
+    "origins": {
+      "status": "PASS",
+      "files": [
+        {
+          "path": "/testbed/src/language-html/utils/index.js",
+          "origin": "upper",
+          "sha256": "51d07fd7752ca36d8f059b7897ee6c8a77e9946c1ce22f129ad8f7dc6a1c1ea5",
+          "content_verified": true,
+          "physical_memory": {
+            "status": "NOT_MEASURED",
+            "bytes": null
+          }
+        },
+        {
+          "path": "/testbed/src/language-html/parser-html.js",
+          "origin": "base",
+          "sha256": "230e472bbe0d55042120bc00fa4e3bfe470a19481d6ef6d1c5c83266abd041dc",
+          "content_verified": true,
+          "physical_memory": {
+            "status": "NOT_MEASURED",
+            "bytes": null
+          }
+        },
+        {
+          "path": "/testbed/package.json",
+          "origin": "base",
+          "sha256": "bb691b626e405717f77542daedee927f81b55f826694060075b4b8c09e112500",
+          "content_verified": true,
+          "physical_memory": {
+            "status": "NOT_MEASURED",
+            "bytes": null
+          }
+        }
+      ],
+      "metadata_elapsed_ns": 1963282,
+      "content_elapsed_ns": 2413104,
+      "scope": "after frozen replay and official task tests; reads may warm cache; no physical page count",
+      "physical_cache_status": "NOT_MEASURED"
+    },
+    "action_manifest_sha256": "6ea843b464f5f7ec3c081c539386593027ede2335c5309b945a9462feddceaa7",
+    "patch_sha256": "f1cc23ac4f5ac1cff87eb7f8c54f8176c1a47cec37fa4cb6907b9dd8ad199af2",
+    "source_sha256": {
+      "run_trenvx_monitor_balanced.py": "d7a42127172147ecb0eb1ba7fe201b8caede5b5eaf57db4a3f01ceb06269aa45",
+      "46-run-trenvx-exp1-monitor-pairs.py": "22709c08372e0ea913d62996b728b1aca0bb6d3db75f53cc960311ac5e6056c9",
+      "45-replay-trenvx-exp1.sh": "91b15661ced686db8af7404c1001f71c93fc1e2cace2096ffb791d0b4aeb7084",
+      "44-smoke-trenvx-service.sh": "fddd500d28f7206fa386ec919764d1dacbada75d2af8bbd45a750bfd6f5ba856",
+      "smoke_trenvx_service.py": "b4c70517695122bf43fe9e4c9b7765f96529e346cf69bd5a720845f339d7e6d9",
+      "replay_trenvx_exp1.py": "0d666bdaf9f5409ff9be89523cfa8b36ef79ba51894895d0586e945a1ed5b473",
+      "archive_trenvx_run_data.py": "d97d511fe961237198bbd03fb8b468971d139b4e27de1d98778bb61edf314d4d",
+      "experiment_disk_guard.py": "159811ce29dd1153a4f46f3089bdaa2736aad42fab1835f7b5483f3fd9e10033",
+      "plan_trenvx_storage.py": "838478af153eb74a59107c6c9b4e1ba48b1576be7f69cb550e0b752f997fc7ef",
+      "run_exp1_monitor_balanced.py": "3958d8f3b0c1a9a8604bdf30ee4fa0b25ceac3ae671abad48aa7f02b2bb6970a",
+      "run_trenvx_persistent_comparison.py": "08971018e75c426d9735903e29796336acc728e083d40d3853a3035350254670",
+      "run_persistent_metrics_comparison.py": "856e949c96efe0183229ada62a35cff6ca9adc23457aa98db37bff4f91afd939",
+      "guest_memory_collector.py": "c22162dd608c3628acacabcc423cb792702e6ad5b4fc676b512cd95938c16a8b",
+      "persistent_guest_sampling.py": "f4c2fc1ed7720b6fbcdde69bf402d59002cac399655910d83f4134710e1a73cf",
+      "trenvx_diagnostic_metrics.py": "1e3e9062e87d21a6500c998e724164803fafd922e8107ac3a50860750dbcc6e6",
+      "report_memory_metrics.py": "b91679fa45b7f75eb704d408fd54a99e10b602a971731822fb8cdd6d805b9d85",
+      "memory_composition.py": "38cf2a9709954a68071b6406c27b5840b12b0a7ba4c62929a5ea4e9c1e63b125",
+      "audit_exp1_metrics.py": "062b2563b071b3a2b8237a18c0a5e6ca4be8322e89c379cf428660835d987fa5",
+      "exp1_official_task.py": "5169372f3cd62b7c5f3850fe172ceeb750321feb96797f24cb9648661e4a8516",
+      "run_trenvx_fixed_identity.py": "af5f1cbc4a5d21448274c20d0228a83d08ae5c22a602b47fac7f2366b6c073b0",
+      "fixed_runner_git_identity.py": "059654c19a1e0d59d5298c7f5d3d67ce7aa5c37913cc7f5d5e1add0a0d2c5995",
+      "guest_runner_phases.py": "7b90295deb8ea081653785fa04127f11b563677b904216e77bcbaa1a025272a8",
+      "guest_runner_lifecycle.py": "91ed1d7946a0bc1f4298eb7706839df8a90e5ea30711b915fb6e01757a982e81",
+      "command_clock.c": "ac9d6a9b517074a0e50d004f843dda5edc07454c43c3b8cc585236f50b35b136",
+      "run_trenvx_file_origins.py": "cd91a5897cc5049f2a4727abeecc8315015c25c38acc7fe6083bc4c107d7a714",
+      "guest_file_origins.py": "4aa794adff01339aa952b5bc249e62860f023a6fdbe7c215bb88bfe57c1ef91a"
+    },
+    "image_sha256": "5e22e3f6d1cd5cfcbb9e5a17a34f0f1705833a9357f214845a8fcdfa627e8d82",
+    "cpu": 2,
+    "memory_mib": 4096,
+    "task_window_ns": 3717123988,
+    "guest_action_sum_ns": 2055587188,
+    "controller_end_to_end_ns": 85959710824,
+    "checks": {
+      "private_template_prepare": "PASS",
+      "template_build": "PASS",
+      "frozen_input_hashes": "PASS",
+      "unfixed_seed_oracle": "PASS",
+      "patch_matches_full_replay": "PASS",
+      "exp1_replay_correctness": "PASS",
+      "official_task_tests": "PASS",
+      "merged_file_origins": "PASS",
+      "sdk_cleanup": "PASS",
+      "service_shutdown": "PASS",
+      "successful_image_cleanup": "PASS"
+    },
+    "official_task_result": {
+      "num_tests_passed": 4,
+      "num_tests_failed": 0,
+      "failed_tests": [],
+      "passed_tests": [
+        "/testbed/tests/format/html/svg/embeded/jsfmt.spec.js->format",
+        "/testbed/tests/format/html/svg/embeded/jsfmt.spec.js->format",
+        "/testbed/tests/format/html/svg/embeded/jsfmt.spec.js->format",
+        "/testbed/tests/format/html/svg/embeded/jsfmt.spec.js->format"
+      ]
+    },
+    "protocol": {
+      "vm_count": 1,
+      "full_replays": 1,
+      "checkpoint": false,
+      "host_periodic_sampling": false,
+      "guest_periodic_sampling": false,
+      "cache_policy": "preserve; no global drop",
+      "probe_order": "full frozen replay; official task evaluation; metadata then content source check",
+      "performance_comparison": "NOT_RUN",
+      "physical_cache_measurement": "NOT_RUN",
+      "stop_policy": "first failure; no automatic retry"
+    }
+  },
+  "hidden_pfn_fix": {
+    "regression": "present host mapping with PFN zero must be rejected, not counted as 4096 bytes",
+    "collector_already_rejects_hidden_pfns": true,
+    "patched_source_sha256": "5d1aa31ab84f1fd4a282b485a0dade7e38ac04a5c61b288c9bee0d6423a63617",
+    "legacy_raw_rechecks": [
+      {
+        "run_id": "20261001T144843Z-3014019",
+        "status": "PASS",
+        "selected_pages": 4,
+        "present_host_mappings": 4,
+        "hidden_host_pfns": 0,
+        "verified_file_cache_physical_bytes": 16384,
+        "raw_sha256": {
+          "before.json": "cf6f498f6a49ce44a941c01a91cc8bce04c7e2f398f08cad337615fa67ac3af6",
+          "after.json": "b490e511418730ce4430947e43315d77766c7ce10db80d8c3a2cb93cb2f85f57",
+          "pages.json": "2e05dcbd0654612a7cba6cb61fc4b00e4abb3e6e5591833e10f3fb4cf6e69f34",
+          "result.json": "3fc7f9bb3b13231b20fe0c29a427f9359b6d7cabd9b41969fb7b1cbe6f2d6a7d"
+        }
+      },
+      {
+        "run_id": "20261001T145206Z-3015223",
+        "status": "PASS",
+        "selected_pages": 9,
+        "present_host_mappings": 9,
+        "hidden_host_pfns": 0,
+        "verified_file_cache_physical_bytes": 36864,
+        "raw_sha256": {
+          "before.json": "db93f0eec48994579bb34798b4d425d91746416b345e73215ace2869a78abee0",
+          "after.json": "b1852b99cb5b7759bdfc1f953f3a77d1396ef5ebf1a7aca9c2b33e3586c1f638",
+          "pages.json": "57bfe0a1aed5e503879f893674e60ec86a1474fbcfa8f227cb872c238e8c7d08",
+          "result.json": "6bafbf17205ed712ecec8db750b6de180f5a28ab2c045dfe7661b41fecde6491"
+        }
+      }
+    ]
+  },
+  "limitations": [
+    "Only nine host fixture paths and three real task files; no complete task inventory",
+    "Host uses directory layers on kernel 6.19.9+; VM has one upper over base; no new multi-layer guest evidence",
+    "No new upper-file physical pages, unmapped backing cache, multi-VM deduplication or checkpoint/restore impact",
+    "Redirect/metacopy/symlink/data-only layers remain unknown and are not zero",
+    "Metadata and content scans are non-atomic; content reads may warm caches",
+    "One full functional replay with sampling disabled; timings are not monitoring-overhead contrasts",
+    "Successful private images discarded with hash inventory; cannot reanalyse their memory or restore them"
+  ]
+}

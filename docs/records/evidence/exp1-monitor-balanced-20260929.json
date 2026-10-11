@@ -1,0 +1,1190 @@
+{
+  "schema_version": 1,
+  "formal": {
+    "result_dir": ".artifacts/exp1-monitor-balanced/20260929T112335Z-2426172",
+    "result_sha256": "9fa91a337595eb17e6426b1ab4d9728a7bd4c0f4ea41a889eeb7a14f557cd04e",
+    "status": "PASS",
+    "protocol": {
+      "groups": 5,
+      "seed": 20260929,
+      "orders": [
+        [
+          "control_A",
+          "control_B",
+          "off",
+          "light",
+          "light",
+          "off",
+          "control_B",
+          "control_A"
+        ],
+        [
+          "off",
+          "control_B",
+          "control_A",
+          "light",
+          "light",
+          "control_A",
+          "control_B",
+          "off"
+        ],
+        [
+          "control_A",
+          "light",
+          "off",
+          "control_B",
+          "control_B",
+          "off",
+          "light",
+          "control_A"
+        ],
+        [
+          "control_B",
+          "off",
+          "control_A",
+          "light",
+          "light",
+          "control_A",
+          "off",
+          "control_B"
+        ],
+        [
+          "control_A",
+          "control_B",
+          "light",
+          "off",
+          "off",
+          "light",
+          "control_B",
+          "control_A"
+        ]
+      ],
+      "primary_metric": "task_window_ns",
+      "primary_scope": "26 frozen actions including host sampler startup/stop; excludes sandbox creation/upload/download",
+      "control": "control_A/control_B both sampling off; off/light is actual comparison",
+      "threshold_percent": 5,
+      "cache_policy": "no cache clearing; fresh VM per replay",
+      "decision": "95% t interval on five group log ratios; control interval must fit [-5,5]; monitor upper bound <=5",
+      "limitations": "approximate normal independent group contrasts; balances linear ordinal drift, not arbitrary load changes; no automatic extra groups",
+      "independent_full_task_tests": "NOT_RUN",
+      "historical_raw_dependency": false
+    },
+    "analysis": {
+      "monitor": {
+        "group_percent": [
+          -7.702796470293649,
+          -5.2931956748713755,
+          -7.533982999458799,
+          6.795211421723835,
+          -19.10571466745129
+        ],
+        "geometric_mean_percent": -6.931160273704512,
+        "mean_log_ratio_t95_percent": [
+          -17.669717557085956,
+          5.208055541468354
+        ]
+      },
+      "control": {
+        "group_percent": [
+          -1.9319618168183617,
+          1.6318075752675298,
+          -4.834477787786073,
+          19.991571260927632,
+          -1.3051708685408836
+        ],
+        "geometric_mean_percent": 2.3520115647987563,
+        "mean_log_ratio_t95_percent": [
+          -8.685771682613785,
+          14.724008124439047
+        ]
+      },
+      "verdict": "INCONCLUSIVE"
+    },
+    "runs": [
+      {
+        "label": "control_A",
+        "checks": {
+          "input_hashes": "PASS",
+          "runner": "PASS",
+          "replay_correctness": "PASS",
+          "host_sampling": "DISABLED",
+          "guest_sampling": "DISABLED",
+          "task_window": "PASS",
+          "cleanup": "PASS"
+        },
+        "task_window_ns": 3689822038,
+        "controller_exec_ns": 3684710313,
+        "guest_action_sum_ns": 1775742340,
+        "sample_count": 0,
+        "observed_min_free_bytes": 55200845824,
+        "patch_sha256": "f1cc23ac4f5ac1cff87eb7f8c54f8176c1a47cec37fa4cb6907b9dd8ad199af2",
+        "group": 1,
+        "position": 1
+      },
+      {
+        "label": "control_B",
+        "checks": {
+          "input_hashes": "PASS",
+          "runner": "PASS",
+          "replay_correctness": "PASS",
+          "host_sampling": "DISABLED",
+          "guest_sampling": "DISABLED",
+          "task_window": "PASS",
+          "cleanup": "PASS"
+        },
+        "task_window_ns": 3391619359,
+        "controller_exec_ns": 3388023844,
+        "guest_action_sum_ns": 1595045546,
+        "sample_count": 0,
+        "observed_min_free_bytes": 55200153600,
+        "patch_sha256": "f1cc23ac4f5ac1cff87eb7f8c54f8176c1a47cec37fa4cb6907b9dd8ad199af2",
+        "group": 1,
+        "position": 2
+      },
+      {
+        "label": "off",
+        "checks": {
+          "input_hashes": "PASS",
+          "runner": "PASS",
+          "replay_correctness": "PASS",
+          "host_sampling": "DISABLED",
+          "guest_sampling": "DISABLED",
+          "task_window": "PASS",
+          "cleanup": "PASS"
+        },
+        "task_window_ns": 3941838771,
+        "controller_exec_ns": 3936701992,
+        "guest_action_sum_ns": 1913885927,
+        "sample_count": 0,
+        "observed_min_free_bytes": 55199666176,
+        "patch_sha256": "f1cc23ac4f5ac1cff87eb7f8c54f8176c1a47cec37fa4cb6907b9dd8ad199af2",
+        "group": 1,
+        "position": 3
+      },
+      {
+        "label": "light",
+        "checks": {
+          "input_hashes": "PASS",
+          "runner": "PASS",
+          "replay_correctness": "PASS",
+          "host_sampling": "PASS",
+          "guest_sampling": "DISABLED",
+          "task_window": "PASS",
+          "cleanup": "PASS"
+        },
+        "task_window_ns": 3576029398,
+        "controller_exec_ns": 3569860855,
+        "guest_action_sum_ns": 1917979078,
+        "sample_count": 4,
+        "observed_min_free_bytes": 55197081600,
+        "patch_sha256": "f1cc23ac4f5ac1cff87eb7f8c54f8176c1a47cec37fa4cb6907b9dd8ad199af2",
+        "group": 1,
+        "position": 4
+      },
+      {
+        "label": "light",
+        "checks": {
+          "input_hashes": "PASS",
+          "runner": "PASS",
+          "replay_correctness": "PASS",
+          "host_sampling": "PASS",
+          "guest_sampling": "DISABLED",
+          "task_window": "PASS",
+          "cleanup": "PASS"
+        },
+        "task_window_ns": 3797965703,
+        "controller_exec_ns": 3791308284,
+        "guest_action_sum_ns": 1889188862,
+        "sample_count": 4,
+        "observed_min_free_bytes": 55198744576,
+        "patch_sha256": "f1cc23ac4f5ac1cff87eb7f8c54f8176c1a47cec37fa4cb6907b9dd8ad199af2",
+        "group": 1,
+        "position": 5
+      },
+      {
+        "label": "off",
+        "checks": {
+          "input_hashes": "PASS",
+          "runner": "PASS",
+          "replay_correctness": "PASS",
+          "host_sampling": "DISABLED",
+          "guest_sampling": "DISABLED",
+          "task_window": "PASS",
+          "cleanup": "PASS"
+        },
+        "task_window_ns": 4047563745,
+        "controller_exec_ns": 4041650535,
+        "guest_action_sum_ns": 2052970281,
+        "sample_count": 0,
+        "observed_min_free_bytes": 55193698304,
+        "patch_sha256": "f1cc23ac4f5ac1cff87eb7f8c54f8176c1a47cec37fa4cb6907b9dd8ad199af2",
+        "group": 1,
+        "position": 6
+      },
+      {
+        "label": "control_B",
+        "checks": {
+          "input_hashes": "PASS",
+          "runner": "PASS",
+          "replay_correctness": "PASS",
+          "host_sampling": "DISABLED",
+          "guest_sampling": "DISABLED",
+          "task_window": "PASS",
+          "cleanup": "PASS"
+        },
+        "task_window_ns": 4328596440,
+        "controller_exec_ns": 4323944673,
+        "guest_action_sum_ns": 2358860419,
+        "sample_count": 0,
+        "observed_min_free_bytes": 55195611136,
+        "patch_sha256": "f1cc23ac4f5ac1cff87eb7f8c54f8176c1a47cec37fa4cb6907b9dd8ad199af2",
+        "group": 1,
+        "position": 7
+      },
+      {
+        "label": "control_A",
+        "checks": {
+          "input_hashes": "PASS",
+          "runner": "PASS",
+          "replay_correctness": "PASS",
+          "host_sampling": "DISABLED",
+          "guest_sampling": "DISABLED",
+          "task_window": "PASS",
+          "cleanup": "PASS"
+        },
+        "task_window_ns": 4182483702,
+        "controller_exec_ns": 4178007560,
+        "guest_action_sum_ns": 2366332158,
+        "sample_count": 0,
+        "observed_min_free_bytes": 55192616960,
+        "patch_sha256": "f1cc23ac4f5ac1cff87eb7f8c54f8176c1a47cec37fa4cb6907b9dd8ad199af2",
+        "group": 1,
+        "position": 8
+      },
+      {
+        "label": "off",
+        "checks": {
+          "input_hashes": "PASS",
+          "runner": "PASS",
+          "replay_correctness": "PASS",
+          "host_sampling": "DISABLED",
+          "guest_sampling": "DISABLED",
+          "task_window": "PASS",
+          "cleanup": "PASS"
+        },
+        "task_window_ns": 4131950089,
+        "controller_exec_ns": 4127174039,
+        "guest_action_sum_ns": 2201967005,
+        "sample_count": 0,
+        "observed_min_free_bytes": 55196631040,
+        "patch_sha256": "f1cc23ac4f5ac1cff87eb7f8c54f8176c1a47cec37fa4cb6907b9dd8ad199af2",
+        "group": 2,
+        "position": 1
+      },
+      {
+        "label": "control_B",
+        "checks": {
+          "input_hashes": "PASS",
+          "runner": "PASS",
+          "replay_correctness": "PASS",
+          "host_sampling": "DISABLED",
+          "guest_sampling": "DISABLED",
+          "task_window": "PASS",
+          "cleanup": "PASS"
+        },
+        "task_window_ns": 3937867806,
+        "controller_exec_ns": 3932593746,
+        "guest_action_sum_ns": 2016894627,
+        "sample_count": 0,
+        "observed_min_free_bytes": 55196090368,
+        "patch_sha256": "f1cc23ac4f5ac1cff87eb7f8c54f8176c1a47cec37fa4cb6907b9dd8ad199af2",
+        "group": 2,
+        "position": 2
+      },
+      {
+        "label": "control_A",
+        "checks": {
+          "input_hashes": "PASS",
+          "runner": "PASS",
+          "replay_correctness": "PASS",
+          "host_sampling": "DISABLED",
+          "guest_sampling": "DISABLED",
+          "task_window": "PASS",
+          "cleanup": "PASS"
+        },
+        "task_window_ns": 4242860171,
+        "controller_exec_ns": 4237131946,
+        "guest_action_sum_ns": 2344805372,
+        "sample_count": 0,
+        "observed_min_free_bytes": 55191793664,
+        "patch_sha256": "f1cc23ac4f5ac1cff87eb7f8c54f8176c1a47cec37fa4cb6907b9dd8ad199af2",
+        "group": 2,
+        "position": 3
+      },
+      {
+        "label": "light",
+        "checks": {
+          "input_hashes": "PASS",
+          "runner": "PASS",
+          "replay_correctness": "PASS",
+          "host_sampling": "PASS",
+          "guest_sampling": "DISABLED",
+          "task_window": "PASS",
+          "cleanup": "PASS"
+        },
+        "task_window_ns": 3965229255,
+        "controller_exec_ns": 3957363178,
+        "guest_action_sum_ns": 2071594722,
+        "sample_count": 4,
+        "observed_min_free_bytes": 55192879104,
+        "patch_sha256": "f1cc23ac4f5ac1cff87eb7f8c54f8176c1a47cec37fa4cb6907b9dd8ad199af2",
+        "group": 2,
+        "position": 4
+      },
+      {
+        "label": "light",
+        "checks": {
+          "input_hashes": "PASS",
+          "runner": "PASS",
+          "replay_correctness": "PASS",
+          "host_sampling": "PASS",
+          "guest_sampling": "DISABLED",
+          "task_window": "PASS",
+          "cleanup": "PASS"
+        },
+        "task_window_ns": 3957377118,
+        "controller_exec_ns": 3948989127,
+        "guest_action_sum_ns": 2109537033,
+        "sample_count": 4,
+        "observed_min_free_bytes": 55194603520,
+        "patch_sha256": "f1cc23ac4f5ac1cff87eb7f8c54f8176c1a47cec37fa4cb6907b9dd8ad199af2",
+        "group": 2,
+        "position": 5
+      },
+      {
+        "label": "control_A",
+        "checks": {
+          "input_hashes": "PASS",
+          "runner": "PASS",
+          "replay_correctness": "PASS",
+          "host_sampling": "DISABLED",
+          "guest_sampling": "DISABLED",
+          "task_window": "PASS",
+          "cleanup": "PASS"
+        },
+        "task_window_ns": 3615253184,
+        "controller_exec_ns": 3610876328,
+        "guest_action_sum_ns": 1661966070,
+        "sample_count": 0,
+        "observed_min_free_bytes": 55194009600,
+        "patch_sha256": "f1cc23ac4f5ac1cff87eb7f8c54f8176c1a47cec37fa4cb6907b9dd8ad199af2",
+        "group": 2,
+        "position": 6
+      },
+      {
+        "label": "control_B",
+        "checks": {
+          "input_hashes": "PASS",
+          "runner": "PASS",
+          "replay_correctness": "PASS",
+          "host_sampling": "DISABLED",
+          "guest_sampling": "DISABLED",
+          "task_window": "PASS",
+          "cleanup": "PASS"
+        },
+        "task_window_ns": 4048474838,
+        "controller_exec_ns": 4044744127,
+        "guest_action_sum_ns": 2240620530,
+        "sample_count": 0,
+        "observed_min_free_bytes": 55189762048,
+        "patch_sha256": "f1cc23ac4f5ac1cff87eb7f8c54f8176c1a47cec37fa4cb6907b9dd8ad199af2",
+        "group": 2,
+        "position": 7
+      },
+      {
+        "label": "off",
+        "checks": {
+          "input_hashes": "PASS",
+          "runner": "PASS",
+          "replay_correctness": "PASS",
+          "host_sampling": "DISABLED",
+          "guest_sampling": "DISABLED",
+          "task_window": "PASS",
+          "cleanup": "PASS"
+        },
+        "task_window_ns": 4233453463,
+        "controller_exec_ns": 4228363337,
+        "guest_action_sum_ns": 2307919502,
+        "sample_count": 0,
+        "observed_min_free_bytes": 55190994944,
+        "patch_sha256": "f1cc23ac4f5ac1cff87eb7f8c54f8176c1a47cec37fa4cb6907b9dd8ad199af2",
+        "group": 2,
+        "position": 8
+      },
+      {
+        "label": "control_A",
+        "checks": {
+          "input_hashes": "PASS",
+          "runner": "PASS",
+          "replay_correctness": "PASS",
+          "host_sampling": "DISABLED",
+          "guest_sampling": "DISABLED",
+          "task_window": "PASS",
+          "cleanup": "PASS"
+        },
+        "task_window_ns": 3933498054,
+        "controller_exec_ns": 3930039930,
+        "guest_action_sum_ns": 2023171424,
+        "sample_count": 0,
+        "observed_min_free_bytes": 55188664320,
+        "patch_sha256": "f1cc23ac4f5ac1cff87eb7f8c54f8176c1a47cec37fa4cb6907b9dd8ad199af2",
+        "group": 3,
+        "position": 1
+      },
+      {
+        "label": "light",
+        "checks": {
+          "input_hashes": "PASS",
+          "runner": "PASS",
+          "replay_correctness": "PASS",
+          "host_sampling": "PASS",
+          "guest_sampling": "DISABLED",
+          "task_window": "PASS",
+          "cleanup": "PASS"
+        },
+        "task_window_ns": 3649568203,
+        "controller_exec_ns": 3641477112,
+        "guest_action_sum_ns": 1854259802,
+        "sample_count": 4,
+        "observed_min_free_bytes": 55191957504,
+        "patch_sha256": "f1cc23ac4f5ac1cff87eb7f8c54f8176c1a47cec37fa4cb6907b9dd8ad199af2",
+        "group": 3,
+        "position": 2
+      },
+      {
+        "label": "off",
+        "checks": {
+          "input_hashes": "PASS",
+          "runner": "PASS",
+          "replay_correctness": "PASS",
+          "host_sampling": "DISABLED",
+          "guest_sampling": "DISABLED",
+          "task_window": "PASS",
+          "cleanup": "PASS"
+        },
+        "task_window_ns": 4501989681,
+        "controller_exec_ns": 4497545143,
+        "guest_action_sum_ns": 2504008140,
+        "sample_count": 0,
+        "observed_min_free_bytes": 55189458944,
+        "patch_sha256": "f1cc23ac4f5ac1cff87eb7f8c54f8176c1a47cec37fa4cb6907b9dd8ad199af2",
+        "group": 3,
+        "position": 3
+      },
+      {
+        "label": "control_B",
+        "checks": {
+          "input_hashes": "PASS",
+          "runner": "PASS",
+          "replay_correctness": "PASS",
+          "host_sampling": "DISABLED",
+          "guest_sampling": "DISABLED",
+          "task_window": "PASS",
+          "cleanup": "PASS"
+        },
+        "task_window_ns": 3484854509,
+        "controller_exec_ns": 3478870523,
+        "guest_action_sum_ns": 1566917975,
+        "sample_count": 0,
+        "observed_min_free_bytes": 55191076864,
+        "patch_sha256": "f1cc23ac4f5ac1cff87eb7f8c54f8176c1a47cec37fa4cb6907b9dd8ad199af2",
+        "group": 3,
+        "position": 4
+      },
+      {
+        "label": "control_B",
+        "checks": {
+          "input_hashes": "PASS",
+          "runner": "PASS",
+          "replay_correctness": "PASS",
+          "host_sampling": "DISABLED",
+          "guest_sampling": "DISABLED",
+          "task_window": "PASS",
+          "cleanup": "PASS"
+        },
+        "task_window_ns": 4157753835,
+        "controller_exec_ns": 4154049472,
+        "guest_action_sum_ns": 2252920270,
+        "sample_count": 0,
+        "observed_min_free_bytes": 55188393984,
+        "patch_sha256": "f1cc23ac4f5ac1cff87eb7f8c54f8176c1a47cec37fa4cb6907b9dd8ad199af2",
+        "group": 3,
+        "position": 5
+      },
+      {
+        "label": "off",
+        "checks": {
+          "input_hashes": "PASS",
+          "runner": "PASS",
+          "replay_correctness": "PASS",
+          "host_sampling": "DISABLED",
+          "guest_sampling": "DISABLED",
+          "task_window": "PASS",
+          "cleanup": "PASS"
+        },
+        "task_window_ns": 3181883113,
+        "controller_exec_ns": 3178396370,
+        "guest_action_sum_ns": 1394957052,
+        "sample_count": 0,
+        "observed_min_free_bytes": 55186055168,
+        "patch_sha256": "f1cc23ac4f5ac1cff87eb7f8c54f8176c1a47cec37fa4cb6907b9dd8ad199af2",
+        "group": 3,
+        "position": 6
+      },
+      {
+        "label": "light",
+        "checks": {
+          "input_hashes": "PASS",
+          "runner": "PASS",
+          "replay_correctness": "PASS",
+          "host_sampling": "PASS",
+          "guest_sampling": "DISABLED",
+          "task_window": "PASS",
+          "cleanup": "PASS"
+        },
+        "task_window_ns": 3455402921,
+        "controller_exec_ns": 3449263639,
+        "guest_action_sum_ns": 1688768558,
+        "sample_count": 4,
+        "observed_min_free_bytes": 55183429632,
+        "patch_sha256": "f1cc23ac4f5ac1cff87eb7f8c54f8176c1a47cec37fa4cb6907b9dd8ad199af2",
+        "group": 3,
+        "position": 7
+      },
+      {
+        "label": "control_A",
+        "checks": {
+          "input_hashes": "PASS",
+          "runner": "PASS",
+          "replay_correctness": "PASS",
+          "host_sampling": "DISABLED",
+          "guest_sampling": "DISABLED",
+          "task_window": "PASS",
+          "cleanup": "PASS"
+        },
+        "task_window_ns": 4097360356,
+        "controller_exec_ns": 4092566127,
+        "guest_action_sum_ns": 2197099800,
+        "sample_count": 0,
+        "observed_min_free_bytes": 55188963328,
+        "patch_sha256": "f1cc23ac4f5ac1cff87eb7f8c54f8176c1a47cec37fa4cb6907b9dd8ad199af2",
+        "group": 3,
+        "position": 8
+      },
+      {
+        "label": "control_B",
+        "checks": {
+          "input_hashes": "PASS",
+          "runner": "PASS",
+          "replay_correctness": "PASS",
+          "host_sampling": "DISABLED",
+          "guest_sampling": "DISABLED",
+          "task_window": "PASS",
+          "cleanup": "PASS"
+        },
+        "task_window_ns": 3815989911,
+        "controller_exec_ns": 3812003487,
+        "guest_action_sum_ns": 1960302671,
+        "sample_count": 0,
+        "observed_min_free_bytes": 55188430848,
+        "patch_sha256": "f1cc23ac4f5ac1cff87eb7f8c54f8176c1a47cec37fa4cb6907b9dd8ad199af2",
+        "group": 4,
+        "position": 1
+      },
+      {
+        "label": "off",
+        "checks": {
+          "input_hashes": "PASS",
+          "runner": "PASS",
+          "replay_correctness": "PASS",
+          "host_sampling": "DISABLED",
+          "guest_sampling": "DISABLED",
+          "task_window": "PASS",
+          "cleanup": "PASS"
+        },
+        "task_window_ns": 4032363343,
+        "controller_exec_ns": 4029011736,
+        "guest_action_sum_ns": 2112700364,
+        "sample_count": 0,
+        "observed_min_free_bytes": 55185813504,
+        "patch_sha256": "f1cc23ac4f5ac1cff87eb7f8c54f8176c1a47cec37fa4cb6907b9dd8ad199af2",
+        "group": 4,
+        "position": 2
+      },
+      {
+        "label": "control_A",
+        "checks": {
+          "input_hashes": "PASS",
+          "runner": "PASS",
+          "replay_correctness": "PASS",
+          "host_sampling": "DISABLED",
+          "guest_sampling": "DISABLED",
+          "task_window": "PASS",
+          "cleanup": "PASS"
+        },
+        "task_window_ns": 3432745499,
+        "controller_exec_ns": 3429120792,
+        "guest_action_sum_ns": 1435043107,
+        "sample_count": 0,
+        "observed_min_free_bytes": 55186550784,
+        "patch_sha256": "f1cc23ac4f5ac1cff87eb7f8c54f8176c1a47cec37fa4cb6907b9dd8ad199af2",
+        "group": 4,
+        "position": 3
+      },
+      {
+        "label": "light",
+        "checks": {
+          "input_hashes": "PASS",
+          "runner": "PASS",
+          "replay_correctness": "PASS",
+          "host_sampling": "PASS",
+          "guest_sampling": "DISABLED",
+          "task_window": "PASS",
+          "cleanup": "PASS"
+        },
+        "task_window_ns": 4052243987,
+        "controller_exec_ns": 4046377341,
+        "guest_action_sum_ns": 2238430967,
+        "sample_count": 4,
+        "observed_min_free_bytes": 55186919424,
+        "patch_sha256": "f1cc23ac4f5ac1cff87eb7f8c54f8176c1a47cec37fa4cb6907b9dd8ad199af2",
+        "group": 4,
+        "position": 4
+      },
+      {
+        "label": "light",
+        "checks": {
+          "input_hashes": "PASS",
+          "runner": "PASS",
+          "replay_correctness": "PASS",
+          "host_sampling": "PASS",
+          "guest_sampling": "DISABLED",
+          "task_window": "PASS",
+          "cleanup": "PASS"
+        },
+        "task_window_ns": 4010117477,
+        "controller_exec_ns": 4003308667,
+        "guest_action_sum_ns": 2137248255,
+        "sample_count": 4,
+        "observed_min_free_bytes": 55180562432,
+        "patch_sha256": "f1cc23ac4f5ac1cff87eb7f8c54f8176c1a47cec37fa4cb6907b9dd8ad199af2",
+        "group": 4,
+        "position": 5
+      },
+      {
+        "label": "control_A",
+        "checks": {
+          "input_hashes": "PASS",
+          "runner": "PASS",
+          "replay_correctness": "PASS",
+          "host_sampling": "DISABLED",
+          "guest_sampling": "DISABLED",
+          "task_window": "PASS",
+          "cleanup": "PASS"
+        },
+        "task_window_ns": 3357662830,
+        "controller_exec_ns": 3352728718,
+        "guest_action_sum_ns": 1598119713,
+        "sample_count": 0,
+        "observed_min_free_bytes": 55186141184,
+        "patch_sha256": "f1cc23ac4f5ac1cff87eb7f8c54f8176c1a47cec37fa4cb6907b9dd8ad199af2",
+        "group": 4,
+        "position": 6
+      },
+      {
+        "label": "off",
+        "checks": {
+          "input_hashes": "PASS",
+          "runner": "PASS",
+          "replay_correctness": "PASS",
+          "host_sampling": "DISABLED",
+          "guest_sampling": "DISABLED",
+          "task_window": "PASS",
+          "cleanup": "PASS"
+        },
+        "task_window_ns": 3517002735,
+        "controller_exec_ns": 3512392594,
+        "guest_action_sum_ns": 1666356448,
+        "sample_count": 0,
+        "observed_min_free_bytes": 55183454208,
+        "patch_sha256": "f1cc23ac4f5ac1cff87eb7f8c54f8176c1a47cec37fa4cb6907b9dd8ad199af2",
+        "group": 4,
+        "position": 7
+      },
+      {
+        "label": "control_B",
+        "checks": {
+          "input_hashes": "PASS",
+          "runner": "PASS",
+          "replay_correctness": "PASS",
+          "host_sampling": "DISABLED",
+          "guest_sampling": "DISABLED",
+          "task_window": "PASS",
+          "cleanup": "PASS"
+        },
+        "task_window_ns": 4331927738,
+        "controller_exec_ns": 4328104690,
+        "guest_action_sum_ns": 2369426217,
+        "sample_count": 0,
+        "observed_min_free_bytes": 55182774272,
+        "patch_sha256": "f1cc23ac4f5ac1cff87eb7f8c54f8176c1a47cec37fa4cb6907b9dd8ad199af2",
+        "group": 4,
+        "position": 8
+      },
+      {
+        "label": "control_A",
+        "checks": {
+          "input_hashes": "PASS",
+          "runner": "PASS",
+          "replay_correctness": "PASS",
+          "host_sampling": "DISABLED",
+          "guest_sampling": "DISABLED",
+          "task_window": "PASS",
+          "cleanup": "PASS"
+        },
+        "task_window_ns": 4158339091,
+        "controller_exec_ns": 4153914281,
+        "guest_action_sum_ns": 2065943891,
+        "sample_count": 0,
+        "observed_min_free_bytes": 55184564224,
+        "patch_sha256": "f1cc23ac4f5ac1cff87eb7f8c54f8176c1a47cec37fa4cb6907b9dd8ad199af2",
+        "group": 5,
+        "position": 1
+      },
+      {
+        "label": "control_B",
+        "checks": {
+          "input_hashes": "PASS",
+          "runner": "PASS",
+          "replay_correctness": "PASS",
+          "host_sampling": "DISABLED",
+          "guest_sampling": "DISABLED",
+          "task_window": "PASS",
+          "cleanup": "PASS"
+        },
+        "task_window_ns": 3597878931,
+        "controller_exec_ns": 3593140171,
+        "guest_action_sum_ns": 1601301866,
+        "sample_count": 0,
+        "observed_min_free_bytes": 55181959168,
+        "patch_sha256": "f1cc23ac4f5ac1cff87eb7f8c54f8176c1a47cec37fa4cb6907b9dd8ad199af2",
+        "group": 5,
+        "position": 2
+      },
+      {
+        "label": "light",
+        "checks": {
+          "input_hashes": "PASS",
+          "runner": "PASS",
+          "replay_correctness": "PASS",
+          "host_sampling": "PASS",
+          "guest_sampling": "DISABLED",
+          "task_window": "PASS",
+          "cleanup": "PASS"
+        },
+        "task_window_ns": 3364476412,
+        "controller_exec_ns": 3357525922,
+        "guest_action_sum_ns": 1563812955,
+        "sample_count": 4,
+        "observed_min_free_bytes": 55179649024,
+        "patch_sha256": "f1cc23ac4f5ac1cff87eb7f8c54f8176c1a47cec37fa4cb6907b9dd8ad199af2",
+        "group": 5,
+        "position": 3
+      },
+      {
+        "label": "off",
+        "checks": {
+          "input_hashes": "PASS",
+          "runner": "PASS",
+          "replay_correctness": "PASS",
+          "host_sampling": "DISABLED",
+          "guest_sampling": "DISABLED",
+          "task_window": "PASS",
+          "cleanup": "PASS"
+        },
+        "task_window_ns": 3985187290,
+        "controller_exec_ns": 3981598770,
+        "guest_action_sum_ns": 2135917226,
+        "sample_count": 0,
+        "observed_min_free_bytes": 55179157504,
+        "patch_sha256": "f1cc23ac4f5ac1cff87eb7f8c54f8176c1a47cec37fa4cb6907b9dd8ad199af2",
+        "group": 5,
+        "position": 4
+      },
+      {
+        "label": "off",
+        "checks": {
+          "input_hashes": "PASS",
+          "runner": "PASS",
+          "replay_correctness": "PASS",
+          "host_sampling": "DISABLED",
+          "guest_sampling": "DISABLED",
+          "task_window": "PASS",
+          "cleanup": "PASS"
+        },
+        "task_window_ns": 4501927352,
+        "controller_exec_ns": 4497138843,
+        "guest_action_sum_ns": 2466328524,
+        "sample_count": 0,
+        "observed_min_free_bytes": 55176376320,
+        "patch_sha256": "f1cc23ac4f5ac1cff87eb7f8c54f8176c1a47cec37fa4cb6907b9dd8ad199af2",
+        "group": 5,
+        "position": 5
+      },
+      {
+        "label": "light",
+        "checks": {
+          "input_hashes": "PASS",
+          "runner": "PASS",
+          "replay_correctness": "PASS",
+          "host_sampling": "PASS",
+          "guest_sampling": "DISABLED",
+          "task_window": "PASS",
+          "cleanup": "PASS"
+        },
+        "task_window_ns": 3501114323,
+        "controller_exec_ns": 3496263547,
+        "guest_action_sum_ns": 1589766790,
+        "sample_count": 4,
+        "observed_min_free_bytes": 55179886592,
+        "patch_sha256": "f1cc23ac4f5ac1cff87eb7f8c54f8176c1a47cec37fa4cb6907b9dd8ad199af2",
+        "group": 5,
+        "position": 6
+      },
+      {
+        "label": "control_B",
+        "checks": {
+          "input_hashes": "PASS",
+          "runner": "PASS",
+          "replay_correctness": "PASS",
+          "host_sampling": "DISABLED",
+          "guest_sampling": "DISABLED",
+          "task_window": "PASS",
+          "cleanup": "PASS"
+        },
+        "task_window_ns": 4473124172,
+        "controller_exec_ns": 4467867452,
+        "guest_action_sum_ns": 2570815669,
+        "sample_count": 0,
+        "observed_min_free_bytes": 55179382784,
+        "patch_sha256": "f1cc23ac4f5ac1cff87eb7f8c54f8176c1a47cec37fa4cb6907b9dd8ad199af2",
+        "group": 5,
+        "position": 7
+      },
+      {
+        "label": "control_A",
+        "checks": {
+          "input_hashes": "PASS",
+          "runner": "PASS",
+          "replay_correctness": "PASS",
+          "host_sampling": "DISABLED",
+          "guest_sampling": "DISABLED",
+          "task_window": "PASS",
+          "cleanup": "PASS"
+        },
+        "task_window_ns": 4019397447,
+        "controller_exec_ns": 4014282210,
+        "guest_action_sum_ns": 2166137222,
+        "sample_count": 0,
+        "observed_min_free_bytes": 55178883072,
+        "patch_sha256": "f1cc23ac4f5ac1cff87eb7f8c54f8176c1a47cec37fa4cb6907b9dd8ad199af2",
+        "group": 5,
+        "position": 8
+      }
+    ]
+  },
+  "clean_directory_smoke": {
+    "result_dir": ".artifacts/exp1-clean-reproduction-20260929/.artifacts/exp1-monitor-balanced/20260929T112159Z-2422487",
+    "result_sha256": "a74bc71cf10064cdb82fcb260e7855b731a20f7e7e74d99d6cd25662b6aae662",
+    "status": "PASS",
+    "protocol": {
+      "groups": 1,
+      "seed": 20260929,
+      "orders": [
+        [
+          "control_A",
+          "control_B",
+          "off",
+          "light",
+          "light",
+          "off",
+          "control_B",
+          "control_A"
+        ]
+      ],
+      "primary_metric": "task_window_ns",
+      "primary_scope": "26 frozen actions including host sampler startup/stop; excludes sandbox creation/upload/download",
+      "control": "control_A/control_B both sampling off; off/light is actual comparison",
+      "threshold_percent": 5,
+      "cache_policy": "no cache clearing; fresh VM per replay",
+      "decision": "95% t interval on five group log ratios; control interval must fit [-5,5]; monitor upper bound <=5",
+      "limitations": "approximate normal independent group contrasts; balances linear ordinal drift, not arbitrary load changes; no automatic extra groups",
+      "independent_full_task_tests": "NOT_RUN",
+      "historical_raw_dependency": false
+    },
+    "analysis": {
+      "monitor": {
+        "group_percent": [
+          -2.8895729832740025
+        ],
+        "geometric_mean_percent": -2.8895729832740025,
+        "mean_log_ratio_t95_percent": null
+      },
+      "control": {
+        "group_percent": [
+          -4.741589740817842
+        ],
+        "geometric_mean_percent": -4.741589740817842,
+        "mean_log_ratio_t95_percent": null
+      },
+      "verdict": "INCONCLUSIVE"
+    },
+    "runs": [
+      {
+        "label": "control_A",
+        "checks": {
+          "input_hashes": "PASS",
+          "runner": "PASS",
+          "replay_correctness": "PASS",
+          "host_sampling": "DISABLED",
+          "guest_sampling": "DISABLED",
+          "task_window": "PASS",
+          "cleanup": "PASS"
+        },
+        "task_window_ns": 4200628821,
+        "controller_exec_ns": 4196042999,
+        "guest_action_sum_ns": 2175071364,
+        "sample_count": 0,
+        "observed_min_free_bytes": 55203397632,
+        "patch_sha256": "f1cc23ac4f5ac1cff87eb7f8c54f8176c1a47cec37fa4cb6907b9dd8ad199af2",
+        "group": 1,
+        "position": 1
+      },
+      {
+        "label": "control_B",
+        "checks": {
+          "input_hashes": "PASS",
+          "runner": "PASS",
+          "replay_correctness": "PASS",
+          "host_sampling": "DISABLED",
+          "guest_sampling": "DISABLED",
+          "task_window": "PASS",
+          "cleanup": "PASS"
+        },
+        "task_window_ns": 4038954953,
+        "controller_exec_ns": 4034400511,
+        "guest_action_sum_ns": 2215727488,
+        "sample_count": 0,
+        "observed_min_free_bytes": 55201861632,
+        "patch_sha256": "f1cc23ac4f5ac1cff87eb7f8c54f8176c1a47cec37fa4cb6907b9dd8ad199af2",
+        "group": 1,
+        "position": 2
+      },
+      {
+        "label": "off",
+        "checks": {
+          "input_hashes": "PASS",
+          "runner": "PASS",
+          "replay_correctness": "PASS",
+          "host_sampling": "DISABLED",
+          "guest_sampling": "DISABLED",
+          "task_window": "PASS",
+          "cleanup": "PASS"
+        },
+        "task_window_ns": 4036217769,
+        "controller_exec_ns": 4032791920,
+        "guest_action_sum_ns": 2186281435,
+        "sample_count": 0,
+        "observed_min_free_bytes": 55199186944,
+        "patch_sha256": "f1cc23ac4f5ac1cff87eb7f8c54f8176c1a47cec37fa4cb6907b9dd8ad199af2",
+        "group": 1,
+        "position": 3
+      },
+      {
+        "label": "light",
+        "checks": {
+          "input_hashes": "PASS",
+          "runner": "PASS",
+          "replay_correctness": "PASS",
+          "host_sampling": "PASS",
+          "guest_sampling": "DISABLED",
+          "task_window": "PASS",
+          "cleanup": "PASS"
+        },
+        "task_window_ns": 4182240240,
+        "controller_exec_ns": 4177617019,
+        "guest_action_sum_ns": 2164195026,
+        "sample_count": 5,
+        "observed_min_free_bytes": 55200669696,
+        "patch_sha256": "f1cc23ac4f5ac1cff87eb7f8c54f8176c1a47cec37fa4cb6907b9dd8ad199af2",
+        "group": 1,
+        "position": 4
+      },
+      {
+        "label": "light",
+        "checks": {
+          "input_hashes": "PASS",
+          "runner": "PASS",
+          "replay_correctness": "PASS",
+          "host_sampling": "PASS",
+          "guest_sampling": "DISABLED",
+          "task_window": "PASS",
+          "cleanup": "PASS"
+        },
+        "task_window_ns": 3679597965,
+        "controller_exec_ns": 3672094994,
+        "guest_action_sum_ns": 1776141556,
+        "sample_count": 4,
+        "observed_min_free_bytes": 55196258304,
+        "patch_sha256": "f1cc23ac4f5ac1cff87eb7f8c54f8176c1a47cec37fa4cb6907b9dd8ad199af2",
+        "group": 1,
+        "position": 5
+      },
+      {
+        "label": "off",
+        "checks": {
+          "input_hashes": "PASS",
+          "runner": "PASS",
+          "replay_correctness": "PASS",
+          "host_sampling": "DISABLED",
+          "guest_sampling": "DISABLED",
+          "task_window": "PASS",
+          "cleanup": "PASS"
+        },
+        "task_window_ns": 4059553660,
+        "controller_exec_ns": 4056191715,
+        "guest_action_sum_ns": 2111520853,
+        "sample_count": 0,
+        "observed_min_free_bytes": 55201701888,
+        "patch_sha256": "f1cc23ac4f5ac1cff87eb7f8c54f8176c1a47cec37fa4cb6907b9dd8ad199af2",
+        "group": 1,
+        "position": 6
+      },
+      {
+        "label": "control_B",
+        "checks": {
+          "input_hashes": "PASS",
+          "runner": "PASS",
+          "replay_correctness": "PASS",
+          "host_sampling": "DISABLED",
+          "guest_sampling": "DISABLED",
+          "task_window": "PASS",
+          "cleanup": "PASS"
+        },
+        "task_window_ns": 3822817549,
+        "controller_exec_ns": 3819476848,
+        "guest_action_sum_ns": 1945077510,
+        "sample_count": 0,
+        "observed_min_free_bytes": 55199879168,
+        "patch_sha256": "f1cc23ac4f5ac1cff87eb7f8c54f8176c1a47cec37fa4cb6907b9dd8ad199af2",
+        "group": 1,
+        "position": 7
+      },
+      {
+        "label": "control_A",
+        "checks": {
+          "input_hashes": "PASS",
+          "runner": "PASS",
+          "replay_correctness": "PASS",
+          "host_sampling": "DISABLED",
+          "guest_sampling": "DISABLED",
+          "task_window": "PASS",
+          "cleanup": "PASS"
+        },
+        "task_window_ns": 4052471856,
+        "controller_exec_ns": 4048894843,
+        "guest_action_sum_ns": 2161689004,
+        "sample_count": 0,
+        "observed_min_free_bytes": 55201566720,
+        "patch_sha256": "f1cc23ac4f5ac1cff87eb7f8c54f8176c1a47cec37fa4cb6907b9dd8ad199af2",
+        "group": 1,
+        "position": 8
+      }
+    ]
+  },
+  "clean_directory_manifest": {
+    "status": "PREPARED",
+    "senior_commit": "a9bc7deadb68a6e24b7242eab343dfedf953ea38",
+    "source_sha256": {
+      "scripts/run_exp1.py": "e64e1c6981aca1c5a35849a68be4905e061f6ee700a46f3c4c42ccd68c4718cd",
+      "scripts/run_exp1_monitor_balanced.py": "822433708de823ff8ec31eda75b6e24127eb09fe17db45d508e0b7cf11e5fb2f",
+      "scripts/experiment_disk_guard.py": "f0e8a4c9bf0051ee8d8dd0ef02c0d49a34f238d540fd1e482d3cfb4746a0809d",
+      "scripts/prepare_exp1_clean_directory.py": "240bb0dfe0f31fbd57de78c44f91eb0b74a80e76d3857f89697fd43f44eb7813",
+      "patches/incrementaldax-platform.patch": "8c34511b598eb4c79a564e98652b05e8eff28a255a3aa65a86d5e5ba49fd5fd2",
+      "configs/source-revisions.json": "17c4e92a5852fbc339c34248f198e223b3434318f14107a6542e369eedb5d0b8"
+    },
+    "dependency_sha256": {
+      "motivation/experiments/exp1-single-app-smoke/systems/agentenv/run.sh": "1bf8d254a5363962149d02ace6575666b05588fd387eca033246cb8c963614ed",
+      "motivation/experiments/exp1-single-app-smoke/systems/agentenv/guest-runner.sh": "bb3f50aa03b7424855556920d3808be5b6b8c3046e9bc0687c4229fc344efd9a",
+      "motivation/experiments/exp1-single-app-smoke/systems/agentenv/config.env": "08e517e0c90bb4a8c65f424a241beef90cb9d4064bc560e1aefc3ba06f4b6e49",
+      "motivation/experiments/lib/host-memory-monitor.sh": "da4a9f24c43af1f11fc409f2e4779caf1c2525a63ed2ac85bb86c4f792399fc2",
+      "motivation/experiments/exp1-single-app-smoke/workloads/prettier-14400/actions.tsv": "6ea843b464f5f7ec3c081c539386593027ede2335c5309b945a9462feddceaa7",
+      "motivation/experiments/exp1-single-app-smoke/workloads/prettier-14400/guest-runner.sh": "0e2d8adc37a0fd4a1e767d9ac30e9474768999c7e43aee76c8afee1354036a01",
+      "motivation/experiments/exp1-single-app-smoke/workloads/prettier-14400/build-manifest.sh": "07ea3ae5723ae468ed0da2cefc96c607b3d22e8f228a8f76e06bdfae1c834334",
+      "motivation/experiments/exp1-single-app-smoke/workloads/prettier-14400/README.md": "7dc3b036c24553d0222b1bc0b9c05fc25fbb157aa536d11230a81649c46de1ac",
+      "motivation/experiments/exp1-single-app-smoke/workloads/prettier-14400/actions/009.sh": "181810cc140166fed8a5d4b4aeb1c4a852c2b4457c172ace62a8e12faad8b03f",
+      "motivation/experiments/exp1-single-app-smoke/workloads/prettier-14400/actions/002.sh": "87c6ecea35a4a32bed818c472a8886ef36833dd151c863650e27ab8b526c8390",
+      "motivation/experiments/exp1-single-app-smoke/workloads/prettier-14400/actions/014.sh": "12d55d3b54e2760e63348b20f44c688c0df3275f0d5877430374a009b3d8696f",
+      "motivation/experiments/exp1-single-app-smoke/workloads/prettier-14400/actions/024.sh": "357014535d13424b2de0e102f2e3acce475528505d9f9e8c70c0ddc0dc726514",
+      "motivation/experiments/exp1-single-app-smoke/workloads/prettier-14400/actions/008.sh": "525a1db00b3db590f147a6c9637dd8b156d843aa682bce8a464db4de0910dc73",
+      "motivation/experiments/exp1-single-app-smoke/workloads/prettier-14400/actions/023.sh": "62634296d1ecf56d97dd29993f88ddad93cbd3dfdc6b86399aca86db8a4eccb0",
+      "motivation/experiments/exp1-single-app-smoke/workloads/prettier-14400/actions/013.sh": "24cd158433ab25d50fe8a663bd34eb247f1af334142d9a6f9bf085bbb6484dcc",
+      "motivation/experiments/exp1-single-app-smoke/workloads/prettier-14400/actions/021.sh": "3ce01516418512c35824a8c955ea54415759496524b403ff38f796b2fc7f9ff8",
+      "motivation/experiments/exp1-single-app-smoke/workloads/prettier-14400/actions/003.sh": "3f66ab988815840b9036ec5f66319e7c81d725f7798adbb6cd058a8aa1835981",
+      "motivation/experiments/exp1-single-app-smoke/workloads/prettier-14400/actions/017.sh": "8d4cd6af93468a9fc00d975000d87b7cfdc884d4a2ebfaa96f166232efe73ba4",
+      "motivation/experiments/exp1-single-app-smoke/workloads/prettier-14400/actions/022.sh": "8588066a9b7fc6556a2825c0668d8c332521f8bbc4e9ef070e7c9ca954047e46",
+      "motivation/experiments/exp1-single-app-smoke/workloads/prettier-14400/actions/026.sh": "9d62a89b1f265a2908b4c002df82f34368ac23a970cec807eca924a8ff81ec6a",
+      "motivation/experiments/exp1-single-app-smoke/workloads/prettier-14400/actions/001.sh": "75a4a2444d2487133df09e1d56b4bf2a2319ef0bd61cd60486b069fed7924cfb",
+      "motivation/experiments/exp1-single-app-smoke/workloads/prettier-14400/actions/018.sh": "8d4cd6af93468a9fc00d975000d87b7cfdc884d4a2ebfaa96f166232efe73ba4",
+      "motivation/experiments/exp1-single-app-smoke/workloads/prettier-14400/actions/005.sh": "720c1308a4c7806535f42e6e2c86186ddc4ec97129074dea236d14bfd6a57999",
+      "motivation/experiments/exp1-single-app-smoke/workloads/prettier-14400/actions/012.sh": "273fb7e8214888826a9e4b1e5d42cee998a9fb89ac8e83df4b865b3c3bcb342f",
+      "motivation/experiments/exp1-single-app-smoke/workloads/prettier-14400/actions/025.sh": "9d62a89b1f265a2908b4c002df82f34368ac23a970cec807eca924a8ff81ec6a",
+      "motivation/experiments/exp1-single-app-smoke/workloads/prettier-14400/actions/004.sh": "22708d61b06d79ca3b5037525e91fcb8844bad0db14483e21e011e0f75ebc89e",
+      "motivation/experiments/exp1-single-app-smoke/workloads/prettier-14400/actions/011.sh": "de8e3f4b1b085a10f4dd939f602298a3fa1ea53b540297a82ae8b298c6737a95",
+      "motivation/experiments/exp1-single-app-smoke/workloads/prettier-14400/actions/015.sh": "e838bbd2906af71f46ce470a39cd0d7825ef62b62e0c69d7a2c0545bc4964297",
+      "motivation/experiments/exp1-single-app-smoke/workloads/prettier-14400/actions/016.sh": "35770b1473ffb8ecad4daecc08199c8422054a182ff68326ac6ec1ff8d363b46",
+      "motivation/experiments/exp1-single-app-smoke/workloads/prettier-14400/actions/007.sh": "07d54b581d76bcc392f76852a39ab2b71e49141007abfd55e22f40176d0bc77b",
+      "motivation/experiments/exp1-single-app-smoke/workloads/prettier-14400/actions/006.sh": "fda80cd355d39bb26da78f106c5e155c1d486e9b339f2d788454d4d324c18ed3",
+      "motivation/experiments/exp1-single-app-smoke/workloads/prettier-14400/actions/020.sh": "0830a30a0f44aacba686ccff28b1ef8d291c0bb151d1a5b7d1c6ee66696ce142",
+      "motivation/experiments/exp1-single-app-smoke/workloads/prettier-14400/actions/019.sh": "0b0195cc31781dde96aedc60e0c0ba2453efd15af809126c2b208fecd7f5f1f0",
+      "motivation/experiments/exp1-single-app-smoke/workloads/prettier-14400/actions/010.sh": "bd41427ccea604cf5038722b2008d44fad80c8eea68846682d3bf95579ed2ae3"
+    },
+    "external_dependencies": [
+      "existing AgentENV service and cached digest-pinned image",
+      "external runtime/bin CLI and runtime/config credentials",
+      "host system tools and kernel; not a fresh-machine deployment"
+    ],
+    "historical_raw_copied": false,
+    "credentials_copied": false,
+    "submodules_initialized": false,
+    "scope": "AgentENV full trajectory only; no checkpoint reproduction"
+  },
+  "variance_diagnostic": {
+    "group": 4,
+    "comparison": "control_B versus control_A; both sampling off",
+    "task_window_difference_ms": 678.75466,
+    "guest_action_sum_difference_ms": 648.283034,
+    "step_difference_ms": {
+      "023": 419.258291,
+      "024": 169.223002
+    },
+    "steps_023_024_fraction_of_window_difference": 0.8670014773821223,
+    "cause": "NOT_IDENTIFIED; scheduling, CPU frequency and cache explanations are hypotheses"
+  },
+  "limitations": [
+    "AgentENV host service cgroup at 1 Hz only; guest sampling disabled",
+    "TrEnv-X new order-control experiment NOT_RUN",
+    "fresh directory uses existing service, CLI, credentials and cached image; fresh-machine deployment NOT_RUN",
+    "complete task tests and clean-directory checkpoint restoration NOT_RUN"
+  ]
+}

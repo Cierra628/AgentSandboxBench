@@ -1,0 +1,101 @@
+{
+  "status": "PASS",
+  "run_id": "20261002T065000Z-3116788",
+  "third_acceptance": "PARTIAL",
+  "commands": {
+    "baseline": {
+      "add": {
+        "real_seconds": 0.094,
+        "user_seconds": 0.03,
+        "system_seconds": 0.084,
+        "boundary_ns": 94213000,
+        "native_exit_seconds": 0.090671
+      },
+      "write_tree": {
+        "real_seconds": 0.013,
+        "user_seconds": 0.009,
+        "system_seconds": 0.005,
+        "boundary_ns": 14098000,
+        "native_exit_seconds": 0.011742
+      },
+      "reset": {
+        "real_seconds": 10.064,
+        "user_seconds": 0.021,
+        "system_seconds": 0.042,
+        "boundary_ns": 10160573000,
+        "native_exit_seconds": 10.058614
+      },
+      "rev_parse": {
+        "real_seconds": 0.006,
+        "user_seconds": 0.0,
+        "system_seconds": 0.007,
+        "boundary_ns": 6689000,
+        "native_exit_seconds": 0.002501
+      }
+    },
+    "final": {
+      "add": {
+        "real_seconds": 0.078,
+        "user_seconds": 0.019,
+        "system_seconds": 0.077,
+        "boundary_ns": 78836000,
+        "native_exit_seconds": 0.075207
+      },
+      "diff": {
+        "real_seconds": 0.006,
+        "user_seconds": 0.003,
+        "system_seconds": 0.003,
+        "boundary_ns": 9056000,
+        "native_exit_seconds": 0.004693
+      },
+      "reset": {
+        "real_seconds": 10.059,
+        "user_seconds": 0.023,
+        "system_seconds": 0.036,
+        "boundary_ns": 10145932000,
+        "native_exit_seconds": 10.054803
+      },
+      "status": {
+        "real_seconds": 0.098,
+        "user_seconds": 0.044,
+        "system_seconds": 0.073,
+        "boundary_ns": 99151000,
+        "native_exit_seconds": 0.09489
+      }
+    }
+  },
+  "waits": {
+    "baseline": {
+      "sample_count": 100,
+      "git_thread_states": {
+        "do_poll.constprop.0": 100
+      },
+      "poll_5000ms_samples": 100,
+      "index_write_region_seconds": 0.011939,
+      "descriptor_target": "NOT_MEASURED",
+      "probe_scan_total_ns": 66134082
+    },
+    "final": {
+      "sample_count": 100,
+      "git_thread_states": {
+        "0": 1,
+        "do_poll.constprop.0": 99
+      },
+      "poll_5000ms_samples": 99,
+      "index_write_region_seconds": 0.010827,
+      "descriptor_target": "NOT_MEASURED",
+      "probe_scan_total_ns": 64983447
+    }
+  },
+  "timing_ns": {
+    "guest_runner_action_sum_ns": 2142228788,
+    "controller_runner_call_ns": 24156379040,
+    "checkpoint_call_ns": "NOT_MEASURED",
+    "restore_call_ns": "NOT_MEASURED",
+    "create_to_tool_ready_ns": "NOT_MEASURED",
+    "controller_end_to_end_ns": 105639067134
+  },
+  "official_task_assertions": 4,
+  "conclusion": "Both resets spend about ten seconds in poll; DNS identity hypothesis remains unverified.",
+  "scope": "One diagnostic replay; native events and process reads are intrusive; not monitoring overhead acceptance."
+}

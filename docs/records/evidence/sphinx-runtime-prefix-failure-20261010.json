@@ -1,0 +1,81 @@
+{
+  "status": "FAIL",
+  "source_directory": ".artifacts/storage-isolated-service/20261010T044006Z-98974",
+  "failed_stage": "first-segment-smoke",
+  "task_id": "sphinx-doc__sphinx-7590",
+  "cpu": 2,
+  "memory_mib": 4096,
+  "expected_exit_codes": [
+    141,
+    0,
+    0,
+    0,
+    0,
+    0
+  ],
+  "observed_exit_codes": [
+    0,
+    0,
+    0,
+    0,
+    0,
+    0
+  ],
+  "actions_stdout_stderr_and_patch_identical": true,
+  "remaining_task_steps": "NOT_RUN",
+  "sampler_reaped": true,
+  "cleanup": {
+    "owned_container_removed": true,
+    "mount_and_loop_removed": true,
+    "failed_fixture_retained": true,
+    "original_firecracker_identities_unchanged": true,
+    "original_service_unchanged": true
+  },
+  "source_volume_retained": true,
+  "backup_status": "PASS",
+  "backup_compressed_bytes": 83987566,
+  "source_sha256": "7af331e670fec0158829360eb655412a1b81be1f5477fc485f245aa4b51f4306",
+  "backup_sha256": "a2411a15f9912f1e4490aae5551ed92954b6b32ee889e5191249d2904c00a68e",
+  "host_only_pipeline_diagnostic": {
+    "status": "PASS",
+    "scope": "owned host subprocesses, original pinned source and grep/head pattern; pipe capacity and start order intentionally differ; not a guest replay or monitoring comparison",
+    "action_sha256": "e9eb4cf8916078545d524f611ca9e6fcdb8413a3d3d41fea3ffd874e51d52ab8",
+    "source_sha256": "34fb211d20f3a9412e8064d65fc75b227cf00071f3fde37f413de4a317ffbb13",
+    "grep_argv": [
+      "grep",
+      "-n",
+      "class AST\\|def _parse\\|udl\\|UDL\\|literal",
+      "sphinx/domains/cpp.py"
+    ],
+    "grep_output_bytes": 7450,
+    "head_output_bytes": 3337,
+    "head_stdout_matches_archived_action": true,
+    "cases": [
+      {
+        "case": "producer_finishes_first",
+        "private_pipe_capacity_bytes": 65536,
+        "producer_returncode": 0,
+        "head_returncode": 0,
+        "shell_pipefail_equivalent_exit": 0,
+        "stdout_sha256": "c2aebec51be0de04f23e0e666485aae54c811e5a1093ffaa88ed7a40618fc31c"
+      },
+      {
+        "case": "reader_closes_first",
+        "private_pipe_capacity_bytes": 4096,
+        "producer_returncode": -13,
+        "head_returncode": 0,
+        "shell_pipefail_equivalent_exit": 141,
+        "stdout_sha256": "c2aebec51be0de04f23e0e666485aae54c811e5a1093ffaa88ed7a40618fc31c"
+      }
+    ],
+    "limits": [
+      "Guest PIPESTATUS was not recorded in the failing task. This demonstrates a mechanism producing identical output with 0/141, not the exact guest schedule or attribution to monitoring.",
+      "Frozen commands, expected exits, global cache, sysctl and running services were not changed."
+    ]
+  },
+  "limits": [
+    "Strict replay remains FAIL; no automatic 0/141 exception",
+    "Host local mechanism is not guest PIPESTATUS or evidence that monitoring caused this exit",
+    "Seven-instance validation independent; formal Sphinx overhead comparison paused pending interpretation"
+  ]
+}

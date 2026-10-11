@@ -1,0 +1,256 @@
+{
+  "status": "PARTIAL",
+  "initial_acceptance_item": 3,
+  "agentenv": [
+    {
+      "status": "PASS",
+      "raw_dir": ".artifacts/vm-pfn-smoke/20261001T144843Z-3014019",
+      "task": "Prettier #14400; frozen full 26 actions",
+      "cpu": 2,
+      "memory_mib": 4096,
+      "image": "ghcr.io/timesler/swe-polybench.eval.x86_64.prettier__prettier-14400@sha256:e625c9b9776870e2cc87172e886bbc90cfc3d6ce1521492f113a46b3f6dfcf44",
+      "file_accounting": {
+        "status": "PASS",
+        "page_size": 4096,
+        "files": [
+          {
+            "path": "/testbed/src/language-html/utils/index.js",
+            "identity": {
+              "st_dev": 65040,
+              "st_ino": 3620866,
+              "st_size": 16198,
+              "st_mtime_ns": 1790866130401187789,
+              "st_ctime_ns": 1790866130401187789
+            },
+            "total_pages": 4,
+            "initially_resident_pages": 4,
+            "type_and_pfn_verified_pages": 4,
+            "initially_nonresident_pages": 0
+          }
+        ],
+        "selected_mapping_pages": 4,
+        "verified_mapping_pages": 4,
+        "verified_unique_host_pages": 4,
+        "verified_file_cache_physical_bytes": 16384,
+        "unknown_resident_unique_pages": 0,
+        "classification_conflict_pages": 0,
+        "nonresident_host_mappings": 0,
+        "allocated_tail_page_rule": "count full 4096-byte page, validate only logical content bytes",
+        "scope": "declared files and pages resident before this probe; single VM; not all task or host cache",
+        "limitations": [
+          "Non-atomic rechecks cannot rule out intervening PFN reuse",
+          "Residency checked after prior file-LRU analysis; mincore and mapping reads can change cache",
+          "File pages absent before the probe are not read; full file hashes taken after both host checks",
+          "No upper/backing-layer classification, complete host cache or multi-VM sharing conclusion"
+        ]
+      },
+      "file_hashes": [
+        {
+          "path": "/testbed/src/language-html/utils/index.js",
+          "sha256": "51d07fd7752ca36d8f059b7897ee6c8a77e9946c1ce22f129ad8f7dc6a1c1ea5"
+        }
+      ],
+      "latency_ns": {
+        "controller_elapsed_ns": 500997697,
+        "host_read_elapsed_ns": 368232,
+        "guest_before_elapsed_ns": 864750,
+        "guest_after_elapsed_ns": 1242586
+      },
+      "correctness": {
+        "status": "PASS",
+        "action_count": 26,
+        "expected_failures": {
+          "008": 127,
+          "016": 127
+        },
+        "patch_sha256": "f1cc23ac4f5ac1cff87eb7f8c54f8176c1a47cec37fa4cb6907b9dd8ad199af2",
+        "action_manifest_sha256": "6ea843b464f5f7ec3c081c539386593027ede2335c5309b945a9462feddceaa7",
+        "guest_action_sum_ns": 1642528090,
+        "controller_runner_ns": 2027272917,
+        "independent_svg_properties": "PASS",
+        "official_task_tests": "NOT_RUN",
+        "environment": {
+          "ACTIONS_DIR": "/workspace/asb-exp1-physical/actions",
+          "OUTPUT_DIR": "/workspace/asb-exp1-physical/replay",
+          "ACTION_TIMEOUT_SECONDS": "60",
+          "GUEST_MEMORY_SAMPLING": "0",
+          "DROP_GUEST_CACHES": "0",
+          "START_STEP": "001",
+          "END_STEP": "026"
+        },
+        "cwd": "/testbed",
+        "session_semantics": "one bash per frozen action",
+        "cache_policy": "no cache flush; fresh guest; existing host cache",
+        "scope": "physical analysis after full replay and independent check; not a performance comparison"
+      },
+      "cleanup": "PASS"
+    },
+    {
+      "status": "PASS",
+      "raw_dir": ".artifacts/vm-pfn-smoke/20261001T145206Z-3015223",
+      "task": "Prettier #14400; frozen full 26 actions",
+      "cpu": 2,
+      "memory_mib": 4096,
+      "image": "ghcr.io/timesler/swe-polybench.eval.x86_64.prettier__prettier-14400@sha256:e625c9b9776870e2cc87172e886bbc90cfc3d6ce1521492f113a46b3f6dfcf44",
+      "file_accounting": {
+        "status": "PASS",
+        "page_size": 4096,
+        "files": [
+          {
+            "path": "/testbed/src/language-html/utils/index.js",
+            "identity": {
+              "st_dev": 65040,
+              "st_ino": 3620866,
+              "st_size": 16198,
+              "st_mtime_ns": 1790866333763902785,
+              "st_ctime_ns": 1790866333763902785
+            },
+            "total_pages": 4,
+            "initially_resident_pages": 4,
+            "type_and_pfn_verified_pages": 4,
+            "initially_nonresident_pages": 0
+          },
+          {
+            "path": "/testbed/src/language-html/parser-html.js",
+            "identity": {
+              "st_dev": 65040,
+              "st_ino": 76198,
+              "st_size": 11163,
+              "st_mtime_ns": 1756344941000000000,
+              "st_ctime_ns": 1756344941000000000
+            },
+            "total_pages": 3,
+            "initially_resident_pages": 3,
+            "type_and_pfn_verified_pages": 3,
+            "initially_nonresident_pages": 0
+          },
+          {
+            "path": "/testbed/package.json",
+            "identity": {
+              "st_dev": 65040,
+              "st_ino": 113028,
+              "st_size": 6525,
+              "st_mtime_ns": 1756344958000000000,
+              "st_ctime_ns": 1756344958000000000
+            },
+            "total_pages": 2,
+            "initially_resident_pages": 2,
+            "type_and_pfn_verified_pages": 2,
+            "initially_nonresident_pages": 0
+          }
+        ],
+        "selected_mapping_pages": 9,
+        "verified_mapping_pages": 9,
+        "verified_unique_host_pages": 9,
+        "verified_file_cache_physical_bytes": 36864,
+        "unknown_resident_unique_pages": 0,
+        "classification_conflict_pages": 0,
+        "nonresident_host_mappings": 0,
+        "allocated_tail_page_rule": "count full 4096-byte page, validate only logical content bytes",
+        "scope": "declared files and pages resident before this probe; single VM; not all task or host cache",
+        "limitations": [
+          "Non-atomic rechecks cannot rule out intervening PFN reuse",
+          "Residency checked after prior file-LRU analysis; mincore and mapping reads can change cache",
+          "File pages absent before the probe are not read; full file hashes taken after both host checks",
+          "No upper/backing-layer classification, complete host cache or multi-VM sharing conclusion"
+        ]
+      },
+      "file_hashes": [
+        {
+          "path": "/testbed/src/language-html/utils/index.js",
+          "sha256": "51d07fd7752ca36d8f059b7897ee6c8a77e9946c1ce22f129ad8f7dc6a1c1ea5"
+        },
+        {
+          "path": "/testbed/src/language-html/parser-html.js",
+          "sha256": "230e472bbe0d55042120bc00fa4e3bfe470a19481d6ef6d1c5c83266abd041dc"
+        },
+        {
+          "path": "/testbed/package.json",
+          "sha256": "bb691b626e405717f77542daedee927f81b55f826694060075b4b8c09e112500"
+        }
+      ],
+      "latency_ns": {
+        "controller_elapsed_ns": 506917066,
+        "host_read_elapsed_ns": 876950,
+        "guest_before_elapsed_ns": 1491705,
+        "guest_after_elapsed_ns": 2340278
+      },
+      "correctness": {
+        "status": "PASS",
+        "action_count": 26,
+        "expected_failures": {
+          "008": 127,
+          "016": 127
+        },
+        "patch_sha256": "f1cc23ac4f5ac1cff87eb7f8c54f8176c1a47cec37fa4cb6907b9dd8ad199af2",
+        "action_manifest_sha256": "6ea843b464f5f7ec3c081c539386593027ede2335c5309b945a9462feddceaa7",
+        "guest_action_sum_ns": 2436788396,
+        "controller_runner_ns": 2915922966,
+        "independent_svg_properties": "PASS",
+        "official_task_tests": "NOT_RUN",
+        "environment": {
+          "ACTIONS_DIR": "/workspace/asb-exp1-physical/actions",
+          "OUTPUT_DIR": "/workspace/asb-exp1-physical/replay",
+          "ACTION_TIMEOUT_SECONDS": "60",
+          "GUEST_MEMORY_SAMPLING": "0",
+          "DROP_GUEST_CACHES": "0",
+          "START_STEP": "001",
+          "END_STEP": "026"
+        },
+        "cwd": "/testbed",
+        "session_semantics": "one bash per frozen action",
+        "cache_policy": "no cache flush; fresh guest; existing host cache",
+        "scope": "physical analysis after full replay and independent check; not a performance comparison"
+      },
+      "cleanup": "PASS"
+    }
+  ],
+  "trenvx": {
+    "status": "FAIL",
+    "raw_dir": ".artifacts/trenvx-service-smoke/20261001T150534Z-3016384",
+    "completed_steps": 22,
+    "first_failure": "file-origin check rejects trusted.overlay.impure on upper root",
+    "file_measurement": "NOT_RUN",
+    "continuation": "NOT_RUN",
+    "official_task_tests": "NOT_RUN",
+    "checks": {
+      "private_template_prepare": "PASS",
+      "template_build": "PASS",
+      "frozen_input_hashes": "PASS",
+      "unfixed_seed_oracle": "PASS",
+      "checkpoint_after_022": "PASS",
+      "file_restore_interface": "PASS",
+      "sdk_cleanup": "PASS",
+      "service_shutdown": "PASS",
+      "data_archive": "PASS"
+    },
+    "host_cleanup": {
+      "cgroup_removed": true,
+      "loop_query_exit_code": 0,
+      "owned_loop_backings": []
+    },
+    "data_retention": {
+      "status": "PASS",
+      "mode": "verified-archive",
+      "archive": "data.tar.gz",
+      "compressor": "pigz-fast",
+      "archive_sha256": "0a8d6d0afc83e5777495ca7395041391984fc253a180b3aaa41fa47828be23be",
+      "source_removed": true,
+      "elapsed_seconds": 250.445
+    },
+    "observed_min_free_bytes": 35154710528,
+    "initial_minimum_free_bytes": 51539607552,
+    "archive_bytes": 3229097256
+  },
+  "fix": {
+    "status": "UNIT_TESTS_PASS; REAL_VM_NOT_RETESTED",
+    "source": "https://github.com/gregkh/linux/blob/v6.1.134/fs/overlayfs/dir.c#L1183",
+    "change": "accept impure=y on directories; still reject upper file shadows, opaque, redirect, metacopy and unknown values"
+  },
+  "limitations": [
+    "AgentENV results cover a declared resident file subset after file-LRU analysis, not the complete task",
+    "Two successful runs are integration smoke, not repeats for variance or a cross-backend comparison",
+    "No multi-VM sharing measurement, upper-layer classification or full host cache accounting",
+    "Diagnostic read/transfer times are not low-overhead monitoring estimates; prior monitoring intervals remain separately scoped"
+  ]
+}

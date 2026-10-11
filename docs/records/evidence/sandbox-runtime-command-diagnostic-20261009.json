@@ -1,0 +1,529 @@
+{
+  "status": "PASS",
+  "diagnostic_status": "已验证通过",
+  "historical_slow_call_cause": "尚未完全验证",
+  "stable_monitoring_overhead": "部分完成",
+  "date": "2026-10-09",
+  "scope": "two short Sphinx runs, original 13-step prefix and unchanged command repeats; no complete trajectory rerun",
+  "task": "sphinx-doc__sphinx-7590",
+  "cpu": 2,
+  "memory_mib": 4096,
+  "volume_gib": 8,
+  "pip_version": "23.3.1",
+  "frozen_command_sha256": "7b778e7f14b1769c1500174d5c2470a5efd124a5d2421fcfd5d418eeeb498a4d",
+  "first_diagnostic": {
+    "source_directory": ".artifacts/storage-isolated-service/20261009T132836Z-4147394/python-backbone",
+    "action_count": 13,
+    "raw_files": 177,
+    "ranges": {
+      "unprofiled": {
+        "elapsed_min_seconds": 1.667510243,
+        "elapsed_max_seconds": 2.118027221,
+        "cpu_mean_seconds": 0.7652546666666666,
+        "observer_cpu_mean_seconds": 0.0017233333333333317
+      },
+      "profiled": {
+        "elapsed_min_seconds": 1.713487569,
+        "elapsed_max_seconds": 2.799243918,
+        "cpu_mean_seconds": 0.8491723333333333,
+        "observer_cpu_mean_seconds": 0.10222766666666666
+      }
+    }
+  },
+  "version_check_control": {
+    "source_directory": ".artifacts/storage-isolated-service/20261009T133332Z-4150517/python-backbone",
+    "action_count": 13,
+    "raw_files": 204,
+    "order": [
+      "default",
+      "disabled",
+      "disabled",
+      "default"
+    ],
+    "controls": [
+      {
+        "control": 1,
+        "pip_version_check_disabled": false,
+        "elapsed_seconds": 1.991101581,
+        "cpu_seconds": 1.00827,
+        "observer_cpu_seconds": 0.13269,
+        "process_observations": {
+          "processes": [
+            {
+              "kind": "conda",
+              "first_ns": 26377339,
+              "last_ns": 297006911,
+              "first_ticks": 1,
+              "last_ticks": 23,
+              "states": {
+                "R": 11
+              },
+              "wchans": {
+                "0": 10,
+                "folio_wait_bit_common": 1
+              },
+              "socket_samples": 0,
+              "inet_observed": true,
+              "inet_socket_samples": 0,
+              "inet_states": {},
+              "first_read_bytes": 0,
+              "last_read_bytes": 21266432,
+              "observed_span_seconds": 0.270629572,
+              "observed_cpu_seconds": 0.22,
+              "observed_read_bytes_delta": 21266432
+            },
+            {
+              "kind": "pip",
+              "first_ns": 514777047,
+              "last_ns": 1963192211,
+              "first_ticks": 0,
+              "last_ticks": 54,
+              "states": {
+                "R": 23,
+                "S": 32
+              },
+              "wchans": {
+                "0": 23,
+                "do_poll.constprop.0": 32
+              },
+              "socket_samples": 39,
+              "inet_observed": true,
+              "inet_socket_samples": 39,
+              "inet_states": {
+                "udp:01": 7,
+                "tcp:01": 32
+              },
+              "first_read_bytes": 4096,
+              "last_read_bytes": 6070272,
+              "observed_span_seconds": 1.448415164,
+              "observed_cpu_seconds": 0.54,
+              "observed_read_bytes_delta": 6066176
+            }
+          ],
+          "scans": 74,
+          "scope": "observed executable spans/counters only; startup/exit and threads may be missed; socket samples include Unix sockets, not proof of network wait"
+        }
+      },
+      {
+        "control": 2,
+        "pip_version_check_disabled": true,
+        "elapsed_seconds": 0.60861682,
+        "cpu_seconds": 0.579386,
+        "observer_cpu_seconds": 0.050147,
+        "process_observations": {
+          "processes": [
+            {
+              "kind": "conda",
+              "first_ns": 26594006,
+              "last_ns": 163145596,
+              "first_ticks": 1,
+              "last_ticks": 14,
+              "states": {
+                "R": 6
+              },
+              "wchans": {
+                "0": 6
+              },
+              "socket_samples": 0,
+              "inet_observed": true,
+              "inet_socket_samples": 0,
+              "inet_states": {},
+              "first_read_bytes": 0,
+              "last_read_bytes": 49152,
+              "observed_span_seconds": 0.13655159,
+              "observed_cpu_seconds": 0.13,
+              "observed_read_bytes_delta": 49152
+            },
+            {
+              "kind": "pip",
+              "first_ns": 353389489,
+              "last_ns": 553545266,
+              "first_ticks": 1,
+              "last_ticks": 20,
+              "states": {
+                "R": 8
+              },
+              "wchans": {
+                "0": 8
+              },
+              "socket_samples": 0,
+              "inet_observed": true,
+              "inet_socket_samples": 0,
+              "inet_states": {},
+              "first_read_bytes": 0,
+              "last_read_bytes": 1261568,
+              "observed_span_seconds": 0.200155777,
+              "observed_cpu_seconds": 0.19,
+              "observed_read_bytes_delta": 1261568
+            }
+          ],
+          "scans": 22,
+          "scope": "observed executable spans/counters only; startup/exit and threads may be missed; socket samples include Unix sockets, not proof of network wait"
+        }
+      },
+      {
+        "control": 3,
+        "pip_version_check_disabled": true,
+        "elapsed_seconds": 0.60222769,
+        "cpu_seconds": 0.573631,
+        "observer_cpu_seconds": 0.04847799999999999,
+        "process_observations": {
+          "processes": [
+            {
+              "kind": "conda",
+              "first_ns": 26268978,
+              "last_ns": 161663509,
+              "first_ticks": 1,
+              "last_ticks": 15,
+              "states": {
+                "R": 6
+              },
+              "wchans": {
+                "0": 6
+              },
+              "socket_samples": 0,
+              "inet_observed": true,
+              "inet_socket_samples": 0,
+              "inet_states": {},
+              "first_read_bytes": 0,
+              "last_read_bytes": 958464,
+              "observed_span_seconds": 0.135394531,
+              "observed_cpu_seconds": 0.14,
+              "observed_read_bytes_delta": 958464
+            },
+            {
+              "kind": "pip",
+              "first_ns": 351767546,
+              "last_ns": 546178081,
+              "first_ticks": 0,
+              "last_ticks": 19,
+              "states": {
+                "R": 8
+              },
+              "wchans": {
+                "0": 8
+              },
+              "socket_samples": 0,
+              "inet_observed": true,
+              "inet_socket_samples": 0,
+              "inet_states": {},
+              "first_read_bytes": 0,
+              "last_read_bytes": 0,
+              "observed_span_seconds": 0.194410535,
+              "observed_cpu_seconds": 0.19,
+              "observed_read_bytes_delta": 0
+            }
+          ],
+          "scans": 22,
+          "scope": "observed executable spans/counters only; startup/exit and threads may be missed; socket samples include Unix sockets, not proof of network wait"
+        }
+      },
+      {
+        "control": 4,
+        "pip_version_check_disabled": false,
+        "elapsed_seconds": 1.778026359,
+        "cpu_seconds": 0.7918509999999999,
+        "observer_cpu_seconds": 0.14674800000000002,
+        "process_observations": {
+          "processes": [
+            {
+              "kind": "conda",
+              "first_ns": 26584883,
+              "last_ns": 162579701,
+              "first_ticks": 1,
+              "last_ticks": 15,
+              "states": {
+                "R": 6
+              },
+              "wchans": {
+                "0": 6
+              },
+              "socket_samples": 0,
+              "inet_observed": true,
+              "inet_socket_samples": 0,
+              "inet_states": {},
+              "first_read_bytes": 0,
+              "last_read_bytes": 0,
+              "observed_span_seconds": 0.135994818,
+              "observed_cpu_seconds": 0.14,
+              "observed_read_bytes_delta": 0
+            },
+            {
+              "kind": "pip",
+              "first_ns": 352357135,
+              "last_ns": 1750410357,
+              "first_ticks": 0,
+              "last_ticks": 42,
+              "states": {
+                "R": 16,
+                "S": 36
+              },
+              "wchans": {
+                "0": 16,
+                "do_poll.constprop.0": 36
+              },
+              "socket_samples": 42,
+              "inet_observed": true,
+              "inet_socket_samples": 42,
+              "inet_states": {
+                "udp:01": 7,
+                "tcp:01": 35
+              },
+              "first_read_bytes": 0,
+              "last_read_bytes": 696320,
+              "observed_span_seconds": 1.398053222,
+              "observed_cpu_seconds": 0.42,
+              "observed_read_bytes_delta": 696320
+            }
+          ],
+          "scans": 65,
+          "scope": "observed executable spans/counters only; startup/exit and threads may be missed; socket samples include Unix sockets, not proof of network wait"
+        }
+      }
+    ],
+    "semantic_checks": "exact original command SHA, expected exit 1, stdout/stderr hashes and source/patch unchanged"
+  },
+  "step_variability": {
+    "source_study": ".artifacts/runtime-monitor-pairs/20261009T115624Z-4108493",
+    "completed_pairs": 5,
+    "steps": 35,
+    "raw_files": 2350,
+    "largest_range_steps": [
+      {
+        "segment": "trace_cpp_parser",
+        "step": "006",
+        "command_sha256": "7b778e7f14b1769c1500174d5c2470a5efd124a5d2421fcfd5d418eeeb498a4d",
+        "off": {
+          "seconds": [
+            2.521138479,
+            2.71746568,
+            3.091467134,
+            6.394950123,
+            3.026825937
+          ],
+          "mean_seconds": 3.5503694706,
+          "min_seconds": 2.521138479,
+          "max_seconds": 6.394950123,
+          "cv_percent": 45.26196903434095
+        },
+        "continuous": {
+          "seconds": [
+            2.751266827,
+            2.851639181,
+            2.731914925,
+            2.775819241,
+            2.096864417
+          ],
+          "mean_seconds": 2.6415009181999998,
+          "min_seconds": 2.096864417,
+          "max_seconds": 2.851639181,
+          "cv_percent": 11.653823703437256
+        },
+        "pooled_range_seconds": 4.298085706,
+        "paired_delta_seconds": [
+          0.2301283479999996,
+          0.1341735009999998,
+          -0.3595522090000003,
+          -3.619130882,
+          -0.92996152
+        ]
+      },
+      {
+        "segment": "backbone_finish",
+        "step": "004",
+        "command_sha256": "0137178186c0eb8bd552653b4d91b051e62805859957a2b3f3f9b00e14219a9e",
+        "off": {
+          "seconds": [
+            0.364590538,
+            0.304932264,
+            0.337889213,
+            0.331302118,
+            0.241058749
+          ],
+          "mean_seconds": 0.3159545764,
+          "min_seconds": 0.241058749,
+          "max_seconds": 0.364590538,
+          "cv_percent": 14.856190044173584
+        },
+        "continuous": {
+          "seconds": [
+            0.348238513,
+            0.450689887,
+            0.279020713,
+            0.593159193,
+            0.341180661
+          ],
+          "mean_seconds": 0.4024577934,
+          "min_seconds": 0.279020713,
+          "max_seconds": 0.593159193,
+          "cv_percent": 30.589644073899734
+        },
+        "pooled_range_seconds": 0.35210044399999996,
+        "paired_delta_seconds": [
+          -0.016352024999999992,
+          0.145757623,
+          -0.058868500000000046,
+          0.261857075,
+          0.10012191200000001
+        ]
+      },
+      {
+        "segment": "trace_cpp_parser",
+        "step": "007",
+        "command_sha256": "1cc5716d29774d2676b55ca2e8ddc124c044ea1d472b04edcf17af86ee6a4ef4",
+        "off": {
+          "seconds": [
+            0.333052007,
+            0.581131034,
+            0.293831109,
+            0.540170835,
+            0.339714465
+          ],
+          "mean_seconds": 0.41757989,
+          "min_seconds": 0.293831109,
+          "max_seconds": 0.581131034,
+          "cv_percent": 31.747228665035014
+        },
+        "continuous": {
+          "seconds": [
+            0.250105757,
+            0.292825797,
+            0.27843799,
+            0.261107428,
+            0.33439378
+          ],
+          "mean_seconds": 0.28337415039999997,
+          "min_seconds": 0.250105757,
+          "max_seconds": 0.33439378,
+          "cv_percent": 11.596213381541006
+        },
+        "pooled_range_seconds": 0.331025277,
+        "paired_delta_seconds": [
+          -0.08294625,
+          -0.288305237,
+          -0.015393118999999955,
+          -0.279063407,
+          -0.005320685000000047
+        ]
+      },
+      {
+        "segment": "core_verify",
+        "step": "005",
+        "command_sha256": "dcc4f2d9df205055f0cbb34390d5b18b4173ffd26dab7e9720497adc8b5b0594",
+        "off": {
+          "seconds": [
+            0.334915124,
+            0.409260017,
+            0.43051045,
+            0.348238332,
+            0.228144576
+          ],
+          "mean_seconds": 0.3502136998,
+          "min_seconds": 0.228144576,
+          "max_seconds": 0.43051045,
+          "cv_percent": 22.606783188934184
+        },
+        "continuous": {
+          "seconds": [
+            0.370403128,
+            0.360468597,
+            0.356905455,
+            0.300330908,
+            0.333494189
+          ],
+          "mean_seconds": 0.3443204554,
+          "min_seconds": 0.300330908,
+          "max_seconds": 0.370403128,
+          "cv_percent": 8.15234013590411
+        },
+        "pooled_range_seconds": 0.202365874,
+        "paired_delta_seconds": [
+          0.03548800400000002,
+          -0.048791419999999974,
+          -0.073604995,
+          -0.047907423999999976,
+          0.10534961300000001
+        ]
+      },
+      {
+        "segment": "backbone_finish",
+        "step": "006",
+        "command_sha256": "80e18aebd95c1d9d4560cde54fa46d452b7f0ad637bc1a70fdc310d609ecbc11",
+        "off": {
+          "seconds": [
+            4.262267776,
+            4.204235724,
+            4.15604896,
+            4.196394469,
+            4.102266851
+          ],
+          "mean_seconds": 4.184242756,
+          "min_seconds": 4.102266851,
+          "max_seconds": 4.262267776,
+          "cv_percent": 1.4214605662395985
+        },
+        "continuous": {
+          "seconds": [
+            4.246711748,
+            4.176236476,
+            4.131676496,
+            4.279571662,
+            4.148687219
+          ],
+          "mean_seconds": 4.1965767202,
+          "min_seconds": 4.131676496,
+          "max_seconds": 4.279571662,
+          "cv_percent": 1.5221106629624448
+        },
+        "pooled_range_seconds": 0.17730481099999995,
+        "paired_delta_seconds": [
+          -0.015556027999999777,
+          -0.02799924800000042,
+          -0.024372463999999816,
+          0.08317719300000004,
+          0.04642036799999971
+        ]
+      }
+    ]
+  },
+  "verification": {
+    "related_local_tests": 54,
+    "raw_hashes_unchanged": true,
+    "two_report_exports_byte_identical": true,
+    "task_source_and_prefix_outputs": "PASS",
+    "owned_resources_and_ram_caches_removed": true,
+    "original_services_and_vms_unchanged": true
+  },
+  "cleanup": {
+    "20261009T132836Z-4147394": {
+      "owned_container_removed": true,
+      "mount_and_loop_removed": true,
+      "successful_fixture_removed": true,
+      "original_firecracker_identities_unchanged": true,
+      "original_service_unchanged": true,
+      "observed_host_available_min_bytes": 39316709376,
+      "observed_volume_used_peak_bytes": 669020160
+    },
+    "20261009T133332Z-4150517": {
+      "owned_container_removed": true,
+      "mount_and_loop_removed": true,
+      "successful_fixture_removed": true,
+      "original_firecracker_identities_unchanged": true,
+      "original_service_unchanged": true,
+      "observed_host_available_min_bytes": 39311478784,
+      "observed_volume_used_peak_bytes": 669040640
+    }
+  },
+  "conclusions": [
+    "Default pip list incurs a network version-check cost in the measured frozen environment; disabling only that child environment switch removes observed INET sockets/poll waits and reduces command elapsed time with unchanged output.",
+    "The historical 6.395-second call has no internal trace; these short tests did not reproduce it and do not establish its complete cause.",
+    "Formal frozen trajectory and default environment remain unchanged; the environment switch is diagnostic only.",
+    "Per-step variance is now exported for all 35 steps and all pairs; no slow pair is removed."
+  ],
+  "limits": [
+    "Same VM and sequential warm repetitions; not a monitoring on/off matched study or cold-cache comparison.",
+    "25 ms process scans themselves add diagnostic cost; observer CPU is separate.",
+    "Wait channels/socket descriptors do not by themselves establish I/O or network causality.",
+    "No complete task tests, physical page cache or full trajectory replay performed."
+  ]
+}

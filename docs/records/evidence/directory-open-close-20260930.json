@@ -1,0 +1,240 @@
+{
+  "status": "DIAGNOSTIC_ONLY",
+  "decision": "NOT_ACCEPTED_FOR_EXP1",
+  "runs": [
+    {
+      "result_dir": ".artifacts/directory-open-close/20260930T111753Z-2630152",
+      "status": "PASS",
+      "cleanup": "PASS",
+      "report": {
+        "status": "PASS",
+        "correctness": "PASS",
+        "cleanup": "PASS",
+        "diagnostic_gate": "NOT_ACCEPTED",
+        "coarse": true,
+        "checked_children": 45,
+        "differences_percent": {
+          "aa": [
+            6.47545286526261,
+            0.15461820055941988,
+            -0.11158257998554744,
+            -51.78236003721928,
+            0.684404272016681
+          ],
+          "ab": [
+            2.1712663860246284,
+            2.6496952980822996,
+            -23.213300517933135,
+            2.0266754767008566,
+            24.591030771411514
+          ]
+        },
+        "input_hashes": {
+          "directory-profile.so": "4aa2cd45ba2bbf38dcb67118fbd80d74e397063a257c54919100a43dc3528692",
+          "directory_profile.c": "016831dd3a26d5ab4444dda73a5b3e30735941face35bf79fe197516d8421738",
+          "calibrate_directory_profile.py": "9bc7748fcf31396be6be093ea2d52b9f85645f6cb328c68056125732cae6216f",
+          "directory-fixture": "82f3c432c00c613c88484d2f8ad1d09b68187eecaebeb75793035abe39baeacf",
+          "directory_fixture.c": "5e6d0667ae97bc6a84958ad794b196b970aed48035e8a9d4efe1cac13e34e109"
+        },
+        "source_result_sha256": "355941ad5f47945544a585158071fc4c2b3dd256c2fb10bd51c77a0518b4ce91",
+        "limits": [
+          "Synthetic warm directories, not Git or Exp1.",
+          "No CPU frequency control; noisy AA comparisons retained.",
+          "Normal process exit only; abnormal termination not covered.",
+          "Only opendir/closedir libc duration; directory reads and stat calls NOT_MEASURED.",
+          "null_with_errno is the observed errno, not necessarily a new error."
+        ]
+      },
+      "result_sha256": "355941ad5f47945544a585158071fc4c2b3dd256c2fb10bd51c77a0518b4ce91",
+      "report_sha256": "daad9e3db505bf56678086262f1d4732279c005777cf7f1e6620359af6c2c798",
+      "protocol": {
+        "coarse": true,
+        "groups": 5,
+        "rounds_per_child": 32,
+        "directories": 256,
+        "files_per_directory": 32,
+        "timeout_seconds": 120,
+        "gate_rule": "each of five AA differences within +/-5%; each AB increase <=5%",
+        "scope": "warm fixture diagnostic gate, not platform monitoring acceptance"
+      }
+    },
+    {
+      "result_dir": ".artifacts/directory-open-close/20260930T111930Z-2630760",
+      "status": "PASS",
+      "cleanup": "PASS",
+      "report": {
+        "status": "PASS",
+        "correctness": "PASS",
+        "cleanup": "PASS",
+        "diagnostic_gate": "PASS",
+        "coarse": true,
+        "checked_children": 45,
+        "differences_percent": {
+          "aa": [
+            -0.04646547949762603,
+            -0.11933606907389427,
+            -0.02080970706282992,
+            0.5135463451169553,
+            -0.12154664675460003
+          ],
+          "ab": [
+            2.516605928892335,
+            2.2446243791808485,
+            -0.32345642565934085,
+            1.6843576072497424,
+            1.972639586064262
+          ]
+        },
+        "input_hashes": {
+          "directory-profile.so": "4aa2cd45ba2bbf38dcb67118fbd80d74e397063a257c54919100a43dc3528692",
+          "directory_profile.c": "016831dd3a26d5ab4444dda73a5b3e30735941face35bf79fe197516d8421738",
+          "calibrate_directory_profile.py": "2c43fe4643a3a8af24528d6792fefea47786c4379353f9b04aa30fe51aeb563d",
+          "directory-fixture": "82f3c432c00c613c88484d2f8ad1d09b68187eecaebeb75793035abe39baeacf",
+          "directory_fixture.c": "5e6d0667ae97bc6a84958ad794b196b970aed48035e8a9d4efe1cac13e34e109"
+        },
+        "source_result_sha256": "2dc238be07725c03d353e91a5e6a8b53382c7ec7d1d2375d0908db80890740d7",
+        "limits": [
+          "Synthetic warm directories, not Git or Exp1.",
+          "Temporary CPU policy requested, not exclusive CPUs or proof of constant actual frequency.",
+          "Normal process exit only; abnormal termination not covered.",
+          "Only opendir/closedir libc duration; directory reads and stat calls NOT_MEASURED.",
+          "null_with_errno is the observed errno, not necessarily a new error."
+        ]
+      },
+      "result_sha256": "2dc238be07725c03d353e91a5e6a8b53382c7ec7d1d2375d0908db80890740d7",
+      "report_sha256": "4265721d2478278c92bd91038457ac041e3f056a8ae929548e103f85db96572a",
+      "protocol": {
+        "coarse": true,
+        "fixed_frequency": true,
+        "groups": 5,
+        "rounds_per_child": 32,
+        "directories": 256,
+        "files_per_directory": 32,
+        "timeout_seconds": 120,
+        "gate_rule": "each of five AA differences within +/-5%; each AB increase <=5%",
+        "scope": "warm fixture diagnostic gate, not platform monitoring acceptance"
+      }
+    },
+    {
+      "result_dir": ".artifacts/git-open-close-calibration/20260930T112116Z-2631182",
+      "status": "PASS",
+      "cleanup": "PASS",
+      "report": {
+        "status": "PASS",
+        "diagnostic_gate": "NOT_ACCEPTED",
+        "checked_phases": 8,
+        "checked_actions": 512,
+        "differences_percent": {
+          "command_total_ns": {
+            "aa": 3.2926860017083115,
+            "ab": 5.093639833110419
+          },
+          "phase_ns": {
+            "aa": 2.9370983574152687,
+            "ab": 4.385860449719692
+          }
+        },
+        "stdout_sha256": "3466031c26c23903bab73ed2ceeea6dad30eec9c38f16cbb6c51e4b79341aca6",
+        "source_sha256": "ce4fe6493de7cc8e693277037c14e0e824474fa1cfc92b58fa922f82a48f219d",
+        "limits": [
+          "one mirrored group, no confidence interval",
+          "warm synthetic Git workload; cannot guarantee cost on Exp1",
+          "incremental add opendir/closedir libc timing only; directory reads and stat calls NOT_MEASURED; not platform monitoring acceptance"
+        ]
+      },
+      "result_sha256": "ce4fe6493de7cc8e693277037c14e0e824474fa1cfc92b58fa922f82a48f219d",
+      "report_sha256": "53239e6e2b95ec573ca610188abc2118c326ae088e3860663d68a48ed1c6a8de",
+      "protocol": {
+        "order": [
+          [
+            "aa",
+            "A",
+            false
+          ],
+          [
+            "aa",
+            "B",
+            false
+          ],
+          [
+            "aa",
+            "B",
+            false
+          ],
+          [
+            "aa",
+            "A",
+            false
+          ],
+          [
+            "ab",
+            "A",
+            false
+          ],
+          [
+            "ab",
+            "B",
+            true
+          ],
+          [
+            "ab",
+            "B",
+            true
+          ],
+          [
+            "ab",
+            "A",
+            false
+          ]
+        ],
+        "clock_calibration": true,
+        "bash_command_times": true,
+        "add_performance": true,
+        "add_trace2": true,
+        "open_close": true,
+        "iterations_per_phase": 64,
+        "directories": 256,
+        "files_per_directory": 32,
+        "gate": "AA +/-5% and AB <=5% for both command and phase elapsed",
+        "scope": "incremental add-only opendir/closedir timing; add Trace2, native performance and Bash timing in all phases; no directory reads or stat measured"
+      }
+    }
+  ],
+  "final_check": {
+    "project_sandboxes_empty": true,
+    "cpu_settings": {
+      "2": {
+        "scaling_min_freq": "800000",
+        "scaling_max_freq": "2801000",
+        "scaling_governor": "schedutil"
+      },
+      "4": {
+        "scaling_min_freq": "800000",
+        "scaling_max_freq": "2801000",
+        "scaling_governor": "schedutil"
+      },
+      "66": {
+        "scaling_min_freq": "800000",
+        "scaling_max_freq": "2801000",
+        "scaling_governor": "schedutil"
+      },
+      "68": {
+        "scaling_min_freq": "800000",
+        "scaling_max_freq": "2801000",
+        "scaling_governor": "schedutil"
+      }
+    },
+    "free_bytes": 54033403904
+  },
+  "tests": {
+    "directory_fixture": 2,
+    "git_diagnostic": 15
+  },
+  "limits": [
+    "Git command increase 5.09364% did not pass predeclared <=5% gate; not a statistically established true overhead above 5%.",
+    "AA command variation 3.29269%; no confidence interval or retries to seek PASS.",
+    "Only opendir/closedir libc durations measured; readdir and stat not measured.",
+    "Directory fixture guest scope string retained historical no-fixed-policy wording; actual host protocol and frequency receipts establish temporary policy in second run. Future script text corrected.",
+    "No new Exp1 replay or platform monitoring acceptance sample."
+  ]
+}

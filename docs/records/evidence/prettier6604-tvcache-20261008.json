@@ -1,0 +1,589 @@
+{
+  "date_utc": "2026-10-08",
+  "task_id": "prettier__prettier-6604",
+  "variant": "role-specific inspect manifests from unchanged original sampling",
+  "platform_status": "PASS",
+  "official_task_status": "FAIL",
+  "resource_configuration": {
+    "cpu_per_vm": 2,
+    "memory_mib_per_vm": 4096,
+    "max_instances": 7,
+    "configured_memory_gib": 28
+  },
+  "smoke": {
+    "status": "PASS",
+    "actions": 39,
+    "logical_actions": 50,
+    "segments": 7,
+    "instance_count": 2,
+    "checkpoint_count": 1,
+    "controller_elapsed_ns": 36092329637,
+    "per_role_official": {
+      "backbone": {
+        "status": "FAIL",
+        "passed": 0,
+        "failed": 2
+      },
+      "early_1": {
+        "status": "FAIL",
+        "passed": 0,
+        "failed": 2
+      }
+    }
+  },
+  "tvcache": {
+    "status": "PASS",
+    "mode": "pinned deterministic prefix traversal",
+    "instance_count": 7,
+    "physical_segments": 17,
+    "physical_actions": 84,
+    "logical_paths": 7,
+    "logical_actions": 189,
+    "prefix_tree_plan": {
+      "forks": {
+        "longest-prefix-backbone-2": {
+          "parent_role": "backbone",
+          "prefix": [
+            "read_repo",
+            "read_typescript"
+          ],
+          "offset": 2,
+          "child_roles": [
+            "early_1",
+            "early_2",
+            "early_3"
+          ]
+        },
+        "longest-prefix-backbone-4": {
+          "parent_role": "backbone",
+          "prefix": [
+            "read_repo",
+            "read_typescript",
+            "core_patch",
+            "core_verify"
+          ],
+          "offset": 4,
+          "child_roles": [
+            "late_1",
+            "late_2",
+            "late_3"
+          ]
+        }
+      },
+      "segments": [
+        [
+          "backbone",
+          "read_repo"
+        ],
+        [
+          "backbone",
+          "read_typescript"
+        ],
+        [
+          "backbone",
+          "core_patch"
+        ],
+        [
+          "backbone",
+          "core_verify"
+        ],
+        [
+          "backbone",
+          "backbone_finish"
+        ],
+        [
+          "late_1",
+          "late_1_inspect"
+        ],
+        [
+          "late_1",
+          "late_1"
+        ],
+        [
+          "late_2",
+          "late_2_inspect"
+        ],
+        [
+          "late_2",
+          "late_2"
+        ],
+        [
+          "late_3",
+          "late_3_inspect"
+        ],
+        [
+          "late_3",
+          "late_3"
+        ],
+        [
+          "early_1",
+          "early_1_inspect"
+        ],
+        [
+          "early_1",
+          "early_1"
+        ],
+        [
+          "early_2",
+          "early_2_inspect"
+        ],
+        [
+          "early_2",
+          "early_2"
+        ],
+        [
+          "early_3",
+          "early_3_inspect"
+        ],
+        [
+          "early_3",
+          "early_3"
+        ]
+      ]
+    },
+    "checkpoints": [
+      {
+        "after_global_step": 11,
+        "files_compared": 58,
+        "progress_steps": 11,
+        "parent_next_segment": "core_patch",
+        "status": "PASS"
+      },
+      {
+        "after_global_step": 24,
+        "files_compared": 100,
+        "progress_steps": 24,
+        "parent_next_segment": "backbone_finish",
+        "status": "PASS"
+      }
+    ],
+    "restores": {
+      "early_1": {
+        "status": "PASS",
+        "checkpoint_after_global_step": 11,
+        "next_branch_segment": "early_1_inspect",
+        "files_compared": 58,
+        "process_identity_preserved": true,
+        "count_before": 25,
+        "count_after": 31
+      },
+      "early_2": {
+        "status": "PASS",
+        "checkpoint_after_global_step": 11,
+        "next_branch_segment": "early_2_inspect",
+        "files_compared": 58,
+        "process_identity_preserved": true,
+        "count_before": 25,
+        "count_after": 31
+      },
+      "early_3": {
+        "status": "PASS",
+        "checkpoint_after_global_step": 11,
+        "next_branch_segment": "early_3_inspect",
+        "files_compared": 58,
+        "process_identity_preserved": true,
+        "count_before": 25,
+        "count_after": 31
+      },
+      "late_1": {
+        "status": "PASS",
+        "checkpoint_after_global_step": 24,
+        "next_branch_segment": "late_1_inspect",
+        "files_compared": 100,
+        "process_identity_preserved": true,
+        "count_before": 119,
+        "count_after": 125
+      },
+      "late_2": {
+        "status": "PASS",
+        "checkpoint_after_global_step": 24,
+        "next_branch_segment": "late_2_inspect",
+        "files_compared": 100,
+        "process_identity_preserved": true,
+        "count_before": 119,
+        "count_after": 125
+      },
+      "late_3": {
+        "status": "PASS",
+        "checkpoint_after_global_step": 24,
+        "next_branch_segment": "late_3_inspect",
+        "files_compared": 100,
+        "process_identity_preserved": true,
+        "count_before": 119,
+        "count_after": 125
+      }
+    },
+    "per_role": {
+      "backbone": {
+        "action_count": 29,
+        "guest_action_sum_ns": 12847866232,
+        "guest_observed_peak_bytes": 630063104,
+        "final_patch_sha256": "73eb5f9d0c5582c5b1be464aa6915cfba621a27b80d953b69db74c6d1fa3da5a",
+        "sample_count": 202,
+        "components_at_peak_bytes": {
+          "AnonPages": 322818048,
+          "Cached": 193417216,
+          "Buffers": 39329792,
+          "Shmem": 1089536
+        },
+        "components_at_peak_percent": {
+          "AnonPages": 51.23582795922613,
+          "Cached": 30.69807052215519,
+          "Buffers": 6.242198876638236,
+          "Shmem": 0.17292490118577075
+        },
+        "official_task_status": "FAIL",
+        "official_passed": 0,
+        "official_failed": 2
+      },
+      "early_1": {
+        "action_count": 10,
+        "guest_action_sum_ns": 1889918139,
+        "guest_observed_peak_bytes": 233267200,
+        "final_patch_sha256": "6a74b179e74a2fb00f4cf334c3cccd3405168025974c9a3b3550614cb1976de5",
+        "sample_count": 49,
+        "components_at_peak_bytes": {
+          "AnonPages": 85073920,
+          "Cached": 74625024,
+          "Buffers": 8175616,
+          "Shmem": 1085440
+        },
+        "components_at_peak_percent": {
+          "AnonPages": 36.470588235294116,
+          "Cached": 31.991220368744514,
+          "Buffers": 3.504828797190518,
+          "Shmem": 0.46532045654082527
+        },
+        "official_task_status": "FAIL",
+        "official_passed": 0,
+        "official_failed": 2
+      },
+      "early_2": {
+        "action_count": 10,
+        "guest_action_sum_ns": 2368437236,
+        "guest_observed_peak_bytes": 240963584,
+        "final_patch_sha256": "5721325c7f24fc147069e055f431aa294b0762824a44056afe378955de15fa24",
+        "sample_count": 54,
+        "components_at_peak_bytes": {
+          "AnonPages": 90947584,
+          "Cached": 74747904,
+          "Buffers": 8904704,
+          "Shmem": 1085440
+        },
+        "components_at_peak_percent": {
+          "AnonPages": 37.743289874041714,
+          "Cached": 31.02041510139557,
+          "Buffers": 3.6954563225620016,
+          "Shmem": 0.45045810739601216
+        },
+        "official_task_status": "FAIL",
+        "official_passed": 0,
+        "official_failed": 2
+      },
+      "early_3": {
+        "action_count": 10,
+        "guest_action_sum_ns": 3282317327,
+        "guest_observed_peak_bytes": 242356224,
+        "final_patch_sha256": "6a74b179e74a2fb00f4cf334c3cccd3405168025974c9a3b3550614cb1976de5",
+        "sample_count": 62,
+        "components_at_peak_bytes": {
+          "AnonPages": 92930048,
+          "Cached": 73629696,
+          "Buffers": 8622080,
+          "Shmem": 1085440
+        },
+        "components_at_peak_percent": {
+          "AnonPages": 38.34440331930572,
+          "Cached": 30.380773715966132,
+          "Buffers": 3.557606178911254,
+          "Shmem": 0.4478696614781389
+        },
+        "official_task_status": "FAIL",
+        "official_passed": 0,
+        "official_failed": 2
+      },
+      "late_1": {
+        "action_count": 8,
+        "guest_action_sum_ns": 13346540938,
+        "guest_observed_peak_bytes": 579272704,
+        "final_patch_sha256": "6a74b179e74a2fb00f4cf334c3cccd3405168025974c9a3b3550614cb1976de5",
+        "sample_count": 147,
+        "components_at_peak_bytes": {
+          "AnonPages": 395546624,
+          "Cached": 78331904,
+          "Buffers": 29396992,
+          "Shmem": 1085440
+        },
+        "components_at_peak_percent": {
+          "AnonPages": 68.28331824867067,
+          "Cached": 13.522457291548818,
+          "Buffers": 5.074810498925218,
+          "Shmem": 0.18737979409435457
+        },
+        "official_task_status": "FAIL",
+        "official_passed": 0,
+        "official_failed": 2
+      },
+      "late_2": {
+        "action_count": 8,
+        "guest_action_sum_ns": 5342281562,
+        "guest_observed_peak_bytes": 394227712,
+        "final_patch_sha256": "6a74b179e74a2fb00f4cf334c3cccd3405168025974c9a3b3550614cb1976de5",
+        "sample_count": 74,
+        "components_at_peak_bytes": {
+          "AnonPages": 194228224,
+          "Cached": 87334912,
+          "Buffers": 33058816,
+          "Shmem": 1085440
+        },
+        "components_at_peak_percent": {
+          "AnonPages": 49.268029133375585,
+          "Cached": 22.153417768865523,
+          "Buffers": 8.385715918418237,
+          "Shmem": 0.2753332571404823
+        },
+        "official_task_status": "FAIL",
+        "official_passed": 0,
+        "official_failed": 2
+      },
+      "late_3": {
+        "action_count": 9,
+        "guest_action_sum_ns": 10334790196,
+        "guest_observed_peak_bytes": 586113024,
+        "final_patch_sha256": "6a74b179e74a2fb00f4cf334c3cccd3405168025974c9a3b3550614cb1976de5",
+        "sample_count": 124,
+        "components_at_peak_bytes": {
+          "AnonPages": 400396288,
+          "Cached": 79437824,
+          "Buffers": 30236672,
+          "Shmem": 1085440
+        },
+        "components_at_peak_percent": {
+          "AnonPages": 68.31383566047494,
+          "Cached": 13.55332858121235,
+          "Buffers": 5.158846632283674,
+          "Shmem": 0.18519295008875286
+        },
+        "official_task_status": "FAIL",
+        "official_passed": 0,
+        "official_failed": 2
+      }
+    },
+    "host": {
+      "sample_count": 704,
+      "observed_peak_bytes": 7468490752,
+      "components_at_peak_bytes": {
+        "anon": 3261108224,
+        "file": 4050518016,
+        "kernel": 138035200
+      }
+    },
+    "timing": {
+      "controller_elapsed_ns": 77503294479,
+      "cold_request_span_ns": 2846826786,
+      "cold_request_per_role_ns": {
+        "backbone": 2846826786
+      },
+      "cold_requests_overlap": null,
+      "checkpoint_call_ns": [
+        3103438510,
+        1335707428
+      ],
+      "restore_request_per_role_ns": {
+        "early_1": 249075050,
+        "early_2": 247301898,
+        "early_3": 247064292,
+        "late_1": 234902620,
+        "late_2": 230562856,
+        "late_3": 231677293
+      },
+      "frozen_tools_and_downloads_span_ns": 64903806575,
+      "frozen_tools_and_downloads_call_sum_ns": 58247884041,
+      "fork_group_per_point_ns": {
+        "longest-prefix-backbone-2": 4194501571,
+        "longest-prefix-backbone-4": 2396223006
+      }
+    },
+    "guest_action_sum_ns": 49412151630,
+    "raw_file_count": 551
+  },
+  "cache_preparation": {
+    "source_backup": ".artifacts/storage-isolated-service/20261008T102942Z-3642885/volume.ext4.gz",
+    "backup_sha256": "502b8bb6ac5244223034e1f961f64986f9eb41ab9b420e2bca26dd407335fe29",
+    "uncompressed_sha256": "d9f9b21a701d643b5c04be7607ec33b407b8b03a5c19227cbca375639abe8071",
+    "elapsed_ns": 76823286511,
+    "tmpfs_file_allocated_bytes": 7604273152,
+    "readonly_seed_verified": true,
+    "scope": "immutable cache only; original VM state, RocksDB, secrets and uppers are not copied; functional warm-cache preparation"
+  },
+  "storage": {
+    "smoke_volume_bytes": 25769803776,
+    "full_volume_bytes": 34359738368,
+    "smoke_observed_volume_peak_bytes": 6569672704,
+    "full_observed_volume_peak_bytes": 7406309376,
+    "full_observed_host_available_min_bytes": 28667387904,
+    "host_available_at_validator_cleanup_bytes": 28664479744,
+    "host_available_final_bytes": 63022039040,
+    "final_checked_utc": "2026-10-08T14:44:28.015409+00:00",
+    "space_note": "Immediate validator cleanup reading and later free-space reading differ; cause not independently confirmed; original receipt retained unchanged.",
+    "planned_full_volume_gib": 27
+  },
+  "cleanup": {
+    "smoke": {
+      "owned_container_removed": true,
+      "mount_and_loop_removed": true,
+      "successful_fixture_removed": true,
+      "original_firecracker_identities_unchanged": true,
+      "original_service_unchanged": true
+    },
+    "full": {
+      "owned_container_removed": true,
+      "mount_and_loop_removed": true,
+      "successful_fixture_removed": true,
+      "original_firecracker_identities_unchanged": true,
+      "original_service_unchanged": true
+    },
+    "tvcache": {
+      "sandboxes_removed": [
+        "01a11bf5-e0d9-7070-8f34-919e65c85b57",
+        "01a11bf6-033c-7d91-9cf3-d54e68eaf534",
+        "01a11bf6-033c-7d91-9cf3-d554a28e5d11",
+        "01a11bf6-033c-7d91-9cf3-d56f385f6e30",
+        "01a11bf6-24dc-7750-8870-a689a99f1461",
+        "01a11bf6-24dd-7d13-86c8-03cb558a0b32",
+        "01a11bf6-24dc-7750-8870-a695941d3c44"
+      ],
+      "snapshots_removed": [
+        "01a11bf5-f90a-7633-911e-83cf957234e5",
+        "01a11bf6-212c-7cb0-bc38-f74dd6133083"
+      ],
+      "service_sandbox_list_empty": true,
+      "monitor_stopped": true
+    },
+    "ram_seed_released": true,
+    "launcher_exit_code": 0,
+    "cache_release_exit_code": 0
+  },
+  "checks": {
+    "raw_unchanged": true,
+    "reports_recomputed_identically": true,
+    "full_patch_matches_prior_bpo_and_grpo_by_role": {
+      "backbone": {
+        "bpo": {
+          "prior_patch_sha256": "73eb5f9d0c5582c5b1be464aa6915cfba621a27b80d953b69db74c6d1fa3da5a",
+          "tvcache_patch_sha256": "73eb5f9d0c5582c5b1be464aa6915cfba621a27b80d953b69db74c6d1fa3da5a",
+          "equal": true
+        },
+        "grpo": {
+          "prior_patch_sha256": "73eb5f9d0c5582c5b1be464aa6915cfba621a27b80d953b69db74c6d1fa3da5a",
+          "tvcache_patch_sha256": "73eb5f9d0c5582c5b1be464aa6915cfba621a27b80d953b69db74c6d1fa3da5a",
+          "equal": true
+        }
+      },
+      "early_1": {
+        "bpo": {
+          "prior_patch_sha256": "6a74b179e74a2fb00f4cf334c3cccd3405168025974c9a3b3550614cb1976de5",
+          "tvcache_patch_sha256": "6a74b179e74a2fb00f4cf334c3cccd3405168025974c9a3b3550614cb1976de5",
+          "equal": true
+        },
+        "grpo": {
+          "prior_patch_sha256": "6a74b179e74a2fb00f4cf334c3cccd3405168025974c9a3b3550614cb1976de5",
+          "tvcache_patch_sha256": "6a74b179e74a2fb00f4cf334c3cccd3405168025974c9a3b3550614cb1976de5",
+          "equal": true
+        }
+      },
+      "early_2": {
+        "bpo": {
+          "prior_patch_sha256": "5721325c7f24fc147069e055f431aa294b0762824a44056afe378955de15fa24",
+          "tvcache_patch_sha256": "5721325c7f24fc147069e055f431aa294b0762824a44056afe378955de15fa24",
+          "equal": true
+        },
+        "grpo": {
+          "prior_patch_sha256": "5721325c7f24fc147069e055f431aa294b0762824a44056afe378955de15fa24",
+          "tvcache_patch_sha256": "5721325c7f24fc147069e055f431aa294b0762824a44056afe378955de15fa24",
+          "equal": true
+        }
+      },
+      "early_3": {
+        "bpo": {
+          "prior_patch_sha256": "6a74b179e74a2fb00f4cf334c3cccd3405168025974c9a3b3550614cb1976de5",
+          "tvcache_patch_sha256": "6a74b179e74a2fb00f4cf334c3cccd3405168025974c9a3b3550614cb1976de5",
+          "equal": true
+        },
+        "grpo": {
+          "prior_patch_sha256": "6a74b179e74a2fb00f4cf334c3cccd3405168025974c9a3b3550614cb1976de5",
+          "tvcache_patch_sha256": "6a74b179e74a2fb00f4cf334c3cccd3405168025974c9a3b3550614cb1976de5",
+          "equal": true
+        }
+      },
+      "late_1": {
+        "bpo": {
+          "prior_patch_sha256": "6a74b179e74a2fb00f4cf334c3cccd3405168025974c9a3b3550614cb1976de5",
+          "tvcache_patch_sha256": "6a74b179e74a2fb00f4cf334c3cccd3405168025974c9a3b3550614cb1976de5",
+          "equal": true
+        },
+        "grpo": {
+          "prior_patch_sha256": "6a74b179e74a2fb00f4cf334c3cccd3405168025974c9a3b3550614cb1976de5",
+          "tvcache_patch_sha256": "6a74b179e74a2fb00f4cf334c3cccd3405168025974c9a3b3550614cb1976de5",
+          "equal": true
+        }
+      },
+      "late_2": {
+        "bpo": {
+          "prior_patch_sha256": "6a74b179e74a2fb00f4cf334c3cccd3405168025974c9a3b3550614cb1976de5",
+          "tvcache_patch_sha256": "6a74b179e74a2fb00f4cf334c3cccd3405168025974c9a3b3550614cb1976de5",
+          "equal": true
+        },
+        "grpo": {
+          "prior_patch_sha256": "6a74b179e74a2fb00f4cf334c3cccd3405168025974c9a3b3550614cb1976de5",
+          "tvcache_patch_sha256": "6a74b179e74a2fb00f4cf334c3cccd3405168025974c9a3b3550614cb1976de5",
+          "equal": true
+        }
+      },
+      "late_3": {
+        "bpo": {
+          "prior_patch_sha256": "6a74b179e74a2fb00f4cf334c3cccd3405168025974c9a3b3550614cb1976de5",
+          "tvcache_patch_sha256": "6a74b179e74a2fb00f4cf334c3cccd3405168025974c9a3b3550614cb1976de5",
+          "equal": true
+        },
+        "grpo": {
+          "prior_patch_sha256": "6a74b179e74a2fb00f4cf334c3cccd3405168025974c9a3b3550614cb1976de5",
+          "tvcache_patch_sha256": "6a74b179e74a2fb00f4cf334c3cccd3405168025974c9a3b3550614cb1976de5",
+          "equal": true
+        }
+      }
+    },
+    "regression_tests": {
+      "prettier6604_related": 27,
+      "isolated_storage": 23
+    }
+  },
+  "physical_page_cache": "NOT_MEASURED",
+  "VMM_PSS": "NOT_MEASURED",
+  "monitoring_impact": "NOT_VALIDATED",
+  "raw_dirs": [
+    ".artifacts/storage-isolated-service/20261008T143945Z-3750435/prettier6604",
+    ".artifacts/storage-isolated-service/20261008T144041Z-3754218/prettier6604"
+  ],
+  "report_dir": ".artifacts/prettier6604/tvcache-execution-20261008T143825Z/tvcache-report",
+  "window_utc": {
+    "start": "2026-10-08T14:39:45.138441+00:00",
+    "end": "2026-10-08T14:59:45.138441+00:00",
+    "finished": "2026-10-08T14:42:18.180912+00:00"
+  },
+  "measurement_notes": [
+    "Guest: /proc/meminfo KiB converted to bytes; MemTotal-MemFree; runner windows only.",
+    "Per-guest peaks are not summed into a concurrent peak. Guest and host counters are not added.",
+    "Cached is a logical guest counter, not deduplicated physical page cache. Shmem overlaps Cached; Slab not collected.",
+    "Host: memory charged to one temporary service cgroup; includes its VMMs, excludes controller and RAM cache preparation. This is not total project memory. Zero VMM columns are unmeasured placeholders.",
+    "Times are ns. Cold creation includes missing layers. Controller tools include execution and downloads.",
+    "Parallel call sums are not elapsed time. Host phase names may overlap between branches.",
+    "BPO/TVCache child curves contain executed suffixes only; inherited prefix actions and memory samples are not counted again. Logical action count is separate.",
+    "First frozen execution to last download is a wall-clock span; checkpoint/restore and verification gaps may be inside it. It is not exclusive tool time.",
+    "Guest/host curves use recorded wall clocks; no independent clock calibration. Sampling maxima are observed peaks.",
+    "Snapshots support local full-VM recovery. Remote persistence and durable lifecycle after cleanup are not validated.",
+    "Fork group latency contains snapshot, restored startup, file/progress/process checks, and records; do not add it to its included checkpoint/restore calls.",
+    "This is one functional run. GRPO/BPO/TVCache differences cannot establish performance variance, monitoring impact or physical sharing benefit."
+  ],
+  "next": "prepare Sphinx/Xarray frozen single paths; preserve original failed repair; no repeat Prettier performance runs"
+}

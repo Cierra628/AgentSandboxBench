@@ -21,6 +21,20 @@ def budget(free_bytes, remaining_runs):
                 scope='planning estimate; runtime disk guard remains required')
 
 
+def successful_image_cleanup_budget(free_bytes, remaining_runs):
+    if remaining_runs < 1:
+        raise ValueError('remaining_runs must be positive')
+    retained = 128 * 1024**2
+    required = 40 * GIB + retained * remaining_runs
+    return dict(status='READY' if free_bytes >= required else 'BLOCKED',
+                free_bytes=free_bytes, remaining_runs=remaining_runs,
+                launch_margin_bytes=40*GIB, retained_bytes_per_run=retained,
+                required_free_bytes=required, shortfall_bytes=max(0,required-free_bytes),
+                scope='serial successful non-checkpoint runs discard private images; 128 MiB raw-result '
+                      'allowance per run; stop on failure, oversized results or disk guard; '
+                      'failed images still use verified archive or remain for diagnosis')
+
+
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--pairs', type=int, default=5)

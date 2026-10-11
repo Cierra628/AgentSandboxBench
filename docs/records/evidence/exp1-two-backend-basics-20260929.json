@@ -1,0 +1,147 @@
+{
+  "audit_status": "PASS",
+  "audit_schema_version": 3,
+  "successful_run_count": 23,
+  "audit_script_sha256": "642cc636c0c2d34211d020c6a28875ab610c7725011656ffff8ea9dc36c7c606",
+  "representative_runs": [
+    {
+      "backend": "agentenv",
+      "run_id": "20260929T033737Z-2377452",
+      "mode": "checkpoint-013",
+      "final_checks": {
+        "status": "PASS",
+        "action_order": "PASS",
+        "expected_failures": "PASS",
+        "key_output_024": "PASS",
+        "final_patch": "PASS",
+        "independent_svg": "PASS",
+        "official_full_tests": "NOT_RUN",
+        "recovery": {
+          "interface": "PASS",
+          "file_state": "PASS",
+          "process_state": "PASS"
+        }
+      },
+      "cleanup": {
+        "status": "PASS",
+        "sandbox": "PASS",
+        "service": "RETAINED_SHARED_SERVICE",
+        "cgroup_and_loop": "NOT_MEASURED",
+        "archived_images": "NOT_APPLICABLE"
+      },
+      "phases": {
+        "create_to_first_success": {
+          "status": "MEASURED",
+          "duration_ns": 2669784893,
+          "boundary": "cold start call through first successful true command"
+        },
+        "checkpoint": {
+          "status": "MEASURED",
+          "duration_ns": 743755058,
+          "boundary": "snapshot create CLI call"
+        },
+        "restore_interface": {
+          "status": "MEASURED",
+          "duration_ns": 132839388,
+          "boundary": "snapshot start CLI call"
+        },
+        "restore_to_first_success": {
+          "status": "MEASURED",
+          "duration_ns": 197621010,
+          "boundary": "snapshot start call through first successful true command"
+        },
+        "full_run_including_cleanup": {
+          "status": "MEASURED",
+          "duration_ns": 12204213691,
+          "boundary": "controller start through sandbox cleanup and on-run report"
+        }
+      },
+      "guest": {
+        "sample_count": 100,
+        "sampling_mode": "periodic"
+      },
+      "host": {
+        "sample_count": 45,
+        "scope": "selected AgentENV service cgroup; may include pool/shared overhead"
+      },
+      "named_file_mapping": {
+        "status": "NOT_MEASURED",
+        "bytes": null,
+        "scope": "no named-file mapping measurement"
+      }
+    },
+    {
+      "backend": "trenvx",
+      "run_id": "20260929T075239Z-2407857",
+      "mode": "checkpoint-022-diagnostic",
+      "final_checks": {
+        "status": "PASS",
+        "action_order": "PASS",
+        "expected_failures": "PASS",
+        "key_output_024": "PASS",
+        "final_patch": "PASS",
+        "independent_svg": "PASS",
+        "official_full_tests": "NOT_RUN",
+        "recovery": {
+          "interface": "PASS",
+          "file_state": "PASS",
+          "process_state": "NOT_APPLICABLE"
+        }
+      },
+      "cleanup": {
+        "status": "PASS",
+        "sandbox": "PASS",
+        "service": "PASS",
+        "cgroup_and_loop": "PASS",
+        "archived_images": "RETAINED_WITH_VERIFIED_MANIFEST"
+      },
+      "phases": {
+        "create_to_first_success": {
+          "status": "MEASURED",
+          "duration_ns": 1066043266,
+          "boundary": "SDK create through first successful mkdir command"
+        },
+        "checkpoint": {
+          "status": "MEASURED",
+          "duration_ns": 11773069853,
+          "boundary": "controller file capture, sealing and template construction"
+        },
+        "restore_interface": {
+          "status": "MEASURED",
+          "duration_ns": 948926436,
+          "boundary": "controller start of child VM from sealed file layer"
+        },
+        "restore_to_first_success": {
+          "status": "MEASURED",
+          "duration_ns": 2093983745,
+          "boundary": "start restored VM through first successful environment command"
+        },
+        "full_run_including_cleanup": {
+          "status": "MEASURED",
+          "duration_ns": 365991614149,
+          "boundary": "outer start through sandbox cleanup and verified image archiving when enabled"
+        }
+      },
+      "guest": {
+        "sample_count": 4,
+        "sampling_mode": "controller_boundary"
+      },
+      "host": {
+        "sample_count": 92,
+        "scope": "run-owned TrEnv-X sandbox parent cgroup; excludes orchestrator"
+      },
+      "named_file_mapping": {
+        "status": "NOT_MEASURED",
+        "bytes": null,
+        "scope": "no named-file mapping measurement"
+      }
+    }
+  ],
+  "limits": [
+    "Guest periodic and boundary samples have different time coverage",
+    "AgentENV uses a shared service cgroup; TrEnv-X uses an owned sandbox cgroup",
+    "First successful tool differs between backends",
+    "TrEnv-X total includes verified image archiving; AgentENV total includes its on-run report",
+    "Official full task tests were not run; neither total is a comparable performance estimate"
+  ]
+}

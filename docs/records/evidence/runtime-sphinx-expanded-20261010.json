@@ -1,0 +1,1024 @@
+{
+  "status": "PASS",
+  "scope": "one complete Sphinx expanded monitoring diagnostic variant; no overhead inference from this single run",
+  "source_directory": ".artifacts/storage-isolated-service/20261010T050136Z-115977",
+  "strict_replay_status": "FAIL",
+  "diagnostic_status": "PASS",
+  "observed_exit_codes_status": "PASS",
+  "historical_strict_failure": ".artifacts/storage-isolated-service/20261010T044006Z-98974",
+  "exit_differences": [],
+  "cpu": 2,
+  "memory_mib": 4096,
+  "actions": 35,
+  "official": {
+    "status": "FAIL",
+    "exit_code": 1,
+    "passed": 24,
+    "failed": 1,
+    "skipped": 0,
+    "failed_tests": [
+      "tests/test_domain_cpp.py::test_expressions"
+    ],
+    "skipped_tests": [],
+    "F2P_passed": 0,
+    "F2P_total": 1,
+    "P2P_passed": 24,
+    "P2P_total": 24,
+    "scope": "SWE-bench selected C++ tests and test patch; direct image pytest, not full official Docker harness"
+  },
+  "runtime_metrics": {
+    "status": "PASS",
+    "scope": "continuous while running; explicit gaps around snapshots and before tool readiness",
+    "units": "raw meminfo KiB; charts MiB (2^20 bytes)",
+    "per_sandbox": [
+      {
+        "sandbox_id": "01a12430-48d1-7820-bcda-cdb1eb69877d",
+        "role": "backbone",
+        "sample_count": 212,
+        "observed_nonfree_peak_bytes": 271351808,
+        "components_at_peak_bytes": {
+          "Cached": 126091264,
+          "AnonPages": 54460416,
+          "Buffers": 31838208,
+          "Shmem": 831488,
+          "Slab": 38363136
+        },
+        "components_at_peak_percent": {
+          "Cached": 46.46781789638933,
+          "AnonPages": 20.07003985025963,
+          "Buffers": 11.733184398019564,
+          "Shmem": 0.3064243448858833,
+          "Slab": 14.137785291631445
+        },
+        "cached_min_bytes": 30543872,
+        "cached_observed_peak_bytes": 126091264,
+        "slab_status": "MEASURED",
+        "sessions": [
+          {
+            "stop_reason": "cleanup",
+            "status": "PASS",
+            "error": null,
+            "pid": 347,
+            "start_ticks": "101",
+            "boot_id": "a6c58808-4eef-422e-89ac-97558ace713b",
+            "sandbox_id": "01a12430-48d1-7820-bcda-cdb1eb69877d",
+            "role": "backbone",
+            "session_id": "15ade6dc-9f48-4a48-be75-80fdddfe84e5",
+            "samples": 212,
+            "interval_seconds": 0.1,
+            "elapsed_ns": 21473749726,
+            "cpu_user_seconds": 0.362347,
+            "cpu_system_seconds": 0.119418,
+            "maxrss_kib": 13832,
+            "scope": "guest logical counters; collector maxrss is not private memory; no physical deduplication",
+            "performance_version": 1,
+            "clock_ticks": 100,
+            "performance_scope": "guest-wide CPU (guest ticks not double counted), per-device diskstats (512-byte sectors); includes sampler and other guest work"
+          }
+        ]
+      }
+    ],
+    "source_run_status": "PASS",
+    "timing": {
+      "unit": "ns",
+      "controller_elapsed_ns": 25220850704,
+      "guest_action_sum_ns": 10669393834,
+      "guest_action_sum_per_role_ns": {},
+      "stages": [
+        {
+          "index": 0,
+          "stage": "service-state",
+          "start_monotonic_ns": 13378737480560991,
+          "timestamp_ns": 1791608504615819626,
+          "duration_ns": 22679021,
+          "exit_code": 0
+        },
+        {
+          "index": 1,
+          "stage": "service-labels",
+          "start_monotonic_ns": 13378737503310222,
+          "timestamp_ns": 1791608504638568635,
+          "duration_ns": 21320489,
+          "exit_code": 0
+        },
+        {
+          "index": 2,
+          "stage": "cold-start",
+          "start_monotonic_ns": 13378737533895205,
+          "timestamp_ns": 1791608504669154182,
+          "duration_ns": 2705921762,
+          "exit_code": 0
+        },
+        {
+          "index": 3,
+          "stage": "monitor-upload",
+          "start_monotonic_ns": 13378740240735211,
+          "timestamp_ns": 1791608507375993638,
+          "duration_ns": 34251732,
+          "exit_code": 0
+        },
+        {
+          "index": 4,
+          "stage": "monitor-upload",
+          "start_monotonic_ns": 13378740275164234,
+          "timestamp_ns": 1791608507410422673,
+          "duration_ns": 31726758,
+          "exit_code": 0
+        },
+        {
+          "index": 5,
+          "stage": "monitor-upload",
+          "start_monotonic_ns": 13378740307063098,
+          "timestamp_ns": 1791608507442321524,
+          "duration_ns": 27832554,
+          "exit_code": 0
+        },
+        {
+          "index": 6,
+          "stage": "monitor-upload",
+          "start_monotonic_ns": 13378740335065646,
+          "timestamp_ns": 1791608507470324065,
+          "duration_ns": 27559873,
+          "exit_code": 0
+        },
+        {
+          "index": 7,
+          "stage": "monitor-directory",
+          "start_monotonic_ns": 13378740362784812,
+          "timestamp_ns": 1791608507498043290,
+          "duration_ns": 43921596,
+          "exit_code": 0
+        },
+        {
+          "index": 8,
+          "stage": "monitor-phase",
+          "start_monotonic_ns": 13378740406900807,
+          "timestamp_ns": 1791608507542159257,
+          "duration_ns": 330623568,
+          "exit_code": 0
+        },
+        {
+          "index": 10,
+          "stage": "monitor-ready",
+          "start_monotonic_ns": 13378740738308450,
+          "timestamp_ns": 1791608507873567386,
+          "duration_ns": 132298919,
+          "exit_code": 0
+        },
+        {
+          "index": 11,
+          "stage": "source",
+          "start_monotonic_ns": 13378740907513596,
+          "timestamp_ns": 1791608508042773015,
+          "duration_ns": 716027194,
+          "exit_code": 0
+        },
+        {
+          "index": 12,
+          "stage": "login-environment",
+          "start_monotonic_ns": 13378741624675497,
+          "timestamp_ns": 1791608508759934887,
+          "duration_ns": 172696843,
+          "exit_code": 0
+        },
+        {
+          "index": 13,
+          "stage": "frozen-environment",
+          "start_monotonic_ns": 13378741797911831,
+          "timestamp_ns": 1791608508933170753,
+          "duration_ns": 140808012,
+          "exit_code": 0
+        },
+        {
+          "index": 14,
+          "stage": "upload-oracle",
+          "start_monotonic_ns": 13378741939457450,
+          "timestamp_ns": 1791608509074716135,
+          "duration_ns": 29902222,
+          "exit_code": 0
+        },
+        {
+          "index": 15,
+          "stage": "upload-test-id-resolver",
+          "start_monotonic_ns": 13378741969816062,
+          "timestamp_ns": 1791608509105074745,
+          "duration_ns": 30776095,
+          "exit_code": 0
+        },
+        {
+          "index": 16,
+          "stage": "negative-control",
+          "start_monotonic_ns": 13378742001044514,
+          "timestamp_ns": 1791608509136303250,
+          "duration_ns": 706215737,
+          "exit_code": 0
+        },
+        {
+          "index": 17,
+          "stage": "upload-frozen",
+          "start_monotonic_ns": 13378742707899166,
+          "timestamp_ns": 1791608509843158252,
+          "duration_ns": 89206439,
+          "exit_code": 0
+        },
+        {
+          "index": 18,
+          "stage": "controller-exec",
+          "start_monotonic_ns": 13378742801535380,
+          "timestamp_ns": 1791608509936794365,
+          "duration_ns": 806004836,
+          "exit_code": 0
+        },
+        {
+          "index": 19,
+          "stage": "controller-download",
+          "start_monotonic_ns": 13378743608497592,
+          "timestamp_ns": 1791608510743756682,
+          "duration_ns": 60897152,
+          "exit_code": 0
+        },
+        {
+          "index": 20,
+          "stage": "controller-exec",
+          "start_monotonic_ns": 13378743680018279,
+          "timestamp_ns": 1791608510815277461,
+          "duration_ns": 3811759619,
+          "exit_code": 0
+        },
+        {
+          "index": 21,
+          "stage": "controller-download",
+          "start_monotonic_ns": 13378747492617945,
+          "timestamp_ns": 1791608514627876493,
+          "duration_ns": 50456159,
+          "exit_code": 0
+        },
+        {
+          "index": 22,
+          "stage": "controller-exec",
+          "start_monotonic_ns": 13378747553414390,
+          "timestamp_ns": 1791608514688673406,
+          "duration_ns": 1353823689,
+          "exit_code": 0
+        },
+        {
+          "index": 23,
+          "stage": "controller-download",
+          "start_monotonic_ns": 13378748908127466,
+          "timestamp_ns": 1791608516043386073,
+          "duration_ns": 52231896,
+          "exit_code": 0
+        },
+        {
+          "index": 24,
+          "stage": "controller-exec",
+          "start_monotonic_ns": 13378748970237164,
+          "timestamp_ns": 1791608516105495925,
+          "duration_ns": 1555093087,
+          "exit_code": 0
+        },
+        {
+          "index": 25,
+          "stage": "controller-download",
+          "start_monotonic_ns": 13378750526137304,
+          "timestamp_ns": 1791608517661396034,
+          "duration_ns": 53850182,
+          "exit_code": 0
+        },
+        {
+          "index": 26,
+          "stage": "controller-exec",
+          "start_monotonic_ns": 13378750591985199,
+          "timestamp_ns": 1791608517727244811,
+          "duration_ns": 5881667681,
+          "exit_code": 0
+        },
+        {
+          "index": 27,
+          "stage": "controller-download",
+          "start_monotonic_ns": 13378756474890080,
+          "timestamp_ns": 1791608523610148895,
+          "duration_ns": 45541818,
+          "exit_code": 0
+        },
+        {
+          "index": 28,
+          "stage": "final-files",
+          "start_monotonic_ns": 13378756544638739,
+          "timestamp_ns": 1791608523679897909,
+          "duration_ns": 357293204,
+          "exit_code": 0
+        },
+        {
+          "index": 29,
+          "stage": "final-patch",
+          "start_monotonic_ns": 13378756903154245,
+          "timestamp_ns": 1791608524038413069,
+          "duration_ns": 188840374,
+          "exit_code": 0
+        },
+        {
+          "index": 30,
+          "stage": "small-invariant",
+          "start_monotonic_ns": 13378757093140364,
+          "timestamp_ns": 1791608524228399127,
+          "duration_ns": 509731185,
+          "exit_code": 0
+        },
+        {
+          "index": 31,
+          "stage": "monitor-phase",
+          "start_monotonic_ns": 13378757603750385,
+          "timestamp_ns": 1791608524739009138,
+          "duration_ns": 197529628,
+          "exit_code": 0
+        },
+        {
+          "index": 32,
+          "stage": "upload-evaluation",
+          "start_monotonic_ns": 13378757802934547,
+          "timestamp_ns": 1791608524938193359,
+          "duration_ns": 38762740,
+          "exit_code": 0
+        },
+        {
+          "index": 33,
+          "stage": "benchmark-pytest",
+          "start_monotonic_ns": 13378757842401186,
+          "timestamp_ns": 1791608524977659847,
+          "duration_ns": 4102986452,
+          "exit_code": 0
+        },
+        {
+          "index": 34,
+          "stage": "download-evaluation",
+          "start_monotonic_ns": 13378761946332548,
+          "timestamp_ns": 1791608529081591681,
+          "duration_ns": 36911573,
+          "exit_code": 0
+        },
+        {
+          "index": 35,
+          "stage": "monitor-phase",
+          "start_monotonic_ns": 13378761984691427,
+          "timestamp_ns": 1791608529119950080,
+          "duration_ns": 201346631,
+          "exit_code": 0
+        },
+        {
+          "index": 9,
+          "stage": "monitor-collect-15ade6dc-9f48-4a48-be75-80fdddfe84e5",
+          "start_monotonic_ns": 13378740738136971,
+          "timestamp_ns": 1791608507873396648,
+          "duration_ns": 21578286798,
+          "exit_code": 0
+        },
+        {
+          "index": 36,
+          "stage": "monitor-stop",
+          "start_monotonic_ns": 13378762187737765,
+          "timestamp_ns": 1791608529322996646,
+          "duration_ns": 151205815,
+          "exit_code": 0
+        },
+        {
+          "index": 37,
+          "stage": "monitor-reaped",
+          "start_monotonic_ns": 13378762339324006,
+          "timestamp_ns": 1791608529474582488,
+          "duration_ns": 120589207,
+          "exit_code": 0
+        },
+        {
+          "index": 38,
+          "stage": "monitor-download",
+          "start_monotonic_ns": 13378762460276065,
+          "timestamp_ns": 1791608529595534501,
+          "duration_ns": 38261671,
+          "exit_code": 0
+        },
+        {
+          "index": 39,
+          "stage": "delete-owned",
+          "start_monotonic_ns": 13378762499433193,
+          "timestamp_ns": 1791608529634691703,
+          "duration_ns": 185744417,
+          "exit_code": 0
+        },
+        {
+          "index": 40,
+          "stage": "list-after",
+          "start_monotonic_ns": 13378762685930269,
+          "timestamp_ns": 1791608529821189131,
+          "duration_ns": 13150699,
+          "exit_code": 0
+        }
+      ],
+      "scope": "existing controller events; stage and concurrent call sums are not end-to-end elapsed time; missing values stay null"
+    },
+    "physical_page_cache": "NOT_MEASURED",
+    "notes": [
+      "Cached includes overlapping Shmem; guest values are not cross-VM physical deduplication.",
+      "Guest and host metrics are separate; per-VM peaks are not summed.",
+      "Recorded guest wall clocks are not independently calibrated across VMs.",
+      "Sampling maxima are observed peaks; missing intervals are not interpolated.",
+      "Collector CPU/maxrss describe collection cost only, not sandbox CPU or private memory."
+    ],
+    "performance": {
+      "status": "MEASURED",
+      "per_sandbox": [
+        {
+          "sandbox_id": "01a12430-48d1-7820-bcda-cdb1eb69877d",
+          "role": "backbone",
+          "guest_cpu_status": "MEASURED",
+          "guest_io_status": "MEASURED",
+          "host_vmm_status": "MEASURED",
+          "guest_devices": {
+            "loop0": {
+              "major": "7",
+              "minor": "0",
+              "is_partition": "0",
+              "session_deltas": [
+                {
+                  "read_bytes": 0,
+                  "write_bytes": 0
+                }
+              ],
+              "invalid_intervals": 0
+            },
+            "loop1": {
+              "major": "7",
+              "minor": "1",
+              "is_partition": "0",
+              "session_deltas": [
+                {
+                  "read_bytes": 0,
+                  "write_bytes": 0
+                }
+              ],
+              "invalid_intervals": 0
+            },
+            "loop2": {
+              "major": "7",
+              "minor": "2",
+              "is_partition": "0",
+              "session_deltas": [
+                {
+                  "read_bytes": 0,
+                  "write_bytes": 0
+                }
+              ],
+              "invalid_intervals": 0
+            },
+            "loop3": {
+              "major": "7",
+              "minor": "3",
+              "is_partition": "0",
+              "session_deltas": [
+                {
+                  "read_bytes": 0,
+                  "write_bytes": 0
+                }
+              ],
+              "invalid_intervals": 0
+            },
+            "loop4": {
+              "major": "7",
+              "minor": "4",
+              "is_partition": "0",
+              "session_deltas": [
+                {
+                  "read_bytes": 0,
+                  "write_bytes": 0
+                }
+              ],
+              "invalid_intervals": 0
+            },
+            "loop5": {
+              "major": "7",
+              "minor": "5",
+              "is_partition": "0",
+              "session_deltas": [
+                {
+                  "read_bytes": 0,
+                  "write_bytes": 0
+                }
+              ],
+              "invalid_intervals": 0
+            },
+            "loop6": {
+              "major": "7",
+              "minor": "6",
+              "is_partition": "0",
+              "session_deltas": [
+                {
+                  "read_bytes": 0,
+                  "write_bytes": 0
+                }
+              ],
+              "invalid_intervals": 0
+            },
+            "loop7": {
+              "major": "7",
+              "minor": "7",
+              "is_partition": "0",
+              "session_deltas": [
+                {
+                  "read_bytes": 0,
+                  "write_bytes": 0
+                }
+              ],
+              "invalid_intervals": 0
+            },
+            "vda": {
+              "major": "254",
+              "minor": "0",
+              "is_partition": "0",
+              "session_deltas": [
+                {
+                  "read_bytes": 950272,
+                  "write_bytes": 0
+                }
+              ],
+              "invalid_intervals": 0
+            },
+            "vdb": {
+              "major": "254",
+              "minor": "16",
+              "is_partition": "0",
+              "session_deltas": [
+                {
+                  "read_bytes": 181981184,
+                  "write_bytes": 15515648
+                }
+              ],
+              "invalid_intervals": 0
+            },
+            "vdc": {
+              "major": "254",
+              "minor": "32",
+              "is_partition": "0",
+              "session_deltas": [
+                {
+                  "read_bytes": 0,
+                  "write_bytes": 0
+                }
+              ],
+              "invalid_intervals": 0
+            },
+            "vdd": {
+              "major": "254",
+              "minor": "48",
+              "is_partition": "0",
+              "session_deltas": [
+                {
+                  "read_bytes": 0,
+                  "write_bytes": 0
+                }
+              ],
+              "invalid_intervals": 0
+            },
+            "vde": {
+              "major": "254",
+              "minor": "64",
+              "is_partition": "0",
+              "session_deltas": [
+                {
+                  "read_bytes": 0,
+                  "write_bytes": 0
+                }
+              ],
+              "invalid_intervals": 0
+            },
+            "vdf": {
+              "major": "254",
+              "minor": "80",
+              "is_partition": "0",
+              "session_deltas": [
+                {
+                  "read_bytes": 0,
+                  "write_bytes": 0
+                }
+              ],
+              "invalid_intervals": 0
+            }
+          },
+          "host_sessions": [
+            {
+              "session_id": "15ade6dc-9f48-4a48-be75-80fdddfe84e5",
+              "vmm_identity": {
+                "pid": 117028,
+                "start_ticks": "1337873954",
+                "boot_id": "84bfafc3-cdbf-465e-bebe-030c8449394e",
+                "api_socket": "/proc/117028/root/workspace/env/firecracker-work/agentenv-fc-2uyNMS/firecracker.socket",
+                "cgroup": "/system.slice/docker-7cc6fcd15bd809986ccbdf1eb7f9aa55819aaa927abda5fe07ad0addbfda6032.scope",
+                "binding_source": "owned service cgroup + Firecracker GET /mmds instanceID"
+              },
+              "sample_count": 214,
+              "pss_sample_count": 22,
+              "cpu_invalid_intervals": 0,
+              "io_invalid_intervals": 0,
+              "observed_rss_peak_bytes": 437604352,
+              "observed_pss_peak_bytes": 437547008,
+              "observed_cpu_peak_percent": 209.82920112857335,
+              "max_scan_duration_ns": 8080282,
+              "max_pss_scan_duration_ns": 7510325,
+              "collector_cpu_seconds": 0.272304
+            }
+          ],
+          "guest_cpu_invalid_intervals": 0,
+          "guest_cpu_observed_peak_percent": 70.0
+        }
+      ],
+      "sources": {
+        "guest_cpu": "/proc/stat: first eight aggregate counters; guest ticks already included in user/nice",
+        "guest_io": "/proc/diskstats per device; sectors \u00d7 512 bytes; partitions never summed with parent devices",
+        "host_cpu": "/proc/<owned VMM pid>/stat, 100% = one CPU core",
+        "host_io": "/proc/<owned VMM pid>/io: attributed block bytes, excludes shared provider processes",
+        "host_memory": "VmRSS at 100 ms; smaps_rollup PSS at 1 s; proportional residency, not unique physical cache"
+      },
+      "limits": [
+        "Guest CPU includes all guest work and sampling; normalized to total guest CPU capacity.",
+        "Guest block I/O, host process I/O and backing-service I/O have different scopes; do not add them.",
+        "No interpolation across snapshot sessions, clock gaps or counter decreases.",
+        "Host phase labels are lifecycle labels only; guest local per-step changes are not queried remotely.",
+        "PSS sampling is slower than lightweight counters; its read cost is recorded; collection impact not statistically validated."
+      ]
+    },
+    "raw_hashes_unchanged": true,
+    "raw_file_count": 264
+  },
+  "timing": {
+    "controller_elapsed_ns": 25220850704,
+    "cold_request_ns": 2705921762,
+    "guest_action_sum_ns": 10669393834,
+    "controller_exec_ns": [
+      806004836,
+      3811759619,
+      1353823689,
+      1555093087,
+      5881667681
+    ],
+    "controller_download_ns": [
+      60897152,
+      50456159,
+      52231896,
+      53850182,
+      45541818
+    ],
+    "frozen_exec_and_download_span_ns": 13718896518,
+    "benchmark_test_call_ns": 4102986452,
+    "cleanup_call_ns": 185744417,
+    "stages": [
+      {
+        "index": 0,
+        "stage": "service-state",
+        "start_monotonic_ns": 13378737480560991,
+        "timestamp_ns": 1791608504615819626,
+        "duration_ns": 22679021,
+        "exit_code": 0
+      },
+      {
+        "index": 1,
+        "stage": "service-labels",
+        "start_monotonic_ns": 13378737503310222,
+        "timestamp_ns": 1791608504638568635,
+        "duration_ns": 21320489,
+        "exit_code": 0
+      },
+      {
+        "index": 2,
+        "stage": "cold-start",
+        "start_monotonic_ns": 13378737533895205,
+        "timestamp_ns": 1791608504669154182,
+        "duration_ns": 2705921762,
+        "exit_code": 0
+      },
+      {
+        "index": 3,
+        "stage": "monitor-upload",
+        "start_monotonic_ns": 13378740240735211,
+        "timestamp_ns": 1791608507375993638,
+        "duration_ns": 34251732,
+        "exit_code": 0
+      },
+      {
+        "index": 4,
+        "stage": "monitor-upload",
+        "start_monotonic_ns": 13378740275164234,
+        "timestamp_ns": 1791608507410422673,
+        "duration_ns": 31726758,
+        "exit_code": 0
+      },
+      {
+        "index": 5,
+        "stage": "monitor-upload",
+        "start_monotonic_ns": 13378740307063098,
+        "timestamp_ns": 1791608507442321524,
+        "duration_ns": 27832554,
+        "exit_code": 0
+      },
+      {
+        "index": 6,
+        "stage": "monitor-upload",
+        "start_monotonic_ns": 13378740335065646,
+        "timestamp_ns": 1791608507470324065,
+        "duration_ns": 27559873,
+        "exit_code": 0
+      },
+      {
+        "index": 7,
+        "stage": "monitor-directory",
+        "start_monotonic_ns": 13378740362784812,
+        "timestamp_ns": 1791608507498043290,
+        "duration_ns": 43921596,
+        "exit_code": 0
+      },
+      {
+        "index": 8,
+        "stage": "monitor-phase",
+        "start_monotonic_ns": 13378740406900807,
+        "timestamp_ns": 1791608507542159257,
+        "duration_ns": 330623568,
+        "exit_code": 0
+      },
+      {
+        "index": 10,
+        "stage": "monitor-ready",
+        "start_monotonic_ns": 13378740738308450,
+        "timestamp_ns": 1791608507873567386,
+        "duration_ns": 132298919,
+        "exit_code": 0
+      },
+      {
+        "index": 11,
+        "stage": "source",
+        "start_monotonic_ns": 13378740907513596,
+        "timestamp_ns": 1791608508042773015,
+        "duration_ns": 716027194,
+        "exit_code": 0
+      },
+      {
+        "index": 12,
+        "stage": "login-environment",
+        "start_monotonic_ns": 13378741624675497,
+        "timestamp_ns": 1791608508759934887,
+        "duration_ns": 172696843,
+        "exit_code": 0
+      },
+      {
+        "index": 13,
+        "stage": "frozen-environment",
+        "start_monotonic_ns": 13378741797911831,
+        "timestamp_ns": 1791608508933170753,
+        "duration_ns": 140808012,
+        "exit_code": 0
+      },
+      {
+        "index": 14,
+        "stage": "upload-oracle",
+        "start_monotonic_ns": 13378741939457450,
+        "timestamp_ns": 1791608509074716135,
+        "duration_ns": 29902222,
+        "exit_code": 0
+      },
+      {
+        "index": 15,
+        "stage": "upload-test-id-resolver",
+        "start_monotonic_ns": 13378741969816062,
+        "timestamp_ns": 1791608509105074745,
+        "duration_ns": 30776095,
+        "exit_code": 0
+      },
+      {
+        "index": 16,
+        "stage": "negative-control",
+        "start_monotonic_ns": 13378742001044514,
+        "timestamp_ns": 1791608509136303250,
+        "duration_ns": 706215737,
+        "exit_code": 0
+      },
+      {
+        "index": 17,
+        "stage": "upload-frozen",
+        "start_monotonic_ns": 13378742707899166,
+        "timestamp_ns": 1791608509843158252,
+        "duration_ns": 89206439,
+        "exit_code": 0
+      },
+      {
+        "index": 18,
+        "stage": "controller-exec",
+        "start_monotonic_ns": 13378742801535380,
+        "timestamp_ns": 1791608509936794365,
+        "duration_ns": 806004836,
+        "exit_code": 0
+      },
+      {
+        "index": 19,
+        "stage": "controller-download",
+        "start_monotonic_ns": 13378743608497592,
+        "timestamp_ns": 1791608510743756682,
+        "duration_ns": 60897152,
+        "exit_code": 0
+      },
+      {
+        "index": 20,
+        "stage": "controller-exec",
+        "start_monotonic_ns": 13378743680018279,
+        "timestamp_ns": 1791608510815277461,
+        "duration_ns": 3811759619,
+        "exit_code": 0
+      },
+      {
+        "index": 21,
+        "stage": "controller-download",
+        "start_monotonic_ns": 13378747492617945,
+        "timestamp_ns": 1791608514627876493,
+        "duration_ns": 50456159,
+        "exit_code": 0
+      },
+      {
+        "index": 22,
+        "stage": "controller-exec",
+        "start_monotonic_ns": 13378747553414390,
+        "timestamp_ns": 1791608514688673406,
+        "duration_ns": 1353823689,
+        "exit_code": 0
+      },
+      {
+        "index": 23,
+        "stage": "controller-download",
+        "start_monotonic_ns": 13378748908127466,
+        "timestamp_ns": 1791608516043386073,
+        "duration_ns": 52231896,
+        "exit_code": 0
+      },
+      {
+        "index": 24,
+        "stage": "controller-exec",
+        "start_monotonic_ns": 13378748970237164,
+        "timestamp_ns": 1791608516105495925,
+        "duration_ns": 1555093087,
+        "exit_code": 0
+      },
+      {
+        "index": 25,
+        "stage": "controller-download",
+        "start_monotonic_ns": 13378750526137304,
+        "timestamp_ns": 1791608517661396034,
+        "duration_ns": 53850182,
+        "exit_code": 0
+      },
+      {
+        "index": 26,
+        "stage": "controller-exec",
+        "start_monotonic_ns": 13378750591985199,
+        "timestamp_ns": 1791608517727244811,
+        "duration_ns": 5881667681,
+        "exit_code": 0
+      },
+      {
+        "index": 27,
+        "stage": "controller-download",
+        "start_monotonic_ns": 13378756474890080,
+        "timestamp_ns": 1791608523610148895,
+        "duration_ns": 45541818,
+        "exit_code": 0
+      },
+      {
+        "index": 28,
+        "stage": "final-files",
+        "start_monotonic_ns": 13378756544638739,
+        "timestamp_ns": 1791608523679897909,
+        "duration_ns": 357293204,
+        "exit_code": 0
+      },
+      {
+        "index": 29,
+        "stage": "final-patch",
+        "start_monotonic_ns": 13378756903154245,
+        "timestamp_ns": 1791608524038413069,
+        "duration_ns": 188840374,
+        "exit_code": 0
+      },
+      {
+        "index": 30,
+        "stage": "small-invariant",
+        "start_monotonic_ns": 13378757093140364,
+        "timestamp_ns": 1791608524228399127,
+        "duration_ns": 509731185,
+        "exit_code": 0
+      },
+      {
+        "index": 31,
+        "stage": "monitor-phase",
+        "start_monotonic_ns": 13378757603750385,
+        "timestamp_ns": 1791608524739009138,
+        "duration_ns": 197529628,
+        "exit_code": 0
+      },
+      {
+        "index": 32,
+        "stage": "upload-evaluation",
+        "start_monotonic_ns": 13378757802934547,
+        "timestamp_ns": 1791608524938193359,
+        "duration_ns": 38762740,
+        "exit_code": 0
+      },
+      {
+        "index": 33,
+        "stage": "benchmark-pytest",
+        "start_monotonic_ns": 13378757842401186,
+        "timestamp_ns": 1791608524977659847,
+        "duration_ns": 4102986452,
+        "exit_code": 0
+      },
+      {
+        "index": 34,
+        "stage": "download-evaluation",
+        "start_monotonic_ns": 13378761946332548,
+        "timestamp_ns": 1791608529081591681,
+        "duration_ns": 36911573,
+        "exit_code": 0
+      },
+      {
+        "index": 35,
+        "stage": "monitor-phase",
+        "start_monotonic_ns": 13378761984691427,
+        "timestamp_ns": 1791608529119950080,
+        "duration_ns": 201346631,
+        "exit_code": 0
+      },
+      {
+        "index": 9,
+        "stage": "monitor-collect-15ade6dc-9f48-4a48-be75-80fdddfe84e5",
+        "start_monotonic_ns": 13378740738136971,
+        "timestamp_ns": 1791608507873396648,
+        "duration_ns": 21578286798,
+        "exit_code": 0
+      },
+      {
+        "index": 36,
+        "stage": "monitor-stop",
+        "start_monotonic_ns": 13378762187737765,
+        "timestamp_ns": 1791608529322996646,
+        "duration_ns": 151205815,
+        "exit_code": 0
+      },
+      {
+        "index": 37,
+        "stage": "monitor-reaped",
+        "start_monotonic_ns": 13378762339324006,
+        "timestamp_ns": 1791608529474582488,
+        "duration_ns": 120589207,
+        "exit_code": 0
+      },
+      {
+        "index": 38,
+        "stage": "monitor-download",
+        "start_monotonic_ns": 13378762460276065,
+        "timestamp_ns": 1791608529595534501,
+        "duration_ns": 38261671,
+        "exit_code": 0
+      },
+      {
+        "index": 39,
+        "stage": "delete-owned",
+        "start_monotonic_ns": 13378762499433193,
+        "timestamp_ns": 1791608529634691703,
+        "duration_ns": 185744417,
+        "exit_code": 0
+      },
+      {
+        "index": 40,
+        "stage": "list-after",
+        "start_monotonic_ns": 13378762685930269,
+        "timestamp_ns": 1791608529821189131,
+        "duration_ns": 13150699,
+        "exit_code": 0
+      }
+    ]
+  },
+  "storage": {
+    "capacity_bytes": 8589934592,
+    "observed_volume_used_peak_bytes": 674222080,
+    "observed_host_available_min_bytes": 44385619968,
+    "host_available_after_cleanup_bytes": 52972212224
+  },
+  "cleanup": {
+    "owned_container_removed": true,
+    "mount_and_loop_removed": true,
+    "successful_fixture_removed": true,
+    "original_firecracker_identities_unchanged": true,
+    "original_service_unchanged": true
+  },
+  "collector_lifecycle_version": 2,
+  "all_collectors_reaped": true,
+  "raw_file_count": 264,
+  "raw_hashes_unchanged": true,
+  "independent_reports_byte_identical": true,
+  "report": ".artifacts/runtime-monitor-offline/sphinx-expanded-20261010/report",
+  "physical_page_cache": "NOT_MEASURED_IN_THIS_RUN",
+  "monitoring_impact": "PENDING_PAIRED_RUNS"
+}

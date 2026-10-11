@@ -1,0 +1,99 @@
+{
+  "version": 1,
+  "timestamp_utc": "2026-10-07T06:50:32Z",
+  "status": "PASS",
+  "scope": "two disk-safety implementations with small isolated checks; not a new VM experiment",
+  "evidence_dir": ".artifacts/storage-safety/20261007T063115Z-3439640",
+  "tests": {
+    "command": "bash scripts/test-storage-safety.sh",
+    "result_dir": ".artifacts/storage-safety/tests-20261007T064944Z-f1IeWx",
+    "status": "PASS",
+    "count": 53,
+    "exit_code": 0
+  },
+  "read_only_observation": {
+    "command": "bash scripts/observe-storage.sh --output .artifacts/storage-safety/20261007T063115Z-3439640/host-observation-mount-safe --duration 10 --root .artifacts/storage-safety/20261007T063115Z-3439640",
+    "result_dir": ".artifacts/storage-safety/20261007T063115Z-3439640/host-observation-mount-safe",
+    "status": "PASS",
+    "samples": 11,
+    "duration_seconds": 10.000110941,
+    "observed_min_available_bytes": 44691832832,
+    "observed_max_available_bytes": 44692004864,
+    "last_free_bytes": 92527489024,
+    "last_available_bytes": 44691873792,
+    "reserved_or_unavailable_bytes": 47835615232,
+    "scan_elapsed_ns": 1065934916
+  },
+  "implementation": {
+    "stop_scope": "owned process group only",
+    "cleanup_timeout_seconds": 180,
+    "independent_recovery": "ordinary successful replay only; explicit deletion request and original deletion guards",
+    "failed_checkpoint_unrequested_partial_images": "retained",
+    "original_failed_workflow": "unchanged",
+    "storage_diagnostics": "opt-in; asynchronous 1s filesystem/process snapshots and 5s owned file-block scans"
+  },
+  "verified": [
+    "owned writer stops and finally cleanup completes",
+    "unrelated process remains alive",
+    "completed image-disposal phase is not interrupted by low-space request",
+    "abrupt owned child exit permits independently verified recovery",
+    "hung cleanup has a finite deadline",
+    "failure to write stop receipt still stops owned writer",
+    "failed/checkpoint/unrequested/partial images retained",
+    "matching run token and process owner required",
+    "real backend function tested with simulated namespace and tiny files",
+    "storage diagnostics opt-in and separate from memory events",
+    "inode hardlinks deduplicated; symlinks not traversed",
+    "PID reuse not interpreted as an I/O delta",
+    "free and available bytes separated",
+    "sample failure is FAIL; cached directory samples retain timestamps",
+    "owned directory scan excludes mounted filesystem contents to avoid counting images and their guest files twice"
+  ],
+  "unverified": [
+    "real VM abnormal-stop cleanup after this change",
+    "causes of earlier large disk-space fluctuations",
+    "impact of optional disk diagnosis on task performance",
+    "hard reservation or filesystem quota; none installed",
+    "TrEnv-X complete new workflow integration after this change; no VM started"
+  ],
+  "policy": {
+    "no_service_restart": true,
+    "no_kernel_change": true,
+    "no_cache_clear": true,
+    "no_old_archive_deletion": true,
+    "no_staging_commit_push": true,
+    "AGENTS_local_only": true
+  },
+  "source_sha256": {
+    "scripts/storage_lifecycle.py": "46f6535c472931a456ea3b8ed0c50f4384c7c53a204992e69b8aff26ae7ca416",
+    "scripts/storage_observer.py": "1bce0643cd916ac78d2e52fd92dd6cc8ce4aadc96898d653e7d6acba28dbd0b8",
+    "scripts/storage_supervisor.py": "2beac90a8c2742bb6e59841886b0aeacc91e461b130c921d1f5aa092f3eb3cc0",
+    "scripts/observe-storage.sh": "bbe0a0e2e32e64a6c79cbefef76aedbd93fe47e43cb3c2c09ade0ef612f7ea8d",
+    "scripts/test-storage-safety.sh": "801e4bf6cdc0ec6a06aa3bba87ccd675e14147d4a2e8193182206cdd19987c0f",
+    "scripts/use_platform.py": "da0cb83833939fb113064d946f9f84304f48c345150add0720457e30e91177fc",
+    "scripts/smoke_trenvx_service.py": "751e515d6924e565e2394035ec6de5c5a48b86d6d0c2e87c6ce47acfd062403a",
+    "scripts/trenvx_diagnostic_metrics.py": "9969d1694d5583d91a146a78860ec32807d11fa69759c606bb1d90cbac57953c",
+    "scripts/prepare_exp1_clean_directory.py": "da4349a42020cf6ca22ab908a77a4ee95cf8c89da43f30a28400bfe0c13a584b",
+    "tests/test_storage_safety.py": "972a7fdae73ccba16af0269118b8d2d91f1cfb34fecc6d310aa0b12af377c2ab",
+    "docs/USAGE.md": "9e17f6e3974c4cc33de36aa89498da907ca3a5e641e1b36df14e991a236a440d",
+    "docs/STATUS.md": "22f0de5873ed8040590d3407d457e3cf30febe5151e2bf52b86b5d1b11d14a70",
+    "docs/EXPERIMENT_PLAN.md": "78a9622cdd958b6bdf04af4de114c128aa1d43f8f9d3baf03fc91ebe1992984a",
+    "docs/records/CLOSEOUT_STATUS.md": "9247c4c6f8aecbfc0ff7b6f8abc01045e1f602d2ff2e6d99ed29116f74b47ec1",
+    "tests/test_platform_use.py": "48cbcb77abf99f1ec31c7a37b3896a93c02ef93fd1ae13664b470a4a71fcbfd7",
+    "tests/test_trenvx_data_archive.py": "035f9c29361787202164fe03a7404143feb3f2e1d54fa12426c677033d8518f9",
+    "tests/test_experiment_disk_guard.py": "a23f840e0e3293aecf5084b195607dd9737c7c1fe04b72e226fa99ffffbfc377",
+    "tests/test_trenvx_diagnostic_metrics.py": "6fa6467609d1d1431e37f005a159b7ca5b855b34d0116ce361ed122ac57f4446"
+  },
+  "limitations": [
+    "sampled extrema, not exact instantaneous minima",
+    "directory scans and filesystem reads are not atomic; cached directory scans carry their timestamp",
+    "process I/O is across all devices; exited/between-sample writers can be missed",
+    "I/O byte deltas are not disk allocation deltas; unexplained changes have no assigned cause",
+    "diagnostic sampling cost is recorded; task/monitoring impact is NOT_MEASURED"
+  ],
+  "intermediate_test_failure": {
+    "result_dir": ".artifacts/storage-safety/tests-20261007T064928Z-wOZ93T",
+    "reason": "new test fixture mocked stat without st_mode; corrected fixture, original FAIL retained",
+    "platform_runtime_failure": false
+  }
+}

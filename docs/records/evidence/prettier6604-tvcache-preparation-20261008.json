@@ -1,0 +1,151 @@
+{
+  "date_utc": "2026-10-08",
+  "task_id": "prettier__prettier-6604",
+  "schedule": "tvcache",
+  "status": "IMPLEMENTED_NOT_LIVE_VALIDATED",
+  "full": {
+    "segments": 17,
+    "actual_actions": 84,
+    "logical_actions": 189,
+    "vm_count": 7,
+    "snapshot_count": 2
+  },
+  "smoke": {
+    "segments": 7,
+    "actual_actions": 39,
+    "logical_actions": 50,
+    "vm_count": 2,
+    "snapshot_count": 1
+  },
+  "prefix_tree_plan": {
+    "forks": {
+      "longest-prefix-backbone-2": {
+        "parent_role": "backbone",
+        "prefix": [
+          "read_repo",
+          "read_typescript"
+        ],
+        "offset": 2,
+        "child_roles": [
+          "early_1",
+          "early_2",
+          "early_3"
+        ]
+      },
+      "longest-prefix-backbone-4": {
+        "parent_role": "backbone",
+        "prefix": [
+          "read_repo",
+          "read_typescript",
+          "core_patch",
+          "core_verify"
+        ],
+        "offset": 4,
+        "child_roles": [
+          "late_1",
+          "late_2",
+          "late_3"
+        ]
+      }
+    },
+    "segments": [
+      [
+        "backbone",
+        "read_repo"
+      ],
+      [
+        "backbone",
+        "read_typescript"
+      ],
+      [
+        "backbone",
+        "core_patch"
+      ],
+      [
+        "backbone",
+        "core_verify"
+      ],
+      [
+        "backbone",
+        "backbone_finish"
+      ],
+      [
+        "late_1",
+        "late_1_inspect"
+      ],
+      [
+        "late_1",
+        "late_1"
+      ],
+      [
+        "late_2",
+        "late_2_inspect"
+      ],
+      [
+        "late_2",
+        "late_2"
+      ],
+      [
+        "late_3",
+        "late_3_inspect"
+      ],
+      [
+        "late_3",
+        "late_3"
+      ],
+      [
+        "early_1",
+        "early_1_inspect"
+      ],
+      [
+        "early_1",
+        "early_1"
+      ],
+      [
+        "early_2",
+        "early_2_inspect"
+      ],
+      [
+        "early_2",
+        "early_2"
+      ],
+      [
+        "early_3",
+        "early_3_inspect"
+      ],
+      [
+        "early_3",
+        "early_3"
+      ]
+    ]
+  },
+  "budget": {
+    "smoke_volume_gib": 24,
+    "full_volume_gib": 32,
+    "cache_gib": 8,
+    "full_vm_snapshots_gib": 8,
+    "private_layers_gib": 7,
+    "raw_cleanup_gib": 4,
+    "host_reserve_gib": 20,
+    "host_extra_gib": 6
+  },
+  "checks": {
+    "offline_tests": 27,
+    "storage_tests": 23,
+    "pinned_controller_schedule_matches": true,
+    "bpo_grpo_existing_raw_compatibility": true
+  },
+  "live_run": "NOT_RUN",
+  "reason": "fresh confirmed shared-disk window pending",
+  "local_preparation_dir": ".artifacts/prettier6604/tvcache-preparation-20261008T143153Z",
+  "notes": [
+    "Only pinned Prettier corrected roles; singleton secondary groups are checked before live allocation.",
+    "Original deterministic TVCache traversal is reused; not an online concurrent cache system."
+  ],
+  "cleanup": {
+    "ram_cache_released": true,
+    "original_service_unchanged": true,
+    "original_firecracker_count": 12,
+    "original_firecracker_pids_unchanged": true
+  }
+}

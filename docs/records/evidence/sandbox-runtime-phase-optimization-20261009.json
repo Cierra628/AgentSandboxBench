@@ -1,0 +1,1092 @@
+{
+  "status": "PASS",
+  "optimization_status": "\u5df2\u9a8c\u8bc1\u901a\u8fc7",
+  "stable_end_to_end_overhead_status": "\u90e8\u5206\u5b8c\u6210",
+  "scope": "remove per-segment synchronous phase calls; fixed trajectories/tests and persistent sampling retained; no zero-overhead claim",
+  "old_study": {
+    "source_directory": ".artifacts/runtime-monitor-pairs/20261009T103917Z-4064887",
+    "metrics": {
+      "guest_action_seconds": {
+        "off_seconds": [
+          10.347241233,
+          10.770431921,
+          10.711123249,
+          10.283878245,
+          10.293447007
+        ],
+        "continuous_seconds": [
+          10.711460989,
+          10.321666868,
+          10.602613593,
+          10.393801118,
+          10.518952441
+        ],
+        "paired_percent": [
+          3.5199696981878636,
+          -4.166639335280564,
+          -1.0130558063565442,
+          1.0688853988858105,
+          2.1907669398467444
+        ],
+        "mean_paired_percent": 0.319985379056662,
+        "median_paired_percent": 1.0688853988858105,
+        "min_paired_percent": -4.166639335280564,
+        "max_paired_percent": 3.5199696981878636,
+        "bootstrap_mean_95_percent_interval": [
+          -2.0724294416140143,
+          2.4980717349910053
+        ],
+        "off_cv_percent": 2.281105196185026,
+        "continuous_cv_percent": 1.490969456321906
+      },
+      "frozen_replay_seconds": {
+        "off_seconds": [
+          12.796523024,
+          13.291661402,
+          12.865550211,
+          12.737871368,
+          12.755066182
+        ],
+        "continuous_seconds": [
+          15.642707428,
+          15.091544471,
+          15.317033104,
+          15.365901031,
+          15.427749234
+        ],
+        "paired_percent": [
+          22.24185740659359,
+          13.541445381155825,
+          19.05462924472512,
+          20.6316235034538,
+          20.953894036016063
+        ],
+        "mean_paired_percent": 19.284689914388878,
+        "median_paired_percent": 20.6316235034538,
+        "min_paired_percent": 13.541445381155825,
+        "max_paired_percent": 22.24185740659359,
+        "bootstrap_mean_95_percent_interval": [
+          16.12657188484173,
+          21.40462527773462
+        ],
+        "off_cv_percent": 1.7861728433790476,
+        "continuous_cv_percent": 1.2934043580762788
+      },
+      "lifecycle_seconds": {
+        "off_seconds": [
+          22.833042502,
+          23.370860904,
+          22.794142894,
+          22.879347629,
+          22.831401057
+        ],
+        "continuous_seconds": [
+          27.037406951,
+          25.838111327,
+          26.236280403,
+          27.11129009,
+          26.833618364
+        ],
+        "paired_percent": [
+          18.413509494548208,
+          10.556951381186487,
+          15.100973636109206,
+          18.496779408325146,
+          17.529442442048193
+        ],
+        "mean_paired_percent": 16.019531272443448,
+        "median_paired_percent": 17.529442442048193,
+        "min_paired_percent": 10.556951381186487,
+        "max_paired_percent": 18.496779408325146,
+        "bootstrap_mean_95_percent_interval": [
+          13.053721437598762,
+          18.27000404955898
+        ],
+        "off_cv_percent": 1.053845533886643,
+        "continuous_cv_percent": 2.0748371060744066
+      }
+    },
+    "replay_remainder": {
+      "unit": "seconds",
+      "pairs": [
+        {
+          "pair": 1,
+          "off_seconds": 2.4492817910000007,
+          "continuous_seconds": 4.931246438999999
+        },
+        {
+          "pair": 2,
+          "off_seconds": 2.5212294810000007,
+          "continuous_seconds": 4.769877603000001
+        },
+        {
+          "pair": 3,
+          "off_seconds": 2.1544269620000005,
+          "continuous_seconds": 4.714419511000001
+        },
+        {
+          "pair": 4,
+          "off_seconds": 2.453993123,
+          "continuous_seconds": 4.972099912999999
+        },
+        {
+          "pair": 5,
+          "off_seconds": 2.461619175000001,
+          "continuous_seconds": 4.9087967930000005
+        }
+      ],
+      "paired_delta_seconds": [
+        2.481964647999998,
+        2.2486481220000005,
+        2.5599925490000004,
+        2.518106789999999,
+        2.4471776179999996
+      ],
+      "mean_paired_delta_seconds": 2.4511779453999996,
+      "min_paired_delta_seconds": 2.2486481220000005,
+      "max_paired_delta_seconds": 2.5599925490000004,
+      "scope": "controller replay span minus sum of guest command intervals; includes runner bookkeeping, sampling boundaries, transfers, checks and scheduling; not solely monitoring; no parallel duration subtraction"
+    }
+  },
+  "new_study": {
+    "status": "PASS",
+    "scope": "100 ms guest continuous + boundary reads and 100 ms host service cgroup monitoring; off removes all those reads; tool timing, safety disk sampler and correctness checks retained in both",
+    "plan": {
+      "pairs": 5,
+      "orders": [
+        [
+          "off",
+          "continuous"
+        ],
+        [
+          "continuous",
+          "off"
+        ],
+        [
+          "off",
+          "continuous"
+        ],
+        [
+          "continuous",
+          "off"
+        ],
+        [
+          "off",
+          "continuous"
+        ]
+      ],
+      "scope": "100 ms guest continuous + boundary reads and 100 ms host service cgroup monitoring; off removes all those reads; tool timing, safety disk sampler and correctness checks retained in both",
+      "cache_state": "fresh 2 CPU/4096 MiB VM each run; same verified RAM immutable seed; no host/guest drop_caches; warm image preparation; not cold-download performance",
+      "thresholds": "none; a small paired study does not prove an arbitrary performance threshold",
+      "timing": {
+        "guest_action_seconds": "sum of original 35 command intervals",
+        "frozen_replay_seconds": "first segment through all five segments and replay validation; includes phase updates/downloads",
+        "lifecycle_seconds": "controller preflight through owned VM/monitor cleanup; excludes cache preparation, outer service create/delete and offline plotting"
+      },
+      "order_limitation": "odd pair count leaves one extra off-first pair; both orders reported"
+    },
+    "metrics": {
+      "guest_action_seconds": {
+        "off_seconds": [
+          11.037636169,
+          11.226646951,
+          11.423372243,
+          15.126233833,
+          10.448848904
+        ],
+        "continuous_seconds": [
+          10.513648025,
+          11.000491004,
+          11.094566865,
+          11.404404318,
+          10.399735919
+        ],
+        "paired_percent": [
+          -4.747285886009356,
+          -2.014456747300264,
+          -2.8783565045906956,
+          -24.60513010766968,
+          -0.4700324930643762
+        ],
+        "mean_paired_percent": -6.943052347726875,
+        "median_paired_percent": -2.8783565045906956,
+        "min_paired_percent": -24.60513010766968,
+        "max_paired_percent": -0.4700324930643762,
+        "bootstrap_mean_95_percent_interval": [
+          -15.914420666438087,
+          -1.5694669970639952
+        ],
+        "off_cv_percent": 15.743219800735138,
+        "continuous_cv_percent": 3.8451113920080853
+      },
+      "frozen_replay_seconds": {
+        "off_seconds": [
+          13.618728257,
+          13.823670645,
+          14.002249229,
+          17.734975926,
+          12.628654714
+        ],
+        "continuous_seconds": [
+          12.978578887,
+          13.658279192,
+          14.336341977,
+          14.615812243,
+          13.529375343
+        ],
+        "paired_percent": [
+          -4.700507697339251,
+          -1.1964365850963166,
+          2.385993439597267,
+          -17.587639791645916,
+          7.132356132925777
+        ],
+        "mean_paired_percent": -2.793246900311688,
+        "median_paired_percent": -1.1964365850963166,
+        "min_paired_percent": -17.587639791645916,
+        "max_paired_percent": 7.132356132925777,
+        "bootstrap_mean_95_percent_interval": [
+          -11.015486726535947,
+          3.816510828207069
+        ],
+        "off_cv_percent": 13.641554701691597,
+        "continuous_cv_percent": 4.741510019860917
+      },
+      "lifecycle_seconds": {
+        "off_seconds": [
+          23.843676028,
+          23.952270907,
+          23.580674319,
+          27.659730828,
+          22.065125371
+        ],
+        "continuous_seconds": [
+          23.672662903,
+          25.34240716,
+          25.389589226,
+          25.949722561,
+          24.662219353
+        ],
+        "paired_percent": [
+          -0.7172263404316426,
+          5.803776428537866,
+          7.671175482638648,
+          -6.182302632059433,
+          11.770130186585481
+        ],
+        "mean_paired_percent": 3.669110625054184,
+        "median_paired_percent": 5.803776428537866,
+        "min_paired_percent": -6.182302632059433,
+        "max_paired_percent": 11.770130186585481,
+        "bootstrap_mean_95_percent_interval": [
+          -1.8102415987572007,
+          8.937277553397225
+        ],
+        "off_cv_percent": 8.535990652524509,
+        "continuous_cv_percent": 3.490587711128569
+      }
+    },
+    "completed_pairs": 5,
+    "source_directory": ".artifacts/runtime-monitor-pairs/20261009T115624Z-4108493",
+    "raw_files": 2350,
+    "raw_hashes_unchanged": true,
+    "semantic_checks": "35 frozen actions, expected exits, key outputs, source/patch, all 25 independent test outcomes, zero unexpected cleanup changes",
+    "runs": [
+      {
+        "pair": 1,
+        "order": [
+          "off",
+          "continuous"
+        ],
+        "off": {
+          "raw": ".artifacts/storage-isolated-service/20261009T115747Z-4109207/python-backbone",
+          "mode": "off",
+          "official": {
+            "status": "FAIL",
+            "exit_code": 1,
+            "passed": 24,
+            "failed": 1,
+            "skipped": 0,
+            "failed_tests": [
+              "tests/test_domain_cpp.py::test_expressions"
+            ],
+            "skipped_tests": [],
+            "F2P_passed": 0,
+            "F2P_total": 1,
+            "P2P_passed": 24,
+            "P2P_total": 24,
+            "scope": "SWE-bench selected C++ tests and test patch; direct image pytest, not full official Docker harness"
+          },
+          "final_patch_sha256": "758df0c82aeaa255c27d075fa0ddbb6a621b61fe63ddb31fd6d6f16c753a1cf6",
+          "guest_action_seconds": 11.037636169,
+          "frozen_replay_seconds": 13.618728257,
+          "lifecycle_seconds": 23.843676028,
+          "observed_volume_used_peak_bytes": 673255424
+        },
+        "continuous": {
+          "raw": ".artifacts/storage-isolated-service/20261009T115820Z-4110678/python-backbone",
+          "mode": "continuous",
+          "official": {
+            "status": "FAIL",
+            "exit_code": 1,
+            "passed": 24,
+            "failed": 1,
+            "skipped": 0,
+            "failed_tests": [
+              "tests/test_domain_cpp.py::test_expressions"
+            ],
+            "skipped_tests": [],
+            "F2P_passed": 0,
+            "F2P_total": 1,
+            "P2P_passed": 24,
+            "P2P_total": 24,
+            "scope": "SWE-bench selected C++ tests and test patch; direct image pytest, not full official Docker harness"
+          },
+          "final_patch_sha256": "758df0c82aeaa255c27d075fa0ddbb6a621b61fe63ddb31fd6d6f16c753a1cf6",
+          "guest_action_seconds": 10.513648025,
+          "frozen_replay_seconds": 12.978578887,
+          "lifecycle_seconds": 23.672662903,
+          "observed_volume_used_peak_bytes": 673869824
+        }
+      },
+      {
+        "pair": 2,
+        "order": [
+          "continuous",
+          "off"
+        ],
+        "off": {
+          "raw": ".artifacts/storage-isolated-service/20261009T115928Z-4116402/python-backbone",
+          "mode": "off",
+          "official": {
+            "status": "FAIL",
+            "exit_code": 1,
+            "passed": 24,
+            "failed": 1,
+            "skipped": 0,
+            "failed_tests": [
+              "tests/test_domain_cpp.py::test_expressions"
+            ],
+            "skipped_tests": [],
+            "F2P_passed": 0,
+            "F2P_total": 1,
+            "P2P_passed": 24,
+            "P2P_total": 24,
+            "scope": "SWE-bench selected C++ tests and test patch; direct image pytest, not full official Docker harness"
+          },
+          "final_patch_sha256": "758df0c82aeaa255c27d075fa0ddbb6a621b61fe63ddb31fd6d6f16c753a1cf6",
+          "guest_action_seconds": 11.226646951,
+          "frozen_replay_seconds": 13.823670645,
+          "lifecycle_seconds": 23.952270907,
+          "observed_volume_used_peak_bytes": 673247232
+        },
+        "continuous": {
+          "raw": ".artifacts/storage-isolated-service/20261009T115853Z-4113471/python-backbone",
+          "mode": "continuous",
+          "official": {
+            "status": "FAIL",
+            "exit_code": 1,
+            "passed": 24,
+            "failed": 1,
+            "skipped": 0,
+            "failed_tests": [
+              "tests/test_domain_cpp.py::test_expressions"
+            ],
+            "skipped_tests": [],
+            "F2P_passed": 0,
+            "F2P_total": 1,
+            "P2P_passed": 24,
+            "P2P_total": 24,
+            "scope": "SWE-bench selected C++ tests and test patch; direct image pytest, not full official Docker harness"
+          },
+          "final_patch_sha256": "758df0c82aeaa255c27d075fa0ddbb6a621b61fe63ddb31fd6d6f16c753a1cf6",
+          "guest_action_seconds": 11.000491004,
+          "frozen_replay_seconds": 13.658279192,
+          "lifecycle_seconds": 25.34240716,
+          "observed_volume_used_peak_bytes": 674029568
+        }
+      },
+      {
+        "pair": 3,
+        "order": [
+          "off",
+          "continuous"
+        ],
+        "off": {
+          "raw": ".artifacts/storage-isolated-service/20261009T120001Z-4117846/python-backbone",
+          "mode": "off",
+          "official": {
+            "status": "FAIL",
+            "exit_code": 1,
+            "passed": 24,
+            "failed": 1,
+            "skipped": 0,
+            "failed_tests": [
+              "tests/test_domain_cpp.py::test_expressions"
+            ],
+            "skipped_tests": [],
+            "F2P_passed": 0,
+            "F2P_total": 1,
+            "P2P_passed": 24,
+            "P2P_total": 24,
+            "scope": "SWE-bench selected C++ tests and test patch; direct image pytest, not full official Docker harness"
+          },
+          "final_patch_sha256": "758df0c82aeaa255c27d075fa0ddbb6a621b61fe63ddb31fd6d6f16c753a1cf6",
+          "guest_action_seconds": 11.423372243,
+          "frozen_replay_seconds": 14.002249229,
+          "lifecycle_seconds": 23.580674319,
+          "observed_volume_used_peak_bytes": 673325056
+        },
+        "continuous": {
+          "raw": ".artifacts/storage-isolated-service/20261009T120033Z-4119277/python-backbone",
+          "mode": "continuous",
+          "official": {
+            "status": "FAIL",
+            "exit_code": 1,
+            "passed": 24,
+            "failed": 1,
+            "skipped": 0,
+            "failed_tests": [
+              "tests/test_domain_cpp.py::test_expressions"
+            ],
+            "skipped_tests": [],
+            "F2P_passed": 0,
+            "F2P_total": 1,
+            "P2P_passed": 24,
+            "P2P_total": 24,
+            "scope": "SWE-bench selected C++ tests and test patch; direct image pytest, not full official Docker harness"
+          },
+          "final_patch_sha256": "758df0c82aeaa255c27d075fa0ddbb6a621b61fe63ddb31fd6d6f16c753a1cf6",
+          "guest_action_seconds": 11.094566865,
+          "frozen_replay_seconds": 14.336341977,
+          "lifecycle_seconds": 25.389589226,
+          "observed_volume_used_peak_bytes": 673751040
+        }
+      },
+      {
+        "pair": 4,
+        "order": [
+          "continuous",
+          "off"
+        ],
+        "off": {
+          "raw": ".artifacts/storage-isolated-service/20261009T120143Z-4125192/python-backbone",
+          "mode": "off",
+          "official": {
+            "status": "FAIL",
+            "exit_code": 1,
+            "passed": 24,
+            "failed": 1,
+            "skipped": 0,
+            "failed_tests": [
+              "tests/test_domain_cpp.py::test_expressions"
+            ],
+            "skipped_tests": [],
+            "F2P_passed": 0,
+            "F2P_total": 1,
+            "P2P_passed": 24,
+            "P2P_total": 24,
+            "scope": "SWE-bench selected C++ tests and test patch; direct image pytest, not full official Docker harness"
+          },
+          "final_patch_sha256": "758df0c82aeaa255c27d075fa0ddbb6a621b61fe63ddb31fd6d6f16c753a1cf6",
+          "guest_action_seconds": 15.126233833,
+          "frozen_replay_seconds": 17.734975926,
+          "lifecycle_seconds": 27.659730828,
+          "observed_volume_used_peak_bytes": 673251328
+        },
+        "continuous": {
+          "raw": ".artifacts/storage-isolated-service/20261009T120108Z-4122239/python-backbone",
+          "mode": "continuous",
+          "official": {
+            "status": "FAIL",
+            "exit_code": 1,
+            "passed": 24,
+            "failed": 1,
+            "skipped": 0,
+            "failed_tests": [
+              "tests/test_domain_cpp.py::test_expressions"
+            ],
+            "skipped_tests": [],
+            "F2P_passed": 0,
+            "F2P_total": 1,
+            "P2P_passed": 24,
+            "P2P_total": 24,
+            "scope": "SWE-bench selected C++ tests and test patch; direct image pytest, not full official Docker harness"
+          },
+          "final_patch_sha256": "758df0c82aeaa255c27d075fa0ddbb6a621b61fe63ddb31fd6d6f16c753a1cf6",
+          "guest_action_seconds": 11.404404318,
+          "frozen_replay_seconds": 14.615812243,
+          "lifecycle_seconds": 25.949722561,
+          "observed_volume_used_peak_bytes": 673619968
+        }
+      },
+      {
+        "pair": 5,
+        "order": [
+          "off",
+          "continuous"
+        ],
+        "off": {
+          "raw": ".artifacts/storage-isolated-service/20261009T120220Z-4126675/python-backbone",
+          "mode": "off",
+          "official": {
+            "status": "FAIL",
+            "exit_code": 1,
+            "passed": 24,
+            "failed": 1,
+            "skipped": 0,
+            "failed_tests": [
+              "tests/test_domain_cpp.py::test_expressions"
+            ],
+            "skipped_tests": [],
+            "F2P_passed": 0,
+            "F2P_total": 1,
+            "P2P_passed": 24,
+            "P2P_total": 24,
+            "scope": "SWE-bench selected C++ tests and test patch; direct image pytest, not full official Docker harness"
+          },
+          "final_patch_sha256": "758df0c82aeaa255c27d075fa0ddbb6a621b61fe63ddb31fd6d6f16c753a1cf6",
+          "guest_action_seconds": 10.448848904,
+          "frozen_replay_seconds": 12.628654714,
+          "lifecycle_seconds": 22.065125371,
+          "observed_volume_used_peak_bytes": 673165312
+        },
+        "continuous": {
+          "raw": ".artifacts/storage-isolated-service/20261009T120251Z-4128090/python-backbone",
+          "mode": "continuous",
+          "official": {
+            "status": "FAIL",
+            "exit_code": 1,
+            "passed": 24,
+            "failed": 1,
+            "skipped": 0,
+            "failed_tests": [
+              "tests/test_domain_cpp.py::test_expressions"
+            ],
+            "skipped_tests": [],
+            "F2P_passed": 0,
+            "F2P_total": 1,
+            "P2P_passed": 24,
+            "P2P_total": 24,
+            "scope": "SWE-bench selected C++ tests and test patch; direct image pytest, not full official Docker harness"
+          },
+          "final_patch_sha256": "758df0c82aeaa255c27d075fa0ddbb6a621b61fe63ddb31fd6d6f16c753a1cf6",
+          "guest_action_seconds": 10.399735919,
+          "frozen_replay_seconds": 13.529375343,
+          "lifecycle_seconds": 24.662219353,
+          "observed_volume_used_peak_bytes": 673533952
+        }
+      }
+    ],
+    "measured_monitoring_costs": [
+      {
+        "pair": 1,
+        "replay_phase_update_calls": 0,
+        "replay_phase_update_seconds": 0.0,
+        "guest_collector_cpu_seconds": 0.16325,
+        "guest_collector_maxrss_kib": 13704,
+        "sample_count": 202,
+        "waiting_samples": 21,
+        "benchmark_samples": 42,
+        "max_recorded_interval_ms": 102.567773,
+        "scope": "directly measured calls and collector CPU; remaining paired difference not solely attributed to sampler CPU"
+      },
+      {
+        "pair": 2,
+        "replay_phase_update_calls": 0,
+        "replay_phase_update_seconds": 0.0,
+        "guest_collector_cpu_seconds": 0.180967,
+        "guest_collector_maxrss_kib": 13716,
+        "sample_count": 209,
+        "waiting_samples": 21,
+        "benchmark_samples": 42,
+        "max_recorded_interval_ms": 101.114595,
+        "scope": "directly measured calls and collector CPU; remaining paired difference not solely attributed to sampler CPU"
+      },
+      {
+        "pair": 3,
+        "replay_phase_update_calls": 0,
+        "replay_phase_update_seconds": 0.0,
+        "guest_collector_cpu_seconds": 0.23883699999999997,
+        "guest_collector_maxrss_kib": 13696,
+        "sample_count": 217,
+        "waiting_samples": 18,
+        "benchmark_samples": 45,
+        "max_recorded_interval_ms": 105.101474,
+        "scope": "directly measured calls and collector CPU; remaining paired difference not solely attributed to sampler CPU"
+      },
+      {
+        "pair": 4,
+        "replay_phase_update_calls": 0,
+        "replay_phase_update_seconds": 0.0,
+        "guest_collector_cpu_seconds": 0.23008,
+        "guest_collector_maxrss_kib": 13736,
+        "sample_count": 221,
+        "waiting_samples": 22,
+        "benchmark_samples": 44,
+        "max_recorded_interval_ms": 101.401916,
+        "scope": "directly measured calls and collector CPU; remaining paired difference not solely attributed to sampler CPU"
+      },
+      {
+        "pair": 5,
+        "replay_phase_update_calls": 0,
+        "replay_phase_update_seconds": 0.0,
+        "guest_collector_cpu_seconds": 0.24156099999999997,
+        "guest_collector_maxrss_kib": 13664,
+        "sample_count": 212,
+        "waiting_samples": 20,
+        "benchmark_samples": 46,
+        "max_recorded_interval_ms": 106.645194,
+        "scope": "directly measured calls and collector CPU; remaining paired difference not solely attributed to sampler CPU"
+      }
+    ],
+    "replay_remainder": {
+      "unit": "seconds",
+      "pairs": [
+        {
+          "pair": 1,
+          "off_seconds": 2.581092088,
+          "continuous_seconds": 2.4649308619999992
+        },
+        {
+          "pair": 2,
+          "off_seconds": 2.5970236940000007,
+          "continuous_seconds": 2.6577881879999996
+        },
+        {
+          "pair": 3,
+          "off_seconds": 2.578876986000001,
+          "continuous_seconds": 3.241775111999999
+        },
+        {
+          "pair": 4,
+          "off_seconds": 2.608742093,
+          "continuous_seconds": 3.2114079250000014
+        },
+        {
+          "pair": 5,
+          "off_seconds": 2.1798058099999995,
+          "continuous_seconds": 3.1296394240000005
+        }
+      ],
+      "paired_delta_seconds": [
+        -0.1161612260000009,
+        0.06076449399999895,
+        0.6628981259999982,
+        0.6026658320000013,
+        0.949833614000001
+      ],
+      "mean_paired_delta_seconds": 0.43200016799999974,
+      "min_paired_delta_seconds": -0.1161612260000009,
+      "max_paired_delta_seconds": 0.949833614000001,
+      "scope": "controller replay span minus sum of guest command intervals; includes runner bookkeeping, sampling boundaries, transfers, checks and scheduling; not solely monitoring; no parallel duration subtraction"
+    },
+    "statistics_limits": "small paired study, both orders reported; bootstrap interval is exploratory; host frequency/background load not fixed; no formal performance threshold or cross-task generalization"
+  },
+  "slow_command": {
+    "pair": 4,
+    "segment": "trace_cpp_parser",
+    "step": "006",
+    "command_description": "conda env list / pip list pipeline",
+    "measurements": {
+      "off": {
+        "command_sha256": "7b778e7f14b1769c1500174d5c2470a5efd124a5d2421fcfd5d418eeeb498a4d",
+        "duration_seconds": 6.394950123,
+        "exit_code": 1,
+        "stdout_sha256": "0f1db4cfc17ce2a7729371499909b459e25a852221a97d2189bc191f12dd536b",
+        "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "continuous": {
+        "command_sha256": "7b778e7f14b1769c1500174d5c2470a5efd124a5d2421fcfd5d418eeeb498a4d",
+        "duration_seconds": 2.775819241,
+        "exit_code": 1,
+        "stdout_sha256": "0f1db4cfc17ce2a7729371499909b459e25a852221a97d2189bc191f12dd536b",
+        "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      }
+    },
+    "cause": "NOT_DETERMINED; pipeline subcommand times, network and CPU/I/O were not independently traced"
+  },
+  "grpo": {
+    "run_id": "20261009T120543Z-4132082",
+    "actions": 189,
+    "instances": 7,
+    "monitor_phase_calls": 21,
+    "previous_monitor_phase_calls": 91,
+    "removed_segment_calls": 70,
+    "necessary_updates_per_instance": [
+      "setup",
+      "official-task-tests",
+      "cleanup"
+    ],
+    "sampling": [
+      {
+        "role": "early_1",
+        "sandbox_id": "01a1208e-5ab9-7ac1-a028-8a1799a91612",
+        "sample_count": 273,
+        "unknown_phase_samples": 0,
+        "max_recorded_interval_ms": 105.194903
+      },
+      {
+        "role": "late_2",
+        "sandbox_id": "01a1208e-5b55-7021-928f-01f6f234b458",
+        "sample_count": 291,
+        "unknown_phase_samples": 1,
+        "max_recorded_interval_ms": 106.584999
+      },
+      {
+        "role": "early_3",
+        "sandbox_id": "01a1208e-5a9d-75f0-ad17-af9672d96b80",
+        "sample_count": 295,
+        "unknown_phase_samples": 0,
+        "max_recorded_interval_ms": 110.500347
+      },
+      {
+        "role": "early_2",
+        "sandbox_id": "01a1208e-5b57-71c2-8e85-ffadcfbc5371",
+        "sample_count": 298,
+        "unknown_phase_samples": 0,
+        "max_recorded_interval_ms": 106.507363
+      },
+      {
+        "role": "late_3",
+        "sandbox_id": "01a1208e-5b53-7b11-a78e-a2573b084d56",
+        "sample_count": 303,
+        "unknown_phase_samples": 0,
+        "max_recorded_interval_ms": 104.366258
+      },
+      {
+        "role": "late_1",
+        "sandbox_id": "01a1208e-5a9e-7ed0-868c-8205a6a01f7b",
+        "sample_count": 307,
+        "unknown_phase_samples": 1,
+        "max_recorded_interval_ms": 107.024098
+      },
+      {
+        "role": "backbone",
+        "sandbox_id": "01a1208e-5abb-7a01-b371-0990d1b42bc9",
+        "sample_count": 312,
+        "unknown_phase_samples": 0,
+        "max_recorded_interval_ms": 103.574476
+      }
+    ],
+    "per_sandbox": [
+      {
+        "sandbox_id": "01a1208e-5ab9-7ac1-a028-8a1799a91612",
+        "role": "early_1",
+        "sample_count": 273,
+        "observed_nonfree_peak_bytes": 450129920,
+        "components_at_peak_bytes": {
+          "Cached": 134963200,
+          "AnonPages": 211099648,
+          "Buffers": 32559104,
+          "Shmem": 1089536,
+          "Slab": 46215168
+        },
+        "components_at_peak_percent": {
+          "Cached": 29.983165749124165,
+          "AnonPages": 46.89749306155876,
+          "Buffers": 7.233268119568679,
+          "Shmem": 0.24204922880931798,
+          "Slab": 10.267073115246372
+        },
+        "cached_min_bytes": 4956160,
+        "cached_observed_peak_bytes": 193626112,
+        "slab_status": "MEASURED",
+        "sessions": [
+          {
+            "stop_reason": "cleanup",
+            "status": "PASS",
+            "error": null,
+            "pid": 678,
+            "start_ticks": "90",
+            "boot_id": "131f60d6-0b6a-4c43-8b61-97f60a2426d5",
+            "sandbox_id": "01a1208e-5ab9-7ac1-a028-8a1799a91612",
+            "role": "early_1",
+            "session_id": "29a59ed8-e751-43f4-9f7e-83eb6ea2c992",
+            "samples": 273,
+            "interval_seconds": 0.1,
+            "elapsed_ns": 27351623047,
+            "cpu_user_seconds": 0.21502,
+            "cpu_system_seconds": 0.016548999999999998,
+            "maxrss_kib": 13192,
+            "scope": "guest logical counters; collector maxrss is not private memory; no physical deduplication"
+          }
+        ]
+      },
+      {
+        "sandbox_id": "01a1208e-5b55-7021-928f-01f6f234b458",
+        "role": "late_2",
+        "sample_count": 291,
+        "observed_nonfree_peak_bytes": 533061632,
+        "components_at_peak_bytes": {
+          "Cached": 193925120,
+          "AnonPages": 221270016,
+          "Buffers": 42475520,
+          "Shmem": 1089536,
+          "Slab": 44933120
+        },
+        "components_at_peak_percent": {
+          "Cached": 36.379493169000014,
+          "AnonPages": 41.509274484793536,
+          "Buffers": 7.9682193296553,
+          "Shmem": 0.20439212552442718,
+          "Slab": 8.42925419925927
+        },
+        "cached_min_bytes": 7512064,
+        "cached_observed_peak_bytes": 196759552,
+        "slab_status": "MEASURED",
+        "sessions": [
+          {
+            "stop_reason": "cleanup",
+            "status": "PASS",
+            "error": null,
+            "pid": 361,
+            "start_ticks": "85",
+            "boot_id": "082f4a8d-46b1-4aec-905f-428ab85a9807",
+            "sandbox_id": "01a1208e-5b55-7021-928f-01f6f234b458",
+            "role": "late_2",
+            "session_id": "ec501379-6017-48b1-bfa0-0469bf00a56a",
+            "samples": 291,
+            "interval_seconds": 0.1,
+            "elapsed_ns": 29214680579,
+            "cpu_user_seconds": 0.210591,
+            "cpu_system_seconds": 0.051668,
+            "maxrss_kib": 13248,
+            "scope": "guest logical counters; collector maxrss is not private memory; no physical deduplication"
+          }
+        ]
+      },
+      {
+        "sandbox_id": "01a1208e-5a9d-75f0-ad17-af9672d96b80",
+        "role": "early_3",
+        "sample_count": 295,
+        "observed_nonfree_peak_bytes": 444436480,
+        "components_at_peak_bytes": {
+          "Cached": 129892352,
+          "AnonPages": 207486976,
+          "Buffers": 35598336,
+          "Shmem": 1089536,
+          "Slab": 46235648
+        },
+        "components_at_peak_percent": {
+          "Cached": 29.226302935348603,
+          "AnonPages": 46.68540620247915,
+          "Buffers": 8.0097691350629,
+          "Shmem": 0.24514999308787613,
+          "Slab": 10.40320722547348
+        },
+        "cached_min_bytes": 3448832,
+        "cached_observed_peak_bytes": 194076672,
+        "slab_status": "MEASURED",
+        "sessions": [
+          {
+            "stop_reason": "cleanup",
+            "status": "PASS",
+            "error": null,
+            "pid": 361,
+            "start_ticks": "100",
+            "boot_id": "9eec673f-57a1-4fc6-8418-30ffaf7978b6",
+            "sandbox_id": "01a1208e-5a9d-75f0-ad17-af9672d96b80",
+            "role": "early_3",
+            "session_id": "600556f5-0062-4cba-beed-2471c62b7fce",
+            "samples": 295,
+            "interval_seconds": 0.1,
+            "elapsed_ns": 29634756868,
+            "cpu_user_seconds": 0.20563399999999998,
+            "cpu_system_seconds": 0.051407999999999995,
+            "maxrss_kib": 13316,
+            "scope": "guest logical counters; collector maxrss is not private memory; no physical deduplication"
+          }
+        ]
+      },
+      {
+        "sandbox_id": "01a1208e-5b57-71c2-8e85-ffadcfbc5371",
+        "role": "early_2",
+        "sample_count": 298,
+        "observed_nonfree_peak_bytes": 488726528,
+        "components_at_peak_bytes": {
+          "Cached": 149266432,
+          "AnonPages": 226230272,
+          "Buffers": 38567936,
+          "Shmem": 1089536,
+          "Slab": 46448640
+        },
+        "components_at_peak_percent": {
+          "Cached": 30.541913206724885,
+          "AnonPages": 46.28974672723311,
+          "Buffers": 7.8915167870732,
+          "Shmem": 0.2229336730417875,
+          "Slab": 9.504014482307783
+        },
+        "cached_min_bytes": 5156864,
+        "cached_observed_peak_bytes": 193986560,
+        "slab_status": "MEASURED",
+        "sessions": [
+          {
+            "stop_reason": "cleanup",
+            "status": "PASS",
+            "error": null,
+            "pid": 428,
+            "start_ticks": "101",
+            "boot_id": "6cfee823-6fc8-469d-b16d-a9bc951404d1",
+            "sandbox_id": "01a1208e-5b57-71c2-8e85-ffadcfbc5371",
+            "role": "early_2",
+            "session_id": "3d040411-2fdc-45a1-b791-4bcb6eac2943",
+            "samples": 298,
+            "interval_seconds": 0.1,
+            "elapsed_ns": 29917964197,
+            "cpu_user_seconds": 0.191085,
+            "cpu_system_seconds": 0.056214,
+            "maxrss_kib": 13248,
+            "scope": "guest logical counters; collector maxrss is not private memory; no physical deduplication"
+          }
+        ]
+      },
+      {
+        "sandbox_id": "01a1208e-5b53-7b11-a78e-a2573b084d56",
+        "role": "late_3",
+        "sample_count": 303,
+        "observed_nonfree_peak_bytes": 636256256,
+        "components_at_peak_bytes": {
+          "Cached": 203968512,
+          "AnonPages": 312905728,
+          "Buffers": 44941312,
+          "Shmem": 1093632,
+          "Slab": 45551616
+        },
+        "components_at_peak_percent": {
+          "Cached": 32.05760416130195,
+          "AnonPages": 49.17919864036669,
+          "Buffers": 7.063398053252305,
+          "Shmem": 0.17188546119379924,
+          "Slab": 7.159319153319256
+        },
+        "cached_min_bytes": 12206080,
+        "cached_observed_peak_bytes": 210452480,
+        "slab_status": "MEASURED",
+        "sessions": [
+          {
+            "stop_reason": "cleanup",
+            "status": "PASS",
+            "error": null,
+            "pid": 366,
+            "start_ticks": "98",
+            "boot_id": "62ba2f21-2716-4409-a1b7-cb627094d641",
+            "sandbox_id": "01a1208e-5b53-7b11-a78e-a2573b084d56",
+            "role": "late_3",
+            "session_id": "cf6bca33-1ed2-4645-b326-078e8f973e5a",
+            "samples": 303,
+            "interval_seconds": 0.1,
+            "elapsed_ns": 30432981832,
+            "cpu_user_seconds": 0.19769899999999999,
+            "cpu_system_seconds": 0.074156,
+            "maxrss_kib": 13276,
+            "scope": "guest logical counters; collector maxrss is not private memory; no physical deduplication"
+          }
+        ]
+      },
+      {
+        "sandbox_id": "01a1208e-5a9e-7ed0-868c-8205a6a01f7b",
+        "role": "late_1",
+        "sample_count": 307,
+        "observed_nonfree_peak_bytes": 625614848,
+        "components_at_peak_bytes": {
+          "Cached": 121524224,
+          "AnonPages": 395833344,
+          "Buffers": 32440320,
+          "Shmem": 1089536,
+          "Slab": 45232128
+        },
+        "components_at_peak_percent": {
+          "Cached": 19.42476659377496,
+          "AnonPages": 63.27109167332294,
+          "Buffers": 5.185350076601763,
+          "Shmem": 0.17415443439091777,
+          "Slab": 7.230027890898139
+        },
+        "cached_min_bytes": 8359936,
+        "cached_observed_peak_bytes": 198066176,
+        "slab_status": "MEASURED",
+        "sessions": [
+          {
+            "stop_reason": "cleanup",
+            "status": "PASS",
+            "error": null,
+            "pid": 666,
+            "start_ticks": "109",
+            "boot_id": "2fbba666-2ac0-4939-a21b-88aa1868cca1",
+            "sandbox_id": "01a1208e-5a9e-7ed0-868c-8205a6a01f7b",
+            "role": "late_1",
+            "session_id": "3edf203c-427c-4729-8e78-f6c9e353162a",
+            "samples": 307,
+            "interval_seconds": 0.1,
+            "elapsed_ns": 30822085952,
+            "cpu_user_seconds": 0.206637,
+            "cpu_system_seconds": 0.061982999999999996,
+            "maxrss_kib": 13284,
+            "scope": "guest logical counters; collector maxrss is not private memory; no physical deduplication"
+          }
+        ]
+      },
+      {
+        "sandbox_id": "01a1208e-5abb-7a01-b371-0990d1b42bc9",
+        "role": "backbone",
+        "sample_count": 312,
+        "observed_nonfree_peak_bytes": 679170048,
+        "components_at_peak_bytes": {
+          "Cached": 204406784,
+          "AnonPages": 354111488,
+          "Buffers": 46374912,
+          "Shmem": 1093632,
+          "Slab": 45826048
+        },
+        "components_at_peak_percent": {
+          "Cached": 30.096554552417484,
+          "AnonPages": 52.1388552164185,
+          "Buffers": 6.828173906750376,
+          "Shmem": 0.16102476886613232,
+          "Slab": 6.747359977806324
+        },
+        "cached_min_bytes": 12234752,
+        "cached_observed_peak_bytes": 210759680,
+        "slab_status": "MEASURED",
+        "sessions": [
+          {
+            "stop_reason": "cleanup",
+            "status": "PASS",
+            "error": null,
+            "pid": 362,
+            "start_ticks": "98",
+            "boot_id": "33c0fc2c-fe5d-4e3a-97b2-051c7a001148",
+            "sandbox_id": "01a1208e-5abb-7a01-b371-0990d1b42bc9",
+            "role": "backbone",
+            "session_id": "c53a2b23-5856-4842-a89b-afce8ff23689",
+            "samples": 312,
+            "interval_seconds": 0.1,
+            "elapsed_ns": 31331475855,
+            "cpu_user_seconds": 0.23904899999999998,
+            "cpu_system_seconds": 0.040379,
+            "maxrss_kib": 13288,
+            "scope": "guest logical counters; collector maxrss is not private memory; no physical deduplication"
+          }
+        ]
+      }
+    ],
+    "cleanup": {
+      "owned_container_removed": true,
+      "mount_and_loop_removed": true,
+      "successful_fixture_removed": true,
+      "original_firecracker_identities_unchanged": true,
+      "original_service_unchanged": true
+    },
+    "observed_volume_used_peak_bytes": 6060138496,
+    "observed_host_available_min_bytes": 30743887872
+  },
+  "limits": [
+    "All five pairs retained; slow pair is not discarded; new study does not include the one-pair smoke.",
+    "Replay remainder also includes runner bookkeeping, transfers, checks and scheduling; not pure monitoring.",
+    "Host frequency/background load not controlled; percentage confidence intervals cross zero; no performance threshold.",
+    "Guest Cached is logical; no new physical deduplication or BPO/TVCache/Xarray complete restore verification.",
+    "Two GRPO samples have unknown phase labels during a phase-file update; memory values retained."
+  ]
+}

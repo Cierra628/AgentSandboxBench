@@ -1,0 +1,652 @@
+{
+  "status": "PASS",
+  "scope": "short monitoring validation only; not full task replay, stable overhead or physical deduplication",
+  "runtime_sampling_status": "PASS",
+  "snapshot_restore_status": "PASS",
+  "task_id": "sphinx-doc__sphinx-7590",
+  "cpu": 2,
+  "memory_mib": 512,
+  "fixture_bytes": 67108864,
+  "prefix": {
+    "status": "PASS",
+    "action_count": 6,
+    "guest_action_sum_ns": 226777095,
+    "output_matches_archived_full_replay": true,
+    "guest_sample_count": 14,
+    "guest_observed_peak_bytes": 139948032,
+    "scope": "first six original actions only; exact order, exits, stdout/stderr and patch; not full trajectory or task grading"
+  },
+  "checks": {
+    "six_frozen_actions_match_reference": "PASS",
+    "full_vm_restore_files_progress_and_process": "PASS",
+    "one_owned_collector_per_live_vm": "PASS",
+    "continuous_idle_and_per_instance_curves": "PASS"
+  },
+  "monitor": {
+    "status": "PASS",
+    "scope": "continuous while running; explicit gaps around snapshots and before tool readiness",
+    "units": "raw meminfo KiB; charts MiB (2^20 bytes)",
+    "per_sandbox": [
+      {
+        "sandbox_id": "01a11ffd-ce42-7693-b3ff-76838d29e329",
+        "role": "backbone",
+        "sample_count": 233,
+        "observed_nonfree_peak_bytes": 213159936,
+        "components_at_peak_bytes": {
+          "Cached": 93364224,
+          "AnonPages": 87007232,
+          "Buffers": 5103616,
+          "Shmem": 831488,
+          "Slab": 18046976
+        },
+        "components_at_peak_percent": {
+          "Cached": 43.80008070559751,
+          "AnonPages": 40.81781672143118,
+          "Buffers": 2.3942660594531233,
+          "Shmem": 0.39007705463000325,
+          "Slab": 8.466401491131991
+        },
+        "cached_min_bytes": 2895872,
+        "cached_observed_peak_bytes": 93593600,
+        "slab_status": "MEASURED",
+        "sessions": [
+          {
+            "stop_reason": "checkpoint",
+            "status": "PASS",
+            "error": null,
+            "pid": 347,
+            "start_ticks": "89",
+            "boot_id": "124fd511-c036-48f6-a47f-7723b6419141",
+            "sandbox_id": "01a11ffd-ce42-7693-b3ff-76838d29e329",
+            "role": "backbone",
+            "session_id": "7f1bd1fd-c271-4f5c-b128-2a2ef2d26513",
+            "samples": 233,
+            "interval_seconds": 0.1,
+            "elapsed_ns": 23414462390,
+            "cpu_user_seconds": 0.234572,
+            "cpu_system_seconds": 0.08086299999999999,
+            "maxrss_kib": 13708,
+            "scope": "guest logical counters; collector maxrss is not private memory; no physical deduplication"
+          }
+        ]
+      },
+      {
+        "sandbox_id": "01a11ffe-159f-7ba2-a75b-e46162dfa13a",
+        "role": "idle",
+        "sample_count": 127,
+        "observed_nonfree_peak_bytes": 83955712,
+        "components_at_peak_bytes": {
+          "Cached": 34455552,
+          "AnonPages": 23756800,
+          "Buffers": 6213632,
+          "Shmem": 831488,
+          "Slab": 9969664
+        },
+        "components_at_peak_percent": {
+          "Cached": 41.04015221739767,
+          "AnonPages": 28.296823925452504,
+          "Buffers": 7.40108308532956,
+          "Shmem": 0.9903888373908377,
+          "Slab": 11.874908523198517
+        },
+        "cached_min_bytes": 1847296,
+        "cached_observed_peak_bytes": 34476032,
+        "slab_status": "MEASURED",
+        "sessions": [
+          {
+            "stop_reason": "cleanup",
+            "status": "PASS",
+            "error": null,
+            "pid": 346,
+            "start_ticks": "104",
+            "boot_id": "9a4e167b-a9c8-4f86-8958-71f1dfca09d8",
+            "sandbox_id": "01a11ffe-159f-7ba2-a75b-e46162dfa13a",
+            "role": "idle",
+            "session_id": "63528fa4-ee9b-4609-a6e8-04348c6e0ec2",
+            "samples": 127,
+            "interval_seconds": 0.1,
+            "elapsed_ns": 12695856210,
+            "cpu_user_seconds": 0.17333199999999999,
+            "cpu_system_seconds": 0.03709,
+            "maxrss_kib": 13712,
+            "scope": "guest logical counters; collector maxrss is not private memory; no physical deduplication"
+          }
+        ]
+      },
+      {
+        "sandbox_id": "01a11ffe-3b9b-7bd3-9de6-edfa6d0cc05e",
+        "role": "backbone",
+        "sample_count": 44,
+        "observed_nonfree_peak_bytes": 194392064,
+        "components_at_peak_bytes": {
+          "Cached": 100171776,
+          "AnonPages": 67579904,
+          "Buffers": 315392,
+          "Shmem": 831488,
+          "Slab": 17174528
+        },
+        "components_at_peak_percent": {
+          "Cached": 51.530795002001724,
+          "AnonPages": 34.76474430561116,
+          "Buffers": 0.1622453064750627,
+          "Shmem": 0.4277376261615289,
+          "Slab": 8.83499441623296
+        },
+        "cached_min_bytes": 3907584,
+        "cached_observed_peak_bytes": 100171776,
+        "slab_status": "MEASURED",
+        "sessions": [
+          {
+            "stop_reason": "cleanup",
+            "status": "PASS",
+            "error": null,
+            "pid": 624,
+            "start_ticks": "2494",
+            "boot_id": "124fd511-c036-48f6-a47f-7723b6419141",
+            "sandbox_id": "01a11ffe-3b9b-7bd3-9de6-edfa6d0cc05e",
+            "role": "backbone",
+            "session_id": "8a4b3964-37ad-4726-8e90-3a32328e0d9c",
+            "samples": 44,
+            "interval_seconds": 0.1,
+            "elapsed_ns": 4320764026,
+            "cpu_user_seconds": 0.076614,
+            "cpu_system_seconds": 0.0281,
+            "maxrss_kib": 13680,
+            "scope": "guest logical counters; collector maxrss is not private memory; no physical deduplication"
+          }
+        ]
+      }
+    ],
+    "source_run_status": "PASS",
+    "timing": {
+      "unit": "ns",
+      "controller_elapsed_ns": 37420730587,
+      "guest_action_sum_ns": 226777095,
+      "guest_action_sum_per_role_ns": {},
+      "stages": [
+        {
+          "stage": "service-labels",
+          "timestamp_ns": 1791538085271748541,
+          "start_monotonic_ns": 13308318136489959,
+          "duration_ns": 21718035,
+          "exit_code": 0
+        },
+        {
+          "stage": "cold-backbone",
+          "timestamp_ns": 1791538085299792149,
+          "start_monotonic_ns": 13308318164533141,
+          "duration_ns": 5006721806,
+          "exit_code": 0
+        },
+        {
+          "stage": "monitor-upload",
+          "timestamp_ns": 1791538090306927624,
+          "start_monotonic_ns": 13308323171669167,
+          "duration_ns": 31921515,
+          "exit_code": 0
+        },
+        {
+          "stage": "monitor-upload",
+          "timestamp_ns": 1791538090339003706,
+          "start_monotonic_ns": 13308323203745268,
+          "duration_ns": 32262926,
+          "exit_code": 0
+        },
+        {
+          "stage": "monitor-directory",
+          "timestamp_ns": 1791538090371620968,
+          "start_monotonic_ns": 13308323236362474,
+          "duration_ns": 44909062,
+          "exit_code": 0
+        },
+        {
+          "stage": "monitor-phase",
+          "timestamp_ns": 1791538090416691127,
+          "start_monotonic_ns": 13308323281432718,
+          "duration_ns": 286070297,
+          "exit_code": 0
+        },
+        {
+          "stage": "monitor-start",
+          "timestamp_ns": 1791538090703107786,
+          "start_monotonic_ns": 13308323567848978,
+          "duration_ns": 179962871,
+          "exit_code": 0
+        },
+        {
+          "stage": "source-before",
+          "timestamp_ns": 1791538090883872064,
+          "start_monotonic_ns": 13308323748613210,
+          "duration_ns": 629902057,
+          "exit_code": 0
+        },
+        {
+          "stage": "upload-oracle",
+          "timestamp_ns": 1791538091514207491,
+          "start_monotonic_ns": 13308324378948781,
+          "duration_ns": 29411802,
+          "exit_code": 0
+        },
+        {
+          "stage": "negative-control",
+          "timestamp_ns": 1791538091543994972,
+          "start_monotonic_ns": 13308324408736203,
+          "duration_ns": 546824685,
+          "exit_code": 0
+        },
+        {
+          "stage": "upload-frozen",
+          "timestamp_ns": 1791538092091303766,
+          "start_monotonic_ns": 13308324956044438,
+          "duration_ns": 85329627,
+          "exit_code": 0
+        },
+        {
+          "stage": "monitor-phase",
+          "timestamp_ns": 1791538092177141333,
+          "start_monotonic_ns": 13308325041882554,
+          "duration_ns": 167114128,
+          "exit_code": 0
+        },
+        {
+          "stage": "prefix-exec",
+          "timestamp_ns": 1791538092348783234,
+          "start_monotonic_ns": 13308325213524104,
+          "duration_ns": 737605976,
+          "exit_code": 0
+        },
+        {
+          "stage": "prefix-download",
+          "timestamp_ns": 1791538093088412125,
+          "start_monotonic_ns": 13308325953153462,
+          "duration_ns": 60559294,
+          "exit_code": 0
+        },
+        {
+          "stage": "source-after-prefix",
+          "timestamp_ns": 1791538093153601252,
+          "start_monotonic_ns": 13308326018341909,
+          "duration_ns": 309557837,
+          "exit_code": 0
+        },
+        {
+          "stage": "monitor-phase",
+          "timestamp_ns": 1791538093463767162,
+          "start_monotonic_ns": 13308326328507913,
+          "duration_ns": 182011414,
+          "exit_code": 0
+        },
+        {
+          "stage": "cold-idle",
+          "timestamp_ns": 1791538093646284960,
+          "start_monotonic_ns": 13308326511026304,
+          "duration_ns": 14765443459,
+          "exit_code": 0
+        },
+        {
+          "stage": "monitor-upload",
+          "timestamp_ns": 1791538108413010807,
+          "start_monotonic_ns": 13308341277752081,
+          "duration_ns": 20581733,
+          "exit_code": 0
+        },
+        {
+          "stage": "monitor-upload",
+          "timestamp_ns": 1791538108434116267,
+          "start_monotonic_ns": 13308341298857571,
+          "duration_ns": 17816123,
+          "exit_code": 0
+        },
+        {
+          "stage": "monitor-directory",
+          "timestamp_ns": 1791538108452402029,
+          "start_monotonic_ns": 13308341317143343,
+          "duration_ns": 42535484,
+          "exit_code": 0
+        },
+        {
+          "stage": "monitor-phase",
+          "timestamp_ns": 1791538108495421876,
+          "start_monotonic_ns": 13308341360163187,
+          "duration_ns": 418652079,
+          "exit_code": 0
+        },
+        {
+          "stage": "monitor-start",
+          "timestamp_ns": 1791538108914592306,
+          "start_monotonic_ns": 13308341779333520,
+          "duration_ns": 247457174,
+          "exit_code": 0
+        },
+        {
+          "stage": "monitor-phase",
+          "timestamp_ns": 1791538109163066644,
+          "start_monotonic_ns": 13308342027807682,
+          "duration_ns": 193096434,
+          "exit_code": 0
+        },
+        {
+          "stage": "monitor-phase",
+          "timestamp_ns": 1791538109356805422,
+          "start_monotonic_ns": 13308342221546629,
+          "duration_ns": 284157719,
+          "exit_code": 0
+        },
+        {
+          "stage": "create-cache-fixture",
+          "timestamp_ns": 1791538109641571057,
+          "start_monotonic_ns": 13308342506312337,
+          "duration_ns": 3444090217,
+          "exit_code": 0
+        },
+        {
+          "stage": "upload-process-probe",
+          "timestamp_ns": 1791538113086387988,
+          "start_monotonic_ns": 13308345951128739,
+          "duration_ns": 31437440,
+          "exit_code": 0
+        },
+        {
+          "stage": "process-start",
+          "timestamp_ns": 1791538113118455986,
+          "start_monotonic_ns": 13308345983196960,
+          "duration_ns": 555794387,
+          "exit_code": 0
+        },
+        {
+          "stage": "process-before",
+          "timestamp_ns": 1791538113674907598,
+          "start_monotonic_ns": 13308346539648530,
+          "duration_ns": 285882733,
+          "exit_code": 0
+        },
+        {
+          "stage": "monitor-phase",
+          "timestamp_ns": 1791538113961933179,
+          "start_monotonic_ns": 13308346826674019,
+          "duration_ns": 217075396,
+          "exit_code": 0
+        },
+        {
+          "stage": "monitor-stop",
+          "timestamp_ns": 1791538114179653466,
+          "start_monotonic_ns": 13308347044394677,
+          "duration_ns": 133180073,
+          "exit_code": 0
+        },
+        {
+          "stage": "monitor-download",
+          "timestamp_ns": 1791538114313553081,
+          "start_monotonic_ns": 13308347178293858,
+          "duration_ns": 38687672,
+          "exit_code": 0
+        },
+        {
+          "stage": "checkpoint",
+          "timestamp_ns": 1791538114353128447,
+          "start_monotonic_ns": 13308347217869729,
+          "duration_ns": 3036864618,
+          "exit_code": 0
+        },
+        {
+          "stage": "delete-original",
+          "timestamp_ns": 1791538117391046783,
+          "start_monotonic_ns": 13308350255787600,
+          "duration_ns": 124608187,
+          "exit_code": 0
+        },
+        {
+          "stage": "restore",
+          "timestamp_ns": 1791538117516054557,
+          "start_monotonic_ns": 13308350380795732,
+          "duration_ns": 139270350,
+          "exit_code": 0
+        },
+        {
+          "stage": "monitor-upload",
+          "timestamp_ns": 1791538117656744080,
+          "start_monotonic_ns": 13308350521485419,
+          "duration_ns": 32922585,
+          "exit_code": 0
+        },
+        {
+          "stage": "monitor-upload",
+          "timestamp_ns": 1791538117690386112,
+          "start_monotonic_ns": 13308350555127449,
+          "duration_ns": 28276441,
+          "exit_code": 0
+        },
+        {
+          "stage": "monitor-directory",
+          "timestamp_ns": 1791538117719310429,
+          "start_monotonic_ns": 13308350584051744,
+          "duration_ns": 36913390,
+          "exit_code": 0
+        },
+        {
+          "stage": "monitor-phase",
+          "timestamp_ns": 1791538117756897816,
+          "start_monotonic_ns": 13308350621639085,
+          "duration_ns": 197818222,
+          "exit_code": 0
+        },
+        {
+          "stage": "monitor-start",
+          "timestamp_ns": 1791538117955407526,
+          "start_monotonic_ns": 13308350820148612,
+          "duration_ns": 153044733,
+          "exit_code": 0
+        },
+        {
+          "stage": "verify-restored-fixture",
+          "timestamp_ns": 1791538118109681210,
+          "start_monotonic_ns": 13308350974422391,
+          "duration_ns": 2529445890,
+          "exit_code": 0
+        },
+        {
+          "stage": "process-after",
+          "timestamp_ns": 1791538120639943539,
+          "start_monotonic_ns": 13308353504684649,
+          "duration_ns": 318427706,
+          "exit_code": 0
+        },
+        {
+          "stage": "collector-process-count",
+          "timestamp_ns": 1791538120959464779,
+          "start_monotonic_ns": 13308353824205860,
+          "duration_ns": 230424833,
+          "exit_code": 0
+        },
+        {
+          "stage": "collector-process-count",
+          "timestamp_ns": 1791538121190704422,
+          "start_monotonic_ns": 13308354055445536,
+          "duration_ns": 349698114,
+          "exit_code": 0
+        },
+        {
+          "stage": "monitor-phase",
+          "timestamp_ns": 1791538121541380615,
+          "start_monotonic_ns": 13308354406121746,
+          "duration_ns": 195855216,
+          "exit_code": 0
+        },
+        {
+          "stage": "monitor-stop",
+          "timestamp_ns": 1791538121738017333,
+          "start_monotonic_ns": 13308354602758576,
+          "duration_ns": 121965147,
+          "exit_code": 0
+        },
+        {
+          "stage": "monitor-download",
+          "timestamp_ns": 1791538121860775020,
+          "start_monotonic_ns": 13308354725516301,
+          "duration_ns": 57850101,
+          "exit_code": 0
+        },
+        {
+          "stage": "delete-owned",
+          "timestamp_ns": 1791538121920518638,
+          "start_monotonic_ns": 13308354785259687,
+          "duration_ns": 119090631,
+          "exit_code": 0
+        },
+        {
+          "stage": "monitor-phase",
+          "timestamp_ns": 1791538122040586262,
+          "start_monotonic_ns": 13308354905327466,
+          "duration_ns": 289995203,
+          "exit_code": 0
+        },
+        {
+          "stage": "monitor-stop",
+          "timestamp_ns": 1791538122331455245,
+          "start_monotonic_ns": 13308355196196369,
+          "duration_ns": 109295826,
+          "exit_code": 0
+        },
+        {
+          "stage": "monitor-download",
+          "timestamp_ns": 1791538122441579815,
+          "start_monotonic_ns": 13308355306321069,
+          "duration_ns": 37131195,
+          "exit_code": 0
+        },
+        {
+          "stage": "delete-owned",
+          "timestamp_ns": 1791538122479914137,
+          "start_monotonic_ns": 13308355344654952,
+          "duration_ns": 180402493,
+          "exit_code": 0
+        },
+        {
+          "stage": "list-after",
+          "timestamp_ns": 1791538122661215565,
+          "start_monotonic_ns": 13308355525956279,
+          "duration_ns": 14225137,
+          "exit_code": 0
+        },
+        {
+          "stage": "delete-snapshot",
+          "timestamp_ns": 1791538122676358529,
+          "start_monotonic_ns": 13308355541099637,
+          "duration_ns": 13899342,
+          "exit_code": 0
+        }
+      ],
+      "scope": "existing controller events; stage and concurrent call sums are not end-to-end elapsed time; missing values stay null"
+    },
+    "physical_page_cache": "NOT_MEASURED",
+    "notes": [
+      "Cached includes overlapping Shmem; guest values are not cross-VM physical deduplication.",
+      "Guest and host metrics are separate; per-VM peaks are not summed.",
+      "Recorded guest wall clocks are not independently calibrated across VMs.",
+      "Sampling maxima are observed peaks; missing intervals are not interpolated.",
+      "Collector CPU/maxrss describe collection cost only, not sandbox CPU or private memory."
+    ],
+    "raw_hashes_unchanged": true,
+    "raw_file_count": 196
+  },
+  "restore": {
+    "parent": "01a11ffd-ce42-7693-b3ff-76838d29e329",
+    "restored": "01a11ffe-3b9b-7bd3-9de6-edfa6d0cc05e",
+    "fixture_sha256": "e20a69eca39368572e90b9135738a613838f954987a0b44b6220889c171cbb76",
+    "progress_before": "1",
+    "progress_after": "2",
+    "process_before": {
+      "pid": "561",
+      "start_ticks": "2348",
+      "boot_id": "124fd511-c036-48f6-a47f-7723b6419141",
+      "count": "6"
+    },
+    "process_after": {
+      "pid": "561",
+      "start_ticks": "2348",
+      "boot_id": "124fd511-c036-48f6-a47f-7723b6419141",
+      "count": "42"
+    }
+  },
+  "cleanup": {
+    "owned_container_removed": true,
+    "mount_and_loop_removed": true,
+    "successful_fixture_removed": true,
+    "original_firecracker_identities_unchanged": true,
+    "original_service_unchanged": true
+  },
+  "storage": {
+    "capacity_bytes": 17179869184,
+    "observed_volume_used_peak_bytes": 3990417408,
+    "observed_host_available_min_bytes": 30874738688,
+    "host_available_after_cleanup_bytes": 48051654656
+  },
+  "default_report": {
+    "status": "PASS",
+    "directory": "/home/yyxie/agentenv_experiment/.artifacts/storage-isolated-service/20261009T092757Z-4041069/report",
+    "scope": "guest logical memory curves; task correctness remains separate"
+  },
+  "report_reproducible": true,
+  "raw": ".artifacts/storage-isolated-service/20261009T092757Z-4041069/python-backbone",
+  "historical_failures": [
+    {
+      "run_id": "20261009T090435Z-4026236",
+      "reason": "missing-original-initialization",
+      "status": "FAIL",
+      "failed_stage": "sphinx7590-backbone",
+      "backup_status": "PASS",
+      "compressed_bytes": 51279382,
+      "source_retained": true
+    },
+    {
+      "run_id": "20261009T091051Z-4030808",
+      "reason": "snapshot-managed-layer-capacity",
+      "status": "FAIL",
+      "failed_stage": "sphinx7590-backbone",
+      "backup_status": "PASS",
+      "compressed_bytes": 715514810,
+      "source_retained": true
+    }
+  ],
+  "approved_source_cleanup": {
+    "status": "PASS",
+    "authorization": "user explicitly approved these three source volumes; retain gzip backups and all logs",
+    "volumes": [
+      {
+        "run_id": "20261009T064541Z-3980552",
+        "source": "/home/yyxie/agentenv_experiment/.artifacts/storage-isolated-service/20261009T064541Z-3980552/volume.ext4",
+        "backup": "/home/yyxie/agentenv_experiment/.artifacts/storage-isolated-service/20261009T064541Z-3980552/volume.ext4.gz",
+        "source_sha256": "070771b8de673ddce88ec38c6878a35894aab8ad5745665211ccff3cf621668f",
+        "backup_sha256": "ed6caa2833aeeac8dde2070dd3631b01f40c23e061ac93df1b6e5269331e5b12",
+        "allocated_bytes": 8589963264,
+        "device": 64512,
+        "inode": 50373563,
+        "deleted": true
+      },
+      {
+        "run_id": "20261009T090435Z-4026236",
+        "source": "/home/yyxie/agentenv_experiment/.artifacts/storage-isolated-service/20261009T090435Z-4026236/volume.ext4",
+        "backup": "/home/yyxie/agentenv_experiment/.artifacts/storage-isolated-service/20261009T090435Z-4026236/volume.ext4.gz",
+        "source_sha256": "99eb701918c59ef0716626080ac751e68d99578a9ec9e881b0f7fbc5d70c3cef",
+        "backup_sha256": "a1957a0a6b1206ebda19edb2cd573a8336d67a919ba2b53c80611208aa3911a4",
+        "allocated_bytes": 8589963264,
+        "device": 64512,
+        "inode": 50463566,
+        "deleted": true
+      },
+      {
+        "run_id": "20261009T091051Z-4030808",
+        "source": "/home/yyxie/agentenv_experiment/.artifacts/storage-isolated-service/20261009T091051Z-4030808/volume.ext4",
+        "backup": "/home/yyxie/agentenv_experiment/.artifacts/storage-isolated-service/20261009T091051Z-4030808/volume.ext4.gz",
+        "source_sha256": "89eb955e3e26adc5c1704a830e8a4c609b6fd4fe1351194bf58d238830763ae1",
+        "backup_sha256": "1b06c40434b8d909a3fd9dd8555acc41a9c3533854e295b86b95f11bcfb70bb3",
+        "allocated_bytes": 3221258240,
+        "device": 64512,
+        "inode": 50463820,
+        "deleted": true
+      }
+    ],
+    "free_before_bytes": 27644973056,
+    "free_after_bytes": 48046092288
+  }
+}

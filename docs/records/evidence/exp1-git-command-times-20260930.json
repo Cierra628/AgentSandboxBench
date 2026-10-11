@@ -1,0 +1,769 @@
+{
+  "schema": 1,
+  "date": "2026-09-30",
+  "scope": "step025 per-Git Bash time diagnostic; whole-command dual clocks; not monitoring acceptance",
+  "calibrations": [
+    {
+      "run_id": "20260930T090343Z-2586358",
+      "path": ".artifacts/git-command-clock-calibration/20260930T090343Z-2586358",
+      "status": "PASS",
+      "diagnostic_gate": "NOT_ACCEPTED",
+      "differences_percent": {
+        "command_total_ns": {
+          "aa": -0.6508252722899344,
+          "ab": 7.151700313901199
+        },
+        "phase_ns": {
+          "aa": -0.30156844378744774,
+          "ab": 5.432053242678125
+        }
+      },
+      "cleanup": "PASS",
+      "restoration": "PASS",
+      "scope": "incremental per-Git command wrappers; whole-command clocks enabled in all phases; no native Git trace or BPF; warm fixture only",
+      "checked_actions": 512,
+      "result_sha256": "d6c05479e5e45bc287779f41900e97587971a014e91386e0a61f97c0e61c9849",
+      "inputs_sha256": {
+        "command-clock": "e64dcf25ab468433898e2f8fc16cde7ad11b112aab542a14404e54e9657fd4e6",
+        "git_step_diagnostic.py": "f0a9c7af175d9a68ddaec822d15b0361267900562b113f2a606ba8e4a5c04afa",
+        "command_clock.c": "ac9d6a9b517074a0e50d004f843dda5edc07454c43c3b8cc585236f50b35b136",
+        "025.sh": "9d62a89b1f265a2908b4c002df82f34368ac23a970cec807eca924a8ff81ec6a",
+        "calibrate_git_host_wait.py": "855a32f51e99733026ad81b9ec99249190839357abf1bf4600246c35b93e6f6d"
+      },
+      "limits": [
+        "one mirrored group, no confidence interval",
+        "warm synthetic Git workload; cannot guarantee cost on Exp1",
+        "only incremental command-clock wrappers, not platform monitoring acceptance"
+      ]
+    },
+    {
+      "run_id": "20260930T091027Z-2588854",
+      "path": ".artifacts/git-command-time-calibration/20260930T091027Z-2588854",
+      "status": "PASS",
+      "diagnostic_gate": "PASS",
+      "differences_percent": {
+        "command_total_ns": {
+          "aa": 0.9130426167322847,
+          "ab": 2.263363883231162
+        },
+        "phase_ns": {
+          "aa": 0.612749503876131,
+          "ab": 2.3512650168003413
+        }
+      },
+      "cleanup": "PASS",
+      "restoration": "PASS",
+      "scope": "incremental Bash builtin per-Git time; whole-command clocks enabled in all phases; no native Git trace or BPF; warm fixture only",
+      "checked_actions": 512,
+      "result_sha256": "1919f30c32668e06235cc5c12f11d4e4998658e163a0a6477e7cfde8a5939e28",
+      "inputs_sha256": {
+        "command-clock": "e64dcf25ab468433898e2f8fc16cde7ad11b112aab542a14404e54e9657fd4e6",
+        "git_step_diagnostic.py": "e19fb4b77bd54aabfc23958809197a57e61482ab86507ce989794f95e70881df",
+        "command_clock.c": "ac9d6a9b517074a0e50d004f843dda5edc07454c43c3b8cc585236f50b35b136",
+        "025.sh": "9d62a89b1f265a2908b4c002df82f34368ac23a970cec807eca924a8ff81ec6a",
+        "calibrate_git_host_wait.py": "489d9635e2399be4dd0e00a1ea24bbdd00d057d8e013fae1553c725496a225f2"
+      },
+      "limits": [
+        "one mirrored group, no confidence interval",
+        "warm synthetic Git workload; cannot guarantee cost on Exp1",
+        "only incremental Bash command timing, not platform monitoring acceptance"
+      ]
+    }
+  ],
+  "batches": [
+    {
+      "run_id": "20260930T091142Z-2589541",
+      "path": ".artifacts/exp1-git-command-times/20260930T091142Z-2589541",
+      "status": "PASS",
+      "verdict": "DIAGNOSTIC_ONLY",
+      "order": [
+        "off"
+      ],
+      "guest_runner_sha256": {
+        "guest-runner-original.sh": "bb3f50aa03b7424855556920d3808be5b6b8c3046e9bc0687c4229fc344efd9a",
+        "guest-runner-effective.sh": "ad55362f449d22b939d33626ad658887fa98d4ce0e6b083d761e0b25bc9f175f"
+      },
+      "clock_check": {
+        "max_abs_realtime_minus_monotonic_ms": 0.000292,
+        "scope": "timeout/bash command wrapper only; excludes outer date and wrapper output write"
+      },
+      "differences": {},
+      "result_sha256": "5510c69b15e30caf45032dfb54f9b14ad486bdb54d11696e6cd6de9a0861afbd",
+      "clock_source_sha256": "ac9d6a9b517074a0e50d004f843dda5edc07454c43c3b8cc585236f50b35b136",
+      "clock_binary_sha256": "e64dcf25ab468433898e2f8fc16cde7ad11b112aab542a14404e54e9657fd4e6"
+    },
+    {
+      "run_id": "20260930T091242Z-2590429",
+      "path": ".artifacts/exp1-git-command-times/20260930T091242Z-2590429",
+      "status": "PASS",
+      "verdict": "DIAGNOSTIC_ONLY",
+      "order": [
+        "off",
+        "control_A",
+        "control_B",
+        "light",
+        "light",
+        "control_B",
+        "control_A",
+        "off"
+      ],
+      "guest_runner_sha256": {
+        "guest-runner-original.sh": "bb3f50aa03b7424855556920d3808be5b6b8c3046e9bc0687c4229fc344efd9a",
+        "guest-runner-effective.sh": "ad55362f449d22b939d33626ad658887fa98d4ce0e6b083d761e0b25bc9f175f"
+      },
+      "clock_check": {
+        "max_abs_realtime_minus_monotonic_ms": 0.000422,
+        "scope": "timeout/bash command wrapper only; excludes outer date and wrapper output write"
+      },
+      "differences": {
+        "task_window_seconds": {
+          "means": {
+            "control_A": 3.8522260829999997,
+            "control_B": 3.862680183,
+            "off": 4.0268272215,
+            "light": 3.8343563025
+          },
+          "light_vs_off_percent": -4.779716347708208,
+          "control_B_vs_A_percent": 0.2713781531705761
+        },
+        "controller_exec_seconds": {
+          "means": {
+            "control_A": 3.8478416145,
+            "control_B": 3.858064528,
+            "off": 4.0219156725000005,
+            "light": 3.8278793755000002
+          },
+          "light_vs_off_percent": -4.824474524086386,
+          "control_B_vs_A_percent": 0.26567916572959316
+        },
+        "guest_action_sum_seconds": {
+          "means": {
+            "control_A": 2.0179187305,
+            "control_B": 2.0287581035,
+            "off": 2.0722880505,
+            "light": 2.0178192624999998
+          },
+          "light_vs_off_percent": -2.6284371029818066,
+          "control_B_vs_A_percent": 0.5371560725497826
+        }
+      },
+      "result_sha256": "cfd07b7a716d89158f761e0eeafaad84947432187c580768d2b223b3535346a7",
+      "clock_source_sha256": "ac9d6a9b517074a0e50d004f843dda5edc07454c43c3b8cc585236f50b35b136",
+      "clock_binary_sha256": "e64dcf25ab468433898e2f8fc16cde7ad11b112aab542a14404e54e9657fd4e6"
+    }
+  ],
+  "runs": [
+    {
+      "run_id": "20260930T091142Z-2589541",
+      "position": 1,
+      "mode": "off",
+      "step025_ms": 274.653327,
+      "command_clock": {
+        "realtime_ns": 269721550,
+        "monotonic_raw_ns": 269721258,
+        "user_ns": 28366000,
+        "system_ns": 46457000,
+        "minor_faults": 1941,
+        "major_faults": 2,
+        "voluntary_switches": 1788,
+        "involuntary_switches": 9,
+        "exit_code": 0
+      },
+      "git_command_times": {
+        "add": {
+          "real_seconds": 0.261,
+          "user_seconds": 0.027,
+          "system_seconds": 0.04
+        },
+        "diff": {
+          "real_seconds": 0.005,
+          "user_seconds": 0.0,
+          "system_seconds": 0.005
+        }
+      },
+      "realtime_minus_monotonic_ms": 0.000292,
+      "command_minus_segments_ms": 3.7212579999999775,
+      "host_wait_upper_bound_ns": 10283159,
+      "checks": {
+        "input_hashes": "PASS",
+        "runner": "PASS",
+        "replay_correctness": "PASS",
+        "host_sampling": "DISABLED",
+        "guest_sampling": "DISABLED",
+        "task_window": "PASS",
+        "cleanup": "PASS"
+      },
+      "independent": {
+        "svg": {
+          "javascript_formatted": true,
+          "idempotent": true,
+          "output": "<svg>\n  <script>\n    const answer = 1 + 2;\n  </script>\n</svg>\n"
+        },
+        "nested_svg": {
+          "javascript_formatted": true,
+          "idempotent": true,
+          "output": "<div>\n  <svg>\n    <script>\n      const answer = 1 + 2;\n    </script>\n  </svg>\n</div>\n"
+        },
+        "html_control": {
+          "javascript_formatted": true,
+          "idempotent": true,
+          "output": "<script>\n  const answer = 1 + 2;\n</script>\n"
+        }
+      },
+      "patch_sha256": "f1cc23ac4f5ac1cff87eb7f8c54f8176c1a47cec37fa4cb6907b9dd8ad199af2",
+      "cleanup": "PASS",
+      "restoration": "PASS"
+    },
+    {
+      "run_id": "20260930T091242Z-2590429",
+      "position": 1,
+      "mode": "off",
+      "step025_ms": 151.689826,
+      "command_clock": {
+        "realtime_ns": 147050897,
+        "monotonic_raw_ns": 147050653,
+        "user_ns": 38352000,
+        "system_ns": 30154000,
+        "minor_faults": 1932,
+        "major_faults": 34,
+        "voluntary_switches": 807,
+        "involuntary_switches": 23,
+        "exit_code": 0
+      },
+      "git_command_times": {
+        "add": {
+          "real_seconds": 0.137,
+          "user_seconds": 0.03,
+          "system_seconds": 0.03
+        },
+        "diff": {
+          "real_seconds": 0.007,
+          "user_seconds": 0.005,
+          "system_seconds": 0.0
+        }
+      },
+      "realtime_minus_monotonic_ms": 0.000244,
+      "command_minus_segments_ms": 3.050653000000011,
+      "host_wait_upper_bound_ns": 9561219,
+      "checks": {
+        "input_hashes": "PASS",
+        "runner": "PASS",
+        "replay_correctness": "PASS",
+        "host_sampling": "DISABLED",
+        "guest_sampling": "DISABLED",
+        "task_window": "PASS",
+        "cleanup": "PASS"
+      },
+      "independent": {
+        "svg": {
+          "javascript_formatted": true,
+          "idempotent": true,
+          "output": "<svg>\n  <script>\n    const answer = 1 + 2;\n  </script>\n</svg>\n"
+        },
+        "nested_svg": {
+          "javascript_formatted": true,
+          "idempotent": true,
+          "output": "<div>\n  <svg>\n    <script>\n      const answer = 1 + 2;\n    </script>\n  </svg>\n</div>\n"
+        },
+        "html_control": {
+          "javascript_formatted": true,
+          "idempotent": true,
+          "output": "<script>\n  const answer = 1 + 2;\n</script>\n"
+        }
+      },
+      "patch_sha256": "f1cc23ac4f5ac1cff87eb7f8c54f8176c1a47cec37fa4cb6907b9dd8ad199af2",
+      "cleanup": "PASS",
+      "restoration": "PASS"
+    },
+    {
+      "run_id": "20260930T091242Z-2590429",
+      "position": 2,
+      "mode": "control_A",
+      "step025_ms": 70.095889,
+      "command_clock": {
+        "realtime_ns": 65184647,
+        "monotonic_raw_ns": 65184362,
+        "user_ns": 32912000,
+        "system_ns": 31025000,
+        "minor_faults": 1938,
+        "major_faults": 0,
+        "voluntary_switches": 78,
+        "involuntary_switches": 20,
+        "exit_code": 0
+      },
+      "git_command_times": {
+        "add": {
+          "real_seconds": 0.058,
+          "user_seconds": 0.026,
+          "system_seconds": 0.031
+        },
+        "diff": {
+          "real_seconds": 0.005,
+          "user_seconds": 0.005,
+          "system_seconds": 0.0
+        }
+      },
+      "realtime_minus_monotonic_ms": 0.000285,
+      "command_minus_segments_ms": 2.184361999999993,
+      "host_wait_upper_bound_ns": 12792206,
+      "checks": {
+        "input_hashes": "PASS",
+        "runner": "PASS",
+        "replay_correctness": "PASS",
+        "host_sampling": "DISABLED",
+        "guest_sampling": "DISABLED",
+        "task_window": "PASS",
+        "cleanup": "PASS"
+      },
+      "independent": {
+        "svg": {
+          "javascript_formatted": true,
+          "idempotent": true,
+          "output": "<svg>\n  <script>\n    const answer = 1 + 2;\n  </script>\n</svg>\n"
+        },
+        "nested_svg": {
+          "javascript_formatted": true,
+          "idempotent": true,
+          "output": "<div>\n  <svg>\n    <script>\n      const answer = 1 + 2;\n    </script>\n  </svg>\n</div>\n"
+        },
+        "html_control": {
+          "javascript_formatted": true,
+          "idempotent": true,
+          "output": "<script>\n  const answer = 1 + 2;\n</script>\n"
+        }
+      },
+      "patch_sha256": "f1cc23ac4f5ac1cff87eb7f8c54f8176c1a47cec37fa4cb6907b9dd8ad199af2",
+      "cleanup": "PASS",
+      "restoration": "PASS"
+    },
+    {
+      "run_id": "20260930T091242Z-2590429",
+      "position": 3,
+      "mode": "control_B",
+      "step025_ms": 70.996213,
+      "command_clock": {
+        "realtime_ns": 65959325,
+        "monotonic_raw_ns": 65958969,
+        "user_ns": 27731000,
+        "system_ns": 37211000,
+        "minor_faults": 1938,
+        "major_faults": 6,
+        "voluntary_switches": 81,
+        "involuntary_switches": 18,
+        "exit_code": 0
+      },
+      "git_command_times": {
+        "add": {
+          "real_seconds": 0.058,
+          "user_seconds": 0.024,
+          "system_seconds": 0.033
+        },
+        "diff": {
+          "real_seconds": 0.005,
+          "user_seconds": 0.002,
+          "system_seconds": 0.003
+        }
+      },
+      "realtime_minus_monotonic_ms": 0.000356,
+      "command_minus_segments_ms": 2.958968999999996,
+      "host_wait_upper_bound_ns": 9661944,
+      "checks": {
+        "input_hashes": "PASS",
+        "runner": "PASS",
+        "replay_correctness": "PASS",
+        "host_sampling": "DISABLED",
+        "guest_sampling": "DISABLED",
+        "task_window": "PASS",
+        "cleanup": "PASS"
+      },
+      "independent": {
+        "svg": {
+          "javascript_formatted": true,
+          "idempotent": true,
+          "output": "<svg>\n  <script>\n    const answer = 1 + 2;\n  </script>\n</svg>\n"
+        },
+        "nested_svg": {
+          "javascript_formatted": true,
+          "idempotent": true,
+          "output": "<div>\n  <svg>\n    <script>\n      const answer = 1 + 2;\n    </script>\n  </svg>\n</div>\n"
+        },
+        "html_control": {
+          "javascript_formatted": true,
+          "idempotent": true,
+          "output": "<script>\n  const answer = 1 + 2;\n</script>\n"
+        }
+      },
+      "patch_sha256": "f1cc23ac4f5ac1cff87eb7f8c54f8176c1a47cec37fa4cb6907b9dd8ad199af2",
+      "cleanup": "PASS",
+      "restoration": "PASS"
+    },
+    {
+      "run_id": "20260930T091242Z-2590429",
+      "position": 4,
+      "mode": "light",
+      "step025_ms": 70.419361,
+      "command_clock": {
+        "realtime_ns": 64836305,
+        "monotonic_raw_ns": 64836038,
+        "user_ns": 17836000,
+        "system_ns": 45001000,
+        "minor_faults": 1940,
+        "major_faults": 1,
+        "voluntary_switches": 77,
+        "involuntary_switches": 22,
+        "exit_code": 0
+      },
+      "git_command_times": {
+        "add": {
+          "real_seconds": 0.057,
+          "user_seconds": 0.017,
+          "system_seconds": 0.038
+        },
+        "diff": {
+          "real_seconds": 0.005,
+          "user_seconds": 0.0,
+          "system_seconds": 0.005
+        }
+      },
+      "realtime_minus_monotonic_ms": 0.000267,
+      "command_minus_segments_ms": 2.836038000000002,
+      "host_wait_upper_bound_ns": 13257380,
+      "checks": {
+        "input_hashes": "PASS",
+        "runner": "PASS",
+        "replay_correctness": "PASS",
+        "host_sampling": "PASS",
+        "guest_sampling": "DISABLED",
+        "task_window": "PASS",
+        "cleanup": "PASS"
+      },
+      "independent": {
+        "svg": {
+          "javascript_formatted": true,
+          "idempotent": true,
+          "output": "<svg>\n  <script>\n    const answer = 1 + 2;\n  </script>\n</svg>\n"
+        },
+        "nested_svg": {
+          "javascript_formatted": true,
+          "idempotent": true,
+          "output": "<div>\n  <svg>\n    <script>\n      const answer = 1 + 2;\n    </script>\n  </svg>\n</div>\n"
+        },
+        "html_control": {
+          "javascript_formatted": true,
+          "idempotent": true,
+          "output": "<script>\n  const answer = 1 + 2;\n</script>\n"
+        }
+      },
+      "patch_sha256": "f1cc23ac4f5ac1cff87eb7f8c54f8176c1a47cec37fa4cb6907b9dd8ad199af2",
+      "cleanup": "PASS",
+      "restoration": "PASS"
+    },
+    {
+      "run_id": "20260930T091242Z-2590429",
+      "position": 5,
+      "mode": "light",
+      "step025_ms": 68.081252,
+      "command_clock": {
+        "realtime_ns": 63240537,
+        "monotonic_raw_ns": 63240164,
+        "user_ns": 21094000,
+        "system_ns": 41402000,
+        "minor_faults": 1943,
+        "major_faults": 0,
+        "voluntary_switches": 73,
+        "involuntary_switches": 22,
+        "exit_code": 0
+      },
+      "git_command_times": {
+        "add": {
+          "real_seconds": 0.056,
+          "user_seconds": 0.018,
+          "system_seconds": 0.037
+        },
+        "diff": {
+          "real_seconds": 0.005,
+          "user_seconds": 0.0,
+          "system_seconds": 0.005
+        }
+      },
+      "realtime_minus_monotonic_ms": 0.000373,
+      "command_minus_segments_ms": 2.240164,
+      "host_wait_upper_bound_ns": 10987202,
+      "checks": {
+        "input_hashes": "PASS",
+        "runner": "PASS",
+        "replay_correctness": "PASS",
+        "host_sampling": "PASS",
+        "guest_sampling": "DISABLED",
+        "task_window": "PASS",
+        "cleanup": "PASS"
+      },
+      "independent": {
+        "svg": {
+          "javascript_formatted": true,
+          "idempotent": true,
+          "output": "<svg>\n  <script>\n    const answer = 1 + 2;\n  </script>\n</svg>\n"
+        },
+        "nested_svg": {
+          "javascript_formatted": true,
+          "idempotent": true,
+          "output": "<div>\n  <svg>\n    <script>\n      const answer = 1 + 2;\n    </script>\n  </svg>\n</div>\n"
+        },
+        "html_control": {
+          "javascript_formatted": true,
+          "idempotent": true,
+          "output": "<script>\n  const answer = 1 + 2;\n</script>\n"
+        }
+      },
+      "patch_sha256": "f1cc23ac4f5ac1cff87eb7f8c54f8176c1a47cec37fa4cb6907b9dd8ad199af2",
+      "cleanup": "PASS",
+      "restoration": "PASS"
+    },
+    {
+      "run_id": "20260930T091242Z-2590429",
+      "position": 6,
+      "mode": "control_B",
+      "step025_ms": 67.450019,
+      "command_clock": {
+        "realtime_ns": 62811944,
+        "monotonic_raw_ns": 62811522,
+        "user_ns": 22515000,
+        "system_ns": 39807000,
+        "minor_faults": 1942,
+        "major_faults": 0,
+        "voluntary_switches": 59,
+        "involuntary_switches": 9,
+        "exit_code": 0
+      },
+      "git_command_times": {
+        "add": {
+          "real_seconds": 0.055,
+          "user_seconds": 0.02,
+          "system_seconds": 0.035
+        },
+        "diff": {
+          "real_seconds": 0.005,
+          "user_seconds": 0.0,
+          "system_seconds": 0.005
+        }
+      },
+      "realtime_minus_monotonic_ms": 0.000422,
+      "command_minus_segments_ms": 2.8115219999999965,
+      "host_wait_upper_bound_ns": 11865469,
+      "checks": {
+        "input_hashes": "PASS",
+        "runner": "PASS",
+        "replay_correctness": "PASS",
+        "host_sampling": "DISABLED",
+        "guest_sampling": "DISABLED",
+        "task_window": "PASS",
+        "cleanup": "PASS"
+      },
+      "independent": {
+        "svg": {
+          "javascript_formatted": true,
+          "idempotent": true,
+          "output": "<svg>\n  <script>\n    const answer = 1 + 2;\n  </script>\n</svg>\n"
+        },
+        "nested_svg": {
+          "javascript_formatted": true,
+          "idempotent": true,
+          "output": "<div>\n  <svg>\n    <script>\n      const answer = 1 + 2;\n    </script>\n  </svg>\n</div>\n"
+        },
+        "html_control": {
+          "javascript_formatted": true,
+          "idempotent": true,
+          "output": "<script>\n  const answer = 1 + 2;\n</script>\n"
+        }
+      },
+      "patch_sha256": "f1cc23ac4f5ac1cff87eb7f8c54f8176c1a47cec37fa4cb6907b9dd8ad199af2",
+      "cleanup": "PASS",
+      "restoration": "PASS"
+    },
+    {
+      "run_id": "20260930T091242Z-2590429",
+      "position": 7,
+      "mode": "control_A",
+      "step025_ms": 67.916772,
+      "command_clock": {
+        "realtime_ns": 63115350,
+        "monotonic_raw_ns": 63114965,
+        "user_ns": 30672000,
+        "system_ns": 31864000,
+        "minor_faults": 1931,
+        "major_faults": 4,
+        "voluntary_switches": 47,
+        "involuntary_switches": 7,
+        "exit_code": 0
+      },
+      "git_command_times": {
+        "add": {
+          "real_seconds": 0.056,
+          "user_seconds": 0.024,
+          "system_seconds": 0.031
+        },
+        "diff": {
+          "real_seconds": 0.005,
+          "user_seconds": 0.005,
+          "system_seconds": 0.0
+        }
+      },
+      "realtime_minus_monotonic_ms": 0.000385,
+      "command_minus_segments_ms": 2.114964999999998,
+      "host_wait_upper_bound_ns": 8714262,
+      "checks": {
+        "input_hashes": "PASS",
+        "runner": "PASS",
+        "replay_correctness": "PASS",
+        "host_sampling": "DISABLED",
+        "guest_sampling": "DISABLED",
+        "task_window": "PASS",
+        "cleanup": "PASS"
+      },
+      "independent": {
+        "svg": {
+          "javascript_formatted": true,
+          "idempotent": true,
+          "output": "<svg>\n  <script>\n    const answer = 1 + 2;\n  </script>\n</svg>\n"
+        },
+        "nested_svg": {
+          "javascript_formatted": true,
+          "idempotent": true,
+          "output": "<div>\n  <svg>\n    <script>\n      const answer = 1 + 2;\n    </script>\n  </svg>\n</div>\n"
+        },
+        "html_control": {
+          "javascript_formatted": true,
+          "idempotent": true,
+          "output": "<script>\n  const answer = 1 + 2;\n</script>\n"
+        }
+      },
+      "patch_sha256": "f1cc23ac4f5ac1cff87eb7f8c54f8176c1a47cec37fa4cb6907b9dd8ad199af2",
+      "cleanup": "PASS",
+      "restoration": "PASS"
+    },
+    {
+      "run_id": "20260930T091242Z-2590429",
+      "position": 8,
+      "mode": "off",
+      "step025_ms": 68.29961,
+      "command_clock": {
+        "realtime_ns": 63356726,
+        "monotonic_raw_ns": 63356428,
+        "user_ns": 29361000,
+        "system_ns": 34488000,
+        "minor_faults": 1942,
+        "major_faults": 1,
+        "voluntary_switches": 65,
+        "involuntary_switches": 21,
+        "exit_code": 0
+      },
+      "git_command_times": {
+        "add": {
+          "real_seconds": 0.055,
+          "user_seconds": 0.022,
+          "system_seconds": 0.034
+        },
+        "diff": {
+          "real_seconds": 0.005,
+          "user_seconds": 0.005,
+          "system_seconds": 0.0
+        }
+      },
+      "realtime_minus_monotonic_ms": 0.000298,
+      "command_minus_segments_ms": 3.356428000000001,
+      "host_wait_upper_bound_ns": 9436694,
+      "checks": {
+        "input_hashes": "PASS",
+        "runner": "PASS",
+        "replay_correctness": "PASS",
+        "host_sampling": "DISABLED",
+        "guest_sampling": "DISABLED",
+        "task_window": "PASS",
+        "cleanup": "PASS"
+      },
+      "independent": {
+        "svg": {
+          "javascript_formatted": true,
+          "idempotent": true,
+          "output": "<svg>\n  <script>\n    const answer = 1 + 2;\n  </script>\n</svg>\n"
+        },
+        "nested_svg": {
+          "javascript_formatted": true,
+          "idempotent": true,
+          "output": "<div>\n  <svg>\n    <script>\n      const answer = 1 + 2;\n    </script>\n  </svg>\n</div>\n"
+        },
+        "html_control": {
+          "javascript_formatted": true,
+          "idempotent": true,
+          "output": "<script>\n  const answer = 1 + 2;\n</script>\n"
+        }
+      },
+      "patch_sha256": "f1cc23ac4f5ac1cff87eb7f8c54f8176c1a47cec37fa4cb6907b9dd8ad199af2",
+      "cleanup": "PASS",
+      "restoration": "PASS"
+    }
+  ],
+  "limitations": [
+    "Warm fixture incremental timing calibration only; one mirrored group, no confidence interval",
+    "Bash segments have 1ms precision and no independent monotonic validation",
+    "CPU sum can overlap across workers; wall minus CPU is not exact blocked duration",
+    "Host wait is a whole-capture two-vCPU queue bound; excludes sleep, guest queues, locks and host I/O threads",
+    "No 327-372ms execution recaptured with segment timing; all slow executions need not share one cause",
+    "Full official task tests NOT_RUN; platform monitoring 5% remains unaccepted"
+  ],
+  "next_step": "Calibrate minimal add-only native Git stage logging, then capture slow add and retain unaccounted intervals.",
+  "final_check": {
+    "status": "PASS",
+    "project_sandboxes": [],
+    "owned_probes": [],
+    "cpu_policies": {
+      "2": {
+        "scaling_min_freq": "800000",
+        "scaling_max_freq": "2801000",
+        "scaling_governor": "schedutil"
+      },
+      "4": {
+        "scaling_min_freq": "800000",
+        "scaling_max_freq": "2801000",
+        "scaling_governor": "schedutil"
+      },
+      "66": {
+        "scaling_min_freq": "800000",
+        "scaling_max_freq": "2801000",
+        "scaling_governor": "schedutil"
+      },
+      "68": {
+        "scaling_min_freq": "800000",
+        "scaling_max_freq": "2801000",
+        "scaling_governor": "schedutil"
+      }
+    },
+    "free_bytes": 53920157696
+  },
+  "step025_stdout_sha256": "9a64ed707c224734715f7af4fea2d84f0b51d128e5c8d05535fc9de7d5b6162f",
+  "step025_stdout_matches_previous_clock_only_eight_runs": true,
+  "image": "ghcr.io/timesler/swe-polybench.eval.x86_64.prettier__prettier-14400@sha256:e625c9b9776870e2cc87172e886bbc90cfc3d6ce1521492f113a46b3f6dfcf44",
+  "resources": {
+    "vcpus": 2,
+    "memory_mib": 4096,
+    "vcpu_cpus": [
+      2,
+      4
+    ],
+    "policy_cpus": [
+      2,
+      4,
+      66,
+      68
+    ],
+    "requested_min_max_khz": 2000000,
+    "exclusive": false
+  },
+  "verification": {
+    "relevant_tests": 18,
+    "status": "PASS",
+    "syntax": "PASS",
+    "diff_check": "PASS",
+    "full_official_task_tests": "NOT_RUN"
+  }
+}

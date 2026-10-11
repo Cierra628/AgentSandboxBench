@@ -1,0 +1,432 @@
+{
+  "date": "2026-09-29",
+  "runs": [
+    {
+      "run_id": "20260929T024105Z-2356493",
+      "status": "PASS",
+      "cleanup": "PASS",
+      "payload_bytes": 16198,
+      "observations": {
+        "direct-boot-unread": {
+          "nonresident": 4,
+          "resident_file": 0,
+          "resident_nonfile": 0,
+          "kpageflags_anon": 0,
+          "backing_cached_pages": 0
+        },
+        "direct-after-read": {
+          "nonresident": 0,
+          "resident_file": 3,
+          "resident_nonfile": 1,
+          "kpageflags_anon": 1,
+          "backing_cached_pages": 4
+        },
+        "restored-unread": {
+          "nonresident": 4,
+          "resident_file": 0,
+          "resident_nonfile": 0,
+          "kpageflags_anon": 0,
+          "backing_cached_pages": 0
+        },
+        "restore-after-read": {
+          "nonresident": 0,
+          "resident_file": 3,
+          "resident_nonfile": 1,
+          "kpageflags_anon": 1,
+          "backing_cached_pages": 4
+        }
+      },
+      "unique_target_pages": null,
+      "simultaneous_pages": null,
+      "async_page_fault_trace": {},
+      "source_hashes": {
+        "diagnose_dax_restore.py": "6444e36e763aa956028fd9458b7bd70f31d87533e43c12d611a6d2b4ea207ede",
+        "trenvx_dax_restore_init.sh": "44b664300d96064612e2510a59b5d4fa7f30444a69a991c85fe8cde94efd8394",
+        "dax_read_fixture.c": "f22d70d2fd8fe45efb257c4bf425cfa8a7e7d48ea73848e60a7686557acca80e",
+        "measure_file_physical.py": "ac4a6310c7d5ed03e0604fcceed527ed28c800be6f6948ed4b9c983a0f16c1de",
+        "experiment_disk_guard.py": "f0e8a4c9bf0051ee8d8dd0ef02c0d49a34f238d540fd1e482d3cfb4746a0809d",
+        "smoke_trenvx_dax.py": "93d5346c63f14d70c24154ebf469de52fcf1a126514d7a2aa97b705357fa862a"
+      },
+      "archive_status": "PASS"
+    },
+    {
+      "run_id": "20260929T024423Z-2357805",
+      "status": "PASS",
+      "cleanup": "PASS",
+      "payload_bytes": 16198,
+      "observations": {
+        "direct-boot-unread": {
+          "nonresident": 4,
+          "resident_file": 0,
+          "resident_nonfile": 0,
+          "kpageflags_anon": 0,
+          "backing_cached_pages": 0
+        },
+        "direct-after-read": {
+          "nonresident": 0,
+          "resident_file": 3,
+          "resident_nonfile": 1,
+          "kpageflags_anon": 1,
+          "backing_cached_pages": 4
+        },
+        "restored-unread": {
+          "nonresident": 4,
+          "resident_file": 0,
+          "resident_nonfile": 0,
+          "kpageflags_anon": 0,
+          "backing_cached_pages": 4
+        },
+        "restore-after-read": {
+          "nonresident": 0,
+          "resident_file": 4,
+          "resident_nonfile": 0,
+          "kpageflags_anon": 0,
+          "backing_cached_pages": 4
+        },
+        "simultaneous-direct": {
+          "nonresident": 0,
+          "resident_file": 3,
+          "resident_nonfile": 1,
+          "kpageflags_anon": 1,
+          "backing_cached_pages": 4
+        },
+        "simultaneous-restored": {
+          "nonresident": 0,
+          "resident_file": 4,
+          "resident_nonfile": 0,
+          "kpageflags_anon": 0,
+          "backing_cached_pages": 4
+        }
+      },
+      "unique_target_pages": 5,
+      "simultaneous_pages": [
+        {
+          "offset": 153485312,
+          "same_pfn": false,
+          "direct_file": false,
+          "restored_file": true,
+          "direct_matches_backing": true,
+          "restored_matches_backing": true,
+          "direct_changed_offsets": [],
+          "restored_changed_offsets": []
+        },
+        {
+          "offset": 153489408,
+          "same_pfn": true,
+          "direct_file": true,
+          "restored_file": true,
+          "direct_matches_backing": true,
+          "restored_matches_backing": true,
+          "direct_changed_offsets": [],
+          "restored_changed_offsets": []
+        },
+        {
+          "offset": 153493504,
+          "same_pfn": true,
+          "direct_file": true,
+          "restored_file": true,
+          "direct_matches_backing": true,
+          "restored_matches_backing": true,
+          "direct_changed_offsets": [],
+          "restored_changed_offsets": []
+        },
+        {
+          "offset": 153497600,
+          "same_pfn": true,
+          "direct_file": true,
+          "restored_file": true,
+          "direct_matches_backing": true,
+          "restored_matches_backing": true,
+          "direct_changed_offsets": [],
+          "restored_changed_offsets": []
+        }
+      ],
+      "async_page_fault_trace": {},
+      "source_hashes": {
+        "diagnose_dax_restore.py": "ca1224d70dab7be8fc2caa86c0a473589806e3a7b1f517efeec0f16bd279c1c7",
+        "trenvx_dax_restore_init.sh": "44b664300d96064612e2510a59b5d4fa7f30444a69a991c85fe8cde94efd8394",
+        "dax_read_fixture.c": "f22d70d2fd8fe45efb257c4bf425cfa8a7e7d48ea73848e60a7686557acca80e",
+        "measure_file_physical.py": "ac4a6310c7d5ed03e0604fcceed527ed28c800be6f6948ed4b9c983a0f16c1de",
+        "experiment_disk_guard.py": "f0e8a4c9bf0051ee8d8dd0ef02c0d49a34f238d540fd1e482d3cfb4746a0809d",
+        "smoke_trenvx_dax.py": "93d5346c63f14d70c24154ebf469de52fcf1a126514d7a2aa97b705357fa862a"
+      },
+      "archive_status": "PASS"
+    },
+    {
+      "run_id": "20260929T024546Z-2358396",
+      "status": "PASS",
+      "cleanup": "PASS",
+      "payload_bytes": 16198,
+      "observations": {
+        "direct-boot-unread": {
+          "nonresident": 4,
+          "resident_file": 0,
+          "resident_nonfile": 0,
+          "kpageflags_anon": 0,
+          "backing_cached_pages": 4
+        },
+        "direct-after-read": {
+          "nonresident": 0,
+          "resident_file": 4,
+          "resident_nonfile": 0,
+          "kpageflags_anon": 0,
+          "backing_cached_pages": 4
+        },
+        "restored-unread": {
+          "nonresident": 4,
+          "resident_file": 0,
+          "resident_nonfile": 0,
+          "kpageflags_anon": 0,
+          "backing_cached_pages": 4
+        },
+        "restore-after-read": {
+          "nonresident": 0,
+          "resident_file": 4,
+          "resident_nonfile": 0,
+          "kpageflags_anon": 0,
+          "backing_cached_pages": 4
+        },
+        "simultaneous-direct": {
+          "nonresident": 0,
+          "resident_file": 4,
+          "resident_nonfile": 0,
+          "kpageflags_anon": 0,
+          "backing_cached_pages": 4
+        },
+        "simultaneous-restored": {
+          "nonresident": 0,
+          "resident_file": 4,
+          "resident_nonfile": 0,
+          "kpageflags_anon": 0,
+          "backing_cached_pages": 4
+        }
+      },
+      "unique_target_pages": 4,
+      "simultaneous_pages": [
+        {
+          "offset": 153485312,
+          "same_pfn": true,
+          "direct_file": true,
+          "restored_file": true,
+          "direct_matches_backing": true,
+          "restored_matches_backing": true,
+          "direct_changed_offsets": [],
+          "restored_changed_offsets": []
+        },
+        {
+          "offset": 153489408,
+          "same_pfn": true,
+          "direct_file": true,
+          "restored_file": true,
+          "direct_matches_backing": true,
+          "restored_matches_backing": true,
+          "direct_changed_offsets": [],
+          "restored_changed_offsets": []
+        },
+        {
+          "offset": 153493504,
+          "same_pfn": true,
+          "direct_file": true,
+          "restored_file": true,
+          "direct_matches_backing": true,
+          "restored_matches_backing": true,
+          "direct_changed_offsets": [],
+          "restored_changed_offsets": []
+        },
+        {
+          "offset": 153497600,
+          "same_pfn": true,
+          "direct_file": true,
+          "restored_file": true,
+          "direct_matches_backing": true,
+          "restored_matches_backing": true,
+          "direct_changed_offsets": [],
+          "restored_changed_offsets": []
+        }
+      ],
+      "async_page_fault_trace": {},
+      "source_hashes": {
+        "diagnose_dax_restore.py": "ca1224d70dab7be8fc2caa86c0a473589806e3a7b1f517efeec0f16bd279c1c7",
+        "trenvx_dax_restore_init.sh": "44b664300d96064612e2510a59b5d4fa7f30444a69a991c85fe8cde94efd8394",
+        "dax_read_fixture.c": "f22d70d2fd8fe45efb257c4bf425cfa8a7e7d48ea73848e60a7686557acca80e",
+        "measure_file_physical.py": "ac4a6310c7d5ed03e0604fcceed527ed28c800be6f6948ed4b9c983a0f16c1de",
+        "experiment_disk_guard.py": "f0e8a4c9bf0051ee8d8dd0ef02c0d49a34f238d540fd1e482d3cfb4746a0809d",
+        "smoke_trenvx_dax.py": "93d5346c63f14d70c24154ebf469de52fcf1a126514d7a2aa97b705357fa862a"
+      },
+      "archive_status": "PASS"
+    },
+    {
+      "run_id": "20260929T025111Z-2360458",
+      "status": "PASS",
+      "cleanup": "PASS",
+      "payload_bytes": 16198,
+      "observations": {
+        "direct-boot-unread": {
+          "nonresident": 4,
+          "resident_file": 0,
+          "resident_nonfile": 0,
+          "kpageflags_anon": 0,
+          "backing_cached_pages": 0
+        },
+        "direct-after-read": {
+          "nonresident": 0,
+          "resident_file": 3,
+          "resident_nonfile": 1,
+          "kpageflags_anon": 1,
+          "backing_cached_pages": 4
+        },
+        "restored-unread": {
+          "nonresident": 4,
+          "resident_file": 0,
+          "resident_nonfile": 0,
+          "kpageflags_anon": 0,
+          "backing_cached_pages": 0
+        },
+        "restore-after-read": {
+          "nonresident": 0,
+          "resident_file": 3,
+          "resident_nonfile": 1,
+          "kpageflags_anon": 1,
+          "backing_cached_pages": 4
+        }
+      },
+      "unique_target_pages": null,
+      "simultaneous_pages": null,
+      "async_page_fault_trace": {
+        "direct": {
+          "completed_for_target_pages": 0,
+          "gup_for_target_pages": [
+            "1"
+          ],
+          "work_functions": [],
+          "async_worker_in_stack": false
+        },
+        "restore": {
+          "completed_for_target_pages": 0,
+          "gup_for_target_pages": [
+            "1"
+          ],
+          "work_functions": [],
+          "async_worker_in_stack": false
+        }
+      },
+      "source_hashes": {
+        "diagnose_dax_restore.py": "c3404fc5816333cce18114a0abb74faef9e617dadf9ba745b4fcc73a34267873",
+        "trenvx_dax_restore_init.sh": "44b664300d96064612e2510a59b5d4fa7f30444a69a991c85fe8cde94efd8394",
+        "dax_read_fixture.c": "f22d70d2fd8fe45efb257c4bf425cfa8a7e7d48ea73848e60a7686557acca80e",
+        "measure_file_physical.py": "ac4a6310c7d5ed03e0604fcceed527ed28c800be6f6948ed4b9c983a0f16c1de",
+        "experiment_disk_guard.py": "f0e8a4c9bf0051ee8d8dd0ef02c0d49a34f238d540fd1e482d3cfb4746a0809d",
+        "smoke_trenvx_dax.py": "93d5346c63f14d70c24154ebf469de52fcf1a126514d7a2aa97b705357fa862a"
+      },
+      "archive_status": "PASS"
+    },
+    {
+      "run_id": "20260929T025239Z-2361120",
+      "status": "PASS",
+      "cleanup": "PASS",
+      "payload_bytes": 16198,
+      "observations": {
+        "direct-boot-unread": {
+          "nonresident": 4,
+          "resident_file": 0,
+          "resident_nonfile": 0,
+          "kpageflags_anon": 0,
+          "backing_cached_pages": 0
+        },
+        "direct-after-read": {
+          "nonresident": 0,
+          "resident_file": 3,
+          "resident_nonfile": 1,
+          "kpageflags_anon": 1,
+          "backing_cached_pages": 4
+        },
+        "restored-unread": {
+          "nonresident": 4,
+          "resident_file": 0,
+          "resident_nonfile": 0,
+          "kpageflags_anon": 0,
+          "backing_cached_pages": 0
+        },
+        "restore-after-read": {
+          "nonresident": 0,
+          "resident_file": 3,
+          "resident_nonfile": 1,
+          "kpageflags_anon": 1,
+          "backing_cached_pages": 4
+        }
+      },
+      "unique_target_pages": null,
+      "simultaneous_pages": null,
+      "async_page_fault_trace": {
+        "direct": {
+          "completed_for_target_pages": 0,
+          "gup_for_target_pages": [
+            "1"
+          ],
+          "work_functions": [
+            "async_pf_execute"
+          ],
+          "async_worker_in_stack": false
+        },
+        "restore": {
+          "completed_for_target_pages": 0,
+          "gup_for_target_pages": [
+            "1"
+          ],
+          "work_functions": [
+            "async_pf_execute"
+          ],
+          "async_worker_in_stack": false
+        }
+      },
+      "source_hashes": {
+        "diagnose_dax_restore.py": "3420b230f72856d846177b562f360b27f6f6a9cb661b516fb11dcb6dcdfb7342",
+        "trenvx_dax_restore_init.sh": "44b664300d96064612e2510a59b5d4fa7f30444a69a991c85fe8cde94efd8394",
+        "dax_read_fixture.c": "f22d70d2fd8fe45efb257c4bf425cfa8a7e7d48ea73848e60a7686557acca80e",
+        "measure_file_physical.py": "ac4a6310c7d5ed03e0604fcceed527ed28c800be6f6948ed4b9c983a0f16c1de",
+        "experiment_disk_guard.py": "f0e8a4c9bf0051ee8d8dd0ef02c0d49a34f238d540fd1e482d3cfb4746a0809d",
+        "smoke_trenvx_dax.py": "93d5346c63f14d70c24154ebf469de52fcf1a126514d7a2aa97b705357fa862a"
+      },
+      "archive_status": "PASS"
+    }
+  ],
+  "kernel_source_hashes": {
+    "/home/yxli/linux-6.19.9-ioctl/virt/kvm/async_pf.c": "0005a0148c02770f68ccaa74042c21cf24cd0a07297fb71d0869c9653a5580d0",
+    "/var/lib/trenvx/deps/cloud-hypervisor/vmm/src/device_manager.rs": "21912270db22fe4b931818af57de283ec271f58f3a61a58427a3572d8b6689a4"
+  },
+  "parser_correction": {
+    "field": "async_worker_in_stack",
+    "reason": "old parser searched whole log and matched WORK line; corrected parser checks stack-frame syntax",
+    "original_results_preserved": true,
+    "corrected_trace": {
+      "direct": {
+        "completed_for_target_pages": 0,
+        "gup_for_target_pages": [
+          "1"
+        ],
+        "work_functions": [
+          "async_pf_execute"
+        ],
+        "async_worker_in_stack": false
+      },
+      "restore": {
+        "completed_for_target_pages": 0,
+        "gup_for_target_pages": [
+          "1"
+        ],
+        "work_functions": [
+          "async_pf_execute"
+        ],
+        "async_worker_in_stack": false
+      }
+    }
+  },
+  "conclusion": "Cold target pages in the actual sealed layer reproduce anonymous copies. Scoped GUP tracing records FOLL_WRITE in workqueue function async_pf_execute. Warm paired VMs share four target pages; cold-first pair has five unique pages, with unchanged content.",
+  "limitations": [
+    "small file only; not full task memory benefit",
+    "cold second VM skipped eviction while first VM live",
+    "completion tracepoint recorded no target events; attribution uses workqueue and GUP probes",
+    "kernel source link is static context; live BPF events are primary mechanism evidence"
+  ],
+  "free_after_bytes": 46909128704
+}

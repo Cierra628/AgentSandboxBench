@@ -1,5 +1,6 @@
 """Recompute one VM PFN smoke from archived inputs; never access live processes."""
 import array
+import argparse
 import csv
 import hashlib
 import json
@@ -8,7 +9,10 @@ import sys
 
 
 def main():
-    out = Path(sys.argv[1]).resolve()
+    parser=argparse.ArgumentParser(description=__doc__)
+    parser.add_argument('directory',type=Path)
+    parser.add_argument('--output',type=Path,help='new audit receipt; default directory/offline-audit.json')
+    args=parser.parse_args();out=args.directory.resolve()
     result = json.loads((out / 'result.json').read_text())
     assert result['status'] == 'PASS'
     assert all(value == 'PASS' for value in result['checks'].values())
@@ -53,6 +57,46 @@ def main():
     assert resident == measured['guest_file_cache_resident_mappings']
     assert len(unique) / 256 == measured['guest_file_cache_host_physical_mib']
     fixture_cases = []
+    named_summary=None
+    if cfg.get('exp1'):
+        identity=json.loads((out/'host/vmm-identity.json').read_text())
+        assert identity['pid']==pid and identity['sandbox_id']==sid and identity['marker_verified']
+        assert identity['start_time_ticks']>0
+        expected='0::/'+str(Path(cfg['cgroup']).relative_to('/sys/fs/cgroup'))+'\n'
+        assert identity['cgroup']==expected
+        assert measured['dax_file_host_physical_pss_mib']==0
+        from exp1_physical_workload import verify_replay
+        verified=verify_replay(out/'replay')
+        correctness=json.loads((out/'exp1-correctness.json').read_text())
+        assert all(correctness[key]==value for key,value in verified.items())
+        assert correctness['independent_svg_properties']=='PASS'
+        before=json.loads((out/'exp1-independent-before.stdout').read_text())
+        after=json.loads((out/'exp1-independent-after.stdout').read_text())
+        assert not before['svg']['javascript_formatted']
+        assert all(row['javascript_formatted'] and row['idempotent'] for row in after.values())
+    if cfg.get('named_files_manifest'):
+        from named_guest_file_physical import recount
+        directory=out/'named-files'
+        before=json.loads((directory/'before.json').read_text());after=json.loads((directory/'after.json').read_text())
+        named_rows=json.loads((directory/'pages.json').read_text())
+        computed=recount(before,after,named_rows,sid)
+        named_saved=json.loads((directory/'result.json').read_text())
+        assert all(named_saved[key]==value for key,value in computed.items())
+        manifest=json.loads((directory/'tools/manifest.json').read_text())
+        assert manifest['sandbox_id']==sid and manifest['files']==[f['path'] for f in before['files']]
+        for row in named_rows:
+            guest_addr=row['guest_pfn']*4096
+            addresses=[h+guest_addr-g for g,size,h in slots.values() if g<=guest_addr<g+size]
+            assert addresses==[row['address']]
+        if (directory/'host-rechecks.json').exists():
+            rechecks=json.loads((directory/'host-rechecks.json').read_text())
+            expected=[{key:row[key] for key in ('owner','index','address','entry')} for row in named_rows]
+            assert rechecks['first']==rechecks['after_guest']==expected
+        receipt=json.loads((directory/'guest-result.json').read_text())
+        assert receipt==named_saved['guest_receipt'] and receipt['status']=='PASS'
+        assert [f['path'] for f in receipt['files']]==manifest['files']
+        assert all(a['identity']==b['identity'] for a,b in zip(receipt['files'],before['files']))
+        named_summary=computed
     if cfg.get('fixture_mib'):
         for case in ('shared', 'cow', 'private'):
             parent = out / 'fixture' / case
@@ -93,7 +137,9 @@ def main():
     audit = dict(status='PASS', logical_pages=len(rows), resident_mappings=resident,
                  unique_host_pages=len(unique), fixture_cases=fixture_cases,
                  note='archived live reads; not a consistency proof for intervening page migration')
-    (out / 'offline-audit.json').write_text(json.dumps(audit, indent=2) + '\n')
+    if named_summary is not None:audit['named_files']=named_summary
+    target=args.output or out/'offline-audit.json'
+    with target.open('x') as stream:stream.write(json.dumps(audit,indent=2)+'\n')
     print(f'status=PASS result_dir={out}')
 
 

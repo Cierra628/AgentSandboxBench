@@ -3,7 +3,21 @@ from contextlib import contextmanager
 import json
 import os
 from pathlib import Path
+import re
 import time
+from storage_lifecycle import phase_event
+
+
+def guest_meminfo(raw):
+    if raw.strip().splitlines()[-1] != '4096':
+        raise RuntimeError('guest page size is not verified as 4096')
+    values = {key:int(value)*1024 for key,value in
+              re.findall(r'^(\w+):\s+(\d+) kB$', raw, re.M)}
+    if not {'MemTotal','MemAvailable','Cached','AnonPages','Slab'} <= values.keys():
+        raise RuntimeError('guest meminfo is incomplete')
+    return dict(status='PASS', timestamp_ns=time.time_ns(), page_size=4096,
+                meminfo_bytes=values,
+                scope='guest meminfo at one controller boundary; not host memory')
 
 
 def vmm_snapshot(sandbox_id, group_name, executable, *, proc_root=Path('/proc'),
@@ -51,14 +65,22 @@ def vmm_snapshot(sandbox_id, group_name, executable, *, proc_root=Path('/proc'),
 
 
 class DiagnosticMetrics:
-    def __init__(self, out, enabled):
+    def __init__(self, out, enabled, *, record_phases=False):
         self.out = out
         self.enabled = enabled
+        self.record_phases = record_phases
 
     @contextmanager
     def phase(self, name):
-        if not self.enabled:
-            yield
+        phase_event(self.out, name, 'begin')
+        if not self.enabled and not self.record_phases:
+            try:
+                yield
+            except BaseException:
+                phase_event(self.out, name, 'end', status='FAIL')
+                raise
+            else:
+                phase_event(self.out, name, 'end', status='PASS')
             return
         begin = time.monotonic_ns()
         row = dict(phase=name, start_monotonic_ns=begin, timestamp_ns=time.time_ns(), status='FAIL')
@@ -69,6 +91,7 @@ class DiagnosticMetrics:
             row['error'] = repr(exc)
             raise
         finally:
+            phase_event(self.out, name, 'end', status=row['status'])
             row['end_monotonic_ns'] = time.monotonic_ns()
             row['elapsed_ns'] = row['end_monotonic_ns']-begin
             with (self.out/'diagnostic-events.jsonl').open('a') as stream:

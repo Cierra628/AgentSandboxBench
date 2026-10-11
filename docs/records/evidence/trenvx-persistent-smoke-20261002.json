@@ -1,0 +1,122 @@
+{
+  "status": "PARTIAL",
+  "backend": "TrEnv-X",
+  "smoke": {
+    "status": "PASS",
+    "run_count": 8,
+    "protocol": {
+      "stage": "smoke",
+      "group_count": 1,
+      "seed": 20261002,
+      "orders": [
+        [
+          "off",
+          "host",
+          "guest",
+          "both",
+          "both",
+          "guest",
+          "host",
+          "off"
+        ]
+      ],
+      "target_sample_interval_seconds": 0.1,
+      "threshold": null,
+      "primary_scope": "controller frozen runner call including Git preparation and guest collector start/stop",
+      "end_to_end_scope": "outer controller start through tests, cleanup and private image hash inventory/removal",
+      "host_scope": "run-owned sandbox parent cgroup; excludes orchestrator",
+      "guest_scope": "one persistent collector per runner; includes preparation; short steps may have no samples",
+      "cpu_cache_policy": "original frequency/affinity and guest defaults; fresh private VM; host cache preserved; no cache drops",
+      "official_tests": "four task assertions in every run; independent properties and final patch also verified",
+      "stop_policy": "first failure, source/environment change, oversized raw results or disk guard; no automatic retries",
+      "inference": "five independent group log ratios with approximate t95 intervals; no PPT performance threshold",
+      "checkpoint_restore": "NOT_MEASURED",
+      "physical_scans": false,
+      "recovered_from": "/home/yyxie/agentenv_experiment/.artifacts/trenvx-persistent-comparison/20261002T025757Z-3039588",
+      "recovery_script_sha256": "19cbf5f84b3c866fa7bcedc6fcbf545f1fd0b4e4c18fdcc4ddeaad308213533a",
+      "interrupted_batch_semantics": "functional smoke only; interrupted original kept; not formal statistical observations"
+    },
+    "analysis": {
+      "task_window_ns": {
+        "host": {
+          "group_percent": [
+            -1.2592932119049993
+          ],
+          "geometric_mean_percent": -1.2592932119049993,
+          "mean_log_ratio_t95_percent": null
+        },
+        "guest": {
+          "group_percent": [
+            1.541133764043856
+          ],
+          "geometric_mean_percent": 1.541133764043856,
+          "mean_log_ratio_t95_percent": null
+        },
+        "both": {
+          "group_percent": [
+            -0.013845240158172345
+          ],
+          "geometric_mean_percent": -0.013845240158172345,
+          "mean_log_ratio_t95_percent": null
+        }
+      },
+      "guest_action_sum_ns": {
+        "host": {
+          "group_percent": [
+            -4.528584131946333
+          ],
+          "geometric_mean_percent": -4.528584131946333,
+          "mean_log_ratio_t95_percent": null
+        },
+        "guest": {
+          "group_percent": [
+            7.367558581638445
+          ],
+          "geometric_mean_percent": 7.367558581638443,
+          "mean_log_ratio_t95_percent": null
+        },
+        "both": {
+          "group_percent": [
+            1.7445489177820406
+          ],
+          "geometric_mean_percent": 1.7445489177820406,
+          "mean_log_ratio_t95_percent": null
+        }
+      },
+      "controller_end_to_end_ns": {
+        "host": {
+          "group_percent": [
+            -2.1254350687224255
+          ],
+          "geometric_mean_percent": -2.1254350687224255,
+          "mean_log_ratio_t95_percent": null
+        },
+        "guest": {
+          "group_percent": [
+            -1.055712437556855
+          ],
+          "geometric_mean_percent": -1.055712437556855,
+          "mean_log_ratio_t95_percent": null
+        },
+        "both": {
+          "group_percent": [
+            -1.6173398061649746
+          ],
+          "geometric_mean_percent": -1.6173398061649746,
+          "mean_log_ratio_t95_percent": null
+        }
+      }
+    }
+  },
+  "units": {
+    "time": "ns; plots use seconds",
+    "memory": "bytes; plots use MiB"
+  },
+  "limitations": [
+    "No checkpoint/restore in this protocol",
+    "Original CPU frequency/affinity and guest defaults; no fair cross-backend comparison",
+    "End-to-end includes official task tests and private-image hash inventory/removal",
+    "No physical page scanning; guest logical memory and host cgroup are not added",
+    "Five group log-ratio t95 intervals are approximate; no PPT performance threshold"
+  ]
+}

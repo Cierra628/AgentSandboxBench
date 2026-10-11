@@ -1,0 +1,115 @@
+{
+  "status": "PASS",
+  "third_initial_acceptance": "PARTIAL",
+  "driver_id": "20261005T163031Z-3251821",
+  "run_id": "20261005T163031Z-3251823",
+  "protocol": {
+    "vm_count": 1,
+    "full_replays": 1,
+    "checkpoint": false,
+    "host_periodic_sampling": false,
+    "guest_periodic_sampling": false,
+    "cache_policy": "preserve; no global drop",
+    "probe_order": "full frozen replay; official task evaluation; source metadata; optional upper physical proof; source content",
+    "performance_comparison": "NOT_RUN",
+    "physical_cache_measurement": "REQUESTED",
+    "stop_policy": "first failure; no automatic retry"
+  },
+  "configuration": {
+    "cpu": 2,
+    "memory_mib": 4096,
+    "host_kernel": "6.19.9+",
+    "source_revisions": {
+      "AgentENV": {
+        "url": "https://github.com/kvcache-ai/AgentENV.git",
+        "commit": "2f48c9c78ec58e4d73c49aa07cb81d984a4a4184"
+      },
+      "IncrementalDAX_moti": {
+        "url": "https://github.com/132ash/IncrementalDAX_moti.git",
+        "commit": "a9bc7deadb68a6e24b7242eab343dfedf953ea38",
+        "submodules": {
+          "baselines/AgentENV": "6c67f92afb8e697bd4d5eb1715864119c1e10c5d",
+          "baselines/TrEnv-X": "53041d8c924514fca27e363cce7f5af8079267ce"
+        }
+      }
+    }
+  },
+  "physical": {
+    "status": "PASS",
+    "page_size": 4096,
+    "verified_unique_host_pages": 4,
+    "verified_file_cache_physical_bytes": 16384,
+    "unknown_resident_unique_pages": 0,
+    "classification_conflict_pages": 0,
+    "scope": "declared files and pages resident before this probe; single VM; not all task or host cache",
+    "limitations": [
+      "Non-atomic rechecks cannot rule out intervening PFN reuse",
+      "File pages absent before the probe are not read; full file hashes taken after both host checks",
+      "Mapping selected initially resident pages may fault them; file flags checked before/after",
+      "Whole-task cache, base/DAX layers, unmapped backing cache and multi-VM sharing not measured"
+    ],
+    "host_read_elapsed_ns": 342932,
+    "guest_before_elapsed_ns": 709497,
+    "guest_after_elapsed_ns": 1293354,
+    "controller_elapsed_ns": 7202243468
+  },
+  "files": [
+    {
+      "path": "/testbed/src/language-html/utils/index.js",
+      "bytes": 16198,
+      "initially_resident_pages": 4
+    }
+  ],
+  "timing_ns": {
+    "task_window_ns": 3595046356,
+    "guest_action_sum_ns": 2030255389,
+    "controller_end_to_end_ns": 96751148046
+  },
+  "timing_scope": {
+    "task_window_ns": "controller replay call",
+    "guest_action_sum_ns": "sum of frozen guest actions",
+    "controller_end_to_end_ns": "outer launch through cleanup and image retention"
+  },
+  "checks": {
+    "private_template_prepare": "PASS",
+    "template_build": "PASS",
+    "frozen_input_hashes": "PASS",
+    "owned_ram_registration": "PASS",
+    "unfixed_seed_oracle": "PASS",
+    "patch_matches_full_replay": "PASS",
+    "exp1_replay_correctness": "PASS",
+    "official_task_tests": "PASS",
+    "upper_file_physical_proof": "PASS",
+    "merged_file_origins": "PASS",
+    "sdk_cleanup": "PASS",
+    "owned_kvm_capture_shutdown": "PASS",
+    "service_shutdown": "PASS",
+    "successful_image_cleanup": "PASS"
+  },
+  "host_cleanup": {
+    "cgroup_removed": true,
+    "loop_query_exit_code": 0,
+    "owned_loop_backings": []
+  },
+  "observed_min_free_bytes": 31227920384,
+  "evidence_sha256": {
+    "trenvx-upper-file-physical/20261005T163031Z-3251821/result.json": "7528bba60d58d9201a100740aa591ade177d89492c15e7f129d6d82d17843d3c",
+    "trenvx-upper-file-physical/20261005T163031Z-3251821/code/sha256.json": "2cae8f6ce71a1be91c9291a5fc363d2ba60270b97f80132080a4ed689e0666e0",
+    "trenvx-service-smoke/20261005T163031Z-3251823/result.json": "f7be33fe8e680bd26b9fcd6d19ffa689560f68ef3f02a4214698544a39f81ce7",
+    "trenvx-service-smoke/20261005T163031Z-3251823/config.json": "496627ffc6c68dd05a2ee3c9a178415f7b9a92ebab63ff21ab84013e454d488a",
+    "trenvx-service-smoke/20261005T163031Z-3251823/correctness.json": "7f78896e86e6e8d68b0640f401a30d6bcf167196841b2c6850744c3dd7847ab9",
+    "trenvx-service-smoke/20261005T163031Z-3251823/official-task-result.json": "41711baf67dd69014ecf1b28eea1314de1a84936239583f7d34081fb29262971",
+    "trenvx-service-smoke/20261005T163031Z-3251823/image-cleanup.json": "68277e0fa4de7c438e0a5e07e7befbba4cc885c36f10681f11f943a1992945c2",
+    "trenvx-service-smoke/20261005T163031Z-3251823/named-guest-files/result.json": "c65016bcf8492efac29fb291c80c83f2f8179d0932ffa0bce0c2954bf3e43126",
+    "trenvx-service-smoke/20261005T163031Z-3251823/named-guest-files/pages.json": "4ae59fe3e696668dc8118b9cc1aa465afd4ee8ad2c7a31f98ebc60b49d2de50a",
+    "trenvx-service-smoke/20261005T163031Z-3251823/named-guest-files/ram-attestation.json": "114dc7892fa2bace277aeaa86ac5c89c4a2fb0127d8349e524842144561dfe74"
+  },
+  "unmeasured": [
+    "periodic memory curves in this run",
+    "whole-task physical cache",
+    "base/DAX and upper at the same boundary",
+    "unmapped host backing cache",
+    "multi-VM sharing",
+    "checkpoint/restore and fine-scan impact comparison"
+  ]
+}

@@ -1,5 +1,130 @@
+diff --git a/motivation/experiments/exp3-RL-fork/checkpoint_dax.py b/motivation/experiments/exp3-RL-fork/checkpoint_dax.py
+index f143abf..bdf695e 100644
+--- a/motivation/experiments/exp3-RL-fork/checkpoint_dax.py
++++ b/motivation/experiments/exp3-RL-fork/checkpoint_dax.py
+@@ -2,6 +2,7 @@
+ from __future__ import annotations
+ 
+ import os
++import json
+ import shutil
+ import subprocess
+ import tarfile
+@@ -9,12 +10,79 @@ import tempfile
+ from pathlib import Path
+ 
+ 
++def image_sha256(image: Path) -> str:
++    return subprocess.check_output(["sha256sum", str(image)], text=True, timeout=30).split()[0]
++
++
++def prepare_upper_copy(image: Path) -> tuple[Path, dict]:
++    """Replay only a private copy; preserve input and processing evidence."""
++    if image.is_symlink():
++        raise ValueError("captured image must not be a symlink")
++    image = image.resolve(strict=True)
++    if not image.is_file():
++        raise ValueError("upper must be an inactive regular captured image")
++    if subprocess.check_output(["losetup", "-j", str(image)], text=True, timeout=10).strip():
++        raise ValueError("captured upper is still attached")
++    work = Path(tempfile.mkdtemp(prefix="journal-copy-", dir=image.parent))
++    clone = work / "upper.ext4"
++    audit = dict(status="FAIL", source=str(image), private_copy=str(clone),
++                 processing="journal-only; no general repair", source_sha256=image_sha256(image))
++    def run(name, argv, timeout=30):
++        with (work / (name + ".log")).open("x") as stream:
++            result = subprocess.run(argv, stdout=stream, stderr=subprocess.STDOUT,
++                                    stdin=subprocess.DEVNULL, timeout=timeout)
++        return result.returncode
++    try:
++        subprocess.run(["cp", "--reflink=never", "--sparse=always", str(image), str(clone)],
++                       check=True, timeout=30)
++        if image_sha256(clone) != audit["source_sha256"]:
++            raise RuntimeError("private journal copy differs from captured image")
++        code = run("superblock-before", ["dumpe2fs", "-h", str(clone)])
++        if code: raise RuntimeError("cannot read copied ext4 superblock")
++        before = (work / "superblock-before.log").read_text()
++        audit["needs_recovery_before"] = "needs_recovery" in before
++        audit["journal_exit_code"] = run("journal-only", ["e2fsck", "-p", "-E", "journal_only", str(clone)])
++        if audit["journal_exit_code"] not in (0, 1):
++            raise RuntimeError("private-copy journal replay failed")
++        code = run("superblock-after", ["dumpe2fs", "-h", str(clone)])
++        if code: raise RuntimeError("cannot read replayed ext4 superblock")
++        audit["needs_recovery_after"] = "needs_recovery" in (work / "superblock-after.log").read_text()
++        if audit["needs_recovery_after"]:
++            raise RuntimeError("private copy still requires journal recovery")
++        audit["readonly_fsck_exit_code"] = run("readonly-fsck", ["e2fsck", "-f", "-n", str(clone)], timeout=60)
++        check = (work / "readonly-fsck.log").read_text()
++        audit["allocation_count_warnings"] = [line for line in check.splitlines() if "count wrong" in line]
++        audit["filesystem_fully_clean"] = (audit["readonly_fsck_exit_code"] == 0 and
++                                              "Fix? no" not in check and not audit["allocation_count_warnings"])
++        # Counters may lag on a live captured FS. Do not repair them or call them clean.
++        questions = [line for line in check.splitlines() if "? no" in line and line.strip() != "Fix? no"]
++        if (audit["readonly_fsck_exit_code"] != 0 or questions or
++                ("Fix? no" in check and not audit["allocation_count_warnings"])):
++            raise RuntimeError("private-copy readonly fsck found unresolved errors")
++        audit["status"] = "PASS" if audit["filesystem_fully_clean"] else "COUNTER_WARNINGS"
++        return clone, audit
++    except BaseException as error:
++        audit["error"] = repr(error)
++        raise
++    finally:
++        audit["source_sha256_after"] = image_sha256(image)
++        audit["source_unchanged"] = audit["source_sha256_after"] == audit["source_sha256"]
++        if clone.exists(): audit["private_copy_sha256"] = image_sha256(clone)
++        if not audit["source_unchanged"]: audit["status"] = "FAIL"
++        (work / "journal.json").write_text(json.dumps(audit, indent=2) + "\n")
++        if not audit["source_unchanged"]:
++            raise RuntimeError("captured source image changed during journal handling")
++
++
+ def archive_upper(image: Path, archive: Path) -> None:
+-    """Archive an overlay upper, preserving whiteouts, ownership and xattrs."""
++    """Archive from a journal-replayed private image, preserving overlay metadata."""
++    clone, audit = prepare_upper_copy(image)
++    evidence = clone.parent / "archive.json"
+     mountpoint = Path(tempfile.mkdtemp(prefix="mixfs-exp5-upper-"))
+     mounted = False
++    row = dict(status="FAIL", image=str(clone), archive=str(archive), journal_status=audit["status"])
+     try:
+-        subprocess.run(["sudo", "-n", "mount", "-o", "loop,ro,noload", str(image), str(mountpoint)], check=True)
++        subprocess.run(["sudo", "-n", "mount", "-o", "loop,ro,noload", str(clone), str(mountpoint)], check=True, timeout=15)
+         mounted = True
+         root = mountpoint / "root"
+         if not root.is_dir():
+@@ -22,13 +90,24 @@ def archive_upper(image: Path, archive: Path) -> None:
+         subprocess.run([
+             "sudo", "-n", "tar", "--xattrs", "--xattrs-include=*", "--acls",
+             "--numeric-owner", "-C", str(root), "-cf", str(archive), ".",
+-        ], check=True)
+-        subprocess.run(["sudo", "-n", "chown", f"{os.getuid()}:{os.getgid()}", str(archive)], check=True)
++        ], check=True, timeout=60)
++        subprocess.run(["sudo", "-n", "chown", f"{os.getuid()}:{os.getgid()}", str(archive)], check=True, timeout=10)
++        row.update(status="PASS", root_inode=root.stat().st_ino, archive_bytes=archive.stat().st_size,
++                   archive_sha256=image_sha256(archive))
++    except BaseException as error:
++        row["error"] = repr(error)
++        raise
+     finally:
+-        if mounted:
+-            subprocess.run(["sudo", "-n", "umount", str(mountpoint)], check=True)
+-        mountpoint.rmdir()
+-
++        try:
++            if mounted:
++                subprocess.run(["sudo", "-n", "umount", str(mountpoint)], check=True, timeout=15)
++            mountpoint.rmdir()
++            row["mount_removed"] = True
++        except BaseException as error:
++            row.update(status="FAIL", cleanup_error=repr(error))
++            raise
++        finally:
++            evidence.write_text(json.dumps(row, indent=2) + "\n")
+ 
+ def build_layer(archive: Path, image: Path) -> None:
+     """Materialize one root upper without copying the shared base or older layers."""
 diff --git a/motivation/experiments/exp3-RL-fork/controller.py b/motivation/experiments/exp3-RL-fork/controller.py
-index 4d949fc..8d29591 100644
+index 4d949fc..6be7fea 100644
 --- a/motivation/experiments/exp3-RL-fork/controller.py
 +++ b/motivation/experiments/exp3-RL-fork/controller.py
 @@ -17,6 +17,7 @@ import tempfile
@@ -35,7 +160,7 @@ index 4d949fc..8d29591 100644
              await asyncio.to_thread(build_layer, archive, layer)
              layers = [*inherited, layer]
              config.write_text(self.checkpoint_build_config(current, name, layers))
-@@ -257,30 +255,29 @@ class Controller:
+@@ -257,30 +255,53 @@ class Controller:
          parent = self.sandbox_id(sandbox)
          started = time.monotonic_ns()
          self.counter += 1
@@ -73,20 +198,44 @@ index 4d949fc..8d29591 100644
 -        template = f"exp5-dax-{run_key}-{self.counter}"
 -        await self.promote_snapshot(current, parent, template, runtime_tmp)
 +        template = f"exp5-dax-{run_key}-{checkpoint_index}"
-+        with tempfile.TemporaryDirectory(prefix="asb-quiesced-", dir=self.data_root) as work:
-+            captured_upper = Path(work) / "upper.ext4"
-+            try:
-+                # Joins the worker even on cancellation, before this temporary
-+                # directory or the parent VM may be deleted.
-+                await capture_joined(io, upper, captured_upper, runtime_tmp, audit)
-+            finally:
-+                (self.raw / f"checkpoint-{checkpoint_index}-quiesce.json").write_text(
-+                    json.dumps(audit, indent=2) + "\n")
++        captures = self.data_root / "checkpoint-captures"
++        captures.mkdir(exist_ok=True)
++        work = Path(tempfile.mkdtemp(prefix=f"{template}-", dir=captures))
++        captured_upper = work / "upper.ext4"
++        receipt = dict(status="FAIL", template=template, point=point, parent=parent,
++                       source_upper=str(upper), captured_upper=str(captured_upper),
++                       retained_until_run_archive=True, restore_semantics="file-state-only")
++        try:
++            # Join capture/recovery before caller cleanup. Keep even partial copies.
++            await capture_joined(io, upper, captured_upper, runtime_tmp, audit)
 +            await self.promote_snapshot(current, parent, template, runtime_tmp, captured_upper)
++            receipt["status"] = "PASS"
++        except BaseException as error:
++            receipt["error"] = repr(error)
++            raise
++        finally:
++            logs = self.raw / f"checkpoint-{checkpoint_index}-image-processing"
++            logs.mkdir(exist_ok=True)
++            for journal in work.glob("journal-copy-*"):
++                exported = logs / journal.name
++                exported.mkdir(exist_ok=True)
++                for evidence in journal.iterdir():
++                    if evidence.suffix in (".json", ".log") and evidence.stat().st_size <= 1024**2:
++                        shutil.copy2(evidence, exported / evidence.name)
++            receipt["processing_logs"] = str(logs)
++            receipt["capture"] = audit
++            receipt["captured_image_exists"] = captured_upper.is_file()
++            if captured_upper.is_file():
++                receipt["captured_bytes"] = captured_upper.stat().st_size
++            (work / "capture.json").write_text(json.dumps(receipt, indent=2) + "\n")
++            (self.raw / f"checkpoint-{checkpoint_index}-capture.json").write_text(
++                json.dumps(receipt, indent=2) + "\n")
++            (self.raw / f"checkpoint-{checkpoint_index}-quiesce.json").write_text(
++                json.dumps(audit, indent=2) + "\n")
          self.record("events.tsv", f"{time.time_ns()}\tcheckpoint\t{point}\t{parent}\t\t{template}\t{time.monotonic_ns()-started}")
          return template
  
-@@ -321,13 +318,27 @@ class Controller:
+@@ -321,13 +342,27 @@ class Controller:
  
      async def delete(self, sandbox: object) -> None:
          ident = self.sandbox_id(sandbox)
@@ -114,7 +263,7 @@ index 4d949fc..8d29591 100644
  
      def _template_of(self, ident: str) -> str:
          return self._templates.get(ident, self.base_template)
-@@ -509,7 +520,7 @@ class Controller:
+@@ -509,7 +544,7 @@ class Controller:
              "trace_sha256": trace_hash.hexdigest(),
              "agent_sampling_sha256": hashlib.sha256((WORKLOAD / "agent-sampling.json").read_bytes()).hexdigest(),
              "tool_time_only": True, "guest_memory_mib": 4096, "guest_vcpus": 2,
@@ -123,7 +272,7 @@ index 4d949fc..8d29591 100644
                               else "natural-no-drop-caches"),
              "trace_kind": "deepseek-agent-sampled-code-repair-replay",
              "dax_rootfs_template_policy": "base-rootfs-hardlink" if self.args.system == "trenvx" else "not-applicable",
-@@ -544,8 +555,7 @@ class Controller:
+@@ -544,8 +579,7 @@ class Controller:
              else:
                  for ident, sandbox in reversed(list(self.live.items())):
                      try:
@@ -135,10 +284,10 @@ index 4d949fc..8d29591 100644
                      finally:
 diff --git a/motivation/experiments/exp3-RL-fork/quiesced_checkpoint.py b/motivation/experiments/exp3-RL-fork/quiesced_checkpoint.py
 new file mode 100644
-index 0000000..fbd2eac
+index 0000000..6b2a682
 --- /dev/null
 +++ b/motivation/experiments/exp3-RL-fork/quiesced_checkpoint.py
-@@ -0,0 +1,173 @@
+@@ -0,0 +1,187 @@
 +"""Bounded, file-state-only capture for the pinned TrEnv-X controller.
 +
 +Run the whole capture in one worker. Cancellation must join it before allowing
@@ -153,6 +302,7 @@ index 0000000..fbd2eac
 +import shutil
 +import socket
 +import subprocess
++import time
 +import urllib.parse
 +import urllib.request
 +
@@ -209,8 +359,19 @@ index 0000000..fbd2eac
 +        # subprocess.run kills and waits on timeout before returning.
 +        if target.exists():
 +            raise FileExistsError(target)
++        started = time.monotonic_ns()
++        before = subprocess.check_output(["sha256sum", str(source)], text=True,
++                                         timeout=self.timeout).split()[0]
 +        subprocess.run(["cp", "--reflink=never", "--sparse=always", str(source), str(target)],
 +                       check=True, timeout=self.timeout)
++        hashes = subprocess.check_output(["sha256sum", str(source), str(target)],
++                                         text=True, timeout=self.timeout).splitlines()
++        source_after, captured = [line.split()[0] for line in hashes]
++        if before != source_after or before != captured:
++            raise RuntimeError("paused upper changed or copied content differs")
++        return dict(source_sha256_before=before, source_sha256_after=source_after,
++                    captured_sha256=captured, bytes=target.stat().st_size,
++                    verified_while_paused=True, duration_ns=time.monotonic_ns()-started)
 +
 +
 +def capture_upper(io: CaptureIO, upper: Path, copy: Path, runtime: Path, audit: dict):
@@ -234,7 +395,9 @@ index 0000000..fbd2eac
 +        if io.vm("info")["state"] != "Paused":
 +            raise RuntimeError("CH did not confirm Paused")
 +        audit["paused"] = True
-+        io.copy(upper, copy)
++        verification = io.copy(upper, copy)
++        if verification is not None:
++            audit["copy_verification"] = verification
 +        audit["copied"] = True
 +    except BaseException as exc:
 +        failure = exc

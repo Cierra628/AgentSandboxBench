@@ -1,0 +1,2349 @@
+{
+  "status": "DIAGNOSTIC_ONLY",
+  "calibration_result_dir": ".artifacts/git-open-only-calibration/20260930T112828Z-2634013",
+  "calibration": {
+    "status": "PASS",
+    "diagnostic_gate": "PASS",
+    "checked_phases": 8,
+    "checked_actions": 512,
+    "differences_percent": {
+      "command_total_ns": {
+        "aa": 1.6167524847760406,
+        "ab": -0.4306807751118913
+      },
+      "phase_ns": {
+        "aa": 1.8223906055462091,
+        "ab": -0.1487677186611469
+      }
+    },
+    "stdout_sha256": "3466031c26c23903bab73ed2ceeea6dad30eec9c38f16cbb6c51e4b79341aca6",
+    "source_sha256": "7b5c60056278b0d70ceeceb62861e3293500da44e06c5ae4d28a2369dfcfa99a",
+    "limits": [
+      "one mirrored group, no confidence interval",
+      "warm synthetic Git workload; cannot guarantee cost on Exp1",
+      "incremental add opendir libc timing only; closedir, directory reads and stat calls NOT_MEASURED; not platform monitoring acceptance"
+    ]
+  },
+  "calibration_input_hashes": {
+    "command-clock": "e64dcf25ab468433898e2f8fc16cde7ad11b112aab542a14404e54e9657fd4e6",
+    "directory-profile.so": "a76e9e0f781c07b693fd934d9a7e56906c6dd9b78cf2d6f34e4b77001dee1327",
+    "git_step_diagnostic.py": "b3beb4ea70a997f3667024015ac70dd136a2e1783d1d6459d5aaf4ce5778ba74",
+    "command_clock.c": "ac9d6a9b517074a0e50d004f843dda5edc07454c43c3b8cc585236f50b35b136",
+    "directory_profile.c": "d1afa6fc5b3e7da6c596d6a658dfcb2880a0027a9ad6d4bdbd89ee773ff80be4",
+    "025.sh": "9d62a89b1f265a2908b4c002df82f34368ac23a970cec807eca924a8ff81ec6a",
+    "calibrate_git_host_wait.py": "5025a75a004c00a6fbf345e83f357a636b8e1a00b9c2b8578f30adf4b88b8834"
+  },
+  "replays": [
+    {
+      "result_dir": ".artifacts/exp1-git-open-only/20260930T113134Z-2635784",
+      "audit": {
+        "status": "PASS",
+        "verdict": "DIAGNOSTIC_ONLY",
+        "source_sha256": "045df96dfe69501dbd6f515ebdfdeabebe3f9f56418d74c57ae516e4534f84b9",
+        "observations": [
+          {
+            "position": 1,
+            "mode": "off",
+            "task_window_seconds": 4.109287791,
+            "controller_exec_seconds": 4.102869423,
+            "guest_action_sum_seconds": 2.235501978,
+            "sample_count": 0,
+            "steps_ms": {
+              "023": 1036.516055,
+              "024": 711.455378,
+              "025": 263.656826
+            },
+            "observed_min_free_gib": 50.23725128173828,
+            "git_opendir": {
+              "schema": 1,
+              "pid": 1086,
+              "calls": {
+                "opendir": {
+                  "count": 2745,
+                  "total_ns": 7216773,
+                  "max_ns": 12725,
+                  "null_with_errno": 0,
+                  "null_without_errno": 0
+                }
+              }
+            },
+            "host_wait_bound": {
+              "task_window_inclusive_ns": 4135282611,
+              "threads": [
+                {
+                  "tid": 2636212,
+                  "runnable_wait_ns": 5531122,
+                  "observed_switchins": 1939
+                },
+                {
+                  "tid": 2636213,
+                  "runnable_wait_ns": 4850979,
+                  "observed_switchins": 2741
+                }
+              ],
+              "summed_runnable_wait_upper_bound_ns": 10382101,
+              "initial_interval_check": "each vCPU observed non-runnable after probe READY and before task start",
+              "scope": "sum over both owned vCPUs and the full capture including preparation/stop; upper bound for step 025 runnable wait only, not its measured wait",
+              "limits": "excludes sleeping, host I/O threads, guest locks and guest I/O; two-thread wait sum is not task elapsed time"
+            },
+            "command_clock": {
+              "realtime_ns": 257875928,
+              "monotonic_raw_ns": 257875456,
+              "user_ns": 29421000,
+              "system_ns": 45259000,
+              "minor_faults": 1932,
+              "major_faults": 14,
+              "voluntary_switches": 1851,
+              "involuntary_switches": 7,
+              "exit_code": 0
+            },
+            "realtime_minus_monotonic_ms": 0.000472,
+            "outer_step_minus_command_ms": 5.781370000000038,
+            "git_command_times": {
+              "add": {
+                "real_seconds": 0.25,
+                "user_seconds": 0.024,
+                "system_seconds": 0.043
+              },
+              "diff": {
+                "real_seconds": 0.005,
+                "user_seconds": 0.003,
+                "system_seconds": 0.002
+              }
+            },
+            "command_minus_segments_ms": 2.8754559999999856,
+            "git_add_performance": {
+              "command_seconds": 0.246617581,
+              "records": [
+                {
+                  "timestamp": "11:33:18.701759",
+                  "source": "read-cache.c:2398",
+                  "seconds": 0.002388964,
+                  "label": "read cache .git/index"
+                },
+                {
+                  "timestamp": "11:33:18.709530",
+                  "source": "preload-index.c:154",
+                  "seconds": 0.00774151,
+                  "label": "preload index"
+                },
+                {
+                  "timestamp": "11:33:18.710539",
+                  "source": "name-hash.c:607",
+                  "seconds": 0.000837396,
+                  "label": "initialize name hash"
+                },
+                {
+                  "timestamp": "11:33:18.936871",
+                  "source": "diff-lib.c:266",
+                  "seconds": 0.001698517,
+                  "label": "diff-files"
+                },
+                {
+                  "timestamp": "11:33:18.942577",
+                  "source": "read-cache.c:3072",
+                  "seconds": 0.005642288,
+                  "label": "write index, changed mask = 2a"
+                },
+                {
+                  "timestamp": "11:33:18.945439",
+                  "source": "trace.c:487",
+                  "seconds": 0.246617581,
+                  "label": "git command: git add -A"
+                }
+              ],
+              "longest_recorded_stage": {
+                "timestamp": "11:33:18.709530",
+                "source": "preload-index.c:154",
+                "seconds": 0.00774151,
+                "label": "preload index"
+              },
+              "scope": "Native Git timers may nest or omit intervals; do not sum as a complete breakdown"
+            },
+            "git_add_marker_gaps": [
+              {
+                "before": "read cache .git/index",
+                "after": "preload index",
+                "elapsed_ns": 7771000
+              },
+              {
+                "before": "preload index",
+                "after": "initialize name hash",
+                "elapsed_ns": 1009000
+              },
+              {
+                "before": "initialize name hash",
+                "after": "diff-files",
+                "elapsed_ns": 226332000
+              },
+              {
+                "before": "diff-files",
+                "after": "write index, changed mask = 2a",
+                "elapsed_ns": 5706000
+              },
+              {
+                "before": "write index, changed mask = 2a",
+                "after": "git command: git add -A",
+                "elapsed_ns": 2862000
+              }
+            ],
+            "git_add_trace2": {
+              "command_seconds": 0.247822,
+              "regions": [
+                {
+                  "category": "cache_tree",
+                  "label": "read",
+                  "t_rel": 0.000733,
+                  "nesting": 2,
+                  "thread": "main"
+                },
+                {
+                  "category": "index",
+                  "label": "do_read_index",
+                  "t_rel": 0.002413,
+                  "nesting": 1,
+                  "thread": "main"
+                },
+                {
+                  "category": "index",
+                  "label": "preload",
+                  "t_rel": 0.00777,
+                  "nesting": 1,
+                  "thread": "main"
+                },
+                {
+                  "category": "index",
+                  "label": "name-hash-init",
+                  "t_rel": 0.000829,
+                  "nesting": 2,
+                  "thread": "main"
+                },
+                {
+                  "category": "dir",
+                  "label": "read_directory",
+                  "t_rel": 0.22548,
+                  "nesting": 1,
+                  "thread": "main"
+                },
+                {
+                  "category": "cache_tree",
+                  "label": "write",
+                  "t_rel": 0.000511,
+                  "nesting": 2,
+                  "thread": "main"
+                },
+                {
+                  "category": "index",
+                  "label": "do_write_index",
+                  "t_rel": 0.005678,
+                  "nesting": 1,
+                  "thread": "main"
+                }
+              ],
+              "directory": {
+                "seconds": 0.22548,
+                "enter_time": "2026-09-30T11:33:18.709661Z",
+                "leave_time": "2026-09-30T11:33:18.935141Z",
+                "realtime_interval_seconds": 0.22548,
+                "counts": {
+                  "directories-visited": 2743,
+                  "paths-visited": 11007
+                }
+              },
+              "largest_marker_gap": {
+                "before": "initialize name hash",
+                "after": "diff-files",
+                "elapsed_ns": 226332000,
+                "overlap_with_directory_seconds": 0.22460200000107988,
+                "overlap_fraction": 0.9923563614560905
+              },
+              "scope": "Nested regions are not additive; boundary overlap uses realtime log timestamps; no I/O or blocking attribution"
+            }
+          }
+        ],
+        "differences": {},
+        "limitations": [
+          "Four-run smoke has no same-batch off/off control or statistical confidence interval",
+          "Host service cgroup sampling only; no guest memory or VMM PSS sampling",
+          "Owned-vCPU BPF wait trace enabled; no hardware counters; whole capture only",
+          "Policy and affinity checked at window boundaries; transient external changes cannot be excluded",
+          "Shared CPUs; symmetric positions do not eliminate arbitrary background load",
+          "Full official task tests NOT_RUN",
+          "Step 025 uses a C whole-command clock/rusage wrapper; optional segment timing is extra; no monitoring acceptance",
+          "CPU totals include worker threads; wall minus summed CPU is not exact blocked time",
+          "Fault counts are not waiting durations; host wait is only a whole-window upper bound",
+          "Bash builtin per-Git time has 1ms precision; segment clocks are not independently monotonic-validated; whole command uses dual clocks",
+          "Native Git performance log only for add; timers can nest and omit intervals; no complete additive breakdown",
+          "Add-only opendir libc timing over whole add; inclusive CPU and waiting, not pure syscall or I/O; directory reads/stat/closedir not measured; thread sums may overlap",
+          "Add-only Trace2 EVENT; directory region includes nested operations/logging; not pure I/O or blocking time; overlap uses realtime log boundaries"
+        ],
+        "guest_runner_sha256": {
+          "guest-runner-original.sh": "bb3f50aa03b7424855556920d3808be5b6b8c3046e9bc0687c4229fc344efd9a",
+          "guest-runner-effective.sh": "11c4f01bb380e9606b63896114e39db51be375a5a1b7a48d98f250f71067fbf6"
+        },
+        "clock_check": {
+          "max_abs_realtime_minus_monotonic_ms": 0.000472,
+          "scope": "timeout/bash command wrapper only; excludes outer date and wrapper output write"
+        }
+      },
+      "profile_input_hashes": {
+        "directory_profile.c": "d1afa6fc5b3e7da6c596d6a658dfcb2880a0027a9ad6d4bdbd89ee773ff80be4",
+        "directory-profile.so": "a76e9e0f781c07b693fd934d9a7e56906c6dd9b78cf2d6f34e4b77001dee1327"
+      },
+      "guest_runner_hashes": {
+        "guest-runner-original.sh": "bb3f50aa03b7424855556920d3808be5b6b8c3046e9bc0687c4229fc344efd9a",
+        "guest-runner-effective.sh": "11c4f01bb380e9606b63896114e39db51be375a5a1b7a48d98f250f71067fbf6"
+      },
+      "source_hashes": {
+        "result.json": "045df96dfe69501dbd6f515ebdfdeabebe3f9f56418d74c57ae516e4534f84b9",
+        "offline-report.json": "8dc795f6a3ddc90737687fb2617f0022d0a6dba32a33846edb65228a2b6f22d2",
+        "driver.py": "b1ed9f7183e0e0f8f11007e4de9a5e0befded5a6eaf62da8845254ddf3b34049",
+        "git_step_diagnostic.py": "b3beb4ea70a997f3667024015ac70dd136a2e1783d1d6459d5aaf4ce5778ba74",
+        "directory_profile.c": "d1afa6fc5b3e7da6c596d6a658dfcb2880a0027a9ad6d4bdbd89ee773ff80be4",
+        "final-check.json": "3f99b17c42ed4ce4d37e9201c7c8e601dd173301f9ac16239b2bbd77516c7be5"
+      }
+    },
+    {
+      "result_dir": ".artifacts/exp1-git-open-only/20260930T113235Z-2636739",
+      "audit": {
+        "status": "PASS",
+        "verdict": "DIAGNOSTIC_ONLY",
+        "source_sha256": "f71f1be7b492ca35cabecea2796f511db798e34aa497b6ae5724439e8768f5b1",
+        "observations": [
+          {
+            "position": 1,
+            "mode": "off",
+            "task_window_seconds": 3.82920233,
+            "controller_exec_seconds": 3.824154694,
+            "guest_action_sum_seconds": 1.996111438,
+            "sample_count": 0,
+            "steps_ms": {
+              "023": 1020.536123,
+              "024": 701.443817,
+              "025": 64.05135
+            },
+            "observed_min_free_gib": 50.23125457763672,
+            "git_opendir": {
+              "schema": 1,
+              "pid": 1086,
+              "calls": {
+                "opendir": {
+                  "count": 2745,
+                  "total_ns": 6769138,
+                  "max_ns": 169672,
+                  "null_with_errno": 0,
+                  "null_without_errno": 0
+                }
+              }
+            },
+            "host_wait_bound": {
+              "task_window_inclusive_ns": 3853543713,
+              "threads": [
+                {
+                  "tid": 2637176,
+                  "runnable_wait_ns": 7036242,
+                  "observed_switchins": 3230
+                },
+                {
+                  "tid": 2637177,
+                  "runnable_wait_ns": 5291467,
+                  "observed_switchins": 1552
+                }
+              ],
+              "summed_runnable_wait_upper_bound_ns": 12327709,
+              "initial_interval_check": "each vCPU observed non-runnable after probe READY and before task start",
+              "scope": "sum over both owned vCPUs and the full capture including preparation/stop; upper bound for step 025 runnable wait only, not its measured wait",
+              "limits": "excludes sleeping, host I/O threads, guest locks and guest I/O; two-thread wait sum is not task elapsed time"
+            },
+            "command_clock": {
+              "realtime_ns": 61479007,
+              "monotonic_raw_ns": 61478632,
+              "user_ns": 19583000,
+              "system_ns": 43306000,
+              "minor_faults": 1927,
+              "major_faults": 0,
+              "voluntary_switches": 55,
+              "involuntary_switches": 21,
+              "exit_code": 0
+            },
+            "realtime_minus_monotonic_ms": 0.000375,
+            "outer_step_minus_command_ms": 2.572718000000002,
+            "git_command_times": {
+              "add": {
+                "real_seconds": 0.054,
+                "user_seconds": 0.012,
+                "system_seconds": 0.043
+              },
+              "diff": {
+                "real_seconds": 0.005,
+                "user_seconds": 0.005,
+                "system_seconds": 0.0
+              }
+            },
+            "command_minus_segments_ms": 2.4786319999999975,
+            "git_add_performance": {
+              "command_seconds": 0.052117461,
+              "records": [
+                {
+                  "timestamp": "11:34:18.955363",
+                  "source": "read-cache.c:2398",
+                  "seconds": 0.001696376,
+                  "label": "read cache .git/index"
+                },
+                {
+                  "timestamp": "11:34:18.962845",
+                  "source": "preload-index.c:154",
+                  "seconds": 0.007451093,
+                  "label": "preload index"
+                },
+                {
+                  "timestamp": "11:34:18.963840",
+                  "source": "name-hash.c:607",
+                  "seconds": 0.000819495,
+                  "label": "initialize name hash"
+                },
+                {
+                  "timestamp": "11:34:18.994381",
+                  "source": "diff-lib.c:266",
+                  "seconds": 0.001276903,
+                  "label": "diff-files"
+                },
+                {
+                  "timestamp": "11:34:19.000125",
+                  "source": "read-cache.c:3072",
+                  "seconds": 0.005686209,
+                  "label": "write index, changed mask = 2a"
+                },
+                {
+                  "timestamp": "11:34:19.005606",
+                  "source": "trace.c:487",
+                  "seconds": 0.052117461,
+                  "label": "git command: git add -A"
+                }
+              ],
+              "longest_recorded_stage": {
+                "timestamp": "11:34:18.962845",
+                "source": "preload-index.c:154",
+                "seconds": 0.007451093,
+                "label": "preload index"
+              },
+              "scope": "Native Git timers may nest or omit intervals; do not sum as a complete breakdown"
+            },
+            "git_add_marker_gaps": [
+              {
+                "before": "read cache .git/index",
+                "after": "preload index",
+                "elapsed_ns": 7482000
+              },
+              {
+                "before": "preload index",
+                "after": "initialize name hash",
+                "elapsed_ns": 995000
+              },
+              {
+                "before": "initialize name hash",
+                "after": "diff-files",
+                "elapsed_ns": 30541000
+              },
+              {
+                "before": "diff-files",
+                "after": "write index, changed mask = 2a",
+                "elapsed_ns": 5744000
+              },
+              {
+                "before": "write index, changed mask = 2a",
+                "after": "git command: git add -A",
+                "elapsed_ns": 5481000
+              }
+            ],
+            "git_add_trace2": {
+              "command_seconds": 0.052484,
+              "regions": [
+                {
+                  "category": "cache_tree",
+                  "label": "read",
+                  "t_rel": 0.000728,
+                  "nesting": 2,
+                  "thread": "main"
+                },
+                {
+                  "category": "index",
+                  "label": "do_read_index",
+                  "t_rel": 0.001718,
+                  "nesting": 1,
+                  "thread": "main"
+                },
+                {
+                  "category": "index",
+                  "label": "preload",
+                  "t_rel": 0.007485,
+                  "nesting": 1,
+                  "thread": "main"
+                },
+                {
+                  "category": "index",
+                  "label": "name-hash-init",
+                  "t_rel": 0.000812,
+                  "nesting": 2,
+                  "thread": "main"
+                },
+                {
+                  "category": "dir",
+                  "label": "read_directory",
+                  "t_rel": 0.030099,
+                  "nesting": 1,
+                  "thread": "main"
+                },
+                {
+                  "category": "cache_tree",
+                  "label": "write",
+                  "t_rel": 0.000493,
+                  "nesting": 2,
+                  "thread": "main"
+                },
+                {
+                  "category": "index",
+                  "label": "do_write_index",
+                  "t_rel": 0.00572,
+                  "nesting": 1,
+                  "thread": "main"
+                }
+              ],
+              "directory": {
+                "seconds": 0.030099,
+                "enter_time": "2026-09-30T11:34:18.962980Z",
+                "leave_time": "2026-09-30T11:34:18.993078Z",
+                "realtime_interval_seconds": 0.030098,
+                "counts": {
+                  "directories-visited": 2743,
+                  "paths-visited": 11007
+                }
+              },
+              "largest_marker_gap": {
+                "before": "initialize name hash",
+                "after": "diff-files",
+                "elapsed_ns": 30541000,
+                "overlap_with_directory_seconds": 0.029237999999897554,
+                "overlap_fraction": 0.9573360400739188
+              },
+              "scope": "Nested regions are not additive; boundary overlap uses realtime log timestamps; no I/O or blocking attribution"
+            }
+          },
+          {
+            "position": 2,
+            "mode": "control_A",
+            "task_window_seconds": 3.796416669,
+            "controller_exec_seconds": 3.792988322,
+            "guest_action_sum_seconds": 2.026130315,
+            "sample_count": 0,
+            "steps_ms": {
+              "023": 1041.879305,
+              "024": 701.807074,
+              "025": 69.145429
+            },
+            "observed_min_free_gib": 50.230712890625,
+            "git_opendir": {
+              "schema": 1,
+              "pid": 1087,
+              "calls": {
+                "opendir": {
+                  "count": 2745,
+                  "total_ns": 7044070,
+                  "max_ns": 378926,
+                  "null_with_errno": 0,
+                  "null_without_errno": 0
+                }
+              }
+            },
+            "host_wait_bound": {
+              "task_window_inclusive_ns": 3821396232,
+              "threads": [
+                {
+                  "tid": 2637792,
+                  "runnable_wait_ns": 5063044,
+                  "observed_switchins": 3254
+                },
+                {
+                  "tid": 2637793,
+                  "runnable_wait_ns": 3745165,
+                  "observed_switchins": 1209
+                }
+              ],
+              "summed_runnable_wait_upper_bound_ns": 8808209,
+              "initial_interval_check": "each vCPU observed non-runnable after probe READY and before task start",
+              "scope": "sum over both owned vCPUs and the full capture including preparation/stop; upper bound for step 025 runnable wait only, not its measured wait",
+              "limits": "excludes sleeping, host I/O threads, guest locks and guest I/O; two-thread wait sum is not task elapsed time"
+            },
+            "command_clock": {
+              "realtime_ns": 64370835,
+              "monotonic_raw_ns": 64370572,
+              "user_ns": 22645000,
+              "system_ns": 40827000,
+              "minor_faults": 1934,
+              "major_faults": 1,
+              "voluntary_switches": 88,
+              "involuntary_switches": 21,
+              "exit_code": 0
+            },
+            "realtime_minus_monotonic_ms": 0.000263,
+            "outer_step_minus_command_ms": 4.774856999999997,
+            "git_command_times": {
+              "add": {
+                "real_seconds": 0.057,
+                "user_seconds": 0.017,
+                "system_seconds": 0.039
+              },
+              "diff": {
+                "real_seconds": 0.005,
+                "user_seconds": 0.005,
+                "system_seconds": 0.0
+              }
+            },
+            "command_minus_segments_ms": 2.3705719999999957,
+            "git_add_performance": {
+              "command_seconds": 0.054467942,
+              "records": [
+                {
+                  "timestamp": "11:34:38.380227",
+                  "source": "read-cache.c:2398",
+                  "seconds": 0.00186105,
+                  "label": "read cache .git/index"
+                },
+                {
+                  "timestamp": "11:34:38.388536",
+                  "source": "preload-index.c:154",
+                  "seconds": 0.008281838,
+                  "label": "preload index"
+                },
+                {
+                  "timestamp": "11:34:38.389545",
+                  "source": "name-hash.c:607",
+                  "seconds": 0.000826337,
+                  "label": "initialize name hash"
+                },
+                {
+                  "timestamp": "11:34:38.420514",
+                  "source": "diff-lib.c:266",
+                  "seconds": 0.001368956,
+                  "label": "diff-files"
+                },
+                {
+                  "timestamp": "11:34:38.426089",
+                  "source": "read-cache.c:3072",
+                  "seconds": 0.005510188,
+                  "label": "write index, changed mask = 2a"
+                },
+                {
+                  "timestamp": "11:34:38.432645",
+                  "source": "trace.c:487",
+                  "seconds": 0.054467942,
+                  "label": "git command: git add -A"
+                }
+              ],
+              "longest_recorded_stage": {
+                "timestamp": "11:34:38.388536",
+                "source": "preload-index.c:154",
+                "seconds": 0.008281838,
+                "label": "preload index"
+              },
+              "scope": "Native Git timers may nest or omit intervals; do not sum as a complete breakdown"
+            },
+            "git_add_marker_gaps": [
+              {
+                "before": "read cache .git/index",
+                "after": "preload index",
+                "elapsed_ns": 8309000
+              },
+              {
+                "before": "preload index",
+                "after": "initialize name hash",
+                "elapsed_ns": 1009000
+              },
+              {
+                "before": "initialize name hash",
+                "after": "diff-files",
+                "elapsed_ns": 30969000
+              },
+              {
+                "before": "diff-files",
+                "after": "write index, changed mask = 2a",
+                "elapsed_ns": 5575000
+              },
+              {
+                "before": "write index, changed mask = 2a",
+                "after": "git command: git add -A",
+                "elapsed_ns": 6556000
+              }
+            ],
+            "git_add_trace2": {
+              "command_seconds": 0.054841,
+              "regions": [
+                {
+                  "category": "cache_tree",
+                  "label": "read",
+                  "t_rel": 0.00075,
+                  "nesting": 2,
+                  "thread": "main"
+                },
+                {
+                  "category": "index",
+                  "label": "do_read_index",
+                  "t_rel": 0.001883,
+                  "nesting": 1,
+                  "thread": "main"
+                },
+                {
+                  "category": "index",
+                  "label": "preload",
+                  "t_rel": 0.008311,
+                  "nesting": 1,
+                  "thread": "main"
+                },
+                {
+                  "category": "index",
+                  "label": "name-hash-init",
+                  "t_rel": 0.00082,
+                  "nesting": 2,
+                  "thread": "main"
+                },
+                {
+                  "category": "dir",
+                  "label": "read_directory",
+                  "t_rel": 0.030443,
+                  "nesting": 1,
+                  "thread": "main"
+                },
+                {
+                  "category": "cache_tree",
+                  "label": "write",
+                  "t_rel": 0.000499,
+                  "nesting": 2,
+                  "thread": "main"
+                },
+                {
+                  "category": "index",
+                  "label": "do_write_index",
+                  "t_rel": 0.005544,
+                  "nesting": 1,
+                  "thread": "main"
+                }
+              ],
+              "directory": {
+                "seconds": 0.030443,
+                "enter_time": "2026-09-30T11:34:38.388677Z",
+                "leave_time": "2026-09-30T11:34:38.419119Z",
+                "realtime_interval_seconds": 0.030442,
+                "counts": {
+                  "directories-visited": 2743,
+                  "paths-visited": 11007
+                }
+              },
+              "largest_marker_gap": {
+                "before": "initialize name hash",
+                "after": "diff-files",
+                "elapsed_ns": 30969000,
+                "overlap_with_directory_seconds": 0.029574000004465226,
+                "overlap_fraction": 0.9549549550991387
+              },
+              "scope": "Nested regions are not additive; boundary overlap uses realtime log timestamps; no I/O or blocking attribution"
+            }
+          },
+          {
+            "position": 3,
+            "mode": "control_B",
+            "task_window_seconds": 3.878523639,
+            "controller_exec_seconds": 3.874752593,
+            "guest_action_sum_seconds": 2.062403073,
+            "sample_count": 0,
+            "steps_ms": {
+              "023": 1041.055793,
+              "024": 723.374633,
+              "025": 83.627451
+            },
+            "observed_min_free_gib": 50.22999954223633,
+            "git_opendir": {
+              "schema": 1,
+              "pid": 1082,
+              "calls": {
+                "opendir": {
+                  "count": 2745,
+                  "total_ns": 6894658,
+                  "max_ns": 28731,
+                  "null_with_errno": 0,
+                  "null_without_errno": 0
+                }
+              }
+            },
+            "host_wait_bound": {
+              "task_window_inclusive_ns": 3903629339,
+              "threads": [
+                {
+                  "tid": 2638408,
+                  "runnable_wait_ns": 4455442,
+                  "observed_switchins": 2217
+                },
+                {
+                  "tid": 2638409,
+                  "runnable_wait_ns": 4252363,
+                  "observed_switchins": 1766
+                }
+              ],
+              "summed_runnable_wait_upper_bound_ns": 8707805,
+              "initial_interval_check": "each vCPU observed non-runnable after probe READY and before task start",
+              "scope": "sum over both owned vCPUs and the full capture including preparation/stop; upper bound for step 025 runnable wait only, not its measured wait",
+              "limits": "excludes sleeping, host I/O threads, guest locks and guest I/O; two-thread wait sum is not task elapsed time"
+            },
+            "command_clock": {
+              "realtime_ns": 78595462,
+              "monotonic_raw_ns": 78595158,
+              "user_ns": 29324000,
+              "system_ns": 36700000,
+              "minor_faults": 1924,
+              "major_faults": 3,
+              "voluntary_switches": 197,
+              "involuntary_switches": 17,
+              "exit_code": 0
+            },
+            "realtime_minus_monotonic_ms": 0.000304,
+            "outer_step_minus_command_ms": 5.032292999999996,
+            "git_command_times": {
+              "add": {
+                "real_seconds": 0.071,
+                "user_seconds": 0.023,
+                "system_seconds": 0.036
+              },
+              "diff": {
+                "real_seconds": 0.005,
+                "user_seconds": 0.005,
+                "system_seconds": 0.0
+              }
+            },
+            "command_minus_segments_ms": 2.595157999999998,
+            "git_add_performance": {
+              "command_seconds": 0.068422455,
+              "records": [
+                {
+                  "timestamp": "11:34:58.280140",
+                  "source": "read-cache.c:2398",
+                  "seconds": 0.001906985,
+                  "label": "read cache .git/index"
+                },
+                {
+                  "timestamp": "11:34:58.288311",
+                  "source": "preload-index.c:154",
+                  "seconds": 0.008141795,
+                  "label": "preload index"
+                },
+                {
+                  "timestamp": "11:34:58.289303",
+                  "source": "name-hash.c:607",
+                  "seconds": 0.00081675,
+                  "label": "initialize name hash"
+                },
+                {
+                  "timestamp": "11:34:58.336069",
+                  "source": "diff-lib.c:266",
+                  "seconds": 0.001264318,
+                  "label": "diff-files"
+                },
+                {
+                  "timestamp": "11:34:58.341633",
+                  "source": "read-cache.c:3072",
+                  "seconds": 0.00550288,
+                  "label": "write index, changed mask = 2a"
+                },
+                {
+                  "timestamp": "11:34:58.346454",
+                  "source": "trace.c:487",
+                  "seconds": 0.068422455,
+                  "label": "git command: git add -A"
+                }
+              ],
+              "longest_recorded_stage": {
+                "timestamp": "11:34:58.288311",
+                "source": "preload-index.c:154",
+                "seconds": 0.008141795,
+                "label": "preload index"
+              },
+              "scope": "Native Git timers may nest or omit intervals; do not sum as a complete breakdown"
+            },
+            "git_add_marker_gaps": [
+              {
+                "before": "read cache .git/index",
+                "after": "preload index",
+                "elapsed_ns": 8171000
+              },
+              {
+                "before": "preload index",
+                "after": "initialize name hash",
+                "elapsed_ns": 992000
+              },
+              {
+                "before": "initialize name hash",
+                "after": "diff-files",
+                "elapsed_ns": 46766000
+              },
+              {
+                "before": "diff-files",
+                "after": "write index, changed mask = 2a",
+                "elapsed_ns": 5564000
+              },
+              {
+                "before": "write index, changed mask = 2a",
+                "after": "git command: git add -A",
+                "elapsed_ns": 4821000
+              }
+            ],
+            "git_add_trace2": {
+              "command_seconds": 0.068834,
+              "regions": [
+                {
+                  "category": "cache_tree",
+                  "label": "read",
+                  "t_rel": 0.000728,
+                  "nesting": 2,
+                  "thread": "main"
+                },
+                {
+                  "category": "index",
+                  "label": "do_read_index",
+                  "t_rel": 0.00193,
+                  "nesting": 1,
+                  "thread": "main"
+                },
+                {
+                  "category": "index",
+                  "label": "preload",
+                  "t_rel": 0.008173,
+                  "nesting": 1,
+                  "thread": "main"
+                },
+                {
+                  "category": "index",
+                  "label": "name-hash-init",
+                  "t_rel": 0.00081,
+                  "nesting": 2,
+                  "thread": "main"
+                },
+                {
+                  "category": "dir",
+                  "label": "read_directory",
+                  "t_rel": 0.046332,
+                  "nesting": 1,
+                  "thread": "main"
+                },
+                {
+                  "category": "cache_tree",
+                  "label": "write",
+                  "t_rel": 0.000493,
+                  "nesting": 2,
+                  "thread": "main"
+                },
+                {
+                  "category": "index",
+                  "label": "do_write_index",
+                  "t_rel": 0.005538,
+                  "nesting": 1,
+                  "thread": "main"
+                }
+              ],
+              "directory": {
+                "seconds": 0.046332,
+                "enter_time": "2026-09-30T11:34:58.288445Z",
+                "leave_time": "2026-09-30T11:34:58.334776Z",
+                "realtime_interval_seconds": 0.046331,
+                "counts": {
+                  "directories-visited": 2743,
+                  "paths-visited": 11007
+                }
+              },
+              "largest_marker_gap": {
+                "before": "initialize name hash",
+                "after": "diff-files",
+                "elapsed_ns": 46766000,
+                "overlap_with_directory_seconds": 0.04547300000057462,
+                "overlap_fraction": 0.9723517085184669
+              },
+              "scope": "Nested regions are not additive; boundary overlap uses realtime log timestamps; no I/O or blocking attribution"
+            }
+          },
+          {
+            "position": 4,
+            "mode": "light",
+            "task_window_seconds": 4.095374537,
+            "controller_exec_seconds": 4.088191656,
+            "guest_action_sum_seconds": 2.204540674,
+            "sample_count": 5,
+            "steps_ms": {
+              "023": 1046.49884,
+              "024": 698.856606,
+              "025": 237.882347
+            },
+            "observed_min_free_gib": 50.2294807434082,
+            "git_opendir": {
+              "schema": 1,
+              "pid": 1083,
+              "calls": {
+                "opendir": {
+                  "count": 2745,
+                  "total_ns": 7021207,
+                  "max_ns": 29925,
+                  "null_with_errno": 0,
+                  "null_without_errno": 0
+                }
+              }
+            },
+            "host_wait_bound": {
+              "task_window_inclusive_ns": 4120027514,
+              "threads": [
+                {
+                  "tid": 2639054,
+                  "runnable_wait_ns": 4642833,
+                  "observed_switchins": 2223
+                },
+                {
+                  "tid": 2639055,
+                  "runnable_wait_ns": 3978401,
+                  "observed_switchins": 1773
+                }
+              ],
+              "summed_runnable_wait_upper_bound_ns": 8621234,
+              "initial_interval_check": "each vCPU observed non-runnable after probe READY and before task start",
+              "scope": "sum over both owned vCPUs and the full capture including preparation/stop; upper bound for step 025 runnable wait only, not its measured wait",
+              "limits": "excludes sleeping, host I/O threads, guest locks and guest I/O; two-thread wait sum is not task elapsed time"
+            },
+            "command_clock": {
+              "realtime_ns": 232662862,
+              "monotonic_raw_ns": 232662512,
+              "user_ns": 34747000,
+              "system_ns": 37367000,
+              "minor_faults": 1929,
+              "major_faults": 4,
+              "voluntary_switches": 1638,
+              "involuntary_switches": 24,
+              "exit_code": 0
+            },
+            "realtime_minus_monotonic_ms": 0.00035,
+            "outer_step_minus_command_ms": 5.2198350000000175,
+            "git_command_times": {
+              "add": {
+                "real_seconds": 0.224,
+                "user_seconds": 0.027,
+                "system_seconds": 0.037
+              },
+              "diff": {
+                "real_seconds": 0.005,
+                "user_seconds": 0.005,
+                "system_seconds": 0.0
+              }
+            },
+            "command_minus_segments_ms": 3.6625119999999924,
+            "git_add_performance": {
+              "command_seconds": 0.222113596,
+              "records": [
+                {
+                  "timestamp": "11:35:17.745094",
+                  "source": "read-cache.c:2398",
+                  "seconds": 0.001715695,
+                  "label": "read cache .git/index"
+                },
+                {
+                  "timestamp": "11:35:17.753425",
+                  "source": "preload-index.c:154",
+                  "seconds": 0.00830284,
+                  "label": "preload index"
+                },
+                {
+                  "timestamp": "11:35:17.754431",
+                  "source": "name-hash.c:607",
+                  "seconds": 0.000827202,
+                  "label": "initialize name hash"
+                },
+                {
+                  "timestamp": "11:35:17.956217",
+                  "source": "diff-lib.c:266",
+                  "seconds": 0.001294815,
+                  "label": "diff-files"
+                },
+                {
+                  "timestamp": "11:35:17.961906",
+                  "source": "read-cache.c:3072",
+                  "seconds": 0.005625245,
+                  "label": "write index, changed mask = 2a"
+                },
+                {
+                  "timestamp": "11:35:17.965288",
+                  "source": "trace.c:487",
+                  "seconds": 0.222113596,
+                  "label": "git command: git add -A"
+                }
+              ],
+              "longest_recorded_stage": {
+                "timestamp": "11:35:17.753425",
+                "source": "preload-index.c:154",
+                "seconds": 0.00830284,
+                "label": "preload index"
+              },
+              "scope": "Native Git timers may nest or omit intervals; do not sum as a complete breakdown"
+            },
+            "git_add_marker_gaps": [
+              {
+                "before": "read cache .git/index",
+                "after": "preload index",
+                "elapsed_ns": 8331000
+              },
+              {
+                "before": "preload index",
+                "after": "initialize name hash",
+                "elapsed_ns": 1006000
+              },
+              {
+                "before": "initialize name hash",
+                "after": "diff-files",
+                "elapsed_ns": 201786000
+              },
+              {
+                "before": "diff-files",
+                "after": "write index, changed mask = 2a",
+                "elapsed_ns": 5689000
+              },
+              {
+                "before": "write index, changed mask = 2a",
+                "after": "git command: git add -A",
+                "elapsed_ns": 3382000
+              }
+            ],
+            "git_add_trace2": {
+              "command_seconds": 0.222468,
+              "regions": [
+                {
+                  "category": "cache_tree",
+                  "label": "read",
+                  "t_rel": 0.000749,
+                  "nesting": 2,
+                  "thread": "main"
+                },
+                {
+                  "category": "index",
+                  "label": "do_read_index",
+                  "t_rel": 0.001737,
+                  "nesting": 1,
+                  "thread": "main"
+                },
+                {
+                  "category": "index",
+                  "label": "preload",
+                  "t_rel": 0.008335,
+                  "nesting": 1,
+                  "thread": "main"
+                },
+                {
+                  "category": "index",
+                  "label": "name-hash-init",
+                  "t_rel": 0.00082,
+                  "nesting": 2,
+                  "thread": "main"
+                },
+                {
+                  "category": "dir",
+                  "label": "read_directory",
+                  "t_rel": 0.201331,
+                  "nesting": 1,
+                  "thread": "main"
+                },
+                {
+                  "category": "cache_tree",
+                  "label": "write",
+                  "t_rel": 0.000512,
+                  "nesting": 2,
+                  "thread": "main"
+                },
+                {
+                  "category": "index",
+                  "label": "do_write_index",
+                  "t_rel": 0.00566,
+                  "nesting": 1,
+                  "thread": "main"
+                }
+              ],
+              "directory": {
+                "seconds": 0.201331,
+                "enter_time": "2026-09-30T11:35:17.753561Z",
+                "leave_time": "2026-09-30T11:35:17.954891Z",
+                "realtime_interval_seconds": 0.20133,
+                "counts": {
+                  "directories-visited": 2743,
+                  "paths-visited": 11007
+                }
+              },
+              "largest_marker_gap": {
+                "before": "initialize name hash",
+                "after": "diff-files",
+                "elapsed_ns": 201786000,
+                "overlap_with_directory_seconds": 0.2004599999965122,
+                "overlap_fraction": 0.9934286818536083
+              },
+              "scope": "Nested regions are not additive; boundary overlap uses realtime log timestamps; no I/O or blocking attribution"
+            }
+          },
+          {
+            "position": 5,
+            "mode": "light",
+            "task_window_seconds": 3.894844795,
+            "controller_exec_seconds": 3.887720178,
+            "guest_action_sum_seconds": 2.031191932,
+            "sample_count": 4,
+            "steps_ms": {
+              "023": 1030.780052,
+              "024": 711.478839,
+              "025": 71.635461
+            },
+            "observed_min_free_gib": 50.228904724121094,
+            "git_opendir": {
+              "schema": 1,
+              "pid": 1083,
+              "calls": {
+                "opendir": {
+                  "count": 2745,
+                  "total_ns": 7172938,
+                  "max_ns": 257428,
+                  "null_with_errno": 0,
+                  "null_without_errno": 0
+                }
+              }
+            },
+            "host_wait_bound": {
+              "task_window_inclusive_ns": 3919763968,
+              "threads": [
+                {
+                  "tid": 2639720,
+                  "runnable_wait_ns": 4184847,
+                  "observed_switchins": 2320
+                },
+                {
+                  "tid": 2639721,
+                  "runnable_wait_ns": 4257591,
+                  "observed_switchins": 1732
+                }
+              ],
+              "summed_runnable_wait_upper_bound_ns": 8442438,
+              "initial_interval_check": "each vCPU observed non-runnable after probe READY and before task start",
+              "scope": "sum over both owned vCPUs and the full capture including preparation/stop; upper bound for step 025 runnable wait only, not its measured wait",
+              "limits": "excludes sleeping, host I/O threads, guest locks and guest I/O; two-thread wait sum is not task elapsed time"
+            },
+            "command_clock": {
+              "realtime_ns": 66876478,
+              "monotonic_raw_ns": 66876200,
+              "user_ns": 23475000,
+              "system_ns": 41460000,
+              "minor_faults": 1926,
+              "major_faults": 5,
+              "voluntary_switches": 72,
+              "involuntary_switches": 8,
+              "exit_code": 0
+            },
+            "realtime_minus_monotonic_ms": 0.000278,
+            "outer_step_minus_command_ms": 4.759261000000009,
+            "git_command_times": {
+              "add": {
+                "real_seconds": 0.059,
+                "user_seconds": 0.021,
+                "system_seconds": 0.037
+              },
+              "diff": {
+                "real_seconds": 0.005,
+                "user_seconds": 0.0,
+                "system_seconds": 0.005
+              }
+            },
+            "command_minus_segments_ms": 2.876199999999997,
+            "git_add_performance": {
+              "command_seconds": 0.056776586,
+              "records": [
+                {
+                  "timestamp": "11:35:36.854615",
+                  "source": "read-cache.c:2398",
+                  "seconds": 0.002282992,
+                  "label": "read cache .git/index"
+                },
+                {
+                  "timestamp": "11:35:36.862634",
+                  "source": "preload-index.c:154",
+                  "seconds": 0.007989023,
+                  "label": "preload index"
+                },
+                {
+                  "timestamp": "11:35:36.863639",
+                  "source": "name-hash.c:607",
+                  "seconds": 0.000831063,
+                  "label": "initialize name hash"
+                },
+                {
+                  "timestamp": "11:35:36.898031",
+                  "source": "diff-lib.c:266",
+                  "seconds": 0.001297371,
+                  "label": "diff-files"
+                },
+                {
+                  "timestamp": "11:35:36.903892",
+                  "source": "read-cache.c:3072",
+                  "seconds": 0.005796415,
+                  "label": "write index, changed mask = 2a"
+                },
+                {
+                  "timestamp": "11:35:36.908916",
+                  "source": "trace.c:487",
+                  "seconds": 0.056776586,
+                  "label": "git command: git add -A"
+                }
+              ],
+              "longest_recorded_stage": {
+                "timestamp": "11:35:36.862634",
+                "source": "preload-index.c:154",
+                "seconds": 0.007989023,
+                "label": "preload index"
+              },
+              "scope": "Native Git timers may nest or omit intervals; do not sum as a complete breakdown"
+            },
+            "git_add_marker_gaps": [
+              {
+                "before": "read cache .git/index",
+                "after": "preload index",
+                "elapsed_ns": 8019000
+              },
+              {
+                "before": "preload index",
+                "after": "initialize name hash",
+                "elapsed_ns": 1005000
+              },
+              {
+                "before": "initialize name hash",
+                "after": "diff-files",
+                "elapsed_ns": 34392000
+              },
+              {
+                "before": "diff-files",
+                "after": "write index, changed mask = 2a",
+                "elapsed_ns": 5861000
+              },
+              {
+                "before": "write index, changed mask = 2a",
+                "after": "git command: git add -A",
+                "elapsed_ns": 5024000
+              }
+            ],
+            "git_add_trace2": {
+              "command_seconds": 0.05716,
+              "regions": [
+                {
+                  "category": "cache_tree",
+                  "label": "read",
+                  "t_rel": 0.000982,
+                  "nesting": 2,
+                  "thread": "main"
+                },
+                {
+                  "category": "index",
+                  "label": "do_read_index",
+                  "t_rel": 0.002305,
+                  "nesting": 1,
+                  "thread": "main"
+                },
+                {
+                  "category": "index",
+                  "label": "preload",
+                  "t_rel": 0.00802,
+                  "nesting": 1,
+                  "thread": "main"
+                },
+                {
+                  "category": "index",
+                  "label": "name-hash-init",
+                  "t_rel": 0.000823,
+                  "nesting": 2,
+                  "thread": "main"
+                },
+                {
+                  "category": "dir",
+                  "label": "read_directory",
+                  "t_rel": 0.033928,
+                  "nesting": 1,
+                  "thread": "main"
+                },
+                {
+                  "category": "cache_tree",
+                  "label": "write",
+                  "t_rel": 0.000497,
+                  "nesting": 2,
+                  "thread": "main"
+                },
+                {
+                  "category": "index",
+                  "label": "do_write_index",
+                  "t_rel": 0.005831,
+                  "nesting": 1,
+                  "thread": "main"
+                }
+              ],
+              "directory": {
+                "seconds": 0.033928,
+                "enter_time": "2026-09-30T11:35:36.862767Z",
+                "leave_time": "2026-09-30T11:35:36.896695Z",
+                "realtime_interval_seconds": 0.033928,
+                "counts": {
+                  "directories-visited": 2743,
+                  "paths-visited": 11007
+                }
+              },
+              "largest_marker_gap": {
+                "before": "initialize name hash",
+                "after": "diff-files",
+                "elapsed_ns": 34392000,
+                "overlap_with_directory_seconds": 0.033055999995835125,
+                "overlap_fraction": 0.9611537565665017
+              },
+              "scope": "Nested regions are not additive; boundary overlap uses realtime log timestamps; no I/O or blocking attribution"
+            }
+          },
+          {
+            "position": 6,
+            "mode": "control_B",
+            "task_window_seconds": 3.828598265,
+            "controller_exec_seconds": 3.825027766,
+            "guest_action_sum_seconds": 2.010465362,
+            "sample_count": 0,
+            "steps_ms": {
+              "023": 1025.799521,
+              "024": 709.367828,
+              "025": 64.413973
+            },
+            "observed_min_free_gib": 50.228477478027344,
+            "git_opendir": {
+              "schema": 1,
+              "pid": 1084,
+              "calls": {
+                "opendir": {
+                  "count": 2745,
+                  "total_ns": 6674891,
+                  "max_ns": 92610,
+                  "null_with_errno": 0,
+                  "null_without_errno": 0
+                }
+              }
+            },
+            "host_wait_bound": {
+              "task_window_inclusive_ns": 3852831025,
+              "threads": [
+                {
+                  "tid": 2640361,
+                  "runnable_wait_ns": 4412679,
+                  "observed_switchins": 3545
+                },
+                {
+                  "tid": 2640362,
+                  "runnable_wait_ns": 4723671,
+                  "observed_switchins": 1147
+                }
+              ],
+              "summed_runnable_wait_upper_bound_ns": 9136350,
+              "initial_interval_check": "each vCPU observed non-runnable after probe READY and before task start",
+              "scope": "sum over both owned vCPUs and the full capture including preparation/stop; upper bound for step 025 runnable wait only, not its measured wait",
+              "limits": "excludes sleeping, host I/O threads, guest locks and guest I/O; two-thread wait sum is not task elapsed time"
+            },
+            "command_clock": {
+              "realtime_ns": 61893542,
+              "monotonic_raw_ns": 61893226,
+              "user_ns": 25259000,
+              "system_ns": 37600000,
+              "minor_faults": 1931,
+              "major_faults": 4,
+              "voluntary_switches": 47,
+              "involuntary_switches": 13,
+              "exit_code": 0
+            },
+            "realtime_minus_monotonic_ms": 0.000316,
+            "outer_step_minus_command_ms": 2.520747,
+            "git_command_times": {
+              "add": {
+                "real_seconds": 0.054,
+                "user_seconds": 0.019,
+                "system_seconds": 0.037
+              },
+              "diff": {
+                "real_seconds": 0.005,
+                "user_seconds": 0.005,
+                "system_seconds": 0.0
+              }
+            },
+            "command_minus_segments_ms": 2.8932259999999985,
+            "git_add_performance": {
+              "command_seconds": 0.052272431,
+              "records": [
+                {
+                  "timestamp": "11:35:56.168152",
+                  "source": "read-cache.c:2398",
+                  "seconds": 0.00170181,
+                  "label": "read cache .git/index"
+                },
+                {
+                  "timestamp": "11:35:56.175563",
+                  "source": "preload-index.c:154",
+                  "seconds": 0.007380287,
+                  "label": "preload index"
+                },
+                {
+                  "timestamp": "11:35:56.176571",
+                  "source": "name-hash.c:607",
+                  "seconds": 0.00082523,
+                  "label": "initialize name hash"
+                },
+                {
+                  "timestamp": "11:35:56.207735",
+                  "source": "diff-lib.c:266",
+                  "seconds": 0.001446318,
+                  "label": "diff-files"
+                },
+                {
+                  "timestamp": "11:35:56.213367",
+                  "source": "read-cache.c:3072",
+                  "seconds": 0.005571036,
+                  "label": "write index, changed mask = 2a"
+                },
+                {
+                  "timestamp": "11:35:56.218548",
+                  "source": "trace.c:487",
+                  "seconds": 0.052272431,
+                  "label": "git command: git add -A"
+                }
+              ],
+              "longest_recorded_stage": {
+                "timestamp": "11:35:56.175563",
+                "source": "preload-index.c:154",
+                "seconds": 0.007380287,
+                "label": "preload index"
+              },
+              "scope": "Native Git timers may nest or omit intervals; do not sum as a complete breakdown"
+            },
+            "git_add_marker_gaps": [
+              {
+                "before": "read cache .git/index",
+                "after": "preload index",
+                "elapsed_ns": 7411000
+              },
+              {
+                "before": "preload index",
+                "after": "initialize name hash",
+                "elapsed_ns": 1008000
+              },
+              {
+                "before": "initialize name hash",
+                "after": "diff-files",
+                "elapsed_ns": 31164000
+              },
+              {
+                "before": "diff-files",
+                "after": "write index, changed mask = 2a",
+                "elapsed_ns": 5632000
+              },
+              {
+                "before": "write index, changed mask = 2a",
+                "after": "git command: git add -A",
+                "elapsed_ns": 5181000
+              }
+            ],
+            "git_add_trace2": {
+              "command_seconds": 0.052639,
+              "regions": [
+                {
+                  "category": "cache_tree",
+                  "label": "read",
+                  "t_rel": 0.000715,
+                  "nesting": 2,
+                  "thread": "main"
+                },
+                {
+                  "category": "index",
+                  "label": "do_read_index",
+                  "t_rel": 0.001723,
+                  "nesting": 1,
+                  "thread": "main"
+                },
+                {
+                  "category": "index",
+                  "label": "preload",
+                  "t_rel": 0.007417,
+                  "nesting": 1,
+                  "thread": "main"
+                },
+                {
+                  "category": "index",
+                  "label": "name-hash-init",
+                  "t_rel": 0.000817,
+                  "nesting": 2,
+                  "thread": "main"
+                },
+                {
+                  "category": "dir",
+                  "label": "read_directory",
+                  "t_rel": 0.030558,
+                  "nesting": 1,
+                  "thread": "main"
+                },
+                {
+                  "category": "cache_tree",
+                  "label": "write",
+                  "t_rel": 0.000498,
+                  "nesting": 2,
+                  "thread": "main"
+                },
+                {
+                  "category": "index",
+                  "label": "do_write_index",
+                  "t_rel": 0.005606,
+                  "nesting": 1,
+                  "thread": "main"
+                }
+              ],
+              "directory": {
+                "seconds": 0.030558,
+                "enter_time": "2026-09-30T11:35:56.175699Z",
+                "leave_time": "2026-09-30T11:35:56.206257Z",
+                "realtime_interval_seconds": 0.030558,
+                "counts": {
+                  "directories-visited": 2743,
+                  "paths-visited": 11007
+                }
+              },
+              "largest_marker_gap": {
+                "before": "initialize name hash",
+                "after": "diff-files",
+                "elapsed_ns": 31164000,
+                "overlap_with_directory_seconds": 0.029685999995835124,
+                "overlap_fraction": 0.952573482089434
+              },
+              "scope": "Nested regions are not additive; boundary overlap uses realtime log timestamps; no I/O or blocking attribution"
+            }
+          },
+          {
+            "position": 7,
+            "mode": "control_A",
+            "task_window_seconds": 4.26465792,
+            "controller_exec_seconds": 4.261049505,
+            "guest_action_sum_seconds": 2.160873498,
+            "sample_count": 0,
+            "steps_ms": {
+              "023": 1073.903556,
+              "024": 707.688031,
+              "025": 154.470559
+            },
+            "observed_min_free_gib": 50.22776412963867,
+            "git_opendir": {
+              "schema": 1,
+              "pid": 1085,
+              "calls": {
+                "opendir": {
+                  "count": 2745,
+                  "total_ns": 6827491,
+                  "max_ns": 64316,
+                  "null_with_errno": 0,
+                  "null_without_errno": 0
+                }
+              }
+            },
+            "host_wait_bound": {
+              "task_window_inclusive_ns": 4289286681,
+              "threads": [
+                {
+                  "tid": 2640890,
+                  "runnable_wait_ns": 4998910,
+                  "observed_switchins": 2664
+                },
+                {
+                  "tid": 2640891,
+                  "runnable_wait_ns": 4962400,
+                  "observed_switchins": 2380
+                }
+              ],
+              "summed_runnable_wait_upper_bound_ns": 9961310,
+              "initial_interval_check": "each vCPU observed non-runnable after probe READY and before task start",
+              "scope": "sum over both owned vCPUs and the full capture including preparation/stop; upper bound for step 025 runnable wait only, not its measured wait",
+              "limits": "excludes sleeping, host I/O threads, guest locks and guest I/O; two-thread wait sum is not task elapsed time"
+            },
+            "command_clock": {
+              "realtime_ns": 149463625,
+              "monotonic_raw_ns": 149463313,
+              "user_ns": 29037000,
+              "system_ns": 38401000,
+              "minor_faults": 1928,
+              "major_faults": 3,
+              "voluntary_switches": 783,
+              "involuntary_switches": 17,
+              "exit_code": 0
+            },
+            "realtime_minus_monotonic_ms": 0.000312,
+            "outer_step_minus_command_ms": 5.007246000000009,
+            "git_command_times": {
+              "add": {
+                "real_seconds": 0.141,
+                "user_seconds": 0.022,
+                "system_seconds": 0.038
+              },
+              "diff": {
+                "real_seconds": 0.005,
+                "user_seconds": 0.005,
+                "system_seconds": 0.0
+              }
+            },
+            "command_minus_segments_ms": 3.4633129999999994,
+            "git_add_performance": {
+              "command_seconds": 0.139235791,
+              "records": [
+                {
+                  "timestamp": "11:36:17.007846",
+                  "source": "read-cache.c:2398",
+                  "seconds": 0.00165409,
+                  "label": "read cache .git/index"
+                },
+                {
+                  "timestamp": "11:36:17.015082",
+                  "source": "preload-index.c:154",
+                  "seconds": 0.007207173,
+                  "label": "preload index"
+                },
+                {
+                  "timestamp": "11:36:17.016114",
+                  "source": "name-hash.c:607",
+                  "seconds": 0.000841259,
+                  "label": "initialize name hash"
+                },
+                {
+                  "timestamp": "11:36:17.136211",
+                  "source": "diff-lib.c:266",
+                  "seconds": 0.001273652,
+                  "label": "diff-files"
+                },
+                {
+                  "timestamp": "11:36:17.141716",
+                  "source": "read-cache.c:3072",
+                  "seconds": 0.005443512,
+                  "label": "write index, changed mask = 2a"
+                },
+                {
+                  "timestamp": "11:36:17.145249",
+                  "source": "trace.c:487",
+                  "seconds": 0.139235791,
+                  "label": "git command: git add -A"
+                }
+              ],
+              "longest_recorded_stage": {
+                "timestamp": "11:36:17.015082",
+                "source": "preload-index.c:154",
+                "seconds": 0.007207173,
+                "label": "preload index"
+              },
+              "scope": "Native Git timers may nest or omit intervals; do not sum as a complete breakdown"
+            },
+            "git_add_marker_gaps": [
+              {
+                "before": "read cache .git/index",
+                "after": "preload index",
+                "elapsed_ns": 7236000
+              },
+              {
+                "before": "preload index",
+                "after": "initialize name hash",
+                "elapsed_ns": 1032000
+              },
+              {
+                "before": "initialize name hash",
+                "after": "diff-files",
+                "elapsed_ns": 120097000
+              },
+              {
+                "before": "diff-files",
+                "after": "write index, changed mask = 2a",
+                "elapsed_ns": 5505000
+              },
+              {
+                "before": "write index, changed mask = 2a",
+                "after": "git command: git add -A",
+                "elapsed_ns": 3533000
+              }
+            ],
+            "git_add_trace2": {
+              "command_seconds": 0.139684,
+              "regions": [
+                {
+                  "category": "cache_tree",
+                  "label": "read",
+                  "t_rel": 0.000722,
+                  "nesting": 2,
+                  "thread": "main"
+                },
+                {
+                  "category": "index",
+                  "label": "do_read_index",
+                  "t_rel": 0.001676,
+                  "nesting": 1,
+                  "thread": "main"
+                },
+                {
+                  "category": "index",
+                  "label": "preload",
+                  "t_rel": 0.00725,
+                  "nesting": 1,
+                  "thread": "main"
+                },
+                {
+                  "category": "index",
+                  "label": "name-hash-init",
+                  "t_rel": 0.000832,
+                  "nesting": 2,
+                  "thread": "main"
+                },
+                {
+                  "category": "dir",
+                  "label": "read_directory",
+                  "t_rel": 0.119683,
+                  "nesting": 1,
+                  "thread": "main"
+                },
+                {
+                  "category": "cache_tree",
+                  "label": "write",
+                  "t_rel": 0.000497,
+                  "nesting": 2,
+                  "thread": "main"
+                },
+                {
+                  "category": "index",
+                  "label": "do_write_index",
+                  "t_rel": 0.005492,
+                  "nesting": 1,
+                  "thread": "main"
+                }
+              ],
+              "directory": {
+                "seconds": 0.119683,
+                "enter_time": "2026-09-30T11:36:17.015228Z",
+                "leave_time": "2026-09-30T11:36:17.134909Z",
+                "realtime_interval_seconds": 0.119681,
+                "counts": {
+                  "directories-visited": 2743,
+                  "paths-visited": 11007
+                }
+              },
+              "largest_marker_gap": {
+                "before": "initialize name hash",
+                "after": "diff-files",
+                "elapsed_ns": 120097000,
+                "overlap_with_directory_seconds": 0.11879499999837158,
+                "overlap_fraction": 0.9891587633194133
+              },
+              "scope": "Nested regions are not additive; boundary overlap uses realtime log timestamps; no I/O or blocking attribution"
+            }
+          },
+          {
+            "position": 8,
+            "mode": "off",
+            "task_window_seconds": 4.187814488,
+            "controller_exec_seconds": 4.183818805,
+            "guest_action_sum_seconds": 2.259023214,
+            "sample_count": 0,
+            "steps_ms": {
+              "023": 1034.032897,
+              "024": 717.928569,
+              "025": 283.815579
+            },
+            "observed_min_free_gib": 50.227012634277344,
+            "git_opendir": {
+              "schema": 1,
+              "pid": 1083,
+              "calls": {
+                "opendir": {
+                  "count": 2745,
+                  "total_ns": 7312368,
+                  "max_ns": 11640,
+                  "null_with_errno": 0,
+                  "null_without_errno": 0
+                }
+              }
+            },
+            "host_wait_bound": {
+              "task_window_inclusive_ns": 4212131912,
+              "threads": [
+                {
+                  "tid": 2641455,
+                  "runnable_wait_ns": 5067138,
+                  "observed_switchins": 3323
+                },
+                {
+                  "tid": 2641456,
+                  "runnable_wait_ns": 4837827,
+                  "observed_switchins": 2222
+                }
+              ],
+              "summed_runnable_wait_upper_bound_ns": 9904965,
+              "initial_interval_check": "each vCPU observed non-runnable after probe READY and before task start",
+              "scope": "sum over both owned vCPUs and the full capture including preparation/stop; upper bound for step 025 runnable wait only, not its measured wait",
+              "limits": "excludes sleeping, host I/O threads, guest locks and guest I/O; two-thread wait sum is not task elapsed time"
+            },
+            "command_clock": {
+              "realtime_ns": 278666408,
+              "monotonic_raw_ns": 278666145,
+              "user_ns": 34588000,
+              "system_ns": 43163000,
+              "minor_faults": 1930,
+              "major_faults": 2,
+              "voluntary_switches": 1951,
+              "involuntary_switches": 13,
+              "exit_code": 0
+            },
+            "realtime_minus_monotonic_ms": 0.000263,
+            "outer_step_minus_command_ms": 5.149434000000042,
+            "git_command_times": {
+              "add": {
+                "real_seconds": 0.271,
+                "user_seconds": 0.029,
+                "system_seconds": 0.041
+              },
+              "diff": {
+                "real_seconds": 0.005,
+                "user_seconds": 0.003,
+                "system_seconds": 0.002
+              }
+            },
+            "command_minus_segments_ms": 2.666144999999972,
+            "git_add_performance": {
+              "command_seconds": 0.26852139,
+              "records": [
+                {
+                  "timestamp": "11:36:36.479775",
+                  "source": "read-cache.c:2398",
+                  "seconds": 0.002139888,
+                  "label": "read cache .git/index"
+                },
+                {
+                  "timestamp": "11:36:36.488285",
+                  "source": "preload-index.c:154",
+                  "seconds": 0.008480119,
+                  "label": "preload index"
+                },
+                {
+                  "timestamp": "11:36:36.489303",
+                  "source": "name-hash.c:607",
+                  "seconds": 0.000838988,
+                  "label": "initialize name hash"
+                },
+                {
+                  "timestamp": "11:36:36.737262",
+                  "source": "diff-lib.c:266",
+                  "seconds": 0.001339687,
+                  "label": "diff-files"
+                },
+                {
+                  "timestamp": "11:36:36.742913",
+                  "source": "read-cache.c:3072",
+                  "seconds": 0.005586292,
+                  "label": "write index, changed mask = 2a"
+                },
+                {
+                  "timestamp": "11:36:36.745952",
+                  "source": "trace.c:487",
+                  "seconds": 0.26852139,
+                  "label": "git command: git add -A"
+                }
+              ],
+              "longest_recorded_stage": {
+                "timestamp": "11:36:36.488285",
+                "source": "preload-index.c:154",
+                "seconds": 0.008480119,
+                "label": "preload index"
+              },
+              "scope": "Native Git timers may nest or omit intervals; do not sum as a complete breakdown"
+            },
+            "git_add_marker_gaps": [
+              {
+                "before": "read cache .git/index",
+                "after": "preload index",
+                "elapsed_ns": 8510000
+              },
+              {
+                "before": "preload index",
+                "after": "initialize name hash",
+                "elapsed_ns": 1018000
+              },
+              {
+                "before": "initialize name hash",
+                "after": "diff-files",
+                "elapsed_ns": 247959000
+              },
+              {
+                "before": "diff-files",
+                "after": "write index, changed mask = 2a",
+                "elapsed_ns": 5651000
+              },
+              {
+                "before": "write index, changed mask = 2a",
+                "after": "git command: git add -A",
+                "elapsed_ns": 3039000
+              }
+            ],
+            "git_add_trace2": {
+              "command_seconds": 0.268952,
+              "regions": [
+                {
+                  "category": "cache_tree",
+                  "label": "read",
+                  "t_rel": 0.000894,
+                  "nesting": 2,
+                  "thread": "main"
+                },
+                {
+                  "category": "index",
+                  "label": "do_read_index",
+                  "t_rel": 0.002163,
+                  "nesting": 1,
+                  "thread": "main"
+                },
+                {
+                  "category": "index",
+                  "label": "preload",
+                  "t_rel": 0.008509,
+                  "nesting": 1,
+                  "thread": "main"
+                },
+                {
+                  "category": "index",
+                  "label": "name-hash-init",
+                  "t_rel": 0.000831,
+                  "nesting": 2,
+                  "thread": "main"
+                },
+                {
+                  "category": "dir",
+                  "label": "read_directory",
+                  "t_rel": 0.247476,
+                  "nesting": 1,
+                  "thread": "main"
+                },
+                {
+                  "category": "cache_tree",
+                  "label": "write",
+                  "t_rel": 0.000507,
+                  "nesting": 2,
+                  "thread": "main"
+                },
+                {
+                  "category": "index",
+                  "label": "do_write_index",
+                  "t_rel": 0.00562,
+                  "nesting": 1,
+                  "thread": "main"
+                }
+              ],
+              "directory": {
+                "seconds": 0.247476,
+                "enter_time": "2026-09-30T11:36:36.488416Z",
+                "leave_time": "2026-09-30T11:36:36.735892Z",
+                "realtime_interval_seconds": 0.247476,
+                "counts": {
+                  "directories-visited": 2743,
+                  "paths-visited": 11007
+                }
+              },
+              "largest_marker_gap": {
+                "before": "initialize name hash",
+                "after": "diff-files",
+                "elapsed_ns": 247959000,
+                "overlap_with_directory_seconds": 0.24658899999803305,
+                "overlap_fraction": 0.9944748930187371
+              },
+              "scope": "Nested regions are not additive; boundary overlap uses realtime log timestamps; no I/O or blocking attribution"
+            }
+          }
+        ],
+        "differences": {
+          "task_window_seconds": {
+            "means": {
+              "control_A": 4.0305372945,
+              "control_B": 3.853560952,
+              "off": 4.008508409,
+              "light": 3.995109666
+            },
+            "light_vs_off_percent": -0.33425757496022834,
+            "control_B_vs_A_percent": -4.390887109306718
+          },
+          "controller_exec_seconds": {
+            "means": {
+              "control_A": 4.0270189135,
+              "control_B": 3.8498901795,
+              "off": 4.0039867495,
+              "light": 3.987955917
+            },
+            "light_vs_off_percent": -0.40037176701451793,
+            "control_B_vs_A_percent": -4.398507625732806
+          },
+          "guest_action_sum_seconds": {
+            "means": {
+              "control_A": 2.0935019065000002,
+              "control_B": 2.0364342175,
+              "off": 2.127567326,
+              "light": 2.117866303
+            },
+            "light_vs_off_percent": -0.4559678502977671,
+            "control_B_vs_A_percent": -2.7259439708563815
+          }
+        },
+        "limitations": [
+          "One eight-run group; no statistical confidence interval",
+          "Host service cgroup sampling only; no guest memory or VMM PSS sampling",
+          "Owned-vCPU BPF wait trace enabled; no hardware counters; whole capture only",
+          "Policy and affinity checked at window boundaries; transient external changes cannot be excluded",
+          "Shared CPUs; symmetric positions do not eliminate arbitrary background load",
+          "Full official task tests NOT_RUN",
+          "Step 025 uses a C whole-command clock/rusage wrapper; optional segment timing is extra; no monitoring acceptance",
+          "CPU totals include worker threads; wall minus summed CPU is not exact blocked time",
+          "Fault counts are not waiting durations; host wait is only a whole-window upper bound",
+          "Bash builtin per-Git time has 1ms precision; segment clocks are not independently monotonic-validated; whole command uses dual clocks",
+          "Native Git performance log only for add; timers can nest and omit intervals; no complete additive breakdown",
+          "Add-only opendir libc timing over whole add; inclusive CPU and waiting, not pure syscall or I/O; directory reads/stat/closedir not measured; thread sums may overlap",
+          "Add-only Trace2 EVENT; directory region includes nested operations/logging; not pure I/O or blocking time; overlap uses realtime log boundaries"
+        ],
+        "guest_runner_sha256": {
+          "guest-runner-original.sh": "bb3f50aa03b7424855556920d3808be5b6b8c3046e9bc0687c4229fc344efd9a",
+          "guest-runner-effective.sh": "11c4f01bb380e9606b63896114e39db51be375a5a1b7a48d98f250f71067fbf6"
+        },
+        "clock_check": {
+          "max_abs_realtime_minus_monotonic_ms": 0.000375,
+          "scope": "timeout/bash command wrapper only; excludes outer date and wrapper output write"
+        },
+        "balanced_analysis": {
+          "monitor": {
+            "group_percent": [
+              -0.33425757496021724
+            ],
+            "geometric_mean_percent": -0.33425757496021724,
+            "mean_log_ratio_t95_percent": null
+          },
+          "control": {
+            "group_percent": [
+              -4.390887109306707
+            ],
+            "geometric_mean_percent": -4.390887109306707,
+            "mean_log_ratio_t95_percent": null
+          },
+          "verdict": "INCONCLUSIVE"
+        },
+        "step_025_diagnostic": {
+          "means_ms": {
+            "control_A": 111.80799400000001,
+            "control_B": 74.020712,
+            "off": 173.9334645,
+            "light": 154.758904
+          },
+          "control_A_minus_B_ms": 37.787282000000005,
+          "light_minus_off_ms": -19.174560500000013,
+          "control_guest_sum_difference_fraction": 0.6621484532166689,
+          "monitor_guest_sum_difference_fraction": 1.976550359688899,
+          "cause": "NOT_IDENTIFIED; original frozen git add -A and git diff --cached"
+        }
+      },
+      "profile_input_hashes": {
+        "directory_profile.c": "d1afa6fc5b3e7da6c596d6a658dfcb2880a0027a9ad6d4bdbd89ee773ff80be4",
+        "directory-profile.so": "a76e9e0f781c07b693fd934d9a7e56906c6dd9b78cf2d6f34e4b77001dee1327"
+      },
+      "guest_runner_hashes": {
+        "guest-runner-original.sh": "bb3f50aa03b7424855556920d3808be5b6b8c3046e9bc0687c4229fc344efd9a",
+        "guest-runner-effective.sh": "11c4f01bb380e9606b63896114e39db51be375a5a1b7a48d98f250f71067fbf6"
+      },
+      "source_hashes": {
+        "result.json": "f71f1be7b492ca35cabecea2796f511db798e34aa497b6ae5724439e8768f5b1",
+        "offline-report.json": "57d247a70d01de9f935fd1c119473e928730025ab943e76df367f40eec7b5a50",
+        "driver.py": "b1ed9f7183e0e0f8f11007e4de9a5e0befded5a6eaf62da8845254ddf3b34049",
+        "git_step_diagnostic.py": "b3beb4ea70a997f3667024015ac70dd136a2e1783d1d6459d5aaf4ce5778ba74",
+        "directory_profile.c": "d1afa6fc5b3e7da6c596d6a658dfcb2880a0027a9ad6d4bdbd89ee773ff80be4",
+        "final-check.json": "3f99b17c42ed4ce4d37e9201c7c8e601dd173301f9ac16239b2bbd77516c7be5"
+      }
+    }
+  ],
+  "observations": [
+    {
+      "batch": "smoke",
+      "position": 1,
+      "mode": "off",
+      "command_ms": 257.875456,
+      "add_ms": 250.0,
+      "scan_ms": 225.48000000000002,
+      "opendir_ms": 7.216773,
+      "opendir_max_ms": 0.012725,
+      "opendir_count": 2745,
+      "voluntary_switches": 1851,
+      "whole_command_cpu_ms": 74.68,
+      "host_queue_upper_bound_ms": 10.382101,
+      "major_faults": 14
+    },
+    {
+      "batch": "balanced",
+      "position": 1,
+      "mode": "off",
+      "command_ms": 61.478632,
+      "add_ms": 54.0,
+      "scan_ms": 30.099,
+      "opendir_ms": 6.769138,
+      "opendir_max_ms": 0.169672,
+      "opendir_count": 2745,
+      "voluntary_switches": 55,
+      "whole_command_cpu_ms": 62.889,
+      "host_queue_upper_bound_ms": 12.327709,
+      "major_faults": 0
+    },
+    {
+      "batch": "balanced",
+      "position": 2,
+      "mode": "control_A",
+      "command_ms": 64.370572,
+      "add_ms": 57.0,
+      "scan_ms": 30.443,
+      "opendir_ms": 7.04407,
+      "opendir_max_ms": 0.378926,
+      "opendir_count": 2745,
+      "voluntary_switches": 88,
+      "whole_command_cpu_ms": 63.472,
+      "host_queue_upper_bound_ms": 8.808209,
+      "major_faults": 1
+    },
+    {
+      "batch": "balanced",
+      "position": 3,
+      "mode": "control_B",
+      "command_ms": 78.595158,
+      "add_ms": 71.0,
+      "scan_ms": 46.332,
+      "opendir_ms": 6.894658,
+      "opendir_max_ms": 0.028731,
+      "opendir_count": 2745,
+      "voluntary_switches": 197,
+      "whole_command_cpu_ms": 66.024,
+      "host_queue_upper_bound_ms": 8.707805,
+      "major_faults": 3
+    },
+    {
+      "batch": "balanced",
+      "position": 4,
+      "mode": "light",
+      "command_ms": 232.662512,
+      "add_ms": 224.0,
+      "scan_ms": 201.33100000000002,
+      "opendir_ms": 7.021207,
+      "opendir_max_ms": 0.029925,
+      "opendir_count": 2745,
+      "voluntary_switches": 1638,
+      "whole_command_cpu_ms": 72.114,
+      "host_queue_upper_bound_ms": 8.621234,
+      "major_faults": 4
+    },
+    {
+      "batch": "balanced",
+      "position": 5,
+      "mode": "light",
+      "command_ms": 66.8762,
+      "add_ms": 59.0,
+      "scan_ms": 33.928,
+      "opendir_ms": 7.172938,
+      "opendir_max_ms": 0.257428,
+      "opendir_count": 2745,
+      "voluntary_switches": 72,
+      "whole_command_cpu_ms": 64.935,
+      "host_queue_upper_bound_ms": 8.442438,
+      "major_faults": 5
+    },
+    {
+      "batch": "balanced",
+      "position": 6,
+      "mode": "control_B",
+      "command_ms": 61.893226,
+      "add_ms": 54.0,
+      "scan_ms": 30.558,
+      "opendir_ms": 6.674891,
+      "opendir_max_ms": 0.09261,
+      "opendir_count": 2745,
+      "voluntary_switches": 47,
+      "whole_command_cpu_ms": 62.859,
+      "host_queue_upper_bound_ms": 9.13635,
+      "major_faults": 4
+    },
+    {
+      "batch": "balanced",
+      "position": 7,
+      "mode": "control_A",
+      "command_ms": 149.463313,
+      "add_ms": 141.0,
+      "scan_ms": 119.68299999999999,
+      "opendir_ms": 6.827491,
+      "opendir_max_ms": 0.064316,
+      "opendir_count": 2745,
+      "voluntary_switches": 783,
+      "whole_command_cpu_ms": 67.438,
+      "host_queue_upper_bound_ms": 9.96131,
+      "major_faults": 3
+    },
+    {
+      "batch": "balanced",
+      "position": 8,
+      "mode": "off",
+      "command_ms": 278.666145,
+      "add_ms": 271.0,
+      "scan_ms": 247.476,
+      "opendir_ms": 7.312368,
+      "opendir_max_ms": 0.01164,
+      "opendir_count": 2745,
+      "voluntary_switches": 1951,
+      "whole_command_cpu_ms": 77.751,
+      "host_queue_upper_bound_ms": 9.904965,
+      "major_faults": 2
+    }
+  ],
+  "final_check": {
+    "project_sandboxes_empty": true,
+    "owned_probe_processes": [],
+    "cpu_settings": {
+      "2": {
+        "scaling_min_freq": "800000",
+        "scaling_max_freq": "2801000",
+        "scaling_governor": "schedutil"
+      },
+      "4": {
+        "scaling_min_freq": "800000",
+        "scaling_max_freq": "2801000",
+        "scaling_governor": "schedutil"
+      },
+      "66": {
+        "scaling_min_freq": "800000",
+        "scaling_max_freq": "2801000",
+        "scaling_governor": "schedutil"
+      },
+      "68": {
+        "scaling_min_freq": "800000",
+        "scaling_max_freq": "2801000",
+        "scaling_governor": "schedutil"
+      }
+    },
+    "free_bytes": 53939957760
+  },
+  "tests": {
+    "directory_profile": 3,
+    "git_diagnostic": 16,
+    "fixed_frequency_report": 11
+  },
+  "limits": [
+    "Single warm synthetic Git calibration; not formal 5% monitoring acceptance.",
+    "opendir libc calls across whole add only; directory reads, stat and closedir NOT_MEASURED.",
+    "CPU and waiting included; summed multithread durations may overlap.",
+    "Only dynamically interposed normal-exit calls covered; not all open syscalls or arbitrary binaries.",
+    "Trace2 directory region includes nested work and logging; not pure waiting or I/O.",
+    "No exact blocked-time calculation from wall time minus summed CPU.",
+    "One balanced group has no confidence interval; no monitor acceleration conclusion.",
+    "Official full task tests NOT_RUN; targeted SVG/HTML tests PASS."
+  ]
+}

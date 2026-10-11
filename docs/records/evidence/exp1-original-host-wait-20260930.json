@@ -1,0 +1,644 @@
+{
+  "schema": 1,
+  "date": "2026-09-30",
+  "scope": "original guest runner plus owned-vCPU runnable wait; one balanced diagnostic group, not 5% acceptance",
+  "batches": [
+    {
+      "run_id": "20260930T070321Z-2559939",
+      "status": "PASS",
+      "verdict": "DIAGNOSTIC_ONLY",
+      "order": [
+        "off"
+      ],
+      "guest_runner_sha256": {
+        "guest-runner-original.sh": "bb3f50aa03b7424855556920d3808be5b6b8c3046e9bc0687c4229fc344efd9a",
+        "guest-runner-effective.sh": "bb3f50aa03b7424855556920d3808be5b6b8c3046e9bc0687c4229fc344efd9a"
+      },
+      "source_result_sha256": "ec6d8162e3c39e29fe015a772f1733f2dacadf120bfa4536a066677be50abde5",
+      "differences": {}
+    },
+    {
+      "run_id": "20260930T070437Z-2560918",
+      "status": "PASS",
+      "verdict": "DIAGNOSTIC_ONLY",
+      "order": [
+        "off",
+        "control_A",
+        "control_B",
+        "light",
+        "light",
+        "control_B",
+        "control_A",
+        "off"
+      ],
+      "guest_runner_sha256": {
+        "guest-runner-original.sh": "bb3f50aa03b7424855556920d3808be5b6b8c3046e9bc0687c4229fc344efd9a",
+        "guest-runner-effective.sh": "bb3f50aa03b7424855556920d3808be5b6b8c3046e9bc0687c4229fc344efd9a"
+      },
+      "source_result_sha256": "1a36ba1d5b97e73d6edf2cd8f0eaa253b74b756c51c12e1595404c570d34ee08",
+      "differences": {
+        "task_window_seconds": {
+          "means": {
+            "control_A": 3.9687541284999996,
+            "control_B": 4.0210708485,
+            "off": 4.0435870975,
+            "light": 4.1185630545
+          },
+          "light_vs_off_percent": 1.8541941892720848,
+          "control_B_vs_A_percent": 1.318215195653183
+        },
+        "controller_exec_seconds": {
+          "means": {
+            "control_A": 3.9642810644999997,
+            "control_B": 4.016574563,
+            "off": 4.0399039629999995,
+            "light": 4.112197575
+          },
+          "light_vs_off_percent": 1.7894883804692174,
+          "control_B_vs_A_percent": 1.3191168246945661
+        },
+        "guest_action_sum_seconds": {
+          "means": {
+            "control_A": 2.1486959585,
+            "control_B": 2.18596431,
+            "off": 2.053320303,
+            "light": 2.1999940065
+          },
+          "light_vs_off_percent": 7.143245176395641,
+          "control_B_vs_A_percent": 1.734463703558009
+        }
+      }
+    }
+  ],
+  "runs": [
+    {
+      "batch": "20260930T070321Z-2559939",
+      "position": 1,
+      "mode": "off",
+      "step025_realtime_ms": 69.035489,
+      "task_window_seconds": 3.949330186,
+      "controller_exec_seconds": 3.945426657,
+      "guest_action_sum_seconds": 2.063629035,
+      "host_wait": {
+        "task_window_inclusive_ns": 3973550094,
+        "threads": [
+          {
+            "tid": 2560364,
+            "runnable_wait_ns": 7958386,
+            "observed_switchins": 2975
+          },
+          {
+            "tid": 2560365,
+            "runnable_wait_ns": 4005861,
+            "observed_switchins": 1907
+          }
+        ],
+        "summed_runnable_wait_upper_bound_ns": 11964247,
+        "initial_interval_check": "each vCPU observed non-runnable after probe READY and before task start",
+        "scope": "sum over both owned vCPUs and the full capture including preparation/stop; upper bound for step 025 runnable wait only, not its measured wait",
+        "limits": "excludes sleeping, host I/O threads, guest locks and guest I/O; two-thread wait sum is not task elapsed time"
+      },
+      "samples": 0,
+      "checks": {
+        "input_hashes": "PASS",
+        "runner": "PASS",
+        "replay_correctness": "PASS",
+        "host_sampling": "DISABLED",
+        "guest_sampling": "DISABLED",
+        "task_window": "PASS",
+        "cleanup": "PASS"
+      },
+      "independent": {
+        "svg": {
+          "javascript_formatted": true,
+          "idempotent": true,
+          "output": "<svg>\n  <script>\n    const answer = 1 + 2;\n  </script>\n</svg>\n"
+        },
+        "nested_svg": {
+          "javascript_formatted": true,
+          "idempotent": true,
+          "output": "<div>\n  <svg>\n    <script>\n      const answer = 1 + 2;\n    </script>\n  </svg>\n</div>\n"
+        },
+        "html_control": {
+          "javascript_formatted": true,
+          "idempotent": true,
+          "output": "<script>\n  const answer = 1 + 2;\n</script>\n"
+        }
+      },
+      "patch_sha256": "f1cc23ac4f5ac1cff87eb7f8c54f8176c1a47cec37fa4cb6907b9dd8ad199af2",
+      "step025_stdout_sha256": "9a64ed707c224734715f7af4fea2d84f0b51d128e5c8d05535fc9de7d5b6162f",
+      "frequency_restore": "PASS",
+      "observed_min_free_gib": 50.35911178588867
+    },
+    {
+      "batch": "20260930T070437Z-2560918",
+      "position": 1,
+      "mode": "off",
+      "step025_realtime_ms": 73.912901,
+      "task_window_seconds": 4.158704005,
+      "controller_exec_seconds": 4.154681607,
+      "guest_action_sum_seconds": 2.059768716,
+      "host_wait": {
+        "task_window_inclusive_ns": 4183216309,
+        "threads": [
+          {
+            "tid": 2561324,
+            "runnable_wait_ns": 7620511,
+            "observed_switchins": 3133
+          },
+          {
+            "tid": 2561325,
+            "runnable_wait_ns": 3776809,
+            "observed_switchins": 1876
+          }
+        ],
+        "summed_runnable_wait_upper_bound_ns": 11397320,
+        "initial_interval_check": "each vCPU observed non-runnable after probe READY and before task start",
+        "scope": "sum over both owned vCPUs and the full capture including preparation/stop; upper bound for step 025 runnable wait only, not its measured wait",
+        "limits": "excludes sleeping, host I/O threads, guest locks and guest I/O; two-thread wait sum is not task elapsed time"
+      },
+      "samples": 0,
+      "checks": {
+        "input_hashes": "PASS",
+        "runner": "PASS",
+        "replay_correctness": "PASS",
+        "host_sampling": "DISABLED",
+        "guest_sampling": "DISABLED",
+        "task_window": "PASS",
+        "cleanup": "PASS"
+      },
+      "independent": {
+        "svg": {
+          "javascript_formatted": true,
+          "idempotent": true,
+          "output": "<svg>\n  <script>\n    const answer = 1 + 2;\n  </script>\n</svg>\n"
+        },
+        "nested_svg": {
+          "javascript_formatted": true,
+          "idempotent": true,
+          "output": "<div>\n  <svg>\n    <script>\n      const answer = 1 + 2;\n    </script>\n  </svg>\n</div>\n"
+        },
+        "html_control": {
+          "javascript_formatted": true,
+          "idempotent": true,
+          "output": "<script>\n  const answer = 1 + 2;\n</script>\n"
+        }
+      },
+      "patch_sha256": "f1cc23ac4f5ac1cff87eb7f8c54f8176c1a47cec37fa4cb6907b9dd8ad199af2",
+      "step025_stdout_sha256": "9a64ed707c224734715f7af4fea2d84f0b51d128e5c8d05535fc9de7d5b6162f",
+      "frequency_restore": "PASS",
+      "observed_min_free_gib": 50.35332107543945
+    },
+    {
+      "batch": "20260930T070437Z-2560918",
+      "position": 2,
+      "mode": "control_A",
+      "step025_realtime_ms": 307.591487,
+      "task_window_seconds": 4.099935678,
+      "controller_exec_seconds": 4.094816577,
+      "guest_action_sum_seconds": 2.256273415,
+      "host_wait": {
+        "task_window_inclusive_ns": 4124446065,
+        "threads": [
+          {
+            "tid": 2561950,
+            "runnable_wait_ns": 4427608,
+            "observed_switchins": 3625
+          },
+          {
+            "tid": 2561951,
+            "runnable_wait_ns": 5362562,
+            "observed_switchins": 1812
+          }
+        ],
+        "summed_runnable_wait_upper_bound_ns": 9790170,
+        "initial_interval_check": "each vCPU observed non-runnable after probe READY and before task start",
+        "scope": "sum over both owned vCPUs and the full capture including preparation/stop; upper bound for step 025 runnable wait only, not its measured wait",
+        "limits": "excludes sleeping, host I/O threads, guest locks and guest I/O; two-thread wait sum is not task elapsed time"
+      },
+      "samples": 0,
+      "checks": {
+        "input_hashes": "PASS",
+        "runner": "PASS",
+        "replay_correctness": "PASS",
+        "host_sampling": "DISABLED",
+        "guest_sampling": "DISABLED",
+        "task_window": "PASS",
+        "cleanup": "PASS"
+      },
+      "independent": {
+        "svg": {
+          "javascript_formatted": true,
+          "idempotent": true,
+          "output": "<svg>\n  <script>\n    const answer = 1 + 2;\n  </script>\n</svg>\n"
+        },
+        "nested_svg": {
+          "javascript_formatted": true,
+          "idempotent": true,
+          "output": "<div>\n  <svg>\n    <script>\n      const answer = 1 + 2;\n    </script>\n  </svg>\n</div>\n"
+        },
+        "html_control": {
+          "javascript_formatted": true,
+          "idempotent": true,
+          "output": "<script>\n  const answer = 1 + 2;\n</script>\n"
+        }
+      },
+      "patch_sha256": "f1cc23ac4f5ac1cff87eb7f8c54f8176c1a47cec37fa4cb6907b9dd8ad199af2",
+      "step025_stdout_sha256": "9a64ed707c224734715f7af4fea2d84f0b51d128e5c8d05535fc9de7d5b6162f",
+      "frequency_restore": "PASS",
+      "observed_min_free_gib": 50.348392486572266
+    },
+    {
+      "batch": "20260930T070437Z-2560918",
+      "position": 3,
+      "mode": "control_B",
+      "step025_realtime_ms": 70.21005,
+      "task_window_seconds": 3.783973404,
+      "controller_exec_seconds": 3.778815099,
+      "guest_action_sum_seconds": 2.012029396,
+      "host_wait": {
+        "task_window_inclusive_ns": 3806871799,
+        "threads": [
+          {
+            "tid": 2562567,
+            "runnable_wait_ns": 4457195,
+            "observed_switchins": 3597
+          },
+          {
+            "tid": 2562568,
+            "runnable_wait_ns": 6796062,
+            "observed_switchins": 1249
+          }
+        ],
+        "summed_runnable_wait_upper_bound_ns": 11253257,
+        "initial_interval_check": "each vCPU observed non-runnable after probe READY and before task start",
+        "scope": "sum over both owned vCPUs and the full capture including preparation/stop; upper bound for step 025 runnable wait only, not its measured wait",
+        "limits": "excludes sleeping, host I/O threads, guest locks and guest I/O; two-thread wait sum is not task elapsed time"
+      },
+      "samples": 0,
+      "checks": {
+        "input_hashes": "PASS",
+        "runner": "PASS",
+        "replay_correctness": "PASS",
+        "host_sampling": "DISABLED",
+        "guest_sampling": "DISABLED",
+        "task_window": "PASS",
+        "cleanup": "PASS"
+      },
+      "independent": {
+        "svg": {
+          "javascript_formatted": true,
+          "idempotent": true,
+          "output": "<svg>\n  <script>\n    const answer = 1 + 2;\n  </script>\n</svg>\n"
+        },
+        "nested_svg": {
+          "javascript_formatted": true,
+          "idempotent": true,
+          "output": "<div>\n  <svg>\n    <script>\n      const answer = 1 + 2;\n    </script>\n  </svg>\n</div>\n"
+        },
+        "html_control": {
+          "javascript_formatted": true,
+          "idempotent": true,
+          "output": "<script>\n  const answer = 1 + 2;\n</script>\n"
+        }
+      },
+      "patch_sha256": "f1cc23ac4f5ac1cff87eb7f8c54f8176c1a47cec37fa4cb6907b9dd8ad199af2",
+      "step025_stdout_sha256": "9a64ed707c224734715f7af4fea2d84f0b51d128e5c8d05535fc9de7d5b6162f",
+      "frequency_restore": "PASS",
+      "observed_min_free_gib": 50.35188674926758
+    },
+    {
+      "batch": "20260930T070437Z-2560918",
+      "position": 4,
+      "mode": "light",
+      "step025_realtime_ms": 78.695669,
+      "task_window_seconds": 4.148391022,
+      "controller_exec_seconds": 4.142637135,
+      "guest_action_sum_seconds": 2.099585543,
+      "host_wait": {
+        "task_window_inclusive_ns": 4173653888,
+        "threads": [
+          {
+            "tid": 2563177,
+            "runnable_wait_ns": 5865730,
+            "observed_switchins": 3797
+          },
+          {
+            "tid": 2563178,
+            "runnable_wait_ns": 3916016,
+            "observed_switchins": 1696
+          }
+        ],
+        "summed_runnable_wait_upper_bound_ns": 9781746,
+        "initial_interval_check": "each vCPU observed non-runnable after probe READY and before task start",
+        "scope": "sum over both owned vCPUs and the full capture including preparation/stop; upper bound for step 025 runnable wait only, not its measured wait",
+        "limits": "excludes sleeping, host I/O threads, guest locks and guest I/O; two-thread wait sum is not task elapsed time"
+      },
+      "samples": 5,
+      "checks": {
+        "input_hashes": "PASS",
+        "runner": "PASS",
+        "replay_correctness": "PASS",
+        "host_sampling": "PASS",
+        "guest_sampling": "DISABLED",
+        "task_window": "PASS",
+        "cleanup": "PASS"
+      },
+      "independent": {
+        "svg": {
+          "javascript_formatted": true,
+          "idempotent": true,
+          "output": "<svg>\n  <script>\n    const answer = 1 + 2;\n  </script>\n</svg>\n"
+        },
+        "nested_svg": {
+          "javascript_formatted": true,
+          "idempotent": true,
+          "output": "<div>\n  <svg>\n    <script>\n      const answer = 1 + 2;\n    </script>\n  </svg>\n</div>\n"
+        },
+        "html_control": {
+          "javascript_formatted": true,
+          "idempotent": true,
+          "output": "<script>\n  const answer = 1 + 2;\n</script>\n"
+        }
+      },
+      "patch_sha256": "f1cc23ac4f5ac1cff87eb7f8c54f8176c1a47cec37fa4cb6907b9dd8ad199af2",
+      "step025_stdout_sha256": "9a64ed707c224734715f7af4fea2d84f0b51d128e5c8d05535fc9de7d5b6162f",
+      "frequency_restore": "PASS",
+      "observed_min_free_gib": 50.351219177246094
+    },
+    {
+      "batch": "20260930T070437Z-2560918",
+      "position": 5,
+      "mode": "light",
+      "step025_realtime_ms": 372.959175,
+      "task_window_seconds": 4.088735087,
+      "controller_exec_seconds": 4.081758015,
+      "guest_action_sum_seconds": 2.30040247,
+      "host_wait": {
+        "task_window_inclusive_ns": 4113906905,
+        "threads": [
+          {
+            "tid": 2563855,
+            "runnable_wait_ns": 4919323,
+            "observed_switchins": 3404
+          },
+          {
+            "tid": 2563856,
+            "runnable_wait_ns": 4025471,
+            "observed_switchins": 1369
+          }
+        ],
+        "summed_runnable_wait_upper_bound_ns": 8944794,
+        "initial_interval_check": "each vCPU observed non-runnable after probe READY and before task start",
+        "scope": "sum over both owned vCPUs and the full capture including preparation/stop; upper bound for step 025 runnable wait only, not its measured wait",
+        "limits": "excludes sleeping, host I/O threads, guest locks and guest I/O; two-thread wait sum is not task elapsed time"
+      },
+      "samples": 5,
+      "checks": {
+        "input_hashes": "PASS",
+        "runner": "PASS",
+        "replay_correctness": "PASS",
+        "host_sampling": "PASS",
+        "guest_sampling": "DISABLED",
+        "task_window": "PASS",
+        "cleanup": "PASS"
+      },
+      "independent": {
+        "svg": {
+          "javascript_formatted": true,
+          "idempotent": true,
+          "output": "<svg>\n  <script>\n    const answer = 1 + 2;\n  </script>\n</svg>\n"
+        },
+        "nested_svg": {
+          "javascript_formatted": true,
+          "idempotent": true,
+          "output": "<div>\n  <svg>\n    <script>\n      const answer = 1 + 2;\n    </script>\n  </svg>\n</div>\n"
+        },
+        "html_control": {
+          "javascript_formatted": true,
+          "idempotent": true,
+          "output": "<script>\n  const answer = 1 + 2;\n</script>\n"
+        }
+      },
+      "patch_sha256": "f1cc23ac4f5ac1cff87eb7f8c54f8176c1a47cec37fa4cb6907b9dd8ad199af2",
+      "step025_stdout_sha256": "9a64ed707c224734715f7af4fea2d84f0b51d128e5c8d05535fc9de7d5b6162f",
+      "frequency_restore": "PASS",
+      "observed_min_free_gib": 50.350494384765625
+    },
+    {
+      "batch": "20260930T070437Z-2560918",
+      "position": 6,
+      "mode": "control_B",
+      "step025_realtime_ms": 369.557871,
+      "task_window_seconds": 4.258168293,
+      "controller_exec_seconds": 4.254334027,
+      "guest_action_sum_seconds": 2.359899224,
+      "host_wait": {
+        "task_window_inclusive_ns": 4284258192,
+        "threads": [
+          {
+            "tid": 2564536,
+            "runnable_wait_ns": 4841388,
+            "observed_switchins": 2223
+          },
+          {
+            "tid": 2564537,
+            "runnable_wait_ns": 4678133,
+            "observed_switchins": 2553
+          }
+        ],
+        "summed_runnable_wait_upper_bound_ns": 9519521,
+        "initial_interval_check": "each vCPU observed non-runnable after probe READY and before task start",
+        "scope": "sum over both owned vCPUs and the full capture including preparation/stop; upper bound for step 025 runnable wait only, not its measured wait",
+        "limits": "excludes sleeping, host I/O threads, guest locks and guest I/O; two-thread wait sum is not task elapsed time"
+      },
+      "samples": 0,
+      "checks": {
+        "input_hashes": "PASS",
+        "runner": "PASS",
+        "replay_correctness": "PASS",
+        "host_sampling": "DISABLED",
+        "guest_sampling": "DISABLED",
+        "task_window": "PASS",
+        "cleanup": "PASS"
+      },
+      "independent": {
+        "svg": {
+          "javascript_formatted": true,
+          "idempotent": true,
+          "output": "<svg>\n  <script>\n    const answer = 1 + 2;\n  </script>\n</svg>\n"
+        },
+        "nested_svg": {
+          "javascript_formatted": true,
+          "idempotent": true,
+          "output": "<div>\n  <svg>\n    <script>\n      const answer = 1 + 2;\n    </script>\n  </svg>\n</div>\n"
+        },
+        "html_control": {
+          "javascript_formatted": true,
+          "idempotent": true,
+          "output": "<script>\n  const answer = 1 + 2;\n</script>\n"
+        }
+      },
+      "patch_sha256": "f1cc23ac4f5ac1cff87eb7f8c54f8176c1a47cec37fa4cb6907b9dd8ad199af2",
+      "step025_stdout_sha256": "9a64ed707c224734715f7af4fea2d84f0b51d128e5c8d05535fc9de7d5b6162f",
+      "frequency_restore": "PASS",
+      "observed_min_free_gib": 50.34999465942383
+    },
+    {
+      "batch": "20260930T070437Z-2560918",
+      "position": 7,
+      "mode": "control_A",
+      "step025_realtime_ms": 81.151277,
+      "task_window_seconds": 3.837572579,
+      "controller_exec_seconds": 3.833745552,
+      "guest_action_sum_seconds": 2.041118502,
+      "host_wait": {
+        "task_window_inclusive_ns": 3862004896,
+        "threads": [
+          {
+            "tid": 2565155,
+            "runnable_wait_ns": 4318081,
+            "observed_switchins": 2799
+          },
+          {
+            "tid": 2565156,
+            "runnable_wait_ns": 4101005,
+            "observed_switchins": 1581
+          }
+        ],
+        "summed_runnable_wait_upper_bound_ns": 8419086,
+        "initial_interval_check": "each vCPU observed non-runnable after probe READY and before task start",
+        "scope": "sum over both owned vCPUs and the full capture including preparation/stop; upper bound for step 025 runnable wait only, not its measured wait",
+        "limits": "excludes sleeping, host I/O threads, guest locks and guest I/O; two-thread wait sum is not task elapsed time"
+      },
+      "samples": 0,
+      "checks": {
+        "input_hashes": "PASS",
+        "runner": "PASS",
+        "replay_correctness": "PASS",
+        "host_sampling": "DISABLED",
+        "guest_sampling": "DISABLED",
+        "task_window": "PASS",
+        "cleanup": "PASS"
+      },
+      "independent": {
+        "svg": {
+          "javascript_formatted": true,
+          "idempotent": true,
+          "output": "<svg>\n  <script>\n    const answer = 1 + 2;\n  </script>\n</svg>\n"
+        },
+        "nested_svg": {
+          "javascript_formatted": true,
+          "idempotent": true,
+          "output": "<div>\n  <svg>\n    <script>\n      const answer = 1 + 2;\n    </script>\n  </svg>\n</div>\n"
+        },
+        "html_control": {
+          "javascript_formatted": true,
+          "idempotent": true,
+          "output": "<script>\n  const answer = 1 + 2;\n</script>\n"
+        }
+      },
+      "patch_sha256": "f1cc23ac4f5ac1cff87eb7f8c54f8176c1a47cec37fa4cb6907b9dd8ad199af2",
+      "step025_stdout_sha256": "9a64ed707c224734715f7af4fea2d84f0b51d128e5c8d05535fc9de7d5b6162f",
+      "frequency_restore": "PASS",
+      "observed_min_free_gib": 50.34949493408203
+    },
+    {
+      "batch": "20260930T070437Z-2560918",
+      "position": 8,
+      "mode": "off",
+      "step025_realtime_ms": 67.65229,
+      "task_window_seconds": 3.92847019,
+      "controller_exec_seconds": 3.925126319,
+      "guest_action_sum_seconds": 2.04687189,
+      "host_wait": {
+        "task_window_inclusive_ns": 3953533570,
+        "threads": [
+          {
+            "tid": 2565743,
+            "runnable_wait_ns": 5427755,
+            "observed_switchins": 2840
+          },
+          {
+            "tid": 2565744,
+            "runnable_wait_ns": 4173780,
+            "observed_switchins": 1653
+          }
+        ],
+        "summed_runnable_wait_upper_bound_ns": 9601535,
+        "initial_interval_check": "each vCPU observed non-runnable after probe READY and before task start",
+        "scope": "sum over both owned vCPUs and the full capture including preparation/stop; upper bound for step 025 runnable wait only, not its measured wait",
+        "limits": "excludes sleeping, host I/O threads, guest locks and guest I/O; two-thread wait sum is not task elapsed time"
+      },
+      "samples": 0,
+      "checks": {
+        "input_hashes": "PASS",
+        "runner": "PASS",
+        "replay_correctness": "PASS",
+        "host_sampling": "DISABLED",
+        "guest_sampling": "DISABLED",
+        "task_window": "PASS",
+        "cleanup": "PASS"
+      },
+      "independent": {
+        "svg": {
+          "javascript_formatted": true,
+          "idempotent": true,
+          "output": "<svg>\n  <script>\n    const answer = 1 + 2;\n  </script>\n</svg>\n"
+        },
+        "nested_svg": {
+          "javascript_formatted": true,
+          "idempotent": true,
+          "output": "<div>\n  <svg>\n    <script>\n      const answer = 1 + 2;\n    </script>\n  </svg>\n</div>\n"
+        },
+        "html_control": {
+          "javascript_formatted": true,
+          "idempotent": true,
+          "output": "<script>\n  const answer = 1 + 2;\n</script>\n"
+        }
+      },
+      "patch_sha256": "f1cc23ac4f5ac1cff87eb7f8c54f8176c1a47cec37fa4cb6907b9dd8ad199af2",
+      "step025_stdout_sha256": "9a64ed707c224734715f7af4fea2d84f0b51d128e5c8d05535fc9de7d5b6162f",
+      "frequency_restore": "PASS",
+      "observed_min_free_gib": 50.34913635253906
+    }
+  ],
+  "resources": {
+    "vcpus": 2,
+    "memory_mib": 4096,
+    "cpus": [
+      2,
+      4
+    ],
+    "frequency_policy_cpus": [
+      2,
+      4,
+      66,
+      68
+    ],
+    "requested_min_max_khz": 2000000,
+    "exclusive_cpus": false
+  },
+  "image": "ghcr.io/timesler/swe-polybench.eval.x86_64.prettier__prettier-14400@sha256:e625c9b9776870e2cc87172e886bbc90cfc3d6ce1521492f113a46b3f6dfcf44",
+  "configuration": {
+    "guest_sampling": false,
+    "host_sampling": "light only, service cgroup every 1 second",
+    "drop_guest_caches": 0,
+    "git_native_trace": false,
+    "command_clock_wrapper": false,
+    "syscall_trace": false
+  },
+  "selected_senior_revision": "a9bc7deadb68a6e24b7242eab343dfedf953ea38",
+  "step025_stdout_equal": true,
+  "conclusions": [
+    "Original guest script and uploaded file hashes match for all nine replays.",
+    "Nine complete replay/correctness/independent/cleanup/frequency and offline checks passed.",
+    "Three step-025 slow durations observed using original guest realtime date measurement: 307.59/372.96/369.56 ms.",
+    "Their whole-capture two-vCPU runnable-wait sums are 9.79/8.94/9.52 ms; runnable queue wait alone cannot explain the roughly 230-300 ms difference from fast runs under this measurement.",
+    "Slow durations appear with and without memory sampling; not restricted to one label or ordinal position.",
+    "No same-step monotonic measurement, CPU time or fault counts in this batch; actual waiting and guest clock adjustments remain unresolved.",
+    "One-group task-window sample comparison +1.85%, off/off control +1.32%; no confidence interval and host probe in every run; 5% not accepted."
+  ],
+  "next_step": "Add only a dual-clock command wrapper at step 025; keep native Git tracing and guest /proc reads off; smoke then the original bounded eight-run order. Not yet implemented in this turn.",
+  "free_bytes": 54070059008
+}

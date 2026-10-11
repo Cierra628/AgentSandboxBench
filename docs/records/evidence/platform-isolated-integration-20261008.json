@@ -1,0 +1,461 @@
+{
+  "status": "PARTIAL",
+  "date": "2026-10-08",
+  "scope": "unified prepared-host frozen Exp1 fixed-capacity integration; no new performance acceptance",
+  "workflow_status": "FAIL",
+  "workflow": ".artifacts/platform-use/20261008T054157Z-3568923",
+  "config": "configs/platform-exp1-isolated.json",
+  "configuration": {
+    "backends": [
+      "agentenv",
+      "trenvx"
+    ],
+    "cpu": 2,
+    "memory_mib": 4096,
+    "sample_interval_seconds": 0.1,
+    "cache_policy": "preserve; no manual drop_caches",
+    "checkpoint_after_step": "022"
+  },
+  "window": {
+    "start_utc": "2026-10-08T05:41:57.027737+00:00",
+    "end_utc": "2026-10-08T06:01:57.027737+00:00",
+    "user_confirmation": "仍无人使用；准备完成后可以开始",
+    "scope": "one sequential unified both-backend full replay and step-022 restore"
+  },
+  "completed_runs": [
+    {
+      "backend": "agentenv",
+      "mode": "full",
+      "status": "PASS",
+      "run_id": "20261008T054212Z-3569726",
+      "raw": ".artifacts/storage-isolated-service/20261008T054157Z-3569004/exp1/raw/20261008T054212Z-3569726",
+      "storage_result_dir": ".artifacts/storage-isolated-service/20261008T054157Z-3569004",
+      "report": ".artifacts/platform-use-review/20261008T055704Z-3579519/reports-1/01-agentenv-full",
+      "sample_interval_seconds": 0.1,
+      "guest_samples": 95,
+      "host_samples": 87,
+      "guest_observed_peak_nonfree_bytes": 418717696,
+      "host_memory": {
+        "sample_count": 87,
+        "scope": "single temporary AgentENV service cgroup including cache and VMM; pool disabled",
+        "observed_peak_current_bytes": 895123456,
+        "observed_peak_file_bytes": 26238976,
+        "observed_peak_anon_bytes": 834625536,
+        "observed_peak_vmm_pss_kib": "NOT_MEASURED"
+      },
+      "phase_breakdown": {
+        "guest_action_sum": {
+          "status": "MEASURED",
+          "duration_ns": 1951046307,
+          "source": "replay/steps.tsv",
+          "boundary": "sum of 26 guest runner action durations; excludes controller and setup"
+        },
+        "controller_runner_calls": {
+          "status": "MEASURED",
+          "duration_ns": 3631088213,
+          "source": "audit/events.json",
+          "boundary": "sum of controller calls that launch frozen runner segments"
+        },
+        "create_to_first_success": {
+          "status": "MEASURED",
+          "duration_ns": 3719981568,
+          "source": "audit/events.json",
+          "boundary": "cold start call through first successful true command"
+        },
+        "checkpoint": {
+          "status": "NOT_MEASURED",
+          "duration_ns": null,
+          "source": null,
+          "boundary": "snapshot create CLI call"
+        },
+        "restore_interface": {
+          "status": "NOT_MEASURED",
+          "duration_ns": null,
+          "source": null,
+          "boundary": "snapshot start CLI call"
+        },
+        "restore_to_first_success": {
+          "status": "NOT_MEASURED",
+          "duration_ns": null,
+          "source": null,
+          "boundary": "snapshot start call through first successful true command"
+        },
+        "template_build": {
+          "status": "NOT_MEASURED",
+          "duration_ns": null,
+          "source": null,
+          "boundary": "not separately recorded"
+        },
+        "parent_delete": {
+          "status": "NOT_MEASURED",
+          "duration_ns": null,
+          "source": null,
+          "boundary": "delete original sandbox CLI call"
+        },
+        "full_run_including_cleanup": {
+          "status": "MEASURED",
+          "duration_ns": 13526758951,
+          "source": "audit/result.json",
+          "boundary": "controller start through sandbox cleanup and on-run report"
+        }
+      },
+      "storage": {
+        "mode": "isolated",
+        "capacity_bytes": 21474836480,
+        "observed_volume_used_peak_bytes": 5005996032,
+        "observed_host_available_min_bytes": 50609270784,
+        "cleanup": {
+          "owned_container_removed": true,
+          "mount_and_loop_removed": true,
+          "successful_fixture_removed": true,
+          "original_firecracker_identities_unchanged": true,
+          "original_service_unchanged": true
+        },
+        "temporary_checkpoint_images_retained": false,
+        "scope": "fixed capacity for temporary bulk writes; host raw export and other users excluded"
+      },
+      "final_checks": {
+        "status": "PASS",
+        "action_order": "PASS",
+        "expected_failures": "PASS",
+        "key_output_024": "PASS",
+        "final_patch": "PASS",
+        "independent_svg": "PASS",
+        "official_task_tests": "PASS",
+        "recovery": {
+          "interface": "NOT_APPLICABLE",
+          "file_state": "NOT_APPLICABLE",
+          "process_state": "NOT_APPLICABLE"
+        },
+        "official_full_tests": "NOT_RUN",
+        "patch_sha256": "f1cc23ac4f5ac1cff87eb7f8c54f8176c1a47cec37fa4cb6907b9dd8ad199af2",
+        "scope": "frozen replay and task-specific checks; patch equality does not prove full upstream tests"
+      },
+      "cleanup": {
+        "status": "PASS",
+        "sandbox": "PASS",
+        "service": "OWNED_TEMPORARY_SERVICE_REMOVED; ORIGINAL_SERVICE_RETAINED",
+        "cgroup_and_loop": "PASS_FROM_ISOLATED_SERVICE_CLEANUP",
+        "archived_images": "SUCCESS_VOLUME_REMOVED; RAW_AND_HASHES_RETAINED",
+        "evidence": "checks.json and live CLI deletion receipts"
+      },
+      "audit": ".artifacts/storage-isolated-service/20261008T054157Z-3569004/exp1/audit/20261008T054212Z-3569726"
+    },
+    {
+      "backend": "agentenv",
+      "mode": "checkpoint-022",
+      "status": "PASS",
+      "run_id": "20261008T054245Z-3571664",
+      "raw": ".artifacts/storage-isolated-service/20261008T054230Z-3570940/exp1/raw/20261008T054245Z-3571664",
+      "storage_result_dir": ".artifacts/storage-isolated-service/20261008T054230Z-3570940",
+      "report": ".artifacts/platform-use-review/20261008T055704Z-3579519/reports-1/02-agentenv-checkpoint-022",
+      "sample_interval_seconds": 0.1,
+      "guest_samples": 97,
+      "host_samples": 165,
+      "guest_observed_peak_nonfree_bytes": 418095104,
+      "host_memory": {
+        "sample_count": 165,
+        "scope": "single temporary AgentENV service cgroup including cache and VMM; pool disabled",
+        "observed_peak_current_bytes": 2137653248,
+        "observed_peak_file_bytes": 1613811712,
+        "observed_peak_anon_bytes": 560693248,
+        "observed_peak_vmm_pss_kib": "NOT_MEASURED"
+      },
+      "phase_breakdown": {
+        "guest_action_sum": {
+          "status": "MEASURED",
+          "duration_ns": 2364599961,
+          "source": "replay/steps.tsv",
+          "boundary": "sum of 26 guest runner action durations; excludes controller and setup"
+        },
+        "controller_runner_calls": {
+          "status": "MEASURED",
+          "duration_ns": 4560101381,
+          "source": "audit/events.json",
+          "boundary": "sum of controller calls that launch frozen runner segments"
+        },
+        "create_to_first_success": {
+          "status": "MEASURED",
+          "duration_ns": 3822514427,
+          "source": "audit/events.json",
+          "boundary": "cold start call through first successful true command"
+        },
+        "checkpoint": {
+          "status": "MEASURED",
+          "duration_ns": 4515278318,
+          "source": "audit/events.json",
+          "boundary": "snapshot create CLI call"
+        },
+        "restore_interface": {
+          "status": "MEASURED",
+          "duration_ns": 145421507,
+          "source": "audit/events.json",
+          "boundary": "snapshot start CLI call"
+        },
+        "restore_to_first_success": {
+          "status": "MEASURED",
+          "duration_ns": 206832478,
+          "source": "audit/events.json",
+          "boundary": "snapshot start call through first successful true command"
+        },
+        "template_build": {
+          "status": "NOT_MEASURED",
+          "duration_ns": null,
+          "source": null,
+          "boundary": "not separately recorded"
+        },
+        "parent_delete": {
+          "status": "MEASURED",
+          "duration_ns": 175810036,
+          "source": "audit/events.json",
+          "boundary": "delete original sandbox CLI call"
+        },
+        "full_run_including_cleanup": {
+          "status": "MEASURED",
+          "duration_ns": 22617488499,
+          "source": "audit/result.json",
+          "boundary": "controller start through sandbox cleanup and on-run report"
+        }
+      },
+      "storage": {
+        "mode": "isolated",
+        "capacity_bytes": 21474836480,
+        "observed_volume_used_peak_bytes": 5525245952,
+        "observed_host_available_min_bytes": 50607742976,
+        "cleanup": {
+          "owned_container_removed": true,
+          "mount_and_loop_removed": true,
+          "successful_fixture_removed": true,
+          "original_firecracker_identities_unchanged": true,
+          "original_service_unchanged": true
+        },
+        "temporary_checkpoint_images_retained": false,
+        "scope": "fixed capacity for temporary bulk writes; host raw export and other users excluded"
+      },
+      "final_checks": {
+        "status": "PASS",
+        "action_order": "PASS",
+        "expected_failures": "PASS",
+        "key_output_024": "PASS",
+        "final_patch": "PASS",
+        "independent_svg": "PASS",
+        "official_task_tests": "PASS",
+        "recovery": {
+          "interface": "PASS",
+          "file_state": "PASS",
+          "process_state": "PASS"
+        },
+        "official_full_tests": "NOT_RUN",
+        "patch_sha256": "f1cc23ac4f5ac1cff87eb7f8c54f8176c1a47cec37fa4cb6907b9dd8ad199af2",
+        "scope": "frozen replay and task-specific checks; patch equality does not prove full upstream tests"
+      },
+      "cleanup": {
+        "status": "PASS",
+        "sandbox": "PASS",
+        "service": "OWNED_TEMPORARY_SERVICE_REMOVED; ORIGINAL_SERVICE_RETAINED",
+        "cgroup_and_loop": "PASS_FROM_ISOLATED_SERVICE_CLEANUP",
+        "archived_images": "SUCCESS_VOLUME_REMOVED; RAW_AND_HASHES_RETAINED",
+        "evidence": "checks.json and live CLI deletion receipts"
+      },
+      "audit": ".artifacts/storage-isolated-service/20261008T054230Z-3570940/exp1/audit/20261008T054245Z-3571664",
+      "restored_progress": {
+        "status": "PASS",
+        "after_step": "022",
+        "next_step": "023",
+        "prefix_count": 22,
+        "process_identity_preserved": true,
+        "counter_before": 26,
+        "counter_after": 33
+      }
+    },
+    {
+      "backend": "trenvx",
+      "mode": "full-light",
+      "status": "PASS",
+      "run_id": "20261008T054310Z-3573485",
+      "raw": ".artifacts/storage-isolated-trenvx/20261008T054309Z-3573465/raw/20261008T054310Z-3573485",
+      "storage_result_dir": ".artifacts/storage-isolated-trenvx/20261008T054309Z-3573465",
+      "report": ".artifacts/platform-use-review/20261008T055704Z-3579519/reports-1/03-trenvx-full-light",
+      "sample_interval_seconds": 0.1,
+      "guest_samples": 227,
+      "host_samples": 658,
+      "guest_observed_peak_nonfree_bytes": 288174080,
+      "host_memory": {
+        "sample_count": 658,
+        "scope": "run-owned TrEnv-X sandbox parent cgroup; excludes orchestrator",
+        "observed_peak_current_bytes": 356458496,
+        "observed_peak_file_bytes": 8404992,
+        "observed_peak_anon_bytes": 336617472,
+        "observed_peak_vmm_pss_kib": "NOT_MEASURED"
+      },
+      "phase_breakdown": {
+        "guest_action_sum": {
+          "status": "MEASURED",
+          "duration_ns": 2051662942,
+          "source": "replay/steps.tsv",
+          "boundary": "sum of 26 guest runner action durations; excludes controller and setup"
+        },
+        "controller_runner_calls": {
+          "status": "MEASURED",
+          "duration_ns": 23998593364,
+          "source": "replay-*.json",
+          "boundary": "sum of controller calls that launch frozen runner segments"
+        },
+        "create_to_first_success": {
+          "status": "MEASURED",
+          "duration_ns": 815344822,
+          "source": "diagnostic-events.jsonl",
+          "boundary": "SDK create through first successful mkdir command"
+        },
+        "checkpoint": {
+          "status": "NOT_MEASURED",
+          "duration_ns": null,
+          "source": null,
+          "boundary": "controller file capture, sealing and template construction"
+        },
+        "restore_interface": {
+          "status": "NOT_MEASURED",
+          "duration_ns": null,
+          "source": null,
+          "boundary": "controller start of child VM from sealed file layer"
+        },
+        "restore_to_first_success": {
+          "status": "NOT_MEASURED",
+          "duration_ns": null,
+          "source": null,
+          "boundary": "start restored VM through first successful environment command"
+        },
+        "template_build": {
+          "status": "MEASURED",
+          "duration_ns": 12481169167,
+          "source": "diagnostic-events.jsonl",
+          "boundary": "prepare private template before trajectory"
+        },
+        "parent_delete": {
+          "status": "NOT_MEASURED",
+          "duration_ns": null,
+          "source": null,
+          "boundary": "delete parent VM after checkpoint"
+        },
+        "full_run_including_cleanup": {
+          "status": "MEASURED",
+          "duration_ns": 291748387793,
+          "source": "result.json",
+          "boundary": "outer start through sandbox cleanup and verified image archiving when enabled"
+        }
+      },
+      "storage": {
+        "mode": "isolated",
+        "capacity_bytes": 25769803776,
+        "observed_volume_used_peak_bytes": 15573565440,
+        "observed_host_available_min_bytes": 46312062976,
+        "cleanup": {
+          "mount_and_loop_removed": true,
+          "successful_fixture_removed": true,
+          "original_firecracker_identities_unchanged": true
+        },
+        "temporary_checkpoint_images_retained": false,
+        "scope": "fixed capacity for temporary bulk writes; host raw export and other users excluded"
+      },
+      "final_checks": {
+        "status": "PASS",
+        "action_order": "PASS",
+        "expected_failures": "PASS",
+        "key_output_024": "PASS",
+        "final_patch": "PASS",
+        "independent_svg": "PASS",
+        "official_task_tests": "PASS",
+        "recovery": {
+          "interface": "NOT_APPLICABLE",
+          "file_state": "NOT_APPLICABLE",
+          "process_state": "NOT_APPLICABLE"
+        },
+        "official_full_tests": "NOT_RUN",
+        "patch_sha256": "f1cc23ac4f5ac1cff87eb7f8c54f8176c1a47cec37fa4cb6907b9dd8ad199af2",
+        "scope": "frozen replay and task-specific checks; patch equality does not prove full upstream tests"
+      },
+      "cleanup": {
+        "status": "PASS",
+        "sandbox": "PASS",
+        "service": "PASS",
+        "cgroup_and_loop": "PASS",
+        "archived_images": "REMOVED_AFTER_VERIFICATION",
+        "evidence": "run checks, cgroup/loop receipt, archive manifest and current retention state"
+      }
+    }
+  ],
+  "failure": {
+    "backend": "trenvx",
+    "mode": "checkpoint-022",
+    "status": "FAIL",
+    "storage_result_dir": ".artifacts/storage-isolated-trenvx/20261008T054807Z-3575596",
+    "raw": ".artifacts/storage-isolated-trenvx/20261008T054807Z-3575596/raw/20261008T054807Z-3575610",
+    "first_failure_boundary": "after confirmed quiesced copy, before immutable file-layer construction: stat(root) on loop,ro,noload mounted captured ext4 returned EBADMSG (errno 74)",
+    "root_cause": "UNDETERMINED; no evidence attributes it to sampling or disk space",
+    "prefix_steps": 22,
+    "last_completed_step": "022",
+    "expected_failures": {
+      "008": 127,
+      "016": 127
+    },
+    "checkpoint_created": false,
+    "restore_executed": false,
+    "quiesce": {
+      "restore_semantics": "file-state-only",
+      "complete": true,
+      "frozen": true,
+      "paused": true,
+      "copied": true,
+      "resumed": true,
+      "runtime_removed": true,
+      "thawed": true
+    },
+    "host_cleanup": {
+      "cgroup_removed": true,
+      "loop_query_exit_code": 0,
+      "owned_loop_backings": []
+    },
+    "storage_cleanup": {
+      "mount_and_loop_removed": true,
+      "failure_volume_retained": true,
+      "original_firecracker_identities_unchanged": true
+    },
+    "volume_retained_bytes": 25769803776,
+    "archive_bytes": 3157982885,
+    "archive_sha256": "6559740fb109f418c2ccb3b378e8d74bfd26142ee742d948b59405743273961c",
+    "gzip_test": "PASS",
+    "tar_compare": "PASS",
+    "observed_volume_used_peak_bytes": 15573688320,
+    "observed_host_available_min_bytes": 46310256640,
+    "finished_utc": "2026-10-08T05:52:34.578067+00:00"
+  },
+  "offline_validation": {
+    "adapter_and_boundary_tests": 42,
+    "storage_safety_tests": 63,
+    "safety_result": ".artifacts/storage-safety/tests-20261008T055545Z-5tw2R8/result.json",
+    "report_review": ".artifacts/platform-use-review/20261008T055704Z-3579519",
+    "successful_run_reports_recomputed_twice_equal": true,
+    "raw_input_hashes_unchanged": true,
+    "failed_workflow_report_refused": true,
+    "final_resource_check": {
+      "status": "PASS",
+      "existing_firecracker_identities_unchanged": true,
+      "existing_firecracker_count": 12,
+      "original_agentenv_service_unchanged": true,
+      "failure_volume_detached": true,
+      "failure_volume_retained_bytes": 25769803776,
+      "host_available_bytes": 46306267136
+    },
+    "report_only_code_correction": "correct temporary-service cleanup scope and audit storage receipt; failed result remains unchanged",
+    "executed_code_inventory": ".artifacts/platform-use/20261008T054157Z-3568923/source-sha256.json",
+    "report_code_inventory": ".artifacts/platform-use-review/20261008T055704Z-3579519/report-source-sha256.json"
+  },
+  "limitations": [
+    "combined workflow not accepted because TrEnv-X restore failed; successful standalone 1-second-sampling restore remains historical evidence",
+    "new fixed-capacity config sampling is 0.1 seconds; difference from prior validation is not proven causal",
+    "physical page cache, VMM PSS and new-path monitoring impact NOT_MEASURED",
+    "failed 24 GiB volume retained; no restart/retry or deletion without diagnosis and separate approval",
+    "small host input/raw/report exports are outside the bulk-volume cap; other-user writes are not constrained",
+    "formal shared-service migration, true VM ENOSPC cleanup, concurrent/multitask sizing and fresh-host deployment remain unverified"
+  ]
+}

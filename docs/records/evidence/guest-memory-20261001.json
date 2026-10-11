@@ -1,0 +1,654 @@
+{
+  "status": "PARTIAL",
+  "initial_acceptance_item": 3,
+  "scope": "Exp1 Prettier #14400; not PPT three-task evaluation",
+  "completed_replays": {
+    "agentenv_sampling_comparison": 42,
+    "trenvx_periodic": 1,
+    "agentenv_checkpoint": 1,
+    "agentenv_physical": 1
+  },
+  "sampling_comparison": {
+    "status": "PASS",
+    "groups": 5,
+    "balanced_replays": 40,
+    "analysis": {
+      "task_window_ns": {
+        "monitor": {
+          "group_percent": [
+            4.892578373751322,
+            5.958222714212158,
+            7.023638672124299,
+            3.973901565681559,
+            6.7508617602344945
+          ],
+          "geometric_mean_percent": 5.713627050892045,
+          "mean_log_ratio_t95_percent": [
+            4.1334164011200825,
+            7.317817185674219
+          ]
+        },
+        "control": {
+          "group_percent": [
+            -2.1206704668304877,
+            3.3847363535810526,
+            -1.7848341769765241,
+            -0.8165581512010633,
+            -0.26565558299572745
+          ],
+          "geometric_mean_percent": -0.3397492865659843,
+          "mean_log_ratio_t95_percent": [
+            -3.006205121975545,
+            2.400010070281529
+          ]
+        }
+      },
+      "controller_exec_ns": {
+        "monitor": {
+          "group_percent": [
+            4.81813154848949,
+            5.916860610744168,
+            6.979770449168576,
+            3.8855976188633123,
+            6.6857588989645
+          ],
+          "geometric_mean_percent": 5.650849577313097,
+          "mean_log_ratio_t95_percent": [
+            4.050930386224269,
+            7.275369619240192
+          ]
+        },
+        "control": {
+          "group_percent": [
+            -2.107237889046909,
+            3.364625458783932,
+            -1.7928733251625917,
+            -0.8532268139890276,
+            -0.24904251825266233
+          ],
+          "geometric_mean_percent": -0.34657353479488484,
+          "mean_log_ratio_t95_percent": [
+            -3.0039858261498305,
+            2.383644223324779
+          ]
+        }
+      },
+      "guest_action_sum_ns": {
+        "monitor": {
+          "group_percent": [
+            0.9970666160193931,
+            1.6243801560511972,
+            2.651149800086583,
+            2.0953189754544965,
+            1.3889727803722662
+          ],
+          "geometric_mean_percent": 1.7497634663177792,
+          "mean_log_ratio_t95_percent": [
+            0.9574462304755538,
+            2.54829883292353
+          ]
+        },
+        "control": {
+          "group_percent": [
+            -1.2726743832131904,
+            0.5507749240174054,
+            -0.8418629338690198,
+            -0.4926735055858056,
+            -0.06532534622893937
+          ],
+          "geometric_mean_percent": -0.42633719210880144,
+          "mean_log_ratio_t95_percent": [
+            -1.2951267757563956,
+            0.4500993831816447
+          ]
+        }
+      },
+      "controller_end_to_end_ns": {
+        "monitor": {
+          "group_percent": [
+            0.30229336226532677,
+            2.144903455117886,
+            2.079771448160561,
+            2.5353292855775367,
+            1.5131146141495133
+          ],
+          "geometric_mean_percent": 1.7120921506750375,
+          "mean_log_ratio_t95_percent": [
+            0.6338581564120052,
+            2.801878802936906
+          ]
+        },
+        "control": {
+          "group_percent": [
+            -1.0866057351469616,
+            -0.4881748460643931,
+            0.404222180207614,
+            -0.3921423121351797,
+            1.4434855085112552
+          ],
+          "geometric_mean_percent": -0.027648595512596772,
+          "mean_log_ratio_t95_percent": [
+            -1.2303118983708474,
+            1.1896588663770526
+          ]
+        }
+      }
+    },
+    "identity": {
+      "workload_image": "ghcr.io/timesler/swe-polybench.eval.x86_64.prettier__prettier-14400@sha256:e625c9b9776870e2cc87172e886bbc90cfc3d6ce1521492f113a46b3f6dfcf44",
+      "sandbox_cpu": "2",
+      "sandbox_memory_mib": "4096",
+      "action_manifest_sha256": "6ea843b464f5f7ec3c081c539386593027ede2335c5309b945a9462feddceaa7",
+      "aenv_version": "aenv 0.2.2",
+      "host_kernel": "6.19.9+",
+      "agentenv_container_image": "sha256:db9eb044ae3d85f9b276b9d2e5dea28cb0be95263d217ea4989f095e1d828681",
+      "agentenv_container_id": "a51bd9172a9708f7bdb228274a863fafdf23c346125678def7dffccbaae9e275",
+      "overlaybd_io_engine": "0",
+      "overlaybd_direct_io": "false"
+    },
+    "limitations": [
+      "Joint original guest collector and host cgroup sampling at target interval 100 ms; impacts not separated",
+      "Guest samples begin after initial Git preparation; per-step boundaries add samples to the periodic loop",
+      "Five groups give approximate t intervals on group log ratios; shared-host load and dependence remain",
+      "Task window includes collector startup and stop; full lifetime also includes fixed settling and transfers",
+      "No physical scans, checkpoint or restore in these comparisons; full task physical pages remain unmeasured",
+      "Independent SVG checks passed; official task tests not run in these AgentENV groups"
+    ],
+    "sources": [
+      {
+        "result_dir": ".artifacts/exp1-guest-metrics/20261001T122755Z-2923189",
+        "result_sha256": "4de604b41ed2885c63aebe09d69ce09bcff4b643e0188460aea4dd84d0ef5eeb"
+      },
+      {
+        "result_dir": ".artifacts/exp1-guest-metrics/20261001T123327Z-2929678",
+        "result_sha256": "e2e960e67faa3ef2bb0ecf36c21857b50715385fbd90f077c31148d54efeceeb"
+      },
+      {
+        "result_dir": ".artifacts/exp1-guest-metrics/20261001T123707Z-2935408",
+        "result_sha256": "92308b016cb20c01331f57306afc18ca8bce1b2a64a01cc8312026378c90ff4f"
+      },
+      {
+        "result_dir": ".artifacts/exp1-guest-metrics/20261001T124021Z-2940935",
+        "result_sha256": "ab03bbc548cfbcc749e38543e4bfe80a939017aacf5e9beaed31c1683904a002"
+      },
+      {
+        "result_dir": ".artifacts/exp1-guest-metrics/20261001T124401Z-2946686",
+        "result_sha256": "732d4469f7a19f5072313b8fe78db60452a79c3fdffb8c6a35e2c593670c7b35"
+      }
+    ]
+  },
+  "file_lru": {
+    "status": "PARTIAL",
+    "unit": "bytes",
+    "selected_guest_file_lru_host_bytes": 205549568,
+    "selected_nonresident_mappings": 0,
+    "current_file_cache_physical_bytes": null,
+    "guest_meminfo_bytes": {
+      "before": {
+        "MemTotal": 4130914304,
+        "MemFree": 3787960320,
+        "MemAvailable": 3797868544,
+        "Buffers": 29532160,
+        "Cached": 176373760,
+        "SwapCached": 0,
+        "Active": 92815360,
+        "Inactive": 178352128,
+        "Unevictable": 8192,
+        "Mlocked": 4096,
+        "SwapTotal": 0,
+        "SwapFree": 0,
+        "Zswap": 0,
+        "Zswapped": 0,
+        "Dirty": 2088960,
+        "Writeback": 0,
+        "AnonPages": 65294336,
+        "Mapped": 57352192,
+        "Shmem": 1093632,
+        "KReclaimable": 29233152,
+        "Slab": 43339776,
+        "SReclaimable": 29233152,
+        "SUnreclaim": 14106624,
+        "KernelStack": 1486848,
+        "PageTables": 1146880,
+        "SecPageTables": 0,
+        "NFS_Unstable": 0,
+        "Bounce": 0,
+        "WritebackTmp": 0,
+        "CommitLimit": 2065457152,
+        "Committed_AS": 255504384,
+        "VmallocTotal": 35184372087808,
+        "VmallocUsed": 5021696,
+        "VmallocChunk": 0,
+        "Percpu": 606208,
+        "AnonHugePages": 0,
+        "ShmemHugePages": 0,
+        "ShmemPmdMapped": 0,
+        "FileHugePages": 0,
+        "FilePmdMapped": 0,
+        "Hugepagesize": 2097152,
+        "Hugetlb": 0,
+        "DirectMap4k": 44040192,
+        "DirectMap2M": 2103443456,
+        "DirectMap1G": 4294967296
+      },
+      "after": {
+        "MemTotal": 4130914304,
+        "MemFree": 3803226112,
+        "MemAvailable": 3780755456,
+        "Buffers": 25776128,
+        "Cached": 147513344,
+        "SwapCached": 0,
+        "Active": 77004800,
+        "Inactive": 177053696,
+        "Unevictable": 12288,
+        "Mlocked": 8192,
+        "SwapTotal": 0,
+        "SwapFree": 0,
+        "Zswap": 0,
+        "Zswapped": 0,
+        "Dirty": 2260992,
+        "Writeback": 0,
+        "AnonPages": 80936960,
+        "Mapped": 57643008,
+        "Shmem": 1306624,
+        "KReclaimable": 29130752,
+        "Slab": 43225088,
+        "SReclaimable": 29130752,
+        "SUnreclaim": 14094336,
+        "KernelStack": 1507328,
+        "PageTables": 1261568,
+        "SecPageTables": 0,
+        "NFS_Unstable": 0,
+        "Bounce": 0,
+        "WritebackTmp": 0,
+        "CommitLimit": 2065457152,
+        "Committed_AS": 272674816,
+        "VmallocTotal": 35184372087808,
+        "VmallocUsed": 5038080,
+        "VmallocChunk": 0,
+        "Percpu": 606208,
+        "AnonHugePages": 0,
+        "ShmemHugePages": 0,
+        "ShmemPmdMapped": 0,
+        "FileHugePages": 0,
+        "FilePmdMapped": 0,
+        "Hugepagesize": 2097152,
+        "Hugetlb": 0,
+        "DirectMap4k": 44040192,
+        "DirectMap2M": 2103443456,
+        "DirectMap1G": 4294967296
+      }
+    },
+    "guest_cache_and_buffers_delta_bytes": -32616448,
+    "guest_probe_elapsed_ns": 406983249,
+    "host_join_elapsed_ns": 80947153,
+    "scope": "host residency of the guest PFN list selected at one earlier file-LRU scan; single VM",
+    "reason": "Guest page types were not rechecked before/after host mapping reads; file-LRU may contain metadata",
+    "limitations": [
+      "Two host page-table reads agreeing does not prove guest pages remain file cache",
+      "Meminfo changes do not establish that the probe caused reclamation",
+      "Not named task file contents, complete host cache, DAX residency or multi-VM sharing benefit"
+    ],
+    "result_dir": ".artifacts/vm-pfn-smoke/20261001T124800Z-2952066",
+    "mapping_audit": "PASS",
+    "current_page_type_audit": "NOT_MEASURED"
+  },
+  "memory_runs": [
+    {
+      "name": "agentenv_full",
+      "result_dir": ".artifacts/exp1-guest-metrics/20261001T122755Z-2923189/memory-report-03",
+      "raw_dir": ".artifacts/exp1-guest-metrics/20261001T122755Z-2923189/run-03-light/raw/20261001T122833Z-2924407",
+      "guest_sample_count": 96,
+      "guest_peak": {
+        "timestamp_ns": 1790857817044165409,
+        "phase": "running",
+        "step": "024",
+        "status": "PASS",
+        "missing_fields": [],
+        "unit": "bytes",
+        "scope": "guest logical counters at one sample; not host physical residency",
+        "used_definition": "MemTotal - MemFree",
+        "percentage_denominator": "same-sample nonfree memory",
+        "slab_rule": "Slab includes SReclaimable and SUnreclaim; do not add them again",
+        "nonfree_bytes": 387354624,
+        "used_estimate_bytes": 341082112,
+        "components_bytes": {
+          "file_cache_and_buffers": 241311744,
+          "anonymous": 77508608,
+          "slab": 42504192,
+          "shared_memory": 1089536,
+          "kernel_stack": 1622016,
+          "page_tables": 2912256,
+          "percpu": 589824,
+          "unclassified_residual": 19816448
+        },
+        "percentages": {
+          "file_cache_and_buffers": 62.29737017415855,
+          "anonymous": 20.009728346498324,
+          "slab": 10.972940392729118,
+          "shared_memory": 0.281276105277628,
+          "kernel_stack": 0.4187418710148146,
+          "page_tables": 0.7518319956856898,
+          "percpu": 0.1522697712781144,
+          "unclassified_residual": 5.11584134335776
+        },
+        "reclaimable_slab_bytes": 28950528,
+        "unreclaimable_slab_bytes": 13553664
+      },
+      "host": {
+        "sample_count": 38,
+        "scope": "selected AgentENV service cgroup; may include pool/shared overhead",
+        "observed_peak_current_bytes": 9574797312,
+        "observed_peak_file_bytes": 8594612224,
+        "observed_peak_anon_bytes": 663506944,
+        "observed_peak_vmm_pss_kib": "NOT_MEASURED"
+      },
+      "phases": {
+        "guest_action_sum": {
+          "status": "MEASURED",
+          "duration_ns": 2028397355,
+          "source": "replay/steps.tsv",
+          "boundary": "sum of 26 guest runner action durations; excludes controller and setup"
+        },
+        "controller_runner_calls": {
+          "status": "MEASURED",
+          "duration_ns": 4073288978,
+          "source": "controller-exec-duration-ns.txt",
+          "boundary": "sum of controller calls that launch frozen runner segments"
+        },
+        "create_to_first_success": {
+          "status": "NOT_MEASURED",
+          "duration_ns": null,
+          "source": null,
+          "boundary": "cold start call through first successful true command"
+        },
+        "checkpoint": {
+          "status": "NOT_MEASURED",
+          "duration_ns": null,
+          "source": null,
+          "boundary": "snapshot create CLI call"
+        },
+        "restore_interface": {
+          "status": "NOT_MEASURED",
+          "duration_ns": null,
+          "source": null,
+          "boundary": "snapshot start CLI call"
+        },
+        "restore_to_first_success": {
+          "status": "NOT_MEASURED",
+          "duration_ns": null,
+          "source": null,
+          "boundary": "snapshot start call through first successful true command"
+        },
+        "template_build": {
+          "status": "NOT_MEASURED",
+          "duration_ns": null,
+          "source": null,
+          "boundary": "not separately recorded"
+        },
+        "parent_delete": {
+          "status": "NOT_MEASURED",
+          "duration_ns": null,
+          "source": null,
+          "boundary": "delete original sandbox CLI call"
+        },
+        "full_run_including_cleanup": {
+          "status": "MEASURED",
+          "duration_ns": 19163329016,
+          "source": "audit/result.json",
+          "boundary": "controller start through sandbox cleanup and on-run report"
+        }
+      },
+      "counter_scope": "guest logical near decomposition with unclassified residual; host scope differs between backends",
+      "official_task_tests": "NOT_RUN in comparison batch"
+    },
+    {
+      "name": "trenvx_full",
+      "result_dir": ".artifacts/guest-metrics-clean-20261001/trenvx-memory-report",
+      "raw_dir": ".artifacts/trenvx-service-smoke/20261001T123048Z-2928662",
+      "guest_sample_count": 89,
+      "guest_peak": {
+        "timestamp_ns": 1790857891371184038,
+        "phase": "running",
+        "step": "024",
+        "status": "PASS",
+        "missing_fields": [],
+        "unit": "bytes",
+        "scope": "guest logical counters at one sample; not host physical residency",
+        "used_definition": "MemTotal - MemFree",
+        "percentage_denominator": "same-sample nonfree memory",
+        "slab_rule": "Slab includes SReclaimable and SUnreclaim; do not add them again",
+        "nonfree_bytes": 282136576,
+        "used_estimate_bytes": 366292992,
+        "components_bytes": {
+          "file_cache_and_buffers": 31944704,
+          "anonymous": 96620544,
+          "slab": 63193088,
+          "shared_memory": 1060864,
+          "kernel_stack": 1818624,
+          "page_tables": 2772992,
+          "percpu": 565248,
+          "unclassified_residual": 84160512
+        },
+        "percentages": {
+          "file_cache_and_buffers": 11.322425632612767,
+          "anonymous": 34.24601849566644,
+          "slab": 22.398048808815204,
+          "shared_memory": 0.3760108012369158,
+          "kernel_stack": 0.64458994497757,
+          "page_tables": 0.9828544881752588,
+          "percpu": 0.20034552343897447,
+          "unclassified_residual": 29.829706305076872
+        },
+        "reclaimable_slab_bytes": 45809664,
+        "unreclaimable_slab_bytes": 17383424
+      },
+      "host": {
+        "sample_count": 674,
+        "scope": "run-owned TrEnv-X sandbox parent cgroup; excludes orchestrator",
+        "observed_peak_current_bytes": 350437376,
+        "observed_peak_file_bytes": 7000064,
+        "observed_peak_anon_bytes": 333881344,
+        "observed_peak_vmm_pss_kib": "NOT_MEASURED"
+      },
+      "phases": {
+        "guest_action_sum": {
+          "status": "MEASURED",
+          "duration_ns": 1491862306,
+          "source": "replay/steps.tsv",
+          "boundary": "sum of 26 guest runner action durations; excludes controller and setup"
+        },
+        "controller_runner_calls": {
+          "status": "MEASURED",
+          "duration_ns": 23709605182,
+          "source": "replay-*.json",
+          "boundary": "sum of controller calls that launch frozen runner segments"
+        },
+        "create_to_first_success": {
+          "status": "MEASURED",
+          "duration_ns": 1051921410,
+          "source": "diagnostic-events.jsonl",
+          "boundary": "SDK create through first successful mkdir command"
+        },
+        "checkpoint": {
+          "status": "NOT_MEASURED",
+          "duration_ns": null,
+          "source": null,
+          "boundary": "controller file capture, sealing and template construction"
+        },
+        "restore_interface": {
+          "status": "NOT_MEASURED",
+          "duration_ns": null,
+          "source": null,
+          "boundary": "controller start of child VM from sealed file layer"
+        },
+        "restore_to_first_success": {
+          "status": "NOT_MEASURED",
+          "duration_ns": null,
+          "source": null,
+          "boundary": "start restored VM through first successful environment command"
+        },
+        "template_build": {
+          "status": "MEASURED",
+          "duration_ns": 12531233021,
+          "source": "diagnostic-events.jsonl",
+          "boundary": "prepare private template before trajectory"
+        },
+        "parent_delete": {
+          "status": "NOT_MEASURED",
+          "duration_ns": null,
+          "source": null,
+          "boundary": "delete parent VM after checkpoint"
+        },
+        "full_run_including_cleanup": {
+          "status": "MEASURED",
+          "duration_ns": 107125724221,
+          "source": "result.json",
+          "boundary": "outer start through sandbox cleanup and verified image archiving when enabled"
+        }
+      },
+      "counter_scope": "guest logical near decomposition with unclassified residual; host scope differs between backends",
+      "official_task_tests": "PASS: 4 assertions"
+    },
+    {
+      "name": "agentenv_checkpoint_013",
+      "result_dir": ".artifacts/guest-metrics-clean-20261001/agentenv-checkpoint-report-with-gaps",
+      "raw_dir": ".artifacts/guest-metrics-clean-20261001/agentenv-checkpoint-metrics/raw/20261001T124842Z-2952229",
+      "guest_sample_count": 99,
+      "guest_peak": {
+        "timestamp_ns": 1790859038129162932,
+        "phase": "running",
+        "step": "023",
+        "status": "PASS",
+        "missing_fields": [],
+        "unit": "bytes",
+        "scope": "guest logical counters at one sample; not host physical residency",
+        "used_definition": "MemTotal - MemFree",
+        "percentage_denominator": "same-sample nonfree memory",
+        "slab_rule": "Slab includes SReclaimable and SUnreclaim; do not add them again",
+        "nonfree_bytes": 393961472,
+        "used_estimate_bytes": 344109056,
+        "components_bytes": {
+          "file_cache_and_buffers": 245026816,
+          "anonymous": 81469440,
+          "slab": 42819584,
+          "shared_memory": 1089536,
+          "kernel_stack": 1622016,
+          "page_tables": 2945024,
+          "percpu": 606208,
+          "unclassified_residual": 18382848
+        },
+        "percentages": {
+          "file_cache_and_buffers": 62.19562911979372,
+          "anonymous": 20.679545029215447,
+          "slab": 10.868977563369445,
+          "shared_memory": 0.27655902351791395,
+          "kernel_stack": 0.4117194485454659,
+          "page_tables": 0.7475411199600757,
+          "percpu": 0.1538749454159822,
+          "unclassified_residual": 4.666153750181946
+        },
+        "reclaimable_slab_bytes": 28987392,
+        "unreclaimable_slab_bytes": 13832192
+      },
+      "host": {
+        "sample_count": 303,
+        "scope": "selected AgentENV service cgroup; may include pool/shared overhead",
+        "observed_peak_current_bytes": 10595110912,
+        "observed_peak_file_bytes": 9750347776,
+        "observed_peak_anon_bytes": 609771520,
+        "observed_peak_vmm_pss_kib": "NOT_MEASURED"
+      },
+      "phases": {
+        "guest_action_sum": {
+          "status": "MEASURED",
+          "duration_ns": 2344383827,
+          "source": "replay/steps.tsv",
+          "boundary": "sum of 26 guest runner action durations; excludes controller and setup"
+        },
+        "controller_runner_calls": {
+          "status": "MEASURED",
+          "duration_ns": 4477109171,
+          "source": "audit/events.json",
+          "boundary": "sum of controller calls that launch frozen runner segments"
+        },
+        "create_to_first_success": {
+          "status": "MEASURED",
+          "duration_ns": 2978075979,
+          "source": "audit/events.json",
+          "boundary": "cold start call through first successful true command"
+        },
+        "checkpoint": {
+          "status": "MEASURED",
+          "duration_ns": 784001874,
+          "source": "audit/events.json",
+          "boundary": "snapshot create CLI call"
+        },
+        "restore_interface": {
+          "status": "MEASURED",
+          "duration_ns": 123165428,
+          "source": "audit/events.json",
+          "boundary": "snapshot start CLI call"
+        },
+        "restore_to_first_success": {
+          "status": "MEASURED",
+          "duration_ns": 184193029,
+          "source": "audit/events.json",
+          "boundary": "snapshot start call through first successful true command"
+        },
+        "template_build": {
+          "status": "NOT_MEASURED",
+          "duration_ns": null,
+          "source": null,
+          "boundary": "not separately recorded"
+        },
+        "parent_delete": {
+          "status": "MEASURED",
+          "duration_ns": 114879214,
+          "source": "audit/events.json",
+          "boundary": "delete original sandbox CLI call"
+        },
+        "full_run_including_cleanup": {
+          "status": "MEASURED",
+          "duration_ns": 36845306157,
+          "source": "audit/result.json",
+          "boundary": "controller start through sandbox cleanup and on-run report"
+        }
+      },
+      "counter_scope": "guest logical near decomposition with unclassified residual; host scope differs between backends",
+      "process_continuity": {
+        "before": {
+          "pid": "384",
+          "start_ticks": "111",
+          "boot_id": "4051af21-6952-452e-bac8-96f3e0946bd7",
+          "count": "129"
+        },
+        "after": {
+          "pid": "384",
+          "start_ticks": "111",
+          "boot_id": "4051af21-6952-452e-bac8-96f3e0946bd7",
+          "count": "134"
+        }
+      },
+      "official_task_tests": "PASS: 4 assertions"
+    }
+  ],
+  "remaining": [
+    "Full task physical content attribution, current page types and multi-VM task dedup",
+    "Separate guest and host sampler cost; persistent guest collector",
+    "Checkpoint/restore lifecycle and fine-scan cost controls; TrEnv-X guest sampling impact"
+  ],
+  "cleanup": {
+    "agentenv_instances": [],
+    "agentenv_templates": [],
+    "cpu_policy": "schedutil / 800000..2801000 kHz restored on CPUs 2,4,66,68",
+    "writer_lock_available": true,
+    "disk_free_gib": 51.118
+  },
+  "analysis_code_sha256": {
+    "memory_composition.py": "38cf2a9709954a68071b6406c27b5840b12b0a7ba4c62929a5ea4e9c1e63b125",
+    "report_memory_metrics.py": "6aa627234d99ed587b2f19725e7c86ce52893d8166d488c9e44b914df26f6fa5",
+    "report_guest_metrics_comparison.py": "199bfc253b0c1686d79b764288904b9a06fc374afefc80a0bfc9ee0f3ca778bb",
+    "exp1_physical_workload.py": "48c0f6b0c470a0334b873ee362230f87c20275b03240b7ede0034a05dd449d4e"
+  }
+}

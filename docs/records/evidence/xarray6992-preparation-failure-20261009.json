@@ -1,0 +1,100 @@
+{
+  "status": "FAIL",
+  "task_id": "pydata__xarray-6992",
+  "run_id": "20261008T154958Z-3773515",
+  "result_dir": ".artifacts/storage-isolated-service/20261008T154958Z-3773515",
+  "preparation_dir": ".artifacts/python-backbone/20261008T153524Z",
+  "prepared_inputs": "PASS: seven logical paths checked against sampled commands; backbone 35 actions; complete reference reconstructed from original edits",
+  "failed_stage": "cold-start image preparation",
+  "creation_error": "TimeoutError",
+  "creation_elapsed_ns": 600179433765,
+  "observed_download_error": "HTTP/2 stream ID 7 PROTOCOL_ERROR received from peer; regctl then retried",
+  "error_scope": "Image layer copy; no sandbox returned, no frozen tools or evaluation tests run. Proxy versus registry cause not confirmed.",
+  "failed_layer": {
+    "digest": "sha256:8a68fda39744c937f8ecbbbe4ac404a01d0f97fabc4116f0679fa766899627a8",
+    "compressed_bytes": 929699006
+  },
+  "transport_probe": {
+    "results": [
+      {
+        "requested_http": "1.1",
+        "exit_code": 0,
+        "response": "206 1.1 65536",
+        "elapsed_ns": 2347490177,
+        "retained_bytes": 65536
+      },
+      {
+        "requested_http": "2",
+        "exit_code": 0,
+        "response": "206 2 65536",
+        "elapsed_ns": 7132534691,
+        "retained_bytes": 65536
+      }
+    ],
+    "layer": "sha256:8a68fda39744c937f8ecbbbe4ac404a01d0f97fabc4116f0679fa766899627a8",
+    "compressed_layer_bytes": 1646224254,
+    "scope": "64 KiB curl range requests only; not full regctl copy or proof of root cause",
+    "range_contents_equal": true,
+    "range_sha256": "cb144b718e8753ffd3bf5475699c7389ed6a8c356b02ae9fb332f126d1bbc16e"
+  },
+  "offline_checks": {
+    "xarray_tests": 4,
+    "isolated_storage_tests": 23,
+    "syntax": "PASS"
+  },
+  "executed_tools": 0,
+  "task_evaluation": "NOT_RUN",
+  "guest_memory": "NOT_MEASURED",
+  "checkpoint_restore": "NOT_RUN",
+  "physical_page_cache": "NOT_MEASURED",
+  "monitoring_impact": "NOT_VALIDATED",
+  "host_during_image_preparation": {
+    "sample_count": 5494,
+    "observed_peak_bytes": 1215315968,
+    "components_at_peak_bytes": {
+      "anon": 32092160,
+      "file": 1134333952,
+      "kernel": 41312256
+    },
+    "scope": "temporary service cgroup charged memory; image preparation only, not task execution"
+  },
+  "storage": {
+    "capacity_bytes": 34359738368,
+    "disk_sample_count": 2459,
+    "observed_volume_used_peak_bytes": 5566107648,
+    "observed_host_available_min_bytes": 28654563328,
+    "host_available_after_cleanup_bytes": 28651765760
+  },
+  "cleanup": {
+    "owned_container_removed": true,
+    "mount_and_loop_removed": true,
+    "failed_fixture_retained": true,
+    "original_firecracker_identities_unchanged": true,
+    "original_service_unchanged": true
+  },
+  "backup": {
+    "status": "PASS",
+    "source": "/home/yyxie/agentenv_experiment/.artifacts/storage-isolated-service/20261008T154958Z-3773515/volume.ext4",
+    "backup": "/home/yyxie/agentenv_experiment/.artifacts/storage-isolated-service/20261008T154958Z-3773515/volume.ext4.gz",
+    "source_sha256": "e398b19a9596d68374f3ec83e50a879ca68628bb0241c4393869b8a7ec668106",
+    "backup_sha256": "d0c7f16130a96e3da6fe2e8387f4e8ab5b1229f287e1a3a8de4a9ba97175a264",
+    "uncompressed_bytes": 34359738368,
+    "compressed_bytes": 2389684216,
+    "source_retained": true,
+    "elapsed_ns": 68973518123,
+    "host_available_bytes": 26261811200
+  },
+  "failed_volume_deletion": "WAITING_USER_CONFIRMATION",
+  "input_refetch": {
+    "status": "FAIL",
+    "error": "Hugging Face selected-row API HTTP 500",
+    "live_existing_inputs_unchanged": true
+  },
+  "new_runner": "Implemented, check-only PASS; full replay and offline result report not live-verified",
+  "next": [
+    "Keep pinned image/trajectory; do not repeat cold creation unchanged.",
+    "First make a digest-checked resumable copy of missing image layers, independent of VM creation; compare bounded transport settings.",
+    "Recheck storage capacity and fresh shared-disk window before any real VM. After image preparation, run one first-segment smoke and complete backbone.",
+    "After backbone correctness, run separate 957 selected-case evaluation and audit memory/timing report."
+  ]
+}

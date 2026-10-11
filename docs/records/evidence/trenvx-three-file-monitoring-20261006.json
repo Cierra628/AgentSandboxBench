@@ -1,0 +1,278 @@
+{
+  "status": "PASS",
+  "third_initial_acceptance": "PARTIAL",
+  "driver_id": "20261006T024854Z-3270373",
+  "run_id": "20261006T024854Z-3270375",
+  "protocol": {
+    "vm_count": 1,
+    "full_replays": 1,
+    "checkpoint": false,
+    "host_periodic_sampling": true,
+    "guest_periodic_sampling": true,
+    "monitoring_acceptance": true,
+    "cache_policy": "preserve; no global drop",
+    "base_file_physical": true,
+    "probe_order": "full frozen replay; official task evaluation; source metadata; optional upper physical proof; source content",
+    "performance_comparison": "NOT_RUN",
+    "physical_cache_measurement": "REQUESTED",
+    "stop_policy": "first failure; no automatic retry"
+  },
+  "configuration": {
+    "cpu": 2,
+    "memory_mib": 4096,
+    "host_kernel": "6.19.9+",
+    "source_revisions": {
+      "AgentENV": {
+        "url": "https://github.com/kvcache-ai/AgentENV.git",
+        "commit": "2f48c9c78ec58e4d73c49aa07cb81d984a4a4184"
+      },
+      "IncrementalDAX_moti": {
+        "url": "https://github.com/132ash/IncrementalDAX_moti.git",
+        "commit": "a9bc7deadb68a6e24b7242eab343dfedf953ea38",
+        "submodules": {
+          "baselines/AgentENV": "6c67f92afb8e697bd4d5eb1715864119c1e10c5d",
+          "baselines/TrEnv-X": "53041d8c924514fca27e363cce7f5af8079267ce"
+        }
+      }
+    }
+  },
+  "physical": {
+    "status": "PASS",
+    "page_size": 4096,
+    "verified_unique_host_pages": 4,
+    "verified_file_cache_physical_bytes": 16384,
+    "unknown_resident_unique_pages": 0,
+    "classification_conflict_pages": 0,
+    "scope": "declared files and pages resident before this probe; single VM; not all task or host cache",
+    "limitations": [
+      "Non-atomic rechecks cannot rule out intervening PFN reuse",
+      "File pages absent before the probe are not read; full file hashes taken after both host checks",
+      "Mapping selected initially resident pages may fault them; file flags checked before/after",
+      "Whole-task cache, base/DAX layers, unmapped backing cache and multi-VM sharing not measured"
+    ],
+    "host_read_elapsed_ns": 331922,
+    "guest_before_elapsed_ns": 647045,
+    "guest_after_elapsed_ns": 1252210,
+    "controller_elapsed_ns": 6694422927
+  },
+  "files": [
+    {
+      "path": "/testbed/src/language-html/utils/index.js",
+      "bytes": 16198,
+      "initially_resident_pages": 4
+    }
+  ],
+  "timing_ns": {
+    "task_window_ns": 3412283284,
+    "guest_action_sum_ns": 1768968317,
+    "controller_end_to_end_ns": 102922546196
+  },
+  "timing_scope": {
+    "task_window_ns": "controller replay call",
+    "guest_action_sum_ns": "sum of frozen guest actions",
+    "controller_end_to_end_ns": "outer launch through cleanup and image retention"
+  },
+  "checks": {
+    "private_template_prepare": "PASS",
+    "template_build": "PASS",
+    "frozen_input_hashes": "PASS",
+    "owned_ram_registration": "PASS",
+    "unfixed_seed_oracle": "PASS",
+    "guest_memory_sampling": "PASS",
+    "patch_matches_full_replay": "PASS",
+    "exp1_replay_correctness": "PASS",
+    "official_task_tests": "PASS",
+    "upper_file_physical_proof": "PASS",
+    "combined_file_physical_proof": "PASS",
+    "merged_file_origins": "PASS",
+    "base_file_contents": "PASS",
+    "post_scan_correctness": "PASS",
+    "sdk_cleanup": "PASS",
+    "host_light_sampling": "PASS",
+    "owned_kvm_capture_shutdown": "PASS",
+    "service_shutdown": "PASS",
+    "successful_image_cleanup": "PASS"
+  },
+  "host_cleanup": {
+    "cgroup_removed": true,
+    "loop_query_exit_code": 0,
+    "owned_loop_backings": []
+  },
+  "observed_min_free_bytes": 31573696512,
+  "evidence_sha256": {
+    "trenvx-monitoring-acceptance/20261006T024854Z-3270373/result.json": "2dfacf7a33a4ee7c8614d18ce3a76813f3923f8b971dce9b4377a274e6cbaf75",
+    "trenvx-monitoring-acceptance/20261006T024854Z-3270373/code/sha256.json": "8bde0f97d0962ede2efb7d1e88be158235c79f9e350fb6302bd86a2a77c469aa",
+    "trenvx-service-smoke/20261006T024854Z-3270375/result.json": "97165473826a7faabe5058d252106d0b060a42b055af506cb05d90616019a39a",
+    "trenvx-service-smoke/20261006T024854Z-3270375/config.json": "da62d7e68d107e3f5322698fe134617d92470c2c632f1f78aac087cd81e2fba8",
+    "trenvx-service-smoke/20261006T024854Z-3270375/correctness.json": "7f78896e86e6e8d68b0640f401a30d6bcf167196841b2c6850744c3dd7847ab9",
+    "trenvx-service-smoke/20261006T024854Z-3270375/official-task-result.json": "41711baf67dd69014ecf1b28eea1314de1a84936239583f7d34081fb29262971",
+    "trenvx-service-smoke/20261006T024854Z-3270375/image-cleanup.json": "58ec51811d2885dd02433cff769925550ae0308dbfabf8a2056bab2f69de9b20",
+    "trenvx-service-smoke/20261006T024854Z-3270375/named-guest-files/result.json": "798a6c50f23d274df3317829db0a82e12b6ef2469f027edbfd424a98e8aeca8f",
+    "trenvx-service-smoke/20261006T024854Z-3270375/named-guest-files/pages.json": "feaf48011d46dac50a3ccd28b0c326499b07a25ec42f4d7d9387b4fca7de3865",
+    "trenvx-service-smoke/20261006T024854Z-3270375/named-guest-files/ram-attestation.json": "6893adb43e83d9a21c95a8413ad84fad101acb1e7e427205ad435140605e9af6",
+    "trenvx-monitoring-acceptance/20261006T024854Z-3270373/memory/summary.json": "f2d605e44eae4b47152936ae5d72e096fadc86be3d1ff8057be2ba12cc46c2e9",
+    "trenvx-service-smoke/20261006T024854Z-3270375/post-scan-correctness.json": "2c5314954a9af456c2d8559b2918f3674fde94dfea84a290117ae532837dc086",
+    "trenvx-service-smoke/20261006T024854Z-3270375/official-task-post-scan-result.json": "41711baf67dd69014ecf1b28eea1314de1a84936239583f7d34081fb29262971",
+    "trenvx-service-smoke/20261006T024854Z-3270375/replay/guest-memory.tsv": "1e287c8c4b807ad7b9006b381d8526a8c21e66c3bb9ad853b5d6c51a953ecc54",
+    "trenvx-service-smoke/20261006T024854Z-3270375/host/memory-samples.tsv": "ab9a5de9e228971da4b26b0762a5f470417cb308051083ff675d224b70edbd82",
+    "trenvx-service-smoke/20261006T024854Z-3270375/base-guest-files/manifest.json": "9613965c6176ae3a79f09b26273d5f546c01c00b6c8ea9583f22a1a549464f75",
+    "trenvx-service-smoke/20261006T024854Z-3270375/base-guest-files/pages.json": "23e6ab958e278457178b767fd6e48cb338fc83941ae2e86010fefb852159bffe",
+    "trenvx-service-smoke/20261006T024854Z-3270375/base-guest-files/result.json": "5bb3172d5e83cdc059fe8d65d58e584454e31e1c286bd0432b372e836962ed9b",
+    "trenvx-service-smoke/20261006T024854Z-3270375/base-guest-files/combined.json": "27ee00e22d93d36cc1b7f781b73109e5a58ccb87849e641dfeb81c1885863675",
+    "trenvx-service-smoke/20261006T024854Z-3270375/base-guest-files/combined-host-rechecks.json": "b9d92cf5b910c1676c52e6711c906a222490bee3f175937becfc409fdb2d795e",
+    "trenvx-service-smoke/20261006T024854Z-3270375/base-guest-files/file-hashes.json": "a0c9f2e07a47ef63e7905c301b5e45d3ce20a399c89010dc8718c5b31cdaf274"
+  },
+  "unmeasured": [
+    "whole-task physical cache",
+    "unmapped host backing cache",
+    "multi-VM sharing",
+    "checkpoint/restore and fine-scan impact comparison",
+    "atomic simultaneous page-state snapshot"
+  ],
+  "guest_memory": {
+    "status": "PASS",
+    "sample_count": 23,
+    "observed_peak_nonfree_bytes": 288165888,
+    "composition_at_observed_peak": {
+      "timestamp_ns": 1791254967528286111,
+      "phase": "running",
+      "step": "024",
+      "status": "PASS",
+      "missing_fields": [],
+      "unit": "bytes",
+      "scope": "guest logical counters at one sample; not host physical residency",
+      "used_definition": "MemTotal - MemFree",
+      "percentage_denominator": "same-sample nonfree memory",
+      "slab_rule": "Slab includes SReclaimable and SUnreclaim; do not add them again",
+      "nonfree_bytes": 288165888,
+      "used_estimate_bytes": 372269056,
+      "components_bytes": {
+        "file_cache_and_buffers": 32002048,
+        "anonymous": 102281216,
+        "slab": 63205376,
+        "shared_memory": 1060864,
+        "kernel_stack": 1802240,
+        "page_tables": 2768896,
+        "percpu": 565248,
+        "unclassified_residual": 84480000
+      },
+      "percentages": {
+        "file_cache_and_buffers": 11.105425497135872,
+        "anonymous": 35.493866643924214,
+        "slab": 21.933677312978837,
+        "shared_memory": 0.36814350489673503,
+        "kernel_stack": 0.6254175372763067,
+        "page_tables": 0.9608687618154166,
+        "percpu": 0.1961536821457507,
+        "unclassified_residual": 29.316447059826874
+      },
+      "reclaimable_slab_bytes": 45854720,
+      "unreclaimable_slab_bytes": 17350656
+    },
+    "peak_scope": "sample maximum, not instantaneous peak; incomplete samples excluded and counted",
+    "sampling_mode": "persistent asynchronous process; advisory phase markers",
+    "time_scope": "includes runner preparation; short actions may have no sample; per-runner lifetime only"
+  },
+  "host_memory": {
+    "sample_count": 623,
+    "scope": "run-owned TrEnv-X sandbox parent cgroup; excludes orchestrator",
+    "observed_peak_current_bytes": 372183040,
+    "observed_peak_file_bytes": 11526144,
+    "observed_peak_anon_bytes": 351084544,
+    "observed_peak_vmm_pss_kib": "NOT_MEASURED"
+  },
+  "phase_breakdown": {
+    "guest_action_sum": {
+      "status": "MEASURED",
+      "duration_ns": 1768968317,
+      "source": "replay/steps.tsv",
+      "boundary": "sum of 26 guest runner action durations; excludes controller and setup"
+    },
+    "controller_runner_calls": {
+      "status": "MEASURED",
+      "duration_ns": 3412283284,
+      "source": "replay-*.json",
+      "boundary": "sum of controller calls that launch frozen runner segments"
+    },
+    "create_to_first_success": {
+      "status": "MEASURED",
+      "duration_ns": 968759076,
+      "source": "diagnostic-events.jsonl",
+      "boundary": "SDK create through first successful mkdir command"
+    },
+    "checkpoint": {
+      "status": "NOT_MEASURED",
+      "duration_ns": null,
+      "source": null,
+      "boundary": "controller file capture, sealing and template construction"
+    },
+    "restore_interface": {
+      "status": "NOT_MEASURED",
+      "duration_ns": null,
+      "source": null,
+      "boundary": "controller start of child VM from sealed file layer"
+    },
+    "restore_to_first_success": {
+      "status": "NOT_MEASURED",
+      "duration_ns": null,
+      "source": null,
+      "boundary": "start restored VM through first successful environment command"
+    },
+    "template_build": {
+      "status": "MEASURED",
+      "duration_ns": 12530751235,
+      "source": "diagnostic-events.jsonl",
+      "boundary": "prepare private template before trajectory"
+    },
+    "parent_delete": {
+      "status": "NOT_MEASURED",
+      "duration_ns": null,
+      "source": null,
+      "boundary": "delete parent VM after checkpoint"
+    },
+    "full_run_including_cleanup": {
+      "status": "MEASURED",
+      "duration_ns": 102922546196,
+      "source": "result.json",
+      "boundary": "outer start through sandbox cleanup and verified image archiving when enabled"
+    }
+  },
+  "post_scan_correctness": {
+    "status": "PASS",
+    "independent_properties": "PASS",
+    "task_patch_unchanged": "PASS",
+    "official_task_tests": "PASS",
+    "scope": "final task state after physical/source probes; no performance-impact comparison"
+  },
+  "monitoring_impact": "NOT_VALIDATED_BY_THIS_RUN; matched historical controls have different configuration",
+  "combined_physical": {
+    "status": "PASS",
+    "file_cache_unique_pages": 9,
+    "verified_anonymous_unique_pages": 0,
+    "unknown_unique_pages": 0,
+    "attributed_physical_bytes": 36864,
+    "scope": "declared upper/base mappings across one analysis interval; host PFNs deduplicated",
+    "page_size": 4096,
+    "declared_file_count": 3,
+    "limitation": "non-atomic; not whole-task or unmapped backing cache; does not prove sharing between VMs",
+    "controller_elapsed_ns": 47456081
+  },
+  "base_physical": {
+    "status": "PASS",
+    "content_accounting": {
+      "status": "PASS",
+      "file_cache_unique_pages": 5,
+      "verified_anonymous_unique_pages": 0,
+      "unknown_unique_pages": 0,
+      "attributed_physical_bytes": 20480,
+      "scope": "resident declared mappings only; includes full allocated tail page; not total backing cache"
+    },
+    "scan_elapsed_ns": 37439418,
+    "vmm_pss_at_analysis": {
+      "status": "PASS",
+      "bytes": 681250816,
+      "scope": "this process smaps_rollup"
+    },
+    "scope": "two declared immutable base file data mappings; measured separately from upper"
+  }
+}

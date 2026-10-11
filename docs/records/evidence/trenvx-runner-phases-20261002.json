@@ -1,0 +1,391 @@
+{
+  "status": "PASS",
+  "third_acceptance": "PARTIAL",
+  "source_dir": ".artifacts/trenvx-runner-phases/20261002T062454Z-3108305",
+  "protocol": {
+    "replays": 4,
+    "calibration_before_first": true,
+    "fixture_files": 256,
+    "calibration_iterations": 32,
+    "performance_threshold": null,
+    "cpu_cache_policy": "original; no drops, affinity or CPU policy changes",
+    "sampling": "off in all runs",
+    "checkpoint_restore": false,
+    "stop_policy": "first failure, source change, oversized raw result or disk guard; no retries",
+    "scope": "diagnostic phase timing; first run includes prior fixture activity; not formal overhead comparison"
+  },
+  "calibration": {
+    "status": "PASS",
+    "iterations": 32,
+    "max_clock_difference_ns": 5697,
+    "differences": [
+      {
+        "comparison": "identical_off",
+        "difference_percent": -6.248790601157905
+      },
+      {
+        "comparison": "off_on_on_off",
+        "difference_percent": -1.2448078645592608
+      }
+    ],
+    "performance_threshold": null,
+    "scope": "small warm fixture; function and clock calibration only; no formal monitoring acceptance",
+    "result_sha256": "342741a5689d3145fb9e2677c0104c54e1255655f40d9fb69a6d46b6410314e9"
+  },
+  "runs": [
+    {
+      "run_id": "20261002T062454Z-3108308",
+      "raw_dir": ".artifacts/trenvx-service-smoke/20261002T062454Z-3108308",
+      "calibration_before_replay": true,
+      "phase_seconds": {
+        "entry": 0.03375,
+        "baseline": 10.160192,
+        "actions": 2.140064,
+        "finalize": 10.237225
+      },
+      "initial_git_commands": {
+        "add": {
+          "boundary_ns": 86293000,
+          "real_seconds": 0.086,
+          "user_seconds": 0.037,
+          "system_seconds": 0.069
+        },
+        "write_tree": {
+          "boundary_ns": 12174000,
+          "real_seconds": 0.012,
+          "user_seconds": 0.011,
+          "system_seconds": 0.0
+        },
+        "reset": {
+          "boundary_ns": 10055507000,
+          "real_seconds": 10.055,
+          "user_seconds": 0.02,
+          "system_seconds": 0.036
+        },
+        "rev_parse": {
+          "boundary_ns": 5956000,
+          "real_seconds": 0.005,
+          "user_seconds": 0.001,
+          "system_seconds": 0.005
+        }
+      },
+      "guest_runner_seconds": 22.576443122,
+      "guest_action_sum_seconds": 1.942351187,
+      "controller_runner_seconds": 23.735860241,
+      "controller_end_to_end_seconds": 111.664998145,
+      "controller_outside_guest_clock_seconds": 1.159417119,
+      "clock_realtime_minus_monotonic_ns": -338252,
+      "guest_cpu_seconds": 3.177134,
+      "action_seconds": {
+        "001": 0.020578617,
+        "002": 0.019295131,
+        "003": 0.019285686,
+        "004": 0.01931315,
+        "005": 0.019360247,
+        "006": 0.025559964,
+        "007": 0.018348932,
+        "008": 0.016043355,
+        "009": 0.020318388,
+        "010": 0.019568758,
+        "011": 0.019148138,
+        "012": 0.018986207,
+        "013": 0.018928026,
+        "014": 0.017870247,
+        "015": 0.017082131,
+        "016": 0.013917272,
+        "017": 0.018943118,
+        "018": 0.019573882,
+        "019": 0.019346922,
+        "020": 0.0534332,
+        "021": 0.046895809,
+        "022": 0.031367511,
+        "023": 0.72600258,
+        "024": 0.556922025,
+        "025": 0.072835355,
+        "026": 0.093426536
+      },
+      "patch_sha256": "f1cc23ac4f5ac1cff87eb7f8c54f8176c1a47cec37fa4cb6907b9dd8ad199af2"
+    },
+    {
+      "run_id": "20261002T062646Z-3109075",
+      "raw_dir": ".artifacts/trenvx-service-smoke/20261002T062646Z-3109075",
+      "calibration_before_replay": false,
+      "phase_seconds": {
+        "entry": 0.035324,
+        "baseline": 10.152661,
+        "actions": 2.306419,
+        "finalize": 10.219588
+      },
+      "initial_git_commands": {
+        "add": {
+          "boundary_ns": 83513000,
+          "real_seconds": 0.083,
+          "user_seconds": 0.037,
+          "system_seconds": 0.066
+        },
+        "write_tree": {
+          "boundary_ns": 10907000,
+          "real_seconds": 0.011,
+          "user_seconds": 0.007,
+          "system_seconds": 0.004
+        },
+        "reset": {
+          "boundary_ns": 10052455000,
+          "real_seconds": 10.052,
+          "user_seconds": 0.021,
+          "system_seconds": 0.034
+        },
+        "rev_parse": {
+          "boundary_ns": 5500000,
+          "real_seconds": 0.005,
+          "user_seconds": 0.005,
+          "system_seconds": 0.001
+        }
+      },
+      "guest_runner_seconds": 22.719128736,
+      "guest_action_sum_seconds": 2.104898948,
+      "controller_runner_seconds": 23.886390518,
+      "controller_end_to_end_seconds": 105.877450481,
+      "controller_outside_guest_clock_seconds": 1.167261782,
+      "clock_realtime_minus_monotonic_ns": -267861,
+      "guest_cpu_seconds": 3.333956,
+      "action_seconds": {
+        "001": 0.020790604,
+        "002": 0.019500739,
+        "003": 0.019254138,
+        "004": 0.019127079,
+        "005": 0.018995843,
+        "006": 0.025814195,
+        "007": 0.019341735,
+        "008": 0.015272536,
+        "009": 0.020473135,
+        "010": 0.019097502,
+        "011": 0.019203159,
+        "012": 0.019084316,
+        "013": 0.019022444,
+        "014": 0.019059213,
+        "015": 0.019403862,
+        "016": 0.01514002,
+        "017": 0.020044941,
+        "018": 0.020502384,
+        "019": 0.019616757,
+        "020": 0.052582881,
+        "021": 0.046189524,
+        "022": 0.031507384,
+        "023": 0.800531607,
+        "024": 0.655656548,
+        "025": 0.064421452,
+        "026": 0.08526495
+      },
+      "patch_sha256": "f1cc23ac4f5ac1cff87eb7f8c54f8176c1a47cec37fa4cb6907b9dd8ad199af2"
+    },
+    {
+      "run_id": "20261002T062832Z-3110009",
+      "raw_dir": ".artifacts/trenvx-service-smoke/20261002T062832Z-3110009",
+      "calibration_before_replay": false,
+      "phase_seconds": {
+        "entry": 0.035319,
+        "baseline": 10.175068,
+        "actions": 2.204927,
+        "finalize": 10.220616
+      },
+      "initial_git_commands": {
+        "add": {
+          "boundary_ns": 105556000,
+          "real_seconds": 0.105,
+          "user_seconds": 0.024,
+          "system_seconds": 0.104
+        },
+        "write_tree": {
+          "boundary_ns": 13946000,
+          "real_seconds": 0.013,
+          "user_seconds": 0.013,
+          "system_seconds": 0.0
+        },
+        "reset": {
+          "boundary_ns": 10049840000,
+          "real_seconds": 10.049,
+          "user_seconds": 0.005,
+          "system_seconds": 0.055
+        },
+        "rev_parse": {
+          "boundary_ns": 5451000,
+          "real_seconds": 0.005,
+          "user_seconds": 0.0,
+          "system_seconds": 0.005
+        }
+      },
+      "guest_runner_seconds": 22.64131665,
+      "guest_action_sum_seconds": 2.005775115,
+      "controller_runner_seconds": 23.801784233,
+      "controller_end_to_end_seconds": 105.951563275,
+      "controller_outside_guest_clock_seconds": 1.160467583,
+      "clock_realtime_minus_monotonic_ns": -335958,
+      "guest_cpu_seconds": 3.263595,
+      "action_seconds": {
+        "001": 0.021398148,
+        "002": 0.01965345,
+        "003": 0.019648608,
+        "004": 0.020086438,
+        "005": 0.019848539,
+        "006": 0.026279297,
+        "007": 0.01963699,
+        "008": 0.015817689,
+        "009": 0.021238327,
+        "010": 0.019664154,
+        "011": 0.019636361,
+        "012": 0.019971995,
+        "013": 0.018859535,
+        "014": 0.017890675,
+        "015": 0.019162649,
+        "016": 0.015881945,
+        "017": 0.020654554,
+        "018": 0.020874245,
+        "019": 0.020070246,
+        "020": 0.053063598,
+        "021": 0.048468858,
+        "022": 0.032553882,
+        "023": 0.824402281,
+        "024": 0.571003486,
+        "025": 0.050752603,
+        "026": 0.049256562
+      },
+      "patch_sha256": "f1cc23ac4f5ac1cff87eb7f8c54f8176c1a47cec37fa4cb6907b9dd8ad199af2"
+    },
+    {
+      "run_id": "20261002T063018Z-3110752",
+      "raw_dir": ".artifacts/trenvx-service-smoke/20261002T063018Z-3110752",
+      "calibration_before_replay": false,
+      "phase_seconds": {
+        "entry": 0.034606,
+        "baseline": 10.157615,
+        "actions": 2.113326,
+        "finalize": 10.209112
+      },
+      "initial_git_commands": {
+        "add": {
+          "boundary_ns": 95075000,
+          "real_seconds": 0.095,
+          "user_seconds": 0.052,
+          "system_seconds": 0.064
+        },
+        "write_tree": {
+          "boundary_ns": 11597000,
+          "real_seconds": 0.011,
+          "user_seconds": 0.007,
+          "system_seconds": 0.004
+        },
+        "reset": {
+          "boundary_ns": 10045195000,
+          "real_seconds": 10.045,
+          "user_seconds": 0.011,
+          "system_seconds": 0.038
+        },
+        "rev_parse": {
+          "boundary_ns": 5472000,
+          "real_seconds": 0.005,
+          "user_seconds": 0.0,
+          "system_seconds": 0.005
+        }
+      },
+      "guest_runner_seconds": 22.520132926,
+      "guest_action_sum_seconds": 1.915256896,
+      "controller_runner_seconds": 23.68572462,
+      "controller_end_to_end_seconds": 105.180357875,
+      "controller_outside_guest_clock_seconds": 1.165591694,
+      "clock_realtime_minus_monotonic_ns": -222849,
+      "guest_cpu_seconds": 3.057464,
+      "action_seconds": {
+        "001": 0.020790106,
+        "002": 0.019314013,
+        "003": 0.019105138,
+        "004": 0.019202959,
+        "005": 0.018909013,
+        "006": 0.026339439,
+        "007": 0.0186293,
+        "008": 0.015887106,
+        "009": 0.019340276,
+        "010": 0.01899418,
+        "011": 0.019505252,
+        "012": 0.018929187,
+        "013": 0.019430281,
+        "014": 0.018567061,
+        "015": 0.017884996,
+        "016": 0.014641682,
+        "017": 0.018721749,
+        "018": 0.019657023,
+        "019": 0.019464807,
+        "020": 0.054037228,
+        "021": 0.047424176,
+        "022": 0.031973936,
+        "023": 0.657640276,
+        "024": 0.609410165,
+        "025": 0.077706316,
+        "026": 0.073751231
+      },
+      "patch_sha256": "f1cc23ac4f5ac1cff87eb7f8c54f8176c1a47cec37fa4cb6907b9dd8ad199af2"
+    }
+  ],
+  "statistics": {
+    "controller_runner_seconds": {
+      "mean": 23.777439903,
+      "minimum": 23.68572462,
+      "maximum": 23.886390518
+    },
+    "guest_runner_seconds": {
+      "mean": 22.6142553585,
+      "minimum": 22.520132926,
+      "maximum": 22.719128736
+    },
+    "guest_action_sum_seconds": {
+      "mean": 1.9920705365,
+      "minimum": 1.915256896,
+      "maximum": 2.104898948
+    },
+    "controller_end_to_end_seconds": {
+      "mean": 107.168592444,
+      "minimum": 105.180357875,
+      "maximum": 111.664998145
+    },
+    "controller_outside_guest_clock_seconds": {
+      "mean": 1.1631845445,
+      "minimum": 1.159417119,
+      "maximum": 1.167261782
+    },
+    "phase_entry_seconds": {
+      "mean": 0.03474975,
+      "minimum": 0.03375,
+      "maximum": 0.035324
+    },
+    "phase_baseline_seconds": {
+      "mean": 10.161384,
+      "minimum": 10.152661,
+      "maximum": 10.175068
+    },
+    "phase_actions_seconds": {
+      "mean": 2.191184,
+      "minimum": 2.113326,
+      "maximum": 2.306419
+    },
+    "phase_finalize_seconds": {
+      "mean": 10.22163525,
+      "minimum": 10.209112,
+      "maximum": 10.237225
+    }
+  },
+  "measured_scope": "four new off-sampling diagnostic Exp1 replays; fixture activity before first replay only",
+  "units": "seconds unless an explicit _ns field; Git real/user/system fields are seconds; boundary_ns is nanoseconds",
+  "phase_scope": {
+    "entry": "runner entry through environment initialization",
+    "baseline": "initial four Git commands plus nearby runner setup",
+    "actions": "26 frozen actions plus loop housekeeping",
+    "finalize": "final Git add/diff/reset/status and result-file copies"
+  },
+  "limits": [
+    "not a new monitoring overhead comparison",
+    "initial reset CPU/wall recorded; final reset not individually timed",
+    "controller minus guest duration includes SDK and clock boundaries; not pure RPC latency",
+    "no memory sampling, physical scans, checkpoint or restore in this diagnostic",
+    "cannot assign Git waiting cause from these timers alone; old 60-run statistics unchanged"
+  ]
+}

@@ -1,0 +1,81 @@
+{
+  "schema": 1,
+  "date": "2026-09-30",
+  "scope": "目录库函数缓冲计时校准；未接入真实 Exp1；不是平台监控开销验收",
+  "runs": [
+    {
+      "run_id": "20260930T061756Z-2543553",
+      "status": "FAIL",
+      "boundary": "fixture requires GLIBC_2.38, guest has 2.35",
+      "cleanup": "PASS"
+    },
+    {
+      "run_id": "20260930T061932Z-2543934",
+      "status": "PASS",
+      "correctness": "PASS",
+      "offline_audit": "PASS",
+      "diagnostic_gate": "NOT_ACCEPTED",
+      "cleanup": "PASS"
+    }
+  ],
+  "raw_root": ".artifacts/directory-profile",
+  "image": "ghcr.io/timesler/swe-polybench.eval.x86_64.prettier__prettier-14400@sha256:e625c9b9776870e2cc87172e886bbc90cfc3d6ce1521492f113a46b3f6dfcf44",
+  "guest_versions": "6.1.175\nglibc 2.35\nPython 3.10.12",
+  "resources": {
+    "vcpus": 2,
+    "memory_mib": 4096,
+    "cpu_policy_changed": false
+  },
+  "fixture": {
+    "directories": 256,
+    "files_per_directory": 32,
+    "scan_rounds_per_child": 32,
+    "checked_children": 45,
+    "measurement_children": 40,
+    "warmup_children": 4,
+    "nonzero_exit_children": 1
+  },
+  "protocol": {
+    "groups": 5,
+    "rounds_per_child": 32,
+    "directories": 256,
+    "files_per_directory": 32,
+    "timeout_seconds": 120,
+    "gate_rule": "each of five AA differences within +/-5%; each AB increase <=5%",
+    "scope": "warm fixture diagnostic gate, not platform monitoring acceptance"
+  },
+  "differences_percent": {
+    "aa": [
+      77.3865267369428,
+      14.337296188398518,
+      -0.07553489099818567,
+      0.5489855821527279,
+      0.15181227564466937
+    ],
+    "ab": [
+      153.06277310383442,
+      36.54036572556678,
+      37.92911734154385,
+      38.42782042289705,
+      -18.617211565585823
+    ]
+  },
+  "timing": "controller perf_counter_ns around child including load and exit summary I/O",
+  "limits": [
+    "Synthetic warm directories, not Git or Exp1.",
+    "No CPU frequency control; noisy AA comparisons retained.",
+    "Normal process exit only; abnormal termination not covered.",
+    "Libc duration includes cached directory entries, not individual syscalls.",
+    "null_with_errno is the observed errno, not necessarily a new error."
+  ],
+  "input_hashes": {
+    "directory-profile.so": "a859157b54a259822e80985075d8124c0bdbdba81983720b673730e43d39b294",
+    "directory_profile.c": "6cf4afa3d66104972b914531a05a03cebb2e4f199afa76b52e5c2b99c7986838",
+    "calibrate_directory_profile.py": "a8f984511b2808bab058cc3cd0563b6e4528ae96c052fdff906630f20f89bc35",
+    "directory-fixture": "82f3c432c00c613c88484d2f8ad1d09b68187eecaebeb75793035abe39baeacf",
+    "directory_fixture.c": "5e6d0667ae97bc6a84958ad794b196b970aed48035e8a9d4efe1cac13e34e109"
+  },
+  "result_sha256": "d42ca831a1764fbde54587c69c42ad463e765211b112ff4927ddafd184fc49a6",
+  "free_bytes_after": 54158352384,
+  "next_step": "暂不接入此逐条目计时。复用 Git 原生阶段计时与已校准的本次 VM 宿主机等待探针，先检查第 025 步采集边界和干扰，再运行一次诊断 smoke。"
+}

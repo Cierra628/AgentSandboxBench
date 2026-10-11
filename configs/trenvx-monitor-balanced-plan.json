@@ -1,0 +1,62 @@
+{
+  "status": "COMPLETED",
+  "date": "2026-10-01",
+  "retention_smoke": ".artifacts/trenvx-monitor-retention-smoke/result.json",
+  "retention_smoke_full_replays": 2,
+  "maximum_groups": 5,
+  "runs_per_group": 8,
+  "seed_base": 20261001,
+  "completed_groups": [
+    ".artifacts/trenvx-monitor-balanced/20261001T050017Z-2861257",
+    ".artifacts/trenvx-monitor-balanced/20261001T051253Z-2863771",
+    ".artifacts/trenvx-monitor-balanced/20261001T052442Z-2867240",
+    ".artifacts/trenvx-monitor-balanced/20261001T053627Z-2869466",
+    ".artifacts/trenvx-monitor-balanced/20261001T054813Z-2871712"
+  ],
+  "stop_policy": "Stop on first failure, any absolute within-group off/off difference above 5%, source/config changes, oversized raw results or disk reserve; no automatic extra groups",
+  "retention": "Only explicitly opted-in, successful non-checkpoint Exp1 private images are removed after ownership/resource checks and hash inventory; failed or checkpoint runs keep verified image archives or original data",
+  "disk_start_budget": "40 GiB serial launch margin plus 128 MiB raw results per remaining run; 20 GiB runtime stop, 0.25 second polling",
+  "measurement": "Original full guest runner controller call including initial Git preparation; sandbox/template lifecycle and sampler startup/stop excluded; host sampler runs across entire exercise",
+  "cpu_cache_policy": "Existing host frequency/affinity and harness cache defaults; fresh private template and VM per replay; no guest/host cache drop",
+  "comparison_scope": "TrEnv-X host-only 1 Hz sampler; no cross-backend speed or memory-benefit claim",
+  "acceptance": "Exactly five unchanged independent groups; control log-ratio mean t95 interval inside [-5,5]%; monitoring interval upper bound <=5%; otherwise INCONCLUSIVE",
+  "official_full_tests": "NOT_RUN",
+  "image_restoration_from_new_runs": "UNAVAILABLE_BY_DESIGN; raw inputs/configuration/output/metrics and image hashes retained",
+  "first_group_summary": ".artifacts/trenvx-monitor-balanced/20261001T050017Z-2861257/group-summary.json",
+  "formal_full_replays": 40,
+  "new_full_replays_including_smoke": 42,
+  "reused_full_replays": 0,
+  "verdict": "WITHIN_5_PERCENT_FOR_THIS_PROTOCOL",
+  "monitor": {
+    "group_percent": [
+      1.1431899650261812,
+      0.7872530601239491,
+      -0.5421979303650515,
+      -0.29907544870625413,
+      2.06929515682015
+    ],
+    "geometric_mean_percent": 0.6271292077836733,
+    "mean_log_ratio_t95_percent": [
+      -0.6942332961954174,
+      1.966073760871046
+    ]
+  },
+  "control": {
+    "group_percent": [
+      -0.6449590107628134,
+      -0.26717122678336924,
+      4.230455816845002,
+      -1.8122275642214913,
+      2.0651141550481977
+    ],
+    "geometric_mean_percent": 0.6911921638665808,
+    "mean_log_ratio_t95_percent": [
+      -2.2504790437867594,
+      3.7213899382926927
+    ]
+  },
+  "public_evidence": "docs/records/evidence/trenvx-monitor-balanced-20261001.json",
+  "cleanup_evidence": "docs/records/evidence/trenvx-monitor-cleanup-20261001.json",
+  "raw_followup": ".artifacts/trenvx-monitor-followup/20261001T051253Z-2863770",
+  "next_step": "Selected profile clean-directory and checkpoint/restore reproduction; retain explicit file-state-only semantics for TrEnv-X; checkpoint live launcher still requires >48 GiB"
+}

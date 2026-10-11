@@ -1,0 +1,2424 @@
+{
+  "status": "PASS",
+  "calibration": {
+    "result_dir": ".artifacts/baseline-add-trace-calibration/20260930T171140Z-2761724",
+    "status": "PASS",
+    "diagnostic_gate": "PASS",
+    "differences_percent": {
+      "command_total_ns": {
+        "aa": -0.19463402652287742,
+        "ab": 2.3240765899308347
+      },
+      "phase_ns": {
+        "aa": -0.20804054080816314,
+        "ab": 2.2503800151979725
+      }
+    },
+    "scope": "incremental initial add native performance/Trace2 and guest diskstats; existing phase/command timers in both groups; warm DAMON-disabled fixture only; not monitoring acceptance",
+    "iterations_per_phase": 32,
+    "phases": 8,
+    "source_result_sha256": "9a83ca41feeb9867c98a853961a2a08c39e21362525ddb70da3651b38341368c"
+  },
+  "full_replays": 6,
+  "batches": [
+    {
+      "group": "smoke",
+      "result_dir": ".artifacts/exp1-damon-control-smoke-runner-phases-baseline-git-add-trace/20260930T171340Z-2762546",
+      "status": "PASS",
+      "source_result_sha256": "f3edba3162b1997bd035d8fdd0f7ecdb0d11a0d960d6a88ddabccb6333a066d2"
+    },
+    {
+      "group": "comparison",
+      "result_dir": ".artifacts/exp1-damon-control-comparison-runner-phases-baseline-git-add-trace/20260930T171546Z-2764337",
+      "status": "PASS",
+      "source_result_sha256": "c2f83a592b019c3b323c671a249a3afe3065ac9c9cef865245c6d97eea653259"
+    }
+  ],
+  "runs": [
+    {
+      "group": "smoke",
+      "position": 1,
+      "mode": "default",
+      "phase_ms": {
+        "entry": 75.255,
+        "baseline": 1586.309,
+        "actions": 2141.103,
+        "finalize": 105.988
+      },
+      "guest_envelope_ms": 3910.306997,
+      "envelope_realtime_minus_monotonic_ms": 0.000345,
+      "loop_outside_action_timers_ms": 55.829852,
+      "controller_minus_guest_envelope_ms": 40.723208,
+      "task_ms": 3955.70044,
+      "action_sum_ms": 2085.273148,
+      "scan_ms": 30.401999999999997,
+      "observed_min_free_gib": 48.303436279296875,
+      "baseline_commands": {
+        "add": {
+          "boundary_ns": 1531937000,
+          "real_seconds": 1.53,
+          "user_seconds": 0.341,
+          "system_seconds": 0.322
+        },
+        "write_tree": {
+          "boundary_ns": 29315000,
+          "real_seconds": 0.029,
+          "user_seconds": 0.016,
+          "system_seconds": 0.004
+        },
+        "reset": {
+          "boundary_ns": 23353000,
+          "real_seconds": 0.023,
+          "user_seconds": 0.01,
+          "system_seconds": 0.015
+        },
+        "rev_parse": {
+          "boundary_ns": 1566000,
+          "real_seconds": 0.001,
+          "user_seconds": 0.001,
+          "system_seconds": 0.0
+        }
+      },
+      "baseline_outside_command_boundaries_ms": 0.138,
+      "baseline_add_trace": {
+        "performance": {
+          "command_seconds": 1.527078079,
+          "records": [
+            {
+              "timestamp": "17:15:21.937681",
+              "source": "read-cache.c:2398",
+              "seconds": 0.003663713,
+              "label": "read cache .git/index"
+            },
+            {
+              "timestamp": "17:15:22.012060",
+              "source": "preload-index.c:154",
+              "seconds": 0.07434301,
+              "label": "preload index"
+            },
+            {
+              "timestamp": "17:15:22.013532",
+              "source": "name-hash.c:607",
+              "seconds": 0.000886023,
+              "label": "initialize name hash"
+            },
+            {
+              "timestamp": "17:15:23.451771",
+              "source": "diff-lib.c:266",
+              "seconds": 1.403930062,
+              "label": "diff-files"
+            },
+            {
+              "timestamp": "17:15:23.458369",
+              "source": "read-cache.c:3072",
+              "seconds": 0.006181991,
+              "label": "write index, changed mask = 2a"
+            },
+            {
+              "timestamp": "17:15:23.460610",
+              "source": "trace.c:487",
+              "seconds": 1.527078079,
+              "label": "git command: git -C /testbed add -A"
+            }
+          ],
+          "longest_recorded_stage": {
+            "timestamp": "17:15:23.451771",
+            "source": "diff-lib.c:266",
+            "seconds": 1.403930062,
+            "label": "diff-files"
+          },
+          "scope": "Native Git timers may nest or omit intervals; do not sum as a complete breakdown"
+        },
+        "trace2": {
+          "command_seconds": 1.527817,
+          "regions": [
+            {
+              "category": "cache_tree",
+              "label": "read",
+              "t_rel": 0.001156,
+              "nesting": 2,
+              "thread": "main"
+            },
+            {
+              "category": "index",
+              "label": "do_read_index",
+              "t_rel": 0.003697,
+              "nesting": 1,
+              "thread": "main"
+            },
+            {
+              "category": "index",
+              "label": "preload",
+              "t_rel": 0.074382,
+              "nesting": 1,
+              "thread": "main"
+            },
+            {
+              "category": "index",
+              "label": "name-hash-init",
+              "t_rel": 0.000876,
+              "nesting": 2,
+              "thread": "main"
+            },
+            {
+              "category": "dir",
+              "label": "read_directory",
+              "t_rel": 0.035065,
+              "nesting": 1,
+              "thread": "main"
+            },
+            {
+              "category": "cache_tree",
+              "label": "write",
+              "t_rel": 0.000442,
+              "nesting": 2,
+              "thread": "main"
+            },
+            {
+              "category": "index",
+              "label": "do_write_index",
+              "t_rel": 0.006221,
+              "nesting": 1,
+              "thread": "main"
+            }
+          ],
+          "directory": {
+            "seconds": 0.035065,
+            "enter_time": "2026-09-30T17:15:22.012467Z",
+            "leave_time": "2026-09-30T17:15:22.047532Z",
+            "realtime_interval_seconds": 0.035065,
+            "counts": {
+              "directories-visited": 2743,
+              "paths-visited": 11007
+            }
+          },
+          "largest_marker_gap": {
+            "before": "initialize name hash",
+            "after": "diff-files",
+            "elapsed_ns": 1438239000,
+            "overlap_with_directory_seconds": 0.0340000000032573,
+            "overlap_fraction": 0.02364002088891853
+          },
+          "scope": "Nested regions are not additive; boundary overlap uses realtime log timestamps; no I/O or blocking attribution"
+        },
+        "diskstats": {
+          "loop0": {
+            "major": 7,
+            "minor": 0,
+            "reads_completed": 0,
+            "sectors_read": 0,
+            "read_ms": 0,
+            "writes_completed": 0,
+            "sectors_written": 0,
+            "write_ms": 0,
+            "io_ms": 0,
+            "weighted_io_ms": 0
+          },
+          "loop1": {
+            "major": 7,
+            "minor": 1,
+            "reads_completed": 0,
+            "sectors_read": 0,
+            "read_ms": 0,
+            "writes_completed": 0,
+            "sectors_written": 0,
+            "write_ms": 0,
+            "io_ms": 0,
+            "weighted_io_ms": 0
+          },
+          "loop2": {
+            "major": 7,
+            "minor": 2,
+            "reads_completed": 0,
+            "sectors_read": 0,
+            "read_ms": 0,
+            "writes_completed": 0,
+            "sectors_written": 0,
+            "write_ms": 0,
+            "io_ms": 0,
+            "weighted_io_ms": 0
+          },
+          "loop3": {
+            "major": 7,
+            "minor": 3,
+            "reads_completed": 0,
+            "sectors_read": 0,
+            "read_ms": 0,
+            "writes_completed": 0,
+            "sectors_written": 0,
+            "write_ms": 0,
+            "io_ms": 0,
+            "weighted_io_ms": 0
+          },
+          "loop4": {
+            "major": 7,
+            "minor": 4,
+            "reads_completed": 0,
+            "sectors_read": 0,
+            "read_ms": 0,
+            "writes_completed": 0,
+            "sectors_written": 0,
+            "write_ms": 0,
+            "io_ms": 0,
+            "weighted_io_ms": 0
+          },
+          "loop5": {
+            "major": 7,
+            "minor": 5,
+            "reads_completed": 0,
+            "sectors_read": 0,
+            "read_ms": 0,
+            "writes_completed": 0,
+            "sectors_written": 0,
+            "write_ms": 0,
+            "io_ms": 0,
+            "weighted_io_ms": 0
+          },
+          "loop6": {
+            "major": 7,
+            "minor": 6,
+            "reads_completed": 0,
+            "sectors_read": 0,
+            "read_ms": 0,
+            "writes_completed": 0,
+            "sectors_written": 0,
+            "write_ms": 0,
+            "io_ms": 0,
+            "weighted_io_ms": 0
+          },
+          "loop7": {
+            "major": 7,
+            "minor": 7,
+            "reads_completed": 0,
+            "sectors_read": 0,
+            "read_ms": 0,
+            "writes_completed": 0,
+            "sectors_written": 0,
+            "write_ms": 0,
+            "io_ms": 0,
+            "weighted_io_ms": 0
+          },
+          "vda": {
+            "major": 254,
+            "minor": 0,
+            "reads_completed": 0,
+            "sectors_read": 0,
+            "read_ms": 0,
+            "writes_completed": 0,
+            "sectors_written": 0,
+            "write_ms": 0,
+            "io_ms": 0,
+            "weighted_io_ms": 0
+          },
+          "vdb": {
+            "major": 254,
+            "minor": 16,
+            "reads_completed": 12179,
+            "sectors_read": 139792,
+            "read_ms": 1958,
+            "writes_completed": 1,
+            "sectors_written": 1992,
+            "write_ms": 2,
+            "io_ms": 992,
+            "weighted_io_ms": 1960
+          },
+          "vdc": {
+            "major": 254,
+            "minor": 32,
+            "reads_completed": 0,
+            "sectors_read": 0,
+            "read_ms": 0,
+            "writes_completed": 0,
+            "sectors_written": 0,
+            "write_ms": 0,
+            "io_ms": 0,
+            "weighted_io_ms": 0
+          },
+          "vdd": {
+            "major": 254,
+            "minor": 48,
+            "reads_completed": 0,
+            "sectors_read": 0,
+            "read_ms": 0,
+            "writes_completed": 0,
+            "sectors_written": 0,
+            "write_ms": 0,
+            "io_ms": 0,
+            "weighted_io_ms": 0
+          },
+          "vde": {
+            "major": 254,
+            "minor": 64,
+            "reads_completed": 0,
+            "sectors_read": 0,
+            "read_ms": 0,
+            "writes_completed": 0,
+            "sectors_written": 0,
+            "write_ms": 0,
+            "io_ms": 0,
+            "weighted_io_ms": 0
+          },
+          "vdf": {
+            "major": 254,
+            "minor": 80,
+            "reads_completed": 0,
+            "sectors_read": 0,
+            "read_ms": 0,
+            "writes_completed": 0,
+            "sectors_written": 0,
+            "write_ms": 0,
+            "io_ms": 0,
+            "weighted_io_ms": 0
+          }
+        }
+      },
+      "step_025_evidence": {
+        "root_device": "vdb",
+        "root_diskstats": {
+          "major": 254,
+          "minor": 16,
+          "reads_completed": 14,
+          "sectors_read": 112,
+          "read_ms": 3,
+          "writes_completed": 182,
+          "sectors_written": 2088,
+          "write_ms": 24,
+          "io_ms": 8,
+          "weighted_io_ms": 28
+        },
+        "full_capture_vcpu_wait_upper_bound_ns": 9517041,
+        "full_capture_successful_async_setup": 0,
+        "before_mem_available_kib": 3760236,
+        "during_command_counter_deltas": {
+          "pgscan_kswapd": 0,
+          "pgscan_direct": 0,
+          "pgscan_file": 0,
+          "pgsteal_kswapd": 0,
+          "pgsteal_direct": 0,
+          "pgsteal_file": 0,
+          "pgmajfault": 1,
+          "pgpgin": 56,
+          "pgpgout": 1044,
+          "workingset_refault_file": 1,
+          "workingset_activate_file": 0,
+          "workingset_restore_file": 0,
+          "allocstall_dma": 0,
+          "allocstall_dma32": 0,
+          "allocstall_normal": 0,
+          "allocstall_movable": 0
+        }
+      }
+    },
+    {
+      "group": "smoke",
+      "position": 2,
+      "mode": "damon_disabled",
+      "phase_ms": {
+        "entry": 60.155,
+        "baseline": 1620.663,
+        "actions": 2101.732,
+        "finalize": 106.636
+      },
+      "guest_envelope_ms": 3890.601842,
+      "envelope_realtime_minus_monotonic_ms": 0.00037,
+      "loop_outside_action_timers_ms": 55.617872,
+      "controller_minus_guest_envelope_ms": 38.473936,
+      "task_ms": 3932.7541610000003,
+      "action_sum_ms": 2046.1141280000002,
+      "scan_ms": 30.425,
+      "observed_min_free_gib": 48.30287551879883,
+      "baseline_commands": {
+        "add": {
+          "boundary_ns": 1567467000,
+          "real_seconds": 1.566,
+          "user_seconds": 0.332,
+          "system_seconds": 0.378
+        },
+        "write_tree": {
+          "boundary_ns": 29084000,
+          "real_seconds": 0.029,
+          "user_seconds": 0.012,
+          "system_seconds": 0.008
+        },
+        "reset": {
+          "boundary_ns": 22433000,
+          "real_seconds": 0.022,
+          "user_seconds": 0.009,
+          "system_seconds": 0.015
+        },
+        "rev_parse": {
+          "boundary_ns": 1567000,
+          "real_seconds": 0.001,
+          "user_seconds": 0.001,
+          "system_seconds": 0.0
+        }
+      },
+      "baseline_outside_command_boundaries_ms": 0.112,
+      "baseline_add_trace": {
+        "performance": {
+          "command_seconds": 1.562931856,
+          "records": [
+            {
+              "timestamp": "17:15:44.149064",
+              "source": "read-cache.c:2398",
+              "seconds": 0.002918559,
+              "label": "read cache .git/index"
+            },
+            {
+              "timestamp": "17:15:44.227393",
+              "source": "preload-index.c:154",
+              "seconds": 0.078300626,
+              "label": "preload index"
+            },
+            {
+              "timestamp": "17:15:44.228898",
+              "source": "name-hash.c:607",
+              "seconds": 0.000960433,
+              "label": "initialize name hash"
+            },
+            {
+              "timestamp": "17:15:45.700033",
+              "source": "diff-lib.c:266",
+              "seconds": 1.435877226,
+              "label": "diff-files"
+            },
+            {
+              "timestamp": "17:15:45.706738",
+              "source": "read-cache.c:3072",
+              "seconds": 0.00631651,
+              "label": "write index, changed mask = 2a"
+            },
+            {
+              "timestamp": "17:15:45.708674",
+              "source": "trace.c:487",
+              "seconds": 1.562931856,
+              "label": "git command: git -C /testbed add -A"
+            }
+          ],
+          "longest_recorded_stage": {
+            "timestamp": "17:15:45.700033",
+            "source": "diff-lib.c:266",
+            "seconds": 1.435877226,
+            "label": "diff-files"
+          },
+          "scope": "Native Git timers may nest or omit intervals; do not sum as a complete breakdown"
+        },
+        "trace2": {
+          "command_seconds": 1.563486,
+          "regions": [
+            {
+              "category": "cache_tree",
+              "label": "read",
+              "t_rel": 0.000947,
+              "nesting": 2,
+              "thread": "main"
+            },
+            {
+              "category": "index",
+              "label": "do_read_index",
+              "t_rel": 0.002942,
+              "nesting": 1,
+              "thread": "main"
+            },
+            {
+              "category": "index",
+              "label": "preload",
+              "t_rel": 0.078337,
+              "nesting": 1,
+              "thread": "main"
+            },
+            {
+              "category": "index",
+              "label": "name-hash-init",
+              "t_rel": 0.000952,
+              "nesting": 2,
+              "thread": "main"
+            },
+            {
+              "category": "dir",
+              "label": "read_directory",
+              "t_rel": 0.036025,
+              "nesting": 1,
+              "thread": "main"
+            },
+            {
+              "category": "cache_tree",
+              "label": "write",
+              "t_rel": 0.000429,
+              "nesting": 2,
+              "thread": "main"
+            },
+            {
+              "category": "index",
+              "label": "do_write_index",
+              "t_rel": 0.006354,
+              "nesting": 1,
+              "thread": "main"
+            }
+          ],
+          "directory": {
+            "seconds": 0.036025,
+            "enter_time": "2026-09-30T17:15:44.227768Z",
+            "leave_time": "2026-09-30T17:15:44.263791Z",
+            "realtime_interval_seconds": 0.036023,
+            "counts": {
+              "directories-visited": 2743,
+              "paths-visited": 11007
+            }
+          },
+          "largest_marker_gap": {
+            "before": "initialize name hash",
+            "after": "diff-files",
+            "elapsed_ns": 1471135000,
+            "overlap_with_directory_seconds": 0.03489299999580439,
+            "overlap_fraction": 0.02371842148803773
+          },
+          "scope": "Nested regions are not additive; boundary overlap uses realtime log timestamps; no I/O or blocking attribution"
+        },
+        "diskstats": {
+          "loop0": {
+            "major": 7,
+            "minor": 0,
+            "reads_completed": 0,
+            "sectors_read": 0,
+            "read_ms": 0,
+            "writes_completed": 0,
+            "sectors_written": 0,
+            "write_ms": 0,
+            "io_ms": 0,
+            "weighted_io_ms": 0
+          },
+          "loop1": {
+            "major": 7,
+            "minor": 1,
+            "reads_completed": 0,
+            "sectors_read": 0,
+            "read_ms": 0,
+            "writes_completed": 0,
+            "sectors_written": 0,
+            "write_ms": 0,
+            "io_ms": 0,
+            "weighted_io_ms": 0
+          },
+          "loop2": {
+            "major": 7,
+            "minor": 2,
+            "reads_completed": 0,
+            "sectors_read": 0,
+            "read_ms": 0,
+            "writes_completed": 0,
+            "sectors_written": 0,
+            "write_ms": 0,
+            "io_ms": 0,
+            "weighted_io_ms": 0
+          },
+          "loop3": {
+            "major": 7,
+            "minor": 3,
+            "reads_completed": 0,
+            "sectors_read": 0,
+            "read_ms": 0,
+            "writes_completed": 0,
+            "sectors_written": 0,
+            "write_ms": 0,
+            "io_ms": 0,
+            "weighted_io_ms": 0
+          },
+          "loop4": {
+            "major": 7,
+            "minor": 4,
+            "reads_completed": 0,
+            "sectors_read": 0,
+            "read_ms": 0,
+            "writes_completed": 0,
+            "sectors_written": 0,
+            "write_ms": 0,
+            "io_ms": 0,
+            "weighted_io_ms": 0
+          },
+          "loop5": {
+            "major": 7,
+            "minor": 5,
+            "reads_completed": 0,
+            "sectors_read": 0,
+            "read_ms": 0,
+            "writes_completed": 0,
+            "sectors_written": 0,
+            "write_ms": 0,
+            "io_ms": 0,
+            "weighted_io_ms": 0
+          },
+          "loop6": {
+            "major": 7,
+            "minor": 6,
+            "reads_completed": 0,
+            "sectors_read": 0,
+            "read_ms": 0,
+            "writes_completed": 0,
+            "sectors_written": 0,
+            "write_ms": 0,
+            "io_ms": 0,
+            "weighted_io_ms": 0
+          },
+          "loop7": {
+            "major": 7,
+            "minor": 7,
+            "reads_completed": 0,
+            "sectors_read": 0,
+            "read_ms": 0,
+            "writes_completed": 0,
+            "sectors_written": 0,
+            "write_ms": 0,
+            "io_ms": 0,
+            "weighted_io_ms": 0
+          },
+          "vda": {
+            "major": 254,
+            "minor": 0,
+            "reads_completed": 0,
+            "sectors_read": 0,
+            "read_ms": 0,
+            "writes_completed": 0,
+            "sectors_written": 0,
+            "write_ms": 0,
+            "io_ms": 0,
+            "weighted_io_ms": 0
+          },
+          "vdb": {
+            "major": 254,
+            "minor": 16,
+            "reads_completed": 11854,
+            "sectors_read": 139496,
+            "read_ms": 1903,
+            "writes_completed": 1,
+            "sectors_written": 1992,
+            "write_ms": 1,
+            "io_ms": 1044,
+            "weighted_io_ms": 1905
+          },
+          "vdc": {
+            "major": 254,
+            "minor": 32,
+            "reads_completed": 0,
+            "sectors_read": 0,
+            "read_ms": 0,
+            "writes_completed": 0,
+            "sectors_written": 0,
+            "write_ms": 0,
+            "io_ms": 0,
+            "weighted_io_ms": 0
+          },
+          "vdd": {
+            "major": 254,
+            "minor": 48,
+            "reads_completed": 0,
+            "sectors_read": 0,
+            "read_ms": 0,
+            "writes_completed": 0,
+            "sectors_written": 0,
+            "write_ms": 0,
+            "io_ms": 0,
+            "weighted_io_ms": 0
+          },
+          "vde": {
+            "major": 254,
+            "minor": 64,
+            "reads_completed": 0,
+            "sectors_read": 0,
+            "read_ms": 0,
+            "writes_completed": 0,
+            "sectors_written": 0,
+            "write_ms": 0,
+            "io_ms": 0,
+            "weighted_io_ms": 0
+          },
+          "vdf": {
+            "major": 254,
+            "minor": 80,
+            "reads_completed": 0,
+            "sectors_read": 0,
+            "read_ms": 0,
+            "writes_completed": 0,
+            "sectors_written": 0,
+            "write_ms": 0,
+            "io_ms": 0,
+            "weighted_io_ms": 0
+          }
+        }
+      },
+      "step_025_evidence": {
+        "root_device": "vdb",
+        "root_diskstats": {
+          "major": 254,
+          "minor": 16,
+          "reads_completed": 0,
+          "sectors_read": 0,
+          "read_ms": 0,
+          "writes_completed": 186,
+          "sectors_written": 2088,
+          "write_ms": 34,
+          "io_ms": 8,
+          "weighted_io_ms": 34
+        },
+        "full_capture_vcpu_wait_upper_bound_ns": 7697988,
+        "full_capture_successful_async_setup": 0,
+        "before_mem_available_kib": 3747112,
+        "during_command_counter_deltas": {
+          "pgscan_kswapd": 0,
+          "pgscan_direct": 0,
+          "pgscan_file": 0,
+          "pgsteal_kswapd": 0,
+          "pgsteal_direct": 0,
+          "pgsteal_file": 0,
+          "pgmajfault": 0,
+          "pgpgin": 0,
+          "pgpgout": 1044,
+          "workingset_refault_file": 0,
+          "workingset_activate_file": 0,
+          "workingset_restore_file": 0,
+          "allocstall_dma": 0,
+          "allocstall_dma32": 0,
+          "allocstall_normal": 0,
+          "allocstall_movable": 0
+        }
+      }
+    },
+    {
+      "group": "comparison",
+      "position": 1,
+      "mode": "default",
+      "phase_ms": {
+        "entry": 78.84,
+        "baseline": 1476.906,
+        "actions": 2069.2,
+        "finalize": 106.808
+      },
+      "guest_envelope_ms": 3733.350208,
+      "envelope_realtime_minus_monotonic_ms": 0.000349,
+      "loop_outside_action_timers_ms": 54.119954,
+      "controller_minus_guest_envelope_ms": 38.800753,
+      "task_ms": 3776.868638,
+      "action_sum_ms": 2015.080046,
+      "scan_ms": 30.587,
+      "observed_min_free_gib": 48.29620361328125,
+      "baseline_commands": {
+        "add": {
+          "boundary_ns": 1425879000,
+          "real_seconds": 1.424,
+          "user_seconds": 0.299,
+          "system_seconds": 0.345
+        },
+        "write_tree": {
+          "boundary_ns": 28471000,
+          "real_seconds": 0.028,
+          "user_seconds": 0.02,
+          "system_seconds": 0.0
+        },
+        "reset": {
+          "boundary_ns": 20866000,
+          "real_seconds": 0.021,
+          "user_seconds": 0.012,
+          "system_seconds": 0.012
+        },
+        "rev_parse": {
+          "boundary_ns": 1570000,
+          "real_seconds": 0.001,
+          "user_seconds": 0.001,
+          "system_seconds": 0.0
+        }
+      },
+      "baseline_outside_command_boundaries_ms": 0.12,
+      "baseline_add_trace": {
+        "performance": {
+          "command_seconds": 1.421117168,
+          "records": [
+            {
+              "timestamp": "17:17:28.106370",
+              "source": "read-cache.c:2398",
+              "seconds": 0.003769175,
+              "label": "read cache .git/index"
+            },
+            {
+              "timestamp": "17:17:28.179632",
+              "source": "preload-index.c:154",
+              "seconds": 0.073234455,
+              "label": "preload index"
+            },
+            {
+              "timestamp": "17:17:28.181084",
+              "source": "name-hash.c:607",
+              "seconds": 0.000903516,
+              "label": "initialize name hash"
+            },
+            {
+              "timestamp": "17:17:29.514433",
+              "source": "diff-lib.c:266",
+              "seconds": 1.29964693,
+              "label": "diff-files"
+            },
+            {
+              "timestamp": "17:17:29.521138",
+              "source": "read-cache.c:3072",
+              "seconds": 0.006320903,
+              "label": "write index, changed mask = 2a"
+            },
+            {
+              "timestamp": "17:17:29.523297",
+              "source": "trace.c:487",
+              "seconds": 1.421117168,
+              "label": "git command: git -C /testbed add -A"
+            }
+          ],
+          "longest_recorded_stage": {
+            "timestamp": "17:17:29.514433",
+            "source": "diff-lib.c:266",
+            "seconds": 1.29964693,
+            "label": "diff-files"
+          },
+          "scope": "Native Git timers may nest or omit intervals; do not sum as a complete breakdown"
+        },
+        "trace2": {
+          "command_seconds": 1.421834,
+          "regions": [
+            {
+              "category": "cache_tree",
+              "label": "read",
+              "t_rel": 0.00114,
+              "nesting": 2,
+              "thread": "main"
+            },
+            {
+              "category": "index",
+              "label": "do_read_index",
+              "t_rel": 0.003794,
+              "nesting": 1,
+              "thread": "main"
+            },
+            {
+              "category": "index",
+              "label": "preload",
+              "t_rel": 0.073273,
+              "nesting": 1,
+              "thread": "main"
+            },
+            {
+              "category": "index",
+              "label": "name-hash-init",
+              "t_rel": 0.000894,
+              "nesting": 2,
+              "thread": "main"
+            },
+            {
+              "category": "dir",
+              "label": "read_directory",
+              "t_rel": 0.034491,
+              "nesting": 1,
+              "thread": "main"
+            },
+            {
+              "category": "cache_tree",
+              "label": "write",
+              "t_rel": 0.000441,
+              "nesting": 2,
+              "thread": "main"
+            },
+            {
+              "category": "index",
+              "label": "do_write_index",
+              "t_rel": 0.00636,
+              "nesting": 1,
+              "thread": "main"
+            }
+          ],
+          "directory": {
+            "seconds": 0.034491,
+            "enter_time": "2026-09-30T17:17:28.180014Z",
+            "leave_time": "2026-09-30T17:17:28.214503Z",
+            "realtime_interval_seconds": 0.034489,
+            "counts": {
+              "directories-visited": 2743,
+              "paths-visited": 11007
+            }
+          },
+          "largest_marker_gap": {
+            "before": "initialize name hash",
+            "after": "diff-files",
+            "elapsed_ns": 1333349000,
+            "overlap_with_directory_seconds": 0.03341899999428866,
+            "overlap_fraction": 0.025063955494239443
+          },
+          "scope": "Nested regions are not additive; boundary overlap uses realtime log timestamps; no I/O or blocking attribution"
+        },
+        "diskstats": {
+          "loop0": {
+            "major": 7,
+            "minor": 0,
+            "reads_completed": 0,
+            "sectors_read": 0,
+            "read_ms": 0,
+            "writes_completed": 0,
+            "sectors_written": 0,
+            "write_ms": 0,
+            "io_ms": 0,
+            "weighted_io_ms": 0
+          },
+          "loop1": {
+            "major": 7,
+            "minor": 1,
+            "reads_completed": 0,
+            "sectors_read": 0,
+            "read_ms": 0,
+            "writes_completed": 0,
+            "sectors_written": 0,
+            "write_ms": 0,
+            "io_ms": 0,
+            "weighted_io_ms": 0
+          },
+          "loop2": {
+            "major": 7,
+            "minor": 2,
+            "reads_completed": 0,
+            "sectors_read": 0,
+            "read_ms": 0,
+            "writes_completed": 0,
+            "sectors_written": 0,
+            "write_ms": 0,
+            "io_ms": 0,
+            "weighted_io_ms": 0
+          },
+          "loop3": {
+            "major": 7,
+            "minor": 3,
+            "reads_completed": 0,
+            "sectors_read": 0,
+            "read_ms": 0,
+            "writes_completed": 0,
+            "sectors_written": 0,
+            "write_ms": 0,
+            "io_ms": 0,
+            "weighted_io_ms": 0
+          },
+          "loop4": {
+            "major": 7,
+            "minor": 4,
+            "reads_completed": 0,
+            "sectors_read": 0,
+            "read_ms": 0,
+            "writes_completed": 0,
+            "sectors_written": 0,
+            "write_ms": 0,
+            "io_ms": 0,
+            "weighted_io_ms": 0
+          },
+          "loop5": {
+            "major": 7,
+            "minor": 5,
+            "reads_completed": 0,
+            "sectors_read": 0,
+            "read_ms": 0,
+            "writes_completed": 0,
+            "sectors_written": 0,
+            "write_ms": 0,
+            "io_ms": 0,
+            "weighted_io_ms": 0
+          },
+          "loop6": {
+            "major": 7,
+            "minor": 6,
+            "reads_completed": 0,
+            "sectors_read": 0,
+            "read_ms": 0,
+            "writes_completed": 0,
+            "sectors_written": 0,
+            "write_ms": 0,
+            "io_ms": 0,
+            "weighted_io_ms": 0
+          },
+          "loop7": {
+            "major": 7,
+            "minor": 7,
+            "reads_completed": 0,
+            "sectors_read": 0,
+            "read_ms": 0,
+            "writes_completed": 0,
+            "sectors_written": 0,
+            "write_ms": 0,
+            "io_ms": 0,
+            "weighted_io_ms": 0
+          },
+          "vda": {
+            "major": 254,
+            "minor": 0,
+            "reads_completed": 2,
+            "sectors_read": 120,
+            "read_ms": 1,
+            "writes_completed": 0,
+            "sectors_written": 0,
+            "write_ms": 0,
+            "io_ms": 0,
+            "weighted_io_ms": 1
+          },
+          "vdb": {
+            "major": 254,
+            "minor": 16,
+            "reads_completed": 12178,
+            "sectors_read": 139896,
+            "read_ms": 1907,
+            "writes_completed": 2,
+            "sectors_written": 1992,
+            "write_ms": 2,
+            "io_ms": 960,
+            "weighted_io_ms": 1910
+          },
+          "vdc": {
+            "major": 254,
+            "minor": 32,
+            "reads_completed": 0,
+            "sectors_read": 0,
+            "read_ms": 0,
+            "writes_completed": 0,
+            "sectors_written": 0,
+            "write_ms": 0,
+            "io_ms": 0,
+            "weighted_io_ms": 0
+          },
+          "vdd": {
+            "major": 254,
+            "minor": 48,
+            "reads_completed": 0,
+            "sectors_read": 0,
+            "read_ms": 0,
+            "writes_completed": 0,
+            "sectors_written": 0,
+            "write_ms": 0,
+            "io_ms": 0,
+            "weighted_io_ms": 0
+          },
+          "vde": {
+            "major": 254,
+            "minor": 64,
+            "reads_completed": 0,
+            "sectors_read": 0,
+            "read_ms": 0,
+            "writes_completed": 0,
+            "sectors_written": 0,
+            "write_ms": 0,
+            "io_ms": 0,
+            "weighted_io_ms": 0
+          },
+          "vdf": {
+            "major": 254,
+            "minor": 80,
+            "reads_completed": 0,
+            "sectors_read": 0,
+            "read_ms": 0,
+            "writes_completed": 0,
+            "sectors_written": 0,
+            "write_ms": 0,
+            "io_ms": 0,
+            "weighted_io_ms": 0
+          }
+        }
+      },
+      "step_025_evidence": {
+        "root_device": "vdb",
+        "root_diskstats": {
+          "major": 254,
+          "minor": 16,
+          "reads_completed": 24,
+          "sectors_read": 192,
+          "read_ms": 6,
+          "writes_completed": 230,
+          "sectors_written": 2088,
+          "write_ms": 29,
+          "io_ms": 8,
+          "weighted_io_ms": 35
+        },
+        "full_capture_vcpu_wait_upper_bound_ns": 8140273,
+        "full_capture_successful_async_setup": 0,
+        "before_mem_available_kib": 3761776,
+        "during_command_counter_deltas": {
+          "pgscan_kswapd": 0,
+          "pgscan_direct": 0,
+          "pgscan_file": 0,
+          "pgsteal_kswapd": 0,
+          "pgsteal_direct": 0,
+          "pgsteal_file": 0,
+          "pgmajfault": 2,
+          "pgpgin": 100,
+          "pgpgout": 1044,
+          "workingset_refault_file": 9,
+          "workingset_activate_file": 9,
+          "workingset_restore_file": 0,
+          "allocstall_dma": 0,
+          "allocstall_dma32": 0,
+          "allocstall_normal": 0,
+          "allocstall_movable": 0
+        }
+      }
+    },
+    {
+      "group": "comparison",
+      "position": 2,
+      "mode": "damon_disabled",
+      "phase_ms": {
+        "entry": 57.054,
+        "baseline": 1465.283,
+        "actions": 2046.868,
+        "finalize": 108.198
+      },
+      "guest_envelope_ms": 3678.786913,
+      "envelope_realtime_minus_monotonic_ms": 0.000464,
+      "loop_outside_action_timers_ms": 55.845528,
+      "controller_minus_guest_envelope_ms": 36.626502,
+      "task_ms": 3721.0397120000002,
+      "action_sum_ms": 1991.022472,
+      "scan_ms": 29.877999999999997,
+      "observed_min_free_gib": 48.29570770263672,
+      "baseline_commands": {
+        "add": {
+          "boundary_ns": 1410900000,
+          "real_seconds": 1.409,
+          "user_seconds": 0.332,
+          "system_seconds": 0.382
+        },
+        "write_tree": {
+          "boundary_ns": 28307000,
+          "real_seconds": 0.028,
+          "user_seconds": 0.016,
+          "system_seconds": 0.004
+        },
+        "reset": {
+          "boundary_ns": 24359000,
+          "real_seconds": 0.024,
+          "user_seconds": 0.008,
+          "system_seconds": 0.016
+        },
+        "rev_parse": {
+          "boundary_ns": 1591000,
+          "real_seconds": 0.001,
+          "user_seconds": 0.002,
+          "system_seconds": 0.0
+        }
+      },
+      "baseline_outside_command_boundaries_ms": 0.126,
+      "baseline_add_trace": {
+        "performance": {
+          "command_seconds": 1.406134195,
+          "records": [
+            {
+              "timestamp": "17:17:48.555459",
+              "source": "read-cache.c:2398",
+              "seconds": 0.00302489,
+              "label": "read cache .git/index"
+            },
+            {
+              "timestamp": "17:17:48.630310",
+              "source": "preload-index.c:154",
+              "seconds": 0.07482441,
+              "label": "preload index"
+            },
+            {
+              "timestamp": "17:17:48.631749",
+              "source": "name-hash.c:607",
+              "seconds": 0.000944906,
+              "label": "initialize name hash"
+            },
+            {
+              "timestamp": "17:17:49.949619",
+              "source": "diff-lib.c:266",
+              "seconds": 1.282918124,
+              "label": "diff-files"
+            },
+            {
+              "timestamp": "17:17:49.956263",
+              "source": "read-cache.c:3072",
+              "seconds": 0.006187545,
+              "label": "write index, changed mask = 2a"
+            },
+            {
+              "timestamp": "17:17:49.958176",
+              "source": "trace.c:487",
+              "seconds": 1.406134195,
+              "label": "git command: git -C /testbed add -A"
+            }
+          ],
+          "longest_recorded_stage": {
+            "timestamp": "17:17:49.949619",
+            "source": "diff-lib.c:266",
+            "seconds": 1.282918124,
+            "label": "diff-files"
+          },
+          "scope": "Native Git timers may nest or omit intervals; do not sum as a complete breakdown"
+        },
+        "trace2": {
+          "command_seconds": 1.406674,
+          "regions": [
+            {
+              "category": "cache_tree",
+              "label": "read",
+              "t_rel": 0.000991,
+              "nesting": 2,
+              "thread": "main"
+            },
+            {
+              "category": "index",
+              "label": "do_read_index",
+              "t_rel": 0.003048,
+              "nesting": 1,
+              "thread": "main"
+            },
+            {
+              "category": "index",
+              "label": "preload",
+              "t_rel": 0.074861,
+              "nesting": 1,
+              "thread": "main"
+            },
+            {
+              "category": "index",
+              "label": "name-hash-init",
+              "t_rel": 0.000935,
+              "nesting": 2,
+              "thread": "main"
+            },
+            {
+              "category": "dir",
+              "label": "read_directory",
+              "t_rel": 0.035712,
+              "nesting": 1,
+              "thread": "main"
+            },
+            {
+              "category": "cache_tree",
+              "label": "write",
+              "t_rel": 0.000455,
+              "nesting": 2,
+              "thread": "main"
+            },
+            {
+              "category": "index",
+              "label": "do_write_index",
+              "t_rel": 0.006227,
+              "nesting": 1,
+              "thread": "main"
+            }
+          ],
+          "directory": {
+            "seconds": 0.035712,
+            "enter_time": "2026-09-30T17:17:48.630650Z",
+            "leave_time": "2026-09-30T17:17:48.666360Z",
+            "realtime_interval_seconds": 0.03571,
+            "counts": {
+              "directories-visited": 2743,
+              "paths-visited": 11007
+            }
+          },
+          "largest_marker_gap": {
+            "before": "initialize name hash",
+            "after": "diff-files",
+            "elapsed_ns": 1317870000,
+            "overlap_with_directory_seconds": 0.03461099999902304,
+            "overlap_fraction": 0.026262833207389983
+          },
+          "scope": "Nested regions are not additive; boundary overlap uses realtime log timestamps; no I/O or blocking attribution"
+        },
+        "diskstats": {
+          "loop0": {
+            "major": 7,
+            "minor": 0,
+            "reads_completed": 0,
+            "sectors_read": 0,
+            "read_ms": 0,
+            "writes_completed": 0,
+            "sectors_written": 0,
+            "write_ms": 0,
+            "io_ms": 0,
+            "weighted_io_ms": 0
+          },
+          "loop1": {
+            "major": 7,
+            "minor": 1,
+            "reads_completed": 0,
+            "sectors_read": 0,
+            "read_ms": 0,
+            "writes_completed": 0,
+            "sectors_written": 0,
+            "write_ms": 0,
+            "io_ms": 0,
+            "weighted_io_ms": 0
+          },
+          "loop2": {
+            "major": 7,
+            "minor": 2,
+            "reads_completed": 0,
+            "sectors_read": 0,
+            "read_ms": 0,
+            "writes_completed": 0,
+            "sectors_written": 0,
+            "write_ms": 0,
+            "io_ms": 0,
+            "weighted_io_ms": 0
+          },
+          "loop3": {
+            "major": 7,
+            "minor": 3,
+            "reads_completed": 0,
+            "sectors_read": 0,
+            "read_ms": 0,
+            "writes_completed": 0,
+            "sectors_written": 0,
+            "write_ms": 0,
+            "io_ms": 0,
+            "weighted_io_ms": 0
+          },
+          "loop4": {
+            "major": 7,
+            "minor": 4,
+            "reads_completed": 0,
+            "sectors_read": 0,
+            "read_ms": 0,
+            "writes_completed": 0,
+            "sectors_written": 0,
+            "write_ms": 0,
+            "io_ms": 0,
+            "weighted_io_ms": 0
+          },
+          "loop5": {
+            "major": 7,
+            "minor": 5,
+            "reads_completed": 0,
+            "sectors_read": 0,
+            "read_ms": 0,
+            "writes_completed": 0,
+            "sectors_written": 0,
+            "write_ms": 0,
+            "io_ms": 0,
+            "weighted_io_ms": 0
+          },
+          "loop6": {
+            "major": 7,
+            "minor": 6,
+            "reads_completed": 0,
+            "sectors_read": 0,
+            "read_ms": 0,
+            "writes_completed": 0,
+            "sectors_written": 0,
+            "write_ms": 0,
+            "io_ms": 0,
+            "weighted_io_ms": 0
+          },
+          "loop7": {
+            "major": 7,
+            "minor": 7,
+            "reads_completed": 0,
+            "sectors_read": 0,
+            "read_ms": 0,
+            "writes_completed": 0,
+            "sectors_written": 0,
+            "write_ms": 0,
+            "io_ms": 0,
+            "weighted_io_ms": 0
+          },
+          "vda": {
+            "major": 254,
+            "minor": 0,
+            "reads_completed": 0,
+            "sectors_read": 0,
+            "read_ms": 0,
+            "writes_completed": 0,
+            "sectors_written": 0,
+            "write_ms": 0,
+            "io_ms": 0,
+            "weighted_io_ms": 0
+          },
+          "vdb": {
+            "major": 254,
+            "minor": 16,
+            "reads_completed": 11860,
+            "sectors_read": 139496,
+            "read_ms": 1669,
+            "writes_completed": 2,
+            "sectors_written": 1992,
+            "write_ms": 3,
+            "io_ms": 864,
+            "weighted_io_ms": 1671
+          },
+          "vdc": {
+            "major": 254,
+            "minor": 32,
+            "reads_completed": 0,
+            "sectors_read": 0,
+            "read_ms": 0,
+            "writes_completed": 0,
+            "sectors_written": 0,
+            "write_ms": 0,
+            "io_ms": 0,
+            "weighted_io_ms": 0
+          },
+          "vdd": {
+            "major": 254,
+            "minor": 48,
+            "reads_completed": 0,
+            "sectors_read": 0,
+            "read_ms": 0,
+            "writes_completed": 0,
+            "sectors_written": 0,
+            "write_ms": 0,
+            "io_ms": 0,
+            "weighted_io_ms": 0
+          },
+          "vde": {
+            "major": 254,
+            "minor": 64,
+            "reads_completed": 0,
+            "sectors_read": 0,
+            "read_ms": 0,
+            "writes_completed": 0,
+            "sectors_written": 0,
+            "write_ms": 0,
+            "io_ms": 0,
+            "weighted_io_ms": 0
+          },
+          "vdf": {
+            "major": 254,
+            "minor": 80,
+            "reads_completed": 0,
+            "sectors_read": 0,
+            "read_ms": 0,
+            "writes_completed": 0,
+            "sectors_written": 0,
+            "write_ms": 0,
+            "io_ms": 0,
+            "weighted_io_ms": 0
+          }
+        }
+      },
+      "step_025_evidence": {
+        "root_device": "vdb",
+        "root_diskstats": {
+          "major": 254,
+          "minor": 16,
+          "reads_completed": 0,
+          "sectors_read": 0,
+          "read_ms": 0,
+          "writes_completed": 258,
+          "sectors_written": 2088,
+          "write_ms": 42,
+          "io_ms": 4,
+          "weighted_io_ms": 42
+        },
+        "full_capture_vcpu_wait_upper_bound_ns": 11372258,
+        "full_capture_successful_async_setup": 0,
+        "before_mem_available_kib": 3747456,
+        "during_command_counter_deltas": {
+          "pgscan_kswapd": 0,
+          "pgscan_direct": 0,
+          "pgscan_file": 0,
+          "pgsteal_kswapd": 0,
+          "pgsteal_direct": 0,
+          "pgsteal_file": 0,
+          "pgmajfault": 0,
+          "pgpgin": 0,
+          "pgpgout": 1044,
+          "workingset_refault_file": 0,
+          "workingset_activate_file": 0,
+          "workingset_restore_file": 0,
+          "allocstall_dma": 0,
+          "allocstall_dma32": 0,
+          "allocstall_normal": 0,
+          "allocstall_movable": 0
+        }
+      }
+    },
+    {
+      "group": "comparison",
+      "position": 3,
+      "mode": "damon_disabled",
+      "phase_ms": {
+        "entry": 61.227,
+        "baseline": 1600.55,
+        "actions": 2086.076,
+        "finalize": 104.405
+      },
+      "guest_envelope_ms": 3853.671821,
+      "envelope_realtime_minus_monotonic_ms": 0.000391,
+      "loop_outside_action_timers_ms": 56.700894,
+      "controller_minus_guest_envelope_ms": 41.401758,
+      "task_ms": 3900.0791600000002,
+      "action_sum_ms": 2029.3751059999997,
+      "scan_ms": 30.307000000000002,
+      "observed_min_free_gib": 48.29492950439453,
+      "baseline_commands": {
+        "add": {
+          "boundary_ns": 1547655000,
+          "real_seconds": 1.546,
+          "user_seconds": 0.381,
+          "system_seconds": 0.337
+        },
+        "write_tree": {
+          "boundary_ns": 29273000,
+          "real_seconds": 0.029,
+          "user_seconds": 0.016,
+          "system_seconds": 0.004
+        },
+        "reset": {
+          "boundary_ns": 21947000,
+          "real_seconds": 0.022,
+          "user_seconds": 0.006,
+          "system_seconds": 0.018
+        },
+        "rev_parse": {
+          "boundary_ns": 1563000,
+          "real_seconds": 0.001,
+          "user_seconds": 0.001,
+          "system_seconds": 0.0
+        }
+      },
+      "baseline_outside_command_boundaries_ms": 0.112,
+      "baseline_add_trace": {
+        "performance": {
+          "command_seconds": 1.543039449,
+          "records": [
+            {
+              "timestamp": "17:18:09.102739",
+              "source": "read-cache.c:2398",
+              "seconds": 0.002937292,
+              "label": "read cache .git/index"
+            },
+            {
+              "timestamp": "17:18:09.182044",
+              "source": "preload-index.c:154",
+              "seconds": 0.079276752,
+              "label": "preload index"
+            },
+            {
+              "timestamp": "17:18:09.183563",
+              "source": "name-hash.c:607",
+              "seconds": 0.000905589,
+              "label": "initialize name hash"
+            },
+            {
+              "timestamp": "17:18:10.633849",
+              "source": "diff-lib.c:266",
+              "seconds": 1.414847227,
+              "label": "diff-files"
+            },
+            {
+              "timestamp": "17:18:10.640436",
+              "source": "read-cache.c:3072",
+              "seconds": 0.006198318,
+              "label": "write index, changed mask = 2a"
+            },
+            {
+              "timestamp": "17:18:10.642425",
+              "source": "trace.c:487",
+              "seconds": 1.543039449,
+              "label": "git command: git -C /testbed add -A"
+            }
+          ],
+          "longest_recorded_stage": {
+            "timestamp": "17:18:10.633849",
+            "source": "diff-lib.c:266",
+            "seconds": 1.414847227,
+            "label": "diff-files"
+          },
+          "scope": "Native Git timers may nest or omit intervals; do not sum as a complete breakdown"
+        },
+        "trace2": {
+          "command_seconds": 1.543573,
+          "regions": [
+            {
+              "category": "cache_tree",
+              "label": "read",
+              "t_rel": 0.00093,
+              "nesting": 2,
+              "thread": "main"
+            },
+            {
+              "category": "index",
+              "label": "do_read_index",
+              "t_rel": 0.002963,
+              "nesting": 1,
+              "thread": "main"
+            },
+            {
+              "category": "index",
+              "label": "preload",
+              "t_rel": 0.079315,
+              "nesting": 1,
+              "thread": "main"
+            },
+            {
+              "category": "index",
+              "label": "name-hash-init",
+              "t_rel": 0.000897,
+              "nesting": 2,
+              "thread": "main"
+            },
+            {
+              "category": "dir",
+              "label": "read_directory",
+              "t_rel": 0.03615,
+              "nesting": 1,
+              "thread": "main"
+            },
+            {
+              "category": "cache_tree",
+              "label": "write",
+              "t_rel": 0.000451,
+              "nesting": 2,
+              "thread": "main"
+            },
+            {
+              "category": "index",
+              "label": "do_write_index",
+              "t_rel": 0.006235,
+              "nesting": 1,
+              "thread": "main"
+            }
+          ],
+          "directory": {
+            "seconds": 0.03615,
+            "enter_time": "2026-09-30T17:18:09.182470Z",
+            "leave_time": "2026-09-30T17:18:09.218619Z",
+            "realtime_interval_seconds": 0.036149,
+            "counts": {
+              "directories-visited": 2743,
+              "paths-visited": 11007
+            }
+          },
+          "largest_marker_gap": {
+            "before": "initialize name hash",
+            "after": "diff-files",
+            "elapsed_ns": 1450286000,
+            "overlap_with_directory_seconds": 0.03505600000105426,
+            "overlap_fraction": 0.02417178404883882
+          },
+          "scope": "Nested regions are not additive; boundary overlap uses realtime log timestamps; no I/O or blocking attribution"
+        },
+        "diskstats": {
+          "loop0": {
+            "major": 7,
+            "minor": 0,
+            "reads_completed": 0,
+            "sectors_read": 0,
+            "read_ms": 0,
+            "writes_completed": 0,
+            "sectors_written": 0,
+            "write_ms": 0,
+            "io_ms": 0,
+            "weighted_io_ms": 0
+          },
+          "loop1": {
+            "major": 7,
+            "minor": 1,
+            "reads_completed": 0,
+            "sectors_read": 0,
+            "read_ms": 0,
+            "writes_completed": 0,
+            "sectors_written": 0,
+            "write_ms": 0,
+            "io_ms": 0,
+            "weighted_io_ms": 0
+          },
+          "loop2": {
+            "major": 7,
+            "minor": 2,
+            "reads_completed": 0,
+            "sectors_read": 0,
+            "read_ms": 0,
+            "writes_completed": 0,
+            "sectors_written": 0,
+            "write_ms": 0,
+            "io_ms": 0,
+            "weighted_io_ms": 0
+          },
+          "loop3": {
+            "major": 7,
+            "minor": 3,
+            "reads_completed": 0,
+            "sectors_read": 0,
+            "read_ms": 0,
+            "writes_completed": 0,
+            "sectors_written": 0,
+            "write_ms": 0,
+            "io_ms": 0,
+            "weighted_io_ms": 0
+          },
+          "loop4": {
+            "major": 7,
+            "minor": 4,
+            "reads_completed": 0,
+            "sectors_read": 0,
+            "read_ms": 0,
+            "writes_completed": 0,
+            "sectors_written": 0,
+            "write_ms": 0,
+            "io_ms": 0,
+            "weighted_io_ms": 0
+          },
+          "loop5": {
+            "major": 7,
+            "minor": 5,
+            "reads_completed": 0,
+            "sectors_read": 0,
+            "read_ms": 0,
+            "writes_completed": 0,
+            "sectors_written": 0,
+            "write_ms": 0,
+            "io_ms": 0,
+            "weighted_io_ms": 0
+          },
+          "loop6": {
+            "major": 7,
+            "minor": 6,
+            "reads_completed": 0,
+            "sectors_read": 0,
+            "read_ms": 0,
+            "writes_completed": 0,
+            "sectors_written": 0,
+            "write_ms": 0,
+            "io_ms": 0,
+            "weighted_io_ms": 0
+          },
+          "loop7": {
+            "major": 7,
+            "minor": 7,
+            "reads_completed": 0,
+            "sectors_read": 0,
+            "read_ms": 0,
+            "writes_completed": 0,
+            "sectors_written": 0,
+            "write_ms": 0,
+            "io_ms": 0,
+            "weighted_io_ms": 0
+          },
+          "vda": {
+            "major": 254,
+            "minor": 0,
+            "reads_completed": 0,
+            "sectors_read": 0,
+            "read_ms": 0,
+            "writes_completed": 0,
+            "sectors_written": 0,
+            "write_ms": 0,
+            "io_ms": 0,
+            "weighted_io_ms": 0
+          },
+          "vdb": {
+            "major": 254,
+            "minor": 16,
+            "reads_completed": 11862,
+            "sectors_read": 139496,
+            "read_ms": 1755,
+            "writes_completed": 1,
+            "sectors_written": 1992,
+            "write_ms": 1,
+            "io_ms": 1036,
+            "weighted_io_ms": 1757
+          },
+          "vdc": {
+            "major": 254,
+            "minor": 32,
+            "reads_completed": 0,
+            "sectors_read": 0,
+            "read_ms": 0,
+            "writes_completed": 0,
+            "sectors_written": 0,
+            "write_ms": 0,
+            "io_ms": 0,
+            "weighted_io_ms": 0
+          },
+          "vdd": {
+            "major": 254,
+            "minor": 48,
+            "reads_completed": 0,
+            "sectors_read": 0,
+            "read_ms": 0,
+            "writes_completed": 0,
+            "sectors_written": 0,
+            "write_ms": 0,
+            "io_ms": 0,
+            "weighted_io_ms": 0
+          },
+          "vde": {
+            "major": 254,
+            "minor": 64,
+            "reads_completed": 0,
+            "sectors_read": 0,
+            "read_ms": 0,
+            "writes_completed": 0,
+            "sectors_written": 0,
+            "write_ms": 0,
+            "io_ms": 0,
+            "weighted_io_ms": 0
+          },
+          "vdf": {
+            "major": 254,
+            "minor": 80,
+            "reads_completed": 0,
+            "sectors_read": 0,
+            "read_ms": 0,
+            "writes_completed": 0,
+            "sectors_written": 0,
+            "write_ms": 0,
+            "io_ms": 0,
+            "weighted_io_ms": 0
+          }
+        }
+      },
+      "step_025_evidence": {
+        "root_device": "vdb",
+        "root_diskstats": {
+          "major": 254,
+          "minor": 16,
+          "reads_completed": 0,
+          "sectors_read": 0,
+          "read_ms": 0,
+          "writes_completed": 250,
+          "sectors_written": 2088,
+          "write_ms": 43,
+          "io_ms": 8,
+          "weighted_io_ms": 43
+        },
+        "full_capture_vcpu_wait_upper_bound_ns": 13333750,
+        "full_capture_successful_async_setup": 0,
+        "before_mem_available_kib": 3738648,
+        "during_command_counter_deltas": {
+          "pgscan_kswapd": 0,
+          "pgscan_direct": 0,
+          "pgscan_file": 0,
+          "pgsteal_kswapd": 0,
+          "pgsteal_direct": 0,
+          "pgsteal_file": 0,
+          "pgmajfault": 0,
+          "pgpgin": 0,
+          "pgpgout": 1044,
+          "workingset_refault_file": 0,
+          "workingset_activate_file": 0,
+          "workingset_restore_file": 0,
+          "allocstall_dma": 0,
+          "allocstall_dma32": 0,
+          "allocstall_normal": 0,
+          "allocstall_movable": 0
+        }
+      }
+    },
+    {
+      "group": "comparison",
+      "position": 4,
+      "mode": "default",
+      "phase_ms": {
+        "entry": 67.32,
+        "baseline": 1668.132,
+        "actions": 2398.77,
+        "finalize": 110.733
+      },
+      "guest_envelope_ms": 4246.566814,
+      "envelope_realtime_minus_monotonic_ms": 0.000407,
+      "loop_outside_action_timers_ms": 57.114145,
+      "controller_minus_guest_envelope_ms": 41.510093,
+      "task_ms": 4292.771935,
+      "action_sum_ms": 2341.655855,
+      "scan_ms": 322.183,
+      "observed_min_free_gib": 48.294288635253906,
+      "baseline_commands": {
+        "add": {
+          "boundary_ns": 1603558000,
+          "real_seconds": 1.602,
+          "user_seconds": 0.363,
+          "system_seconds": 0.336
+        },
+        "write_tree": {
+          "boundary_ns": 29651000,
+          "real_seconds": 0.029,
+          "user_seconds": 0.02,
+          "system_seconds": 0.0
+        },
+        "reset": {
+          "boundary_ns": 29577000,
+          "real_seconds": 0.029,
+          "user_seconds": 0.006,
+          "system_seconds": 0.018
+        },
+        "rev_parse": {
+          "boundary_ns": 5018000,
+          "real_seconds": 0.005,
+          "user_seconds": 0.0,
+          "system_seconds": 0.002
+        }
+      },
+      "baseline_outside_command_boundaries_ms": 0.328,
+      "baseline_add_trace": {
+        "performance": {
+          "command_seconds": 1.598813167,
+          "records": [
+            {
+              "timestamp": "17:18:29.515409",
+              "source": "read-cache.c:2398",
+              "seconds": 0.003717845,
+              "label": "read cache .git/index"
+            },
+            {
+              "timestamp": "17:18:29.588309",
+              "source": "preload-index.c:154",
+              "seconds": 0.07286894,
+              "label": "preload index"
+            },
+            {
+              "timestamp": "17:18:29.589727",
+              "source": "name-hash.c:607",
+              "seconds": 0.000845715,
+              "label": "initialize name hash"
+            },
+            {
+              "timestamp": "17:18:31.101508",
+              "source": "diff-lib.c:266",
+              "seconds": 1.477363882,
+              "label": "diff-files"
+            },
+            {
+              "timestamp": "17:18:31.108142",
+              "source": "read-cache.c:3072",
+              "seconds": 0.006235927,
+              "label": "write index, changed mask = 2a"
+            },
+            {
+              "timestamp": "17:18:31.110125",
+              "source": "trace.c:487",
+              "seconds": 1.598813167,
+              "label": "git command: git -C /testbed add -A"
+            }
+          ],
+          "longest_recorded_stage": {
+            "timestamp": "17:18:31.101508",
+            "source": "diff-lib.c:266",
+            "seconds": 1.477363882,
+            "label": "diff-files"
+          },
+          "scope": "Native Git timers may nest or omit intervals; do not sum as a complete breakdown"
+        },
+        "trace2": {
+          "command_seconds": 1.599456,
+          "regions": [
+            {
+              "category": "cache_tree",
+              "label": "read",
+              "t_rel": 0.001036,
+              "nesting": 2,
+              "thread": "main"
+            },
+            {
+              "category": "index",
+              "label": "do_read_index",
+              "t_rel": 0.003741,
+              "nesting": 1,
+              "thread": "main"
+            },
+            {
+              "category": "index",
+              "label": "preload",
+              "t_rel": 0.072908,
+              "nesting": 1,
+              "thread": "main"
+            },
+            {
+              "category": "index",
+              "label": "name-hash-init",
+              "t_rel": 0.000837,
+              "nesting": 2,
+              "thread": "main"
+            },
+            {
+              "category": "dir",
+              "label": "read_directory",
+              "t_rel": 0.035167,
+              "nesting": 1,
+              "thread": "main"
+            },
+            {
+              "category": "cache_tree",
+              "label": "write",
+              "t_rel": 0.00046,
+              "nesting": 2,
+              "thread": "main"
+            },
+            {
+              "category": "index",
+              "label": "do_write_index",
+              "t_rel": 0.006287,
+              "nesting": 1,
+              "thread": "main"
+            }
+          ],
+          "directory": {
+            "seconds": 0.035167,
+            "enter_time": "2026-09-30T17:18:29.588705Z",
+            "leave_time": "2026-09-30T17:18:29.623871Z",
+            "realtime_interval_seconds": 0.035166,
+            "counts": {
+              "directories-visited": 2743,
+              "paths-visited": 11007
+            }
+          },
+          "largest_marker_gap": {
+            "before": "initialize name hash",
+            "after": "diff-files",
+            "elapsed_ns": 1511781000,
+            "overlap_with_directory_seconds": 0.034144000003262426,
+            "overlap_fraction": 0.02258528186507333
+          },
+          "scope": "Nested regions are not additive; boundary overlap uses realtime log timestamps; no I/O or blocking attribution"
+        },
+        "diskstats": {
+          "loop0": {
+            "major": 7,
+            "minor": 0,
+            "reads_completed": 0,
+            "sectors_read": 0,
+            "read_ms": 0,
+            "writes_completed": 0,
+            "sectors_written": 0,
+            "write_ms": 0,
+            "io_ms": 0,
+            "weighted_io_ms": 0
+          },
+          "loop1": {
+            "major": 7,
+            "minor": 1,
+            "reads_completed": 0,
+            "sectors_read": 0,
+            "read_ms": 0,
+            "writes_completed": 0,
+            "sectors_written": 0,
+            "write_ms": 0,
+            "io_ms": 0,
+            "weighted_io_ms": 0
+          },
+          "loop2": {
+            "major": 7,
+            "minor": 2,
+            "reads_completed": 0,
+            "sectors_read": 0,
+            "read_ms": 0,
+            "writes_completed": 0,
+            "sectors_written": 0,
+            "write_ms": 0,
+            "io_ms": 0,
+            "weighted_io_ms": 0
+          },
+          "loop3": {
+            "major": 7,
+            "minor": 3,
+            "reads_completed": 0,
+            "sectors_read": 0,
+            "read_ms": 0,
+            "writes_completed": 0,
+            "sectors_written": 0,
+            "write_ms": 0,
+            "io_ms": 0,
+            "weighted_io_ms": 0
+          },
+          "loop4": {
+            "major": 7,
+            "minor": 4,
+            "reads_completed": 0,
+            "sectors_read": 0,
+            "read_ms": 0,
+            "writes_completed": 0,
+            "sectors_written": 0,
+            "write_ms": 0,
+            "io_ms": 0,
+            "weighted_io_ms": 0
+          },
+          "loop5": {
+            "major": 7,
+            "minor": 5,
+            "reads_completed": 0,
+            "sectors_read": 0,
+            "read_ms": 0,
+            "writes_completed": 0,
+            "sectors_written": 0,
+            "write_ms": 0,
+            "io_ms": 0,
+            "weighted_io_ms": 0
+          },
+          "loop6": {
+            "major": 7,
+            "minor": 6,
+            "reads_completed": 0,
+            "sectors_read": 0,
+            "read_ms": 0,
+            "writes_completed": 0,
+            "sectors_written": 0,
+            "write_ms": 0,
+            "io_ms": 0,
+            "weighted_io_ms": 0
+          },
+          "loop7": {
+            "major": 7,
+            "minor": 7,
+            "reads_completed": 0,
+            "sectors_read": 0,
+            "read_ms": 0,
+            "writes_completed": 0,
+            "sectors_written": 0,
+            "write_ms": 0,
+            "io_ms": 0,
+            "weighted_io_ms": 0
+          },
+          "vda": {
+            "major": 254,
+            "minor": 0,
+            "reads_completed": 0,
+            "sectors_read": 0,
+            "read_ms": 0,
+            "writes_completed": 0,
+            "sectors_written": 0,
+            "write_ms": 0,
+            "io_ms": 0,
+            "weighted_io_ms": 0
+          },
+          "vdb": {
+            "major": 254,
+            "minor": 16,
+            "reads_completed": 11904,
+            "sectors_read": 139776,
+            "read_ms": 1907,
+            "writes_completed": 1,
+            "sectors_written": 1992,
+            "write_ms": 1,
+            "io_ms": 1068,
+            "weighted_io_ms": 1909
+          },
+          "vdc": {
+            "major": 254,
+            "minor": 32,
+            "reads_completed": 0,
+            "sectors_read": 0,
+            "read_ms": 0,
+            "writes_completed": 0,
+            "sectors_written": 0,
+            "write_ms": 0,
+            "io_ms": 0,
+            "weighted_io_ms": 0
+          },
+          "vdd": {
+            "major": 254,
+            "minor": 48,
+            "reads_completed": 0,
+            "sectors_read": 0,
+            "read_ms": 0,
+            "writes_completed": 0,
+            "sectors_written": 0,
+            "write_ms": 0,
+            "io_ms": 0,
+            "weighted_io_ms": 0
+          },
+          "vde": {
+            "major": 254,
+            "minor": 64,
+            "reads_completed": 0,
+            "sectors_read": 0,
+            "read_ms": 0,
+            "writes_completed": 0,
+            "sectors_written": 0,
+            "write_ms": 0,
+            "io_ms": 0,
+            "weighted_io_ms": 0
+          },
+          "vdf": {
+            "major": 254,
+            "minor": 80,
+            "reads_completed": 0,
+            "sectors_read": 0,
+            "read_ms": 0,
+            "writes_completed": 0,
+            "sectors_written": 0,
+            "write_ms": 0,
+            "io_ms": 0,
+            "weighted_io_ms": 0
+          }
+        }
+      },
+      "step_025_evidence": {
+        "root_device": "vdb",
+        "root_diskstats": {
+          "major": 254,
+          "minor": 16,
+          "reads_completed": 2934,
+          "sectors_read": 24920,
+          "read_ms": 327,
+          "writes_completed": 36,
+          "sectors_written": 2088,
+          "write_ms": 8,
+          "io_ms": 296,
+          "weighted_io_ms": 335
+        },
+        "full_capture_vcpu_wait_upper_bound_ns": 11618767,
+        "full_capture_successful_async_setup": 0,
+        "before_mem_available_kib": 3794804,
+        "during_command_counter_deltas": {
+          "pgscan_kswapd": 0,
+          "pgscan_direct": 0,
+          "pgscan_file": 0,
+          "pgsteal_kswapd": 0,
+          "pgsteal_direct": 0,
+          "pgsteal_file": 0,
+          "pgmajfault": 18,
+          "pgpgin": 12460,
+          "pgpgout": 1044,
+          "workingset_refault_file": 3082,
+          "workingset_activate_file": 225,
+          "workingset_restore_file": 0,
+          "allocstall_dma": 0,
+          "allocstall_dma32": 0,
+          "allocstall_normal": 0,
+          "allocstall_movable": 0
+        }
+      }
+    }
+  ],
+  "comparison_means": {
+    "default": {
+      "phase_ms": {
+        "entry": 73.08,
+        "baseline": 1572.519,
+        "actions": 2233.9849999999997,
+        "finalize": 108.7705
+      },
+      "task_ms": 4034.8202865,
+      "controller_minus_guest_envelope_ms": 40.155423,
+      "baseline_commands": {
+        "add": {
+          "boundary_ns": 1514718500,
+          "real_seconds": 1.513,
+          "user_seconds": 0.33099999999999996,
+          "system_seconds": 0.3405
+        },
+        "write_tree": {
+          "boundary_ns": 29061000,
+          "real_seconds": 0.0285,
+          "user_seconds": 0.02,
+          "system_seconds": 0.0
+        },
+        "reset": {
+          "boundary_ns": 25221500,
+          "real_seconds": 0.025,
+          "user_seconds": 0.009000000000000001,
+          "system_seconds": 0.015
+        },
+        "rev_parse": {
+          "boundary_ns": 3294000,
+          "real_seconds": 0.003,
+          "user_seconds": 0.0005,
+          "system_seconds": 0.001
+        }
+      }
+    },
+    "damon_disabled": {
+      "phase_ms": {
+        "entry": 59.1405,
+        "baseline": 1532.9164999999998,
+        "actions": 2066.4719999999998,
+        "finalize": 106.3015
+      },
+      "task_ms": 3810.5594360000005,
+      "controller_minus_guest_envelope_ms": 39.01413,
+      "baseline_commands": {
+        "add": {
+          "boundary_ns": 1479277500,
+          "real_seconds": 1.4775,
+          "user_seconds": 0.35650000000000004,
+          "system_seconds": 0.35950000000000004
+        },
+        "write_tree": {
+          "boundary_ns": 28790000,
+          "real_seconds": 0.0285,
+          "user_seconds": 0.016,
+          "system_seconds": 0.004
+        },
+        "reset": {
+          "boundary_ns": 23153000,
+          "real_seconds": 0.023,
+          "user_seconds": 0.007,
+          "system_seconds": 0.017
+        },
+        "rev_parse": {
+          "boundary_ns": 1577000,
+          "real_seconds": 0.001,
+          "user_seconds": 0.0015,
+          "system_seconds": 0.0
+        }
+      }
+    }
+  },
+  "baseline_git_commands": true,
+  "baseline_add_trace": true,
+  "source_identity": {
+    "workload_image": "ghcr.io/timesler/swe-polybench.eval.x86_64.prettier__prettier-14400@sha256:e625c9b9776870e2cc87172e886bbc90cfc3d6ce1521492f113a46b3f6dfcf44",
+    "sandbox_cpu": "2",
+    "sandbox_memory_mib": "4096",
+    "action_manifest_sha256": "6ea843b464f5f7ec3c081c539386593027ede2335c5309b945a9462feddceaa7",
+    "aenv_version": "aenv 0.2.2",
+    "host_kernel": "6.19.9+",
+    "agentenv_container_image": "sha256:db9eb044ae3d85f9b276b9d2e5dea28cb0be95263d217ea4989f095e1d828681",
+    "overlaybd_io_engine": "0",
+    "overlaybd_direct_io": "false"
+  },
+  "baseline_add_root_device": "vdb",
+  "initial_state": {
+    "baseline_tree": "94ab79f8caf3c568fead53aade5a784f41455d50",
+    "original_head": "6905b39ec7bc6ed38732e26ceced5b57677e2600"
+  },
+  "checks": {
+    "replay": "PASS",
+    "stdout_patch_hashes": "PASS",
+    "independent_svg_html": "PASS",
+    "state": "PASS",
+    "cleanup": "PASS",
+    "cpu_restore": "PASS",
+    "offline_audit": "PASS",
+    "full_official_task_tests": "NOT_RUN",
+    "monitoring_overhead": "NOT_ACCEPTED"
+  },
+  "limitations": [
+    "Calibration only on warm fixture in DAMON-disabled guest; not total combined instrumentation overhead",
+    "Five Bash realtime boundaries; outer dual clock checked; phase clocks not independently monotonic",
+    "Two observations per condition in comparison; descriptive means only, no confidence interval",
+    "Initial add native regions can nest and omit work; guest device-wide counters include other guest work and do not measure storage waiting; command wall/CPU precision is 1ms; no instruction counts",
+    "Controller minus guest envelope includes control channel and boundaries, not pure network time",
+    "All periodic monitoring off; preserve official default and original whole-task metric",
+    "Step 025 queue-wait upper bound and KVM setup counts cover both vCPUs over the full capture; zero async setup does not exclude synchronous faults or I/O; cache counters are non-atomic endpoints"
+  ],
+  "final_resource_check": {
+    "status": "PASS",
+    "checked_date": "2026-10-01",
+    "project_sandboxes": [],
+    "owned_probe_processes": [],
+    "cpu_policies": {
+      "2": {
+        "scaling_min_freq": "800000",
+        "scaling_max_freq": "2801000",
+        "scaling_governor": "schedutil"
+      },
+      "4": {
+        "scaling_min_freq": "800000",
+        "scaling_max_freq": "2801000",
+        "scaling_governor": "schedutil"
+      },
+      "66": {
+        "scaling_min_freq": "800000",
+        "scaling_max_freq": "2801000",
+        "scaling_governor": "schedutil"
+      },
+      "68": {
+        "scaling_min_freq": "800000",
+        "scaling_max_freq": "2801000",
+        "scaling_governor": "schedutil"
+      }
+    },
+    "free_bytes": 51867963392
+  }
+}
