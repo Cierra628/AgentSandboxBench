@@ -46,8 +46,9 @@ def audit(raw, task_dir):
     paths=json.loads((workload/'rollouts.json').read_text())
     executed=config.get('executed_paths',{r:paths[r] for r in roles})
     smoke_role=final_roles[0] if schedule=='bpo' and len(final_roles)==1 else roles[0] if schedule=='grpo' and len(roles)==1 else None
+    if config.get('root_count') is not None:smoke_role=None
     if schedule=='tvcache' and len(roles)==2:smoke_role='early_1'
-    assert executed==execution_paths(paths,schedule,smoke_role)
+    assert executed==execution_paths(paths,schedule,smoke_role,config.get('root_count'))
     names=provenance['original_segment_names']
     assert audit_inputs(workload,samples,paths,names)['status']=='PASS'
     trace=rows(raw/'segments.tsv');ids=rows(raw/'sandbox-ids.tsv')
@@ -151,7 +152,7 @@ def audit(raw, task_dir):
                 restore_request_per_role_ns={r:e['duration_ns'] for r,e in restore_calls.items()},
                 frozen_tools_and_downloads_span_ns=span(tool_calls),
                 frozen_tools_and_downloads_call_sum_ns=sum(e['duration_ns'] for e in tool_calls),stages=events),
-            cleanup=result['cleanup'],physical_page_cache='NOT_MEASURED',VMM_PSS='NOT_MEASURED',
+            cleanup=result['cleanup'],physical_page_cache=result.get('physical_page_cache','NOT_MEASURED'),VMM_PSS=result.get('VMM_PSS','NOT_MEASURED'),
             monitoring_impact='NOT_VALIDATED',checkpoint_restore='PASS' if schedule!='grpo' else 'NOT_RUN',
             checkpoint_count=len(checkpoints),
             measurement_notes=['Guest: /proc/meminfo KiB converted to bytes; MemTotal-MemFree; runner windows only.',

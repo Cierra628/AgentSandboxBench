@@ -38,6 +38,11 @@ def run(args):
         raise ValueError('Sphinx pipeline diagnostic requires complete persistent replay without checkpoint')
     checkpoint=getattr(args,'checkpoint',False)
     monitoring=getattr(args,'monitor_mode','continuous')=='continuous'
+    physical_segments=getattr(args,'physical_cache_after','').split(',') if getattr(args,'physical_cache_after','') else []
+    if physical_segments and (checkpoint or not monitoring or not getattr(args,'persistent_sampling',False) or getattr(args,'diagnostic_only',False) or getattr(args,'evaluation_patch',None)):
+        raise ValueError('physical boundaries require a complete continuously sampled replay without restore')
+    if len(set(physical_segments))!=len(physical_segments) or not set(physical_segments)<=set(cfg['path']):
+        raise ValueError('unknown or duplicate physical cache boundary')
     if not monitoring and (not sphinx or checkpoint or any(getattr(args,k,False) for k in ('diagnostic_only','diagnostic_continuation','evaluation_patch'))):
         raise ValueError('monitor-off control is limited to one complete strict Sphinx replay without checkpoint')
     expected=None
@@ -70,7 +75,7 @@ def run(args):
     env=dict(os.environ,PATH=str(ROOT/'runtime/bin')+':'+os.environ['PATH'],
              XDG_CONFIG_HOME=str(args.config_home),HOST_MONITOR_LIGHT='1')
     from sandbox_runtime_monitor import RuntimeMonitor, boundary_runner
-    events=[];controller=None;sid=None;monitor=None;success=False;stage='preflight';snapshot=None;parent=None
+    events=[];controller=None;sid=None;monitor=None;success=False;stage='preflight';snapshot=None;parent=None;physical=None
     started=time.monotonic_ns()
     result=dict(status='FAIL',task_id=cfg['task_id'],schedule='single backbone',checks={},
                 physical_page_cache='NOT_MEASURED',VMM_PSS='NOT_MEASURED',monitoring_impact='NOT_VALIDATED')
@@ -149,6 +154,17 @@ def run(args):
             async def physical_memory(self,label):return None
         controller=Backbone(SimpleNamespace(raw_dir=out,system='agentenv',method='backbone',timeout=180))
         controller.phase(stage)
+        if physical_segments:
+            code=out/'physical-code';code.mkdir()
+            for name in ('task_physical_cache.py','agentenv_whole_cache.py','measure_file_physical.py',
+                         'guest_whole_cache_probe.py','guest_cache_marker.py','trenvx_whole_cache.py','paused_agentenv_boundary.py',
+                         'cached_file_inventory.py','guest_cached_file_inventory.py','guest_named_file_probe.py',
+                         'guest_file_type_check.py','kernel_file_cache.py','report_file_inventory.py'):
+                shutil.copy2(ROOT/'scripts'/name,code/name)
+            (out/'physical-source-sha256.json').write_text(json.dumps({p.name:sha(p) for p in code.iterdir()},indent=2)+'\n')
+            result['physical_cache_after_segments']=physical_segments
+            from task_physical_cache import TaskPhysicalCache
+            physical=TaskPhysicalCache(out,args.container,cli,source_files=files)
         if monitoring:
             with (out/'host-monitor.log').open('x') as log:
                 monitor=subprocess.Popen(['bash',vendor.parent/'lib/host-memory-monitor.sh',out/'host/memory-samples.tsv',
@@ -157,6 +173,7 @@ def run(args):
         sid=call(stage,[sys.executable,'-B',ROOT/'scripts/agentenv_cold_start.py','--config-home',args.config_home,
                  '--service-url',args.service_url,'--image',cfg['source_image']],610)
         assert re.fullmatch(r'[a-fA-F0-9-]{36}',sid)
+        if physical:physical.ready()
         controller.live[sid]=sid
         controller.record('sandbox-ids.tsv',f'backbone\t{sid}\t\troot')
         if runtime:runtime.start(sid,'backbone','setup')
@@ -218,10 +235,21 @@ def run(args):
             asyncio.run(controller.run_path(sid,'backbone',cfg['path'][:1]))
             verify(cfg['path'][:1])
             result['checks']['first_segment_smoke']='PASS'
+            def measure_boundary(segment):
+                nonlocal stage
+                if physical and segment in physical_segments:
+                    completed=cfg['path'][:cfg['path'].index(segment)+1]
+                    step=sum(len(next(s for s in samples if s['role']=='backbone' and s['segment']==name)['actions']) for name in completed)
+                    previous=stage;stage='physical-cache-'+segment;controller.phase(stage)
+                    physical.measure(sid,segment,step,retain_fixture_pages=True)
+                    stage=previous
+                    controller.phase(stage)
+            measure_boundary(cfg['path'][0])
             stage='remaining-frozen-segments';controller.phase(stage)
             for segment in cfg['path'][1:]:
                 asyncio.run(controller.run_path(sid,'backbone',[segment]))
                 verify([segment])
+                measure_boundary(segment)
                 if checkpoint and segment==('core_verify' if sphinx else 'core_patch'):
                     from run_prettier6604_grpo import verify_process
                     stage='checkpoint-boundary';controller.phase(stage)
@@ -299,6 +327,11 @@ def run(args):
             result['official']=profile.grade_xml(xml.read_text(),f2p+p2p,f2p,p2p,evaluation['exit_code'],evaluation.get('test_id_aliases'))
             result['official_task_status']=result['official']['status']
             result['checks']['complete_benchmark_results_and_source_unchanged']='PASS'
+            if physical:
+                assert [p['after_segment'] for p in physical.points]==[s for s in cfg['path'] if s in physical_segments]
+                result['physical_page_cache']='MEASURED_AT_BOUNDARIES'
+                result['checks']['physical_cache_probe_and_task_state']='PASS'
+                result['checks']['physical_cache_complete']='PASS' if all(p['status']=='PASS' for p in physical.points) else 'PARTIAL'
             if checkpoint:
                 assert result['official']==expected,'restored task outcome differs from archived frozen patch evaluation'
                 (out/'expected-official-result.json').write_text(json.dumps(expected,indent=2)+'\n')
@@ -325,6 +358,8 @@ def run(args):
     finally:
         for sig in (signal.SIGTERM,signal.SIGINT):signal.signal(sig,signal.SIG_IGN)
         cleanup={}
+        if physical:
+            physical.close();cleanup['physical_tracer_stopped']=physical.tracer.poll() is not None
         if sid:
             try:
                 if runtime:runtime.stop(sid)
@@ -363,6 +398,7 @@ if __name__=='__main__':
     parser.add_argument('--diagnostic-only',action='store_true',help='12 find probes only; never counts as replay PASS')
     parser.add_argument('--diagnostic-probe',choices=['find','pipeline'],default='find')
     parser.add_argument('--persistent-sampling',action='store_true',help='Explicit Exp3 sampler variant; original commands and expected exits retained')
+    parser.add_argument('--physical-cache-after',default='',help='Completed original segments for paused physical file-cache measurement')
     parser.add_argument('--monitor-mode',choices=['continuous','off'],default='continuous',help='Off control disables guest boundary/periodic and host memory sampling; Sphinx complete replay only, tool timing retained')
     parser.add_argument('--sphinx-pipeline-policy-version',type=int,choices=(1,2),default=1,help='1: only step 1; 2: approved steps 1 and 14; all other exits strict')
     parser.add_argument('--sphinx-pipeline-diagnostic',action='store_true',help='Approved read_repo/001 only: exact output/patch and 141 or 0; strict FAIL retained')

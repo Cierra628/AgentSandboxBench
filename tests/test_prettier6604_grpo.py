@@ -48,6 +48,17 @@ class BranchInputs(unittest.TestCase):
             if role!='backbone':self.assertTrue(all(s not in path for s in ('read_repo','read_typescript')))
         with self.assertRaises(AssertionError):execution_paths(self.rollouts,'bpo','late_1')
 
+    def test_shared_cache_subsets_keep_original_paths_and_common_prefix(self):
+        from prepare_prettier6604_rollouts import sampled_segment
+        for count,actions in ((1,29),(2,50),(7,189)):
+            selected=execution_paths(self.rollouts,'grpo',root_count=count)
+            self.assertEqual(len(selected),count)
+            self.assertTrue(all(path[:2]==['read_repo','read_typescript'] for path in selected.values()))
+            self.assertEqual(sum(len(sampled_segment(self.samples,role,self.names[s])['actions']) for role,path in selected.items() for s in path),actions)
+            self.assertTrue(all(path==self.rollouts[role] for role,path in selected.items()))
+        for schedule,role in (('bpo',None),('grpo','early_1')):
+            with self.assertRaises(AssertionError):execution_paths(self.rollouts,schedule,role,2)
+
     def test_process_must_keep_identity_and_resume_progress(self):
         before=dict(pid='4',start_ticks='10',boot_id='original',count='20')
         after=dict(before,count='21')

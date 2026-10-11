@@ -1,0 +1,344 @@
+{
+  "status": "PASS",
+  "git_commit": "db8eaada6bd22f1870514913765274a00c3d231c",
+  "offline_configs": {
+    "configs/platform-prettier6604-bpo.json": {
+      "exit_code": 0,
+      "status": "VALIDATED"
+    },
+    "configs/platform-prettier6604-cache.json": {
+      "exit_code": 0,
+      "status": "VALIDATED"
+    },
+    "configs/platform-prettier6604-checkpoint.json": {
+      "exit_code": 0,
+      "status": "VALIDATED"
+    },
+    "configs/platform-prettier6604-grpo.json": {
+      "exit_code": 0,
+      "status": "VALIDATED"
+    },
+    "configs/platform-prettier6604-tvcache.json": {
+      "exit_code": 0,
+      "status": "VALIDATED"
+    },
+    "configs/platform-prettier6604.json": {
+      "exit_code": 0,
+      "status": "VALIDATED"
+    },
+    "configs/platform-sphinx7590-checkpoint.json": {
+      "exit_code": 0,
+      "status": "VALIDATED"
+    },
+    "configs/platform-sphinx7590.json": {
+      "exit_code": 0,
+      "status": "VALIDATED"
+    },
+    "configs/platform-xarray6992-checkpoint.json": {
+      "exit_code": 0,
+      "status": "VALIDATED"
+    },
+    "configs/platform-xarray6992.json": {
+      "exit_code": 0,
+      "status": "VALIDATED"
+    }
+  },
+  "source_sha256": {
+    "scripts/platform_tasks.py": "0a85ec955504e783db70f77a86e82f3186f32dd932ab76ba2dbb1f8336739abc",
+    "scripts/use_platform.py": "330efda09acb0658fff120096bb06dfdd9b9d24af9c0e0399d81fc898b697018",
+    "scripts/run_prettier6604.py": "177bc42f01dd9d6dae8071f85d4403233466491ac55ce3f44c199087114626a5",
+    "scripts/task_physical_cache.py": "c8540b7da47af2657513403c1d9afcf32a1a1a78d01fb9789848fb987e16e575",
+    "scripts/validate_isolated_agentenv.py": "eada749e41b648b5c27eb501203d7b49b3fe626afd036ecf05b52b4c0949fff3",
+    "scripts/report_sandbox_runtime.py": "d5cedc44bb00b5acc836859b0a97b378267e2f444db12268c912d4905662964f",
+    "scripts/cached_file_inventory.py": "d67dd6ca064f96839249cf39676ebe09248f760ede0d69cbc5cafb3142e69809",
+    "scripts/report_file_inventory.py": "e4efec4357adb2ee4edcf582ac78544b157987e79c899b2b2e82d4adcd5c23b4",
+    "tests/test_platform_tasks.py": "490d013a85ad9a8ad446cbf22766c743cc89a3e272cce7e1421b4d07e350cf42",
+    "tests/test_cached_file_inventory.py": "8948ee4ac791ebf405e164be6aefe3ae06c28016a22de39d7095c9e181899292"
+  },
+  "new_live_runs_completed": 1,
+  "attempts": [
+    {
+      "directory": ".artifacts/storage-isolated-service/20261011T063624Z-457525",
+      "source_run_status": "FAIL",
+      "failed_stage": "physical-cache-core_verify",
+      "error": "FileExistsError(17, 'File exists')",
+      "cleanup": {
+        "owned_container_removed": true,
+        "mount_and_loop_removed": true,
+        "failed_fixture_retained": true,
+        "original_firecracker_identities_unchanged": true,
+        "original_service_unchanged": true
+      },
+      "backup_status": "PASS",
+      "backup_bytes": 101140129,
+      "points": [
+        {
+          "after_global_step": 24,
+          "confirmed_physical_bytes": 213553152,
+          "unknown_host_pages": 0,
+          "measurement_status": "PASS",
+          "typed_physical_bytes": {
+            "block_device": 31956992,
+            "filesystem_allocation_metadata": 1409024,
+            "regular_file": 180187136
+          },
+          "analysis_elapsed_ns": 7394820715,
+          "paused_interval_ns": 3729017145,
+          "task_state_unchanged": true
+        },
+        {
+          "after_global_step": 5,
+          "confirmed_physical_bytes": 225218560,
+          "unknown_host_pages": 0,
+          "measurement_status": "PASS",
+          "typed_physical_bytes": {
+            "block_device": 26275840,
+            "filesystem_allocation_metadata": 3727360,
+            "regular_file": 195215360
+          },
+          "analysis_elapsed_ns": 7829874751,
+          "paused_interval_ns": 3897468941,
+          "task_state_unchanged": true
+        }
+      ]
+    },
+    {
+      "directory": ".artifacts/storage-isolated-service/20261011T063913Z-461848",
+      "source_run_status": "FAIL",
+      "failed_stage": "physical-cache-core_verify",
+      "error": "AssertionError()",
+      "cleanup": {
+        "owned_container_removed": true,
+        "mount_and_loop_removed": true,
+        "failed_fixture_retained": true,
+        "original_firecracker_identities_unchanged": true,
+        "original_service_unchanged": true
+      },
+      "backup_status": "PASS",
+      "backup_bytes": 101139235,
+      "points": [
+        {
+          "after_global_step": 5,
+          "confirmed_physical_bytes": 220348416,
+          "unknown_host_pages": 0,
+          "measurement_status": "PASS",
+          "typed_physical_bytes": {
+            "filesystem_allocation_metadata": 3727360,
+            "block_device": 26271744,
+            "regular_file": 190349312
+          },
+          "analysis_elapsed_ns": 7638709486,
+          "paused_interval_ns": 3883902815,
+          "task_state_unchanged": true
+        }
+      ]
+    }
+  ],
+  "partial_point": {
+    "selected_guest_pages": 61209,
+    "frozen_guest_file_cache_physical_bytes": 250695680,
+    "frozen_guest_file_cache_host_unknown_pages": 4,
+    "frozen_cache_physical_status": "PARTIAL",
+    "classification_status": "PASS"
+  },
+  "limitations": [
+    "此前两次运行均在第24步后中止，原FAIL和完整备份保留，不计完整重放。",
+    "此前第二次第24步有4个未知host映射页，已确认下界239.08 MiB；本次三个成功点未知页均为0，不改写历史测量。",
+    "物理测量范围为guest文件页对应host驻留页，在单个VM内去重；不是全部host backing cache，也不证明跨VM共享收益。",
+    "普通文件内容、块设备缓存和文件系统分配元数据分别报告；每点含12 KiB校准文件内容。",
+    "物理点稀疏且需要暂停，点间不插值；分析和暂停成本单列，不能作为轻量监控开销对照。",
+    "本轮只真实验证Prettier新入口；其他版本2配置离线通过并复用历史控制器证据，Sphinx/Xarray统一物理测量接入为下一步。",
+    "原官方任务测试0通过2失败保持；平台重放正确不代表模型修复通过。"
+  ],
+  "source_scope": "corrected controller live verified for Prettier 29-step single path with three physical-cache boundaries; other version2 configurations offline verified only",
+  "verification": {
+    "offline_task_configs": 10,
+    "related_distinct_tests_passed": 61,
+    "multi_point_summary_regression": "PASS",
+    "partial_measurement_does_not_relax_known_fixture_checks": "PASS",
+    "python_json_structure": "PASS",
+    "git_diff_check": "PASS",
+    "live_complete_replay": "PASS",
+    "independent_offline_report": "PASS",
+    "raw_hashes_unchanged": true,
+    "raw_file_count": 550
+  },
+  "cleanup": {
+    "status": "PASS",
+    "host_available_before_bytes": 30255378432,
+    "host_available_after_bytes": 47435055104,
+    "allocated_bytes_released": 17179918336,
+    "other_archives_removed": false,
+    "scope": "two exact failed source volumes; full backups, logs and raw results retained",
+    "rows": [
+      {
+        "directory": "/home/yyxie/agentenv_experiment/.artifacts/storage-isolated-service/20261011T063624Z-457525",
+        "source": "/home/yyxie/agentenv_experiment/.artifacts/storage-isolated-service/20261011T063624Z-457525/volume.ext4",
+        "archive": "/home/yyxie/agentenv_experiment/.artifacts/storage-isolated-service/20261011T063624Z-457525/volume.ext4.gz",
+        "source_sha256": "20332208544ccee4364ab83cab17d215e470aba82c3c77df5656b0f26c35752f",
+        "backup_sha256": "13bbec386bb63dc9ed82faf7e75140698ed0dfd41ec5f23290662b3c8415d10f",
+        "allocated_bytes": 8589959168,
+        "archive_bytes": 101140129
+      },
+      {
+        "directory": "/home/yyxie/agentenv_experiment/.artifacts/storage-isolated-service/20261011T063913Z-461848",
+        "source": "/home/yyxie/agentenv_experiment/.artifacts/storage-isolated-service/20261011T063913Z-461848/volume.ext4",
+        "archive": "/home/yyxie/agentenv_experiment/.artifacts/storage-isolated-service/20261011T063913Z-461848/volume.ext4.gz",
+        "source_sha256": "760fbade519f3464fb040426e064a31de4c0928f441a7f77bcf1a5d43e8c23f2",
+        "backup_sha256": "1cf21743afd6c6a3d3fe589c4a2e9c8a3c72ce23f593386f8def8e73d94e25d5",
+        "allocated_bytes": 8589959168,
+        "archive_bytes": 101139235
+      }
+    ],
+    "raw_and_original_failures_unchanged": true
+  },
+  "current_workflow_dir": ".artifacts/platform-tasks/20261011T065320Z-468452",
+  "report_comparison": {
+    "status": "PASS",
+    "auto_directory": ".artifacts/platform-tasks/report-20261011T065320Z-468452",
+    "recomputed_directory": ".artifacts/platform-tasks/report-recomputed-20261011T065320Z",
+    "identical_file_count": 9,
+    "file_sha256": {
+      "result.json": "44ddada6b10a7bd77c548df93a7fde206fd3ca352b9bc022243502dcdb47e6e2",
+      "memory.svg": "f9ff0e40bd9a92402c567d3651f9309367af1ba1ac2e6b752b6fb34eb32c4b99",
+      "memory.png": "f1ed5cc62fe5426249b0dea01ed7e6b98fe7c311ab522b9199f1aa5bbc709dbd",
+      "physical-cache.svg": "f5b2fddc1cbd9559430ef74f1f22bb2e449abdf23acf84a1de34cae55e6aaf37",
+      "summary.json": "817b182d79a966dab7bdff7741e6161524fec6e0961181202cd96f25e1fa2ad2",
+      "runtime-metrics.json": "0458ce4f7f9ea9d30245f7ef54a12f4bcbd558f12ed0be607932a703cb004e3b",
+      "guest-01a129be-19a4-7800-a15a-b49504d45107.svg": "b8c391c8abc5002db40088c57383c04e310bea7c53062685e619344dceedfd01",
+      "performance-01a129be-19a4-7800-a15a-b49504d45107.svg": "106c7ab26d5f82c9302797adaf78c21f0ba765f39e12c7cf2734bf327d57a764",
+      "input-sha256.json": "f916480ff51543a085493c95676e635932435a54ed317190bb6ab30d630bbbb6"
+    }
+  },
+  "successful_run": {
+    "workflow_directory": ".artifacts/platform-tasks/20261011T065320Z-468452",
+    "storage_directory": ".artifacts/storage-isolated-service/20261011T065438Z-468941",
+    "status": "PASS",
+    "strict_replay_status": "PASS",
+    "official_task_status": "FAIL",
+    "official_test_passed": 0,
+    "official_test_failed": 2,
+    "action_count": 29,
+    "final_patch_sha256": "73eb5f9d0c5582c5b1be464aa6915cfba621a27b80d953b69db74c6d1fa3da5a",
+    "guest_action_seconds": 12.017297308,
+    "frozen_replay_seconds": 37.433277392,
+    "lifecycle_seconds": 47.824590162,
+    "physical_analysis_seconds": 22.689803011,
+    "physical_pause_seconds": 11.084428846,
+    "physical_cache_status": "PASS",
+    "physical_points": [
+      {
+        "after_global_step": 5,
+        "after_segment": "read_repo",
+        "status": "PASS",
+        "confirmed_physical_bytes": 220565504,
+        "unknown_host_pages": 0,
+        "possible_physical_upper_bytes": 220565504,
+        "analysis_elapsed_ns": 7855762185,
+        "paused_interval_ns": 3843680322,
+        "task_state_unchanged": true,
+        "calibration_regular_content_included_bytes": 12288,
+        "typed_physical_bytes": {
+          "block_device": 26279936,
+          "regular_file": 190517248,
+          "filesystem_allocation_metadata": 3768320
+        },
+        "known_fixture_status": "PASS",
+        "offline_recount": "PASS"
+      },
+      {
+        "after_global_step": 24,
+        "after_segment": "core_verify",
+        "status": "PASS",
+        "confirmed_physical_bytes": 255389696,
+        "unknown_host_pages": 0,
+        "possible_physical_upper_bytes": 255389696,
+        "analysis_elapsed_ns": 8205866807,
+        "paused_interval_ns": 4252214062,
+        "task_state_unchanged": true,
+        "calibration_regular_content_included_bytes": 12288,
+        "typed_physical_bytes": {
+          "block_device": 46923776,
+          "filesystem_allocation_metadata": 3776512,
+          "regular_file": 204689408
+        },
+        "known_fixture_status": "PASS",
+        "offline_recount": "PASS"
+      },
+      {
+        "after_global_step": 29,
+        "after_segment": "backbone_finish",
+        "status": "PASS",
+        "confirmed_physical_bytes": 145002496,
+        "unknown_host_pages": 0,
+        "possible_physical_upper_bytes": 145002496,
+        "analysis_elapsed_ns": 6628174019,
+        "paused_interval_ns": 2988534462,
+        "task_state_unchanged": true,
+        "calibration_regular_content_included_bytes": 12288,
+        "typed_physical_bytes": {
+          "block_device": 37105664,
+          "regular_file": 107847680,
+          "filesystem_allocation_metadata": 49152
+        },
+        "known_fixture_status": "PASS",
+        "offline_recount": "PASS"
+      }
+    ],
+    "guest_memory": {
+      "role": "backbone",
+      "sample_count": 328,
+      "observed_nonfree_peak_bytes": 581115904,
+      "components_at_peak_bytes": {
+        "Cached": 223993856,
+        "AnonPages": 232542208,
+        "Buffers": 46895104,
+        "Shmem": 17883136,
+        "Slab": 45101056
+      },
+      "components_at_peak_percent": {
+        "Cached": 38.545469924017084,
+        "AnonPages": 40.01649350832429,
+        "Buffers": 8.06983661558848,
+        "Shmem": 3.0773785189675347,
+        "Slab": 7.761111972595401
+      },
+      "cached_min_bytes": 45637632,
+      "cached_observed_peak_bytes": 234774528,
+      "slab_status": "MEASURED"
+    },
+    "host_sessions": [
+      {
+        "session_id": "0f054bc0-1027-4b24-ac9a-5f94ec7627fd",
+        "sample_count": 409,
+        "pss_sample_count": 44,
+        "cpu_invalid_intervals": 0,
+        "io_invalid_intervals": 0,
+        "observed_rss_peak_bytes": 747839488,
+        "observed_pss_peak_bytes": 747769856,
+        "observed_cpu_peak_percent": 239.8096462970588,
+        "max_scan_duration_ns": 433309030,
+        "max_pss_scan_duration_ns": 179522724,
+        "collector_cpu_seconds": 1.39909
+      }
+    ],
+    "cleanup": {
+      "owned_container_removed": true,
+      "mount_and_loop_removed": true,
+      "successful_fixture_removed": true,
+      "original_firecracker_identities_unchanged": true,
+      "original_service_unchanged": true
+    },
+    "immutable_cache_released": true,
+    "storage": {
+      "capacity_bytes": 8589934592,
+      "observed_volume_used_peak_bytes": 1029193728,
+      "observed_host_available_min_bytes": 38843047936,
+      "host_available_after_cleanup_bytes": 47077396480
+    }
+  },
+  "commands": {
+    "live": "bash scripts/use-platform.sh run configs/platform-prettier6604-cache.json",
+    "offline_report": "bash scripts/use-platform.sh report .artifacts/platform-tasks/20261011T065320Z-468452 --output .artifacts/platform-tasks/report-recomputed-20261011T065320Z"
+  }
+}

@@ -1,0 +1,17 @@
+{
+  "version": 2,
+  "backend": "agentenv",
+  "rollout": "single",
+  "checkpoint_after_step": null,
+  "output_root": ".artifacts/platform-tasks",
+  "task_id": "sphinx-doc__sphinx-7590",
+  "inputs": ".artifacts/sphinx-backbone/prepare-20261009T041720Z",
+  "reference": ".artifacts/storage-isolated-service/20261009T055637Z-3955483/python-backbone",
+  "cache_backup_directory": ".artifacts/storage-isolated-service/20261009T050703Z-3934019",
+  "replay_policy": "sphinx-pipeline-v2",
+  "physical_cache_after_segments": [
+    "trace_cpp_parser",
+    "core_verify",
+    "backbone_finish"
+  ]
+}

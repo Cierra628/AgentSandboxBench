@@ -83,13 +83,13 @@ def physical_types(rows, host, snapshot_rows=(), nonresident_pfns=(), allocation
         frozen_cache_physical_status='PARTIAL' if unknown_host else 'PASS')
 
 
-def audit_frozen_fixture(directory):
+def audit_frozen_fixture(directory,*,require_complete_cache=True):
     saved=load(directory/'frozen-fixture-result.json');before=load(directory/'before.json');after=load(directory/'after.json')
     actual=recount(directory);kernel=load(directory/'kernel-file-types.json')
     assert saved['status']=='PASS' and saved['calibration_scope']=='paused exact-kernel point'
     assert saved['interval_fixture_status']==actual['fixture_checks']
     assert kernel['checks']['known_file_contents_match_ram']==kernel['checks']['known_file_type_device_inode_index']=='PASS'
-    assert kernel['frozen_cache_physical_status']=='PASS'
+    assert kernel['frozen_cache_physical_status']=='PASS' or not require_complete_cache and kernel['frozen_cache_physical_status']=='PARTIAL'
     assert before['mode']=='fixture' and before['catalog']['regular_paths']==6 and len(before['files'])==5
     final={r['path']:r for r in after['files']};expected=[];nonresident=0
     for file in before['files']:

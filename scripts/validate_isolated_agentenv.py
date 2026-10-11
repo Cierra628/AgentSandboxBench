@@ -93,6 +93,15 @@ def main(args):
     prettier_schedule=getattr(args,'prettier6604_schedule','grpo')
     prettier_readonly=getattr(args,'prettier6604_readonly_replay',False)
     prettier_monitor_mode=getattr(args,'prettier6604_monitor_mode','continuous')
+    prettier_physical=getattr(args,'prettier6604_physical_cache_after','')
+    prettier_shared=getattr(args,'prettier6604_shared_cache',False)
+    prettier_root_count=getattr(args,'prettier6604_root_count',None)
+    if prettier_shared and not (prettier_export and prettier_schedule=='grpo' and not prettier_role and not prettier_checkpoint):
+        raise ValueError('shared-cache measurement requires independent Prettier GRPO roots')
+    if prettier_root_count is not None and not prettier_shared:
+        raise ValueError('root-count requires shared-cache analysis')
+    if prettier_physical and not (prettier6604 and prettier_readonly and not prettier_checkpoint and not prettier_export and prettier_monitor_mode=='continuous'):
+        raise ValueError('physical boundaries require one continuous readonly Prettier replay')
     if prettier_monitor_mode=='off' and not prettier_readonly:
         raise ValueError('Prettier monitor-off requires complete readonly backbone')
     cache_seed=getattr(args,'immutable_cache_seed',None)
@@ -106,6 +115,7 @@ def main(args):
     python_readonly_replay=getattr(args,'python_readonly_replay',False)
     python_persistent=getattr(args,'python_persistent_sampling',False)
     python_monitor_mode=getattr(args,'python_monitor_mode','continuous')
+    python_physical=getattr(args,'python_physical_cache_after','')
     python_continuation=getattr(args,'python_diagnostic_continuation',False)
     sphinx_pipeline=getattr(args,'python_sphinx_pipeline_diagnostic',False)
     pipeline_version=getattr(args,'python_sphinx_pipeline_policy_version',1)
@@ -117,15 +127,22 @@ def main(args):
     python_runtime_smoke=getattr(args,'python_runtime_smoke',False)
     python_find_diagnostic=getattr(args,'python_find_diagnostic',False)
     python_command_diagnostic=getattr(args,'python_command_diagnostic',False)
+    python_tool_capture=getattr(args,'python_tool_capture_demo',False)
+    python_durable=getattr(args,'python_durable_checkpoint_demo',False)
+    durable_bundle=getattr(args,'python_durable_checkpoint_bundle',None)
+    if durable_bundle and not python_durable:raise ValueError('checkpoint bundle requires durable checkpoint demo')
     if python_find_diagnostic and not (python_runtime_smoke or python_command_diagnostic):
         raise ValueError('find diagnostic requires runtime smoke or command diagnostic')
     short_args=['--find-diagnostic'] if python_find_diagnostic else []
-    if sum(map(bool,(python_runtime_smoke,python_cache_smoke,python_command_diagnostic)))>1:
+    if python_durable:short_args=['--phase','restore','--bundle',str(durable_bundle.resolve())] if durable_bundle else ['--phase','capture']
+    if sum(map(bool,(python_runtime_smoke,python_cache_smoke,python_command_diagnostic,python_tool_capture,python_durable)))>1:
         raise ValueError('choose one short Python validation mode')
-    python_short=python_cache_smoke or python_runtime_smoke or python_command_diagnostic
-    short_runner='run_sphinx_command_diagnostic.py' if python_command_diagnostic else 'run_runtime_monitor_smoke.py' if python_runtime_smoke else 'run_task_metrics_smoke.py'
+    python_short=python_cache_smoke or python_runtime_smoke or python_command_diagnostic or python_tool_capture or python_durable
+    if python_physical and not (python_inputs and python_readonly_replay and python_persistent and python_monitor_mode=='continuous' and not (python_checkpoint or python_short or python_diagnostic or python_evaluation)):
+        raise ValueError('physical boundaries require complete readonly continuous Python replay without restore')
+    short_runner='run_native_checkpoint.py' if python_durable else 'run_tool_capture.py' if python_tool_capture else 'run_sphinx_command_diagnostic.py' if python_command_diagnostic else 'run_runtime_monitor_smoke.py' if python_runtime_smoke else 'run_task_metrics_smoke.py'
     python_cache_reference=getattr(args,'python_cache_reference',None)
-    sphinx_short=sphinx and python_short and python_cache_reference and python_inputs and python_readonly_replay and python_persistent and cache_seed and not (python_diagnostic or python_continuation or python_evaluation or python_oci or python_checkpoint or python_expected)
+    sphinx_short=sphinx and python_short and python_cache_reference and python_inputs and python_readonly_replay and python_persistent and (cache_seed or durable_bundle) and not (python_diagnostic or python_continuation or python_evaluation or python_oci or python_checkpoint or python_expected)
     if (python_short or python_cache_reference) and not sphinx_short:
         raise ValueError('cache smoke requires complete Sphinx readonly inputs, reference and persistent sampler options')
     sphinx_restore=sphinx and python_checkpoint and python_expected and python_inputs and python_readonly_replay and python_persistent and cache_seed and not (python_diagnostic or python_continuation or python_evaluation or python_oci)
@@ -148,7 +165,7 @@ def main(args):
     if (python_diagnostic or readonly_fixture) and not (python_inputs and python_diagnostic and bool(readonly_fixture or cache_seed)):
         raise ValueError('short Python diagnosis requires an owned read-only fixture and inputs')
     if readonly_fixture and cache_seed:raise ValueError('choose one readonly source')
-    if python_readonly_replay and not (python_inputs and cache_seed and not python_diagnostic and not python_oci):
+    if python_readonly_replay and not (python_inputs and (cache_seed or durable_bundle) and not python_diagnostic and not python_oci):
         raise ValueError('readonly replay requires a verified task cache seed and no diagnostic or OCI')
     if python_persistent and not (python_inputs and not python_diagnostic):raise ValueError('persistent sampler requires frozen replay')
     if (python_oci or python_capacity!=32) and not python_inputs:
@@ -198,6 +215,8 @@ def main(args):
             else:validate_oci(python_oci)
         checkpoint_args=['--checkpoint','--persistent-sampling','--expected-evaluation-raw',str(python_expected),*(['--diagnostic-continuation'] if python_continuation else [])] if python_checkpoint else []
         check_command=[sys.executable,'-B',str(ROOT/'scripts'/short_runner),'--inputs',str(python_inputs),'--reference',str(python_cache_reference),'--check-only',*short_args] if python_short else [sys.executable,'-B',str(ROOT/'scripts/run_xarray6992.py'),'--inputs',str(python_inputs),'--task-profile',python_profile,'--check-only',*checkpoint_args,*(['--sphinx-pipeline-diagnostic','--sphinx-pipeline-policy-version',str(pipeline_version),'--persistent-sampling'] if sphinx_pipeline else [])]
+        if python_physical:
+            check_command+=['--physical-cache-after',python_physical,*(['--persistent-sampling'] if '--persistent-sampling' not in check_command else []),*(['--diagnostic-continuation'] if python_continuation and '--diagnostic-continuation' not in check_command else [])]
         subprocess.run(check_command,check=True,capture_output=True,timeout=30)
     if prettier6604 and (args.exp1_checkpoint or platform_cfg is not None):
         raise ValueError('Prettier6604 entry cannot be combined with Exp1 config')
@@ -211,6 +230,7 @@ def main(args):
             runner='run_prettier6604_grpo.py'
             check_args=['--frozen-export',str(prettier_export),'--expected-official-audit',str(expected_audit),'--schedule',prettier_schedule]
             if prettier_role:check_args+=['--role',prettier_role]
+            if prettier_shared:check_args+=['--shared-cache','--root-count',str(prettier_root_count or 7)]
         subprocess.run([sys.executable,'-B',str(ROOT/'scripts'/runner),'--official-task',str(prettier6604),'--check-only',*check_args],check=True,capture_output=True,timeout=15)
     exp1=args.exp1_checkpoint or platform_cfg is not None
     window=execution_window(args.window_start_utc,args.window_end_utc,automatic=getattr(args,'automatic_window',False) or not getattr(args,'confirmed_window',False))
@@ -248,6 +268,12 @@ def main(args):
             for name in ('xarray6992_persistent_sampling.py','guest_memory_collector.py'):shutil.copy2(ROOT/'scripts'/name,out/'code'/name)
         if python_checkpoint:
             for name in ('xarray6992_boundary.py','report_xarray6992.py',*(['sphinx7590_boundary.py'] if sphinx else [])):shutil.copy2(ROOT/'scripts'/name,out/'code'/name)
+        if python_durable:
+            for name in ('run_native_checkpoint.py','native_checkpoint_bundle.py','guest_checkpoint_probe.py','tool_trajectory.py','guest_tool_capture.py'):
+                shutil.copy2(ROOT/'scripts'/name,out/'code'/name)
+        if python_tool_capture:
+            for name in ('run_tool_capture.py','tool_trajectory.py','guest_tool_capture.py','platform_management.py'):
+                shutil.copy2(ROOT/'scripts'/name,out/'code'/name)
         if python_runtime_smoke:
             for name in ('run_runtime_monitor_smoke.py','guest_find_diagnostic.py','sandbox_runtime_monitor.py','report_sandbox_runtime.py','guest_memory_collector.py','task_metrics_prefix.py'):
                 shutil.copy2(ROOT/'scripts'/name,out/'code'/name)
@@ -344,7 +370,13 @@ def main(args):
             source=seed_root
             receipt['immutable_cache_seed']={k:seed_value[k] for k in ('source_backup','backup_sha256','uncompressed_sha256','task_id','ram_allocated_bytes','elapsed_ns')}
             receipt['cache_state']='reused task-converted immutable layers; no cold-download performance claim'
-        budget=capacity_budget(available(ROOT),capacity)
+        archive_reserve=0
+        if python_durable and not durable_bundle:
+            from native_checkpoint_bundle import ARCHIVE_LIMIT
+            archive_reserve=ARCHIVE_LIMIT
+        budget=capacity_budget(available(ROOT)-archive_reserve,capacity)
+        budget['checkpoint_archive_reserved_bytes']=archive_reserve
+        budget['actual_host_available_bytes']=available(ROOT)
         receipt['budget']=budget
         assert budget['ready'], 'insufficient host space for fixture plus reserve and margin'
         if python_oci and not python_diagnostic:
@@ -370,7 +402,7 @@ def main(args):
         sampler=threading.Thread(target=sample_disk,daemon=True);sampler.start()
         stage='copy-immutable-cache'
         # Live RocksDB, secrets, old snapshots and running work directories are NOT copied.
-        parts=['deps']+['image-cache/'+n for n in ['configs','indexes','commits','remote-blocks','convert-blocks']]
+        parts=['deps'] if durable_bundle else ['deps']+['image-cache/'+n for n in ['configs','indexes','commits','remote-blocks','convert-blocks']]
         copied={}
         for part in parts:
             source_part=source/part;dest=mount/'env'/part
@@ -410,9 +442,14 @@ def main(args):
             # cleanup reserve: 4 GiB writable workload plus 2 GiB margin.
             receipt['readonly_replay_budget']=dict(capacity_bytes=capacity,writable_workload_budget_bytes=4*GIB,
                 margin_bytes=2*GIB,cleanup_reserve_bytes=GIB//2,immutable_commits='external verified read-only RAM cache')
+        if durable_bundle:
+            receipt['readonly_replay_budget']=dict(capacity_bytes=capacity,cleanup_reserve_bytes=GIB//2,immutable_commits='NOT_MOUNTED; native repository plus fixed deps only')
         if python_oci and not python_diagnostic:
             from xarray6992_offline_image import install
             receipt['offline_image_transport']=install(mount,task_image) if sphinx else install(mount)
+        if durable_bundle:
+            from native_checkpoint_bundle import restore as restore_bundle
+            receipt['checkpoint_import']=restore_bundle(durable_bundle.resolve(),mount/'env/snapshot-store')
         config=call('original-config',['docker','exec',SERVICE,'cat','/workspace/config/default.toml'])
         overrides=[('image.cache.gc','enabled','false'),('pool.network','maintenance_enabled','false'),
                    ('pool.block','enabled','false'),('pool.firecracker','enabled','false'),
@@ -423,6 +460,9 @@ def main(args):
         routes=call('routes',['ip','-j','route','show','table','all'],10)
         assert '10.211.' not in routes and '10.212.' not in routes, 'candidate network pools already in use'
         for section,key,value in overrides:config=config_value(config,section,key,value)
+        if python_durable:
+            assert 'posix_fs' not in tomllib.loads(config).get('backend',{})
+            config+='\n[backend.posix_fs]\nsnapshot_store = \"/workspace/env/snapshot-store\"\n'
         tomllib.loads(config)
         (out/'isolated-config.toml').write_text(config)
         receipt['config_overrides']=[section+'.'+key+'='+value for section,key,value in overrides]
@@ -436,7 +476,7 @@ def main(args):
               '--mount','type=bind,src=/dev,dst=/dev',
               '--mount','type=bind,src='+str(out/'isolated-config.toml')+',dst=/workspace/config/default.toml,readonly']
         for src,dst in write_mounts(mount).items():argv+=['--mount','type=bind,src='+src+',dst='+dst]
-        if readonly_fixture or python_inputs and seed_value or prettier_readonly:
+        if not durable_bundle and (readonly_fixture or python_inputs and seed_value or prettier_readonly):
             argv+=['--mount','type=bind,src='+str(source/'image-cache/commits')+',dst=/workspace/env/image-cache/commits,readonly']
         if python_oci:
             argv+=['--mount','type=bind,src='+str(python_oci.resolve()/'ram/oci')+',dst=/asb-frozen-oci,readonly']
@@ -486,17 +526,23 @@ def main(args):
                  *(['--evaluation-patch',python_evaluation] if python_evaluation else []),
                  *(['--checkpoint','--expected-evaluation-raw',python_expected] if python_checkpoint else []),
                  *(['--persistent-sampling'] if python_persistent else []),'--monitor-mode',python_monitor_mode]
+            if python_physical:task_command+=['--physical-cache-after',python_physical]
             call(stage,task_command,900,environment=env)
             task_result=json.loads((replay/'result.json').read_text())
             assert task_result['status']=='PASS'
             if python_command_diagnostic:
                 assert task_result['command_diagnostic'] and task_result['checks']['find_captures_and_source_unchanged' if python_find_diagnostic else 'repeats_outputs_exits_and_source_unchanged']=='PASS'
+            elif python_durable:assert task_result['native_checkpoint_demo'] and task_result['checks']['process_memory_open_fd_files_and_boundary' if durable_bundle else 'snapshot_after_two_actual_calls']=='PASS'
+            elif python_tool_capture:assert task_result['tool_capture_demo'] and task_result['checks']['frozen_replay_matches_calls_and_final_file']=='PASS' and task_result['replay']['action_count']==4
             elif python_runtime_smoke:assert task_result['runtime_monitor_smoke'] and task_result['checks']['continuous_idle_and_per_instance_curves']=='PASS'
             elif python_cache_smoke:assert task_result['cache_metrics_smoke'] and task_result['checks']['exact_kernel_physical_cache']=='PASS'
             elif python_evaluation:assert task_result['evaluation_only'] and task_result['checks']['complete_benchmark_results_and_source_unchanged']=='PASS'
             elif python_diagnostic:assert task_result['checks']['find_diagnostic_capture']=='PASS'
             else:assert task_result['replay']['action_count']==35
             assert task_result['cleanup']['service_sandbox_list_empty']
+            if python_physical:
+                assert task_result['checks']['physical_cache_probe_and_task_state']=='PASS'
+                assert task_result['cleanup']['physical_tracer_stopped']
             receipt['python_backbone_result']=task_result
             if python_continuation or sphinx_pipeline:
                 assert task_result['diagnostic_status']=='PASS' and task_result['strict_replay_status']=='FAIL'
@@ -519,6 +565,15 @@ def main(args):
             if sphinx:receipt['scope']='Sphinx step-29 full VM restore and steps 30-35; strict replay and original task failure preserved' if python_checkpoint else 'one strict frozen Sphinx backbone; task evaluation separate; not physical cache or performance comparison'
             if sphinx_pipeline:receipt['scope']='complete Sphinx diagnostic variant; only exact read_repo/001 output permits 141 or 0; historical strict FAIL retained; task tests separate'
             if sphinx_pipeline and pipeline_version==2:receipt['scope']='complete Sphinx diagnostic policy v2; only exact read_repo/001 and core_patch/001 output/patch permits 141 or 0; historical strict FAIL retained; task tests separate'
+            if python_physical:receipt['scope']+='; paused physical cache points and continuous curves, analysis cost included'
+            if python_durable:
+                receipt['scope']=task_result['scope']
+                receipt['checks']['durable_native_checkpoint_restore' if durable_bundle else 'durable_native_checkpoint_capture']='PASS'
+                receipt['checks'].pop('xarray6992_backbone_and_separate_tests',None)
+            if python_tool_capture:
+                receipt['scope']=task_result['scope']
+                receipt['checks']['tool_capture_freeze_replay']='PASS'
+                receipt['checks'].pop('xarray6992_backbone_and_separate_tests',None)
             if python_runtime_smoke:
                 receipt['scope']=task_result['scope']
                 receipt['checks']['sandbox_continuous_monitoring']='PASS'
@@ -537,11 +592,13 @@ def main(args):
             replay=mount/'controller/prettier6604'
             task_args=['--checkpoint','--expected-official-audit',expected_audit] if prettier_checkpoint else []
             if prettier_readonly:task_args=['--monitor-mode',prettier_monitor_mode,'--expected-official-audit',expected_audit]
+            if prettier_physical:task_args+=['--physical-cache-after',prettier_physical]
             runner='run_prettier6604.py'
             if prettier_export:
                 runner='run_prettier6604_grpo.py'
                 task_args=['--frozen-export',prettier_export,'--expected-official-audit',expected_audit,'--schedule',prettier_schedule]
                 if prettier_role:task_args+=['--role',prettier_role]
+                if prettier_shared:task_args+=['--shared-cache','--root-count',str(prettier_root_count or 7)]
             call(stage,[sys.executable,'-B',ROOT/'scripts'/runner,
                  '--official-task',prettier6604,'--container',container,
                  '--config-home',mount/'controller/config','--service-url',receipt['address'],
@@ -554,6 +611,7 @@ def main(args):
                 assert task_result['checks'][replay_check]=='PASS'
                 assert task_result['checks']['final_source_properties_and_complete_official_outcomes']=='PASS'
                 expected_count=(39 if prettier_role else 84) if prettier_schedule=='tvcache' else 84 if prettier_schedule=='bpo' and not prettier_role else 189 if not prettier_role else 21 if prettier_role.startswith('early') else 33 if prettier_role=='late_3' else 32
+                if prettier_shared:expected_count={1:29,2:50,7:189}[prettier_root_count or 7]
                 assert task_result['action_count']==expected_count
                 if prettier_schedule in ('bpo','tvcache'):
                     assert task_result['checks']['restored_files_progress_and_process']=='PASS'
@@ -706,6 +764,13 @@ def main(args):
                 if info['State']['Running']:call('stop-own-server',['docker','stop','-t','10',container],30)
                 call('remove-own-server',['docker','rm',container],30)
             cleanup['owned_container_removed']=True
+            if mounted and success and python_durable and not durable_bundle:
+                from native_checkpoint_bundle import export as export_bundle
+                saved=json.loads((mount/'controller/python-backbone/result.json').read_text())
+                try:receipt['checkpoint_export']=export_bundle(mount/'env/snapshot-store',out/'checkpoint-bundle',saved)
+                except BaseException as exc:
+                    cleanup['checkpoint_export_error']=repr(exc);receipt['error']=repr(exc);receipt['failed_stage']='checkpoint-export';success=False
+                    (out/'checkpoint-export-failure.txt').write_text(traceback.format_exc())
             if mounted:
                 reserve=mount/'cleanup-reserve'
                 if reserve.exists():reserve.unlink()
@@ -786,6 +851,9 @@ if __name__=='__main__':
     parser.add_argument('--python-backbone-inputs',type=Path,help='Prepared pinned Xarray backbone; volume budget depends on selected mode')
     parser.add_argument('--prettier6604-readonly-replay',action='store_true',help='8 GiB single backbone; converted immutable commits remain read-only in verified RAM cache')
     parser.add_argument('--prettier6604-monitor-mode',choices=('continuous','off'),default='continuous')
+    parser.add_argument('--prettier6604-physical-cache-after',default='',help='Completed segments for paused physical file-cache measurement')
+    parser.add_argument('--prettier6604-shared-cache',action='store_true')
+    parser.add_argument('--prettier6604-root-count',type=int,choices=[1,2,7])
     parser.add_argument('--python-backbone-oci',type=Path,help='Verified read-only local OCI cache; native conversion unchanged')
     parser.add_argument('--python-backbone-capacity-gib',type=int,choices=[18,20,22,24,28,32],default=32,help='Adjusted native volume requires verified OCI tar-size budget; 18/20/22 only for Sphinx')
     parser.add_argument('--python-task-profile',choices=['xarray6992','sphinx7590'],default='xarray6992')
@@ -793,6 +861,7 @@ if __name__=='__main__':
     parser.add_argument('--python-diagnostic-probe',choices=['find','pipeline'],default='find')
     parser.add_argument('--python-readonly-replay',action='store_true',help='8 GiB write volume; verified task-converted commits bound read-only from RAM seed')
     parser.add_argument('--python-persistent-sampling',action='store_true',help='Explicit single-process Exp3 sampler variant')
+    parser.add_argument('--python-physical-cache-after',default='',help='Completed Python-task segments for paused physical file-cache measurement')
     parser.add_argument('--python-sphinx-pipeline-policy-version',type=int,choices=(1,2),default=1)
     parser.add_argument('--python-sphinx-pipeline-diagnostic',action='store_true',help='Explicit approved Sphinx first-step diagnostic; strict FAIL retained')
     parser.add_argument('--python-monitor-mode',choices=['continuous','off'],default='continuous',help='Off control requires complete readonly Sphinx replay; tool timing and correctness checks retained')
@@ -803,6 +872,9 @@ if __name__=='__main__':
     parser.add_argument('--python-runtime-smoke',action='store_true',help='Two VMs, continuous guest sampling, six frozen Sphinx actions and one snapshot/restore')
     parser.add_argument('--python-find-diagnostic',action='store_true',help='Runtime smoke captures original find exits and suppressed errors before/after restore; no continuation replay acceptance')
     parser.add_argument('--python-command-diagnostic',action='store_true',help='13 original Sphinx actions and repeated slow-command CPU/I/O observations; no full replay')
+    parser.add_argument('--python-durable-checkpoint-demo',action='store_true',help='Native POSIX repository export/import and full state continuity; 8 GiB functional fixture')
+    parser.add_argument('--python-durable-checkpoint-bundle',type=Path,help='Verified offline bundle to import into a fresh private service')
+    parser.add_argument('--python-tool-capture-demo',action='store_true',help='Four actual tool calls captured and replayed in a fresh sandbox; no model inference')
     parser.add_argument('--python-cache-smoke',action='store_true',help='Three short Sphinx six-step cases; sampling and paused physical-cache calibration')
     parser.add_argument('--python-cache-reference',type=Path,help='Successful complete Sphinx raw; exact prefix outputs remain frozen')
     parser.add_argument('--python-readonly-fixture',type=Path,help='Stopped failed fixture; mount source read-only and share immutable commits')

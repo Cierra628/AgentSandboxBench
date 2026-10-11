@@ -217,6 +217,15 @@ def report(raw,output,evaluation_raw=None):
     output.mkdir(parents=True,exist_ok=False)
     from report_sandbox_runtime import write_report
     summary['runtime_metrics']=write_report(raw,output,host)
+    if result_physical := summary['runtime_metrics'].get('physical_page_cache'):
+        if isinstance(result_physical,dict):
+            result=json.loads((raw/'result.json').read_text())
+            assert result['physical_page_cache']=='MEASURED_AT_BOUNDARIES'
+            assert [p['after_segment'] for p in result_physical['points']]==[s for s in summary['config']['path'] if s in result['physical_cache_after_segments']]
+            summary['page_cache']['physical_bytes']=result_physical
+            summary['timing']['physical_analysis_sum_ns']=sum(p['analysis_elapsed_ns'] for p in result_physical['points'])
+            summary['timing']['physical_pause_sum_ns']=sum(p['paused_interval_ns'] for p in result_physical['points'])
+            summary['notes'].append('Paused physical points and their analysis cost are included in this run; three locked calibration pages per point are included. This is not the lightweight-only monitoring-cost configuration.')
     after=hashes();assert before==after
     summary['raw_file_count']=len(before);summary['raw_hashes_unchanged']=True
     (output/'raw-sha256.json').write_text(json.dumps(before,indent=2)+'\n')

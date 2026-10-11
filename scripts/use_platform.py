@@ -458,10 +458,41 @@ def main():
             child.add_argument('--window-start-utc')
             child.add_argument('--window-end-utc')
     child = sub.add_parser('report'); child.add_argument('run_dir', type=Path); child.add_argument('--output', type=Path, required=True)
+    child=sub.add_parser('resources');child.add_argument('--config-home',type=Path,default=ROOT/'runtime/config');child.add_argument('--output',type=Path,required=True)
+    child=sub.add_parser('deployment');child.add_argument('--offline',action='store_true');child.add_argument('--output',type=Path,required=True)
+    child=sub.add_parser('retain');child.add_argument('run_dir',type=Path);child.add_argument('--reason',required=True)
+    child=sub.add_parser('checkpoint-demo');child.add_argument('config',nargs='?',type=Path,default=ROOT/'configs/platform-sphinx7590.json');child.add_argument('--check-only',action='store_true');child.add_argument('--bundle',type=Path)
+    child=sub.add_parser('collect-demo');child.add_argument('config',nargs='?',type=Path,default=ROOT/'configs/platform-sphinx7590.json');child.add_argument('--check-only',action='store_true')
     args = parser.parse_args()
     try:
+        if args.command in ('resources','deployment','retain'):
+            from platform_management import resources,deployment,retain
+            if args.command=='resources':result=resources(args.config_home,args.output)
+            elif args.command=='deployment':result=deployment(args.output,args.offline)
+            else:result=retain(args.run_dir,args.reason)
+            print(json.dumps(result,indent=2,ensure_ascii=False));return 0
+        if args.command=='checkpoint-demo':
+            from platform_tasks import configuration as task_configuration,preflight as task_preflight
+            from run_native_checkpoint_workflow import run as durable_run
+            cfg=task_configuration(args.config);bundle=args.bundle.resolve() if args.bundle else None
+            if args.check_only:
+                print(json.dumps(task_preflight(cfg,offline=True,durable_phase='restore' if bundle else 'capture',bundle=bundle),indent=2));return 0
+            return durable_run(cfg,bundle)
+        if args.command=='collect-demo':
+            from platform_tasks import configuration as task_configuration,preflight as task_preflight,run as task_run
+            cfg=task_configuration(args.config)
+            if args.check_only:
+                print(json.dumps(task_preflight(cfg,offline=True,tool_capture=True),indent=2));return 0
+            return task_run(cfg,tool_capture=True)
         if args.command == 'report':
             directory = args.run_dir.resolve(); result = read_json(directory/'result.json')
+            if result.get('workflow')=='native-checkpoint-durable':
+                from run_native_checkpoint_workflow import report as durable_report
+                out=durable_report(directory,args.output.resolve());print('status=PASS result_dir='+str(out));return 0
+            if result.get('workflow') in ('configured-task-v2','tool-capture-demo'):
+                from platform_tasks import report as task_report
+                out = task_report(directory, args.output.resolve())
+                print('status=PASS result_dir='+str(out)); return 0
             if result['status'] != 'PASS': raise ValueError('cannot report failed/incomplete workflow as PASS')
             out = args.output.resolve()
             if out.exists() or out == directory or out.is_relative_to(directory) or not out.is_relative_to(ROOT/'.artifacts'):
@@ -470,6 +501,11 @@ def main():
             reports = audit_items(result['runs'], read_json(directory/'effective-config.json'), out)
             write_json(out/'result.json', dict(status='PASS', input_run_dir=str(directory), run_count=len(reports)))
             print('status=PASS result_dir='+str(out)); return 0
+        if read_json(args.config).get('version') == 2:
+            from platform_tasks import configuration as task_configuration, preflight as task_preflight, run as task_run
+            cfg = task_configuration(args.config, args.backend, args.checkpoint_after, args.storage)
+            if args.command == 'run': return task_run(cfg)
+            print(json.dumps(task_preflight(cfg, args.offline), indent=2)); return 0
         cfg = configuration(args.config, args.backend, args.checkpoint_after,args.storage)
         if args.command == 'run':
             cfg['storage_diagnostics'] = args.storage_diagnostics

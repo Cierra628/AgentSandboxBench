@@ -2,10 +2,14 @@
 
 **本机第一版已达到初步交付条件。** 完整重放、指定边界恢复续跑、内存与时延报告及采集影响验证均有实际证据；新增各沙箱CPU/I/O和host进程指标也已验证。验收范围、证据及后续事项见[交付判定](docs/records/CLOSEOUT_STATUS.md#2026-10-11本机第一版可以初步交付)，运行方法见[使用说明](docs/USAGE.md)。
 
-2026-10-11更新：Prettier #6604新增CPU/I/O/RSS/PSS监控的五对验证完成，原29步、最终状态及任务结果保持，曲线和报告可复算。平均配对用时变化为工具+2.40%、重放+7.43%、控制器生命周期+6.44%，不是零开销；跨日接续和物理缓存未测量等限制见[本轮报告](docs/records/PRETTIER_RUNTIME_MONITORING.md)。Sphinx旧未完成批次保留。
+2026-10-11更新：统一入口已完成Prettier #6604的29步重放和第5/24/29步后的物理缓存测量，分别为210.35/243.56/138.29 MiB；自动报告与离线复算一致，见[变化图](docs/records/evidence/prettier-physical-cache-20261011.svg)和[本轮证据](docs/records/evidence/platform-task-entry-cache-20261011.json)。此前CPU/I/O/RSS/PSS监控的五对验证也已完成，平均配对用时变化为工具+2.40%、重放+7.43%、控制器生命周期+6.44%；该五对未带精细物理分析，两批不混合，范围见[监控报告](docs/records/PRETTIER_RUNTIME_MONITORING.md)。Sphinx旧未完成批次保留。
 
 
+共享计数校准及Prettier单/双/七实例物理比较已完成：完整动作分别29/50/189个，持续曲线和清理通过。七实例host共享镜像层只计一次，直接相加会多计31.10 GiB；guest文件缓存未发现共享物理页。三配置报告独立复算一致。见[共享缓存记录](docs/records/SHARED_TASK_CACHE.md)。
 
+Sphinx和Xarray现也各完成35步及三点物理缓存测量，持续曲线、独立复算和清理通过；Xarray两点各有最多4 KiB未知量，原模型失败及退出码诊断规则保留。三任务统一测量流程的范围和数据见[完整任务报告](docs/records/PYTHON_TASK_CACHE.md)。
+
+新增本机部署检查、原生模板/checkpoint/实例查询及结果保留入口；4次新工具调用的实际采集、冻结和新沙箱重放通过，原失败退出码及最终文件保持。两实例持续曲线及清理通过，离线报告一致。使用方式见[工具采集与管理](docs/USAGE.md#部署检查资源查询和结果保留)。原生checkpoint离线包及新服务重新加载也已通过，保留进程、匿名内存、打开文件和步骤进度，见[保存与加载](docs/USAGE.md#原生checkpoint离线保存与重新加载)。在线模型连接、任务归档扩展和新机部署为后续工作。
 
 单机 Agent 沙箱实验平台。复用官方 AgentENV 和学长固定的 IncrementalDAX_moti / TrEnv-X，执行冻结工具轨迹、指定边界恢复续跑，并记录正确性、内存及阶段耗时。固定版本见[源码配置](configs/source-revisions.json)。
 
@@ -18,13 +22,13 @@ bash scripts/use-platform.sh check
 bash scripts/use-platform.sh run
 ```
 
-默认AgentENV、Prettier #14400和第022步保存；[使用说明](docs/USAGE.md)列出配置、轨迹格式、其他后端、独立复算和资源要求。AgentENV新组合已实际通过；TrEnv-X新恢复组合要求超过60 GiB空闲空间，不降低保护线。此入口不安装系统或接入在线模型，不替代下方固定验收复算。 新增[固定容量配置](configs/platform-exp1-isolated.json)，两后端顺序使用临时卷；AgentENV完整/恢复及TrEnv-X完整重放已有成功证据；TrEnv-X第022步封存错误已修复，独立恢复复验和报告通过。原组合FAIL保留，见[当前状态](docs/STATUS.md)。
+默认AgentENV、Prettier #14400和第022步保存；版本2配置现可选择Prettier #6604、Sphinx和Xarray及现有调度，原控制器证据与新入口验证范围见[任务支持表](docs/USAGE.md#任务配置和支持范围)。[使用说明](docs/USAGE.md)列出配置、轨迹格式、其他后端、独立复算和资源要求。AgentENV新组合已实际通过；TrEnv-X新恢复组合要求超过60 GiB空闲空间，不降低保护线。此入口不安装系统或接入在线模型，不替代下方固定验收复算。 新增[固定容量配置](configs/platform-exp1-isolated.json)，两后端顺序使用临时卷；AgentENV完整/恢复及TrEnv-X完整重放已有成功证据；TrEnv-X第022步封存错误已修复，独立恢复复验和报告通过。原组合FAIL保留，见[当前状态](docs/STATUS.md)。
 
 ## 当前交付：本机单条 Exp1 初步验收
 
 Prettier #14400 的完整重放、指定步骤恢复续跑，以及明确范围的内存/时延/采集影响三项已验证通过。证据覆盖两后端各五对、20次正式重放，以及原始恢复记录。**该结论仅限已准备好的本机及单条冻结轨迹，不代表PPT三个任务、通用部署或多VM共享收益完成。**
 
-PPT中的Prettier #6604已有29步重放、第24步VM保存/恢复/续跑，以及修正分支输入后的七实例GRPO、BPO和TVCache功能验证。BPO和TVCache两处保存及六个恢复分支的文件、进度和探针进程连续性通过；平台重放与恢复通过；七条路径的官方测试均为0通过、2失败，原模型补丁没有完整修复任务。此任务的物理缓存和监控影响尚未验证，见[最新进展](docs/STATUS.md)。
+PPT中的Prettier #6604已有29步重放、第24步VM保存/恢复/续跑，以及修正分支输入后的七实例GRPO、BPO和TVCache功能验证。BPO和TVCache两处保存及六个恢复分支的文件、进度和探针进程连续性通过；平台重放与恢复通过；七条路径的官方测试均为0通过、2失败，原模型补丁没有完整修复任务。此任务新增监控的五对影响验证及指定步骤物理缓存分析已完成；精细分析需暂停VM，其成本另列，见[最新进展](docs/STATUS.md)。
 
 Xarray #6992已完成35步完整诊断、第22步完整VM保存/恢复及原第23–35步续跑：99份文件、进度与探针连续性通过，最终patch一致；957项任务测试仍945通过、12失败、0跳过，模型任务未通过。一条管道的0/141差异按已同意的精确诊断规则记录，严格重放仍FAIL。报告和曲线已独立复算，物理缓存、新采样开销及长期checkpoint重载尚未验证，见[当前状态](docs/STATUS.md)和[恢复证据](docs/records/evidence/xarray6992-checkpoint-20261009.json)。Sphinx #7590已通过35步严格重放、第29步完整VM保存/恢复及原第30–35步续跑：124份文件、进度和进程探针连续性通过，最终patch与完整重放一致；25项任务测试仍24通过、1失败、0跳过，模型任务FAIL。报告及曲线两次复算一致，成功卷、快照及RAM缓存已回收；完整轨迹物理缓存及稳定采样开销仍未验证，见[恢复证据](docs/records/evidence/sphinx7590-checkpoint-20261009.json)。
 
@@ -54,7 +58,7 @@ bash scripts/verify-initial-acceptance.sh
 
 入口最多运行240秒；只调用离线审计，禁止审计阶段的Python文件写入和子进程，核对已有输入的元数据不变。每次输出到新建的`.artifacts/initial-acceptance-delivery/<run_id>/`，拒绝已有目录。`status=PASS`及退出码0表示复算与固定证据一致；缺数据、超时或缺少最终结果都不能计通过。
 
-GitHub不包含运行时凭据、原始日志、RAM/PFN数据或镜像，只有公开摘要不能完成独立复算。全新服务器部署未验收，复算入口不会安装依赖或准备服务；真实运行入口和前提见[收尾记录](docs/records/CLOSEOUT_STATUS.md)。
+GitHub不包含运行时凭据、原始日志、RAM/PFN数据或镜像，只有公开摘要不能完成独立复算。全新服务器部署未验收，复算入口不会安装依赖或准备服务；真实运行入口和前提见[收尾记录](docs/records/CLOSEOUT_STATUS.md)，合作者可按[另一台机器验证说明](docs/SECOND_MACHINE_VALIDATION.md)验证部署和单实例闭环。
 
 仓库：<https://github.com/Cierra628/AgentSandboxBench>。本轮不自动暂存、提交或推送。下方保留旧版README，所有旧日期结论均按当时范围理解。
 

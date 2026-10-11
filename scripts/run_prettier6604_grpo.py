@@ -23,7 +23,11 @@ from audit_prettier6604_official import inspect as inspect_official, reference, 
 from prettier6604_boundary import verify as verify_boundary
 
 
-def execution_paths(rollouts,schedule,role=None):
+def execution_paths(rollouts,schedule,role=None,root_count=None):
+    if root_count is not None:
+        assert schedule=='grpo' and role is None and root_count in (1,2,7)
+        selected=['backbone'] if root_count==1 else ['backbone','early_1'] if root_count==2 else list(rollouts)
+        return {r:rollouts[r] for r in selected}
     if schedule=='grpo':return {r:path for r,path in rollouts.items() if not role or r==role}
     assert schedule in ('bpo','tvcache') and role in (None,'early_1'), 'restore smoke supports early_1 only'
     if schedule=='tvcache':
@@ -151,7 +155,11 @@ def run(args):
     assert task['instance_id']==cfg['task_id'] and task['base_commit']==cfg['base_commit']
     assert expected_official['F2P']==task['F2P'] and expected_official['P2P']==task['P2P']
     schedule=getattr(args,'schedule','grpo')
-    executed=execution_paths(rollouts,schedule,args.role)
+    root_count=getattr(args,'root_count',None)
+    shared_cache=getattr(args,'shared_cache',False)
+    assert not root_count or shared_cache, 'root-count is an explicit shared-cache variant'
+    assert not shared_cache or schedule=='grpo' and not args.role
+    executed=execution_paths(rollouts,schedule,args.role,root_count)
     roles=list(executed)
     final_roles=[args.role] if args.role and schedule!='tvcache' else roles
     tree_plan=prefix_tree_plan({r:rollouts[r] for r in roles}) if schedule=='tvcache' else None
@@ -167,10 +175,11 @@ def run(args):
     env = dict(os.environ, PATH=str(ROOT/'runtime/bin')+':'+os.environ['PATH'],
                XDG_CONFIG_HOME=str(args.config_home),HOST_MONITOR_LIGHT='1')
     from sandbox_runtime_monitor import RuntimeMonitor, boundary_runner
-    lock = threading.Lock();counter=0;events=[];controller=None;monitor=None;success=False
+    lock = threading.Lock();counter=0;events=[];controller=None;monitor=None;physical=None;success=False
     scope='one corrected sampled branch' if args.role else 'GRPO: seven independent roots; concurrent full paths; no snapshots'
     if schedule=='bpo':scope='BPO early restore smoke: one parent prefix and one resumed branch' if args.role else 'BPO: one backbone, two full-VM snapshots, six resumed suffixes'
     if schedule=='tvcache':scope='TVCache smoke: full backbone and one restored suffix; deterministic trie' if args.role else 'TVCache: deterministic corrected trie, two full-VM snapshots and six restored suffixes'
+    if shared_cache:scope=f'GRPO {len(roles)} roots: identical step-11 measurement barrier, then concurrent original suffixes; paused analysis variant'
     result = dict(status='FAIL',backend='agentenv',task_id=cfg['task_id'],roles=roles,paths={},checks={},schedule=schedule,
                   final_roles=final_roles,scope=scope,
                   physical_page_cache='NOT_MEASURED',VMM_PSS='NOT_MEASURED',monitoring_impact='NOT_VALIDATED')
@@ -322,7 +331,20 @@ def run(args):
                 # Same successful scheduling shape as upstream; join partial failures before deletion.
                 sandboxes=await joined(self.start(role) for role in roles)
                 self.phase('root-ready')
-                await joined(self.run_path(sid,role,self.rollouts[role]) for sid,role in zip(sandboxes,roles,strict=True))
+                if physical:
+                    physical.ready()
+                    assert all(self.rollouts[role][:2]==['read_repo','read_typescript'] for role in roles)
+                    await joined(self.run_path(sid,role,self.rollouts[role][:2]) for sid,role in zip(sandboxes,roles,strict=True))
+                    self.phase('shared-cache-prefix11')
+                    for sid in sandboxes:await asyncio.to_thread(runtime.mark,sid,'shared-cache-analysis')
+                    from shared_task_cache import measure
+                    measurement=await asyncio.to_thread(measure,physical,dict(zip(roles,sandboxes,strict=True)),cfg['source_image'])
+                    result['shared_cache_status']=measurement['status']
+                    result['physical_page_cache']='MEASURED_AT_COMMON_PREFIX'
+                    result['checks']['shared_cache_probe_and_task_state']='PASS'
+                    await joined(self.run_path(sid,role,self.rollouts[role][2:]) for sid,role in zip(sandboxes,roles,strict=True))
+                else:
+                    await joined(self.run_path(sid,role,self.rollouts[role]) for sid,role in zip(sandboxes,roles,strict=True))
                 return dict(zip(roles,sandboxes,strict=True))
 
         controller=SampledPaths(SimpleNamespace(system='agentenv',raw_dir=out,timeout=600))
@@ -345,6 +367,7 @@ def run(args):
         (out/'effective-config.json').write_text(json.dumps(dict(cfg,paths=rollouts,selected_roles=roles,scope=result['scope'],
                schedule=schedule,executed_paths=executed,final_roles=final_roles,
                prefix_tree_plan=tree_plan,
+               shared_cache_measurement=shared_cache,root_count=root_count,
                variant='role-specific inspect manifests from original sampling',sandbox_ttl_seconds=1800,
                host_scope='one temporary service cgroup; includes all VMMs and image cache; host phases may overlap',
                guest_scope='continuous per actual VM ID after monitor setup; explicit snapshot gaps; logical memory, not physical deduplication'),indent=2)+'\n')
@@ -352,6 +375,16 @@ def run(args):
             monitor=subprocess.Popen(['bash',ROOT/'IncrementalDAX_moti/motivation/experiments/lib/host-memory-monitor.sh',
                     out/'host/memory-samples.tsv',controller.phase_file,'0.1',args.container],env=env,
                     stdout=log,stderr=subprocess.STDOUT,start_new_session=True)
+        if shared_cache:
+            sources=['shared_task_cache.py','task_physical_cache.py','agentenv_whole_cache.py','measure_file_physical.py',
+                     'guest_whole_cache_probe.py','guest_cache_marker.py','trenvx_whole_cache.py','paused_agentenv_boundary.py',
+                     'cached_file_inventory.py','guest_cached_file_inventory.py','guest_named_file_probe.py',
+                     'guest_file_type_check.py','kernel_file_cache.py','report_file_inventory.py']
+            physical_code=out/'physical-code';physical_code.mkdir()
+            for name in sources:shutil.copy2(ROOT/'scripts'/name,physical_code/name)
+            (out/'physical-source-sha256.json').write_text(json.dumps({p.name:sha(p) for p in physical_code.iterdir()},indent=2)+'\n')
+            from task_physical_cache import TaskPhysicalCache
+            physical=TaskPhysicalCache(out,args.container,cli)
         stage='frozen-paths';controller.phase(stage)
         by_role=asyncio.run(getattr(controller,'do_'+schedule)())
         with (out/'segments.tsv').open() as stream:trace=list(csv.DictReader(stream,delimiter='\t'))
@@ -404,6 +437,8 @@ def run(args):
     finally:
         for sig in (signal.SIGTERM,signal.SIGINT):signal.signal(sig,signal.SIG_IGN)
         cleanup={}
+        if physical:
+            physical.close();cleanup['physical_tracer_stopped']=physical.tracer.poll() is not None
         if controller:
             removed=[]
             for sid in list(controller.live):
@@ -446,6 +481,8 @@ if __name__=='__main__':
     parser.add_argument('--expected-official-audit',type=Path,required=True)
     parser.add_argument('--role',choices=['early_1','early_2','early_3','late_1','late_2','late_3'])
     parser.add_argument('--schedule',choices=['grpo','bpo','tvcache'],default='grpo')
+    parser.add_argument('--shared-cache',action='store_true',help='Pause all roots after the common 11-step prefix and count shared PFNs')
+    parser.add_argument('--root-count',type=int,choices=[1,2,7])
     parser.add_argument('--container');parser.add_argument('--config-home',type=Path)
     parser.add_argument('--service-url');parser.add_argument('--output',type=Path)
     parser.add_argument('--check-only',action='store_true')

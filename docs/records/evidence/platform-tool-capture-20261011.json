@@ -1,0 +1,168 @@
+{
+  "status": "PASS",
+  "date": "2026-10-11",
+  "workflow": ".artifacts/platform-tasks/20261011T115548Z-690247",
+  "raw": ".artifacts/storage-isolated-service/20261011T115714Z-690913/python-backbone",
+  "reports": [
+    ".artifacts/platform-tasks/report-tool-capture-recomputed-1",
+    ".artifacts/platform-tasks/report-tool-capture-recomputed-2"
+  ],
+  "deployment": "PASS",
+  "checked_task_configs": 15,
+  "source_versions": {
+    "AgentENV": {
+      "expected": "2f48c9c78ec58e4d73c49aa07cb81d984a4a4184",
+      "actual": "2f48c9c78ec58e4d73c49aa07cb81d984a4a4184",
+      "match": true
+    },
+    "IncrementalDAX_moti": {
+      "expected": "a9bc7deadb68a6e24b7242eab343dfedf953ea38",
+      "actual": "a9bc7deadb68a6e24b7242eab343dfedf953ea38",
+      "match": true
+    },
+    "IncrementalDAX_moti/baselines/AgentENV": {
+      "expected": "6c67f92afb8e697bd4d5eb1715864119c1e10c5d",
+      "actual": "6c67f92afb8e697bd4d5eb1715864119c1e10c5d",
+      "match": true
+    },
+    "IncrementalDAX_moti/baselines/TrEnv-X": {
+      "expected": "53041d8c924514fca27e363cce7f5af8079267ce",
+      "actual": "53041d8c924514fca27e363cce7f5af8079267ce",
+      "match": true
+    }
+  },
+  "host_capabilities": {
+    "/dev/kvm": true,
+    "/dev/ublk-control": true,
+    "page_size": 4096,
+    "host_pfn_visible": true,
+    "cgroup_v2": true,
+    "host_btf": true
+  },
+  "tool_capture": {
+    "actions": 4,
+    "replayed_actions": 4,
+    "expected_failures": {
+      "002": 7
+    },
+    "checks": [
+      "ordered command requests and hashes",
+      "stdout/stderr bytes",
+      "exit codes including expected failure",
+      "cwd and explicit environment",
+      "selected final file hash"
+    ],
+    "manifest_sha256": "6224b5ef6dd21a66e25c8c46d52a8e6b46031558df84e08f63bc44502f10f462",
+    "final_state": {
+      "/workspace/asb-tool-session/state.txt": "469625428e6fa93537e895be61278adb2f8e5c88a329f99c5c5347c5397c6a57"
+    },
+    "source_image": "ghcr.io/epoch-research/swe-bench.eval.x86_64.sphinx-doc__sphinx-7590@sha256:577ebfcce825e4c9621e066dc1c8375443be94bbc6de30b9368e422b8f123731",
+    "cpu": 2,
+    "memory_mib": 512,
+    "session_semantics": "fresh bash per tool call; filesystem persists",
+    "model_inference": false,
+    "benchmark_task_tests": "NOT_RUN",
+    "physical_cache_probe": "NOT_RUN",
+    "replay_initial_state": "fresh VM of identical pinned image, tracked file initially absent",
+    "controller_elapsed_ns": 9397527150,
+    "tool_timing": {
+      "capture": {
+        "unit": "ns",
+        "guest_tool_sum_ns": 29312823,
+        "controller_tool_call_sum_ns": 486382407,
+        "scope": "four sequential tool calls only; collection setup, cold start, report and cleanup are separate"
+      },
+      "replay": {
+        "unit": "ns",
+        "guest_tool_sum_ns": 23026285,
+        "controller_tool_call_sum_ns": 385307725,
+        "scope": "four sequential tool calls only; collection setup, cold start, report and cleanup are separate"
+      }
+    },
+    "cold_start_seconds": {
+      "cold-capture": 2.711042027,
+      "cold-replay": 2.434689585
+    }
+  },
+  "memory": {
+    "unit": "bytes; KiB raw counters, MiB charts",
+    "scope": "guest logical counters; observed peaks, not physical cache deduplication",
+    "sandboxes": [
+      {
+        "role": "capture",
+        "sample_count": 13,
+        "observed_nonfree_peak_bytes": 77381632,
+        "cached_observed_peak_bytes": 35074048
+      },
+      {
+        "role": "replay",
+        "sample_count": 10,
+        "observed_nonfree_peak_bytes": 84533248,
+        "cached_observed_peak_bytes": 39051264
+      }
+    ]
+  },
+  "native_catalog": {
+    "original_service": {
+      "instances": [],
+      "templates": [],
+      "snapshots": []
+    },
+    "during_capture_counts": {
+      "instances": 1,
+      "templates": 0,
+      "snapshots": 0
+    },
+    "sensitive_fields_excluded": true
+  },
+  "retention": {
+    "status": "PASS",
+    "workflow_and_storage_markers": true,
+    "scope": "local run evidence/archives only; no durable native checkpoint exported"
+  },
+  "verification": {
+    "unit_tests": 61,
+    "unit_test_log": ".artifacts/platform-management/review-20261011T1200/tests.log",
+    "report_files_identical": 10,
+    "raw_files_unchanged": 175,
+    "report_sha256": {
+      "result.json": "db1c06a03a00107b197e7c905b4fb9bfda37c44c337d1e32ad0550034a4c81ce",
+      "performance-01a12ad3-2aed-7be1-a620-be805e808a92.svg": "ad0ccfbaaf8c0f6a4980ec457643dd123c9f5c0a4534d6e8010d605d23c9e268",
+      "memory.svg": "7394a1b22e15e650d92f411a4f1ebc67b0754d569a57d76e53aab9fffca42b49",
+      "performance-01a12ad3-3e53-7623-9de0-08abab9c0d40.svg": "65aa63a5324c6cc2d56e92a60e90294e2cac0dc18cf0de2ea2f332e8fef89ddb",
+      "memory.png": "e512d248ccb33da4af4492905db6f3d30e14def9063622361e373d5a7e2b78eb",
+      "guest-01a12ad3-3e53-7623-9de0-08abab9c0d40.svg": "92855db2749370065cb646ca6a725f8bc584f9bc3e4f233f046041ae5df56bba",
+      "summary.json": "1a75fc2a357bbb0b7bf87fdbc95d96f6ebb406a1368cc354721c54165b554068",
+      "runtime-metrics.json": "2c3c763891e39f83ca249dd34aa15ed0c27ad77f049d477595eb5fd52ab6acc0",
+      "guest-01a12ad3-2aed-7be1-a620-be805e808a92.svg": "19dcec99f79137e336d052fb6bea62b4422259e14d2de28e094b1aef034975c7",
+      "input-sha256.json": "67e055da9b908e9df9e13e3825b60d7819faa824323ea1deff28387d00e194ed"
+    }
+  },
+  "cleanup": {
+    "task": {
+      "owned_vms_removed": true,
+      "collector_sessions_complete": true,
+      "service_sandbox_list_empty": true
+    },
+    "isolation": {
+      "owned_container_removed": true,
+      "mount_and_loop_removed": true,
+      "successful_fixture_removed": true,
+      "original_firecracker_identities_unchanged": true,
+      "original_service_unchanged": true
+    },
+    "ram_seed_released": true
+  },
+  "disk": {
+    "capacity_bytes": 8589934592,
+    "observed_volume_used_peak_bytes": 658919424,
+    "observed_host_available_min_bytes": 30888558592,
+    "host_available_after_cleanup_bytes": 39476674560,
+    "archives_deleted": 0
+  },
+  "remaining": [
+    "durable native checkpoint export/reload across private service teardown",
+    "online model integration and additional tool/session adapters",
+    "new-machine deployment with packaged local inputs"
+  ]
+}

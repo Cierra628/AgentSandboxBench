@@ -10,6 +10,8 @@ from xarray6992_inputs import ROOT,sha
 
 def remove(directory,approval):
     directory=directory.resolve();assert directory.parent==ROOT/'.artifacts/storage-isolated-service'
+    from platform_management import protected
+    if protected(directory):raise ValueError('run retained: volume cleanup is blocked')
     assert approval.strip() and not (directory/'approved-volume-cleanup.json').exists()
     backup=json.loads((directory/'backup.json').read_text());receipt=json.loads((directory/'result.json').read_text())
     assert receipt['status']=='FAIL' and receipt['cleanup']['mount_and_loop_removed'] and receipt['cleanup']['owned_container_removed']

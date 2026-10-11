@@ -91,11 +91,43 @@ def write_report(raw, output, host=None):
             cached_observed_peak_bytes=max(int(r['Cached_kib'])*1024 for r in data),
             slab_status='MEASURED' if 'Slab_kib' in peak else 'NOT_MEASURED',
             sessions=[dict(stop_reason=s['stop_reason'],**s['receipt']) for s in g['sessions']]))
+    physical_path = raw/'physical-cache/summary.json'
+    if physical_path.exists():
+        from report_file_inventory import kernel_audit, audit_frozen_fixture
+        physical = json.loads(physical_path.read_text())
+        assert physical['status'] in ('PASS','PARTIAL') and physical['points']
+        for point in physical['points']:
+            directory = raw/'physical-cache'/point['after_segment']
+            assert point == json.loads((directory/'point.json').read_text())
+            proof = json.loads((directory/'whole-cache/ram-attestation.json').read_text())
+            assert kernel_audit(directory/'file-inventory',proof) == point['kernel_cache']
+            assert audit_frozen_fixture(directory/'file-inventory',require_complete_cache=False) == point['known_fixture']
+            assert point['status']==point['kernel_cache']['frozen_cache_physical_status']
+            pause = json.loads((directory/'whole-cache/paused-boundary.json').read_text())
+            assert pause['status'] == pause['heartbeat_continuity'] == pause['original_vmm_identity'] == 'PASS'
+            assert pause['paused_interval_ns'] == point['paused_interval_ns'] and point['task_state_unchanged']
+        summary['physical_page_cache'] = physical
+        summary['notes'].append('Physical file-LRU measurements are sparse paused points; analysis time and pauses are included in this variant, not lightweight monitoring overhead. Three calibration content pages per point are included. PARTIAL points retain unknown host-page counts and confirmed unique bytes as a lower bound.')
+    if (raw/'shared-cache/summary.json').exists():
+        from shared_task_cache import recount
+        shared=json.loads((raw/'shared-cache/summary.json').read_text())
+        recomputed=recount(raw)
+        assert all(shared[k]==v for k,v in recomputed.items())
+        summary['shared_cache']=shared
     if host is None:
         path=raw/'host/memory-samples.tsv'; host=rows(path) if path.exists() else []
     import matplotlib
     matplotlib.use('Agg'); matplotlib.rcParams['svg.hashsalt']='sandbox-runtime-v1'
     import matplotlib.pyplot as plt
+    if physical_path.exists():
+        fig, ax = plt.subplots(figsize=(10,4),constrained_layout=True)
+        points = summary['physical_page_cache']['points']
+        x = [p['after_global_step'] for p in points]
+        ax.scatter(x,[p['kernel_cache']['frozen_guest_file_cache_physical_bytes']/2**20 for p in points],label='Confirmed file-LRU (lower bound if PARTIAL)')
+        ax.scatter(x,[p['kernel_cache']['inode_type_unique_physical_bytes'].get('regular_file',0)/2**20 for p in points],marker='s',label='Regular file contents')
+        ax.set(xlabel='Completed original tool step',ylabel='MiB',title='Paused physical cache points; three calibration pages included')
+        ax.grid(alpha=.25);ax.legend()
+        fig.savefig(output/'physical-cache.svg',metadata={'Date':None});plt.close(fig)
     origin=min(int(r['timestamp_ns']) for g in groups.values() for c in g['chunks'] for r in c)
     fig,axes=plt.subplots(3 if host else 2,1,figsize=(12,9 if host else 6),constrained_layout=True)
     for i,(sid,g) in enumerate(groups.items()):

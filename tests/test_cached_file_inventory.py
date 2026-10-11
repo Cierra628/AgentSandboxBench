@@ -10,12 +10,52 @@ from unittest.mock import patch
 
 sys.path.insert(0,str(Path(__file__).resolve().parents[1]/'scripts'))
 from cached_file_inventory import recount
-from guest_cached_file_inventory import catalog,capture
+from guest_cached_file_inventory import catalog,capture,fixture,hold_fixture_pages,main
 from guest_named_file_probe import file_identity
 from trenvx_whole_cache import RECORD
 
 
 class InventoryTests(unittest.TestCase):
+    def test_lock_readiness_does_not_require_immediate_unevictable_flags(self):
+        with tempfile.TemporaryDirectory() as tmp, tempfile.TemporaryDirectory(dir='/dev/shm',prefix='asb-file-inventory-test-') as out:
+            root=Path(tmp)/'fixture';output=Path(out);output.rmdir()
+            cfg=Path(tmp)/'config.json'
+            cfg.write_text(json.dumps(dict(root=str(root),mode='fixture',sandbox_id='fixture',retain_fixture_pages=True)))
+            files=[dict(path=str(root/'hot-a'),pages=[dict(status='PASS',flags=32) for _ in range(3)])]
+            with patch('sys.argv',['probe',str(cfg),str(output)]), \
+                    patch('guest_cached_file_inventory.catalog',return_value=dict(files=files)), \
+                    patch('guest_cached_file_inventory.collect',return_value=files), \
+                    patch('guest_cached_file_inventory.ram_ranges',return_value=[]), \
+                    patch('guest_cached_file_inventory.snapshot'),patch('guest_cached_file_inventory.wait'):
+                main()
+            before=json.loads((output/'before.json').read_text())
+            self.assertEqual(before['fixture_retention']['process_locked_bytes_delta'],12288)
+            self.assertTrue((output/'done').exists())
+
+    def test_only_three_fixture_pages_stay_locked_then_release(self):
+        def locked():
+            return next(int(line.split()[1]) for line in Path('/proc/self/status').read_text().splitlines() if line.startswith('VmLck:'))
+        with tempfile.TemporaryDirectory() as tmp:
+            root=Path(tmp)/'fixture';fixture(root);before=locked()
+            with hold_fixture_pages(root) as receipt:
+                self.assertEqual(receipt['bytes'],12288)
+                self.assertEqual(locked()-before,12)
+                maps=[line.split() for line in Path('/proc/self/maps').read_text().splitlines() if str(root) in line]
+                self.assertEqual(len(maps),2)
+                self.assertTrue(all(row[1]=='rw-s' for row in maps))
+                self.assertEqual((root/'hot-a').read_bytes(),b'\x11'*4096+b'\x22'*4096)
+            self.assertEqual(locked(),before)
+
+    def test_partial_lock_failure_releases_first_mapping(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            root=Path(tmp)/'fixture';fixture(root)
+            libc=__import__('unittest.mock',fromlist=['Mock']).Mock()
+            libc.mlock.side_effect=[0,-1]
+            with patch('guest_cached_file_inventory.ctypes.CDLL',return_value=libc):
+                with self.assertRaises(OSError):
+                    with hold_fixture_pages(root):self.fail('failed lock entered context')
+            self.assertEqual(libc.munlock.call_count,1)
+
     def write(self,root,name,value):
         (root/name).write_text(json.dumps(value))
 
@@ -110,6 +150,19 @@ class InventoryTests(unittest.TestCase):
             saved=json.loads((root/'frozen-fixture-result.json').read_text());saved['contents_after_measurement']['pages'][0]['sha256']='wrong'
             self.write(root,'frozen-fixture-result.json',saved)
             with self.assertRaises(AssertionError):audit_frozen_fixture(root)
+
+    def test_partial_whole_cache_does_not_hide_known_fixture_errors(self):
+        from report_file_inventory import audit_frozen_fixture
+        with tempfile.TemporaryDirectory() as tmp:
+            root=Path(tmp);self.frozen_fixture(root)
+            kernel=json.loads((root/'kernel-file-types.json').read_text())
+            kernel['frozen_cache_physical_status']='PARTIAL'
+            self.write(root,'kernel-file-types.json',kernel)
+            with self.assertRaises(AssertionError):audit_frozen_fixture(root)
+            self.assertEqual(audit_frozen_fixture(root,require_complete_cache=False)['status'],'PASS')
+            kernel['checks']['known_file_contents_match_ram']='FAIL'
+            self.write(root,'kernel-file-types.json',kernel)
+            with self.assertRaises(AssertionError):audit_frozen_fixture(root,require_complete_cache=False)
 
 
 if __name__=='__main__':unittest.main()

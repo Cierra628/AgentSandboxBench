@@ -1,0 +1,476 @@
+{
+  "status": "PASS",
+  "scope": "Stage 4 complete replay/approved diagnostic, three physical measurements, continuous memory/CPU/IO/host curves, report recomputation and cleanup. Physical completeness is separate; two Xarray points have one unknown host page each.",
+  "physical_measurement_status": "PARTIAL",
+  "prettier_reference": "docs/records/evidence/platform-task-entry-cache-20261011.json",
+  "runs": [
+    {
+      "task_id": "sphinx-doc__sphinx-7590",
+      "platform_completion_status": "PASS",
+      "diagnostic_status": "PASS",
+      "strict_replay_status": "FAIL",
+      "replay_policy": "sphinx-pipeline-v2",
+      "action_count": 35,
+      "workflow": ".artifacts/platform-tasks/20261011T110349Z-605616",
+      "raw": ".artifacts/storage-isolated-service/20261011T110513Z-628998/python-backbone",
+      "automatic_report": ".artifacts/platform-tasks/report-20261011T110349Z-605616",
+      "source_image": "ghcr.io/epoch-research/swe-bench.eval.x86_64.sphinx-doc__sphinx-7590@sha256:577ebfcce825e4c9621e066dc1c8375443be94bbc6de30b9368e422b8f123731",
+      "base_commit": "2e506c5ab457cba743bb47eb5b8c8eb9dd51d23d",
+      "guest_cpu": 2,
+      "guest_memory_mib": 4096,
+      "trajectory_input_sha256": {
+        "task.json": "f421f73f269cbe4e8c2678d857c8fbf55029106061967d85ca7d9ba383dfd75b",
+        "agent-sampling.json": "0f866f4a49864c7dd0a3201c179134c856f332c955f3d1f03854ff37e2b6967a",
+        "rollouts.json": "c564926e3f84ee511b5b5b20c65eb5f0fb41d450bd56b75b83b0670120eb1a62",
+        "guest-runner.sh": "8bc17248c054342d169a9bae1eea9240a39ff802e28ada8422e9df53628f544d",
+        "segments/backbone_finish/actions.tsv": "9d47f106572804d5eab92a5e4c9d78155a84a334520374cf2df523e4c2a722e2",
+        "segments/core_patch/actions.tsv": "5b897438f9bee7899a5f1199ca86a3d4d9f79562a7f37c4cfb15eb27e8165116",
+        "segments/core_verify/actions.tsv": "815a7e245ffce5130c697e0a6c6d826413a679127ec4b08d489893205fd08a33",
+        "segments/early_1_finish/actions.tsv": "c710f4b34d9e8895236f2d3c220697721cdab52b78be84bb1c3cffa84b76b961",
+        "segments/early_1_inspect/actions.tsv": "178cdda613540bb454b5bd504fc0f46675a109cca3b6255c5247d69d91fb210a",
+        "segments/early_2_finish/actions.tsv": "0141e5a45702880313c2afc5e71530cd38aa0fd47bde8c2276e4846b62b90f94",
+        "segments/early_2_inspect/actions.tsv": "c3b3921b4cca57988a15dfad19ea4f9e18cba9b832d654298f54c286f026756d",
+        "segments/early_3_finish/actions.tsv": "6ccd74b35a107f8fe0f954af3e32af4e6e59de0e5b5f93a711dfd3d750083b22",
+        "segments/early_3_inspect/actions.tsv": "9e5f4619c607ed864641aa86acbe60abd29ca41f98bf592fbeca99773559706c",
+        "segments/late_1_finish/actions.tsv": "778bf4047a9c0243f0e713b29bce8cf51da3e7d2d319ec3bcdf255cd23f71a29",
+        "segments/late_1_inspect/actions.tsv": "c29ba13d103a0efa57168ea2a334e1ce89474b6cfc791ba8aa22af457363fe7d",
+        "segments/late_2_finish/actions.tsv": "80c4816d105c840023abb428fd6b545bafd3a0518be72f6d2ed47e393553860a",
+        "segments/late_2_inspect/actions.tsv": "61237dbb90bee309f36fc585fb7fb6732de2310a38a43fad1ec027c3938a8c8d",
+        "segments/late_3_finish/actions.tsv": "52aa61ac38c3e159d8339224f3c340bc7c522b00a3fdd3c7f08b0076797bd742",
+        "segments/late_3_inspect/actions.tsv": "e37221ed3fd604f5fca4929671ce731005fb73b48cfdef3fb35e260b0da3aebc",
+        "segments/read_repo/actions.tsv": "6a41e01621cf6f7d07bf587dcd991e5bb7b003276624020105135fedc5eb8fb9",
+        "segments/trace_cpp_parser/actions.tsv": "930a4f2afbe03451920b33fcad9bdeef47fa9e011f721fde9b9631e63c7834e9"
+      },
+      "final_patch_sha256": "758df0c82aeaa255c27d075fa0ddbb6a621b61fe63ddb31fd6d6f16c753a1cf6",
+      "official_task_sha256": "b3ca77701d5f297dec004c2032e17078de1d15ab7992c68963e4754a4eb1d415",
+      "official": {
+        "status": "FAIL",
+        "exit_code": 1,
+        "passed": 24,
+        "failed": 1,
+        "skipped": 0,
+        "failed_tests": [
+          "tests/test_domain_cpp.py::test_expressions"
+        ],
+        "skipped_tests": [],
+        "F2P_passed": 0,
+        "F2P_total": 1,
+        "P2P_passed": 24,
+        "P2P_total": 24,
+        "scope": "SWE-bench selected C++ tests and test patch; direct image pytest, not full official Docker harness"
+      },
+      "original_model_outcome_unchanged": true,
+      "physical_measurement_status": "PASS",
+      "points": [
+        {
+          "status": "PASS",
+          "after_segment": "trace_cpp_parser",
+          "after_global_step": 13,
+          "frozen_timestamp_ns": 1791716734388922696,
+          "confirmed_physical_bytes": 32870400,
+          "unknown_host_pages": 0,
+          "possible_physical_upper_bytes": 32870400,
+          "analysis_elapsed_ns": 6472989926,
+          "paused_interval_ns": 1888235523,
+          "calibration_regular_content_included_bytes": 12288,
+          "collector_cpu_user_seconds": 2.467703,
+          "collector_cpu_system_seconds": 0.31569899999999995,
+          "scope": "paused guest SystemRAM file-LRU; regular content and metadata typed separately; host PFNs deduplicated within this sandbox; not complete host backing cache or cross-VM sharing",
+          "inode_type_unique_physical_bytes": {
+            "block_device": 1290240,
+            "regular_file": 31580160
+          },
+          "calibration_status": "PASS",
+          "task_state_unchanged": true
+        },
+        {
+          "status": "PASS",
+          "after_segment": "core_verify",
+          "after_global_step": 29,
+          "frozen_timestamp_ns": 1791716745054685363,
+          "confirmed_physical_bytes": 63770624,
+          "unknown_host_pages": 0,
+          "possible_physical_upper_bytes": 63770624,
+          "analysis_elapsed_ns": 6820882508,
+          "paused_interval_ns": 2113892488,
+          "calibration_regular_content_included_bytes": 12288,
+          "collector_cpu_user_seconds": 2.7957349999999996,
+          "collector_cpu_system_seconds": 0.356258,
+          "scope": "paused guest SystemRAM file-LRU; regular content and metadata typed separately; host PFNs deduplicated within this sandbox; not complete host backing cache or cross-VM sharing",
+          "inode_type_unique_physical_bytes": {
+            "block_device": 3584000,
+            "filesystem_allocation_metadata": 24576,
+            "regular_file": 60162048
+          },
+          "calibration_status": "PASS",
+          "task_state_unchanged": true
+        },
+        {
+          "status": "PASS",
+          "after_segment": "backbone_finish",
+          "after_global_step": 35,
+          "frozen_timestamp_ns": 1791716758304842244,
+          "confirmed_physical_bytes": 78843904,
+          "unknown_host_pages": 0,
+          "possible_physical_upper_bytes": 78843904,
+          "analysis_elapsed_ns": 7161506458,
+          "paused_interval_ns": 2305989457,
+          "calibration_regular_content_included_bytes": 12288,
+          "collector_cpu_user_seconds": 2.984731,
+          "collector_cpu_system_seconds": 0.40390000000000004,
+          "scope": "paused guest SystemRAM file-LRU; regular content and metadata typed separately; host PFNs deduplicated within this sandbox; not complete host backing cache or cross-VM sharing",
+          "inode_type_unique_physical_bytes": {
+            "block_device": 9424896,
+            "filesystem_allocation_metadata": 32768,
+            "regular_file": 69386240
+          },
+          "calibration_status": "PASS",
+          "task_state_unchanged": true
+        }
+      ],
+      "logical_guest_memory": {
+        "role": "backbone",
+        "sample_count": 374,
+        "observed_nonfree_peak_bytes": 247177216,
+        "components_at_peak_bytes": {
+          "Cached": 114614272,
+          "AnonPages": 44281856,
+          "Buffers": 31391744,
+          "Shmem": 831488,
+          "Slab": 36732928
+        },
+        "components_at_peak_percent": {
+          "Cached": 46.36927053988666,
+          "AnonPages": 17.915023365260332,
+          "Buffers": 12.700096112418388,
+          "Shmem": 0.3363934643555497,
+          "Slab": 14.860968415470785
+        },
+        "cached_min_bytes": 17334272,
+        "cached_observed_peak_bytes": 114614272,
+        "slab_status": "MEASURED"
+      },
+      "host_memory": {
+        "sample_count": 437,
+        "observed_peak_bytes": 533716992,
+        "components_at_peak_bytes": {
+          "anon": 461979648,
+          "file": 39731200,
+          "kernel": 15683584
+        }
+      },
+      "timing": {
+        "controller_elapsed_ns": 48145206711,
+        "cold_request_ns": 2522424697,
+        "guest_action_sum_ns": 11300726531,
+        "frozen_exec_and_download_span_ns": 28940290594,
+        "benchmark_test_call_ns": 4129876067,
+        "cleanup_call_ns": 177283568,
+        "physical_analysis_sum_ns": 20455378892,
+        "physical_pause_sum_ns": 6308117468
+      },
+      "performance_curves_status": "MEASURED",
+      "cleanup": {
+        "owned_container_removed": true,
+        "mount_and_loop_removed": true,
+        "successful_fixture_removed": true,
+        "original_firecracker_identities_unchanged": true,
+        "original_service_unchanged": true
+      },
+      "cache_released": true,
+      "successful_volume_removed": true,
+      "physical_source_sha256": {
+        "guest_whole_cache_probe.py": "1b6859a828059fd37b2e86dd34de3c3c4d622bbfab572b1ded0ec4957507ec02",
+        "task_physical_cache.py": "5ee888dfcc670f6c28e210ba6ba685ef812838f2f7d10aa6f466b8d4e8f58ab5",
+        "report_file_inventory.py": "e4efec4357adb2ee4edcf582ac78544b157987e79c899b2b2e82d4adcd5c23b4",
+        "trenvx_whole_cache.py": "01f8b167f2c6282466f57bc4aca70a476075c163ba99fd4d36a79183a7da8dab",
+        "agentenv_whole_cache.py": "65320bb79ca84701ef26657b368c1ab4258d05558c3a03f6a37fa626a872bdbc",
+        "measure_file_physical.py": "610cd2766b4d11b166781d748987fae4808adab4713c342979dd9327ef583ef9",
+        "guest_cached_file_inventory.py": "d1cd3707a8da3c3d032815903e9c0478d6494f95885d3dcc27e8d72cb4c0c85e",
+        "cached_file_inventory.py": "70be41fbfb8abc2a8da6ce471be1e3aa78ca5ccad4e3169eda4c0f29c25cc610",
+        "paused_agentenv_boundary.py": "e60ac4dc5d7b053fce98de8a4db59dc818edc1071fb96e8b1ee1f1f96ff2f23e",
+        "kernel_file_cache.py": "e11c36098dc194770ed8a9edd07d10464d27de4608bb0749b796bbab4c498bf2",
+        "guest_file_type_check.py": "f67e2f5caa67a2d9863e032ea68148b80aa05e8c09e8db906686e25deca50fdd",
+        "guest_cache_marker.py": "c18db34e7d0ff5927146a6409463ed64080301e4ce05b2a52fb725fe7df67bd0",
+        "guest_named_file_probe.py": "57a40c3cab4bffce89463d1b939510378c136c84bd33705a2191e9bf8e71e25f"
+      },
+      "report_recomputation": {
+        "status": "PASS",
+        "report_identical_files": 10,
+        "report_sha256": {
+          "guest-01a12aa3-8cae-7ed3-b8de-c20c8415f8f4.svg": "ff7a3dd9ed898c07b21a40a4c0e85de30f067b5b161cee78098abc596cecd1d7",
+          "input-sha256.json": "d1a0bb1aff8dcfdec8b78adad7a41322a323219fe8a5fc8595e482540517ffdb",
+          "memory.png": "f48f7b61307086e112125aeb110e888e0611bdf54e7a28c3300ac07e6db96850",
+          "memory.svg": "ab749df8a8b23bb4b115dbec980aa520ea2d1cca9c1bb977b676a9b4ae64e30b",
+          "performance-01a12aa3-8cae-7ed3-b8de-c20c8415f8f4.svg": "2e607d9f8e7d4793430e6ef5ed8f665ea249ea914b28da48cc7ec955c4571584",
+          "physical-cache.svg": "d4bb2f94971f48254c46af888e05a23ed6745aa4730babf13584d05eb5cb2520",
+          "raw-sha256.json": "776d8006d26886ea3faebc41c9b0ed79b44e9aac29b8d2133c1ac4cc0f0eb9ab",
+          "result.json": "418624579358ef15448687b1ae9bb2b9fea492916b1ce902e84918eb2d0a0834",
+          "runtime-metrics.json": "e7564d0cc118068426b0c9e4e8bf47786769fd22d1185a0216eafc35617d7a86",
+          "summary.json": "af9bf58d75790bcd2ea05076f3c6c183880ca8d66a7655b28bc576a11233a3a7"
+        },
+        "raw_hashes_unchanged": true,
+        "raw_file_count": 594,
+        "automatic_report": "/home/yyxie/agentenv_experiment/.artifacts/platform-tasks/report-20261011T110349Z-605616",
+        "independent_report": ".artifacts/platform-tasks/report-sphinx-cache-recomputed-20261011"
+      },
+      "volume_observed_peak_bytes": 982347776,
+      "host_available_min_bytes": 32271204352
+    },
+    {
+      "task_id": "pydata__xarray-6992",
+      "platform_completion_status": "PASS",
+      "diagnostic_status": "PASS",
+      "strict_replay_status": "FAIL",
+      "replay_policy": "xarray-approved-sigpipe",
+      "action_count": 35,
+      "workflow": ".artifacts/platform-tasks/20261011T110646Z-665078",
+      "raw": ".artifacts/storage-isolated-service/20261011T110827Z-666395/python-backbone",
+      "automatic_report": ".artifacts/platform-tasks/report-20261011T110646Z-665078",
+      "source_image": "ghcr.io/epoch-research/swe-bench.eval.x86_64.pydata__xarray-6992@sha256:c05101ef7105599eca1b7d15279a2928ac5453876cd2b83008deb9165d752655",
+      "base_commit": "45c0a114e2b7b27b83c9618bc05b36afac82183c",
+      "guest_cpu": 2,
+      "guest_memory_mib": 4096,
+      "trajectory_input_sha256": {
+        "task.json": "cbb5e089798dee077162e4f19266e09f0ccc5d6aecf3299fcd78f2552eb5b7a4",
+        "agent-sampling.json": "112f158bfc8659d871651371cd212aedf5b1801f28c208f3acb717243b5f6cf3",
+        "rollouts.json": "42a4dc63058f85820cfb04369da48a2a902ef49f738607ee71545fdcb8be4628",
+        "guest-runner.sh": "8bc17248c054342d169a9bae1eea9240a39ff802e28ada8422e9df53628f544d",
+        "segments/backbone_finish/actions.tsv": "84317c176ccb379478c98fdb1208878e947e4b5a0bedac64ab30c6d7028d1c17",
+        "segments/core_patch/actions.tsv": "775d91ffcc76ac869324e9b8aa4befe1ef65893b6f4872bd8ea7ffd05dac132e",
+        "segments/core_verify/actions.tsv": "9c18572b676daa5f2e3ca268a1835850540eaad212069a9f42d821cdd9e2600d",
+        "segments/early_1_finish/actions.tsv": "f5268df650630ce153906635abfa6f952c57564608009b33c79d796e1522a3f0",
+        "segments/early_1_inspect/actions.tsv": "8509dca2989466d7212fdc1f00b21164dabe65644b0ff54b4994acfd38675015",
+        "segments/early_2_finish/actions.tsv": "6ab192c060a1dbfa4cad25f7ac1c04c0a2d09fb72d53b542698e1676f9f64200",
+        "segments/early_2_inspect/actions.tsv": "464ef9fc75f3ed4ec76ed3c5c3196612d03bf2139839f5a7625f06e0e45913bd",
+        "segments/early_3_finish/actions.tsv": "ff38c60ad72801a15c2f14d2c525eae3fc115159a2e12a194f8a11133c208693",
+        "segments/early_3_inspect/actions.tsv": "ce7593edc95b225311455cb2f1ff8a8559f1bb0d43f0a463f57e826c7419dbda",
+        "segments/late_1_finish/actions.tsv": "a9f2146a90412c71ed22873dc6298ebbe4fc2ad15ede29fd043737ef653ab4e4",
+        "segments/late_1_inspect/actions.tsv": "adedced686a7ec6020d0552bfaa865505a527102e5d011c7faf54424f1cb3870",
+        "segments/late_2_finish/actions.tsv": "7b8e583e702267111fa9f117b9a705d5d5ceee2986fc576d23a1e2c0d7490223",
+        "segments/late_2_inspect/actions.tsv": "c818d39b89622778d7ca3927c36e8d9c8e8749a06ec0c42a5d583fd3ed984b0f",
+        "segments/late_3_finish/actions.tsv": "dc12fba421b525fe346d11b057b8c10c438bb0de834464508b9a4224c98ff7d5",
+        "segments/late_3_inspect/actions.tsv": "a9c80a3f919b75329302657e8e724807c14e818360ceb2bc07b1fcfde8d5b253",
+        "segments/read_repo/actions.tsv": "91e99456d859e792b64434eca006523fe4f98d092bf86c8fbee21715f5d951be",
+        "segments/trace_index_state/actions.tsv": "b149675abcf8591504b91c693d1d175a262ba058dd19baa71cec7925d2fa1318"
+      },
+      "final_patch_sha256": "ca41c70724c2ce367b5f0431c55de4b68724b29ee35110afe40c68ab781c6556",
+      "official_task_sha256": "13eb11ba4b031793553cfa26ec94cab4a72476025b8571f993f1d9021b6ca06b",
+      "official": {
+        "status": "FAIL",
+        "exit_code": 1,
+        "passed": 945,
+        "failed": 12,
+        "skipped": 0,
+        "failed_tests": [
+          "xarray/tests/test_dataarray.py::TestDataArray::test_reset_index",
+          "xarray/tests/test_dataset.py::TestDataset::test_reset_index",
+          "xarray/tests/test_dataset.py::TestDataset::test_reset_index_drop_dims",
+          "xarray/tests/test_dataset.py::TestDataset::test_reset_index_drop_convert[foo-False-dropped0-converted0-renamed0]",
+          "xarray/tests/test_dataset.py::TestDataset::test_reset_index_drop_convert[foo-True-dropped1-converted1-renamed1]",
+          "xarray/tests/test_dataset.py::TestDataset::test_reset_index_drop_convert[x-False-dropped2-converted2-renamed2]",
+          "xarray/tests/test_dataset.py::TestDataset::test_reset_index_drop_convert[x-True-dropped3-converted3-renamed3]",
+          "xarray/tests/test_dataset.py::TestDataset::test_reset_index_drop_convert[arg4-False-dropped4-converted4-renamed4]",
+          "xarray/tests/test_dataset.py::TestDataset::test_reset_index_drop_convert[arg5-True-dropped5-converted5-renamed5]",
+          "xarray/tests/test_dataset.py::TestDataset::test_reset_index_drop_convert[arg6-False-dropped6-converted6-renamed6]",
+          "xarray/tests/test_dataset.py::TestDataset::test_reset_index_drop_convert[arg7-True-dropped7-converted7-renamed7]",
+          "xarray/tests/test_groupby.py::test_groupby_drops_nans"
+        ],
+        "skipped_tests": [],
+        "F2P_passed": 0,
+        "F2P_total": 12,
+        "P2P_passed": 945,
+        "P2P_total": 945,
+        "scope": "SWE-bench test patch and exact F2P/P2P case selection; direct image pytest, not full official Docker harness"
+      },
+      "original_model_outcome_unchanged": true,
+      "physical_measurement_status": "PARTIAL",
+      "points": [
+        {
+          "status": "PASS",
+          "after_segment": "trace_index_state",
+          "after_global_step": 13,
+          "frozen_timestamp_ns": 1791716931571613995,
+          "confirmed_physical_bytes": 134397952,
+          "unknown_host_pages": 0,
+          "possible_physical_upper_bytes": 134397952,
+          "analysis_elapsed_ns": 8137718527,
+          "paused_interval_ns": 3207951476,
+          "calibration_regular_content_included_bytes": 12288,
+          "collector_cpu_user_seconds": 3.774751,
+          "collector_cpu_system_seconds": 0.732204,
+          "scope": "paused guest SystemRAM file-LRU; regular content and metadata typed separately; host PFNs deduplicated within this sandbox; not complete host backing cache or cross-VM sharing",
+          "inode_type_unique_physical_bytes": {
+            "block_device": 10354688,
+            "regular_file": 121225216,
+            "filesystem_allocation_metadata": 2818048
+          },
+          "calibration_status": "PASS",
+          "task_state_unchanged": true
+        },
+        {
+          "status": "PARTIAL",
+          "after_segment": "core_patch",
+          "after_global_step": 22,
+          "frozen_timestamp_ns": 1791716949149745336,
+          "confirmed_physical_bytes": 324177920,
+          "unknown_host_pages": 1,
+          "possible_physical_upper_bytes": 324182016,
+          "analysis_elapsed_ns": 9988215737,
+          "paused_interval_ns": 5072643445,
+          "calibration_regular_content_included_bytes": 12288,
+          "collector_cpu_user_seconds": 5.771454,
+          "collector_cpu_system_seconds": 1.0427100000000002,
+          "scope": "paused guest SystemRAM file-LRU; regular content and metadata typed separately; host PFNs deduplicated within this sandbox; not complete host backing cache or cross-VM sharing",
+          "inode_type_unique_physical_bytes": {
+            "block_device": 20918272,
+            "regular_file": 300433408,
+            "filesystem_allocation_metadata": 2826240
+          },
+          "calibration_status": "PASS",
+          "task_state_unchanged": true
+        },
+        {
+          "status": "PARTIAL",
+          "after_segment": "backbone_finish",
+          "after_global_step": 35,
+          "frozen_timestamp_ns": 1791716981364155764,
+          "confirmed_physical_bytes": 348319744,
+          "unknown_host_pages": 1,
+          "possible_physical_upper_bytes": 348323840,
+          "analysis_elapsed_ns": 10272746083,
+          "paused_interval_ns": 5218440545,
+          "calibration_regular_content_included_bytes": 12288,
+          "collector_cpu_user_seconds": 6.069009999999999,
+          "collector_cpu_system_seconds": 0.967047,
+          "scope": "paused guest SystemRAM file-LRU; regular content and metadata typed separately; host PFNs deduplicated within this sandbox; not complete host backing cache or cross-VM sharing",
+          "inode_type_unique_physical_bytes": {
+            "block_device": 24506368,
+            "regular_file": 320978944,
+            "filesystem_allocation_metadata": 2834432
+          },
+          "calibration_status": "PASS",
+          "task_state_unchanged": true
+        }
+      ],
+      "logical_guest_memory": {
+        "role": "backbone",
+        "sample_count": 789,
+        "observed_nonfree_peak_bytes": 1012400128,
+        "components_at_peak_bytes": {
+          "Cached": 362766336,
+          "AnonPages": 537882624,
+          "Buffers": 29016064,
+          "Shmem": 17633280,
+          "Slab": 50212864
+        },
+        "components_at_peak_percent": {
+          "Cached": 35.832308389435525,
+          "AnonPages": 53.12945041429311,
+          "Buffers": 2.8660668047643707,
+          "Shmem": 1.7417303210771622,
+          "Slab": 4.9597844381149665
+        },
+        "cached_min_bytes": 30646272,
+        "cached_observed_peak_bytes": 365215744,
+        "slab_status": "MEASURED"
+      },
+      "host_memory": {
+        "sample_count": 891,
+        "observed_peak_bytes": 1346613248,
+        "components_at_peak_bytes": {
+          "anon": 1273499648,
+          "file": 45723648,
+          "kernel": 18972672
+        }
+      },
+      "timing": {
+        "controller_elapsed_ns": 98012710917,
+        "cold_request_ns": 2848448612,
+        "guest_action_sum_ns": 34017775064,
+        "frozen_exec_and_download_span_ns": 55393854321,
+        "benchmark_test_call_ns": 21896843031,
+        "cleanup_call_ns": 226685585,
+        "physical_analysis_sum_ns": 28398680347,
+        "physical_pause_sum_ns": 13499035466
+      },
+      "performance_curves_status": "MEASURED",
+      "cleanup": {
+        "owned_container_removed": true,
+        "mount_and_loop_removed": true,
+        "successful_fixture_removed": true,
+        "original_firecracker_identities_unchanged": true,
+        "original_service_unchanged": true
+      },
+      "cache_released": true,
+      "successful_volume_removed": true,
+      "physical_source_sha256": {
+        "measure_file_physical.py": "610cd2766b4d11b166781d748987fae4808adab4713c342979dd9327ef583ef9",
+        "report_file_inventory.py": "e4efec4357adb2ee4edcf582ac78544b157987e79c899b2b2e82d4adcd5c23b4",
+        "trenvx_whole_cache.py": "01f8b167f2c6282466f57bc4aca70a476075c163ba99fd4d36a79183a7da8dab",
+        "guest_cached_file_inventory.py": "d1cd3707a8da3c3d032815903e9c0478d6494f95885d3dcc27e8d72cb4c0c85e",
+        "guest_named_file_probe.py": "57a40c3cab4bffce89463d1b939510378c136c84bd33705a2191e9bf8e71e25f",
+        "agentenv_whole_cache.py": "65320bb79ca84701ef26657b368c1ab4258d05558c3a03f6a37fa626a872bdbc",
+        "guest_file_type_check.py": "f67e2f5caa67a2d9863e032ea68148b80aa05e8c09e8db906686e25deca50fdd",
+        "guest_cache_marker.py": "c18db34e7d0ff5927146a6409463ed64080301e4ce05b2a52fb725fe7df67bd0",
+        "task_physical_cache.py": "5ee888dfcc670f6c28e210ba6ba685ef812838f2f7d10aa6f466b8d4e8f58ab5",
+        "guest_whole_cache_probe.py": "1b6859a828059fd37b2e86dd34de3c3c4d622bbfab572b1ded0ec4957507ec02",
+        "cached_file_inventory.py": "70be41fbfb8abc2a8da6ce471be1e3aa78ca5ccad4e3169eda4c0f29c25cc610",
+        "paused_agentenv_boundary.py": "e60ac4dc5d7b053fce98de8a4db59dc818edc1071fb96e8b1ee1f1f96ff2f23e",
+        "kernel_file_cache.py": "e11c36098dc194770ed8a9edd07d10464d27de4608bb0749b796bbab4c498bf2"
+      },
+      "report_recomputation": {
+        "status": "PASS",
+        "report_identical_files": 10,
+        "report_sha256": {
+          "guest-01a12aa6-8596-7aa2-b803-a0bdf5bd739a.svg": "620353cafb7abd7220a97bedbc0c7ae00739b70dc12faf0b4482221e0913a1ce",
+          "input-sha256.json": "64174e85ff21cb5e79ebc8d6af416ca21ff8b9435c0310990e8dc41f1dada8b9",
+          "memory.png": "ca1d86432cca0b186e80b512a19556aab5ebb8973f775117d3a94533a712f345",
+          "memory.svg": "3de4958eed7990a10e14603b639297b824cd99df4d9832232777bf9068c114f2",
+          "performance-01a12aa6-8596-7aa2-b803-a0bdf5bd739a.svg": "2e9f7dda4eecec0c499aadb77cd64867b4b09c0ba0f12d4d3a27747584864c73",
+          "physical-cache.svg": "41aa9b743a436bdff4817f28af83edcd3beb6f98a095848620b328cd2c5efe86",
+          "raw-sha256.json": "82b500b9014e7d1a20c8bf0040a6665682ddd0016405b7721050e4d1e7ad38ac",
+          "result.json": "0101e5f138dce2ca3724476447d89d6f85b49afe07e242ce6fa52a99ead07730",
+          "runtime-metrics.json": "667fb074bef0bad2199ba21a8d46157e23d358698ec35a92c657f89cd3a566e4",
+          "summary.json": "d4ed466c85a81cf24a812d3180d257743ac1f6d270e9233793b55231c02abf1f"
+        },
+        "raw_hashes_unchanged": true,
+        "raw_file_count": 592,
+        "automatic_report": "/home/yyxie/agentenv_experiment/.artifacts/platform-tasks/report-20261011T110646Z-665078",
+        "independent_report": ".artifacts/platform-tasks/report-xarray-cache-recomputed-20261011"
+      },
+      "volume_observed_peak_bytes": 1056321536,
+      "host_available_min_bytes": 31426617344
+    }
+  ],
+  "units": {
+    "memory": "bytes; figures MiB (2^20 bytes)",
+    "timing": "nanoseconds",
+    "page_size": 4096
+  },
+  "tests": {
+    "test_platform_tasks.py": 9,
+    "test_xarray6992.py": 9,
+    "test_shared_task_cache.py": 2,
+    "test_sphinx7590.py": 14
+  },
+  "raw_file_count": 1186,
+  "raw_hashes_unchanged": true,
+  "source_sha256": {
+    "task_physical_cache.py": "5ee888dfcc670f6c28e210ba6ba685ef812838f2f7d10aa6f466b8d4e8f58ab5",
+    "platform_tasks.py": "bfa03787aa35947fac043913f6166ce6947e50703610baedf603afa8375abfcf",
+    "run_xarray6992.py": "d834ad0f29ee72ca393bd6df34c8edd3c3d3449bc9d778b4657b5885d328a2de",
+    "validate_isolated_agentenv.py": "7f4cbca3ccf373bf0f102e1b938892e9ed2178a22706102b1da0177df0f879fb",
+    "report_xarray6992.py": "76a0dc5df31786a8fd0c3d4aaf85fce0c65ad179a054e94a9fb608979106f75d"
+  },
+  "limitations": [
+    "Physical cache covers paused guest file-LRU regular content, block cache and allocation metadata; not complete host image cache, DAX or VMM PSS.",
+    "Logical guest Cached includes overlapping Shmem; sampled nonfree memory, Cached and host cgroup memory must not be added.",
+    "All physical points include three locked fixture pages (12 KiB), released afterwards.",
+    "Only one complete run per task; no variance, cache-control causality or lightweight monitoring-cost claim.",
+    "Host RAM preparation cache is separate from the private service cgroup.",
+    "Measurements pause the VM; no guest samples are added during the pause and physical points are not interpolated."
+  ],
+  "host_available_after_bytes": 39585464320,
+  "next_step": "Stage 5: prepared deployment description, template/checkpoint lookup and retention, then one existing tool-interface online export/replay; no training/UI/cluster prerequisite."
+}

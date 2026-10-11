@@ -30,6 +30,9 @@ def run(args):
     monitor_mode=getattr(args,'monitor_mode','continuous')
     assert monitor_mode in ('continuous','off')
     assert monitor_mode!='off' or not checkpoint,'monitor-off requires complete replay without checkpoint'
+    physical_segments = getattr(args, 'physical_cache_after', '').split(',') if getattr(args, 'physical_cache_after', '') else []
+    assert not physical_segments or monitor_mode == 'continuous' and not checkpoint
+    assert len(set(physical_segments)) == len(physical_segments) and set(physical_segments) <= set(cfg['path'])
     expected=None
     if checkpoint or args.expected_official_audit:
         assert args.expected_official_audit, 'verified full replay official outcome required'
@@ -46,7 +49,7 @@ def run(args):
     env = dict(os.environ,PATH=str(ROOT/'runtime/bin')+':'+os.environ['PATH'],
                XDG_CONFIG_HOME=str(args.config_home),HOST_MONITOR_LIGHT='1')
     from sandbox_runtime_monitor import RuntimeMonitor, boundary_runner
-    events=[];sid=None;monitor=None;success=False;snapshot=None
+    events=[];sid=None;monitor=None;success=False;snapshot=None;physical=None
     result=dict(status='FAIL',checks={},scope=cfg['scope'],backend='agentenv',task_id=cfg['task_id'],
                 physical_page_cache='NOT_MEASURED',monitoring_impact='NOT_VALIDATED',
                 checkpoint_restore='NOT_RUN',full_upstream_suite='NOT_RUN',monitor_mode=monitor_mode)
@@ -98,10 +101,23 @@ def run(args):
         controller.phase_file=out/'.phase';controller.phase('prepare')
         result['scope']='24/29 checkpoint and continuation; original task failure preserved' if checkpoint else cfg['scope']
         (out/'effective-config.json').write_text(json.dumps(dict(cfg,container=args.container,official_task=str(args.official_task),checkpoint_after_global_step=24 if checkpoint else None,expected_official_failure=signature(expected) if expected else None,cold_request_timeout_seconds=600,sandbox_ttl_seconds=1800,host_scope='single temporary service cgroup; cache and VMM included; pool disabled',guest_scope='continuous per actual VM ID after monitor setup; explicit snapshot gaps; tool boundary counters retained',physical_memory='NOT_MEASURED',monitoring_impact='NOT_VALIDATED'),indent=2)+'\n')
+        if physical_segments:
+            effective=json.loads((out/'effective-config.json').read_text())
+            effective.update(physical_memory='paused file-LRU points',physical_cache_after_segments=physical_segments,
+                             measurement_variant='precision analysis; pause/analysis elapsed times included, not lightweight-only timing')
+            (out/'effective-config.json').write_text(json.dumps(effective,indent=2)+'\n')
         code=out/'code';code.mkdir()
         for path in [Path(__file__),ROOT/'scripts/agentenv_cold_start.py',ROOT/'scripts/prettier6604_boundary.py',ROOT/'scripts/audit_prettier6604_official.py',ROOT/'scripts/exp1-process-probe.sh',ROOT/'scripts/prettier6604_inputs.py',ROOT/'scripts/prettier6604_check.cjs',ROOT/'scripts/exp1_official_task.py',vendor/'controller.py',workload/'guest-runner.sh',ROOT/'IncrementalDAX_moti/motivation/experiments/lib/host-memory-monitor.sh',ROOT/'configs/prettier6604-backbone.json']:
             shutil.copy2(path,code/path.name)
         (out/'source-sha256.json').write_text(json.dumps({p.name:sha(p) for p in code.iterdir()},indent=2)+'\n')
+        if physical_segments:
+            physical_sources = ['task_physical_cache.py', 'agentenv_whole_cache.py', 'measure_file_physical.py',
+                'guest_whole_cache_probe.py', 'guest_cache_marker.py', 'trenvx_whole_cache.py', 'paused_agentenv_boundary.py',
+                'cached_file_inventory.py', 'guest_cached_file_inventory.py', 'guest_named_file_probe.py',
+                'guest_file_type_check.py', 'kernel_file_cache.py', 'report_file_inventory.py']
+            physical_code = out/'physical-code'; physical_code.mkdir()
+            for name in physical_sources: shutil.copy2(ROOT/'scripts'/name, physical_code/name)
+            (out/'physical-source-sha256.json').write_text(json.dumps({p.name:sha(p) for p in physical_code.iterdir()},indent=2)+'\n')
         (out/'reference.patch').write_text(reference)
         frozen=out/'frozen-input';(frozen/'segments').mkdir(parents=True)
         shutil.copy2(workload/'guest-runner.sh',frozen/'guest-runner.original.sh')
@@ -113,11 +129,16 @@ def run(args):
         if runtime:
             with (out/'host-monitor.log').open('x') as log:
                 monitor=subprocess.Popen(['bash',str(ROOT/'IncrementalDAX_moti/motivation/experiments/lib/host-memory-monitor.sh'),str(out/'host/memory-samples.tsv'),str(controller.phase_file),'0.1',args.container],env=env,stdout=log,stderr=subprocess.STDOUT,start_new_session=True)
+        if physical_segments:
+            from task_physical_cache import TaskPhysicalCache
+            stage='physical-capture'
+            physical=TaskPhysicalCache(out,args.container,cli)
         stage='cold-start';controller.phase(stage)
         sid=call('cold-start',[sys.executable,'-B',ROOT/'scripts/agentenv_cold_start.py',
                  '--config-home',args.config_home,'--service-url',args.service_url,
                  '--image',cfg['source_image']],timeout=610)
         assert re.fullmatch(r'[a-fA-F0-9-]{36}',sid)
+        if physical: physical.ready()
         (out/'sandbox-id.txt').write_text(sid+'\n')
         controller.record('sandbox-ids.tsv',f'backbone\t{sid}\t\troot')
         if runtime:runtime.start(sid,'backbone','setup')
@@ -134,10 +155,19 @@ def run(args):
             first_probe=dict(line.split('=',1) for line in guest('process-start','bash /workspace/exp1-process-probe.sh start').splitlines())
         stage='frozen-backbone';controller.phase(stage)
         replay_begin=time.monotonic_ns()
+        global_step = 0
         for segment in cfg['path']:
             begin=time.monotonic_ns();asyncio.run(controller.run_segment(sid,'backbone',segment))
             with event_lock:
                 events.append(dict(stage='segment-'+segment,duration_ns=time.monotonic_ns()-begin,exit_code=0))
+                (out/'events.json').write_text(json.dumps(events,indent=2)+'\n')
+            global_step += len(cfg['expected_exit_codes'][segment])
+            if segment in physical_segments:
+                stage='physical-cache-'+segment;controller.phase(stage)
+                if runtime: runtime.mark(sid,stage)
+                begin=time.monotonic_ns()
+                physical.measure(sid,segment,global_step)
+                events.append(dict(stage=stage,start_monotonic_ns=begin,duration_ns=time.monotonic_ns()-begin,exit_code=0))
                 (out/'events.json').write_text(json.dumps(events,indent=2)+'\n')
             if checkpoint and segment=='core_verify':
                 stage='checkpoint-boundary';controller.phase(stage)
@@ -211,6 +241,12 @@ def run(args):
         source_after=json.loads(guest('source-after-tests',final_code))
         assert source_after['files']==final_state['files'] and source_after['base_commit']==final_state['base_commit'],'task source changed during evaluation'
         (out/'source-after-tests.json').write_text(json.dumps(source_after,indent=2)+'\n')
+        if physical:
+            assert [p['after_segment'] for p in physical.points] == [s for s in cfg['path'] if s in physical_segments]
+            complete=all(p['status']=='PASS' for p in physical.points)
+            result['physical_page_cache']='MEASURED_AT_EXPLICIT_BOUNDARIES' if complete else 'PARTIAL_AT_EXPLICIT_BOUNDARIES'
+            result['checks']['physical_cache_probe_and_task_state']='PASS'
+            result['checks']['physical_cache_complete']='PASS' if complete else 'PARTIAL'
         success=True
     except BaseException as error:
         result.update(error=repr(error),failed_stage=stage)
@@ -219,6 +255,9 @@ def run(args):
     finally:
         for sig in (signal.SIGTERM,signal.SIGINT):signal.signal(sig,signal.SIG_IGN)
         cleanup={}
+        if physical:
+            try: physical.close();cleanup['physical_tracer_stopped']=True
+            except Exception as e:cleanup['physical_tracer_error']=repr(e);success=False
         if sid:
             try:
                 if runtime:runtime.stop(sid)
@@ -251,6 +290,7 @@ if __name__=='__main__':
     parser.add_argument('--container');parser.add_argument('--config-home',type=Path);parser.add_argument('--output',type=Path)
     parser.add_argument('--service-url',help='Owned temporary loopback API, checked against its credentials')
     parser.add_argument('--monitor-mode',choices=('continuous','off'),default='continuous')
+    parser.add_argument('--physical-cache-after',default='',help='Comma-separated completed segments for paused file-LRU analysis')
     parser.add_argument('--checkpoint',action='store_true',help='Snapshot after core_verify (24/29); resume at backbone_finish')
     parser.add_argument('--expected-official-audit',type=Path,help='Hash-verified official failure from complete original replay')
     parser.add_argument('--check-only',action='store_true');args=parser.parse_args()

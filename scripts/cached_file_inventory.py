@@ -14,10 +14,13 @@ from trenvx_whole_cache import RECORD,dump,records,same_physical_mapping
 def load(directory,name):return json.loads((directory/name).read_text())
 
 
-def start(aenv,sid,out,mode,kernel_file_types=False):
+def start(aenv,sid,out,mode,kernel_file_types=False,*,retain_fixture_pages=False):
     directory=out/'file-inventory';directory.mkdir();guest='/dev/shm/asb-file-inventory-'+sid
     cfg=dict(sandbox_id=sid,mode=mode,root='/workspace/asb-inventory-fixture' if mode=='fixture' else '/')
     if kernel_file_types:cfg['kernel_file_types']=True
+    if retain_fixture_pages:
+        assert mode=='fixture'
+        cfg['retain_fixture_pages']=True
     dump(directory/'config.json',cfg)
     aenv('inventory-config','upload',sid,str(directory/'config.json'),'/workspace/asb-cache-tools/inventory-config.json')
     aenv('inventory-start','exec',sid,'bash','-lc',f'nohup timeout 600 env ASB_CACHE_WAIT_SECONDS=300 PYTHONDONTWRITEBYTECODE=1 python3 /workspace/asb-cache-tools/guest_cached_file_inventory.py /workspace/asb-cache-tools/inventory-config.json {guest} >/dev/shm/asb-file-inventory.log 2>&1 </dev/null &')
@@ -54,7 +57,7 @@ def host_capture(directory,vm,proof):
     dump(directory/'host-pages.json',rows);dump(directory/'host-receipt.json',dict(status='PASS',elapsed_ns=time.monotonic_ns()-started))
 
 
-def finish(aenv,sid,directory,guest,calibration_scope='interval'):
+def finish(aenv,sid,directory,guest,calibration_scope='interval',*,require_complete_cache=True):
     aenv('inventory-after-request','exec',sid,'touch',guest+'/capture-after');wait(aenv,sid,guest,'after-ready')
     for name in ('after.json','inventory-after.json','inventory-after-flags.bin'):download(aenv,sid,guest,directory,name)
     aenv('inventory-release','exec',sid,'touch',guest+'/release');wait(aenv,sid,guest,'done')
@@ -62,7 +65,8 @@ def finish(aenv,sid,directory,guest,calibration_scope='interval'):
     if result['mode']=='fixture':
         if calibration_scope=='frozen':
             kernel=load(directory,'kernel-file-types.json')
-            assert kernel['status']==kernel['frozen_cache_physical_status']=='PASS'
+            assert kernel['status']=='PASS'
+            assert kernel['frozen_cache_physical_status']=='PASS' or not require_complete_cache and kernel['frozen_cache_physical_status']=='PARTIAL'
             assert kernel['checks']['known_file_contents_match_ram']==kernel['checks']['known_file_type_device_inode_index']=='PASS'
             before=load(directory,'before.json');after=load(directory,'after.json');final={r['path']:r for r in after['files']}
             for file in before['files']:

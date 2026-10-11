@@ -1,0 +1,243 @@
+{
+  "status": "PASS",
+  "date": "2026-10-11",
+  "scope": "same prepared host and fixed server/deps; fresh private service from archived POSIX snapshot repository; original VM process/memory/open FD preserved, new host VMM; not cross-host compatibility or benchmark acceptance",
+  "workflow": ".artifacts/platform-tasks/durable-20261011T124238Z-706272",
+  "source_capture_dir": ".artifacts/storage-isolated-service/20261011T123631Z-703748/python-backbone",
+  "restore_dir": ".artifacts/storage-isolated-service/20261011T124240Z-706355/python-backbone",
+  "bundle": ".artifacts/storage-isolated-service/20261011T123631Z-703748/checkpoint-bundle",
+  "archive_sha256": "7dd6ad75cf29ab1e97c38321a4a906da3e6dd8b36ba5e8d681fdc6c08aa99b98",
+  "archive_bytes": 1013719341,
+  "repository_file_bytes": 3127607676,
+  "repository_files": 21,
+  "repository_prefix": "repository",
+  "resources": {
+    "cpu": 2,
+    "memory_mib": 512,
+    "server_image": "sha256:db9eb044ae3d85f9b276b9d2e5dea28cb0be95263d217ea4989f095e1d828681",
+    "source_image": "ghcr.io/epoch-research/swe-bench.eval.x86_64.sphinx-doc__sphinx-7590@sha256:577ebfcce825e4c9621e066dc1c8375443be94bbc6de30b9368e422b8f123731"
+  },
+  "checks": {
+    "snapshot_after_tool_step": 2,
+    "next_tool_step": 3,
+    "executed_continuation_steps": [
+      3,
+      4
+    ],
+    "expected_failure_step_two": 7,
+    "original_process_identity_preserved": true,
+    "anonymous_memory_bytes": 262144,
+    "anonymous_memory_hash_preserved": true,
+    "unlinked_open_file_content_preserved": true,
+    "progress_at_restore": "2",
+    "progress_after_continuation": "4",
+    "archive_import_files_verified": 21,
+    "old_runtime_cache_copied": false,
+    "old_ram_cache_prepared": false,
+    "original_private_service_and_source_volume_removed": true,
+    "new_private_service": true
+  },
+  "proof": {
+    "status": "PASS",
+    "snapshot_alias": "asb-durable-20261011T123631Z-703748",
+    "snapshot_id": "01a12af7-2aa9-74c0-bdeb-148afa4f78e0",
+    "original_sandbox_id": "01a12af7-1e1d-7261-b70f-c85fc8325943",
+    "restored_sandbox_id": "01a12afc-f173-7671-a0ae-b84c27bb3c71",
+    "process_before": {
+      "pid": 344,
+      "start_ticks": "84",
+      "boot_id": "4d2d766b-8902-4a23-b4f9-74a574aa81c4",
+      "count": 17,
+      "anonymous_sha256": "eba64739f9533cfaa7283f0825ca2d1543c6b666834f87f57337fd1713b0b04d",
+      "open_fd_sha256": "1191d45bf005580697597147cfc1381b6b1998195bbfaea120389f378282e43c",
+      "pathname_sha256": "9ba7cd79c64b8f2946f17d625d83776d5144b28bf9e3c538a4e19d60aecd44e6"
+    },
+    "process_after": {
+      "pid": 344,
+      "start_ticks": "84",
+      "boot_id": "4d2d766b-8902-4a23-b4f9-74a574aa81c4",
+      "count": 20,
+      "anonymous_sha256": "eba64739f9533cfaa7283f0825ca2d1543c6b666834f87f57337fd1713b0b04d",
+      "open_fd_sha256": "1191d45bf005580697597147cfc1381b6b1998195bbfaea120389f378282e43c",
+      "pathname_sha256": "9ba7cd79c64b8f2946f17d625d83776d5144b28bf9e3c538a4e19d60aecd44e6"
+    },
+    "files_at_boundary": {
+      "/workspace/asb-tool-session/state.txt": "8fd57a6289ef807ad40f85e2ac209b2b38f364829292ec9869b22d2177e79547",
+      "/workspace/asb-tool-session/progress": "d4735e3a265e16eee03f59718b9b5d03019c07d8b6c51f90da3a666eec13ab35"
+    },
+    "files_after_continuation": {
+      "/workspace/asb-tool-session/state.txt": "0fbf4ee8c873e907dbac5b884640f5676deca9d8b95076357be1473d4d27a145",
+      "/workspace/asb-tool-session/progress": "4b227777d4dd1fc61c6f884f48641d02b4d121d3fd328cb08b5531fcacdabf8a"
+    },
+    "executed_global_steps": [
+      3,
+      4
+    ],
+    "archive_sha256": "7dd6ad75cf29ab1e97c38321a4a906da3e6dd8b36ba5e8d681fdc6c08aa99b98",
+    "archive_bytes": 1013719341,
+    "repository_files": 21,
+    "scope": "same prepared host and fixed server/deps; fresh private service from archived POSIX snapshot repository; original VM process/memory/open FD preserved, new host VMM; not cross-host compatibility or benchmark acceptance"
+  },
+  "timing": {
+    "unit": "ns",
+    "export_elapsed_ns": 31518153012,
+    "import_elapsed_ns": 19228228422,
+    "checkpoint_call_ns": 2830492086,
+    "restore_call_ns": 301711207,
+    "capture_controller_elapsed_ns": 7867177401,
+    "restore_controller_elapsed_ns": 2336736317,
+    "scope": "archive export/import, API call and controller ranges have containment; not summed, not performance comparison"
+  },
+  "runtime": {
+    "scope": "continuous guest logical memory/CPU/I/O and host VMM curves; observed peaks, no physical cache scan or monitoring overhead comparison",
+    "capture": [
+      {
+        "sandbox_id": "01a12af7-1e1d-7261-b70f-c85fc8325943",
+        "role": "capture",
+        "sample_count": 11,
+        "observed_nonfree_peak_bytes": 98885632,
+        "components_at_peak_bytes": {
+          "Cached": 44658688,
+          "AnonPages": 29282304,
+          "Buffers": 6078464,
+          "Shmem": 831488,
+          "Slab": 9797632
+        },
+        "components_at_peak_percent": {
+          "Cached": 45.161958412724715,
+          "AnonPages": 29.61229392759506,
+          "Buffers": 6.146963797531273,
+          "Shmem": 0.8408582553226742,
+          "Slab": 9.908044072570624
+        },
+        "cached_min_bytes": 40202240,
+        "cached_observed_peak_bytes": 44658688,
+        "slab_status": "MEASURED",
+        "sessions": [
+          {
+            "stop_reason": "checkpoint",
+            "status": "PASS",
+            "error": null,
+            "pid": 355,
+            "start_ticks": "123",
+            "boot_id": "4d2d766b-8902-4a23-b4f9-74a574aa81c4",
+            "sandbox_id": "01a12af7-1e1d-7261-b70f-c85fc8325943",
+            "role": "capture",
+            "session_id": "cc626e2d-1486-4a75-a8a8-a42b6a69aff3",
+            "samples": 11,
+            "interval_seconds": 0.1,
+            "elapsed_ns": 972089509,
+            "cpu_user_seconds": 0.098288,
+            "cpu_system_seconds": 0.019216999999999998,
+            "maxrss_kib": 13532,
+            "scope": "guest logical counters; collector maxrss is not private memory; no physical deduplication",
+            "performance_version": 1,
+            "clock_ticks": 100,
+            "performance_scope": "guest-wide CPU (guest ticks not double counted), per-device diskstats (512-byte sectors); includes sampler and other guest work"
+          }
+        ]
+      }
+    ],
+    "restore": [
+      {
+        "sandbox_id": "01a12afc-f173-7671-a0ae-b84c27bb3c71",
+        "role": "restored",
+        "sample_count": 10,
+        "observed_nonfree_peak_bytes": 102281216,
+        "components_at_peak_bytes": {
+          "Cached": 44765184,
+          "AnonPages": 32362496,
+          "Buffers": 6086656,
+          "Shmem": 831488,
+          "Slab": 9887744
+        },
+        "components_at_peak_percent": {
+          "Cached": 43.76676945256497,
+          "AnonPages": 31.640703215730248,
+          "Buffers": 5.9509030475351405,
+          "Shmem": 0.8129430138961194,
+          "Slab": 9.667213968203116
+        },
+        "cached_min_bytes": 44654592,
+        "cached_observed_peak_bytes": 44773376,
+        "slab_status": "MEASURED",
+        "sessions": [
+          {
+            "stop_reason": "restore-complete",
+            "status": "PASS",
+            "error": null,
+            "pid": 384,
+            "start_ticks": "346",
+            "boot_id": "4d2d766b-8902-4a23-b4f9-74a574aa81c4",
+            "sandbox_id": "01a12afc-f173-7671-a0ae-b84c27bb3c71",
+            "role": "restored",
+            "session_id": "8c9a2efd-6b96-4072-815e-92881adf1f1c",
+            "samples": 10,
+            "interval_seconds": 0.1,
+            "elapsed_ns": 844509518,
+            "cpu_user_seconds": 0.056523,
+            "cpu_system_seconds": 0.030957,
+            "maxrss_kib": 14020,
+            "scope": "guest logical counters; collector maxrss is not private memory; no physical deduplication",
+            "performance_version": 1,
+            "clock_ticks": 100,
+            "performance_scope": "guest-wide CPU (guest ticks not double counted), per-device diskstats (512-byte sectors); includes sampler and other guest work"
+          }
+        ]
+      }
+    ]
+  },
+  "verification": {
+    "unit_tests": 68,
+    "unit_test_log": ".artifacts/platform-management/native-checkpoint-review-20261011/tests-final.log",
+    "report_files_identical": 9,
+    "restore_raw_files_unchanged": 98,
+    "report_sha256": {
+      "result.json": "723e1ebd70c616194fd8ca9ae5463ee9b05baa97f49b140a8c84f2894c28ac35",
+      "restore-proof.json": "f3445ff9c53b14cf0849058d1e9b4207b236da7681ba7f7f5ed7cccaf3d2b12f",
+      "summary.json": "f0a2f26685a2e90782e06d346708ee894b0263a73881f519761f21937fb4862d",
+      "restore/memory.svg": "8fccc2ce0f7245efb3f999d47bfb6a3166c9162d6650642451a36609d032658f",
+      "restore/memory.png": "ef1297020d2a73281fa01dc6f2aea6a8f30815147eb7ee8e76ebc93f68e18ce8",
+      "restore/performance-01a12afc-f173-7671-a0ae-b84c27bb3c71.svg": "4e3d982f7093e005f39f385f36577da3a205a00bffbdbff3f8d50159c688a7b1",
+      "restore/runtime-metrics.json": "9bd37946a1d217863df47ea1551a70ab29d35a96a7e0c050b9e01c6e4454a908",
+      "restore/input-sha256.json": "4bee1c5235fbaf695c7565eacb0d9a6f676fd5772751d9788e038adae992ceb3",
+      "restore/guest-01a12afc-f173-7671-a0ae-b84c27bb3c71.svg": "a5ec01273e0c558719b5ff4d4fa572b05cc10820b02d11f00742acb2efc6c5b0"
+    }
+  },
+  "diagnosis": {
+    "first_workflow_status": "FAIL",
+    "first_failed_stage": "checkpoint-export",
+    "cause": "fixed server uses snapshot-store/repository; local source uses direct layout",
+    "original_successful_capture_reused": true,
+    "read_only_export_recovery": "PASS",
+    "full_volume_backup_sha256_verified": true,
+    "failed_volume_backup_bytes": 1082820591,
+    "deleted_source_allocated_bytes": 8589963264,
+    "original_fail_record_preserved": true
+  },
+  "cleanup": {
+    "owned_container_removed": true,
+    "mount_and_loop_removed": true,
+    "successful_fixture_removed": true,
+    "original_firecracker_identities_unchanged": true,
+    "original_service_unchanged": true
+  },
+  "retention": {
+    "native_bundle_and_full_failure_backup_retained": true,
+    "local_markers": true
+  },
+  "disk": {
+    "capacity_bytes": 8589934592,
+    "observed_volume_used_peak_bytes": 3785281536,
+    "observed_host_available_min_bytes": 28790194176,
+    "host_available_after_cleanup_bytes": 37378801664
+  },
+  "source_receipt_note": "original readonly_replay_budget repeats the old RAM-cache label; actual copied-input hashes contain deps only, immutable_cache_seed is absent, workflow records NOT_CREATED, executed wrapper omits the cache mount; future metadata corrected without altering this raw receipt",
+  "not_run": [
+    "benchmark trajectory persistence",
+    "cross-host/kernel compatibility",
+    "online model inference",
+    "physical cache analysis",
+    "new monitoring overhead comparison"
+  ]
+}

@@ -1,5 +1,6 @@
 """Inventory visible ext4 regular files and only touch initially resident pages."""
 import ctypes
+from contextlib import contextmanager, ExitStack
 import hashlib
 import json
 import mmap
@@ -109,14 +110,49 @@ def fixture(root):
     for name in ('hot-a','hot-tail'):(root/name).read_bytes()
 
 
+@contextmanager
+def hold_fixture_pages(root):
+    """Keep only the three owned calibration pages resident until release."""
+    libc=ctypes.CDLL(None,use_errno=True)
+    libc.mlock.argtypes=libc.munlock.argtypes=[ctypes.c_void_p,ctypes.c_size_t]
+    def locked_bytes():
+        return next(int(line.split()[1])*1024 for line in Path('/proc/self/status').read_text().splitlines() if line.startswith('VmLck:'))
+    initial_locked=locked_bytes()
+    with ExitStack() as stack:
+        for name,size in (('hot-a',2*PAGE),('hot-tail',123)):
+            stream=stack.enter_context((root/name).open('r+b'))
+            assert os.fstat(stream.fileno()).st_size==size
+            # Shared mapping locks the file pages; a private writable mapping
+            # can populate anonymous CoW pages during mlock on older kernels.
+            mapped=stack.enter_context(mmap.mmap(stream.fileno(),0,access=mmap.ACCESS_WRITE))
+            address=ctypes.addressof(ctypes.c_char.from_buffer(mapped))
+            if libc.mlock(address,len(mapped)):
+                raise OSError(ctypes.get_errno(),'mlock calibration file')
+            stack.callback(libc.munlock,address,len(mapped))
+        added=locked_bytes()-initial_locked
+        assert added==3*PAGE,'calibration locked-memory accounting differs'
+        yield dict(mode='mlock',bytes=3*PAGE,process_locked_bytes_delta=added,
+                   scope='only the three owned hot calibration pages; task files and cache policy unchanged')
+
+
 def main():
     cfg=json.loads(Path(sys.argv[1]).read_text());out=Path(sys.argv[2]);root=Path(cfg['root'])
     assert out.parent==Path('/dev/shm') and out.name.startswith('asb-file-inventory-')
     out.mkdir(exist_ok=False);started=time.monotonic_ns()
+    held=ExitStack()
     try:
         if cfg['mode']=='fixture':fixture(root)
+        retention=None
+        if cfg.get('retain_fixture_pages',False):
+            assert cfg['mode']=='fixture','retention is only for owned calibration files'
+            retention=held.enter_context(hold_fixture_pages(root))
         listing=catalog(root,time.monotonic()+75)
         before=collect(listing['files'])
+        if retention:
+            pages=[p for f in before for p in f['pages']]
+            # Unevictable page flags may be updated after mlock returns.
+            # VmLck proves the lock; file-LRU/inode/content are checked paused.
+            assert len(pages)==3 and all(p['status']=='PASS' for p in pages), 'locked calibration page export failed: '+json.dumps(before,separators=(',',':'))
         iomem=Path('/proc/iomem').read_text();(out/'iomem.txt').write_text(iomem)
         symbols={}
         if cfg.get('kernel_file_types',False):
@@ -128,6 +164,7 @@ def main():
             catalog=listing,files=before,kernel_symbols=symbols,guest_elapsed_ns=time.monotonic_ns()-started,
             scope='visible ext4 regular files; initially resident pages only; hardlinks grouped by device/inode',
             exclusions=['symlinks not followed','non-ext4 mounts, deleted/unreachable files, directory metadata not attributed'])
+        if retention:value['fixture_retention']=retention
         (out/'before.json').write_text(json.dumps(value,separators=(',',':'))+'\n');(out/'ready').touch()
         wait(out/'capture-after');after=collect(listing['files'],{r['path']:r for r in before})
         snapshot(out,'inventory-after',ranges)
@@ -135,10 +172,11 @@ def main():
         value=dict(status='PASS',sandbox_id=cfg['sandbox_id'],files=after,guest_elapsed_ns=time.monotonic_ns()-started,
                    process_maxrss_kib=usage.ru_maxrss,cpu_user_seconds=usage.ru_utime,cpu_system_seconds=usage.ru_stime)
         (out/'after.json').write_text(json.dumps(value,separators=(',',':'))+'\n');(out/'after-ready').touch()
-        wait(out/'release');(out/'done').touch()
+        wait(out/'release');held.close();(out/'done').touch()
     except BaseException:
         import traceback
         (out/'failure.txt').write_text(traceback.format_exc());raise
+    finally:held.close()
 
 
 def fixture_content_check(directory,evict=False):

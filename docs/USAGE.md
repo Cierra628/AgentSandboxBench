@@ -2,9 +2,102 @@
 
 2026-10-09起，用户已持续授权常规实验，不再逐次确认空闲窗口。隔离入口及统一入口可省略`--confirmed-window`和起止时间，默认创建20分钟运行时间范围；这是超时预算，不表示主机独占或其他人不写盘。旧示例的显式时间参数仍兼容；隔离验证脚本如显式设置运行时间而非人工窗口，可加`--automatic-window`。磁盘预算、20 GiB保护量、失败保留及只清理本次资源的规则继续执行。
 
-本入口用于已准备好的实验机，复用固定AgentENV镜像缓存、TrEnv-X模板、CLI和任务测试输入。可选择原服务上的共享盘模式，或容量固定的临时服务模式。当前支持Prettier #14400的26步冻结轨迹；它不是PPT中的Prettier #6604任务，也不支持自动生成在线轨迹。全新机器安装另行验证。
+本入口用于已准备好的实验机，复用固定AgentENV镜像缓存、TrEnv-X模板、CLI和任务测试输入。可选择原服务上的共享盘模式，或容量固定的临时服务模式。当前支持Prettier #14400的26步冻结轨迹；它不是PPT中的Prettier #6604任务，已有冻结轨迹之外，新增工具接口支持实际调用采集、冻结和重放；在线模型接入及全新机器安装另行验证。
 
-Prettier #6604另有下方单路径、恢复及多路径试验入口，尚未纳入默认`use-platform`配置。本机29步重放一致性通过，但官方任务测试失败，不能按任务修复成功使用；详情见[当前状态](STATUS.md)。
+Prettier #6604、Sphinx #7590和Xarray #6992现可通过下面的版本2配置接入同一个`use-platform`入口。默认不带配置仍为Exp1。平台重放结果与原模型任务测试结果分开报告；原模型修复不完整，不修改冻结动作或答案。
+
+## 任务配置和支持范围
+
+版本2配置直接调用已有控制器，使用固定容量临时卷，保留每次独立run_id、生效配置、日志、任务原始结果和清理回执。镜像准备在有界RAM中完成，正式执行仍按现有磁盘预算检查；成功临时卷自动回收，失败卷保留。
+
+| 任务与配置 | 后端及调度 | 恢复边界 | 已有运行证据与本轮入口状态 |
+| --- | --- | --- | --- |
+| `platform-exp1*.json`：Prettier #14400 | AgentENV、TrEnv-X；单路径 | 隔离模式022；共享模式范围见下文 | 原统一入口已验证。AgentENV为完整VM状态；TrEnv-X仅继承文件状态 |
+| `platform-prettier6604.json` | AgentENV；单路径 | 不保存 | 原29步完整路径和持续指标已通过；版本2离线检查通过，同一入口的附带物理测量配置已完整运行 |
+| `platform-prettier6604-checkpoint.json` | AgentENV；单路径 | 第24步后，完整VM恢复 | 原恢复与续跑已有成功证据；版本2离线检查通过，未重复真实恢复 |
+| `platform-prettier6604-grpo.json` | AgentENV；七个新实例 | 不保存 | 原七实例189动作及持续指标通过；版本2离线检查通过 |
+| `platform-prettier6604-bpo.json`、`platform-prettier6604-tvcache.json` | AgentENV；原BPO、确定顺序前缀树 | 调度内两处保存和六个恢复分支 | 原调度功能通过；版本2离线检查通过。32 GiB卷要求大于58 GiB主机可用空间，当前可能受预算限制 |
+| `platform-sphinx7590.json` | AgentENV；单路径 | 可另配29，但须使用strict策略及完整评测参考 | 原完整路径、恢复与曲线已有证据；此配置明确采用已批准的管道诊断版本2，不能报告严格重放通过 |
+| `platform-xarray6992.json` | AgentENV；单路径 | 可另配22，须提供完整评测参考 | 原完整诊断、恢复与曲线已有证据；明确采用已批准的SIGPIPE诊断规则，严格重放状态保留FAIL |
+| `platform-prettier6604-cache.json` | AgentENV；单路径、持续采样和精细分析 | 不保存；第5、24、29步后暂停测量 | 版本2真实29步、三点物理测量、自动报告和离线复算通过，见[证据](records/evidence/platform-task-entry-cache-20261011.json) |
+| `platform-prettier6604-shared-1.json`、`platform-prettier6604-shared-2.json`、`platform-prettier6604-shared-7.json` | AgentENV；1/2/7个GRPO新实例 | 不保存；相同前11步后全部暂停测量，再继续原后缀 | 三份离线检查通过；1/2/7实例完整任务、物理测量、持续曲线及清理通过，见[共享缓存记录](records/SHARED_TASK_CACHE.md) |
+
+新增`platform-sphinx7590-cache.json`和`platform-xarray6992-cache.json`均已完成新入口真实35步运行、持续曲线、物理测量、报告和清理。Sphinx在第13/29/35步后测量，Xarray在第13/22/35步后测量；Xarray后两点各有一页未知，保存已确认值及最多4 KiB缺口。两个任务均沿用已批准诊断规则，严格重放状态仍FAIL，模型测试原失败保持。详见[完整任务缓存报告](records/PYTHON_TASK_CACHE.md)。
+
+这些调度沿用现有实验语义，不代表RL训练、自动熵选点或线上并发缓存系统。CPU和内存沿用各任务固定配置，目前2 CPU/4096 MiB；采样约100 ms，PSS约1秒。不通过版本2字段擅自改变原轨迹、测试和缓存策略。
+
+```bash
+# 配置、冻结输入及资源检查；--offline时不访问服务。
+bash scripts/use-platform.sh check configs/platform-prettier6604.json --offline
+bash scripts/use-platform.sh check configs/platform-prettier6604-cache.json
+
+# 完整重放，并在三个步骤边界测量物理缓存、自动生成报告。
+bash scripts/use-platform.sh run configs/platform-prettier6604-cache.json
+
+# 从保存的原始数据重新生成报告；输出目录必须不存在。
+bash scripts/use-platform.sh report .artifacts/platform-tasks/<run_id> \
+  --output .artifacts/platform-tasks/report-recomputed
+```
+
+版本2的`task_id`、`backend`、`rollout`、`checkpoint_after_step`选择现有适配；`inputs`为准备好的任务输入，`reference`为原任务结果参考，`frozen_export`为修正后的冻结分支包，Python任务另需`cache_backup_directory`。所有输入仍须准备在本机，不是克隆后即可下载完成的部署工具。Sphinx的`replay_policy=sphinx-pipeline-v2`和Xarray的`xarray-approved-sigpipe`显式保留诊断语义；不允许在恢复模式中自动扩大例外。
+
+物理分析是独立测量配置：持续曲线记录逻辑`Cached`、内存组成及CPU/I/O，暂停点分析按实际guest内核和RAM映射核验文件页，并在host物理页编号上去重。普通文件内容与目录等元数据分开报告，三个校准文件页计入结果；不等于全部host镜像缓存或跨VM共享收益。报告同时保存暂停和分析耗时，不将精细分析配置用于轻量监控开销比较。
+
+共享测量使用三份`shared-N`配置，各运行一次。所有实例先完成原`read_repo`及`read_typescript`共11步，全部暂停后测量guest文件页和实际镜像digest对应的host层、私有upper及附加盘，再按host物理页编号去重。shared-1只运行backbone，shared-2运行backbone及early_1，shared-7运行原七条路径；完整动作分别29/50/189个。持续采样保持，暂停前的等待及精细处理时间计入这次配置，不作为原GRPO时延比较。镜像层从验证过的RAM准备缓存复制到本次ext4临时卷；测量的是卷内层文件驻留，不含另外的RAM准备缓存。共享层不能报告为每个任务独占内存，provider匿名内存也未计入。运行命令例如`bash scripts/use-platform.sh run configs/platform-prettier6604-shared-2.json`，单次16 GiB固定卷要求主机至少42 GiB可用，不同时运行三份配置。 新复验固定每VM三个校准文件页（12 KiB），使用共享映射和mlock，测量结束后释放；任务文件及缓存策略不变。这部分计入物理量，旧成功配置未固定，因此不直接比较采集开销。修正版本已过14项回归及七实例正式复验。
+
+2026-10-11用户授权本轮七实例校准修复的同类清理自动执行：失败资源回收、完整卷备份解压SHA-256核验通过后，可删除失败源卷；本轮旧完整失败备份不作为输入时可回收，只保留最新一份。全部原始日志、配置、轨迹、代码版本和FAIL记录保留。其他归档按本轮用户“后续也可自动处理”的授权逐份核验；只回收已被后续证据取代且不是当前输入的旧失败镜像，保留日志、配置和原始结果。当前任务输入镜像继续保留。
+
+## 部署检查、资源查询和结果保留
+
+统一入口增加以下操作。查询只读取原生AgentENV资源，模板、snapshot（保存的VM状态）与本地镜像归档分开；输出过滤访问令牌和自定义metadata。每个输出目录须是新的项目`.artifacts`子目录。
+
+```bash
+bash scripts/use-platform.sh deployment --output .artifacts/platform-management/deployment-mycheck
+bash scripts/use-platform.sh resources --output .artifacts/platform-management/resources-mycheck
+bash scripts/use-platform.sh retain .artifacts/platform-tasks/<run_id> --reason '保留此参考运行'
+```
+
+`deployment`核对固定源码和子模块版本、15份版本2配置的输入、KVM、ublk控制设备、页大小、host物理页读取权限、cgroup和采集工具；默认读取已准备服务的镜像身份，`--offline`不查询服务。它不安装依赖或重启服务。本机检查已通过；新机器仍需准备`configs/source-revisions.json`固定版本、`runtime/bin/aenv`、依赖、服务及报告列出的本地输入和镜像，凭据在新机自行配置，不复制到Git。配置中的任务路径可改成新准备目录，但输入哈希和原诊断语义保持。
+
+`retain`给运行及关联的隔离结果目录写入`retention.json`。定向失败源卷清理入口会检查这些标记，保留现有结果和归档。此操作在实验完成后执行，不能恢复已回收的成功卷，也不会让原生checkpoint跨私有服务清理后继续存在。新增原生checkpoint离线保存/重新加载入口见下一节；本地结果标记与原生snapshot保存是两个操作。现有任务控制器的成功snapshot仍按各自清理规则回收。
+
+## 原生checkpoint离线保存与重新加载
+
+```bash
+# 检查保存入口；不启动VM。
+bash scripts/use-platform.sh checkpoint-demo --check-only
+
+# 保存两步边界、归档、移除原私有服务，再在新服务恢复及执行第3、4步。
+bash scripts/use-platform.sh checkpoint-demo
+
+# 以后从已保存的包重新加载；不重复保存或准备旧镜像缓存。
+bash scripts/use-platform.sh checkpoint-demo --bundle \
+  .artifacts/storage-isolated-service/20261011T123631Z-703748/checkpoint-bundle
+```
+
+每个阶段使用8 GiB固定卷。新保存还预留最多2.5 GiB离线包，启动前须大于36.5 GiB主机可用空间；读取已有包只需现有8 GiB卷预算，即大于34 GiB。归档以固定服务镜像的POSIX snapshot仓库为单位，保留目录记录、VM状态、内存和文件层；运行依赖须与固定服务镜像一致。归档写入有2.5 GiB上限；导入核对压缩包和全部文件SHA-256，路径及成员检查后写入新卷。原生VM状态可能含凭据，包和状态数据库仅留本机，不能上传Git。
+
+本次实际完成两步保存、只读归档恢复和`--bundle`新服务恢复。旧合并入口因仓库布局识别失败中断；修正后直接复用其已成功的snapshot，未重跑保存，也未把旧FAIL改为PASS。新包共21个文件，压缩0.944 GiB；恢复保留原guest进程、256 KiB匿名内存、已删除文件的打开描述符和步骤2，随后只执行3、4，进度到4。原模型评测未运行，Sphinx镜像只是工具接口负载的运行环境。本次已有包恢复工作流和两次离线报告通过，新的不间断合并入口未重复运行。
+
+成功保存的包保留在原隔离结果目录`checkpoint-bundle/`，新成功恢复运行会写本地保留标记，保护关联包及参考数据。成功临时VM、导入后的snapshot、服务和卷均回收，长期保存对象是离线包。失败源卷依既有规则保留；完整备份核验后可按用户持续授权定向清理，原FAIL和日志保留。当前同一host和固定版本已验证，跨host/内核及三项研究任务的大checkpoint尚未用此归档接口验证。
+
+离线重新报告仍用`use-platform report <durable_run_dir> --output <新的.artifacts目录>`。通用归档函数在`native_checkpoint_bundle.py`，演示控制器在`run_native_checkpoint.py`，失败导出现场复用工具在`recover_native_checkpoint_bundle.py`。恢复报告包含进程/匿名内存/打开文件和下一步证明，以及默认持续曲线；包导出、导入、恢复接口及控制器耗时分开保存。
+
+## 实际工具调用采集与冻结重放
+
+```bash
+# 仅核对本机固定镜像输入，不启动沙箱。
+bash scripts/use-platform.sh collect-demo --check-only
+
+# 一次真实采集和重放，自动生成报告。
+bash scripts/use-platform.sh collect-demo
+```
+
+此入口复用Sphinx的已准备镜像，顺序建立两个2 CPU/512 MiB新沙箱，在8 GiB隔离卷中运行。它执行4次新工具调用，保存命令、cwd、完整显式环境、会话语义、stdout/stderr、退出码及guest/控制器用时，冻结全部记录的SHA-256，再在相同镜像的新沙箱中重放并检查最终文件。第2步故意退出7，失败探索必须保持。这里是工具接口功能验证，没有执行Sphinx的35步任务或官方评测，也没有请求模型。
+
+实际成功证据为`.artifacts/platform-tasks/20261011T115548Z-690247`；两实例13/10个持续采样点、内存/CPU/I/O和host进程曲线、清理均通过。两次离线报告10份文件一致，175份raw未变。最终报告是`.artifacts/platform-tasks/report-tool-capture-recomputed-1`；离线补全工具计时和明确`official_task_status=NOT_RUN`，原自动报告与运行记录保留。详见[公开摘要](records/evidence/platform-tool-capture-20261011.json)及[内存曲线](records/evidence/tool-capture-memory-20261011.svg)。
+
+可复用接口在`scripts/tool_trajectory.py`：`begin`记录镜像/资源、初始文件哈希和会话语义，`capture`执行并记录实际工具请求，`freeze`封存，`replay`核对起点和续序调用。调用方提供现有CLI桥接函数`cli(label, *argv, timeout=...)`，格式与原控制器一致；先上传`guest_tool_capture.py`到`/workspace/asb-tool-capture.py`。示例控制器为`run_tool_capture.py`。接入在线Agent时，在其工具执行处调用`capture`；当前没有模型SDK连接、持久终端会话或其他工具类型的适配。原始环境和输出可能包含敏感内容，只留本机，不加入Git。
 
 ## 检查、运行、生成报告
 
