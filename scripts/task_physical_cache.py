@@ -19,10 +19,10 @@ def source_fingerprint(files):
 
 
 class TaskPhysicalCache:
-    def __init__(self, out, container, cli, *, source_files=('src/language-js/needs-parens.js',)):
+    def __init__(self, out, container, cli, *, source_files=('src/language-js/needs-parens.js',), directory=None):
         self.out, self.cli = out, cli
         self.source_files = source_files
-        self.directory = out/'physical-cache'; self.directory.mkdir()
+        self.directory = directory if directory is not None else out/'physical-cache'; self.directory.mkdir()
         self.tracer = None
         self.points = []
         info = json.loads(subprocess.check_output(['docker', 'inspect', container], timeout=15))[0]

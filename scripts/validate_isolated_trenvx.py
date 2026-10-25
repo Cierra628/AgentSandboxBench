@@ -50,6 +50,12 @@ def verify_runtime():
 
 
 def backend_command(args):
+    if getattr(args,'diagnose_exp2_delete',False) and args.mode!='exp2':raise ValueError('delete-order diagnostic requires Exp2')
+    if args.mode=='exp2':
+        if getattr(args,'platform_config',None) or getattr(args,'reference',None):raise ValueError('Exp2 uses its pinned four-round input and private template')
+        argv=[sys.executable,'-B',ROOT/'scripts/run_exp2_trenvx.py']
+        if getattr(args,'diagnose_exp2_delete',False):argv.append('--diagnose-delete')
+        return argv
     command=[sys.executable,'-B',ROOT/'scripts/smoke_trenvx_service.py','--archive-compressor','pigz-fast']
     cfg=None
     if getattr(args,'platform_config',None):
@@ -85,6 +91,7 @@ def main(args):
     os.umask(0o077)
     if os.geteuid()!=0:raise RuntimeError('root required')
     runtime=verify_runtime()
+    capacity=32*GIB if args.mode=='exp2' else CAPACITY
     command=backend_command(args)
     subprocess.run(list(map(str,command))+['--check-only'],check=True,capture_output=True,timeout=10)
     window=execution_window(args.window_start_utc,args.window_end_utc,automatic=getattr(args,'automatic_window',False) or not getattr(args,'confirmed_window',False))
@@ -96,11 +103,14 @@ def main(args):
                  'replay_trenvx_exp1.py','archive_trenvx_run_data.py','experiment_disk_guard.py',
                  'storage_supervisor.py','storage_lifecycle.py','storage_observer.py']:
         shutil.copy2(ROOT/'scripts'/name,out/'code'/name)
+    if args.mode=='exp2':
+        for name in ['run_exp2.py','run_exp2_trenvx.py','report_exp2.py','sandbox_runtime_monitor.py','host_sandbox_monitor.py']:
+            shutil.copy2(ROOT/'scripts'/name,out/'code'/name)
     hashes={p.name:hashlib.sha256(p.read_bytes()).hexdigest() for p in (out/'code').iterdir()}
     (out/'source-sha256.json').write_text(json.dumps(hashes,indent=2)+'\n')
     before=identities();(out/'firecracker-before.json').write_text(json.dumps(before,indent=2)+'\n')
     receipt=dict(status='FAIL',scope='temporary TrEnv-X storage-boundary functional validation; no performance comparison',
-                 mode=args.mode,capacity_bytes=CAPACITY,coordination=window,runtime=runtime,checks={})
+                 mode=args.mode,capacity_bytes=capacity,coordination=window,runtime=runtime,checks={})
     image=out/'volume.ext4';mount=out/'mount';mount.mkdir()
     device=None;mounted=False;success=False;stage='preflight';sampler=None
     stopping=threading.Event();sample_errors=[];commands=[]
@@ -128,12 +138,12 @@ def main(args):
 
     print('status=RUNNING result_dir='+str(out),flush=True)
     try:
-        free=available(ROOT);budget=capacity_budget(free,CAPACITY)
+        free=available(ROOT);budget=capacity_budget(free,capacity)
         receipt['budget']=budget
-        assert budget['ready'] and free>60*GIB, 'original 60 GiB host launch check not satisfied'
+        assert budget['ready'] and free>60*GIB, 'fixed volume and original TrEnv-X 60 GiB launch budget not satisfied'
         stage='fixed-volume'
-        with image.open('xb') as stream:os.posix_fallocate(stream.fileno(),0,CAPACITY);os.fsync(stream.fileno())
-        assert image.stat().st_blocks*512>=CAPACITY
+        with image.open('xb') as stream:os.posix_fallocate(stream.fileno(),0,capacity);os.fsync(stream.fileno())
+        assert image.stat().st_blocks*512>=capacity
         call('mkfs',['mkfs.ext4','-q','-F','-m','0','-E','nodiscard,lazy_itable_init=0,lazy_journal_init=0',image],120)
         device=call('attach',['losetup','--find','--show','--',image])
         discard=Path('/sys/class/block')/Path(device).name/'queue/discard_max_bytes'
@@ -145,7 +155,7 @@ def main(args):
         with (mount/'cleanup-reserve').open('xb') as stream:os.posix_fallocate(stream.fileno(),0,512*2**20)
         st=image.stat()
         spec=dict(version=1,workspace=str(ROOT),mountpoint=str(mount),device=device,image=str(image),
-            capacity_bytes=CAPACITY,image_device=st.st_dev,image_inode=st.st_ino,
+            capacity_bytes=capacity,image_device=st.st_dev,image_inode=st.st_ino,
             initial_host_available_bytes=free,raw_root=str(mount/'trenvx-runs'),
             volume_reserve_bytes=512*2**20,window=window)
         spec_path=out/'boundary.json';spec_path.write_text(json.dumps(spec,indent=2)+'\n')
@@ -174,7 +184,15 @@ def main(args):
         receipt['checks']['lossless_archive_inside_volume']='PASS'
         receipt['archive_manifest']=manifest
         receipt['backend_result']=result
-        if args.mode in ('full','checkpoint'):
+        if args.mode=='exp2':
+            task=json.loads((run/'replay/result.json').read_text())
+            assert task['status']=='PASS' and task['action_count']==32 and task['checkpoint_count']==task['restore_count']==4
+            assert all(task['cleanup'].values()) and result['checks']['exp2_four_rounds_restore_state_and_continuation']=='PASS'
+            receipt['checks']['exp2_four_rounds_restore_state_and_continuation']='PASS'
+            if getattr(args,'diagnose_exp2_delete',False):
+                assert result['checks']['delete_order_diagnostic']=='PASS'
+                receipt['checks']['delete_order_diagnostic']='PASS'
+        elif args.mode in ('full','checkpoint'):
             required=['frozen_input_hashes','unfixed_seed_oracle','exp1_replay_correctness',
                       'official_task_tests','sdk_cleanup','service_shutdown']
             if args.mode=='checkpoint':
@@ -197,7 +215,7 @@ def main(args):
                 assert result.get('checks',{}).get(key)=='PASS', 'missing smoke check: '+key
             receipt['checks']['service_smoke']='PASS'
         receipt['checks']['fixed_backing_allocation']='PASS'
-        assert image.stat().st_size==CAPACITY and image.stat().st_blocks*512>=CAPACITY
+        assert image.stat().st_size==capacity and image.stat().st_blocks*512>=capacity
         assert available(ROOT)>HOST_RESERVE
         success=True
     except BaseException as exc:
@@ -270,7 +288,8 @@ def cancelled(signum,frame):raise RuntimeError('owned validation interrupted: '+
 
 if __name__=='__main__':
     parser=argparse.ArgumentParser(description=__doc__)
-    parser.add_argument('--mode',choices=['smoke','full','checkpoint'],default='smoke')
+    parser.add_argument('--mode',choices=['smoke','full','checkpoint','exp2'],default='smoke')
+    parser.add_argument('--diagnose-exp2-delete',action='store_true',help='Compare SDK close/delete ordering before the Exp2 replay')
     parser.add_argument('--platform-config',type=Path,help='Validated unified isolated Exp1 config')
     parser.add_argument('--reference',type=Path,help='successful frozen full run; required for checkpoint mode')
     parser.add_argument('--confirmed-window',action='store_true',help='Legacy explicit confirmation; no longer required')

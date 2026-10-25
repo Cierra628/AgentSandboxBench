@@ -39,12 +39,25 @@ def run(args):
     checkpoint=getattr(args,'checkpoint',False)
     monitoring=getattr(args,'monitor_mode','continuous')=='continuous'
     physical_segments=getattr(args,'physical_cache_after','').split(',') if getattr(args,'physical_cache_after','') else []
+    live_cache=bool(getattr(args,'live_cache',False))
+    cache_baseline=bool(getattr(args,'cache_baseline',False))
+    cache_target=getattr(args,'cache_target_mib',None)
+    if cache_target is not None and (type(cache_target) is not int or cache_target<=0 or cache_baseline or not live_cache):
+        raise ValueError('cache target requires positive MiB and complete live replay without baseline mode')
+    cache_control=cache_baseline or cache_target is not None
+    light=getattr(args,'light_monitor',False)
+    if light and (not monitoring or checkpoint or physical_segments or live_cache or getattr(args,'diagnostic_only',False) or getattr(args,'evaluation_patch',None)):
+        raise ValueError('light monitoring requires a complete task without physical cache analysis')
+    if cache_baseline and not live_cache:raise ValueError('cache baseline requires complete live cache replay')
+    if live_cache and (checkpoint or physical_segments or not monitoring or not getattr(args,'persistent_sampling',False) or
+                       getattr(args,'diagnostic_only',False) or getattr(args,'evaluation_patch',None)):
+        raise ValueError('live cache requires one complete persistent replay without paused analysis or restore')
     if physical_segments and (checkpoint or not monitoring or not getattr(args,'persistent_sampling',False) or getattr(args,'diagnostic_only',False) or getattr(args,'evaluation_patch',None)):
         raise ValueError('physical boundaries require a complete continuously sampled replay without restore')
     if len(set(physical_segments))!=len(physical_segments) or not set(physical_segments)<=set(cfg['path']):
         raise ValueError('unknown or duplicate physical cache boundary')
-    if not monitoring and (not sphinx or checkpoint or any(getattr(args,k,False) for k in ('diagnostic_only','diagnostic_continuation','evaluation_patch'))):
-        raise ValueError('monitor-off control is limited to one complete strict Sphinx replay without checkpoint')
+    if not monitoring and (checkpoint or physical_segments or live_cache or any(getattr(args,k,False) for k in ('diagnostic_only','evaluation_patch'))):
+        raise ValueError('monitor-off control requires one complete replay without checkpoint or physical analysis')
     expected=None
     if checkpoint:
         if (not continuation and not sphinx) or not getattr(args,'persistent_sampling',False) or getattr(args,'evaluation_patch',None) or not getattr(args,'expected_evaluation_raw',None):
@@ -75,10 +88,11 @@ def run(args):
     env=dict(os.environ,PATH=str(ROOT/'runtime/bin')+':'+os.environ['PATH'],
              XDG_CONFIG_HOME=str(args.config_home),HOST_MONITOR_LIGHT='1')
     from sandbox_runtime_monitor import RuntimeMonitor, boundary_runner
-    events=[];controller=None;sid=None;monitor=None;success=False;stage='preflight';snapshot=None;parent=None;physical=None
+    events=[];controller=None;sid=None;monitor=None;success=False;stage='preflight';snapshot=None;parent=None;physical=None;live=None;capacity_active=False
     started=time.monotonic_ns()
     result=dict(status='FAIL',task_id=cfg['task_id'],schedule='single backbone',checks={},
                 physical_page_cache='NOT_MEASURED',VMM_PSS='NOT_MEASURED',monitoring_impact='NOT_VALIDATED')
+    if light:result['monitor_profile']='light'
     if continuation:
         result.update(diagnostic_continuation=True,diagnostic_status='INCOMPLETE',strict_replay_status='FAIL',
             strict_replay_scope='historical strict failure retained; this mode never awards strict replay PASS',
@@ -94,7 +108,7 @@ def run(args):
 
     def verify(path):
         if pipeline:return profile.verify_pipeline_replay(out,cfg,path,samples,names,sampling=monitoring,policy_version=pipeline_version)
-        return verify_diagnostic_replay(out,cfg,path) if continuation else verify_path(out,'backbone',path,module.WORKLOAD,samples,names,sampling=monitoring)
+        return verify_diagnostic_replay(out,cfg,path,sampling=monitoring) if continuation else verify_path(out,'backbone',path,module.WORKLOAD,samples,names,sampling=monitoring)
 
     event_lock=threading.Lock();event_counter=0
     def call(label,argv,timeout=180):
@@ -118,7 +132,47 @@ def run(args):
 
     def cli(label,*argv,timeout=180):return call(label,[ROOT/'runtime/bin/aenv',*argv],timeout)
     def guest(label,command,timeout=180):return cli(label,'exec',sid,'bash','-lc',command,timeout=timeout)
-    runtime=RuntimeMonitor(out,cli,container=args.container) if monitoring else None
+    def capacity_start():
+        nonlocal capacity_active
+        code=out/'capacity-code';code.mkdir()
+        for name in ('guest_cache_capacity.py','kernel_cache_metadata.py'):shutil.copy2(ROOT/'scripts'/name,code/name)
+        cli('capacity-upload','upload',sid,code,'/workspace/asb-cache-control')
+        capacity_active=True
+        option='--serve-baseline' if cache_baseline else '--serve-python-target-mib '+str(cache_target)
+        guest('capacity-start','nohup timeout 180 python3 -B /workspace/asb-cache-control/guest_cache_capacity.py /workspace/asb-task-capacity '+option+' </dev/null >/tmp/asb-task-capacity.log 2>&1 &',10)
+        guest('capacity-ready','for i in $(seq 1 100); do test -f /workspace/asb-task-capacity/ready && exit 0; test ! -f /workspace/asb-task-capacity/result.json || break; sleep .1; done; cat /tmp/asb-task-capacity.log; exit 1',15)
+        state=guest('capacity-disabled-state','cat /sys/module/damon_reclaim/parameters/enabled /sys/module/damon_reclaim/parameters/kdamond_pid').splitlines()
+        assert state==['N','-1']
+        if cache_baseline:result['cache_baseline']=dict(mode='observe only; no reclaim requests',disabled=dict(enabled='N',kdamond_pid=-1))
+        else:result['cache_target_mib']=cache_target
+    def capacity_boundary(phase):
+        value=json.loads(cli('capacity-boundary-'+phase,'exec',sid,'python3','-B',
+            '/workspace/asb-cache-control/guest_cache_capacity.py','/workspace/asb-task-capacity','--observe',timeout=15))
+        (out/('capacity-'+phase+'.json')).write_text(json.dumps(value,indent=2)+'\n')
+    def capacity_stop():
+        nonlocal capacity_active
+        try:
+            guest('capacity-stop','touch /workspace/asb-task-capacity/stop; for i in $(seq 1 100); do test -f /workspace/asb-task-capacity/result.json && exit 0; sleep .1; done; cat /tmp/asb-task-capacity.log; exit 1',15)
+            saved=out/'capacity-control';saved.mkdir()
+            for name in ('result.json','samples.jsonl'):
+                (saved/name).write_text(cli('capacity-collect-'+name,'exec',sid,'cat','/workspace/asb-task-capacity/'+name,timeout=15)+'\n')
+            state=json.loads((saved/'result.json').read_text())
+            target=None if cache_baseline else cache_target*2**20
+            assert state['status']=='PASS' and state['target_bytes']==target
+            if cache_baseline:assert state['baseline_no_reclaim']
+            expected=state['capabilities_before']['damon']['enabled']
+            assert state['damon_disabled']==dict(enabled='N',kdamond_pid=-1)
+            assert state['damon_restored']['enabled']==expected
+            assert (state['damon_restored']['kdamond_pid']>0 if expected=='Y' else state['damon_restored']['kdamond_pid']==-1)
+            rows=[json.loads(line) for line in (saved/'samples.jsonl').read_text().splitlines()]
+            assert rows and all(row['target_bytes']==target for row in rows)
+            if cache_baseline:
+                assert all(row['action']['requested_pages']==0 and row['action']['write_ns']==0 for row in rows)
+            else:
+                assert all(row['action']['requested_pages']==max(0,(row['before']['cache_bytes']-target+4095)//4096) for row in rows)
+            result['checks']['cache_baseline_no_reclaim_and_damon_restored' if cache_baseline else 'cache_target_and_damon_restored']='PASS'
+        finally:capacity_active=False
+    runtime=RuntimeMonitor(out,cli,container=args.container,light=light) if monitoring else None
     def interrupted(signum,frame):raise RuntimeError('owned run interrupted: '+str(signum))
     for sig in (signal.SIGTERM,signal.SIGINT):signal.signal(sig,interrupted)
     try:
@@ -165,16 +219,22 @@ def run(args):
             result['physical_cache_after_segments']=physical_segments
             from task_physical_cache import TaskPhysicalCache
             physical=TaskPhysicalCache(out,args.container,cli,source_files=files)
-        if monitoring:
+        if monitoring and not light:
             with (out/'host-monitor.log').open('x') as log:
                 monitor=subprocess.Popen(['bash',vendor.parent/'lib/host-memory-monitor.sh',out/'host/memory-samples.tsv',
                         controller.phase_file,'0.1',args.container],env=env,stdout=log,stderr=subprocess.STDOUT,start_new_session=True)
+        if live_cache:
+            from live_task_cache import LiveTaskCache
+            stage='live-cache-capture'
+            live=LiveTaskCache(out,args.container,cli,**(dict(expected_kernel='6.1.175-asb-cache-v3-reclaim') if cache_control else {}))
         stage='cold-start';controller.phase(stage)
         sid=call(stage,[sys.executable,'-B',ROOT/'scripts/agentenv_cold_start.py','--config-home',args.config_home,
                  '--service-url',args.service_url,'--image',cfg['source_image']],610)
         assert re.fullmatch(r'[a-fA-F0-9-]{36}',sid)
-        if physical:physical.ready()
         controller.live[sid]=sid
+        if cache_control:capacity_start()
+        if physical:physical.ready()
+        if live:live.start(sid)
         controller.record('sandbox-ids.tsv',f'backbone\t{sid}\t\troot')
         if runtime:runtime.start(sid,'backbone','setup')
         stage='source-and-tool-smoke';controller.phase(stage)
@@ -230,6 +290,7 @@ def run(args):
             result['scope']='short '+getattr(args,'diagnostic_probe','find')+' diagnosis only; no frozen trajectory or benchmark acceptance'
             success=True
         else:
+            if cache_control:capacity_boundary('task-before')
             replay_started_ns=time.monotonic_ns()
             stage='first-segment-smoke';controller.phase(stage)
             asyncio.run(controller.run_path(sid,'backbone',cfg['path'][:1]))
@@ -283,6 +344,8 @@ def run(args):
                     result['checks']['restored_progress_and_files']='PASS'
                     result['checks']['process_continuity']='PASS'
                     stage='frozen-continuation';controller.phase(stage)
+            if cache_control:
+                capacity_boundary('task-after')
             with (out/'segments.tsv').open() as f:trace=list(csv.DictReader(f,delimiter='\t'))
             assert [r['segment'] for r in trace]==cfg['path']
             assert [r['sandbox_id'] for r in trace]==([parent]*(4 if sphinx else 3)+[sid]*(1 if sphinx else 2) if checkpoint else [sid]*5)
@@ -297,6 +360,7 @@ def run(args):
             result['checks']['key_outputs']='PASS'
             result['checks']['frozen_actions_order_and_diagnostic_exit_policy' if (continuation or pipeline) else 'actions_hash_order_expected_failures']='PASS'
             result['frozen_replay_elapsed_ns']=time.monotonic_ns()-replay_started_ns
+            if cache_control:capacity_stop()
         if not getattr(args,'diagnostic_only',False):
             stage='final-frozen-state';controller.phase(stage)
             final_extra=',image_background='+profile.background_probe() if sphinx else ''
@@ -358,6 +422,16 @@ def run(args):
     finally:
         for sig in (signal.SIGTERM,signal.SIGINT):signal.signal(sig,signal.SIG_IGN)
         cleanup={}
+        if capacity_active and sid:
+            try:capacity_stop();cleanup['cache_baseline_stopped_on_failure']=True
+            except Exception as error:cleanup['cache_baseline_error']=repr(error);success=False
+        if live:
+            try:
+                live.close();cleanup['live_cache_stopped']=True
+                result['live_cache']=json.loads((out/'live-cache/result.json').read_text())
+                result['physical_page_cache']='LIVE_CONFIRMED_RESIDENCY_WITH_UNCONFIRMED_PAGES'
+            except Exception as error:
+                cleanup['live_cache_error']=repr(error);success=False
         if physical:
             physical.close();cleanup['physical_tracer_stopped']=physical.tracer.poll() is not None
         if sid:
@@ -384,7 +458,7 @@ def run(args):
                 cleanup['monitor_stopped']=True
         if not monitoring:cleanup['monitoring_disabled']=True
         result.update(status='PASS' if success else 'FAIL',cleanup=cleanup,controller_elapsed_ns=time.monotonic_ns()-started)
-        if success and runtime:result['VMM_PSS']='MEASURED_PER_OWNED_VMM'
+        if success and runtime and not light:result['VMM_PSS']='MEASURED_PER_OWNED_VMM'
         if continuation or pipeline:result['diagnostic_status']='PASS' if success else 'FAIL'
         (out/'result.json').write_text(json.dumps(result,indent=2)+'\n')
     print('status='+result['status']+' result_dir='+str(out),flush=True)
@@ -399,7 +473,11 @@ if __name__=='__main__':
     parser.add_argument('--diagnostic-probe',choices=['find','pipeline'],default='find')
     parser.add_argument('--persistent-sampling',action='store_true',help='Explicit Exp3 sampler variant; original commands and expected exits retained')
     parser.add_argument('--physical-cache-after',default='',help='Completed original segments for paused physical file-cache measurement')
-    parser.add_argument('--monitor-mode',choices=['continuous','off'],default='continuous',help='Off control disables guest boundary/periodic and host memory sampling; Sphinx complete replay only, tool timing retained')
+    parser.add_argument('--live-cache',action='store_true',help='No-pause whole-cache sampling with diagnostic guest metadata')
+    parser.add_argument('--cache-baseline',action='store_true',help='Complete live-cache replay only; observe with owned DAMON disabled, restore before final checks; no reclaim')
+    parser.add_argument('--cache-target-mib',type=int,help='Positive periodic clean-file target for the explicit complete live-cache Python replay')
+    parser.add_argument('--monitor-mode',choices=['continuous','off'],default='continuous',help='Off control disables guest boundary/periodic and host memory sampling; complete replay only, tool timing retained')
+    parser.add_argument('--light-monitor',action='store_true',help='Guest meminfo at 0.1 s only; keep existing tool timing')
     parser.add_argument('--sphinx-pipeline-policy-version',type=int,choices=(1,2),default=1,help='1: only step 1; 2: approved steps 1 and 14; all other exits strict')
     parser.add_argument('--sphinx-pipeline-diagnostic',action='store_true',help='Approved read_repo/001 only: exact output/patch and 141 or 0; strict FAIL retained')
     parser.add_argument('--diagnostic-continuation',action='store_true',help='User-approved pinned SIGPIPE exception; strict replay remains FAIL')

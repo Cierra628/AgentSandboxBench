@@ -14,11 +14,20 @@ LOCK = Path(os.environ.get('ASB_WRITER_LOCK', str(Path(__file__).resolve().paren
 
 
 @contextmanager
-def writer_lock():
+def writer_lock(*, inherited_fd=None):
+    if inherited_fd is not None:
+        # Coordinated children share the parent's locked open file description.
+        # The global exclusion remains held throughout their combined lifetime.
+        actual=os.fstat(inherited_fd);expected=LOCK.stat()
+        if (actual.st_dev,actual.st_ino)!=(expected.st_dev,expected.st_ino):
+            raise ValueError('inherited writer descriptor is not the project lock')
+        fcntl.flock(inherited_fd,fcntl.LOCK_EX | fcntl.LOCK_NB)
+        yield inherited_fd
+        return
     LOCK.parent.mkdir(parents=True, exist_ok=True)
     with LOCK.open('a') as stream:
         fcntl.flock(stream, fcntl.LOCK_EX | fcntl.LOCK_NB)
-        yield
+        yield stream.fileno()
 
 
 def guarded_run(argv, *, directory, log, timeout, reserve=RESERVE_BYTES,

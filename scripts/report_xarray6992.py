@@ -226,6 +226,13 @@ def report(raw,output,evaluation_raw=None):
             summary['timing']['physical_analysis_sum_ns']=sum(p['analysis_elapsed_ns'] for p in result_physical['points'])
             summary['timing']['physical_pause_sum_ns']=sum(p['paused_interval_ns'] for p in result_physical['points'])
             summary['notes'].append('Paused physical points and their analysis cost are included in this run; three locked calibration pages per point are included. This is not the lightweight-only monitoring-cost configuration.')
+    result=json.loads((raw/'result.json').read_text())
+    if result.get('live_cache'):
+        assert result['live_cache']['status']=='PASS' and result['cleanup']['live_cache_stopped']
+        summary['page_cache']['physical_bytes']=dict(method='live whole-cache membership to confirmed host residency',
+            raw_series='live-cache/samples.jsonl',samples=result['live_cache']['samples'],unit='bytes',
+            unresolved_guest_page_capacity='reported separately; not measured host RAM')
+        summary['notes'].append('No-pause cache series is in live-cache raw; the unified report adds its independently recounted curve. Collector cost is separate from task slowdown.')
     after=hashes();assert before==after
     summary['raw_file_count']=len(before);summary['raw_hashes_unchanged']=True
     (output/'raw-sha256.json').write_text(json.dumps(before,indent=2)+'\n')

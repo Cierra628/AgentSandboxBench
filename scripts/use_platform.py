@@ -462,7 +462,7 @@ def main():
     child=sub.add_parser('deployment');child.add_argument('--offline',action='store_true');child.add_argument('--output',type=Path,required=True)
     child=sub.add_parser('retain');child.add_argument('run_dir',type=Path);child.add_argument('--reason',required=True)
     child=sub.add_parser('checkpoint-demo');child.add_argument('config',nargs='?',type=Path,default=ROOT/'configs/platform-sphinx7590.json');child.add_argument('--check-only',action='store_true');child.add_argument('--bundle',type=Path)
-    child=sub.add_parser('collect-demo');child.add_argument('config',nargs='?',type=Path,default=ROOT/'configs/platform-sphinx7590.json');child.add_argument('--check-only',action='store_true')
+    child=sub.add_parser('collect-demo');child.add_argument('config',nargs='?',type=Path,default=ROOT/'configs/platform-sphinx7590.json');child.add_argument('--check-only',action='store_true');child.add_argument('--agent-config',type=Path);child.add_argument('--task-config',type=Path);child.add_argument('--replay-source',type=Path);child.add_argument('--physical-after',type=int,nargs='+')
     args = parser.parse_args()
     try:
         if args.command in ('resources','deployment','retain'):
@@ -482,8 +482,8 @@ def main():
             from platform_tasks import configuration as task_configuration,preflight as task_preflight,run as task_run
             cfg=task_configuration(args.config)
             if args.check_only:
-                print(json.dumps(task_preflight(cfg,offline=True,tool_capture=True),indent=2));return 0
-            return task_run(cfg,tool_capture=True)
+                print(json.dumps(task_preflight(cfg,offline=True,tool_capture=True,agent_config=args.agent_config,task_config=args.task_config,replay_source=args.replay_source,physical_after=args.physical_after),indent=2));return 0
+            return task_run(cfg,tool_capture=True,agent_config=args.agent_config,task_config=args.task_config,replay_source=args.replay_source,physical_after=args.physical_after)
         if args.command == 'report':
             directory = args.run_dir.resolve(); result = read_json(directory/'result.json')
             if result.get('workflow')=='native-checkpoint-durable':

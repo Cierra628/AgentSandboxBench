@@ -31,6 +31,19 @@ def run(args):
     assert monitor_mode in ('continuous','off')
     assert monitor_mode!='off' or not checkpoint,'monitor-off requires complete replay without checkpoint'
     physical_segments = getattr(args, 'physical_cache_after', '').split(',') if getattr(args, 'physical_cache_after', '') else []
+    live_cache = bool(getattr(args, 'live_cache', False))
+    live_cache_lower = bool(getattr(args, 'live_cache_lower', False))
+    light = getattr(args, 'light_monitor', False)
+    if light and (monitor_mode!='continuous' or checkpoint or physical_segments or live_cache):
+        raise ValueError('light monitoring requires a complete task without physical cache analysis')
+    damon_observe=getattr(args,'damon_observe',False)
+    if damon_observe and not light:
+        raise ValueError('DAMON observation requires complete light monitoring')
+    damon_disable=getattr(args,'damon_disable',False)
+    if damon_disable and not damon_observe:
+        raise ValueError('task-only DAMON disable requires read-only counter observation')
+    assert not live_cache_lower or live_cache and checkpoint
+    assert not live_cache or monitor_mode == 'continuous' and not physical_segments
     assert not physical_segments or monitor_mode == 'continuous' and not checkpoint
     assert len(set(physical_segments)) == len(physical_segments) and set(physical_segments) <= set(cfg['path'])
     expected=None
@@ -49,10 +62,12 @@ def run(args):
     env = dict(os.environ,PATH=str(ROOT/'runtime/bin')+':'+os.environ['PATH'],
                XDG_CONFIG_HOME=str(args.config_home),HOST_MONITOR_LIGHT='1')
     from sandbox_runtime_monitor import RuntimeMonitor, boundary_runner
-    events=[];sid=None;monitor=None;success=False;snapshot=None;physical=None
+    events=[];sid=None;monitor=None;success=False;snapshot=None;physical=None;live=None;live_sessions=[];live_gap=None
+    damon_restore_needed=False
     result=dict(status='FAIL',checks={},scope=cfg['scope'],backend='agentenv',task_id=cfg['task_id'],
                 physical_page_cache='NOT_MEASURED',monitoring_impact='NOT_VALIDATED',
                 checkpoint_restore='NOT_RUN',full_upstream_suite='NOT_RUN',monitor_mode=monitor_mode)
+    if light:result['monitor_profile']='light'
     stage='preflight';started=time.monotonic_ns()
     event_lock=threading.Lock()
     call_counts={}
@@ -71,7 +86,7 @@ def run(args):
         return r.stdout.strip()
     def cli(label,*argv,timeout=180):return call(label,[ROOT/'runtime/bin/aenv',*argv],timeout)
     def guest(label,command,timeout=180):return cli(label,'exec',sid,'bash','-lc',command,timeout=timeout)
-    runtime=RuntimeMonitor(out,cli,container=args.container) if monitor_mode=='continuous' else None
+    runtime=RuntimeMonitor(out,cli,container=args.container,light=light,damon_observe=damon_observe) if monitor_mode=='continuous' else None
     def cancel(signum,frame):raise RuntimeError('owned backbone interrupted: '+str(signum))
     for sig in (signal.SIGTERM,signal.SIGINT):signal.signal(sig,cancel)
     try:
@@ -101,14 +116,25 @@ def run(args):
         controller.phase_file=out/'.phase';controller.phase('prepare')
         result['scope']='24/29 checkpoint and continuation; original task failure preserved' if checkpoint else cfg['scope']
         (out/'effective-config.json').write_text(json.dumps(dict(cfg,container=args.container,official_task=str(args.official_task),checkpoint_after_global_step=24 if checkpoint else None,expected_official_failure=signature(expected) if expected else None,cold_request_timeout_seconds=600,sandbox_ttl_seconds=1800,host_scope='single temporary service cgroup; cache and VMM included; pool disabled',guest_scope='continuous per actual VM ID after monitor setup; explicit snapshot gaps; tool boundary counters retained',physical_memory='NOT_MEASURED',monitoring_impact='NOT_VALIDATED'),indent=2)+'\n')
+        if light:
+            effective=json.loads((out/'effective-config.json').read_text())
+            effective.update(host_scope='NOT_MEASURED',monitor_profile='light',guest_interval_seconds=.1)
+            (out/'effective-config.json').write_text(json.dumps(effective,indent=2)+'\n')
         if physical_segments:
             effective=json.loads((out/'effective-config.json').read_text())
             effective.update(physical_memory='paused file-LRU points',physical_cache_after_segments=physical_segments,
                              measurement_variant='precision analysis; pause/analysis elapsed times included, not lightweight-only timing')
             (out/'effective-config.json').write_text(json.dumps(effective,indent=2)+'\n')
+        if live_cache:
+            effective=json.loads((out/'effective-config.json').read_text())
+            effective.update(physical_memory='live whole-cache membership and confirmed host residency',
+                             measurement_variant='diagnostic guest kernel; no pause; unresolved pages separate',
+                             live_cache_interval_seconds=1.0, live_cache_lower=live_cache_lower)
+            (out/'effective-config.json').write_text(json.dumps(effective,indent=2)+'\n')
         code=out/'code';code.mkdir()
         for path in [Path(__file__),ROOT/'scripts/agentenv_cold_start.py',ROOT/'scripts/prettier6604_boundary.py',ROOT/'scripts/audit_prettier6604_official.py',ROOT/'scripts/exp1-process-probe.sh',ROOT/'scripts/prettier6604_inputs.py',ROOT/'scripts/prettier6604_check.cjs',ROOT/'scripts/exp1_official_task.py',vendor/'controller.py',workload/'guest-runner.sh',ROOT/'IncrementalDAX_moti/motivation/experiments/lib/host-memory-monitor.sh',ROOT/'configs/prettier6604-backbone.json']:
             shutil.copy2(path,code/path.name)
+        if damon_disable:shutil.copy2(ROOT/'scripts/guest_task_damon.py',code/'guest_task_damon.py')
         (out/'source-sha256.json').write_text(json.dumps({p.name:sha(p) for p in code.iterdir()},indent=2)+'\n')
         if physical_segments:
             physical_sources = ['task_physical_cache.py', 'agentenv_whole_cache.py', 'measure_file_physical.py',
@@ -126,21 +152,34 @@ def run(args):
         (out/'sampling-variant.json').write_text(json.dumps(dict(mode=monitor_mode,phase_updates='guest runner' if runtime else 'none',original_runner_sha256=sha(workload/'guest-runner.sh'),executed_runner_sha256=sha(frozen/'guest-runner.sh')),indent=2)+'\n')
         for segment in cfg['path']:shutil.copytree(workload/'segments'/segment,frozen/'segments'/segment)
         (out/'host').mkdir(exist_ok=True)
-        if runtime:
+        if runtime and not light:
             with (out/'host-monitor.log').open('x') as log:
                 monitor=subprocess.Popen(['bash',str(ROOT/'IncrementalDAX_moti/motivation/experiments/lib/host-memory-monitor.sh'),str(out/'host/memory-samples.tsv'),str(controller.phase_file),'0.1',args.container],env=env,stdout=log,stderr=subprocess.STDOUT,start_new_session=True)
         if physical_segments:
             from task_physical_cache import TaskPhysicalCache
             stage='physical-capture'
             physical=TaskPhysicalCache(out,args.container,cli)
+        if live_cache:
+            from live_task_cache import LiveTaskCache
+            stage='live-cache-capture'
+            live=LiveTaskCache(out,args.container,cli,session='parent' if checkpoint else None)
         stage='cold-start';controller.phase(stage)
         sid=call('cold-start',[sys.executable,'-B',ROOT/'scripts/agentenv_cold_start.py',
                  '--config-home',args.config_home,'--service-url',args.service_url,
                  '--image',cfg['source_image']],timeout=610)
         assert re.fullmatch(r'[a-fA-F0-9-]{36}',sid)
         if physical: physical.ready()
+        if live: live.start(sid)
         (out/'sandbox-id.txt').write_text(sid+'\n')
         controller.record('sandbox-ids.tsv',f'backbone\t{sid}\t\troot')
+        if damon_disable:
+            stage='damon-disable';controller.phase(stage)
+            cli('upload-damon-control','upload',sid,ROOT/'scripts/guest_task_damon.py','/workspace/guest-task-damon.py')
+            damon_restore_needed=True
+            value=json.loads(cli('damon-disable','exec',sid,'python3','/workspace/guest-task-damon.py','prepare',timeout=20))
+            assert value['status']=='PASS' and value['after']['enabled']=='N' and int(value['after']['kdamond_pid'])==-1
+            (out/'damon-disabled.json').write_text(json.dumps(value,indent=2)+'\n')
+            result['damon_policy']='disabled-during-task'
         if runtime:runtime.start(sid,'backbone','setup')
         stage='smoke';controller.phase(stage)
         smoke=guest('source-smoke',"cd /testbed && python3 - <<'EOF'\nimport subprocess,hashlib,json\nfrom pathlib import Path\nhead=subprocess.check_output(['git','rev-parse','HEAD'],text=True).strip()\nassert head=='"+cfg['base_commit']+"'\np=Path('src/language-js/needs-parens.js');base=subprocess.check_output(['git','show','HEAD:'+str(p)])\nassert p.read_bytes()==base\nprint(json.dumps(dict(base_commit=head,source_sha256=hashlib.sha256(base).hexdigest(),initial_git_status=subprocess.check_output(['git','status','--porcelain'],text=True),suite_paths=sorted(str(p) for p in Path('tests/typescript/conformance/types').rglob('jsfmt.spec.js')),node=subprocess.check_output(['node','--version'],text=True).strip())))\nEOF")
@@ -159,7 +198,7 @@ def run(args):
         for segment in cfg['path']:
             begin=time.monotonic_ns();asyncio.run(controller.run_segment(sid,'backbone',segment))
             with event_lock:
-                events.append(dict(stage='segment-'+segment,duration_ns=time.monotonic_ns()-begin,exit_code=0))
+                events.append(dict(stage='segment-'+segment,start_monotonic_ns=begin,duration_ns=time.monotonic_ns()-begin,exit_code=0))
                 (out/'events.json').write_text(json.dumps(events,indent=2)+'\n')
             global_step += len(cfg['expected_exit_codes'][segment])
             if segment in physical_segments:
@@ -178,17 +217,27 @@ def run(args):
                 (out/'boundary-before.json').write_text(json.dumps(before,indent=2)+'\n')
                 snapshot='prettier6604-'+out.parents[2].name
                 (out/'checkpoint-alias.txt').write_text(snapshot+'\n')
+                if live:
+                    live.close()
+                    live_sessions.append(json.loads((live.directory/'result.json').read_text()))
+                    live=None
+                    live_gap=dict(start_ns=time.time_ns(), reason='checkpoint, parent removal, restore and sampler setup')
                 stage='checkpoint';controller.phase(stage)
                 runtime.stop(sid,'checkpoint')
                 cli('checkpoint','snapshot','create',sid,'--name',snapshot,timeout=150)
                 result['checks']['checkpoint_interface']='PASS'
                 parent=sid
                 cli('delete-original','delete',sid,timeout=60);sid=None
+                if live_cache:
+                    live=LiveTaskCache(out,args.container,cli,session='restored',lower_cache=live_cache_lower)
                 stage='restore';controller.phase(stage)
                 sid=cli('restore','start',snapshot,'--detach','--timeout','1800',timeout=150)
                 assert re.fullmatch(r'[a-fA-F0-9-]{36}',sid) and sid!=parent
                 controller.record('sandbox-ids.tsv',f'backbone\t{sid}\t{parent}\trestored')
                 guest('restore-ready','true')
+                if live:
+                    live.start(sid)
+                    live_gap['end_ns']=time.time_ns()
                 runtime.start(sid,'backbone','restored-checks')
                 after=json.loads(guest('boundary-after','python3 /workspace/prettier6604-boundary.py'))
                 boundary=verify_boundary(before,after)
@@ -255,6 +304,19 @@ def run(args):
     finally:
         for sig in (signal.SIGTERM,signal.SIGINT):signal.signal(sig,signal.SIG_IGN)
         cleanup={}
+        if live:
+            try:
+                live.close();cleanup['live_cache_stopped']=True
+                current=json.loads((live.directory/'result.json').read_text())
+                if checkpoint:
+                    live_sessions.append(current)
+                    from live_task_cache import save_sessions
+                    result['live_cache']=save_sessions(out/'live-cache',live_sessions,live_gap)
+                else:
+                    result['live_cache']=current
+                result['physical_page_cache']='LIVE_CONFIRMED_RESIDENCY_WITH_UNCONFIRMED_PAGES'
+            except Exception as e:
+                cleanup['live_cache_error']=repr(e);success=False
         if physical:
             try: physical.close();cleanup['physical_tracer_stopped']=True
             except Exception as e:cleanup['physical_tracer_error']=repr(e);success=False
@@ -262,6 +324,13 @@ def run(args):
             try:
                 if runtime:runtime.stop(sid)
             except Exception as e:cleanup['runtime_monitor_error']=repr(e);success=False
+            if damon_restore_needed:
+                try:
+                    value=json.loads(cli('damon-restore','exec',sid,'python3','/workspace/guest-task-damon.py','restore',timeout=20))
+                    assert value['status']=='PASS' and value['after']['enabled']==value['original_enabled']
+                    (out/'damon-restored.json').write_text(json.dumps(value,indent=2)+'\n')
+                    result['damon_restoration']=value;cleanup['damon_original_setting_restored']=True
+                except Exception as e:cleanup['damon_restore_error']=repr(e);success=False
             try:cli('delete-owned-sandbox','delete',sid,timeout=60);cleanup['sandbox_removed']=True
             except Exception as e:cleanup['error']=repr(e);success=False
         if snapshot and success:
@@ -290,7 +359,12 @@ if __name__=='__main__':
     parser.add_argument('--container');parser.add_argument('--config-home',type=Path);parser.add_argument('--output',type=Path)
     parser.add_argument('--service-url',help='Owned temporary loopback API, checked against its credentials')
     parser.add_argument('--monitor-mode',choices=('continuous','off'),default='continuous')
+    parser.add_argument('--light-monitor',action='store_true',help='Guest meminfo at 0.1 s only; keep existing tool timing')
+    parser.add_argument('--damon-observe',action='store_true',help='Read-only default DAMON state and counters; do not change reclaim policy')
+    parser.add_argument('--damon-disable',action='store_true',help='Disable owned guest DAMON before setup/sampling and restore after collection; requires --damon-observe')
     parser.add_argument('--physical-cache-after',default='',help='Comma-separated completed segments for paused file-LRU analysis')
+    parser.add_argument('--live-cache',action='store_true',help='No-pause whole-cache sampling with diagnostic guest metadata')
+    parser.add_argument('--live-cache-lower',action='store_true',help='Also query current raw snapshot memory-layer PFNs after restore')
     parser.add_argument('--checkpoint',action='store_true',help='Snapshot after core_verify (24/29); resume at backbone_finish')
     parser.add_argument('--expected-official-audit',type=Path,help='Hash-verified official failure from complete original replay')
     parser.add_argument('--check-only',action='store_true');args=parser.parse_args()

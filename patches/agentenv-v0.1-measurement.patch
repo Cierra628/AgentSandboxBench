@@ -1,0 +1,1234 @@
+diff --git a/storage/ublk-daemon/src/lib.rs b/storage/ublk-daemon/src/lib.rs
+index 4c3129b..41ec1a6 100644
+--- a/storage/ublk-daemon/src/lib.rs
++++ b/storage/ublk-daemon/src/lib.rs
+@@ -1,5 +1,6 @@
+ pub mod client;
+ pub mod protocol;
++pub(crate) mod rootfs_copies;
+ pub(crate) mod runtime;
+ pub mod server;
+ 
+diff --git a/storage/ublk-daemon/src/main.rs b/storage/ublk-daemon/src/main.rs
+index a1cf2bb..44c4725 100644
+--- a/storage/ublk-daemon/src/main.rs
++++ b/storage/ublk-daemon/src/main.rs
+@@ -328,6 +328,10 @@ fn main() -> Result<()> {
+             load_pool_config(daemon_config.as_ref(), cli.enable_pool, &pool_overrides)
+                 .context("load warm pool config")?
+         {
++            anyhow::ensure!(
++                std::env::var_os("AENV_PROVIDER_OBSERVE_DIR").is_none(),
++                "slot observation requires a non-pooled private device"
++            );
+             let features = server.detect_ublk_features().await?;
+             let update_size_supported = features & ublk_caps::UBLK_F_UPDATE_SIZE != 0;
+             pool_config.startup_prewarm = startup_prewarm.unwrap_or(update_size_supported);
+diff --git a/storage/ublk-daemon/src/runtime.rs b/storage/ublk-daemon/src/runtime.rs
+index 8f043b2..4643f50 100644
+--- a/storage/ublk-daemon/src/runtime.rs
++++ b/storage/ublk-daemon/src/runtime.rs
+@@ -206,7 +206,14 @@ async fn materialize_runtime_contents(
+         }
+     }
+ 
+-    let image = materialize_overlaybd_image_config(source_image_config, runtime_dir, &upper_mode)?;
++    let mut image =
++        materialize_overlaybd_image_config(source_image_config, runtime_dir, &upper_mode)?;
++    let copy_manifest = std::env::var_os("AENV_ROOTFS_COPY_MANIFEST");
++    crate::rootfs_copies::apply(
++        &mut image,
++        runtime_dir,
++        copy_manifest.as_deref().map(Path::new),
++    )?;
+     let runtime_image_config_path = runtime_dir.join(RUNTIME_IMAGE_CONFIG_FILE);
+     fs::write(
+         &runtime_image_config_path,
+diff --git a/storage/ublk-daemon/src/server.rs b/storage/ublk-daemon/src/server.rs
+index 667bc28..24d93fa 100644
+--- a/storage/ublk-daemon/src/server.rs
++++ b/storage/ublk-daemon/src/server.rs
+@@ -870,6 +870,12 @@ async fn create_overlaybd_device(
+ 
+     let ctrl = UVMUblkCtrlBuilder::new()
+         .name("overlaybd-blk")
++        .need_get_data(
++            std::env::var_os("AENV_PROVIDER_OBSERVE_DIR").is_some()
++                && std::env::var_os("AENV_PROVIDER_NEED_GET_DATA").as_deref()
++                    == Some(std::ffi::OsStr::new("1"))
++                && image_config.ends_with("memory/image.json"),
++        )
+         .build(ctrl_ring.clone())
+         .context("build ublk ctrl")?;
+ 
+diff --git a/storage/ublk/src/ctrl.rs b/storage/ublk/src/ctrl.rs
+index 333fbcb..d52a5ae 100644
+--- a/storage/ublk/src/ctrl.rs
++++ b/storage/ublk/src/ctrl.rs
+@@ -166,6 +166,16 @@ impl<'a> UVMUblkCtrlBuilder<'a> {
+         self
+     }
+ 
++    /// Notify the server before copying WRITE data into its buffer.
++    pub fn need_get_data(mut self, enabled: bool) -> Self {
++        if enabled {
++            self.ctrl_flags |= ublk_sys::UBLK_F_NEED_GET_DATA as u64;
++        } else {
++            self.ctrl_flags &= !(ublk_sys::UBLK_F_NEED_GET_DATA as u64);
++        }
++        self
++    }
++
+     /// Later when add device, we try to use exact the `id` as its device id.
+     pub fn dev_id(mut self, id: u32) -> Self {
+         self.dev_id = id;
+diff --git a/storage/ublk/src/dev.rs b/storage/ublk/src/dev.rs
+index 59ab2af..6fb2564 100644
+--- a/storage/ublk/src/dev.rs
++++ b/storage/ublk/src/dev.rs
+@@ -114,6 +114,31 @@ impl Drop for UVMUblkDevInner {
+ }
+ 
+ impl UVMUblkQueue {
++    async fn get_write_data(
++        &self,
++        tag: u16,
++        buf: &IOBuffer,
++        mut result: i32,
++        observation: &mut Option<crate::slot_observation::SlotObservation>,
++    ) -> Result<i32> {
++        while result == ublk_sys::UBLK_IO_RES_NEED_GET_DATA as i32 {
++            anyhow::ensure!(
++                self.dev_info.flags & ublk_sys::UBLK_F_NEED_GET_DATA as u64 != 0,
++                "unexpected GET_DATA notification"
++            );
++            if let Some(observation) = observation.as_mut() {
++                // The kernel may shorten nr_sectors after a partial copy.
++                // Invalidate the original range before send() permits copying.
++                let len =
++                    (self.io_desc(tag).context("GET_DATA descriptor")?.nr_sectors as u64) << 9;
++                observation.before_get_data(len);
++            }
++            // send() queues immediately: invalidate before calling it, not after.
++            result = self.get_data_for_slot(tag, buf)?.await;
++        }
++        Ok(result)
++    }
++
+     /// The job for each slot within the queue.
+     /// - `tag`: a slot id within the the queue (corresponding to the depth).
+     async fn slot_task<T: UVMUblkTarget>(self: Rc<Self>, tag: u16, tgt: Arc<T>) -> Result<()> {
+@@ -143,8 +168,27 @@ impl UVMUblkQueue {
+             }
+             None => None,
+         };
++        let mut observation = match (&buf, tgt.observation_image()) {
++            (IOBuffer::User(user), Some(image)) => {
++                crate::slot_observation::SlotObservation::create(
++                    &image,
++                    &self.dev_info,
++                    self.queue_id,
++                    tag,
++                    user.subslice(0, 0).as_ptr() as u64,
++                    user.len() as u64,
++                )?
++            }
++            _ => None,
++        };
++        let shift = observation.as_ref().map_or(0, |_| {
++            tgt.ublk_dev_params(&self.dev_info).basic.logical_bs_shift
++        });
+         // FIXME: should we handle EINTR?
+         let res = self.prep_slot(tag, &buf).context("prep_slot")?.await;
++        let res = self
++            .get_write_data(tag, &buf, res, &mut observation)
++            .await?;
+         if res < 0 {
+             tracing::debug!(
+                 tag,
+@@ -163,6 +207,13 @@ impl UVMUblkQueue {
+                 .io_desc(tag)
+                 .ok_or_else(|| anyhow!("cannot get io_dsec at {tag}"))?;
+             // TODO: update auto buffer's size according to io_desc
++            if let Some(observation) = observation.as_mut() {
++                observation.begin(
++                    io_desc.start_sector << shift,
++                    (io_desc.nr_sectors as u64) << shift,
++                    io_desc.op_flags & 0xff == ublk_sys::UBLK_IO_OP_READ,
++                );
++            }
+             let res = tgt
+                 .handle_io_request(
+                     self.queue_id,
+@@ -173,10 +224,22 @@ impl UVMUblkQueue {
+                     &self.ring,
+                 )
+                 .await;
++            if let Some(observation) = observation.as_mut() {
++                observation.complete(
++                    io_desc.op_flags & 0xff == ublk_sys::UBLK_IO_OP_READ,
++                    (io_desc.nr_sectors as u64) << shift,
++                    res,
++                );
++                // Without GET_DATA, the kernel can overwrite during the next fetch.
++                observation.before_fetch();
++            }
+             let res = self
+                 .submit_and_fetch_for_slot(tag, &buf, res)
+                 .context("submit and fetch from ring")?
+                 .await;
++            let res = self
++                .get_write_data(tag, &buf, res, &mut observation)
++                .await?;
+             // FIXME: should we handle EINTR?
+             if res < 0 {
+                 tracing::debug!(
+@@ -415,6 +478,10 @@ impl<T: UVMUblkTarget> UVMUblkDev<T> {
+ #[async_trait(?Send)]
+ pub trait UVMUblkTarget: Send + Sync + 'static {
+     const DEV_NAME: &str;
++    /// Diagnostic image identity, used only by explicitly enabled slot observation.
++    fn observation_image(&self) -> Option<PathBuf> {
++        None
++    }
+     /// Init the target. For example, the target might register fd on to the io_ring.
+     async fn init(&self, qid: u16, io_ring: &AsyncIoRing) -> Result<()>;
+ 
+diff --git a/storage/ublk/src/impls/overlaybd_target.rs b/storage/ublk/src/impls/overlaybd_target.rs
+index 41d85fa..b23502c 100644
+--- a/storage/ublk/src/impls/overlaybd_target.rs
++++ b/storage/ublk/src/impls/overlaybd_target.rs
+@@ -333,6 +333,11 @@ fn anyhow_to_ublk_errno(err: &anyhow::Error) -> i32 {
+ impl UVMUblkTarget for OverlaybdTarget {
+     const DEV_NAME: &str = "overlaybd";
+ 
++    fn observation_image(&self) -> Option<PathBuf> {
++        std::env::var_os("AENV_PROVIDER_OBSERVE_DIR")?;
++        Some(self.state.load().image_config_path.clone())
++    }
++
+     async fn init(&self, _qid: u16, _io_ring: &AsyncIoRing) -> Result<()> {
+         Ok(())
+     }
+diff --git a/storage/ublk/src/lib.rs b/storage/ublk/src/lib.rs
+index 038d6f9..233d0cd 100644
+--- a/storage/ublk/src/lib.rs
++++ b/storage/ublk/src/lib.rs
+@@ -14,6 +14,7 @@ mod dev;
+ pub mod impls;
+ mod io_buffer;
+ mod queue;
++mod slot_observation;
+ pub mod ublk_caps;
+ 
+ pub use ctrl::{
+diff --git a/storage/ublk/src/queue.rs b/storage/ublk/src/queue.rs
+index 584017f..980e99f 100644
+--- a/storage/ublk/src/queue.rs
++++ b/storage/ublk/src/queue.rs
+@@ -302,6 +302,23 @@ impl UVMUblkQueue {
+         self.send_io_cmd(ublk_sys::UBLK_U_IO_COMMIT_AND_FETCH_REQ, io_cmd, sqe_addr)
+     }
+ 
++    pub fn get_data_for_slot(&self, tag: u16, buf: &IOBuffer) -> std::io::Result<RingFuture> {
++        let addr = match buf {
++            IOBuffer::User(buf) => buf.subslice(0, buf.len()).as_ptr() as u64,
++            IOBuffer::AutoReg(_) => unreachable!("GET_DATA requires a user buffer"),
++        };
++        self.send_io_cmd(
++            ublk_sys::UBLK_U_IO_NEED_GET_DATA,
++            ublk_sys::ublksrv_io_cmd {
++                q_id: self.queue_id,
++                tag,
++                result: 0,
++                addr,
++            },
++            None,
++        )
++    }
++
+     pub fn io_desc(&self, tag: u16) -> Option<ublk_sys::ublksrv_io_desc> {
+         self.io_desc.get(tag as usize).cloned()
+     }
+diff --git a/storage/ublk-daemon/src/rootfs_copies.rs b/storage/ublk-daemon/src/rootfs_copies.rs
+new file mode 100644
+index 0000000..9f911f8
+--- /dev/null
++++ b/storage/ublk-daemon/src/rootfs_copies.rs
+@@ -0,0 +1,321 @@
++//! Explicit experiment-only initial-lower selection, before the image is opened.
++//! No data is copied or read here; Python prepares the fixed file sets first.
++use std::fs::{self, OpenOptions};
++use std::io::Write;
++use std::os::unix::fs::MetadataExt;
++use std::path::{Path, PathBuf};
++use std::time::Instant;
++
++use anyhow::{bail, ensure, Context, Result};
++use serde::Deserialize;
++use serde_json::{json, Value};
++
++#[derive(Deserialize)]
++struct Layer {
++    digest: String,
++    file: PathBuf,
++    size: u64,
++}
++
++#[derive(Deserialize)]
++struct Plan {
++    version: u8,
++    mode: String,
++    runtime_root: PathBuf,
++    receipts: PathBuf,
++    copies: Vec<Vec<Layer>>,
++    #[serde(default = "default_schedule")]
++    schedule: String,
++}
++
++fn default_schedule() -> String {
++    "grpo".into()
++}
++
++pub(crate) fn apply(image: &mut Value, runtime_dir: &Path, manifest: Option<&Path>) -> Result<()> {
++    let Some(manifest) = manifest else {
++        return Ok(());
++    };
++    // Other runtime devices are not an experimental rootfs.
++    if runtime_dir
++        .file_name()
++        .is_none_or(|name| name != "overlaybd")
++    {
++        return Ok(());
++    }
++    let start = Instant::now();
++    let plan: Plan = serde_json::from_slice(&fs::read(manifest)?)?;
++    ensure!(plan.version == 1, "unsupported rootfs copy manifest");
++    let private = match plan.mode.as_str() {
++        "shared" => false,
++        "private" => true,
++        _ => bail!("unknown rootfs copy mode"),
++    };
++    ensure!(
++        runtime_dir.parent().and_then(Path::parent) == Some(plan.runtime_root.as_path()),
++        "rootfs copy request is outside the owned runtime root"
++    );
++    ensure!(
++        plan.copies.len() == if private { 7 } else { 1 },
++        "wrong copy-set count"
++    );
++    ensure!(
++        plan.copies.iter().all(|set| set.len() == 19),
++        "expected 19 initial lowers"
++    );
++    let lowers = image["lowers"]
++        .as_array_mut()
++        .context("missing rootfs lowers")?;
++    match plan.schedule.as_str() {
++        "grpo" => ensure!(
++            lowers.len() == 19,
++            "GRPO requires exactly 19 initial lowers"
++        ),
++        "bpo" => ensure!(
++            (19..=21).contains(&lowers.len()),
++            "BPO requires initial lowers and at most two generated lowers"
++        ),
++        _ => bail!("unsupported rootfs copy schedule"),
++    }
++    for generated in lowers.iter().skip(19) {
++        ensure!(
++            !generated["file"].as_str().unwrap_or_default().is_empty(),
++            "generated lower must remain local"
++        );
++        ensure!(
++            !plan.copies[0]
++                .iter()
++                .any(|base| generated["digest"].as_str() == Some(base.digest.as_str())),
++            "generated lower aliases an initial digest"
++        );
++    }
++    for (lower, expected) in lowers.iter().zip(&plan.copies[0]) {
++        ensure!(
++            lower["digest"].as_str() == Some(expected.digest.as_str()),
++            "initial lower order or digest changed"
++        );
++        ensure!(
++            lower["size"].as_u64() == Some(expected.size),
++            "initial lower size changed"
++        );
++        ensure!(
++            !lower["file"].as_str().unwrap_or_default().is_empty(),
++            "local lower file required"
++        );
++        for key in ["targetFile", "targetDigest", "gzipIndex"] {
++            ensure!(
++                lower[key].as_str().unwrap_or_default().is_empty(),
++                "auxiliary lower outside copy profile"
++            );
++        }
++    }
++    fs::create_dir_all(&plan.receipts)?;
++    let runtime_name = runtime_dir
++        .parent()
++        .and_then(Path::file_name)
++        .context("missing sandbox runtime name")?;
++    let receipt = plan.receipts.join(runtime_name).with_extension("json");
++    ensure!(!receipt.exists(), "rootfs runtime already assigned");
++    let slot = if private {
++        let mut assigned = None;
++        for index in 0..7 {
++            match OpenOptions::new()
++                .write(true)
++                .create_new(true)
++                .open(plan.receipts.join(format!("slot-{index}")))
++            {
++                Ok(mut claim) => {
++                    writeln!(claim, "{}", runtime_dir.display())?;
++                    assigned = Some(index);
++                    break;
++                }
++                Err(err) if err.kind() == std::io::ErrorKind::AlreadyExists => continue,
++                Err(err) => return Err(err.into()),
++            }
++        }
++        assigned.context("all seven rootfs copy sets are assigned")?
++    } else {
++        0
++    };
++    let mut observed = Vec::new();
++    for ((lower, selected), original) in lowers
++        .iter_mut()
++        .zip(&plan.copies[slot])
++        .zip(&plan.copies[0])
++    {
++        ensure!(
++            selected.digest == original.digest && selected.size == original.size,
++            "copy-set source differs"
++        );
++        ensure!(
++            selected.file.is_absolute(),
++            "absolute owned copy path required"
++        );
++        let info = fs::metadata(&selected.file)?;
++        ensure!(
++            info.is_file() && info.len() == selected.size,
++            "prepared rootfs copy size changed"
++        );
++        lower["file"] = json!(selected.file);
++        lower["dir"] = json!("");
++        observed.push(json!({"digest":selected.digest,"file":selected.file,
++            "device":info.dev(),"inode":info.ino(),"size":info.len()}));
++    }
++    // A failed creation keeps its claim as evidence; the experiment stops and
++    // its existing owned-volume cleanup handles the entire prepared set.
++    let mut output = OpenOptions::new()
++        .write(true)
++        .create_new(true)
++        .open(receipt)?;
++    serde_json::to_writer_pretty(
++        &mut output,
++        &json!({"version":1,"mode":plan.mode,"schedule":plan.schedule,
++        "runtime_dir":runtime_dir,"slot":slot,"lowers":observed,
++        "metadata_elapsed_ns_before_receipt_write":start.elapsed().as_nanos()}),
++    )?;
++    Ok(())
++}
++
++#[cfg(test)]
++mod tests {
++    use super::*;
++    use std::sync::Arc;
++
++    fn fixture(root: &Path, private: bool) -> (PathBuf, Value, PathBuf) {
++        let runtime_root = root.join("firecracker-work");
++        fs::create_dir(&runtime_root).unwrap();
++        let sets: Vec<_> = (0..if private { 7 } else { 1 })
++            .map(|slot| {
++                (0..19)
++                    .map(|index| {
++                        let file = root.join(format!("copy-{slot}-{index}"));
++                        fs::write(&file, b"test").unwrap();
++                        json!({"digest":format!("sha256:{index}"),"file":file,"size":4})
++                    })
++                    .collect::<Vec<_>>()
++            })
++            .collect();
++        let image = json!({"lowers":sets[0],"upper":{"data":"unchanged"}});
++        let manifest = root.join("manifest.json");
++        fs::write(
++            &manifest,
++            serde_json::to_vec(&json!({"version":1,
++            "mode":if private {"private"} else {"shared"},"runtime_root":runtime_root,
++            "receipts":root.join("receipts"),"copies":sets}))
++            .unwrap(),
++        )
++        .unwrap();
++        (manifest, image, runtime_root)
++    }
++
++    #[test]
++    fn unset_preserves_original_and_non_rootfs_is_ignored() {
++        let mut image = json!({"anything":"original"});
++        let original = image.clone();
++        apply(&mut image, Path::new("/unused"), None).unwrap();
++        assert_eq!(image, original);
++        apply(&mut image, Path::new("/memory"), Some(Path::new("/absent"))).unwrap();
++        assert_eq!(image, original);
++    }
++
++    #[test]
++    fn seven_concurrent_creations_get_distinct_prepared_sets() {
++        let temp = tempfile::tempdir().unwrap();
++        let (manifest, image, root) = fixture(temp.path(), true);
++        let image = Arc::new(image);
++        let workers: Vec<_> = (0..7)
++            .map(|index| {
++                let (manifest, root, image) = (manifest.clone(), root.clone(), image.clone());
++                std::thread::spawn(move || {
++                    let mut value = (*image).clone();
++                    apply(
++                        &mut value,
++                        &root.join(format!("guest-{index}/overlaybd")),
++                        Some(&manifest),
++                    )
++                    .unwrap();
++                    assert_eq!(value["upper"]["data"], "unchanged");
++                    value["lowers"][0]["file"].as_str().unwrap().to_string()
++                })
++            })
++            .collect();
++        let files: std::collections::HashSet<_> =
++            workers.into_iter().map(|v| v.join().unwrap()).collect();
++        assert_eq!(files.len(), 7);
++        let mut extra = (*image).clone();
++        assert!(apply(&mut extra, &root.join("extra/overlaybd"), Some(&manifest)).is_err());
++    }
++
++    #[test]
++    fn shared_reuses_one_set_and_rejects_changed_sources_or_bpo() {
++        let temp = tempfile::tempdir().unwrap();
++        let (manifest, image, root) = fixture(temp.path(), false);
++        let mut first = image.clone();
++        let mut second = image.clone();
++        apply(&mut first, &root.join("first/overlaybd"), Some(&manifest)).unwrap();
++        apply(&mut second, &root.join("second/overlaybd"), Some(&manifest)).unwrap();
++        assert_eq!(first["lowers"], second["lowers"]);
++        let mut changed = image.clone();
++        changed["lowers"][0]["digest"] = json!("wrong");
++        assert!(apply(&mut changed, &root.join("bad/overlaybd"), Some(&manifest)).is_err());
++        let mut bpo = image.clone();
++        bpo["lowers"]
++            .as_array_mut()
++            .unwrap()
++            .push(json!({"file":"generated"}));
++        assert!(apply(&mut bpo, &root.join("bpo/overlaybd"), Some(&manifest)).is_err());
++        assert!(apply(
++            &mut image.clone(),
++            &temp.path().join("outside/guest/overlaybd"),
++            Some(&manifest)
++        )
++        .is_err());
++    }
++
++    #[test]
++    fn bpo_replaces_repository_aliases_but_preserves_generated_lowers() {
++        let temp = tempfile::tempdir().unwrap();
++        let (manifest, image, root) = fixture(temp.path(), true);
++        let mut plan: Value = serde_json::from_slice(&fs::read(&manifest).unwrap()).unwrap();
++        plan["schedule"] = json!("bpo");
++        fs::write(&manifest, serde_json::to_vec(&plan).unwrap()).unwrap();
++        let mut selected = std::collections::HashSet::new();
++        for index in 0..7 {
++            let count = if index == 0 {
++                0
++            } else if index <= 3 {
++                1
++            } else {
++                2
++            };
++            let mut value = image.clone();
++            for lower in value["lowers"].as_array_mut().unwrap() {
++                lower["file"] = json!("/repository/remerged-original.commit");
++            }
++            let generated: Vec<_> = (0..count).map(|step| json!({"file":format!("/repository/generated-{step}"),"digest":format!("generated-{step}"),"size":4})).collect();
++            value["lowers"]
++                .as_array_mut()
++                .unwrap()
++                .extend(generated.clone());
++            apply(
++                &mut value,
++                &root.join(format!("guest-{index}/overlaybd")),
++                Some(&manifest),
++            )
++            .unwrap();
++            selected.insert(value["lowers"][0]["file"].as_str().unwrap().to_owned());
++            assert_eq!(
++                &value["lowers"].as_array().unwrap()[19..],
++                generated.as_slice()
++            );
++            assert_eq!(value["upper"], image["upper"]);
++        }
++        assert_eq!(selected.len(), 7);
++        let mut invalid = image.clone();
++        invalid["lowers"]
++            .as_array_mut()
++            .unwrap()
++            .extend([json!({}), json!({}), json!({})]);
++        assert!(apply(&mut invalid, &root.join("bad/overlaybd"), Some(&manifest)).is_err());
++    }
++}
+diff --git a/storage/ublk/examples/provider_slot_protocol.rs b/storage/ublk/examples/provider_slot_protocol.rs
+new file mode 100644
+index 0000000..a922761
+--- /dev/null
++++ b/storage/ublk/examples/provider_slot_protocol.rs
+@@ -0,0 +1,231 @@
++//! Explicit real-device diagnostic. Creates and removes only its own tiny devices.
++use anyhow::{ensure, Context, Result};
++use async_trait::async_trait;
++use serde_json::json;
++use std::alloc::{alloc_zeroed, dealloc, Layout};
++use std::fs::{self, OpenOptions};
++use std::os::unix::fs::{FileExt, OpenOptionsExt};
++use std::path::{Path, PathBuf};
++use std::sync::{Arc, Mutex};
++use std::time::Instant;
++use storage_util::io_ring::{spawn_io_ring_worker, AsyncIoRing, IoRingHandle};
++use uvm_ublk::{delete_dev, IOBuffer, UVMUblkCtrlBuilder, UVMUblkDevBuilder, UVMUblkTarget};
++
++struct Target {
++    image: PathBuf,
++    bytes: Mutex<Vec<u8>>,
++}
++
++#[async_trait(?Send)]
++impl UVMUblkTarget for Target {
++    const DEV_NAME: &'static str = "provider-slot-protocol";
++    fn observation_image(&self) -> Option<PathBuf> {
++        Some(self.image.clone())
++    }
++    async fn init(&self, _: u16, _: &AsyncIoRing) -> Result<()> {
++        Ok(())
++    }
++    fn per_slot_extra_buf_len(&self) -> Option<usize> {
++        None
++    }
++    fn ublk_dev_params(&self, _: &ublk_sys::ublksrv_ctrl_dev_info) -> ublk_sys::ublk_params {
++        ublk_sys::ublk_params {
++            len: size_of::<ublk_sys::ublk_params>() as u32,
++            types: ublk_sys::UBLK_PARAM_TYPE_BASIC,
++            basic: ublk_sys::ublk_param_basic {
++                logical_bs_shift: 9,
++                physical_bs_shift: 12,
++                io_min_shift: 9,
++                max_sectors: 8,
++                dev_sectors: 256,
++                ..Default::default()
++            },
++            ..Default::default()
++        }
++    }
++    async fn handle_io_request(
++        self: &Arc<Self>,
++        _: u16,
++        _: u16,
++        desc: ublk_sys::ublksrv_io_desc,
++        buf: &mut IOBuffer,
++        _: Option<&mut IOBuffer>,
++        _: &AsyncIoRing,
++    ) -> i32 {
++        let offset = desc.start_sector as usize * 512;
++        let len = desc.nr_sectors as usize * 512;
++        if offset == 65536 {
++            return -libc::EIO;
++        }
++        let IOBuffer::User(buf) = buf else {
++            return -libc::EINVAL;
++        };
++        let mut bytes = self.bytes.lock().unwrap();
++        match desc.op_flags & 0xff {
++            ublk_sys::UBLK_IO_OP_READ => {
++                buf.subslice_mut(0, len)
++                    .copy_from_slice(&bytes[offset..offset + len]);
++                len as i32
++            }
++            ublk_sys::UBLK_IO_OP_WRITE => {
++                bytes[offset..offset + len].copy_from_slice(buf.subslice(0, len));
++                len as i32
++            }
++            ublk_sys::UBLK_IO_OP_FLUSH => 0,
++            _ => -libc::EOPNOTSUPP,
++        }
++    }
++}
++
++fn row(path: &Path) -> Result<Vec<u64>> {
++    let bytes = fs::read(path)?;
++    Ok(bytes[..64]
++        .as_chunks::<8>()
++        .0
++        .iter()
++        .map(|b| u64::from_le_bytes(*b))
++        .collect())
++}
++
++fn exercise(path: &Path, metadata: &Path, enabled: bool) -> Result<serde_json::Value> {
++    let file = OpenOptions::new()
++        .read(true)
++        .write(true)
++        .custom_flags(libc::O_DIRECT)
++        .open(path)?;
++    let layout = Layout::from_size_align(4096, 4096)?;
++    // SAFETY: the layout is valid; release the allocation after the closure.
++    let ptr = unsafe { alloc_zeroed(layout) };
++    ensure!(!ptr.is_null(), "allocate aligned diagnostic buffer");
++    let result = (|| -> Result<_> {
++        let buffer = unsafe { std::slice::from_raw_parts_mut(ptr, 4096) };
++        ensure!(file.read_at(buffer, 0)? == 4096 && buffer.iter().all(|b| *b == 0x11));
++        let first = row(metadata)?;
++        ensure!(
++            first[6] == if enabled { 3 } else { 4 },
++            "post-read state: {first:?}"
++        );
++        ensure!(file.read_at(buffer, 4096)? == 4096 && buffer.iter().all(|b| *b == 0x11));
++        let second = row(metadata)?;
++        ensure!(second[1] > first[1]);
++        if enabled {
++            ensure!(second[4] == 4096 && second[5] == 4096);
++        }
++        let mut timings = Vec::new();
++        for i in 0..32u8 {
++            buffer.fill(0x40 + i);
++            let started = Instant::now();
++            ensure!(file.write_at(buffer, 8192)? == 4096);
++            let write_ns = started.elapsed().as_nanos() as u64;
++            let after_write = row(metadata)?;
++            ensure!(after_write[5] == 0 && after_write[6] != 3);
++            buffer.fill(0);
++            let started = Instant::now();
++            ensure!(file.read_at(buffer, 8192)? == 4096);
++            let read_ns = started.elapsed().as_nanos() as u64;
++            ensure!(buffer.iter().all(|b| *b == 0x40 + i));
++            timings.push(json!({"write_ns":write_ns,"read_ns":read_ns}));
++        }
++        let error = file.read_at(buffer, 65536).unwrap_err();
++        ensure!(error.raw_os_error() == Some(libc::EIO));
++        let failed = row(metadata)?;
++        ensure!(failed[5] == 0 && failed[6] != 3);
++        ensure!(file.read_at(buffer, 4096)? == 4096 && buffer.iter().all(|b| *b == 0x11));
++        Ok(json!({"first_read_row":first,"second_read_row":second,
++            "failed_read_row":failed,"timings":timings,
++            "read_read":"PASS","read_write_read":"PASS","error_then_read":"PASS"}))
++    })();
++    unsafe { dealloc(ptr, layout) };
++    result
++}
++
++async fn check_mode(
++    out: &Path,
++    enabled: bool,
++    ring: IoRingHandle<io_uring::squeue::Entry128>,
++) -> Result<()> {
++    let name = if enabled { "get-data" } else { "default" };
++    let directory = out.join(name);
++    fs::create_dir(&directory)?;
++    let slots = directory.join("slots");
++    std::env::set_var("AENV_PROVIDER_OBSERVE_DIR", &slots);
++    let target = Target {
++        image: directory.join("memory/image.json"),
++        bytes: Mutex::new(vec![0x11; 128 * 1024]),
++    };
++    let ctrl = UVMUblkCtrlBuilder::new()
++        .name("provider-protocol-diagnostic")
++        .depth(1)
++        .max_io_buf_bytes(4096)
++        .need_get_data(enabled)
++        .build(ring.clone())?;
++    let mut dev = UVMUblkDevBuilder::new(ctrl)
++        .set_target(target)
++        .build()
++        .await?;
++    let id = dev.dev_id();
++    fs::write(
++        directory.join("owned-device.json"),
++        json!({"dev_id":id,"pid":std::process::id()}).to_string(),
++    )?;
++    let checked = async {
++        dev.start().await?;
++        ensure!((dev.ctrl.dev_info.flags & ublk_sys::UBLK_F_NEED_GET_DATA as u64 != 0) == enabled);
++        let metadata = slots.join(format!("{}-{id}-0-0.bin", std::process::id()));
++        let path = dev.device_path();
++        // Wait only for udev access before issuing the first diagnostic request.
++        for _ in 0..100 {
++            if OpenOptions::new()
++                .read(true)
++                .write(true)
++                .open(&path)
++                .is_ok()
++            {
++                break;
++            }
++            tokio::time::sleep(std::time::Duration::from_millis(10)).await;
++        }
++        let value = tokio::task::spawn_blocking(move || exercise(&path, &metadata, enabled))
++            .await
++            .context("diagnostic I/O worker")??;
++        fs::write(
++            directory.join("io.json"),
++            serde_json::to_vec_pretty(&value)?,
++        )?;
++        Ok::<_, anyhow::Error>(())
++    }
++    .await;
++    let stopped = dev.ctrl.stop_dev().await;
++    dev.wait_for_bg_tasks().await;
++    drop(dev);
++    let deleted = delete_dev(ring, id).await;
++    stopped?;
++    deleted?;
++    checked?;
++    let metadata = slots.join(format!("{}-{id}-0-0.bin", std::process::id()));
++    ensure!(row(&metadata)?[6] == 5, "release did not invalidate");
++    fs::write(directory.join("status"), "PASS\n")?;
++    Ok(())
++}
++
++#[tokio::main(flavor = "current_thread")]
++async fn main() -> Result<()> {
++    let out = PathBuf::from(
++        std::env::args()
++            .nth(1)
++            .context("provide a new result directory")?,
++    );
++    fs::create_dir(&out)?;
++    let (ring, worker) = spawn_io_ring_worker::<io_uring::squeue::Entry128>(0);
++    let result = async {
++        check_mode(&out, false, ring.clone()).await?;
++        check_mode(&out, true, ring.clone()).await
++    }
++    .await;
++    drop(ring);
++    worker.join().expect("control ring worker");
++    result?;
++    fs::write(out.join("status"), "PASS\n")?;
++    println!("status=PASS result_dir={}", out.display());
++    Ok(())
++}
+diff --git a/storage/ublk/src/slot_observation.rs b/storage/ublk/src/slot_observation.rs
+new file mode 100644
+index 0000000..1facecd
+--- /dev/null
++++ b/storage/ublk/src/slot_observation.rs
+@@ -0,0 +1,412 @@
++//! Opt-in diagnostic metadata only; never reads or pins payload memory.
++use anyhow::{Context, Result};
++use std::fs::OpenOptions;
++use std::os::fd::AsRawFd;
++use std::path::Path;
++use std::ptr::NonNull;
++use std::sync::atomic::{AtomicU64, Ordering::SeqCst};
++
++pub(crate) const MAGIC: u64 = 0x31544f4c53425341;
++const WORDS: usize = 8;
++const UNIT: u64 = 512;
++const UNKNOWN: u64 = u64::MAX;
++
++// [magic, generation, address, capacity, logical_offset, valid_len, state, reads]
++// States: 1 allocated, 2 filling, 3 complete read, 4 before kernel overwrite,
++// 5 released, 6 failed/partial/non-read. Each mutation changes generation.
++pub struct SlotObservation {
++    row: NonNull<[AtomicU64; WORDS]>,
++    retain_during_fetch: bool,
++    map_len: usize,
++    segment_count: usize,
++}
++
++impl SlotObservation {
++    pub(crate) fn create(
++        image: &Path,
++        info: &ublk_sys::ublksrv_ctrl_dev_info,
++        qid: u16,
++        tag: u16,
++        address: u64,
++        capacity: u64,
++    ) -> Result<Option<Self>> {
++        let Some(dir) = std::env::var_os("AENV_PROVIDER_OBSERVE_DIR") else {
++            return Ok(None);
++        };
++        if !image.ends_with("memory/image.json") {
++            return Ok(None);
++        }
++        let dir = Path::new(&dir);
++        std::fs::create_dir_all(dir)?;
++        let stem = format!("{}-{}-{qid}-{tag}", std::process::id(), info.dev_id);
++        let path = dir.join(&stem).with_extension("bin");
++        let file = OpenOptions::new()
++            .write(true)
++            .read(true)
++            .create_new(true)
++            .open(path)?;
++        let retain_during_fetch = info.flags & ublk_sys::UBLK_F_NEED_GET_DATA as u64 != 0;
++        let segment_count = if retain_during_fetch {
++            anyhow::ensure!(
++                capacity.is_multiple_of(UNIT) && address.is_multiple_of(UNIT),
++                "segment observation requires sector-aligned buffers"
++            );
++            (capacity / UNIT) as usize
++        } else {
++            0
++        };
++        let map_len = (64 + segment_count * 16).div_ceil(4096) * 4096;
++        file.set_len(map_len as u64)?;
++        // SAFETY: the file covers map_len bytes; the mapping lives until Drop.
++        let ptr = unsafe {
++            libc::mmap(
++                std::ptr::null_mut(),
++                map_len,
++                libc::PROT_READ | libc::PROT_WRITE,
++                libc::MAP_SHARED,
++                file.as_raw_fd(),
++                0,
++            )
++        };
++        anyhow::ensure!(
++            ptr != libc::MAP_FAILED,
++            "map slot metadata: {}",
++            std::io::Error::last_os_error()
++        );
++        let mut this = Self {
++            row: NonNull::new(ptr.cast()).context("null metadata mapping")?,
++            retain_during_fetch,
++            map_len,
++            segment_count,
++        };
++        this.words()[0].store(MAGIC, SeqCst);
++        this.words()[2].store(address, SeqCst);
++        this.words()[3].store(capacity, SeqCst);
++        this.update(0, 0, 1);
++        for entry in this.segments() {
++            entry[1].store(UNKNOWN, SeqCst);
++        }
++        let mut identity = serde_json::json!({"schema":1, "pid":std::process::id(),
++            "image_config":image, "dev_id":info.dev_id, "queue":qid, "slot":tag,
++            "nr_queues":info.nr_hw_queues, "queue_depth":info.queue_depth,
++            "max_io_buf_bytes":info.max_io_buf_bytes,
++            "negotiated_flags":info.flags,
++            "content_validity":if this.retain_during_fetch { "before_overwrite" } else { "before_fetch" },
++            "process_stat":std::fs::read_to_string("/proc/self/stat")?});
++        if segment_count > 0 {
++            identity["segments"] = serde_json::json!({"schema":1, "unit_bytes":UNIT,
++                "entry_offset":64, "entry_bytes":16, "count":segment_count});
++        }
++        std::fs::write(
++            dir.join(stem).with_extension("json"),
++            serde_json::to_vec(&identity)?,
++        )?;
++        Ok(Some(this))
++    }
++
++    fn words(&self) -> &[AtomicU64; WORDS] {
++        // SAFETY: mmap is aligned, initialized to zeros, and owned by this slot task.
++        unsafe { self.row.as_ref() }
++    }
++
++    fn segments(&self) -> &[[AtomicU64; 2]] {
++        // SAFETY: the aligned entries follow the unchanged 64-byte header, and
++        // segment_count entries fit inside the mapping owned by this slot.
++        unsafe {
++            std::slice::from_raw_parts(
++                self.row.as_ptr().cast::<u8>().add(64).cast(),
++                self.segment_count,
++            )
++        }
++    }
++
++    fn set_segments(&mut self, len: u64, offset: Option<u64>) {
++        let count = len.div_ceil(UNIT).min(self.segment_count as u64) as usize;
++        for (index, entry) in self.segments()[..count].iter().enumerate() {
++            entry[0].fetch_add(1, SeqCst);
++            entry[1].store(offset.map_or(UNKNOWN, |o| o + index as u64 * UNIT), SeqCst);
++            entry[0].fetch_add(1, SeqCst);
++        }
++    }
++
++    fn update(&mut self, offset: u64, len: u64, state: u64) {
++        let w = self.words();
++        w[1].fetch_add(1, SeqCst);
++        w[4].store(offset, SeqCst);
++        w[5].store(len, SeqCst);
++        w[6].store(state, SeqCst);
++        w[1].fetch_add(1, SeqCst);
++    }
++
++    pub(crate) fn begin(&mut self, offset: u64, len: u64, read: bool) {
++        if read {
++            self.set_segments(len, None);
++        }
++        self.update(offset, 0, 2);
++    }
++
++    pub(crate) fn complete(&mut self, read: bool, len: u64, result: i32) {
++        let offset = self.words()[4].load(SeqCst);
++        let valid = read
++            && len > 0
++            && len <= self.words()[3].load(SeqCst)
++            && result >= 0
++            && result as u64 == len;
++        if valid {
++            self.set_segments(len, Some(offset));
++            self.words()[7].fetch_add(1, SeqCst);
++        }
++        self.update(
++            offset,
++            if valid { len } else { 0 },
++            if valid { 3 } else { 6 },
++        );
++    }
++
++    pub(crate) fn before_fetch(&mut self) {
++        if !self.retain_during_fetch {
++            self.before_get_data(self.words()[3].load(SeqCst));
++        }
++    }
++
++    pub(crate) fn before_get_data(&mut self, len: u64) {
++        self.set_segments(len, None);
++        self.update(0, 0, 4);
++    }
++}
++
++impl Drop for SlotObservation {
++    fn drop(&mut self) {
++        self.set_segments(self.words()[3].load(SeqCst), None);
++        self.update(0, 0, 5);
++        // SAFETY: this mapping was created with exactly this length.
++        unsafe {
++            libc::munmap(self.row.as_ptr().cast(), self.map_len);
++        }
++    }
++}
++
++#[cfg(test)]
++mod tests {
++    use super::*;
++
++    fn segment_slot(capacity: u64) -> SlotObservation {
++        let segment_count = (capacity / UNIT) as usize;
++        let map_len = (64 + segment_count * 16).div_ceil(4096) * 4096;
++        let ptr = unsafe {
++            libc::mmap(
++                std::ptr::null_mut(),
++                map_len,
++                libc::PROT_READ | libc::PROT_WRITE,
++                libc::MAP_PRIVATE | libc::MAP_ANONYMOUS,
++                -1,
++                0,
++            )
++        };
++        assert_ne!(ptr, libc::MAP_FAILED);
++        let slot = SlotObservation {
++            row: NonNull::new(ptr.cast()).unwrap(),
++            retain_during_fetch: true,
++            map_len,
++            segment_count,
++        };
++        slot.words()[3].store(capacity, SeqCst);
++        for entry in slot.segments() {
++            entry[1].store(UNKNOWN, SeqCst);
++        }
++        slot
++    }
++
++    fn offsets(slot: &SlotObservation) -> Vec<u64> {
++        slot.segments().iter().map(|e| e[1].load(SeqCst)).collect()
++    }
++
++    #[test]
++    fn segments_keep_older_tails_through_multiple_short_reads() {
++        let mut slot = segment_slot(4096);
++        assert_eq!(offsets(&slot), vec![UNKNOWN; 8]);
++        for (offset, len) in [(0, 4096), (10240, 2048), (20480, 1024)] {
++            slot.begin(offset, len, true);
++            assert!(offsets(&slot)[..(len / UNIT) as usize]
++                .iter()
++                .all(|o| *o == UNKNOWN));
++            slot.complete(true, len, len as i32);
++        }
++        assert_eq!(
++            offsets(&slot),
++            vec![20480, 20992, 11264, 11776, 2048, 2560, 3072, 3584]
++        );
++        let tail_generation = slot.segments()[7][0].load(SeqCst);
++        slot.begin(20480, 1024, true);
++        slot.complete(true, 1024, 1024);
++        assert_eq!(slot.segments()[7][0].load(SeqCst), tail_generation);
++        assert!(slot
++            .segments()
++            .iter()
++            .all(|e| e[0].load(SeqCst).is_multiple_of(2)));
++    }
++
++    #[test]
++    fn failed_partial_and_cancelled_prefixes_stay_unknown() {
++        let mut slot = segment_slot(4096);
++        for result in [-libc::EIO, -libc::ECANCELED, 512] {
++            slot.begin(0, 4096, true);
++            slot.complete(true, 4096, 4096);
++            slot.begin(10240, 2048, true);
++            slot.complete(true, 2048, result);
++            assert_eq!(&offsets(&slot)[..4], &[UNKNOWN; 4]);
++            assert_eq!(&offsets(&slot)[4..], &[2048, 2560, 3072, 3584]);
++        }
++    }
++
++    #[test]
++    fn get_data_invalidates_original_range_including_repeated_notifications() {
++        let mut slot = segment_slot(4096);
++        slot.begin(0, 4096, true);
++        slot.complete(true, 4096, 4096);
++        slot.before_get_data(2048);
++        slot.before_get_data(512);
++        // A returned shorter descriptor or failed WRITE cannot restore bytes.
++        slot.begin(0, 512, false);
++        slot.complete(false, 512, -libc::EPERM);
++        assert_eq!(&offsets(&slot)[..4], &[UNKNOWN; 4]);
++        assert_eq!(&offsets(&slot)[4..], &[2048, 2560, 3072, 3584]);
++    }
++
++    #[test]
++    fn same_offset_republication_changes_only_covered_generations() {
++        let mut slot = segment_slot(4096);
++        slot.begin(0, 4096, true);
++        slot.complete(true, 4096, 4096);
++        let first = slot.segments()[0][0].load(SeqCst);
++        let last = slot.segments()[7][0].load(SeqCst);
++        slot.before_fetch();
++        assert_eq!(slot.segments()[0][0].load(SeqCst), first);
++        slot.begin(0, 512, true);
++        slot.complete(true, 512, 512);
++        assert_eq!(slot.segments()[0][0].load(SeqCst), first + 4);
++        assert_eq!(slot.segments()[7][0].load(SeqCst), last);
++        slot.retain_during_fetch = false;
++        slot.before_fetch();
++        assert!(offsets(&slot).iter().all(|o| *o == UNKNOWN));
++    }
++
++    #[test]
++    fn segment_mapping_budget_is_three_pages_for_256_kib() {
++        let slot = segment_slot(256 * 1024);
++        assert_eq!(slot.map_len, 12288);
++        assert_eq!(slot.segment_count, 512);
++    }
++
++    #[test]
++    fn release_is_visible_before_unmapping() {
++        let file = tempfile::tempfile().unwrap();
++        file.set_len(4096).unwrap();
++        let map = || unsafe {
++            libc::mmap(
++                std::ptr::null_mut(),
++                4096,
++                libc::PROT_READ | libc::PROT_WRITE,
++                libc::MAP_SHARED,
++                file.as_raw_fd(),
++                0,
++            )
++        };
++        let writer = map();
++        let reader = map();
++        assert_ne!(writer, libc::MAP_FAILED);
++        assert_ne!(reader, libc::MAP_FAILED);
++        let mut slot = SlotObservation {
++            row: NonNull::new(writer.cast()).unwrap(),
++            retain_during_fetch: true,
++            map_len: 4096,
++            segment_count: 8,
++        };
++        slot.words()[3].store(4096, SeqCst);
++        slot.begin(0, 4096, true);
++        slot.complete(true, 4096, 4096);
++        drop(slot);
++        let words = unsafe { &*reader.cast::<[AtomicU64; WORDS]>() };
++        assert_eq!(words[5].load(SeqCst), 0);
++        assert_eq!(words[6].load(SeqCst), 5);
++        assert_eq!(words[1].load(SeqCst) % 2, 0);
++        let entries = unsafe {
++            std::slice::from_raw_parts(reader.cast::<u8>().add(64).cast::<[AtomicU64; 2]>(), 8)
++        };
++        assert!(entries
++            .iter()
++            .all(|e| e[1].load(SeqCst) == UNKNOWN && e[0].load(SeqCst).is_multiple_of(2)));
++        unsafe {
++            libc::munmap(reader, 4096);
++        }
++    }
++
++    #[test]
++    fn negotiated_get_data_retains_only_until_next_overwrite() {
++        let mut words: [AtomicU64; WORDS] = std::array::from_fn(|_| AtomicU64::new(0));
++        words[3].store(8192, SeqCst);
++        let mut slot = std::mem::ManuallyDrop::new(SlotObservation {
++            row: NonNull::from(&mut words),
++            retain_during_fetch: true,
++            map_len: 4096,
++            segment_count: 0,
++        });
++        slot.begin(4096, 4096, true);
++        slot.complete(true, 4096, 4096);
++        let generation = words[1].load(SeqCst);
++        slot.before_fetch();
++        assert_eq!(words[1].load(SeqCst), generation);
++        assert_eq!(words[6].load(SeqCst), 3);
++        // The caller must do this before sending GET_DATA, including on requeue.
++        for _ in 0..2 {
++            slot.before_get_data(4096);
++            assert_eq!(words[5].load(SeqCst), 0);
++            assert_eq!(words[6].load(SeqCst), 4);
++        }
++        slot.begin(8192, 4096, true);
++        slot.complete(true, 4096, 4096);
++        slot.before_fetch();
++        slot.begin(12288, 4096, true);
++        assert_eq!(words[5].load(SeqCst), 0);
++        assert_eq!(words[6].load(SeqCst), 2);
++        slot.complete(true, 4096, -libc::EIO);
++        slot.before_fetch();
++        assert_eq!(words[6].load(SeqCst), 6);
++    }
++
++    #[test]
++    fn reuse_failure_and_kernel_overwrite_invalidate() {
++        let mut words: [AtomicU64; WORDS] = std::array::from_fn(|_| AtomicU64::new(0));
++        words[3].store(8192, SeqCst);
++        // The test uses stack memory and must not run the mmap-specific Drop.
++        let mut slot = std::mem::ManuallyDrop::new(SlotObservation {
++            row: NonNull::from(&mut words),
++            retain_during_fetch: false,
++            map_len: 4096,
++            segment_count: 0,
++        });
++        slot.begin(4096, 4096, true);
++        slot.complete(true, 4096, 4096);
++        assert_eq!(words[5].load(SeqCst), 4096);
++        assert_eq!(words[6].load(SeqCst), 3);
++        let generation = words[1].load(SeqCst);
++        slot.before_fetch();
++        assert_eq!(words[5].load(SeqCst), 0);
++        assert_eq!(words[6].load(SeqCst), 4);
++        assert!(words[1].load(SeqCst) > generation);
++        for (read, len, result) in [
++            (true, 4096, 512),
++            (true, 4096, -5),
++            (false, 4096, 4096),
++            (true, 16384, 16384),
++            (true, 0, 0),
++        ] {
++            slot.begin(8192, 4096, true);
++            slot.complete(read, len, result);
++            assert_eq!(words[5].load(SeqCst), 0);
++            assert_eq!(words[6].load(SeqCst), 6);
++        }
++        assert_eq!(words[7].load(SeqCst), 1);
++        assert_eq!(words[1].load(SeqCst) % 2, 0);
++    }
++}

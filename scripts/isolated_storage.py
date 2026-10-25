@@ -1,5 +1,6 @@
 """Owned, fully allocated ext4 fixture. Never formats or remounts existing devices."""
 import json
+import ipaddress
 from datetime import datetime, timezone, timedelta
 import os
 from pathlib import Path
@@ -22,6 +23,17 @@ def capacity_budget(free, capacity):
     return dict(ready=free > required, available_bytes=free,
                 required_available_bytes=required, capacity_bytes=capacity,
                 host_reserve_bytes=HOST_RESERVE, host_margin_bytes=HOST_MARGIN)
+
+
+def rootfs_network_pools(route_json):
+    """Two private pools for the explicit rootfs short mode; ignore default routes."""
+    used=[ipaddress.ip_network(r['dst'],strict=False) for r in json.loads(route_json)
+        if r.get('dst') not in (None,'default','0.0.0.0/0','::/0')]
+    for n in (213,215):
+        pair=[ipaddress.ip_network(f'10.{i}.0.0/16') for i in (n,n+1)]
+        if not any(a.overlaps(b) for a in pair for b in used if b.version==4):
+            return list(map(str,pair))
+    raise ValueError('no unused rootfs-short network pool pair')
 
 
 def mount_identity(mountpoint, device):

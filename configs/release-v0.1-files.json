@@ -1,0 +1,1089 @@
+{
+  "version": 1,
+  "project_license": "PENDING_OWNER_CONFIRMATION",
+  "scope": "v0.1 offline reproduction and prepared-host lightweight AgentENV adapters; legacy helper dependencies retained but not independently promised",
+  "excluded": [
+    ".git/",
+    ".artifacts/",
+    ".cache/",
+    "runtime/",
+    "AgentENV/",
+    "IncrementalDAX_moti/",
+    "AGENTS.md",
+    "credentials, state databases, VM images, unredacted raw logs"
+  ],
+  "files": [
+    {
+      "source": "README.md",
+      "destination": "README.md"
+    },
+    {
+      "source": ".gitignore",
+      "destination": ".gitignore"
+    },
+    {
+      "source": "requirements-release.txt",
+      "destination": "requirements-release.txt"
+    },
+    {
+      "source": "scripts/40-apply-trenvx-task-cgroup.py",
+      "destination": "scripts/40-apply-trenvx-task-cgroup.py"
+    },
+    {
+      "source": "scripts/44-smoke-trenvx-service.sh",
+      "destination": "scripts/44-smoke-trenvx-service.sh"
+    },
+    {
+      "source": "scripts/45-replay-trenvx-exp1.sh",
+      "destination": "scripts/45-replay-trenvx-exp1.sh"
+    },
+    {
+      "source": "scripts/46-run-trenvx-exp1-monitor-pairs.py",
+      "destination": "scripts/46-run-trenvx-exp1-monitor-pairs.py"
+    },
+    {
+      "source": "scripts/agentenv_cold_start.py",
+      "destination": "scripts/agentenv_cold_start.py"
+    },
+    {
+      "source": "scripts/agentenv_whole_cache.py",
+      "destination": "scripts/agentenv_whole_cache.py"
+    },
+    {
+      "source": "scripts/archive_trenvx_run_data.py",
+      "destination": "scripts/archive_trenvx_run_data.py"
+    },
+    {
+      "source": "scripts/audit_exp1_metrics.py",
+      "destination": "scripts/audit_exp1_metrics.py"
+    },
+    {
+      "source": "scripts/audit_lower_cache.py",
+      "destination": "scripts/audit_lower_cache.py"
+    },
+    {
+      "source": "scripts/audit_prettier6604_official.py",
+      "destination": "scripts/audit_prettier6604_official.py"
+    },
+    {
+      "source": "scripts/audit_snapshot_cache.py",
+      "destination": "scripts/audit_snapshot_cache.py"
+    },
+    {
+      "source": "scripts/build-rootfs-copy-daemon.sh",
+      "destination": "scripts/build-rootfs-copy-daemon.sh"
+    },
+    {
+      "source": "scripts/cached_file_inventory.py",
+      "destination": "scripts/cached_file_inventory.py"
+    },
+    {
+      "source": "scripts/calibrate_guest_collector.py",
+      "destination": "scripts/calibrate_guest_collector.py"
+    },
+    {
+      "source": "scripts/calibrate_trenvx_runner.py",
+      "destination": "scripts/calibrate_trenvx_runner.py"
+    },
+    {
+      "source": "scripts/capacity_checkpoint_recovery.py",
+      "destination": "scripts/capacity_checkpoint_recovery.py"
+    },
+    {
+      "source": "scripts/check-release-offline.sh",
+      "destination": "scripts/check-release-offline.sh"
+    },
+    {
+      "source": "scripts/collect_snapshot_child.py",
+      "destination": "scripts/collect_snapshot_child.py"
+    },
+    {
+      "source": "scripts/collector_fixed_work.c",
+      "destination": "scripts/collector_fixed_work.c"
+    },
+    {
+      "source": "scripts/command_clock.c",
+      "destination": "scripts/command_clock.c"
+    },
+    {
+      "source": "scripts/cpu_frequency_lease.py",
+      "destination": "scripts/cpu_frequency_lease.py"
+    },
+    {
+      "source": "scripts/diagnose_exp1_cpu_variance.py",
+      "destination": "scripts/diagnose_exp1_cpu_variance.py"
+    },
+    {
+      "source": "scripts/directory_profile.c",
+      "destination": "scripts/directory_profile.c"
+    },
+    {
+      "source": "scripts/exp1-process-probe.sh",
+      "destination": "scripts/exp1-process-probe.sh"
+    },
+    {
+      "source": "scripts/exp1_independent_check.cjs",
+      "destination": "scripts/exp1_independent_check.cjs"
+    },
+    {
+      "source": "scripts/exp1_inputs.py",
+      "destination": "scripts/exp1_inputs.py"
+    },
+    {
+      "source": "scripts/exp1_official_task.py",
+      "destination": "scripts/exp1_official_task.py"
+    },
+    {
+      "source": "scripts/exp1_physical_workload.py",
+      "destination": "scripts/exp1_physical_workload.py"
+    },
+    {
+      "source": "scripts/experiment_disk_guard.py",
+      "destination": "scripts/experiment_disk_guard.py"
+    },
+    {
+      "source": "scripts/export_host_copy_example.py",
+      "destination": "scripts/export_host_copy_example.py"
+    },
+    {
+      "source": "scripts/fast_cache_metadata.py",
+      "destination": "scripts/fast_cache_metadata.py"
+    },
+    {
+      "source": "scripts/fixed_frequency_window.py",
+      "destination": "scripts/fixed_frequency_window.py"
+    },
+    {
+      "source": "scripts/fixed_runner_git_identity.py",
+      "destination": "scripts/fixed_runner_git_identity.py"
+    },
+    {
+      "source": "scripts/git_step_diagnostic.py",
+      "destination": "scripts/git_step_diagnostic.py"
+    },
+    {
+      "source": "scripts/guest_cache_capacity.py",
+      "destination": "scripts/guest_cache_capacity.py"
+    },
+    {
+      "source": "scripts/guest_cache_exporter.py",
+      "destination": "scripts/guest_cache_exporter.py"
+    },
+    {
+      "source": "scripts/guest_cache_marker.py",
+      "destination": "scripts/guest_cache_marker.py"
+    },
+    {
+      "source": "scripts/guest_cache_state.py",
+      "destination": "scripts/guest_cache_state.py"
+    },
+    {
+      "source": "scripts/guest_cached_file_inventory.py",
+      "destination": "scripts/guest_cached_file_inventory.py"
+    },
+    {
+      "source": "scripts/guest_checkpoint_probe.py",
+      "destination": "scripts/guest_checkpoint_probe.py"
+    },
+    {
+      "source": "scripts/guest_command_diagnostic.py",
+      "destination": "scripts/guest_command_diagnostic.py"
+    },
+    {
+      "source": "scripts/guest_damon_control.py",
+      "destination": "scripts/guest_damon_control.py"
+    },
+    {
+      "source": "scripts/guest_diskstats.py",
+      "destination": "scripts/guest_diskstats.py"
+    },
+    {
+      "source": "scripts/guest_file_origins.py",
+      "destination": "scripts/guest_file_origins.py"
+    },
+    {
+      "source": "scripts/guest_file_type_check.py",
+      "destination": "scripts/guest_file_type_check.py"
+    },
+    {
+      "source": "scripts/guest_find_diagnostic.py",
+      "destination": "scripts/guest_find_diagnostic.py"
+    },
+    {
+      "source": "scripts/guest_git_wait.py",
+      "destination": "scripts/guest_git_wait.py"
+    },
+    {
+      "source": "scripts/guest_layer_file_state.py",
+      "destination": "scripts/guest_layer_file_state.py"
+    },
+    {
+      "source": "scripts/guest_memory_collector.py",
+      "destination": "scripts/guest_memory_collector.py"
+    },
+    {
+      "source": "scripts/guest_named_file_probe.py",
+      "destination": "scripts/guest_named_file_probe.py"
+    },
+    {
+      "source": "scripts/guest_page_cache_control.py",
+      "destination": "scripts/guest_page_cache_control.py"
+    },
+    {
+      "source": "scripts/guest_pagecache_marker.py",
+      "destination": "scripts/guest_pagecache_marker.py"
+    },
+    {
+      "source": "scripts/guest_performance.py",
+      "destination": "scripts/guest_performance.py"
+    },
+    {
+      "source": "scripts/guest_pfn_fixture.py",
+      "destination": "scripts/guest_pfn_fixture.py"
+    },
+    {
+      "source": "scripts/guest_runner_lifecycle.py",
+      "destination": "scripts/guest_runner_lifecycle.py"
+    },
+    {
+      "source": "scripts/guest_runner_phases.py",
+      "destination": "scripts/guest_runner_phases.py"
+    },
+    {
+      "source": "scripts/guest_snapshot_cache_fixture.py",
+      "destination": "scripts/guest_snapshot_cache_fixture.py"
+    },
+    {
+      "source": "scripts/guest_syscall_bundle.py",
+      "destination": "scripts/guest_syscall_bundle.py"
+    },
+    {
+      "source": "scripts/guest_task_damon.py",
+      "destination": "scripts/guest_task_damon.py"
+    },
+    {
+      "source": "scripts/guest_tool_capture.py",
+      "destination": "scripts/guest_tool_capture.py"
+    },
+    {
+      "source": "scripts/guest_whole_cache_probe.py",
+      "destination": "scripts/guest_whole_cache_probe.py"
+    },
+    {
+      "source": "scripts/host_deleted_backing.py",
+      "destination": "scripts/host_deleted_backing.py"
+    },
+    {
+      "source": "scripts/host_existing_cache_owner.py",
+      "destination": "scripts/host_existing_cache_owner.py"
+    },
+    {
+      "source": "scripts/host_file_matched_task.py",
+      "destination": "scripts/host_file_matched_task.py"
+    },
+    {
+      "source": "scripts/host_file_monitor.py",
+      "destination": "scripts/host_file_monitor.py"
+    },
+    {
+      "source": "scripts/host_file_trace.py",
+      "destination": "scripts/host_file_trace.py"
+    },
+    {
+      "source": "scripts/host_full_rootfs_control.py",
+      "destination": "scripts/host_full_rootfs_control.py"
+    },
+    {
+      "source": "scripts/host_independent_task.py",
+      "destination": "scripts/host_independent_task.py"
+    },
+    {
+      "source": "scripts/host_loop_charge.py",
+      "destination": "scripts/host_loop_charge.py"
+    },
+    {
+      "source": "scripts/host_mapped_backing.py",
+      "destination": "scripts/host_mapped_backing.py"
+    },
+    {
+      "source": "scripts/host_memory_detail_report.py",
+      "destination": "scripts/host_memory_detail_report.py"
+    },
+    {
+      "source": "scripts/host_prefix_compare.py",
+      "destination": "scripts/host_prefix_compare.py"
+    },
+    {
+      "source": "scripts/host_private_files.py",
+      "destination": "scripts/host_private_files.py"
+    },
+    {
+      "source": "scripts/host_rollout_shared.py",
+      "destination": "scripts/host_rollout_shared.py"
+    },
+    {
+      "source": "scripts/host_rootfs_layers.py",
+      "destination": "scripts/host_rootfs_layers.py"
+    },
+    {
+      "source": "scripts/host_sandbox_monitor.py",
+      "destination": "scripts/host_sandbox_monitor.py"
+    },
+    {
+      "source": "scripts/host_scaling.py",
+      "destination": "scripts/host_scaling.py"
+    },
+    {
+      "source": "scripts/host_scaling_reference.py",
+      "destination": "scripts/host_scaling_reference.py"
+    },
+    {
+      "source": "scripts/host_special_metadata.py",
+      "destination": "scripts/host_special_metadata.py"
+    },
+    {
+      "source": "scripts/host_ublk_info.c",
+      "destination": "scripts/host_ublk_info.c"
+    },
+    {
+      "source": "scripts/isolated_storage.py",
+      "destination": "scripts/isolated_storage.py"
+    },
+    {
+      "source": "scripts/kernel_cache_metadata.py",
+      "destination": "scripts/kernel_cache_metadata.py"
+    },
+    {
+      "source": "scripts/kernel_file_cache.py",
+      "destination": "scripts/kernel_file_cache.py"
+    },
+    {
+      "source": "scripts/live_task_cache.py",
+      "destination": "scripts/live_task_cache.py"
+    },
+    {
+      "source": "scripts/measure_file_physical.py",
+      "destination": "scripts/measure_file_physical.py"
+    },
+    {
+      "source": "scripts/memory_composition.py",
+      "destination": "scripts/memory_composition.py"
+    },
+    {
+      "source": "scripts/model_tool_agent.py",
+      "destination": "scripts/model_tool_agent.py"
+    },
+    {
+      "source": "scripts/named_guest_file_physical.py",
+      "destination": "scripts/named_guest_file_physical.py"
+    },
+    {
+      "source": "scripts/native_checkpoint_bundle.py",
+      "destination": "scripts/native_checkpoint_bundle.py"
+    },
+    {
+      "source": "scripts/online_task.py",
+      "destination": "scripts/online_task.py"
+    },
+    {
+      "source": "scripts/owned_thread_wait.py",
+      "destination": "scripts/owned_thread_wait.py"
+    },
+    {
+      "source": "scripts/paused_agentenv_boundary.py",
+      "destination": "scripts/paused_agentenv_boundary.py"
+    },
+    {
+      "source": "scripts/persistent_guest_sampling.py",
+      "destination": "scripts/persistent_guest_sampling.py"
+    },
+    {
+      "source": "scripts/plan_trenvx_storage.py",
+      "destination": "scripts/plan_trenvx_storage.py"
+    },
+    {
+      "source": "scripts/platform_management.py",
+      "destination": "scripts/platform_management.py"
+    },
+    {
+      "source": "scripts/platform_tasks.py",
+      "destination": "scripts/platform_tasks.py"
+    },
+    {
+      "source": "scripts/prepare-agentenv-source.sh",
+      "destination": "scripts/prepare-agentenv-source.sh"
+    },
+    {
+      "source": "scripts/prepare-release.sh",
+      "destination": "scripts/prepare-release.sh"
+    },
+    {
+      "source": "scripts/prepare_exp1_clean_directory.py",
+      "destination": "scripts/prepare_exp1_clean_directory.py"
+    },
+    {
+      "source": "scripts/prepare_prettier6604_cache.py",
+      "destination": "scripts/prepare_prettier6604_cache.py"
+    },
+    {
+      "source": "scripts/prepare_prettier6604_rollouts.py",
+      "destination": "scripts/prepare_prettier6604_rollouts.py"
+    },
+    {
+      "source": "scripts/prepare_release.py",
+      "destination": "scripts/prepare_release.py"
+    },
+    {
+      "source": "scripts/prepare_xarray6992_image.py",
+      "destination": "scripts/prepare_xarray6992_image.py"
+    },
+    {
+      "source": "scripts/prettier6604_boundary.py",
+      "destination": "scripts/prettier6604_boundary.py"
+    },
+    {
+      "source": "scripts/prettier6604_check.cjs",
+      "destination": "scripts/prettier6604_check.cjs"
+    },
+    {
+      "source": "scripts/prettier6604_inputs.py",
+      "destination": "scripts/prettier6604_inputs.py"
+    },
+    {
+      "source": "scripts/prettier6604_monitor_pairs.py",
+      "destination": "scripts/prettier6604_monitor_pairs.py"
+    },
+    {
+      "source": "scripts/prewarm_directories.py",
+      "destination": "scripts/prewarm_directories.py"
+    },
+    {
+      "source": "scripts/probe_storage_boundary.py",
+      "destination": "scripts/probe_storage_boundary.py"
+    },
+    {
+      "source": "scripts/provider_residency_report.py",
+      "destination": "scripts/provider_residency_report.py"
+    },
+    {
+      "source": "scripts/provider_slot_cache.py",
+      "destination": "scripts/provider_slot_cache.py"
+    },
+    {
+      "source": "scripts/recheck_file_lru.py",
+      "destination": "scripts/recheck_file_lru.py"
+    },
+    {
+      "source": "scripts/replay_trenvx_exp1.py",
+      "destination": "scripts/replay_trenvx_exp1.py"
+    },
+    {
+      "source": "scripts/report-host-copy-summary.sh",
+      "destination": "scripts/report-host-copy-summary.sh"
+    },
+    {
+      "source": "scripts/report_exp1_checkpoint.py",
+      "destination": "scripts/report_exp1_checkpoint.py"
+    },
+    {
+      "source": "scripts/report_exp2.py",
+      "destination": "scripts/report_exp2.py"
+    },
+    {
+      "source": "scripts/report_file_inventory.py",
+      "destination": "scripts/report_file_inventory.py"
+    },
+    {
+      "source": "scripts/report_host_copy_summary.py",
+      "destination": "scripts/report_host_copy_summary.py"
+    },
+    {
+      "source": "scripts/report_host_file.py",
+      "destination": "scripts/report_host_file.py"
+    },
+    {
+      "source": "scripts/report_kernel_acceptance.py",
+      "destination": "scripts/report_kernel_acceptance.py"
+    },
+    {
+      "source": "scripts/report_live_task_cache.py",
+      "destination": "scripts/report_live_task_cache.py"
+    },
+    {
+      "source": "scripts/report_memory_metrics.py",
+      "destination": "scripts/report_memory_metrics.py"
+    },
+    {
+      "source": "scripts/report_prettier6604.py",
+      "destination": "scripts/report_prettier6604.py"
+    },
+    {
+      "source": "scripts/report_prettier6604_grpo.py",
+      "destination": "scripts/report_prettier6604_grpo.py"
+    },
+    {
+      "source": "scripts/report_provider_initial_pages.py",
+      "destination": "scripts/report_provider_initial_pages.py"
+    },
+    {
+      "source": "scripts/report_provider_offset_candidates.py",
+      "destination": "scripts/report_provider_offset_candidates.py"
+    },
+    {
+      "source": "scripts/report_provider_segment_unknown.py",
+      "destination": "scripts/report_provider_segment_unknown.py"
+    },
+    {
+      "source": "scripts/report_sandbox_performance.py",
+      "destination": "scripts/report_sandbox_performance.py"
+    },
+    {
+      "source": "scripts/report_sandbox_runtime.py",
+      "destination": "scripts/report_sandbox_runtime.py"
+    },
+    {
+      "source": "scripts/report_task_overview.py",
+      "destination": "scripts/report_task_overview.py"
+    },
+    {
+      "source": "scripts/report_v1_closeout.py",
+      "destination": "scripts/report_v1_closeout.py"
+    },
+    {
+      "source": "scripts/report_whole_analysis_controls.py",
+      "destination": "scripts/report_whole_analysis_controls.py"
+    },
+    {
+      "source": "scripts/report_xarray6992.py",
+      "destination": "scripts/report_xarray6992.py"
+    },
+    {
+      "source": "scripts/run-host-file-monitor.sh",
+      "destination": "scripts/run-host-file-monitor.sh"
+    },
+    {
+      "source": "scripts/run-host-full-rootfs.sh",
+      "destination": "scripts/run-host-full-rootfs.sh"
+    },
+    {
+      "source": "scripts/run-light-monitor-controls.sh",
+      "destination": "scripts/run-light-monitor-controls.sh"
+    },
+    {
+      "source": "scripts/run_exp1.py",
+      "destination": "scripts/run_exp1.py"
+    },
+    {
+      "source": "scripts/run_exp1_checkpoint.py",
+      "destination": "scripts/run_exp1_checkpoint.py"
+    },
+    {
+      "source": "scripts/run_exp1_monitor_balanced.py",
+      "destination": "scripts/run_exp1_monitor_balanced.py"
+    },
+    {
+      "source": "scripts/run_exp1_official_control.py",
+      "destination": "scripts/run_exp1_official_control.py"
+    },
+    {
+      "source": "scripts/run_exp2.py",
+      "destination": "scripts/run_exp2.py"
+    },
+    {
+      "source": "scripts/run_exp2_trenvx.py",
+      "destination": "scripts/run_exp2_trenvx.py"
+    },
+    {
+      "source": "scripts/run_fixed_frequency_monitor_smoke.py",
+      "destination": "scripts/run_fixed_frequency_monitor_smoke.py"
+    },
+    {
+      "source": "scripts/run_guest_cache_capacity.py",
+      "destination": "scripts/run_guest_cache_capacity.py"
+    },
+    {
+      "source": "scripts/run_guest_cache_metadata.py",
+      "destination": "scripts/run_guest_cache_metadata.py"
+    },
+    {
+      "source": "scripts/run_host_file_pair.py",
+      "destination": "scripts/run_host_file_pair.py"
+    },
+    {
+      "source": "scripts/run_host_file_restore.py",
+      "destination": "scripts/run_host_file_restore.py"
+    },
+    {
+      "source": "scripts/run_host_file_workflow.py",
+      "destination": "scripts/run_host_file_workflow.py"
+    },
+    {
+      "source": "scripts/run_host_full_rootfs.py",
+      "destination": "scripts/run_host_full_rootfs.py"
+    },
+    {
+      "source": "scripts/run_host_independent_pair.py",
+      "destination": "scripts/run_host_independent_pair.py"
+    },
+    {
+      "source": "scripts/run_host_private_files.py",
+      "destination": "scripts/run_host_private_files.py"
+    },
+    {
+      "source": "scripts/run_host_rootfs_short.py",
+      "destination": "scripts/run_host_rootfs_short.py"
+    },
+    {
+      "source": "scripts/run_host_scaling.py",
+      "destination": "scripts/run_host_scaling.py"
+    },
+    {
+      "source": "scripts/run_light_monitor_controls.py",
+      "destination": "scripts/run_light_monitor_controls.py"
+    },
+    {
+      "source": "scripts/run_native_checkpoint.py",
+      "destination": "scripts/run_native_checkpoint.py"
+    },
+    {
+      "source": "scripts/run_native_checkpoint_workflow.py",
+      "destination": "scripts/run_native_checkpoint_workflow.py"
+    },
+    {
+      "source": "scripts/run_persistent_metrics_comparison.py",
+      "destination": "scripts/run_persistent_metrics_comparison.py"
+    },
+    {
+      "source": "scripts/run_prettier6604.py",
+      "destination": "scripts/run_prettier6604.py"
+    },
+    {
+      "source": "scripts/run_prettier6604_grpo.py",
+      "destination": "scripts/run_prettier6604_grpo.py"
+    },
+    {
+      "source": "scripts/run_runtime_monitor_smoke.py",
+      "destination": "scripts/run_runtime_monitor_smoke.py"
+    },
+    {
+      "source": "scripts/run_snapshot_cache_calibration.py",
+      "destination": "scripts/run_snapshot_cache_calibration.py"
+    },
+    {
+      "source": "scripts/run_snapshot_cache_pair.py",
+      "destination": "scripts/run_snapshot_cache_pair.py"
+    },
+    {
+      "source": "scripts/run_sphinx_command_diagnostic.py",
+      "destination": "scripts/run_sphinx_command_diagnostic.py"
+    },
+    {
+      "source": "scripts/run_task_metrics_smoke.py",
+      "destination": "scripts/run_task_metrics_smoke.py"
+    },
+    {
+      "source": "scripts/run_tool_capture.py",
+      "destination": "scripts/run_tool_capture.py"
+    },
+    {
+      "source": "scripts/run_trenvx_combined_controls.py",
+      "destination": "scripts/run_trenvx_combined_controls.py"
+    },
+    {
+      "source": "scripts/run_trenvx_file_origins.py",
+      "destination": "scripts/run_trenvx_file_origins.py"
+    },
+    {
+      "source": "scripts/run_trenvx_fixed_identity.py",
+      "destination": "scripts/run_trenvx_fixed_identity.py"
+    },
+    {
+      "source": "scripts/run_trenvx_monitor_balanced.py",
+      "destination": "scripts/run_trenvx_monitor_balanced.py"
+    },
+    {
+      "source": "scripts/run_trenvx_persistent_comparison.py",
+      "destination": "scripts/run_trenvx_persistent_comparison.py"
+    },
+    {
+      "source": "scripts/run_whole_analysis_controls.py",
+      "destination": "scripts/run_whole_analysis_controls.py"
+    },
+    {
+      "source": "scripts/run_xarray6992.py",
+      "destination": "scripts/run_xarray6992.py"
+    },
+    {
+      "source": "scripts/sandbox_runtime_monitor.py",
+      "destination": "scripts/sandbox_runtime_monitor.py"
+    },
+    {
+      "source": "scripts/shared_task_cache.py",
+      "destination": "scripts/shared_task_cache.py"
+    },
+    {
+      "source": "scripts/smoke_agentenv_whole_cache.py",
+      "destination": "scripts/smoke_agentenv_whole_cache.py"
+    },
+    {
+      "source": "scripts/smoke_trenvx_service.py",
+      "destination": "scripts/smoke_trenvx_service.py"
+    },
+    {
+      "source": "scripts/smoke_vm_pfn.py",
+      "destination": "scripts/smoke_vm_pfn.py"
+    },
+    {
+      "source": "scripts/snapshot_cache_residency.py",
+      "destination": "scripts/snapshot_cache_residency.py"
+    },
+    {
+      "source": "scripts/snapshot_layer_metadata.py",
+      "destination": "scripts/snapshot_layer_metadata.py"
+    },
+    {
+      "source": "scripts/sphinx7590_boundary.py",
+      "destination": "scripts/sphinx7590_boundary.py"
+    },
+    {
+      "source": "scripts/sphinx7590_check.py",
+      "destination": "scripts/sphinx7590_check.py"
+    },
+    {
+      "source": "scripts/sphinx7590_inputs.py",
+      "destination": "scripts/sphinx7590_inputs.py"
+    },
+    {
+      "source": "scripts/storage_lifecycle.py",
+      "destination": "scripts/storage_lifecycle.py"
+    },
+    {
+      "source": "scripts/storage_observer.py",
+      "destination": "scripts/storage_observer.py"
+    },
+    {
+      "source": "scripts/storage_supervisor.py",
+      "destination": "scripts/storage_supervisor.py"
+    },
+    {
+      "source": "scripts/task_metrics_prefix.py",
+      "destination": "scripts/task_metrics_prefix.py"
+    },
+    {
+      "source": "scripts/task_physical_cache.py",
+      "destination": "scripts/task_physical_cache.py"
+    },
+    {
+      "source": "scripts/tool_trajectory.py",
+      "destination": "scripts/tool_trajectory.py"
+    },
+    {
+      "source": "scripts/trace_owned_vcpu_faults.bt",
+      "destination": "scripts/trace_owned_vcpu_faults.bt"
+    },
+    {
+      "source": "scripts/trace_owned_vcpu_wait.bt",
+      "destination": "scripts/trace_owned_vcpu_wait.bt"
+    },
+    {
+      "source": "scripts/trenvx_diagnostic_metrics.py",
+      "destination": "scripts/trenvx_diagnostic_metrics.py"
+    },
+    {
+      "source": "scripts/trenvx_file_diagnostic.py",
+      "destination": "scripts/trenvx_file_diagnostic.py"
+    },
+    {
+      "source": "scripts/trenvx_kernel_cache.py",
+      "destination": "scripts/trenvx_kernel_cache.py"
+    },
+    {
+      "source": "scripts/trenvx_kvm_capture.py",
+      "destination": "scripts/trenvx_kvm_capture.py"
+    },
+    {
+      "source": "scripts/trenvx_named_guest_files.py",
+      "destination": "scripts/trenvx_named_guest_files.py"
+    },
+    {
+      "source": "scripts/trenvx_whole_cache.py",
+      "destination": "scripts/trenvx_whole_cache.py"
+    },
+    {
+      "source": "scripts/use-platform.sh",
+      "destination": "scripts/use-platform.sh"
+    },
+    {
+      "source": "scripts/use_platform.py",
+      "destination": "scripts/use_platform.py"
+    },
+    {
+      "source": "scripts/validate-isolated-storage.sh",
+      "destination": "scripts/validate-isolated-storage.sh"
+    },
+    {
+      "source": "scripts/validate-isolated-trenvx.sh",
+      "destination": "scripts/validate-isolated-trenvx.sh"
+    },
+    {
+      "source": "scripts/validate_isolated_agentenv.py",
+      "destination": "scripts/validate_isolated_agentenv.py"
+    },
+    {
+      "source": "scripts/validate_isolated_trenvx.py",
+      "destination": "scripts/validate_isolated_trenvx.py"
+    },
+    {
+      "source": "scripts/verify_initial_acceptance.py",
+      "destination": "scripts/verify_initial_acceptance.py"
+    },
+    {
+      "source": "scripts/vm_pfn_fixture.py",
+      "destination": "scripts/vm_pfn_fixture.py"
+    },
+    {
+      "source": "scripts/xarray6992_boundary.py",
+      "destination": "scripts/xarray6992_boundary.py"
+    },
+    {
+      "source": "scripts/xarray6992_check.py",
+      "destination": "scripts/xarray6992_check.py"
+    },
+    {
+      "source": "scripts/xarray6992_find_probe.py",
+      "destination": "scripts/xarray6992_find_probe.py"
+    },
+    {
+      "source": "scripts/xarray6992_inputs.py",
+      "destination": "scripts/xarray6992_inputs.py"
+    },
+    {
+      "source": "scripts/xarray6992_offline_image.py",
+      "destination": "scripts/xarray6992_offline_image.py"
+    },
+    {
+      "source": "scripts/xarray6992_persistent_sampling.py",
+      "destination": "scripts/xarray6992_persistent_sampling.py"
+    },
+    {
+      "source": "scripts/xarray6992_test_ids.py",
+      "destination": "scripts/xarray6992_test_ids.py"
+    },
+    {
+      "source": "docs/release/PREPARED_HOST.md",
+      "destination": "docs/release/PREPARED_HOST.md"
+    },
+    {
+      "source": "docs/release/RESULTS.md",
+      "destination": "docs/release/RESULTS.md"
+    },
+    {
+      "source": "docs/release/THIRD_PARTY_NOTICES.md",
+      "destination": "docs/release/THIRD_PARTY_NOTICES.md"
+    },
+    {
+      "source": "docs/release/manifests/host-full-private-scope-20261024.json",
+      "destination": "docs/release/manifests/host-full-private-scope-20261024.json"
+    },
+    {
+      "source": "docs/release/manifests/host-private-control-offline-20261024.json",
+      "destination": "docs/release/manifests/host-private-control-offline-20261024.json"
+    },
+    {
+      "source": "docs/release/VALIDATION.md",
+      "destination": "docs/release/VALIDATION.md"
+    },
+    {
+      "source": "docs/records/evidence/host-full-private-scope-20261024.json",
+      "destination": "docs/records/evidence/host-full-private-scope-20261024.json"
+    },
+    {
+      "source": "docs/records/evidence/host-private-control-offline-20261024.json",
+      "destination": "docs/records/evidence/host-private-control-offline-20261024.json"
+    },
+    {
+      "source": "docs/records/evidence/host-full-grpo-private-20261025.png",
+      "destination": "docs/records/evidence/host-full-grpo-private-20261025.png"
+    },
+    {
+      "source": "docs/records/evidence/host-full-grpo-private-20261025.svg",
+      "destination": "docs/records/evidence/host-full-grpo-private-20261025.svg"
+    },
+    {
+      "source": "docs/records/evidence/host-bpo-copy-live-20261025.png",
+      "destination": "docs/records/evidence/host-bpo-copy-live-20261025.png"
+    },
+    {
+      "source": "docs/records/evidence/host-bpo-copy-live-20261025.svg",
+      "destination": "docs/records/evidence/host-bpo-copy-live-20261025.svg"
+    },
+    {
+      "source": "examples/host-copy-summary/README.md",
+      "destination": "examples/host-copy-summary/README.md"
+    },
+    {
+      "source": "examples/host-copy-summary/bpo.json",
+      "destination": "examples/host-copy-summary/bpo.json"
+    },
+    {
+      "source": "examples/host-copy-summary/grpo.json",
+      "destination": "examples/host-copy-summary/grpo.json"
+    },
+    {
+      "source": "examples/host-copy-summary/provenance.json",
+      "destination": "examples/host-copy-summary/provenance.json"
+    },
+    {
+      "source": "examples/host-copy-summary/records/bpo-private/prettier6604/host-full-rootfs.json",
+      "destination": "examples/host-copy-summary/records/bpo-private/prettier6604/host-full-rootfs.json"
+    },
+    {
+      "source": "examples/host-copy-summary/records/bpo-private/prettier6604/result.json",
+      "destination": "examples/host-copy-summary/records/bpo-private/prettier6604/result.json"
+    },
+    {
+      "source": "examples/host-copy-summary/records/bpo-shared/prettier6604/host-full-rootfs.json",
+      "destination": "examples/host-copy-summary/records/bpo-shared/prettier6604/host-full-rootfs.json"
+    },
+    {
+      "source": "examples/host-copy-summary/records/bpo-shared/prettier6604/result.json",
+      "destination": "examples/host-copy-summary/records/bpo-shared/prettier6604/result.json"
+    },
+    {
+      "source": "examples/host-copy-summary/records/grpo-private/prettier6604/host-full-rootfs.json",
+      "destination": "examples/host-copy-summary/records/grpo-private/prettier6604/host-full-rootfs.json"
+    },
+    {
+      "source": "examples/host-copy-summary/records/grpo-private/prettier6604/result.json",
+      "destination": "examples/host-copy-summary/records/grpo-private/prettier6604/result.json"
+    },
+    {
+      "source": "examples/host-copy-summary/records/grpo-shared/prettier6604/host-full-rootfs.json",
+      "destination": "examples/host-copy-summary/records/grpo-shared/prettier6604/host-full-rootfs.json"
+    },
+    {
+      "source": "examples/host-copy-summary/records/grpo-shared/prettier6604/result.json",
+      "destination": "examples/host-copy-summary/records/grpo-shared/prettier6604/result.json"
+    },
+    {
+      "source": "tests/test_host_copy_summary.py",
+      "destination": "tests/test_host_copy_summary.py"
+    },
+    {
+      "source": "tests/test_release_light_sampler.py",
+      "destination": "tests/test_release_light_sampler.py"
+    },
+    {
+      "source": "tests/test_host_full_rootfs_control.py",
+      "destination": "tests/test_host_full_rootfs_control.py"
+    },
+    {
+      "source": "tests/test_host_bpo_rootfs_control.py",
+      "destination": "tests/test_host_bpo_rootfs_control.py"
+    },
+    {
+      "source": "tests/test_host_rootfs_layers.py",
+      "destination": "tests/test_host_rootfs_layers.py"
+    },
+    {
+      "source": "configs/source-revisions.json",
+      "destination": "configs/source-revisions.json"
+    },
+    {
+      "source": "configs/prettier6604-backbone.json",
+      "destination": "configs/prettier6604-backbone.json"
+    },
+    {
+      "source": "configs/sphinx7590-backbone.json",
+      "destination": "configs/sphinx7590-backbone.json"
+    },
+    {
+      "source": "configs/xarray6992-backbone.json",
+      "destination": "configs/xarray6992-backbone.json"
+    },
+    {
+      "source": "configs/platform-prettier6604.json",
+      "destination": "configs/platform-prettier6604.json"
+    },
+    {
+      "source": "configs/platform-sphinx7590.json",
+      "destination": "configs/platform-sphinx7590.json"
+    },
+    {
+      "source": "configs/platform-xarray6992.json",
+      "destination": "configs/platform-xarray6992.json"
+    },
+    {
+      "source": "configs/platform-prettier6604-host-file.json",
+      "destination": "configs/platform-prettier6604-host-file.json"
+    },
+    {
+      "source": "configs/platform-sphinx7590-host-file.json",
+      "destination": "configs/platform-sphinx7590-host-file.json"
+    },
+    {
+      "source": "configs/platform-xarray6992-host-file.json",
+      "destination": "configs/platform-xarray6992-host-file.json"
+    },
+    {
+      "source": "configs/platform-prettier6604-grpo-light-host.json",
+      "destination": "configs/platform-prettier6604-grpo-light-host.json"
+    },
+    {
+      "source": "configs/platform-prettier6604-bpo-light-host.json",
+      "destination": "configs/platform-prettier6604-bpo-light-host.json"
+    },
+    {
+      "source": "patches/agentenv-v0.1-measurement.patch",
+      "destination": "patches/agentenv-v0.1-measurement.patch"
+    },
+    {
+      "source": "third_party/AgentENV.LICENSE",
+      "destination": "third_party/AgentENV.LICENSE"
+    },
+    {
+      "source": "configs/release-v0.1-files.json",
+      "destination": "configs/release-v0.1-files.json"
+    },
+    {
+      "source": "scripts/run-light-rollout-pair.sh",
+      "destination": "scripts/run-light-rollout-pair.sh"
+    },
+    {
+      "source": "scripts/run_light_rollout_pair.py",
+      "destination": "scripts/run_light_rollout_pair.py"
+    },
+    {
+      "source": "docs/release/LIGHT_MEASUREMENT.md",
+      "destination": "docs/release/LIGHT_MEASUREMENT.md"
+    },
+    {
+      "source": "examples/light-monitor-controls.json",
+      "destination": "examples/light-monitor-controls.json"
+    },
+    {
+      "source": "docs/records/evidence/sphinx-light-100ms-20261019.png",
+      "destination": "docs/records/evidence/sphinx-light-100ms-20261019.png"
+    },
+    {
+      "source": "docs/records/evidence/sphinx-light-100ms-20261019.svg",
+      "destination": "docs/records/evidence/sphinx-light-100ms-20261019.svg"
+    },
+    {
+      "source": "docs/records/evidence/prettier-light-100ms-20261019.png",
+      "destination": "docs/records/evidence/prettier-light-100ms-20261019.png"
+    },
+    {
+      "source": "docs/records/evidence/prettier-light-100ms-20261019.svg",
+      "destination": "docs/records/evidence/prettier-light-100ms-20261019.svg"
+    },
+    {
+      "source": "docs/records/evidence/xarray-light-100ms-20261019.png",
+      "destination": "docs/records/evidence/xarray-light-100ms-20261019.png"
+    },
+    {
+      "source": "docs/records/evidence/xarray-light-100ms-20261019.svg",
+      "destination": "docs/records/evidence/xarray-light-100ms-20261019.svg"
+    }
+  ]
+}

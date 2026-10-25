@@ -26,7 +26,11 @@ def audit(raw, task_dir):
     check='sampled_actions_order_exit_codes_and_distinct_instances' if schedule!='grpo' else 'sampled_actions_order_exit_codes_and_distinct_roots'
     assert result['checks'][check]=='PASS'
     assert result['checks']['final_source_properties_and_complete_official_outcomes']=='PASS'
-    assert result['cleanup']['service_sandbox_list_empty'] and result['cleanup']['monitor_stopped']
+    light=(raw/'runtime-monitor.json').exists() and json.loads((raw/'runtime-monitor.json').read_text()).get('profile')=='light'
+    assert result['cleanup']['service_sandbox_list_empty']
+    if light:
+        assert result['cleanup']['legacy_host_monitor_not_requested'] and not (raw/'host/memory-samples.tsv').exists()
+    else:assert result['cleanup']['monitor_stopped']
     config=json.loads((raw/'effective-config.json').read_text())
     roles=result['roles'];assert roles==config['selected_roles'] and len(set(roles))==len(roles)
     final_roles=result.get('final_roles',roles)
@@ -129,8 +133,9 @@ def audit(raw, task_dir):
     logical_count=sum(len(sampled_segment(samples,r,names[s])['actions']) for r in final_roles for s in paths[r])
     assert result.get('logical_action_count',result['action_count'])==logical_count
     assert result['segment_count']==len(trace)
-    host=rows(raw/'host/memory-samples.tsv');assert host
-    peak=max(host,key=lambda r:int(r['cgroup_current_bytes']))
+    host=[] if light else rows(raw/'host/memory-samples.tsv')
+    if not light:assert host
+    peak=max(host,key=lambda r:int(r['cgroup_current_bytes'])) if host else None
     events=json.loads((raw/'events.json').read_text());assert all(r['exit_code']==0 for r in events)
     cold={role:next(r for r in events if r['stage'].endswith('-cold-'+role)) for role in roles
           if any(r['stage'].endswith('-cold-'+role) for r in events)}
@@ -145,7 +150,7 @@ def audit(raw, task_dir):
             logical_action_count=logical_count,
             actions=result['action_count'],segments=result['segment_count'],per_role=per_role,
             host=dict(sample_count=len(host),observed_peak_bytes=int(peak['cgroup_current_bytes']),
-                components_at_peak_bytes={k:int(peak['cgroup_'+k+'_bytes']) for k in ('anon','file','kernel')}),
+                components_at_peak_bytes={k:int(peak['cgroup_'+k+'_bytes']) for k in ('anon','file','kernel')}) if host else dict(status='NOT_REQUESTED',scope='Light profile; outer host-file report is separate'),
             timing=dict(controller_elapsed_ns=result['controller_elapsed_ns'],cold_request_span_ns=span(list(cold.values())),
                 cold_request_per_role_ns={r:e['duration_ns'] for r,e in cold.items()},cold_requests_overlap=cold_overlap,
                 checkpoint_call_ns=[e['duration_ns'] for e in checkpoint_calls],

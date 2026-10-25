@@ -27,12 +27,17 @@ class BoundedOutput:
 
 
 def export(source,output,metadata,limit=ARCHIVE_LIMIT):
+    assert metadata['server_image']==IMAGE and metadata['phase']=='capture' and metadata['status']=='PASS'
+    return _export_repository(source,output,metadata,limit)
+
+
+def _export_repository(source,output,metadata,limit):
+    """Shared archive mechanism; each public caller validates its own capture metadata."""
     started=time.monotonic_ns();source=source.resolve();assert source.name=='snapshot-store'
     repository=source/'repository' if (source/'repository').is_dir() else source
     assert (repository/'catalog/records').is_dir()
     assert (repository/'snapshots').is_dir() and (repository/'managed-layers').is_dir()
     before=immutable_manifest(source);assert before and all(v['type']=='file' for v in before.values()),'unsupported repository link or special entry'
-    assert metadata['server_image']==IMAGE and metadata['phase']=='capture' and metadata['status']=='PASS'
     output.mkdir(parents=True,exist_ok=False);archive=output/'repository.tar.gz'
     with archive.open('xb') as stream:
         bounded=BoundedOutput(stream,limit)

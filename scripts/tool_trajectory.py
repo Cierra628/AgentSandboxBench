@@ -60,19 +60,71 @@ def validate(directory):
     return manifest
 
 
-def replay(directory,output,cli,sid):
+def output_content(content,policy,command=None):
+    if policy=='strict':return content
+    assert policy in ('jest-timing-v1','prettier-runtime-v1')
+    import re
+    text=content.decode(errors='strict')
+    if policy=='prettier-runtime-v1':
+        # These two directory timestamps change when a clean VM is seeded.
+        # Keep all other listing fields and all other commands byte-for-byte.
+        if command in ('cd /testbed && ls -la','cd /testbed && pwd && ls -la'):
+            text=re.sub(r'(?m)^(d[rwxstST-]{9}\s+\d+ root root\s+4096 )'
+                        r'[A-Z][a-z]{2}\s+\d{1,2}\s+\d{2}:\d{2}( (?:\.\.|\.git))$',
+                        r'\1<time>\2',text)
+        candidate=re.sub(r'\(node:\d+\)(?= \[DEP0128\])','(node:<pid>)',text)
+        warning="(node:<pid>) [DEP0128] DeprecationWarning: Invalid 'main' field in '/testbed/node_modules/find-parent-dir/package.json' of 'find-parent-dir.js'. Please either fix that or report it to the module author\n(Use `node --trace-deprecation ...` to show where the warning was created)\n"
+        if candidate==warning:text=candidate
+    # Only standard Jest/Yarn timing fields; outcomes and test names stay intact.
+    text=re.sub(r'(?m)^(Time:\s+)\d+(?:\.\d+)?s(, estimated \d+s)?$',r'\1<duration>',text)
+    text=re.sub(r'(?m)^Done in \d+(?:\.\d+)?s\.$','Done in <duration>.',text)
+    text=re.sub(r'(?m)^(PASS|FAIL) (tests/\S+) \(\d+(?:\.\d+)?s\)$',r'\1 \2 (<duration>)',text)
+    text=re.sub(r'(?m)^(\s+[✓✕] .*?) \(\d+(?:\.\d+)?ms\)$',r'\1 (<duration>)',text)
+    match=re.search(r'{\s*"numFailedTestSuites"',text)
+    if match:
+        value,end=json.JSONDecoder().raw_decode(text[match.start():])
+        for key in ('startTime',):
+            if key in value:value[key]='<time>'
+        for suite in value.get('testResults',[]):
+            for key in ('startTime','endTime'):
+                if key in suite:suite[key]='<time>'
+            for assertion in suite.get('assertionResults',[]):
+                if 'duration' in assertion:assertion['duration']='<duration>'
+        text=text[:match.start()]+json.dumps(value,sort_keys=True)+text[match.start()+end:]
+    return text.encode()
+
+
+def compare_step(a,b,context):
+    expected=json.loads((a/'result.json').read_text());actual=json.loads((b/'result.json').read_text())
+    assert (a/'request.json').read_bytes()==(b/'request.json').read_bytes(),'command/cwd/env changed'
+    for k in ('exit_code','cwd','env'):assert actual[k]==expected[k],a.name+': '+k+' differs'
+    policy=context.get('output_policy','strict')
+    command=json.loads((a/'request.json').read_text())['command']
+    for kind in ('stdout','stderr'):
+        assert sha(a/(kind+'.bin'))==expected[kind+'_sha256'] and sha(b/(kind+'.bin'))==actual[kind+'_sha256']
+        assert output_content((a/(kind+'.bin')).read_bytes(),policy,command if kind=='stdout' else None)==output_content((b/(kind+'.bin')).read_bytes(),policy,command if kind=='stdout' else None),a.name+': '+kind+' differs'
+
+
+def replay(directory,output,cli,sid,after_step=None,output_policy=None):
     manifest=validate(directory);context=json.loads((directory/'context.json').read_text())
-    initial=request(cli,sid,{'kind':'state','files':context['tracked_files']})
+    frozen_policy=context.get('output_policy','strict')
+    if output_policy:context=dict(context,output_policy=output_policy)
+    state=context.get('state_request',{'kind':'state','files':context['tracked_files']})
+    initial=request(cli,sid,state)
     assert initial==context['initial_state'],'replay did not start from captured initial file state'
     begin(output,context,initial)
     for step in sorted((directory/'steps').iterdir()):
         expected=json.loads((step/'result.json').read_text());value=json.loads((step/'request.json').read_text())
         actual=capture(output,cli,sid,value['command'],cwd=value['cwd'],env=value['env'],timeout_seconds=value['timeout_seconds'])
-        for k in ('exit_code','stdout_sha256','stderr_sha256','cwd','env'):assert actual[k]==expected[k],step.name+': '+k+' differs'
-    final=request(cli,sid,{'kind':'state','files':context['tracked_files']});assert final==manifest['final_state']
+        compare_step(step,output/'steps'/step.name,context)
+        if after_step:after_step(int(step.name))
+    final=request(cli,sid,state);assert final==manifest['final_state']
     frozen=freeze(output,final);assert frozen['expected_failures']==manifest['expected_failures']
     result={'status':'PASS','action_count':manifest['action_count'],'expected_failures':manifest['expected_failures'],
-            'captured_manifest_sha256':sha(directory/'manifest.json'),'final_state':final,'scope':'order, command hashes, stdout/stderr, exit codes, cwd/env and selected final files; fresh shells, no persistent PTY or model calls'}
+            'captured_manifest_sha256':sha(directory/'manifest.json'),'final_state':final,'output_policy':context.get('output_policy','strict'),'captured_output_policy':frozen_policy,
+            'strict_output_status':'FAIL' if any(sha(p/(kind+'.bin'))!=sha(output/'steps'/p.name/(kind+'.bin')) for p in sorted((directory/'steps').iterdir()) for kind in ('stdout','stderr')) else 'PASS',
+            'dynamic_output_differences':[p.name+'/'+kind for p in sorted((directory/'steps').iterdir()) for kind in ('stdout','stderr') if sha(p/(kind+'.bin'))!=sha(output/'steps'/p.name/(kind+'.bin'))],
+            'scope':'order, command hashes, stdout/stderr, exit codes, cwd/env and selected final files; fresh shells, no persistent PTY or model calls'}
     write(output.parent/'replay-proof.json',result);return result
 
 
@@ -86,15 +138,38 @@ def report(raw,output):
     assert proof['action_count']==original['action_count'] and proof['final_state']==original['final_state']
     assert proof['expected_failures']==original['expected_failures']==replayed['expected_failures']
     assert result['replay']==proof
+    differences=[p.name+'/'+kind for p in sorted((raw/'captured/steps').iterdir()) for kind in ('stdout','stderr') if sha(p/(kind+'.bin'))!=sha(raw/'replayed/steps'/p.name/(kind+'.bin'))]
+    if 'dynamic_output_differences' in proof:
+        assert differences==proof['dynamic_output_differences']
+        assert proof['strict_output_status']==('FAIL' if differences else 'PASS')
     for p in sorted((raw/'captured/steps').iterdir()):
         a=json.loads((p/'result.json').read_text());b=json.loads((raw/'replayed/steps'/p.name/'result.json').read_text())
         assert (p/'request.json').read_bytes()==(raw/'replayed/steps'/p.name/'request.json').read_bytes()
-        for k in ('exit_code','stdout_sha256','stderr_sha256','cwd','env'):assert a[k]==b[k]
+        compare_step(p,raw/'replayed/steps'/p.name,dict(json.loads((raw/'captured/context.json').read_text()),output_policy=proof.get('output_policy','strict')))
     output.mkdir(parents=True)
     metrics=write_report(raw,output)
     timings={}
     for role,folder in [('capture','captured'),('replay','replayed')]:
         steps=[json.loads((p/'result.json').read_text()) for p in sorted((raw/folder/'steps').iterdir())]
         timings[role]=dict(unit='ns',guest_tool_sum_ns=sum(v['guest_elapsed_ns'] for v in steps),controller_tool_call_sum_ns=sum(v['controller_elapsed_ns'] for v in steps),
-            scope='four sequential tool calls only; collection setup, cold start, report and cleanup are separate')
-    write(output/'summary.json',dict(status='PASS',tool_capture_demo=True,replay=proof,runtime_metrics=metrics,native_catalog=result['native_catalog'],cleanup=result['cleanup'],tool_timing=timings))
+            scope='captured sequential tool calls only; model wait, setup, cold start, report and cleanup are separate')
+    online=result.get('online')
+    if online:
+        assert online['status'] in ('PASS','FAIL') and len(online['tool_calls'])==proof['action_count']
+    if 'task_outcome' in result:
+        assert result['checks'].get('independent_task',result['checks'].get('independent_csv_task'))==result['checks'].get('independent_replayed_task',result['checks'].get('independent_replayed_csv_task'))==result['task_outcome']
+        assert result['checks']['task_outcome_preserved']=='PASS'
+        checks=[json.loads((raw/('task-check-'+role+'.json')).read_text()) for role in ('capture','replay')]
+        assert checks[0]['exit_code']==checks[1]['exit_code']
+        if 'official_signature' in checks[0]:
+            import base64
+            from audit_prettier6604_official import inspect,signature
+            assert checks[0]['official_signature']==checks[1]['official_signature']
+            for check in checks:
+                assert signature(inspect(raw/'prepared-input',base64.b64decode(check['stdout_b64']).decode()))==check['official_signature']
+            assert checks[0]['oracle']['exit_code']==checks[1]['oracle']['exit_code']
+        assert result['task_outcome']==checks[0].get('task_outcome','PASS' if checks[0]['exit_code']==0 else 'FAIL')
+    if online:assert online==json.loads((raw/'online/result.json').read_text())
+    if result.get('online_agent') is False:
+        timings['capture']['scope']='inherited source trajectory timings; capture was not executed in this analysis run'
+    write(output/'summary.json',dict(status='PASS',task_id=result.get('task_id','tool-interface-demo'),official_task_status=json.loads((raw/'task-check-replay.json').read_text()).get('official_signature',{}).get('status','NOT_RUN') if (raw/'task-check-replay.json').exists() else 'NOT_RUN',tool_capture_demo=True,online_agent=bool(online),online=online,task_outcome=result.get('task_outcome'),replay=proof,runtime_metrics=metrics,native_catalog=result['native_catalog'],cleanup=result['cleanup'],tool_timing=timings))

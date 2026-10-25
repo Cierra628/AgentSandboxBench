@@ -1,0 +1,27 @@
+{
+  "status": "PASS_SAVED_RESULT_AUDIT",
+  "schedule": "grpo",
+  "actual_actions": 378,
+  "pair": ".artifacts/host-full-grpo-resume-20261025",
+  "comparison": {
+    "preparation_difference_bytes": 26512416768,
+    "endpoint_difference_bytes": 26516766720,
+    "endpoint_reduction_fraction": 0.8571307142146914,
+    "shared_runtime_change_bytes": 1163264,
+    "private_runtime_change_bytes": 5513216,
+    "difference_change_bytes": 4349952,
+    "scope": "Direct initial-lower file residency comparison: one private service and seven guests per group; preparation included, not whole RAM"
+  },
+  "groups": {
+    "shared": {
+      "storage": "examples/host-copy-summary/records/grpo-shared",
+      "P0_resident_bytes": 4418736128,
+      "P1_resident_bytes": 4419899392
+    },
+    "private": {
+      "storage": "examples/host-copy-summary/records/grpo-private",
+      "P0_resident_bytes": 30931152896,
+      "P1_resident_bytes": 30936666112
+    }
+  }
+}

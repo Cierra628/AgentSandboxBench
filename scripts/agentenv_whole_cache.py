@@ -30,12 +30,15 @@ def bind_vm(directory,pids,cgroup,exe,sid):
     iomem=(directory/'iomem.txt').read_text();marker=json.loads((directory/'marker.json').read_text())
     assert marker['sandbox_id']==sid
     found=[]
+    captured=(directory/'kvm-slots.tsv').read_text()
+    registered={int(row[0]) for line in captured.splitlines() if len(row:=line.split('\t'))==6 and row[0].isdigit()}
     for pid in pids:
+        if pid not in registered:continue
         proc=Path('/proc')/str(pid)
         vm=dict(pid=pid,start_time_ticks=int((proc/'stat').read_text().rsplit(')',1)[1].split()[19]),
                 executable=exe,cgroup=cgroup,sandbox_id=sid)
         identity(vm,Path('/proc'),Path('/sys/fs/cgroup'))
-        slots=slots_for_ram((directory/'kvm-slots.tsv').read_text(),pid,iomem)
+        slots=slots_for_ram(captured,pid,iomem)
         with (proc/'mem').open('rb',buffering=0) as stream:
             actual=os.pread(stream.fileno(),len(marker['text']),ram_address(marker['pfn'],slots))
         if actual==marker['text'].encode():found.append((vm,slots))

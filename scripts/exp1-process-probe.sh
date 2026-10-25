@@ -5,7 +5,7 @@ dir=/workspace/exp1-process-probe
 mkdir -p "$dir"
 if [[ ${1:-} == start ]]; then
   printf '0\n' > "$dir/count"
-  nohup bash -c 'while :; do n=$(cat /workspace/exp1-process-probe/count); printf "%s\n" "$((n+1))" > /workspace/exp1-process-probe/count; sleep 0.1; done' </dev/null >/dev/null 2>&1 &
+  nohup bash -c 'while :; do n=$(cat /workspace/exp1-process-probe/count); printf "%s\n" "$((n+1))" > /workspace/exp1-process-probe/count.next; mv -f /workspace/exp1-process-probe/count.next /workspace/exp1-process-probe/count; sleep 0.1; done' </dev/null >/dev/null 2>&1 &
   printf '%s\n' "$!" > "$dir/pid"
   sleep 0.3
 fi

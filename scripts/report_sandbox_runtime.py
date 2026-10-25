@@ -22,7 +22,9 @@ def samples(raw):
             receipt = json.loads((directory/'collector-status.json').read_text())
             data = rows(directory/'guest-memory.tsv')
             assert receipt == session['receipt'] and receipt['status'] == 'PASS'
-            assert len(data) == receipt['samples'] == len(rows(directory/'guest-vmstat.tsv')) and len(data) >= 2
+            assert len(data) == receipt['samples'] and len(data) >= 2
+            if receipt.get('profile') != 'light':
+                assert len(data) == len(rows(directory/'guest-vmstat.tsv'))
             sid = session['sandbox_id']; token = session['session_id']
             assert all(r['sandbox_id'] == sid and r['session_id'] == token and r['role'] == session['role'] for r in data)
             assert all(int(b['monotonic_ns']) > int(a['monotonic_ns']) for a,b in zip(data,data[1:]))
@@ -39,14 +41,14 @@ def samples(raw):
     return groups, 'historical tool segments only; not continuous lifecycle monitoring'
 
 
-def curve_chunks(data):
+def curve_chunks(data, max_gap_ns=500_000_000, *, clock='timestamp_ns'):
     # Guest wall clocks may jump. Never bridge recorded gaps or clock reversals.
     result = []; current = []
     for row in data:
         if current:
-            delta = int(row['timestamp_ns'])-int(current[-1]['timestamp_ns'])
+            delta = int(row[clock])-int(current[-1][clock])
             mono = int(row.get('monotonic_ns',row['timestamp_ns']))-int(current[-1].get('monotonic_ns',current[-1]['timestamp_ns']))
-            if delta <= 0 or delta > 500_000_000 or mono > 500_000_000:
+            if delta <= 0 or delta > max_gap_ns or mono > max_gap_ns:
                 result.append(current); current = []
         current.append(row)
     if current: result.append(current)
@@ -56,6 +58,10 @@ def curve_chunks(data):
 def write_report(raw, output, host=None):
     raw = Path(raw); output = Path(output)
     assert not output.resolve().is_relative_to(raw.resolve()), 'report must be outside raw'
+    manifest=raw/'runtime-monitor.json'
+    if manifest.exists() and json.loads(manifest.read_text()).get('profile')=='light':
+        from report_task_overview import write_report as light_report
+        return light_report(raw, output)
     def hashes():
         result={}
         for p in sorted(raw.rglob('*')):

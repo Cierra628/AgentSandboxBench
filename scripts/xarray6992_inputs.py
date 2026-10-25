@@ -28,7 +28,7 @@ def check_replay_exit(segment,step,expected,actual,command,stdout,diagnostic=Fal
     return None
 
 
-def verify_diagnostic_replay(raw,cfg,path):
+def verify_diagnostic_replay(raw,cfg,path,*,sampling=True):
     count=duration=0;peaks=[];differences=[]
     for segment in path:
         out=raw/'rollouts/backbone'/segment
@@ -47,9 +47,9 @@ def verify_diagnostic_replay(raw,cfg,path):
             if difference:differences.append(difference)
             assert int(row['duration_ns'])>0;duration+=int(row['duration_ns']);count+=1
         with (out/'guest-memory.tsv').open() as stream:memory=list(csv.DictReader(stream,delimiter='\t'))
-        assert memory
+        assert bool(memory)==sampling
         peaks.extend((int(r['MemTotal_kib'])-int(r['MemFree_kib']))*1024 for r in memory)
-    return dict(action_count=count,guest_action_sum_ns=duration,guest_observed_peak_bytes=max(peaks),
+    return dict(action_count=count,guest_action_sum_ns=duration,guest_observed_peak_bytes=max(peaks) if peaks else None,
         final_patch_sha256=sha(raw/'rollouts/backbone'/path[-1]/'patch.diff'),exit_differences=differences,
         observed_exit_codes_status='FAIL' if differences else 'PASS',diagnostic_continuation=True)
 
