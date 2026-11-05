@@ -453,6 +453,7 @@ def main():
         child.add_argument('--storage',choices=('shared','isolated'))
         if name == 'check': child.add_argument('--offline', action='store_true')
         if name == 'run':
+            child.add_argument('--persistent-seed',type=Path,help='Internal fresh input from the host current workflow')
             child.add_argument('--storage-diagnostics', action='store_true')
             child.add_argument('--confirmed-window',action='store_true')
             child.add_argument('--window-start-utc')
@@ -504,10 +505,12 @@ def main():
         if read_json(args.config).get('version') == 2:
             from platform_tasks import configuration as task_configuration, preflight as task_preflight, run as task_run
             cfg = task_configuration(args.config, args.backend, args.checkpoint_after, args.storage)
-            if args.command == 'run': return task_run(cfg)
+            if args.command == 'run':
+                return task_run(cfg,persistent_seed=args.persistent_seed) if args.persistent_seed else task_run(cfg)
             print(json.dumps(task_preflight(cfg, args.offline), indent=2)); return 0
         cfg = configuration(args.config, args.backend, args.checkpoint_after,args.storage)
         if args.command == 'run':
+            if args.persistent_seed:raise ValueError('persistent seed requires a v2 current-only task')
             cfg['storage_diagnostics'] = args.storage_diagnostics
             window=None
             if cfg['storage']=='isolated':

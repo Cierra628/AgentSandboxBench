@@ -53,12 +53,17 @@ def check_trace(raw,reference,cfg,samples,names,find_diagnostic=False):
 
 
 def run(args):
-    cfg,_,samples,names=validate(args.inputs)
+    cfg,workload,samples,names=validate(args.inputs)
     reference=args.reference.resolve()
     assert json.loads((reference/'result.json').read_text())['checks']['actions_hash_order_expected_failures']=='PASS'
     assert json.loads((reference/'prepared-input/config.json').read_text())==cfg
     find_diagnostic=getattr(args,'find_diagnostic',False)
-    if args.check_only:print('status=VALIDATED task=sphinx7590 '+('find-diagnostic' if find_diagnostic else 'command-diagnostic'));return 0
+    env_timing=getattr(args,'env_command_timing',None)
+    if env_timing:
+        if find_diagnostic:raise ValueError('environment timing and find diagnostic are separate')
+        from sphinx_env_timing import plan
+        env_plan=plan(workload,cfg)
+    if args.check_only:print('status=VALIDATED task=sphinx7590 '+('env-command-'+env_timing if env_timing else 'find-diagnostic' if find_diagnostic else 'command-diagnostic'));return 0
     out=args.output.resolve();assert out.parent.name=='controller' and out.parent.parent.name=='mount'
     assert out.parents[3]==ROOT/'.artifacts/storage-isolated-service'
     out.mkdir(exist_ok=False)
@@ -66,6 +71,7 @@ def run(args):
     events=[];sid=None;success=False;stage='setup';diagnostics_ready=False
     result=dict(status='FAIL',command_diagnostic=True,checks={},cpu=2,memory_mib=4096,
         scope='13 unchanged prefix actions, 6 same-VM repeats and 4 pip-version-check controls; warm-cache diagnostic, not complete replay or monitoring overhead study')
+    if env_timing:result.update(env_command_timing=env_timing,monitor_mode='off',official_task_status='NOT_RUN',strict_replay_status='NOT_RUN',scope='11 original actions then one first-use environment diagnostic; no repetitions, sampling, version-check override or full task acceptance')
     if find_diagnostic:result.update(find_diagnostic=True,monitor_mode='off',scope='13 original actions then 8 find captures; suppressed errors and process identities only, not full replay or monitoring overhead')
     def call(label,argv,timeout=90):
         index=len(events);begin=time.monotonic_ns();code=None
@@ -85,28 +91,53 @@ def run(args):
         labels=json.loads(call('service-labels',['docker','inspect','--format','{{json .Config.Labels}}',args.container]))
         assert labels.get('agentsandboxbench.run_id')==out.parents[2].name and labels.get('agentenv.experiment')=='isolated-storage-check'
         shutil.copy2(Path(__file__),out/'driver-source.py')
-        shutil.copy2(ROOT/'scripts/guest_command_diagnostic.py',out/'guest-probe-source.py')
+        probe='guest_sphinx_env_timing.py' if env_timing else 'guest_command_diagnostic.py'
+        shutil.copy2(ROOT/'scripts'/probe,out/'guest-probe-source.py')
+        if env_timing:shutil.copy2(ROOT/'scripts/sphinx_env_timing.py',out/'env-timing-source.py')
         if find_diagnostic:shutil.copy2(ROOT/'scripts/guest_find_diagnostic.py',out/'guest-find-source.py')
         sid=call('cold-start',[sys.executable,ROOT/'scripts/agentenv_cold_start.py','--config-home',args.config_home,
             '--service-url',args.service_url,'--image',cfg['source_image'],'--memory-mib','4096'],610).decode().strip()
         result['sandbox_id']=sid
-        verify_after,_=run_prefix(cli,sid,out,dict(inputs=args.inputs,reference=reference),False,pipeline_diagnostic=find_diagnostic)
-        cli('upload-probe','upload',sid,ROOT/'scripts/guest_command_diagnostic.py','/workspace/asb-command-diagnostic.py')
+        verify_after,_=run_prefix(cli,sid,out,dict(inputs=args.inputs,reference=reference),False,pipeline_diagnostic=find_diagnostic or bool(env_timing))
+        cli('upload-probe','upload',sid,ROOT/'scripts'/probe,'/workspace/asb-command-diagnostic.py')
         cli('diagnostic-directory','exec',sid,'mkdir','-p','/workspace/asb-command');diagnostics_ready=True
+        if env_timing:
+            from sphinx_env_timing import prefix_runner
+            runner=out/'frozen-input/guest-runner.sh';base=runner.read_text()
+            (out/'env-prefix-base.sh').write_text(base);runner.write_text(prefix_runner(base))
+            (out/'env-command-plan.json').write_text(json.dumps(env_plan,indent=2)+'\n')
+            variant=json.loads((out/'sampling-variant.json').read_text());variant['scope']='read_repo only; trace prefix uses env-prefix-base.sh plus prefix_runner'
+            (out/'sampling-variant.json').write_text(json.dumps(variant,indent=2)+'\n')
+            cli('upload-prefix-runner','upload',sid,runner,'/workspace/mixfs-workload/guest-runner.sh')
         module=controller_module(out/'frozen-input')
         def shell(*argv,capture=True):
             argv=list(argv[1:])
             if argv[0]=='exec' and argv[-1].endswith('bash /workspace/mixfs-workload/guest-runner.sh'):
                 command=frozen_shell(argv[-1])
-                argv[-1]=command if find_diagnostic else 'python3 /workspace/asb-command-diagnostic.py --profile --timeout 90 --output /workspace/asb-command/segment --command '+shlex.quote(command)
+                argv[-1]=command if find_diagnostic or env_timing else 'python3 /workspace/asb-command-diagnostic.py --profile --timeout 90 --output /workspace/asb-command/segment --command '+shlex.quote(command)
             return cli('trace-'+argv[0],*argv).decode().strip()
         module.shell=shell
         class Controller(module.Controller):
             async def physical_memory(self,label):return None
         controller=Controller(SimpleNamespace(raw_dir=out,system='agentenv',method='backbone',timeout=90))
         stage='original-prefix';asyncio.run(controller.run_path(sid,'backbone',['trace_cpp_parser']))
-        result['replay']=check_trace(out,reference,cfg,samples,names,find_diagnostic)
-        result['checks']['thirteen_original_actions_outputs_and_patch']='PASS'
+        if env_timing:
+            from sphinx_env_timing import check_prefix,check_capture
+            result['replay']=check_prefix(out,reference,cfg)
+            result['strict_prefix_status']=json.loads((out/'prefix-result.json').read_text())['strict_prefix_status']
+            stage='first-environment-command'
+            value=json.loads(cli(stage,'exec',sid,'bash','-lc',frozen_shell(
+                'python3 /workspace/asb-command-diagnostic.py --mode '+env_timing+
+                ' --timeout 90 --output /workspace/asb-command/target'),timeout=100))
+            cli('download-environment-timing','download',sid,'/workspace/asb-command',out)
+            diagnostics_ready=False
+            assert value==check_capture(out/'asb-command/target',reference,cfg,env_timing)
+            result['env_timing']=value
+            verify_after();result['checks']['env_command_timing_and_original_prefix']='PASS'
+            success=True
+        else:
+            result['replay']=check_trace(out,reference,cfg,samples,names,find_diagnostic)
+            result['checks']['thirteen_original_actions_outputs_and_patch']='PASS'
         if find_diagnostic:
             stage='find-captures'
             with (out/'frozen-input/segments/trace_cpp_parser/actions.tsv').open() as f:action=list(csv.DictReader(f,delimiter='\t'))[4]
@@ -128,7 +159,7 @@ def run(args):
             verify_after();result['checks']['find_captures_and_source_unchanged']='PASS'
             result['strict_prefix_status']=result['replay']['strict_prefix_status']
             success=True
-        else:
+        elif not env_timing:
             stage='command-repeats'
             run_command_repeats(cli,sid,out,reference,cfg,result,verify_after)
             diagnostics_ready=False
@@ -190,4 +221,5 @@ if __name__=='__main__':
     for name in ('inputs','reference','output','config-home'):p.add_argument('--'+name,type=Path,required=name in ('inputs','reference'))
     for name in ('container','service-url'):p.add_argument('--'+name)
     p.add_argument('--find-diagnostic',action='store_true')
+    p.add_argument('--env-command-timing',choices=('whole','split'),help='11-action prefix, one first-use command only; old default keeps 13 actions and warm repeats')
     p.add_argument('--check-only',action='store_true');raise SystemExit(run(p.parse_args()))

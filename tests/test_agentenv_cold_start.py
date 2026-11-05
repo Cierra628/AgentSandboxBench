@@ -40,6 +40,16 @@ class ColdStartTests(unittest.TestCase):
         self.assertEqual(request.get_header('X-api-key'),'fixture-key')
         self.assertEqual(build.call_args.args[0].proxies,{})
 
+    def test_explicit_c4_deny_network_and_clear_proxy(self):
+        from c4_density_input import IMAGE
+        opener=self.response()
+        with patch('agentenv_cold_start.urllib.request.build_opener',return_value=opener):
+            create(self.home,self.url,IMAGE,memory_mib=8192,allow_8gib=True,local_c4=True)
+        body=json.loads(opener.open.call_args.args[0].data)
+        self.assertFalse(body['allowInternetAccess'])
+        self.assertTrue(body['envVars'] and all(v=='' for v in body['envVars'].values()))
+        with self.assertRaises(ValueError):create(self.home,self.url,'other',memory_mib=8192,allow_8gib=True,local_c4=True)
+
     def test_wrong_service_rejected_before_network(self):
         with patch('agentenv_cold_start.urllib.request.build_opener') as build:
             with self.assertRaises(ValueError):create(self.home,'http://127.0.0.1:18000','image')

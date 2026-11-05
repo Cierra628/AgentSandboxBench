@@ -47,6 +47,42 @@ class TraceTests(unittest.TestCase):
         self.capture()
         with self.assertRaises(AssertionError):trace.capture(self.raw,self.cli,'guest','true',cwd=str(self.cwd),env={})
 
+    def test_prettier_listing_only_allows_known_directory_times(self):
+        a=(b'total 576\ndrwxr-xr-x  22 root root   4096 Oct 13 04:07 ..\n'
+           b'drwxrwxr-x   7 root root   4096 Oct 13 04:09 .git\n'
+           b'-rw-rw-r--   1 root root    129 Aug 25  2025 file.js\n')
+        b=a.replace(b'04:07',b'04:10').replace(b'04:09',b'04:11')
+        def normalized(value,command='cd /testbed && ls -la'):
+            return trace.output_content(value,'prettier-runtime-v1',command)
+        self.assertEqual(normalized(a),normalized(b))
+        self.assertEqual(normalized(b'/testbed\n'+a,'cd /testbed && pwd && ls -la'),
+                         normalized(b'/testbed\n'+b,'cd /testbed && pwd && ls -la'))
+        self.assertNotEqual(normalized(b'/testbed\n'+a,'cd /testbed && pwd && ls -la'),
+                            normalized(b'/wrong\n'+b,'cd /testbed && pwd && ls -la'))
+        self.assertNotEqual(trace.output_content(a,'strict'),trace.output_content(b,'strict'))
+        self.assertNotEqual(normalized(a,'ls -la'),normalized(b,'ls -la'))
+        for before,after in [(b'4096',b'4097'),(b'root root',b'root user'),
+                             (b'.git\n',b'.github\n'),(b'drwxrwxr-x',b'drwxr-xr-x'),
+                             (b'Aug 25',b'Aug 26'),(b'129',b'130')]:
+            with self.subTest(change=(before,after)):
+                self.assertNotEqual(normalized(a),normalized(b.replace(before,after)))
+
+    def test_online_task_failure_is_preserved_in_successful_platform_report(self):
+        self.capture();self.raw.rename(self.root/'captured');self.file.unlink()
+        proof=trace.replay(self.root/'captured',self.root/'replayed',self.cli,'other')
+        online={'status':'PASS','tool_calls':[{}, {}, {}]}
+        (self.root/'online').mkdir();(self.root/'online/result.json').write_text(json.dumps(online))
+        for role in ('capture','replay'):
+            (self.root/('task-check-'+role+'.json')).write_text(json.dumps({'exit_code':1}))
+        result={'status':'PASS','cleanup':{'owned':True},'replay':proof,'online':online,'task_outcome':'FAIL',
+            'native_catalog':{},'checks':{'independent_csv_task':'FAIL','independent_replayed_csv_task':'FAIL','task_outcome_preserved':'PASS'}}
+        (self.root/'result.json').write_text(json.dumps(result))
+        with tempfile.TemporaryDirectory() as output,patch('report_sandbox_runtime.write_report',return_value={}):
+            trace.report(self.root,Path(output)/'report')
+            summary=json.loads((Path(output)/'report/summary.json').read_text())
+            self.assertEqual(summary['status'],'PASS');self.assertEqual(summary['task_outcome'],'FAIL')
+            self.assertEqual(summary['replay']['expected_failures'],{'002':7})
+
 
 class ManagementTests(unittest.TestCase):
     def test_resource_catalog_does_not_export_tokens(self):

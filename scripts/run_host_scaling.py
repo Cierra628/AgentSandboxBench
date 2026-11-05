@@ -17,16 +17,20 @@ def read(path):return json.loads(Path(path).read_text())
 def write(path,value):Path(path).write_text(json.dumps(value,indent=2)+'\n')
 
 
-def scaling_command(cfg,cache,mode,bundle=None,source=None):
+def scaling_command(cfg,cache,mode,bundle=None,source=None,*,current_pair=False,persistent_input=False):
     from run_host_file_restore import EXPORT
     _,live=commands(cfg,cache)
+    if persistent_input:
+        if not current_pair or mode!='cold':raise ValueError('persistent input requires current pair')
+        live[live.index('--immutable-cache-seed')]='--persistent-cache-seed'
     # The existing GRPO adapter supplies start/run/cleanup, not its old schedule.
     live=[v for v in live if v not in ('--prettier6604-readonly-replay','--light-monitor')]
     return [*live,'--prettier6604-export',str(EXPORT),
-        '--prettier6604-schedule','grpo','--light-monitor',*arguments(mode,bundle,source)]
+        '--prettier6604-schedule','grpo','--light-monitor',*arguments(mode,bundle,source),
+        *(['--host-current-pair'] if current_pair else [])]
 
 
-def workflow(config,mode,resume_prefix=None):
+def workflow(config,mode,resume_prefix=None,*,current_pair=False,persistent_seed=None):
     started=time.monotonic_ns()
     cfg=configuration(config)
     if not (cfg['task_id']=='prettier__prettier-6604' and cfg.get('host_file_monitor') and cfg['rollout']=='single' and cfg['checkpoint_after_step'] is None):
@@ -35,6 +39,9 @@ def workflow(config,mode,resume_prefix=None):
         raise ValueError('scaling preserves guest sampling and default DAMON')
     if mode not in ('cold','restore') or (mode=='restore')!=(resume_prefix is not None):
         raise ValueError('only restore scaling requires an existing exported prefix')
+    if current_pair and (mode!='cold' or os.environ.get('ASB_HOST_ROOTFS_REFERENCE')=='on' or os.environ.get('ASB_HOST_FILE_SAMPLING','on')!='on'):
+        raise ValueError('current pair requires cold guests, periodic sampling and no residency queries')
+    if persistent_seed and not current_pair:raise ValueError('persistent seed requires current pair')
     from host_file_monitor import measurement_group,HostFileMonitor
     from isolated_storage import available,capacity_budget,GIB
     group,_=measurement_group();ready=preflight(cfg)
@@ -43,7 +50,7 @@ def workflow(config,mode,resume_prefix=None):
         from run_host_independent_pair import resumed_capture
         capture=resumed_capture(resume_prefix)
         source=Path(capture['storage'])/'prettier6604';bundle=source.parent/'checkpoint-bundle'
-    capacity=16 if mode=='cold' else 24
+    capacity=8 if current_pair else 16 if mode=='cold' else 24
     budget=capacity_budget(available(ROOT),capacity*GIB)
     if not budget['ready']:raise RuntimeError('insufficient scaling disk budget: '+json.dumps(budget))
     sampling=os.environ.get('ASB_HOST_FILE_SAMPLING','on')
@@ -55,11 +62,19 @@ def workflow(config,mode,resume_prefix=None):
     for name in ('run_host_scaling.py','host_scaling.py','run_host_file_workflow.py','run_prettier6604_grpo.py',
                  'validate_isolated_agentenv.py','host_independent_task.py','host_prefix_compare.py','run_host_file_restore.py'):
         shutil.copy2(ROOT/'scripts'/name,code/name)
+    if current_pair:shutil.copy2(ROOT/'scripts/host_current_pair.py',code/'host_current_pair.py')
+    if persistent_seed:shutil.copy2(ROOT/'scripts/host_persistent_input.py',code/'host_persistent_input.py')
     if os.environ.get('ASB_HOST_ROOTFS_REFERENCE')=='on':
         for name in ('host_scaling_reference.py','host_rollout_shared.py','host_rootfs_layers.py'):
             shutil.copy2(ROOT/'scripts'/name,code/name)
-    cache=ROOT/'.artifacts/prettier6604'/('host-scaling-cache-'+out.name)
+    if persistent_seed:
+        from host_persistent_input import owned
+        cache=owned(persistent_seed)
+    else:cache=ROOT/'.artifacts/prettier6604'/('host-scaling-cache-'+out.name)
     state=dict(status='FAIL',mode=mode,host_periodic_sampling=sampling,whole_physical_savings='NOT_MEASURED')
+    if persistent_seed:
+        from host_persistent_input import SCOPE
+        state.update(persistent_input=True,input_directory=str(cache),measurement_scope=SCOPE,source_preparation=read(cache/'source.json'))
     collector=None;stage='prepare'
     def call(label,argv,timeout):
         with (out/(label+'.log')).open('x') as log:
@@ -67,8 +82,11 @@ def workflow(config,mode,resume_prefix=None):
     print('status=RUNNING result_dir='+str(out),flush=True)
     try:
         if sampling=='on':collector=HostFileMonitor(out/'host-file',group,include_pss=False)
-        call('cache-prepare',[sys.executable,'-B',ROOT/'scripts/prepare_prettier6604_cache.py',cache],300)
-        stage='isolated-runtime';call(stage,scaling_command(cfg,cache,mode,bundle,source),1300)
+        if persistent_seed:
+            from host_persistent_input import run_phase
+            stage='persistent-import';run_phase('import',cache,300)
+        else:call('cache-prepare',[sys.executable,'-B',ROOT/'scripts/prepare_prettier6604_cache.py',cache],300)
+        stage='isolated-runtime';call(stage,scaling_command(cfg,cache,mode,bundle,source,current_pair=current_pair,persistent_input=bool(persistent_seed)),1300)
         found={Path(p) for p in re.findall(r'status=PASS result_dir=(\S+)',(out/(stage+'.log')).read_text())
             if Path(p).parent==ROOT/'.artifacts/storage-isolated-service'}
         if len(found)!=1:raise ValueError('expected one isolated scaling result')
@@ -88,7 +106,7 @@ def workflow(config,mode,resume_prefix=None):
                 if state['collector']['status']!='PASS':state['status']='FAIL'
             except Exception as error:state.update(status='FAIL',collector_error=repr(error))
         else:state['collector']=dict(status='NOT_REQUESTED',scope='Periodic sampling off; fixed phase observations retained')
-        if (cache/'resources.json').exists():
+        if not persistent_seed and (cache/'resources.json').exists():
             try:
                 call('cache-release',[sys.executable,'-B',ROOT/'scripts/prepare_prettier6604_cache.py',cache,'--release'],90)
                 state['cache_released']=read(cache/'resources.json')['released']
@@ -96,12 +114,27 @@ def workflow(config,mode,resume_prefix=None):
             except Exception as error:state.update(status='FAIL',cache_release_error=repr(error))
     write(out/'result.json',state)
     if state['status']=='PASS':
-        try:state['scaling_summary']=report(Path(state['storage_result_dir'])/'prettier6604',out/'report')
+        try:
+            if current_pair:
+                from host_current_pair import report as current_report
+                state['current_pair_summary']=current_report(Path(state['storage_result_dir'])/'prettier6604',out/'host-file',out/'report')
+                if persistent_seed:
+                    q=state['current_pair_summary']['input_file_check']
+                    passed=q['status']=='OBSERVED' and q['shortfall_bytes']==0
+                    state['input_file_validation']='PASS' if passed else 'INCOMPLETE'
+                    if not passed:state.update(status='FAIL',failed_stage='persistent-input-check',error='Input file check failed or found a shortfall; task results retained')
+            else:state['scaling_summary']=report(Path(state['storage_result_dir'])/'prettier6604',out/'report')
         except BaseException as error:
             import traceback
             state.update(status='FAIL',failed_stage='offline-report',error=repr(error));(out/'report-failure.txt').write_text(traceback.format_exc())
+    if persistent_seed and state['status']=='PASS':
+        try:
+            from host_persistent_input import run_phase
+            run_phase('release-input',cache,120);state['cache_released']=read(cache/'seed.json')['released']
+        except Exception as error:state.update(status='FAIL',failed_stage='persistent-cleanup',error=repr(error))
     state['workflow_elapsed_ns']=time.monotonic_ns()-started
     state['workflow_timing_scope']='Preflight, preparation, isolated runtime, owned cleanup and offline report; not task wall time'
+    if persistent_seed:state['workflow_timing_scope']+='; excludes out-of-group archive restoration (source_preparation receipt)'
     write(out/'result.json',state)
     print('status='+state['status']+' result_dir='+str(out),flush=True)
     return 0 if state['status']=='PASS' else 1
@@ -110,4 +143,6 @@ def workflow(config,mode,resume_prefix=None):
 if __name__=='__main__':
     p=argparse.ArgumentParser(description=__doc__);p.add_argument('config',type=Path)
     p.add_argument('--mode',choices=('cold','restore'),required=True);p.add_argument('--resume-prefix',type=Path)
-    args=p.parse_args();raise SystemExit(workflow(args.config,args.mode,args.resume_prefix))
+    p.add_argument('--current-pair',action='store_true')
+    p.add_argument('--persistent-seed',type=Path)
+    args=p.parse_args();raise SystemExit(workflow(args.config,args.mode,args.resume_prefix,current_pair=args.current_pair,persistent_seed=args.persistent_seed))

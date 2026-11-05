@@ -30,13 +30,20 @@ def run(args):
     else:cfg,_,_,_=validate(args.inputs)
     memory=task['memory_mib'] if task else 512
     source=getattr(args,'replay_source',None)
+    if getattr(args,'light_monitor',False) and not (source and task and not getattr(args,'agent_config',None)):
+        raise ValueError('light tool monitoring requires frozen task replay without a model or new capture')
     physical_after=getattr(args,'physical_after',None) or []
     if source:
         from tool_trajectory import validate as validate_trace
         validate_trace(source)
         assert task and not getattr(args,'agent_config',None)
         source_context=json.loads((source/'context.json').read_text())
-        assert source_context['source_image']==cfg['source_image'] and source_context['memory_mib']==memory and source_context['task_id']==task['task_id']
+        assert source_context['source_image']==cfg['source_image'] and source_context['memory_mib']==memory
+        if 'task_id' in source_context:assert source_context['task_id']==task['task_id']
+        else:
+            # The original verified CSV capture predates the task_id context field.
+            assert task['task_id']=='csv-category-sum-v1' and source_context['tracked_files']==task['tracked_files']
+            assert (source.parent/'task-check-capture.json').is_file()
     if physical_after:
         assert len(set(physical_after))==len(physical_after) and all(0<=i<=validate_trace(source)['action_count'] for i in physical_after)
     if physical_after:assert source and task['profile']=='prettier6604'
@@ -69,7 +76,11 @@ def run(args):
                 events.append(dict(stage=label,timestamp_ns=stamp,start_monotonic_ns=start,duration_ns=time.monotonic_ns()-start,exit_code=code))
                 (out/'events.json').write_text(json.dumps(events,indent=2)+'\n')
     def cli(label,*argv,timeout=60):return call(label,[ROOT/'runtime/bin/aenv',*argv],timeout)
-    runtime=RuntimeMonitor(out,cli,container=args.container)
+    light=getattr(args,'light_monitor',False)
+    # Directory upload into an existing /workspace appends the bundle name.
+    # A new owned destination keeps the script and its helper at known paths.
+    runtime=RuntimeMonitor(out,cli,container=args.container,light=light,
+        guest_script='/workspace/asb-tool-runtime/asb-runtime-monitor.py' if light else None)
     physical=None
     def interrupted(*_):raise RuntimeError('tool capture interrupted')
     for sig in (signal.SIGTERM,signal.SIGINT):signal.signal(sig,interrupted)
@@ -181,7 +192,8 @@ def run(args):
             if source:
                 original=source.parent/'task-check-capture.json'
                 shutil.copy2(original,out/'task-check-capture.json')
-                result['task_outcome']=json.loads(original.read_text())['task_outcome']
+                original_check=json.loads(original.read_text())
+                result['task_outcome']=original_check.get('task_outcome','PASS' if original_check['exit_code']==0 else 'FAIL')
                 result['checks']['independent_task']=result['task_outcome']
             assert replay_outcome==result['task_outcome'],'task evaluation changed after replay'
             a=json.loads((out/'task-check-capture.json').read_text());b=json.loads((out/'task-check-replay.json').read_text())
@@ -218,6 +230,7 @@ if __name__=='__main__':
     for name in ('inputs','reference','config-home','output'):parser.add_argument('--'+name,type=Path,required=name=='inputs')
     for name in ('container','service-url'):parser.add_argument('--'+name)
     parser.add_argument('--check-only',action='store_true')
+    parser.add_argument('--light-monitor',action='store_true',help='Guest meminfo only; keep tool results and task checks')
     parser.add_argument('--task-config',type=Path)
     parser.add_argument('--replay-source',type=Path)
     parser.add_argument('--physical-after',type=int,nargs='+')

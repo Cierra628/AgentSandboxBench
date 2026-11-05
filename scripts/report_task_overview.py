@@ -7,8 +7,44 @@ from pathlib import Path
 from report_sandbox_runtime import samples, rows, curve_chunks
 
 
+def grpo_setup_timing(result):
+    schedule=result.get('grpo_setup_schedule','per-guest-setup')
+    assert schedule in ('per-guest-setup','create-all-before-setup')
+    if schedule=='per-guest-setup':return {}
+    created=result['all_created_monotonic_ns'];prepared=result['all_prepared_monotonic_ns']
+    end=result['controller_end_monotonic_ns']
+    assert (result['rollout_start_monotonic_ns']<=created<=prepared<=result['first_tool_start_monotonic_ns']<=
+            result['rollout_end_monotonic_ns']<=result['light_cleanup_timing']['end_monotonic_ns']<=end)
+    assert result['created_to_controller_end_ns']==end-created
+    assert result['create_to_setup_ns']==prepared-created
+    return dict(all_created_monotonic_ns=created,all_prepared_monotonic_ns=prepared,controller_end_monotonic_ns=end,
+        created_to_controller_end_ns=end-created,create_to_setup_ns=prepared-created,
+        scope='All seven creates completed through controller cleanup; includes setup, original tasks, checks, sampler stop/download and deletion')
+
+
 def tool_rows(raw, result):
     tools = []
+    if result.get('exp1_light'):
+        from exp1_physical_workload import verify_replay
+        proof=verify_replay(raw/'replay')
+        manifest=json.loads((raw/'runtime-monitor.json').read_text())
+        sid=manifest['sessions'][0]['sandbox_id']
+        for row in rows(raw/'replay/steps.tsv'):
+            tools.append(dict(tool_index=len(tools)+1,sandbox_id=sid,role='backbone',segment='full-replay',
+                step=row['step'],exit_code=int(row['exit_code']),duration_ns=int(row['duration_ns'])))
+        assert proof['guest_action_sum_ns']==result['guest_action_sum_ns']
+        return tools,proof['guest_action_sum_ns']
+    if result.get('tool_capture_demo'):
+        # In frozen-only runs, captured timings belong to the earlier source run.
+        manifest=json.loads((raw/'runtime-monitor.json').read_text())
+        sid=next(session['sandbox_id'] for session in manifest['sessions'] if session['role']=='replay')
+        for step in sorted((raw/'replayed/steps').iterdir()):
+            row=json.loads((step/'result.json').read_text())
+            duration=row['guest_elapsed_ns'];assert duration>=0
+            tools.append(dict(tool_index=len(tools)+1,sandbox_id=sid,role='replay',
+                segment='tool-calls',step=step.name,exit_code=row['exit_code'],duration_ns=duration))
+        assert tools, 'replayed tool timings are missing'
+        return tools,sum(row['duration_ns'] for row in tools)
     for segment in rows(raw/'segments.tsv'):
         for row in rows(raw/'rollouts'/segment['rollout']/segment['segment']/'steps.tsv'):
             duration = int(row['duration_ns'])
@@ -19,6 +55,8 @@ def tool_rows(raw, result):
     assert tools, 'tool timings are missing'
     total = sum(t['duration_ns'] for t in tools)
     expected = result.get('guest_action_sum_ns', result.get('replay', {}).get('guest_action_sum_ns'))
+    if expected is None and result.get('monitor_mode')=='off' and result.get('schedule')=='grpo':
+        expected=sum(p['guest_action_sum_ns'] for p in result['paths'].values())
     if expected is not None: assert total == expected, 'tool timing total differs from source result'
     return tools, total
 
@@ -38,11 +76,22 @@ def write_tool_report(raw, output):
     with (output/'tools.tsv').open('x') as stream:
         writer=csv.DictWriter(stream,fieldnames=list(tools[0]),delimiter='\t')
         writer.writeheader();writer.writerows(tools)
-    return dict(status='PASS',task_id=result['task_id'],tool_count=len(tools),
+    summary=dict(status='PASS',task_id=result['task_id'],tool_count=len(tools),
         tool_duration_sum_ns=total,source_monitor_profile='off',memory='NOT_MEASURED',
         official_task_status=result.get('official_task_status'),
         strict_replay_status=result.get('strict_replay_status'),diagnostic_status=result.get('diagnostic_status'),
         scope='tool timing retained; guest periodic/boundary and host sampling disabled; original task checks retained')
+    if result.get('schedule')=='grpo':
+        summary['grpo_setup_schedule']=result.get('grpo_setup_schedule','per-guest-setup')
+        if summary['grpo_setup_schedule']=='create-all-before-setup':summary['grpo_setup_timing']=grpo_setup_timing(result)
+        from report_prettier6604_grpo import audit
+        schedule,_,_=audit(raw,Path(result['official_task_directory']))
+        assert schedule['actions']==len(tools)==189
+        summary['schedule_audit']={k:schedule[k] for k in ('status','schedule','roles','actions','segments','logical_action_count','checkpoint_count','checkpoint_restore','cleanup')}
+        summary['official_task_status']='FAIL' if any(p['official_task_status']=='FAIL' for p in result['paths'].values()) else 'PASS'
+        summary['rollout_timing']=dict(start_monotonic_ns=result['rollout_start_monotonic_ns'],end_monotonic_ns=result['rollout_end_monotonic_ns'],
+            elapsed_ns=result['rollout_end_monotonic_ns']-result['rollout_start_monotonic_ns'],scope='Before sandbox creation through all branch checks; excludes outer preparation, reporting and cleanup')
+    return summary
 
 
 def write_report(raw, output, *, private_file_control=False):
@@ -121,7 +170,12 @@ def write_report(raw, output, *, private_file_control=False):
         files=dict(curve='overview.svg', tools='tools.tsv', memory='memory.tsv'),
         notes=['Observed sample maxima, not instantaneous peaks; gaps are not interpolated.',
                'Report PASS means logs were read consistently; original task status and nonzero exits are retained.'])
-    if result.get('host_scaling_mode'):
+    if result.get('host_current_pair'):
+        from host_current_pair import audit_task
+        summary['host_current_pair']=audit_task(raw)
+        assert len(tools)==22 and total==summary['host_current_pair']['guest_action_sum_ns']
+        summary['official_task_status']='NOT_RUN_PREFIX_ONLY'
+    elif result.get('host_scaling_mode'):
         from host_scaling import audit
         summary['host_scaling']=audit(raw)
         summary['official_task_status']='NOT_RUN_PREFIX_ONLY' if result['host_scaling_mode']=='cold' else 'FAIL'
@@ -151,12 +205,33 @@ def write_report(raw, output, *, private_file_control=False):
         summary['official_task_status']='FAIL' if any(p['official_task_status']=='FAIL' for p in result['paths'].values()) else 'PASS'
     if result.get('host_full_rootfs_control'):
         control=result['host_full_rootfs_control']
-        assert control['status']=='OBSERVED' and control['schedule'] in ('grpo','bpo')
+        from host_full_rootfs_control import validate_observation
+        validate_observation(control,result.get('host_full_rootfs_residency','on'))
+        assert control['schedule'] in ('grpo','bpo')
         summary['host_full_rootfs_control']=dict(profile=control['profile'],mode=control['mode'],
             P0_resident_bytes=control['P0']['resident_bytes'],P1_resident_bytes=control['P1']['resident_bytes'],
             raw='host-full-rootfs.json',scope='Initial lower-file host residency only; separate from these guest logical-memory curves')
+        if result.get('host_full_rootfs_residency')=='off':summary['host_full_rootfs_control']['residency_status']='NOT_MEASURED'
+        if control.get('cold_read_requested'):
+            cold=control['cold_read']
+            summary['host_full_rootfs_control']['cold_read']=dict(status=cold['status'],
+                interval_seconds=cold['interval_seconds'],points=len(cold['points']),worker_reaped=cold['worker_reaped'],
+                query_total_ns=cold['query_total_ns'],query_cpu_ns=cold['query_cpu_ns'],
+                raw='host-full-cold-read.json',events='host-full-cold-events.json',
+                scope='Sparse initial-file residency observations with phase times; not a 0.1-second physical curve')
         if control['schedule']=='bpo':
             summary['host_full_rootfs_control']['generated_layers']=dict(resident_bytes=control['generated_layers']['P1']['resident_bytes'],scope='Separate generated layers within this run; not part of main savings')
+    if result.get('schedule')=='grpo':
+        summary['grpo_setup_schedule']=result.get('grpo_setup_schedule','per-guest-setup')
+        if summary['grpo_setup_schedule']=='create-all-before-setup':
+            summary['grpo_setup_timing']=grpo_setup_timing(result)
+            summary['notes'].append('Sampling starts after all seven creates, before each guest setup; the earlier creation interval is not sampled or interpolated.')
+    if result.get('light_skip_boundary_vmstat'):
+        summary['light_skip_boundary_vmstat']=True
+        summary['boundary_vmstat']=result['boundary_vmstat']
+    if result.get('light_merge_boundary_meminfo'):
+        summary['light_merge_boundary_meminfo']=True
+        summary['boundary_meminfo']=result['boundary_meminfo']
     (output/'runtime-metrics.json').write_text(json.dumps(summary, indent=2)+'\n')
     return summary
 

@@ -1,5 +1,7 @@
 # AgentSandboxBench
 
+**同伴接入（2026-11-05）：** 当前任务、host内存采样、三调度指标及运行条件见[同伴使用说明](docs/COLLABORATOR_GUIDE.md)。拉取后先运行`bash scripts/check-platform-offline.sh`；它不启动服务或沙箱。镜像、凭据和本机固定输入不在Git中，按说明准备后再实跑。下方v0.1介绍和历史实验按原范围保留。
+
 一个研究AgentENV沙箱内存的小项目：重放工具命令，画出时延、内存和page cache曲线，再比较多沙箱共享文件能省多少缓存。
 
 ## 先看看结果

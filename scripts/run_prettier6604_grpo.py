@@ -1,12 +1,14 @@
 """Run sampled GRPO, BPO or TVCache paths on one owned isolated service."""
 import argparse
 import asyncio
+from concurrent.futures import ThreadPoolExecutor
 import csv
 import importlib.util
 import json
 import os
 from pathlib import Path
 import re
+import shlex
 import shutil
 import signal
 import stat
@@ -21,6 +23,97 @@ from prepare_prettier6604_rollouts import audit, sampled_segment
 from exp1_official_task import load, guest_command
 from audit_prettier6604_official import inspect as inspect_official, reference, signature
 from prettier6604_boundary import verify as verify_boundary
+
+
+def parallel_guest_cleanup(sandboxes, stop, delete):
+    """Only after all task/check/query work; preserve stop-before-delete per guest."""
+    def close(sid):
+        row=dict(sandbox_id=sid,stopped=None if stop is None else False,deleted=False,errors=[],start_monotonic_ns=time.monotonic_ns())
+        if stop is not None:
+            try:stop(sid);row['stopped']=True
+            except Exception as error:row['errors'].append(repr(error))
+        try:delete(sid);row['deleted']=True
+        except Exception as error:row['errors'].append(repr(error))
+        row['end_monotonic_ns']=time.monotonic_ns()
+        return row
+    if not sandboxes:return []
+    with ThreadPoolExecutor(max_workers=min(7,len(sandboxes))) as pool:
+        return list(pool.map(close,sandboxes))
+
+
+def monitor_options(args):
+    mode=getattr(args,'monitor_mode','continuous')
+    if mode not in ('continuous','off'):raise ValueError('invalid monitor mode')
+    if mode=='off':
+        variants=('role','light_monitor','shared_cache','root_count','snapshot_cache_pair','host_restore_short',
+            'host_matched_task','host_trace_dual','host_independent_phase','host_rootfs_short','host_scaling_mode',
+            'host_prefix_count','host_shared_files','host_full_rootfs_mode','host_file_roots','host_prefix_roots')
+        if getattr(args,'schedule','grpo')!='grpo' or any(getattr(args,k,None) for k in variants):
+            raise ValueError('monitor-off requires ordinary complete seven-guest GRPO without another measurement mode')
+    return mode
+
+
+def create_before_setup_options(args):
+    enabled=getattr(args,'grpo_create_before_setup',getattr(args,'prettier6604_grpo_create_before_setup',False))
+    if not enabled:return False
+    schedule=getattr(args,'prettier6604_schedule',getattr(args,'schedule','grpo'))
+    mode=getattr(args,'prettier6604_monitor_mode',getattr(args,'monitor_mode','continuous'))
+    variants=('role','prettier6604_role','shared_cache','prettier6604_shared_cache','root_count','prettier6604_root_count',
+        'snapshot_cache_pair','prettier6604_snapshot_cache_pair','host_restore_short','host_matched_task',
+        'host_trace_dual','host_independent_phase','host_rootfs_short','host_scaling_mode','host_prefix_count',
+        'host_shared_files','host_full_rootfs_mode','host_file_roots','host_prefix_roots','host_file_monitor',
+        'prettier6604_checkpoint','prettier6604_readonly_replay','prettier6604_physical_cache_after',
+        'diagnostic_guest_kernel','prettier6604_live_cache','guest_cache_metadata_probe','damon_observe','damon_disable',
+        'startup_sampling','startup_server_metrics','online_task_config')
+    light=getattr(args,'light_monitor',False)
+    if (schedule!='grpo' or not ((mode=='continuous' and light) or (mode=='off' and not light)) or
+            any(getattr(args,key,None) for key in variants) or
+            os.environ.get('ASB_HOST_FILE_SLICE') or os.environ.get('ASB_HOST_PRIVATE_MEMBER')):
+        raise ValueError('create-before-setup requires ordinary seven-guest light GRPO or monitor-off, without other measurements')
+    return True
+
+
+def skip_boundary_vmstat_options(args):
+    enabled=getattr(args,'light_skip_boundary_vmstat',False)
+    if not enabled:return False
+    mode=getattr(args,'prettier6604_monitor_mode',getattr(args,'monitor_mode','continuous'))
+    schedule=getattr(args,'prettier6604_schedule',getattr(args,'schedule','grpo'))
+    excluded=('role','prettier6604_role','shared_cache','prettier6604_shared_cache','root_count','prettier6604_root_count',
+        'snapshot_cache_pair','prettier6604_snapshot_cache_pair','host_restore_short','host_matched_task',
+        'host_trace_dual','host_independent_phase','host_rootfs_short','host_scaling_mode','host_prefix_count',
+        'host_shared_files','host_full_rootfs_mode','host_file_roots','host_prefix_roots',
+        'prettier6604_checkpoint','prettier6604_readonly_replay','prettier6604_physical_cache_after',
+        'diagnostic_guest_kernel','prettier6604_live_cache','guest_cache_metadata_probe','damon_observe','damon_disable',
+        'grpo_create_before_setup','prettier6604_grpo_create_before_setup','online_task_config','startup_sampling')
+    native_scope=(not hasattr(args,'prettier6604_schedule') or
+        getattr(args,'host_current_only',False) and getattr(args,'host_file_monitor',False) and
+        getattr(args,'persistent_cache_seed',None) and getattr(args,'prettier6604_export',None) and
+        not getattr(args,'immutable_cache_seed',None) and not getattr(args,'python_backbone_inputs',None))
+    if (os.environ.get('ASB_LOCAL_NO_PROXY')=='on' and schedule=='grpo' and mode=='continuous' and
+            getattr(args,'light_monitor',False) and native_scope and not any(getattr(args,k,None) for k in excluded)):
+        return True
+    if not create_before_setup_options(args) or mode!='continuous' or not getattr(args,'light_monitor',False):
+        raise ValueError('skip boundary vmstat requires sampled create-all-before-setup or local current GRPO')
+    return True
+
+
+def merge_boundary_meminfo_options(args):
+    enabled=getattr(args,'light_merge_boundary_meminfo',False)
+    if not enabled:return False
+    if (type(enabled) is not bool or os.environ.get('ASB_LOCAL_NO_PROXY')!='on' or
+            not getattr(args,'light_skip_boundary_vmstat',False) or
+            getattr(args,'grpo_create_before_setup',False) or getattr(args,'prettier6604_grpo_create_before_setup',False) or
+            not skip_boundary_vmstat_options(args)):
+        raise ValueError('merged boundary meminfo requires local current GRPO with boundary vmstat skipped')
+    return True
+
+
+def local_current_grpo_record(result):
+    """Saved proof for the local seven-guest variant, independent of report environment."""
+    roles=result.get('roles',[]);guests=result.get('local_no_proxy_guests',{})
+    return (result.get('schedule')=='grpo' and result.get('grpo_setup_schedule')=='per-guest-setup' and
+        result.get('local_no_proxy')=='PASS' and len(roles)==7 and set(guests)==set(roles) and
+        len(set(guests.values()))==7 and 'current' in result.get('host_before_first_tool',{}).get('counters',{}))
 
 
 def execution_paths(rollouts,schedule,role=None,root_count=None,cache_pair=False):
@@ -110,7 +203,9 @@ async def joined(coroutines):
     return values
 
 
-def verify_path(raw, role, path, workload, samples, names, sampling=True, *, sampled_role=None):
+def verify_path(raw, role, path, workload, samples, names, sampling=True, *, sampled_role=None, skip_boundary_vmstat=False, merge_boundary_meminfo=False):
+    if skip_boundary_vmstat and not sampling:raise ValueError('cannot skip boundary vmstat in monitor-off')
+    if merge_boundary_meminfo and not (sampling and skip_boundary_vmstat):raise ValueError('merged meminfo requires sampled skipped vmstat')
     count = 0
     duration = 0
     peaks = []
@@ -127,8 +222,22 @@ def verify_path(raw, role, path, workload, samples, names, sampling=True, *, sam
         count += len(rows)
         duration += sum(int(r['duration_ns']) for r in rows)
         with (output/'guest-memory.tsv').open() as stream:
-            memory = list(csv.DictReader(stream, delimiter='\t'))
+            reader=csv.DictReader(stream, delimiter='\t');memory=list(reader)
+        if merge_boundary_meminfo:
+            from prototype_boundary_memory import FIELDS
+            expected=['timestamp_ns','phase','sandbox','branch','round','step']+[k.replace('(', '_').replace(')', '')+'_kib' for k in FIELDS]
+            assert reader.fieldnames==expected, 'merged boundary memory header changed'
+            phases=[('baseline','000')]+[(phase,r['step']) for r in rows for phase in ('before','after')]+[('complete','999')]
+            assert [(r['phase'],r['step']) for r in memory]==phases
+            assert all(r['sandbox']==r['branch']==role and r['round']==segment for r in memory)
+            assert all(int(r[k])>=0 for r in memory for k in expected[6:])
         assert bool(memory)==sampling, 'memory samples do not match requested mode'
+        if skip_boundary_vmstat:
+            assert len(memory)==2+2*len(rows), 'boundary memory rows changed'
+            with (output/'guest-vmstat.tsv').open() as stream:
+                vmstat=csv.DictReader(stream,delimiter='\t')
+                assert vmstat.fieldnames==['timestamp_ns','phase','sandbox','branch','round','step','pgfault','pgmajfault','pgpgin','pgpgout']
+                assert not list(vmstat), 'skipped boundary vmstat has samples'
         peaks.extend((int(r['MemTotal_kib'])-int(r['MemFree_kib']))*1024 for r in memory)
     return dict(action_count=count,guest_action_sum_ns=duration,
                 guest_observed_peak_bytes=max(peaks) if peaks else None,final_patch_sha256=sha(raw/'rollouts'/role/path[-1]/'patch.diff'))
@@ -189,6 +298,17 @@ def reuse_capacity_checkpoint(source,out,container,config_home,service_url,recov
 
 
 def run(args):
+    monitor_mode=monitor_options(args);monitoring=monitor_mode!='off'
+    schedule_smoke=False
+    if getattr(args,'schedule_smoke_metrics',False):
+        from schedule_smoke_metrics import options as smoke_options
+        schedule_smoke=smoke_options(args)
+    local_no_proxy=os.environ.get('ASB_LOCAL_NO_PROXY')=='on'
+    if local_no_proxy and (getattr(args,'schedule','grpo')!='grpo' or getattr(args,'role',None)):
+        raise ValueError('local-no-proxy GRPO requires all seven cold guests')
+    create_before_setup=create_before_setup_options(args)
+    skip_boundary_vmstat=skip_boundary_vmstat_options(args)
+    merge_boundary_meminfo=merge_boundary_meminfo_options(args)
     cfg, workload, patch, samples, rollouts, names = validated_export(args.frozen_export)
     task = load(args.official_task)
     expected_official = reference(args.expected_official_audit)
@@ -235,10 +355,16 @@ def run(args):
     assert not provider_cache or cache_pair, 'provider collection requires the explicit real pair'
     assert not batch_lookup or provider_cache, 'batch lookup requires provider collection'
     prefix_count=getattr(args,'host_prefix_count',None)
+    current_pair=getattr(args,'host_current_pair',False)
+    if current_pair or getattr(args,'host_persistent_seed',None):
+        from host_current_pair import enabled
+        enabled(args)
     from host_private_files import member as private_member
     private_control=private_member()
     from host_full_rootfs_control import validate_mode as validate_full_rootfs_mode
     full_rootfs_mode=validate_full_rootfs_mode(args)
+    full_rootfs_residency=getattr(args,'host_full_rootfs_residency','on')
+    full_rootfs_cold_read=getattr(args,'host_full_rootfs_cold_read',False)
     if full_rootfs_mode and not (getattr(args,'light_monitor',False) and not (private_control or shared_cache or root_count or cache_pair or host_restore)):
         raise ValueError('full rootfs copies require the unchanged complete light GRPO')
     if private_control and not (prefix_count==1 and schedule=='grpo' and getattr(args,'light_monitor',False)):
@@ -255,6 +381,9 @@ def run(args):
     if host_matched:executed=matched_paths(rollouts,dual_only=host_trace_dual)
     if independent_phase:executed=independent_paths(rollouts,independent_phase)
     if scaling:executed=scaling_paths(rollouts,scaling)
+    if current_pair:
+        from host_current_pair import paths as current_pair_paths
+        executed=current_pair_paths(rollouts)
     roles=list(executed)
     final_roles=[args.role] if args.role and schedule!='tvcache' else roles
     if cache_pair:final_roles=['early_1','early_2']
@@ -286,6 +415,10 @@ def run(args):
     result = dict(status='FAIL',backend='agentenv',task_id=cfg['task_id'],roles=roles,paths={},checks={},schedule=schedule,
                   final_roles=final_roles,scope=scope,
                   physical_page_cache='NOT_MEASURED',VMM_PSS='NOT_MEASURED',monitoring_impact='NOT_VALIDATED')
+    if schedule=='grpo':result['grpo_setup_schedule']='create-all-before-setup' if create_before_setup else 'per-guest-setup'
+    if skip_boundary_vmstat:result['light_skip_boundary_vmstat']=True
+    if merge_boundary_meminfo:result['light_merge_boundary_meminfo']=True
+    if not monitoring:result['monitor_mode']='off'
     if cache_pair:
         result.update(scope='one step-11 snapshot; early_1 and early_2 frozen suffixes; no-pause raw memory-layer collection',
                       physical_page_cache='CURRENT_VMM_DEVICE_RAW_LAYER_PFN_UNION',phases=[],cache_pair=True,
@@ -306,6 +439,9 @@ def run(args):
     if prefix_count:result.update(host_prefix_count=prefix_count,official_task_status='NOT_RUN_PREFIX_ONLY',scope='Cold guests execute the same original 11-action prefix; no suffix or snapshot')
     if private_control:result['host_private_file_control']={key:private_control[key] for key in ('mode','slot')}
     if scaling:result.update(host_scaling_mode=scaling,scope='One service/cgroup; cumulative 1/2/4/7 '+scaling+' guests; identical original prefix or imported suffix, not the full GRPO schedule')
+    if current_pair:result.update(host_current_pair=True,scope='One group; two cold guests run the same original 11 actions once, five-second observations; not a full task or sharing control')
+    if getattr(args,'host_persistent_seed',None):
+        result.update(host_persistent_input=True,scope=result['scope']+'; fresh plain-file inputs and one post-window residency check; archive restoration outside group')
     workers={}
     if guest_cache_policy is not None:
         result['guest_cache_policy']=guest_cache_policy
@@ -413,7 +549,7 @@ def run(args):
     async def final_check(role,sid=None):
         sid=by_role[role] if sid is None else sid
         original='early_1' if scaling=='restore' else source_role(role) if host_matched else role
-        await asyncio.to_thread(runtime.mark,sid,'official-task-tests')
+        if runtime:await asyncio.to_thread(runtime.mark,sid,'official-task-tests')
         diff=await asyncio.to_thread(guest,'source-diff-'+role,sid,'git -C /testbed diff -- src/language-js/needs-parens.js')
         assert diff==('' if original=='early_2' else patch.strip()),'unexpected source patch: '+role
         mode=' --baseline' if original=='early_2' else ''
@@ -435,8 +571,9 @@ def run(args):
                 official_failed=official['parser_results']['num_tests_failed'])
 
     light_monitor=getattr(args,'light_monitor',False)
-    if light_monitor:result['official_task_directory']=str(args.official_task.resolve())
-    runtime=RuntimeMonitor(out,cli,container=args.container,light=host_restore or light_monitor)
+    timed_rollout=light_monitor or not monitoring or schedule_smoke
+    if timed_rollout:result['official_task_directory']=str(args.official_task.resolve())
+    runtime=RuntimeMonitor(out,cli,container=args.container,light=host_restore or light_monitor) if monitoring else None
     def interrupted(signum,frame):raise RuntimeError('owned rollout interrupted: '+str(signum))
     for sig in (signal.SIGTERM,signal.SIGINT):signal.signal(sig,interrupted)
     try:
@@ -461,9 +598,9 @@ def run(args):
             async def physical_memory(self,label):return None
 
             async def run_segment(self,sandbox,role,segment):
-                if light_monitor:
+                if timed_rollout:
                     if 'first_tool_start_monotonic_ns' not in result:
-                        if os.environ.get('ASB_HOST_FILE_SLICE'):
+                        if monitoring and os.environ.get('ASB_HOST_FILE_SLICE'):
                             from host_file_monitor import measurement_group, counters
                             group,_=measurement_group()
                             begin=time.monotonic_ns(); values=counters(group)
@@ -471,23 +608,40 @@ def run(args):
                                 end_monotonic_ns=time.monotonic_ns(),counters=values)
                         result['first_tool_start_monotonic_ns']=time.monotonic_ns()
                     result.setdefault('role_first_segment_monotonic_ns',{}).setdefault(role,time.monotonic_ns())
-                return await super().run_segment(sandbox,role,segment)
+                if full_rootfs and full_rootfs.cold:full_rootfs.cold.mark('segment-begin',role=role,segment=segment)
+                try:return await super().run_segment(sandbox,role,segment)
+                finally:
+                    if full_rootfs and full_rootfs.cold:full_rootfs.cold.mark('segment-end',role=role,segment=segment)
 
-            async def start(self,role,*,template=None,parent=''):
+            async def allocate(self,role,*,template=None,parent=''):
                 begin=time.monotonic_ns()
                 if template:
                     sid=await asyncio.to_thread(cli,'restore-'+role,'start',template,'--detach','--timeout','1800',timeout=150)
                 else:
                     sid=await asyncio.to_thread(call,'cold-'+role,[sys.executable,'-B',ROOT/'scripts/agentenv_cold_start.py',
-                           '--config-home',args.config_home,'--service-url',args.service_url,'--image',cfg['source_image']],610)
+                           '--config-home',args.config_home,'--service-url',args.service_url,'--image',cfg['source_image'],
+                           *(['--local-no-proxy'] if local_no_proxy or schedule_smoke else [])],610)
                 assert re.fullmatch(r'[a-fA-F0-9-]{36}',sid) and sid not in self.live
                 self.live[sid]=sid  # Track immediately, before tool checks/uploads can fail.
                 if schedule=='tvcache':self.by_role[role]=sid
                 self.record('sandbox-ids.tsv',f'{role}\t{sid}\t{parent}\t{template or "root"}')
                 self.record('events.tsv',f'{time.time_ns()}\tstart\troot\t{parent}\t{sid}\t{template or ""}\t{time.monotonic_ns()-begin}')
+                return sid
+
+            async def start(self,role,*,template=None,parent=''):
+                sid=await self.allocate(role,template=template,parent=parent)
+                return await self.prepare(sid,role,template=template,parent=parent)
+
+            async def prepare(self,sid,role,*,template=None,parent=''):
+                if local_no_proxy or schedule_smoke:
+                    from prettier_no_proxy import PROXY_KEYS
+                    probe='import os; assert not any(os.environ.get(k) for k in '+repr(PROXY_KEYS)+'); print("guest-no-proxy-ready")'
+                    assert await asyncio.to_thread(guest,'guest-no-proxy-check-'+role,sid,
+                        'python3 -c '+shlex.quote(probe))=='guest-no-proxy-ready'
+                    result.setdefault('local_no_proxy_guests',{})[role]=sid
                 if template and damon_before_checkpoint:
                     await asyncio.to_thread(checkpoint_damon,'observe',role,sid)
-                await asyncio.to_thread(runtime.start,sid,role,'restored-checks' if template else 'setup')
+                if runtime:await asyncio.to_thread(runtime.start,sid,role,'restored-checks' if template else 'setup')
                 if template:
                     saved=self.checkpoints[template];step=saved['step']
                     assert saved['parent']==parent and sid!=parent
@@ -681,21 +835,35 @@ def run(args):
                         result['imported_snapshot']=saved['template']
                         result['reused_prefix_source']=str(args.host_checkpoint_source)
                     from host_scaling import observe
+                    if current_pair:
+                        from host_current_pair import observe
                     def verify_scaling_instance(role):
                         value=verify_path(out,role,executed[role],workload,samples,names,sampled_role='early_1' if scaling=='restore' else None)
                         result['paths'][role]=value
                         return value
-                    by_role,result['host_scaling']=await observe(self,args,out,cli,executed,verify_scaling_instance,saved=saved)
+                    if current_pair:
+                        by_role,result['host_scaling']=await observe(self,args,out,cli,executed,verify_scaling_instance)
+                    else:by_role,result['host_scaling']=await observe(self,args,out,cli,executed,verify_scaling_instance,saved=saved)
                     if scaling=='restore':result['checks']['restored_files_progress_and_process']='PASS'
                     return by_role
                 if prefix_count and not private_control:
                     from host_prefix_compare import observe_prefix
                     result['prefix_before']=await asyncio.to_thread(observe_prefix,args,out,'before',{})
-                sandboxes=await joined(self.start(role) for role in roles)
+                if create_before_setup:
+                    sandboxes=await joined(self.allocate(role) for role in roles)
+                    result['all_created_monotonic_ns']=time.monotonic_ns()
+                    await joined(self.prepare(sid,role) for sid,role in zip(sandboxes,roles,strict=True))
+                    result['all_prepared_monotonic_ns']=time.monotonic_ns()
+                else:
+                    sandboxes=await joined(self.start(role) for role in roles)
+                if local_no_proxy:
+                    assert result['local_no_proxy_guests']==dict(zip(roles,sandboxes,strict=True))
+                    result['local_no_proxy']='PASS'
                 if private_control:
                     from host_private_files import gate
                     await asyncio.to_thread(gate,'guest-ready',dict(sandbox_id=sandboxes[0],container=args.container))
                 self.phase('root-ready')
+                if full_rootfs and full_rootfs.cold:full_rootfs.cold.mark('guests-and-setup-ready')
                 if shared_files:await asyncio.to_thread(shared_files.phase,'roots-ready',dict(zip(roles,sandboxes,strict=True)))
                 if physical:
                     physical.ready()
@@ -725,13 +893,15 @@ def run(args):
             from host_sandbox_monitor import Binding
             from host_full_rootfs_control import FullRootfsControl
             group,_=measurement_group()
-            full_rootfs=FullRootfsControl(full_rootfs_mode,out,group,Binding(args.container,out),schedule=schedule)
+            full_rootfs=FullRootfsControl(full_rootfs_mode,out,group,Binding(args.container,out),schedule=schedule,residency=full_rootfs_residency,cold_read=full_rootfs_cold_read)
+            if full_rootfs_residency=='off':result['host_full_rootfs_residency']='off'
         if full_shared:
             from host_file_monitor import measurement_group
             from host_sandbox_monitor import Binding
             from host_rollout_shared import SharedRollout
             group,_=measurement_group()
-            shared_files=SharedRollout(group,Binding(args.container,out),out,schedule)
+            shared_files=SharedRollout(group,Binding(args.container,out),out,schedule,
+                expanded=os.environ.get('ASB_HOST_EXPANDED_FILES')=='on')
         controller.phase('prepare')
         shutil.copytree(workload,out/'frozen-input')
         if guest_cache_policy is not None or cache_target is not None:
@@ -744,12 +914,19 @@ def run(args):
                 config_home=str(args.config_home.resolve()),service_url=args.service_url),indent=2)+'\n')
         runner=out/'frozen-input/guest-runner.sh'
         shutil.copy2(runner,runner.with_name('guest-runner.original.sh'))
-        runner.write_text(boundary_runner(runner.read_text(),guest_phases=True))
-        (out/'sampling-variant.json').write_text(json.dumps(dict(mode='continuous per sandbox; boundary samples per segment',phase_updates='guest runner',original_runner_sha256=sha(workload/'guest-runner.sh'),executed_runner_sha256=sha(runner)),indent=2)+'\n')
+        if merge_boundary_meminfo:shutil.copy2(ROOT/'scripts/prototype_boundary_memory.py',out/'frozen-input/prototype_boundary_memory.py')
+        if monitoring:runner.write_text(boundary_runner(runner.read_text(),guest_phases=True,skip_vmstat=skip_boundary_vmstat,**({'merge_meminfo':True} if merge_boundary_meminfo else {})))
+        else:
+            from task_metrics_prefix import without_sampling
+            runner.write_text(without_sampling(runner.read_text()))
+        (out/'sampling-variant.json').write_text(json.dumps(dict(mode='continuous per sandbox; boundary samples per segment' if monitoring else 'off',phase_updates='guest runner' if monitoring else 'none',original_runner_sha256=sha(workload/'guest-runner.sh'),executed_runner_sha256=sha(runner),**({'light_merge_boundary_meminfo':True} if merge_boundary_meminfo else {})),indent=2)+'\n')
         shutil.copy2(args.frozen_export/'provenance.json',out/'input-provenance.json')
         (out/'reference-source.patch').write_text(patch)
         (out/'expected-official-audit.json').write_text(json.dumps(expected_official,indent=2)+'\n')
         code=out/'code';code.mkdir()
+        if schedule_smoke:
+            for name in ('schedule_smoke_metrics.py','host_file_monitor.py','host_rootfs_layers.py','host_prefix_compare.py','prettier_no_proxy.py'):
+                shutil.copy2(ROOT/'scripts'/name,code/name)
         for p in [Path(__file__),ROOT/'scripts/prepare_prettier6604_rollouts.py',ROOT/'scripts/prettier6604_inputs.py',
                   ROOT/'scripts/agentenv_cold_start.py',ROOT/'scripts/prettier6604_check.cjs',
                   ROOT/'scripts/exp1_official_task.py',ROOT/'scripts/audit_prettier6604_official.py',
@@ -758,12 +935,20 @@ def run(args):
         if full_shared or rootfs_short:
             for name in ('host_rollout_shared.py','host_rootfs_layers.py','host_prefix_compare.py','host_scaling.py','run_host_file_restore.py'):
                 shutil.copy2(ROOT/'scripts'/name,code/name)
+            if os.environ.get('ASB_HOST_EXPANDED_FILES')=='on':shutil.copy2(ROOT/'scripts/host_expanded_files.py',code/'host_expanded_files.py')
+        if current_pair:shutil.copy2(ROOT/'scripts/host_current_pair.py',code/'host_current_pair.py')
+        if merge_boundary_meminfo:shutil.copy2(ROOT/'scripts/prototype_boundary_memory.py',code/'prototype_boundary_memory.py')
         (out/'source-sha256.json').write_text(json.dumps({p.name:sha(p) for p in code.iterdir()},indent=2)+'\n')
         if full_rootfs_mode:
             for name in ('host_full_rootfs_control.py','host_private_files.py','host_rootfs_layers.py','host_file_monitor.py','host_sandbox_monitor.py','host_rollout_shared.py','host_prefix_compare.py'):
                 shutil.copy2(ROOT/'scripts'/name,code/name)
+            if full_rootfs_cold_read:
+                for name in ('host_grpo_cold_read.py','host_cold_file_read.py'):shutil.copy2(ROOT/'scripts'/name,code/name)
         (out/'effective-config.json').write_text(json.dumps(dict(cfg,paths=rollouts,selected_roles=roles,scope=result['scope'],
                schedule=schedule,executed_paths=executed,final_roles=final_roles,
+               **({'light_skip_boundary_vmstat':True} if skip_boundary_vmstat else {}),
+               **({'light_merge_boundary_meminfo':True} if merge_boundary_meminfo else {}),
+               grpo_setup_schedule=result.get('grpo_setup_schedule'),
                prefix_tree_plan=tree_plan,
                shared_cache_measurement=shared_cache,root_count=root_count,
                guest_cache_policy=guest_cache_policy,
@@ -772,7 +957,7 @@ def run(args):
                variant='role-specific inspect manifests from original sampling',sandbox_ttl_seconds=1800,
                host_scope='one temporary service cgroup; includes all VMMs and image cache; host phases may overlap',
                guest_scope='continuous per actual VM ID after monitor setup; explicit snapshot gaps; logical memory, not physical deduplication'),indent=2)+'\n')
-        if not (host_restore or light_monitor):
+        if monitoring and not (host_restore or light_monitor):
             with (out/'host-monitor.log').open('x') as log:
                 monitor=subprocess.Popen(['bash',ROOT/'IncrementalDAX_moti/motivation/experiments/lib/host-memory-monitor.sh',
                     out/'host/memory-samples.tsv',controller.phase_file,'0.1',args.container],env=env,
@@ -790,8 +975,14 @@ def run(args):
         stage='frozen-paths';controller.phase(stage)
         if shared_files:shared_files.phase('before-guests',{})
         if full_rootfs:full_rootfs.before()
-        if light_monitor:result['rollout_start_monotonic_ns']=time.monotonic_ns()
+        if timed_rollout:result['rollout_start_monotonic_ns']=time.monotonic_ns()
+        if full_rootfs and full_rootfs.cold:
+            full_rootfs.cold.mark('guest-creation-begin',monotonic_ns=result['rollout_start_monotonic_ns'])
+            full_rootfs.cold.start()
         by_role=asyncio.run(getattr(controller,'do_'+schedule)())
+        if schedule_smoke:
+            from schedule_smoke_metrics import observe
+            result['schedule_smoke_metrics']=observe(args.container,out,by_role,time.monotonic_ns())
         if full_rootfs:
             try:result['host_full_rootfs_control']=full_rootfs.after(by_role,time.monotonic_ns())
             except Exception:
@@ -809,7 +1000,11 @@ def run(args):
         for role,path in executed.items():
             assert [r['segment'] for r in trace if r['rollout']==role]==path
             assert all(r['sandbox_id']==by_role[role] for r in trace if r['rollout']==role)
-            if role not in result['paths']:result['paths'][role]=verify_path(out,role,path,workload,samples,names,sampled_role='early_1' if scaling=='restore' else None)
+            if role not in result['paths']:result['paths'][role]=verify_path(out,role,path,workload,samples,names,sampling=monitoring,sampled_role='early_1' if scaling=='restore' else None,skip_boundary_vmstat=skip_boundary_vmstat,**({'merge_boundary_meminfo':True} if merge_boundary_meminfo else {}))
+            if not monitoring:
+                for segment in path:
+                    with (out/'rollouts'/role/segment/'guest-vmstat.tsv').open() as stream:
+                        assert not list(csv.DictReader(stream,delimiter='\t')), 'monitor-off has boundary vmstat samples'
         result['checks']['sampled_actions_order_exit_codes_and_distinct_instances' if schedule!='grpo' or scaling=='restore' else 'sampled_actions_order_exit_codes_and_distinct_roots']='PASS'
         if schedule=='tvcache':
             assert [[r['rollout'],r['segment']] for r in trace]==tree_plan['segments']
@@ -823,17 +1018,30 @@ def run(args):
         result['action_count']-=result['reused_action_count']
         result['actual_action_count']=result['action_count']
         result['segment_count']=len(trace)
+        if skip_boundary_vmstat:
+            result['boundary_vmstat']=dict(status='NOT_MEASURED',reason='explicitly skipped boundary vmstat',row_count=0,
+                boundary_memory_rows=2*result['segment_count']+2*result['action_count'])
+            result['checks']['boundary_vmstat_skipped_memory_preserved']='PASS'
+        if merge_boundary_meminfo:
+            from sandbox_runtime_monitor import boundary_meminfo_metadata
+            result['boundary_meminfo']=boundary_meminfo_metadata(result['action_count'],result['segment_count'])
+            result['checks']['boundary_meminfo_timer_merge_preserved']='PASS'
         stage='final-state-and-official-tests';controller.phase(stage)
         asyncio.run(joined(final_check(role) for role in final_roles))
         for role in set(roles)-set(final_roles):
             if not host_matched or role=='backbone':result['paths'][role]['official_task_status']='NOT_RUN_PREFIX_ONLY'
         if host_restore or prefix_count or scaling=='cold':result['official_evaluation']='NOT_RUN_PREFIX_ONLY'
         else:result['checks']['final_source_properties_and_complete_official_outcomes']='PASS'
-        if light_monitor:result['rollout_end_monotonic_ns']=time.monotonic_ns()
+        if timed_rollout:result['rollout_end_monotonic_ns']=time.monotonic_ns()
         if host_matched and independent_phase!='capture':result['official_evaluation']='COMPLETED_PER_INSTANCE_BEFORE_REMOVAL'
         (out/'terminal-storage-allocation.json').write_text(json.dumps(storage_allocation(out.parent.parent),indent=2)+'\n')
         if cache_pair:result['phases'][0]['end_ns']=time.time_ns()
+        if full_rootfs:
+            from host_full_rootfs_control import validate_observation
+            validate_observation(full_rootfs.state,full_rootfs_residency)
         success=True
+        if schedule_smoke and result['schedule_smoke_metrics']['status']!='OBSERVED':
+            success=False;result.update(error=result['schedule_smoke_metrics']['error'],failed_stage='schedule-smoke-metrics')
         if shared_files and shared_files.state['status']!='OBSERVED':
             success=False;result.update(error=shared_files.state['error'],failed_stage='host-shared-files')
     except BaseException as error:
@@ -843,7 +1051,18 @@ def run(args):
     finally:
         for sig in (signal.SIGTERM,signal.SIGINT):signal.signal(sig,signal.SIG_IGN)
         cleanup={}
-        if light_monitor:cleanup['legacy_host_monitor_not_requested']=True
+        cold_reaped=True
+        if full_rootfs and full_rootfs.cold:
+            try:full_rootfs.cold.stop()
+            except Exception as error:cleanup['cold_reader_error']=repr(error);success=False
+            cold_reaped=not full_rootfs.cold.is_alive();cleanup['cold_reader_reaped']=cold_reaped
+            if not cold_reaped:
+                cleanup['cold_reader_cleanup_deferred']='Controller exits before outer isolated-service cleanup; do not delete guests with an active query'
+                success=False
+            if not success:full_rootfs.state.update(status='FAIL',error=result.get('error',cleanup.get('cold_reader_error','cold read incomplete')))
+            full_rootfs.save();result['host_full_rootfs_control']=full_rootfs.state
+        if light_monitor or not monitoring:cleanup['legacy_host_monitor_not_requested']=True
+        if not monitoring:cleanup['monitoring_disabled']=True
         for role,sid in list(capacity_active.items()):
             try:capacity_stop(role,sid)
             except Exception as error:cleanup.setdefault('capacity_errors',[]).append(repr(error));success=False
@@ -855,13 +1074,21 @@ def run(args):
             except Exception as error:cleanup['samplers_error']=repr(error);success=False
         if physical:
             physical.close();cleanup['physical_tracer_stopped']=physical.tracer.poll() is not None
-        if controller:
+        if controller and cold_reaped:
             removed=[]
-            for sid in list(controller.live):
-                try:runtime.stop(sid)
-                except Exception as error:cleanup.setdefault('errors',[]).append(repr(error));success=False
-                try:cli('delete-owned','delete',sid,timeout=60);removed.append(sid);controller.live.pop(sid)
-                except Exception as error:cleanup.setdefault('errors',[]).append(repr(error));success=False
+            if light_monitor or not monitoring:
+                cleanup_begin=time.monotonic_ns()
+                closed=parallel_guest_cleanup(list(controller.live),runtime.stop if runtime else None,lambda sid:cli('delete-owned','delete',sid,timeout=60))
+                result['light_cleanup_timing']=dict(start_monotonic_ns=cleanup_begin,end_monotonic_ns=time.monotonic_ns(),guests=closed)
+                for row in closed:
+                    if row['deleted']:removed.append(row['sandbox_id']);controller.live.pop(row['sandbox_id'])
+                    if row['errors']:cleanup.setdefault('errors',[]).extend(row['errors']);success=False
+            else:
+                for sid in list(controller.live):
+                    try:runtime.stop(sid)
+                    except Exception as error:cleanup.setdefault('errors',[]).append(repr(error));success=False
+                    try:cli('delete-owned','delete',sid,timeout=60);removed.append(sid);controller.live.pop(sid)
+                    except Exception as error:cleanup.setdefault('errors',[]).append(repr(error));success=False
             cleanup['sandboxes_removed']=removed
             if controller.agentenv_templates:
                 if success and independent_phase=='capture':
@@ -887,8 +1114,15 @@ def run(args):
                 try:monitor.wait(timeout=5)
                 except subprocess.TimeoutExpired:os.killpg(monitor.pid,signal.SIGKILL);monitor.wait(timeout=5)
                 cleanup['monitor_stopped']=True
-        result.update(status='PASS' if success else 'FAIL',cleanup=cleanup,controller_elapsed_ns=time.monotonic_ns()-started)
-        if success and not light_monitor:result['VMM_PSS']='NOT_REQUESTED' if rootfs_short else 'MEASURED_PER_OWNED_VMM'
+        controller_end=time.monotonic_ns()
+        if create_before_setup:
+            result['controller_end_monotonic_ns']=controller_end
+            if 'all_created_monotonic_ns' in result:
+                result['created_to_controller_end_ns']=controller_end-result['all_created_monotonic_ns']
+            if 'all_prepared_monotonic_ns' in result:
+                result['create_to_setup_ns']=result['all_prepared_monotonic_ns']-result['all_created_monotonic_ns']
+        result.update(status='PASS' if success else 'FAIL',cleanup=cleanup,controller_elapsed_ns=controller_end-started)
+        if success and not light_monitor:result['VMM_PSS']='NOT_REQUESTED' if rootfs_short or not monitoring else 'MEASURED_PER_OWNED_VMM'
         (out/'result.json').write_text(json.dumps(result,indent=2)+'\n')
     print('status='+result['status']+' result_dir='+str(out),flush=True)
     return 0 if success else 1
@@ -901,6 +1135,7 @@ if __name__=='__main__':
     parser.add_argument('--expected-official-audit',type=Path,required=True)
     parser.add_argument('--role',choices=['early_1','early_2','early_3','late_1','late_2','late_3'])
     parser.add_argument('--schedule',choices=['grpo','bpo','tvcache'],default='grpo')
+    parser.add_argument('--schedule-smoke-metrics',action='store_true',help='Explicit full-profile seven-role smoke: local-only creation, VMM PSS and 19 initial lower P1')
     parser.add_argument('--host-trace-dual',action='store_true',help='Only two matched restores; external targeted cache tracer')
     parser.add_argument('--host-independent-phase',choices=('capture','single','dual'))
     parser.add_argument('--host-checkpoint-bundle',type=Path)
@@ -910,7 +1145,11 @@ if __name__=='__main__':
     parser.add_argument('--host-prefix-count',type=int,choices=(1,7))
     parser.add_argument('--host-shared-files',action='store_true',help='Full paths: selected shared backings after original actions, before official checks')
     parser.add_argument('--host-full-rootfs-mode',choices=('shared','private'),help='Complete GRPO/BPO: initial-layer copies, generated layers separate')
+    parser.add_argument('--host-full-rootfs-residency',choices=('on','off'),default='on')
+    parser.add_argument('--host-full-rootfs-cold-read',action='store_true',help='Full GRPO only: cold initial lower files and serial background residency')
     parser.add_argument('--host-scaling-mode',choices=('cold','restore'))
+    parser.add_argument('--host-current-pair',action='store_true')
+    parser.add_argument('--host-persistent-seed',type=Path)
     parser.add_argument('--host-prefix-roots',type=Path)
     parser.add_argument('--host-file-roots',type=Path,help='Explicit regular-file roots for live matched-task residency')
     parser.add_argument('--host-restore-short',action='store_true',help='Ordinary-kernel step-11 snapshot; N=1 then N=2, five seconds each, no suffix')
@@ -930,6 +1169,10 @@ if __name__=='__main__':
     parser.add_argument('--service-url');parser.add_argument('--output',type=Path)
     parser.add_argument('--check-only',action='store_true')
     parser.add_argument('--light-monitor',action='store_true',help='Guest meminfo only at 0.1 s; no per-VMM or legacy host collector')
+    parser.add_argument('--monitor-mode',choices=('continuous','off'),default='continuous',help='Off: ordinary seven-guest GRPO, retain timings and original task checks')
+    parser.add_argument('--grpo-create-before-setup',action='store_true',help='Explicit guest-only GRPO: finish all seven creates before concurrent sampling/check/upload setup')
+    parser.add_argument('--light-skip-boundary-vmstat',action='store_true',help='Sampled create-before-setup or local current GRPO: retain memory, skip boundary vmstat')
+    parser.add_argument('--light-merge-boundary-meminfo',action='store_true',help='Local current light GRPO with skipped vmstat only: reuse action timer Python for boundary meminfo')
     args=parser.parse_args()
     if not args.check_only and not all((args.container,args.config_home,args.service_url,args.output)):
         parser.error('live run requires owned container, config-home, service-url, output')

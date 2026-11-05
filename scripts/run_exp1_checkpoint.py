@@ -17,6 +17,9 @@ root = pathlib.Path(__file__).resolve().parent.parent
 run_started_ns = time.monotonic_ns()
 cfg = json.loads((pathlib.Path(sys.argv[1]) if len(sys.argv) > 1 else root / 'configs/exp1-agentenv.json').read_text())
 checkpoint_after = checkpoint_step(cfg.get('checkpoint_after_step', '013'))
+light=cfg.get('light_monitor',False)
+if light and (checkpoint_after is not None or cfg['sample_interval_seconds']!=.1):
+    raise ValueError('light Exp1 requires full replay without checkpoint and 0.1-second sampling')
 continuation_start = f'{int(checkpoint_after)+1:03d}' if checkpoint_after else None
 runtime = (root / cfg.get('runtime_dir', 'runtime')).resolve()
 repo = root / cfg['repository']
@@ -40,6 +43,7 @@ sandbox_id = None
 snapshot_alias = f'exp1-checkpoint-{run_id}'
 snapshot_attempted = False
 monitor = None
+guest_monitor = None
 phase = raw / '.host-monitor-phase'
 checks = {}
 status = 'FAIL'
@@ -75,6 +79,10 @@ def probe(text):
 
 def exec_guest(label, command, timeout=120):
     return call(label, ['aenv', 'exec', sandbox_id, 'bash', '-lc', command], timeout)
+
+
+def monitor_cli(label,*argv,timeout=120):
+    return call(label,['aenv',*map(str,argv)],timeout)
 
 
 def list_items(kind):
@@ -115,6 +123,7 @@ try:
     cid = (root / cfg['server_result'] / 'container-id.txt').read_text().strip()
     info = json.loads(call('docker-inspect', ['docker', 'inspect', cid], 20))[0]
     assert info['State']['Running'] and info['Config']['Labels'].get('agentenv.experiment') == 'initial-smoke'
+    if light:assert info['Config']['Labels'].get('agentsandboxbench.run_id')==cfg['expected_run_id']
     credentials = tomllib.loads((runtime / 'config/aenv/credentials').read_text())
     assert credentials['url'] == 'http://' + (root / cfg['server_result'] / 'address.txt').read_text().strip()
     assert list_items('') == [] and list_items('template') == []
@@ -137,27 +146,43 @@ try:
         backend_state='complete VM memory and filesystem snapshot; process continuity tested' if checkpoint_after else 'full replay; no snapshot',
         trajectory=trajectory, cwd='/testbed', session_semantics=trajectory['session_semantics'],
         comparison_run='fixed expected patch hash' if expected_patch else str(baseline),
-        monitoring_scope='host cgroup only; checkpoint lifecycle overhead NOT_MEASURED' if cfg.get('host_monitor_light') else 'diagnostic'), indent=2) + '\n')
+        monitoring_scope='guest meminfo at 0.1s; host current owned by outer workflow; no PSS/mincore' if light else 'host cgroup only; checkpoint lifecycle overhead NOT_MEASURED' if cfg.get('host_monitor_light') else 'diagnostic'), indent=2) + '\n')
     (audit / 'source-version.txt').write_text(call('source-version', ['git', '-C', str(repo), 'rev-parse', 'HEAD']))
     (audit / 'source-changes.patch').write_text(call('source-changes', ['git', '-C', str(repo), 'diff']))
     (raw / 'metadata.env').write_text(f'run_id={run_id}\nworkload_image={image}\n'
         f'sandbox_cpu={cfg["sandbox_cpu"]}\nsandbox_memory_mib={cfg["sandbox_memory_mib"]}\n'
         f'overlaybd_io_engine={io_engine}\ndrop_guest_caches=0\nsample_interval_seconds={cfg["sample_interval_seconds"]}\n')
     begin = time.monotonic_ns()
-    sandbox_id = call('cold-start', ['aenv', 'start', '--cold', image, '--detach', '--timeout', '1800',
-                         '--cpu', str(cfg['sandbox_cpu']), '--memory', str(cfg['sandbox_memory_mib'])], 150)
+    if light:
+        sandbox_id=call('cold-start',[sys.executable,str(root/'scripts/agentenv_cold_start.py'),
+            '--config-home',str(runtime/'config'),'--service-url',credentials['url'],'--image',image,
+            '--memory-mib',str(cfg['sandbox_memory_mib'])],610)
+    else:
+        sandbox_id = call('cold-start', ['aenv', 'start', '--cold', image, '--detach', '--timeout', '1800',
+                             '--cpu', str(cfg['sandbox_cpu']), '--memory', str(cfg['sandbox_memory_mib'])], 150)
     assert re.fullmatch(r'[0-9a-fA-F-]{36}', sandbox_id)
     (raw / 'cold-start-duration-ns.txt').write_text(str(time.monotonic_ns() - begin) + '\n')
     (raw / 'sandbox-ids.txt').write_text(sandbox_id + '\n')
     exec_guest('initial-ready', 'true')
+    if light:
+        from sandbox_runtime_monitor import RuntimeMonitor
+        from exp1_light import bundle,GUEST
+        guest_monitor=RuntimeMonitor(raw,monitor_cli,light=True,
+            guest_script='/workspace/asb-exp1-monitor/asb-runtime-monitor.py')
+        guest_monitor.start(sandbox_id,'backbone')
+        inputs=bundle(raw,workload,runner)
+        call('upload-light-inputs',['aenv','upload',sandbox_id,str(inputs),GUEST])
+        uploaded=exec_guest('verify-uploaded-actions',f'sha256sum {GUEST}/actions/*.sh')
+        assert [line.split()[0] for line in uploaded.splitlines()]==[row[1] for row in rows]
+        checks['uploaded_action_hashes']='PASS'
     damon('damon-prepare', 'prepare')
-    for label, source, dest in (
+    for label, source, dest in (() if light else (
         ('upload-actions', workload / 'actions', '/workspace/replay-actions'),
         ('upload-manifest', workload / 'actions.tsv', '/workspace/replay-actions.tsv'),
         ('upload-runner', runner, '/workspace/guest-runner.sh'),
         ('upload-probe', root / 'scripts/exp1-process-probe.sh', '/workspace/exp1-process-probe.sh'),
         ('upload-boundary-probe', root / 'scripts/exp1_inputs.py', '/workspace/exp1-inputs.py'),
-        ('upload-independent-check', root / 'scripts/exp1_independent_check.cjs', '/workspace/exp1-independent-check.cjs')):
+        ('upload-independent-check', root / 'scripts/exp1_independent_check.cjs', '/workspace/exp1-independent-check.cjs'))):
         call(label, ['aenv', 'upload', sandbox_id, str(source), dest])
     if cfg.get('persistent_guest_collector'):
         call('upload-collector',['aenv','upload',sandbox_id,cfg['persistent_guest_collector'],
@@ -166,13 +191,16 @@ try:
     phase.write_text('idle\n')
     host_path = raw / 'host/memory-samples.tsv'
     host_path.parent.mkdir()
-    with (audit / 'host-monitor.log').open('w') as log:
-        monitor = subprocess.Popen(['bash', str(monitor_script), str(host_path), str(phase),
-                   str(cfg['sample_interval_seconds']), cid], env=env, cwd=repo, stdout=log, stderr=log)
-    time.sleep(0.2)
+    if not light:
+        with (audit / 'host-monitor.log').open('w') as log:
+            monitor = subprocess.Popen(['bash', str(monitor_script), str(host_path), str(phase),
+                       str(cfg['sample_interval_seconds']), cid], env=env, cwd=repo, stdout=log, stderr=log)
+        time.sleep(0.2)
     common = (f"ACTION_TIMEOUT_SECONDS={cfg['action_timeout_seconds']} "
               f"MEMORY_SAMPLE_INTERVAL_SECONDS={cfg['sample_interval_seconds']} "
-              'DROP_GUEST_CACHES=0 ' + ('GUEST_MEMORY_SAMPLING=0 ' if not cfg.get('guest_sampling', True) else ''))
+              'DROP_GUEST_CACHES=0 ' + ('GUEST_MEMORY_SAMPLING=0 ' if light or not cfg.get('guest_sampling', True) else ''))
+    if light:
+        common+=f'ACTIONS_DIR={GUEST}/actions OUTPUT_DIR=/workspace/artifacts/replay '
     phase.write_text('running\n')
     damon('damon-before-prefix', 'before_task')
     if checkpoint_after:
@@ -207,7 +235,7 @@ try:
         phase.write_text('running\n')
         segment(f'actions-{continuation_start}-026', common + f'START_STEP={continuation_start} END_STEP=026 bash /workspace/guest-runner.sh')
     else:
-        segment('actions-001-026', common + 'START_STEP=001 END_STEP=026 bash /workspace/guest-runner.sh')
+        segment('actions-001-026', common + 'START_STEP=001 END_STEP=026 bash '+(GUEST+'/runner.sh' if light else '/workspace/guest-runner.sh'))
     damon('damon-after-task', 'after_task')
     phase.write_text('download\n')
     call('download-replay', ['aenv', 'download', sandbox_id, '/workspace/artifacts/replay', str(raw)], 90)
@@ -223,18 +251,26 @@ try:
     assert hashlib.sha256(patch).hexdigest() == expected_patch if expected_patch else patch == baseline.read_bytes()
     checks['replay_correctness'] = 'PASS'
     checks['patch_matches_full_replay'] = 'PASS'
-    independent = json.loads(exec_guest('independent-svg', 'node /workspace/exp1-independent-check.cjs'))
+    if light:guest_monitor.mark(sandbox_id,'independent-checks')
+    independent = json.loads(exec_guest('independent-svg', 'node '+(GUEST+'/check.cjs' if light else '/workspace/exp1-independent-check.cjs')))
     assert set(independent) == {'svg', 'nested_svg', 'html_control'}
     assert all(independent[name]['javascript_formatted'] and independent[name]['idempotent']
                for name in independent)
     checks['independent_svg_properties'] = 'PASS'
+    if light:(audit/'independent-svg.json').write_text(json.dumps(independent,indent=2)+'\n')
     if cfg.get('official_task'):
         from exp1_official_task import guest_command, grade
         task = (root/cfg['official_task']).resolve()
         call('upload-official-tests', ['aenv', 'upload', sandbox_id, str(task/'test.patch'), '/workspace/official-test.patch'])
         official = exec_guest('official-task-tests', guest_command(task, '/workspace/official-test.patch'), 145)
-        (audit/'official-task-result.json').write_text(json.dumps(grade(task, official), indent=2)+'\n')
+        official_result=grade(task, official)
+        if light:assert official_result['parser_results']['num_tests_passed']==4 and official_result['parser_results']['num_tests_failed']==0
+        (audit/'official-task-result.json').write_text(json.dumps(official_result, indent=2)+'\n')
         checks['official_task_tests'] = 'PASS'
+    if light:
+        guest_monitor.stop(sandbox_id,'task-checks-complete')
+        assert all(s['status']=='PASS' and s['collector_reaped'] for s in guest_monitor.sessions)
+        checks['guest_light_sampling']='PASS'
     call('delete-restored', ['aenv', 'delete', sandbox_id], 60)
     with (raw / 'cleanup.log').open('a') as f:
         f.write(f'deleted={sandbox_id}\n')
@@ -247,12 +283,13 @@ try:
     assert list_items('') == [] and list_items('template') == []
     checks['cleanup'] = 'PASS'
     phase.write_text('done\n')
-    monitor.send_signal(signal.SIGTERM)
-    monitor.wait(timeout=10)
-    monitor = None
-    with host_path.open() as f:
-        assert len(list(csv.DictReader(f, delimiter='\t'))) > 0
-    checks['host_sampling'] = 'PASS'
+    if not light:
+        monitor.send_signal(signal.SIGTERM)
+        monitor.wait(timeout=10)
+        monitor = None
+        with host_path.open() as f:
+            assert len(list(csv.DictReader(f, delimiter='\t'))) > 0
+        checks['host_sampling'] = 'PASS'
     (out / 'latest-run.txt').write_text(run_id + '\n')
     if cfg.get('generate_analysis', True):
         call('report', ['python3', str(repo / 'motivation/experiments/exp1-single-app-smoke/systems/agentenv/analyze.py'), str(out)])
@@ -262,6 +299,9 @@ except Exception as exc:
     (audit / 'failure.txt').write_text(traceback.format_exc())
     print(f'failure={type(exc).__name__}: {exc}', flush=True)
 finally:
+    if guest_monitor and sandbox_id in guest_monitor.active:
+        try:guest_monitor.stop(sandbox_id)
+        except Exception:checks['guest_light_cleanup']='FAIL';status='FAIL'
     if monitor is not None:
         monitor.send_signal(signal.SIGTERM)
         try: monitor.wait(timeout=10)
@@ -270,12 +310,19 @@ finally:
     phase.unlink(missing_ok=True)
     if sandbox_id:
         try: call('cleanup-sandbox', ['aenv', 'delete', sandbox_id], 60)
-        except Exception: checks['cleanup_sandbox'] = 'FAIL'
+        except Exception: checks['cleanup_sandbox'] = 'FAIL';status='FAIL'
     if snapshot_attempted:
         try: call('cleanup-snapshot', ['aenv', 'template', 'delete', snapshot_alias], 60)
         except Exception: checks['cleanup_snapshot'] = 'FAIL'
     (audit / 'events.json').write_text(json.dumps(events, indent=2) + '\n')
     (audit / 'checks.json').write_text(json.dumps(checks, indent=2) + '\n')
+    if light:
+        (raw/'result.json').write_text(json.dumps(dict(status=status,task_id='prettier__prettier-14400',exp1_light=True,
+            official_task_status='PASS' if checks.get('official_task_tests')=='PASS' else 'NOT_PASSED',
+            checks=checks,guest_action_sum_ns=sum(int(row['duration_ns']) for row in steps) if 'steps' in globals() else None,
+            controller_elapsed_ns=time.monotonic_ns()-run_started_ns,
+            cleanup=dict(task_cleanup=checks.get('cleanup')=='PASS',collector_complete=checks.get('guest_light_sampling')=='PASS')),
+            indent=2)+'\n')
     (audit / 'result.json').write_text(json.dumps(dict(status=status, raw_dir=str(raw),
         controller_elapsed_ns=time.monotonic_ns() - run_started_ns), indent=2) + '\n')
     print(f'status={status} run_id={run_id} result_dir={raw} audit_dir={audit}', flush=True)

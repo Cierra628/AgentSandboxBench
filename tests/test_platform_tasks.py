@@ -39,6 +39,49 @@ class PlatformTaskTests(unittest.TestCase):
             with self.assertRaisesRegex(ValueError, 'failed/incomplete'): report(root, root/'report')
             self.assertFalse((root/'report').exists())
 
+    def test_live_cache_routes_kernel_and_collector_for_all_tasks(self):
+        for task in ('prettier6604','sphinx7590','xarray6992'):
+            cfg=configuration(ROOT/('configs/platform-'+task+'-live-cache.json'))
+            check,live=commands(cfg,Path('/not-created'))
+            self.assertIn('--live-cache',check)
+            self.assertEqual(live[live.index('--diagnostic-guest-kernel')+1],cfg['live_cache_kernel'])
+            self.assertIn('--prettier6604-live-cache' if task=='prettier6604' else '--python-live-cache',live)
+            self.assertEqual(preflight(cfg,offline=True)['status'],'VALIDATED')
+
+    def test_live_cache_rejects_paused_analysis_and_capture_combinations(self):
+        kernel='.artifacts/agentenv-cache-kernel-20261015-v3/vmlinux.bin'
+        for changes in ({'physical_cache_after_segments':['read_repo']},
+                        {'live_cache_kernel':True}, {'live_cache_kernel':'/boot/vmlinux'}):
+            args=dict(live_cache_kernel=kernel);args.update(changes)
+            with self.assertRaises(ValueError):self.config(**args)
+        cfg=self.config(live_cache_kernel=kernel)
+        with self.assertRaises(ValueError):commands(cfg,Path('/not-created'),tool_capture=True)
+
+    def test_live_cache_step24_restore_routes_both_options(self):
+        cfg=configuration(ROOT/'configs/platform-prettier6604-checkpoint-live-cache.json')
+        check,live=commands(cfg,Path('/not-created'))
+        self.assertIn('--checkpoint',check)
+        self.assertIn('--live-cache',check)
+        self.assertIn('--prettier6604-checkpoint',live)
+        self.assertIn('--prettier6604-live-cache',live)
+        self.assertEqual(preflight(cfg,offline=True)['status'],'VALIDATED')
+
+    def test_raw_memory_layer_requires_explicit_restored_diagnostic_mode(self):
+        cfg=configuration(ROOT/'configs/platform-prettier6604-checkpoint-layer-cache.json')
+        check,live=commands(cfg,Path('/not-created'))
+        self.assertIn('--live-cache-lower',check)
+        self.assertIn('--prettier6604-live-cache-lower',live)
+        self.assertEqual(preflight(cfg,offline=True)['status'],'VALIDATED')
+        for changes in ({'live_cache_lower':True}, {'live_cache_lower':1},
+                        {'live_cache_lower':True,'checkpoint_after_step':24}):
+            with self.assertRaises(ValueError):self.config(**changes)
+        old=configuration(ROOT/'configs/platform-prettier6604-checkpoint-live-cache.json')
+        self.assertNotIn('--live-cache-lower',commands(old,Path('/not-created'))[0])
+
+    def test_missing_live_kernel_fails_offline_preflight(self):
+        cfg=self.config(live_cache_kernel='.artifacts/missing-live-kernel/vmlinux.bin')
+        with self.assertRaises(FileNotFoundError):preflight(cfg,offline=True)
+
     def test_sphinx_diagnostic_policy_remains_explicit(self):
         cfg=configuration(ROOT/'configs/platform-sphinx7590.json')
         check, live=commands(cfg,Path('/not-created'))

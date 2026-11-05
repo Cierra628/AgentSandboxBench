@@ -62,12 +62,12 @@ class FullRootfsTests(unittest.TestCase):
                 self.assertGreaterEqual(value['end_monotonic_ns'],value['start_monotonic_ns'])
                 self.assertGreaterEqual(value['cpu_ns'],0)
 
-    def observation_fixture(self,mount,mode):
+    def observation_fixture(self,mount,mode,*,residency='on'):
         self.prepare(mount,mode)
         raw=mount/'controller/prettier6604';raw.mkdir(parents=True)
         guests={f'role-{i}':f'sid-{i}' for i in range(7)}
         binding=SimpleNamespace(cgroup=Path('/mock/cgroup'),resolve=lambda sid:dict(pid=100+int(sid.split('-')[1])))
-        observer=control.FullRootfsControl(mode,raw,Path('/mock/group'),binding)
+        observer=control.FullRootfsControl(mode,raw,Path('/mock/group'),binding,residency=residency)
         observer.before()
         objects=[];roots_guests={};receipts=mount/'env/rootfs-copy-control/receipts';receipts.mkdir()
         for slot,rows in enumerate(observer.preparation['copies']):

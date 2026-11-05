@@ -79,14 +79,17 @@ def memory_layers(env,templates,service_group,*,opened=None):
 
 
 class SharedRollout:
-    def __init__(self,group,binding,out,schedule,*,single_reference=False):
+    def __init__(self,group,binding,out,schedule,*,single_reference=False,expanded=False):
+        if expanded and schedule!='grpo':raise ValueError('expanded files require complete GRPO without restore')
         self.group,self.binding,self.out=group,binding,Path(out)
         self.env=self.out.parent.parent/'env'
         self.restored={};self.templates={}
         self.single_reference=single_reference
+        self.expanded=expanded
         self.state=dict(status='PENDING',profile='full-shared-files-v2',schedule=schedule,phases=[],
             pss='NOT_REQUESTED',scope='Selected read-only drives, restored memory devices, memory lowers and confirmed shared local rootfs lowers. Global cache residency; unresolved and single-user lowers separate, not exact guest Cached attribution or whole host RAM.')
         if single_reference:self.state['scope']='Explicit single-guest reference candidates, not confirmed multi-guest sharing. Global selected-file residency; no exact guest Cached attribution or whole host RAM.'
+        if expanded:self.state['expanded_files_requested']=True
 
     def save(self):
         (self.out/'host-shared-files.json').write_text(json.dumps(self.state,indent=2)+'\n')
@@ -159,6 +162,10 @@ class SharedRollout:
                 if obj.get('size') is not None and value['mapping_length']!=obj['size']:raise ValueError('layer size changed')
                 objects.append(dict(object_key=obj['object_key'],category=obj['category'],users=sorted(obj['users']),
                     templates=sorted(obj['templates']),origin=obj.get('origin','ACTIVE_BACKING'),residency=value))
+            expanded=None
+            if self.expanded:
+                from host_expanded_files import observe_owned_files
+                expanded=observe_owned_files(self.env,roots,objects,opened=self.opened)
             validate_rootfs_inventory(roots)
             for role,vm in point['bindings'].items():
                 if self.binding.resolve(guests[role])!=vm:raise ValueError('VMM identity changed during query')
@@ -170,6 +177,7 @@ class SharedRollout:
                 cpu_ns=time.thread_time_ns()-cpu,counters_before=before,counters_after=after,objects=objects,excluded=excluded,layer_inventory=layers,rootfs_inventory=roots,
                 categories={c:sum(o['residency']['resident_bytes'] for o in objects if o['category']==c) for c in sorted({o['category'] for o in objects})},
                 scope='Each actual cache identity queried once across both templates; categories are separate, no combined physical total or linear savings reference.'))
+            if expanded is not None:self.state['query']['expanded_files']=expanded
         except BaseException as error:
             self.state.update(status='FAIL',error=repr(error));raise
         finally:self.save()
@@ -202,16 +210,24 @@ def report(raw,output):
     output.mkdir(parents=True,exist_ok=False)
     (output/'summary.json').write_text(json.dumps(result,indent=2)+'\n')
     names=dict(shared_readonly_backing='共享只读后备',snapshot_memory_device='快照内存设备',snapshot_memory_layer='原始内存层',shared_rootfs_layer='共享系统盘下层文件')
+    expanded=query.get('expanded_files')
     lines=['# 完整任务的指定共享文件驻留','',
         '| 类别 | 缓存对象身份 | 实际使用者 | 来源 | 驻留／MiB |','| --- | --- | --- | --- | ---: |']
     for obj in query['objects']:
         origin='本轮保存产物' if obj['origin']=='CREATED_THIS_ROLLOUT' else '活跃后备'
         lines.append('| '+names[obj['category']]+' | '+':'.join(map(str,obj['object_key']))+' | '+', '.join(obj['users'])+' | '+origin+' | '+f"{obj['residency']['resident_bytes']/2**20:.6f}"+' |')
     lines+=['',f"创建及原路径用时{result['original_paths_elapsed_ns']/1e9:.6f}秒，随后驻留查询{result['query_elapsed_ns']/1e9:.6f}秒；整轮{result['rollout_elapsed_ns']/1e9:.6f}秒包含该查询和官方检查。元数据观察合计{result['metadata_elapsed_ns']/1e9:.6f}秒，各阶段CPU及计数见JSON。",'',
-        '各层单列，不相加为整体RAM，也不套用七份单沙箱参考。独立可写盘未查询，驻留字段为空；'+('rootfs下层覆盖见下方识别状态。' if roots else 'rootfs不可变下层文件未完整覆盖。'),
+        '各层单列，不相加为整体RAM，也不套用七份单沙箱参考。'+('upper普通文件见新增分类，可写设备缓存未查询；' if expanded else '独立可写盘未查询，驻留字段为空；')+('rootfs下层覆盖见下方识别状态。' if roots else 'rootfs不可变下层文件未完整覆盖。'),
         '', '运行中guest Cached和host组内file曲线与本页末尾指定对象驻留的层次、范围和时刻不同。原官方结果保留在summary.json。']
     if roots:
         lines+=['',f"系统盘下层识别状态：{roots['status']}。元数据{result['rootfs_metadata_elapsed_ns']/1e9:.6f}秒已计入元数据合计，新增共享文件查询{result['rootfs_query_elapsed_ns']/1e9:.6f}秒已计入驻留查询，不重复相加。",'',
-            '仅至少两个活实例确认引用的本地不可变文件加入查询；单实例文件和upper未查询，未解析项为未知。完整关联及保留槽身份见JSON，不由对象数推算覆盖比例。']
+            '此指定共享子集仅选至少两个活实例确认引用的本地不可变文件；'+('upper及其余自有普通文件见新增分类。' if expanded else '单实例文件和upper未查询。')+'未解析项为未知，完整关联及保留槽身份见JSON，不由对象数推算覆盖比例。']
+    if expanded:
+        lines+=['','## 新增upper及其他自有普通文件',
+            f"新增唯一文件{expanded['new_unique_file_count']}个，状态{expanded['status']}，稳定文件观测驻留{expanded['stable_new_resident_bytes']/2**20:.6f} MiB。",
+            '原19个lower等已查询普通文件按设备号和inode排除重复。新增分类、每文件成本、变化及未知项见JSON；这不是整沙箱物理内存。',
+            '| 类别 | 文件数 | 稳定驻留／MiB | 变化或未知文件数 |','| --- | ---: | ---: | ---: |']
+        for name,row in expanded['categories'].items():lines.append(f"| {name} | {row['files']} | {row['stable_resident_bytes']/2**20:.6f} | {row['unknown_or_changed']} |")
+        lines+=['','可写ublk设备缓存、已删除文件、VMM匿名内存及外层loop后备镜像未加入该普通文件合计；未知不记零。']
     (output/'REPORT.md').write_text('\n'.join(lines)+'\n')
     return result

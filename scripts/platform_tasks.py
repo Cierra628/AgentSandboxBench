@@ -13,9 +13,9 @@ import traceback
 ROOT = Path(__file__).resolve().parents[1]
 TASKS = {'prettier__prettier-6604': 'prettier6604',
          'sphinx-doc__sphinx-7590': 'sphinx7590', 'pydata__xarray-6992': 'xarray6992'}
-FIELDS = {'version', 'task_id', 'backend', 'rollout', 'checkpoint_after_step',
+FIELDS = {'version', 'task_id', 'backend', 'rollout', 'checkpoint_after_step', 'grpo_create_before_setup', 'light_skip_boundary_vmstat', 'light_merge_boundary_meminfo',
           'inputs', 'reference', 'output_root', 'cache_backup_directory', 'frozen_export',
-          'replay_policy', 'physical_cache_after_segments', 'shared_cache_measurement', 'root_count', 'experiment', 'cache_mode', 'live_cache_kernel', 'live_cache_lower', 'guest_cache_baseline', 'guest_cache_target_mib', 'light_monitor', 'monitor_mode', 'damon_observe', 'damon_disable', 'host_file_monitor', 'host_prefix_count', 'host_shared_files'}
+          'replay_policy', 'physical_cache_after_segments', 'shared_cache_measurement', 'root_count', 'experiment', 'cache_mode', 'live_cache_kernel', 'live_cache_lower', 'guest_cache_baseline', 'guest_cache_target_mib', 'light_monitor', 'monitor_mode', 'damon_observe', 'damon_disable', 'host_file_monitor', 'host_current_only', 'host_prefix_count', 'host_shared_files'}
 
 
 def read(path):
@@ -29,7 +29,7 @@ def write(path, value):
 
 def configuration(path, backend=None, boundary=None, storage=None):
     cfg = read(path)
-    required = FIELDS - {'cache_backup_directory', 'frozen_export', 'replay_policy', 'physical_cache_after_segments', 'shared_cache_measurement', 'root_count', 'experiment', 'cache_mode', 'live_cache_kernel', 'live_cache_lower', 'guest_cache_baseline', 'guest_cache_target_mib', 'light_monitor', 'monitor_mode', 'damon_observe', 'damon_disable', 'host_file_monitor', 'host_prefix_count', 'host_shared_files'}
+    required = FIELDS - {'light_merge_boundary_meminfo', 'light_skip_boundary_vmstat', 'grpo_create_before_setup', 'cache_backup_directory', 'frozen_export', 'replay_policy', 'physical_cache_after_segments', 'shared_cache_measurement', 'root_count', 'experiment', 'cache_mode', 'live_cache_kernel', 'live_cache_lower', 'guest_cache_baseline', 'guest_cache_target_mib', 'light_monitor', 'monitor_mode', 'damon_observe', 'damon_disable', 'host_file_monitor', 'host_current_only', 'host_prefix_count', 'host_shared_files'}
     if not required <= cfg.keys() or cfg.keys() - FIELDS or cfg['version'] != 2:
         raise ValueError('unsupported task workflow config fields/version')
     is_trenvx_exp2=cfg.get('experiment')=='exp2' and cfg['backend']=='trenvx'
@@ -101,14 +101,30 @@ def configuration(path, backend=None, boundary=None, storage=None):
         if cfg.get(key): cfg[key] = str((ROOT / cfg[key]).resolve())
     simple = cfg['rollout']=='single' and boundary is None and not (physical or shared or cfg.get('live_cache_kernel'))
     mode = cfg.get('monitor_mode', 'continuous')
-    if mode not in ('continuous', 'off') or mode=='off' and not simple:
-        raise ValueError('monitor_mode off requires a complete single task without physical cache analysis')
+    grpo_off=profile=='prettier6604' and cfg['rollout']=='grpo' and boundary is None and not (
+        physical or shared or cfg.get('live_cache_kernel') or cfg.get('host_file_monitor') or cfg.get('host_shared_files') or cfg.get('host_prefix_count'))
+    from host_persistent_input import local_grpo_config
+    current_grpo=local_grpo_config(cfg)
+    if mode not in ('continuous', 'off') or mode=='off' and not (simple or grpo_off or current_grpo):
+        raise ValueError('monitor_mode off requires a complete single task or ordinary seven-guest GRPO without extra measurement')
     cfg['light_monitor'] = cfg.get('light_monitor', simple and mode!='off')
     light_rollout = profile=='prettier6604' and cfg['rollout'] in ('grpo','bpo') and boundary is None and not (physical or shared or cfg.get('live_cache_kernel'))
     if type(cfg['light_monitor']) is not bool or cfg['light_monitor'] and not (simple or light_rollout):
         raise ValueError('light_monitor requires an ordinary single task or Prettier GRPO/BPO without physical analysis')
     if mode=='off' and cfg['light_monitor']:
         raise ValueError('monitor_mode off cannot enable light_monitor')
+    if 'grpo_create_before_setup' in cfg:
+        if type(cfg['grpo_create_before_setup']) is not bool or cfg['grpo_create_before_setup'] and not (
+                grpo_off and (mode=='off' or cfg['light_monitor']) and not (cfg.get('damon_observe') or cfg.get('damon_disable'))):
+            raise ValueError('grpo_create_before_setup requires ordinary seven-guest light GRPO or monitor-off')
+    if 'light_skip_boundary_vmstat' in cfg:
+        if type(cfg['light_skip_boundary_vmstat']) is not bool or cfg['light_skip_boundary_vmstat'] and not (
+                (cfg.get('grpo_create_before_setup') or current_grpo) and cfg['light_monitor'] and mode=='continuous'):
+            raise ValueError('light_skip_boundary_vmstat requires sampled create-before-setup GRPO or local current GRPO')
+    if 'light_merge_boundary_meminfo' in cfg:
+        if type(cfg['light_merge_boundary_meminfo']) is not bool or cfg['light_merge_boundary_meminfo'] and not (
+                current_grpo and cfg.get('light_skip_boundary_vmstat') and cfg['light_monitor'] and mode=='continuous'):
+            raise ValueError('light_merge_boundary_meminfo requires local current GRPO with boundary vmstat skipped')
     if 'damon_observe' in cfg and (type(cfg['damon_observe']) is not bool or cfg['damon_observe'] and not (profile=='prettier6604' and cfg['light_monitor'])):
         raise ValueError('damon_observe requires a complete light Prettier task')
     if 'damon_disable' in cfg and (type(cfg['damon_disable']) is not bool or cfg['damon_disable'] and not cfg.get('damon_observe')):
@@ -116,6 +132,10 @@ def configuration(path, backend=None, boundary=None, storage=None):
     if 'host_file_monitor' in cfg and (type(cfg['host_file_monitor']) is not bool or cfg['host_file_monitor'] and
             (boundary is not None or cfg.get('live_cache_kernel') or physical or shared or cfg['rollout'] not in ('single','grpo','bpo') or cfg['rollout']=='bpo' and not cfg['light_monitor'])):
         raise ValueError('host_file_monitor supports ordinary tasks, GRPO or explicit light BPO without fine physical analysis')
+    if 'host_current_only' in cfg and (type(cfg['host_current_only']) is not bool or cfg['host_current_only'] and not (
+            (simple or current_grpo) and (cfg['light_monitor'] and mode=='continuous' or not cfg['light_monitor'] and mode=='off') and cfg.get('host_file_monitor') and
+            not (cfg.get('damon_observe') or cfg.get('damon_disable')))):
+        raise ValueError('host_current_only requires a complete light/monitor-off task or explicit local Prettier GRPO, with default reclaim')
     if 'host_prefix_count' in cfg:
         if type(cfg['host_prefix_count']) is not int or cfg['host_prefix_count'] not in (1,7) or not (light_rollout and cfg['rollout']=='grpo' and cfg['light_monitor'] and cfg.get('host_file_monitor')):
             raise ValueError('host_prefix_count requires 1 or 7 ordinary light GRPO guests with host sampling')
@@ -130,8 +150,10 @@ def configuration(path, backend=None, boundary=None, storage=None):
     return cfg
 
 
-def commands(cfg, cache, tool_capture=False, durable_phase=None, bundle=None, agent_config=None, task_config=None, replay_source=None, physical_after=None):
+def commands(cfg, cache, tool_capture=False, durable_phase=None, bundle=None, agent_config=None, task_config=None, replay_source=None, physical_after=None, persistent_input=False):
     """Return the existing input checker and isolated runtime commands."""
+    if cfg.get('grpo_create_before_setup') and (tool_capture or durable_phase):
+        raise ValueError('grpo_create_before_setup uses frozen GRPO replay only')
     if agent_config and not tool_capture:raise ValueError('online agent requires tool capture workflow')
     if cfg.get('host_file_monitor') and (tool_capture or durable_phase):
         raise ValueError('host_file_monitor currently uses frozen task replay')
@@ -147,6 +169,11 @@ def commands(cfg, cache, tool_capture=False, durable_phase=None, bundle=None, ag
     profile = TASKS[cfg['task_id']]
     check = [sys.executable, '-B']
     live = ['bash', str(ROOT/'scripts/validate-isolated-storage.sh'), '--automatic-window', '--immutable-cache-seed', str(cache)]
+    if persistent_input:
+        from host_persistent_input import single_config
+        single_config(cfg,local_no_proxy=os.environ.get('ASB_LOCAL_NO_PROXY')=='on')
+        if tool_capture or durable_phase:raise ValueError('persistent input is limited to ordinary current-only tasks')
+        live[live.index('--immutable-cache-seed')]='--persistent-cache-seed'
     if tool_capture and task_config:
         from online_task import load
         task=load(task_config,cfg['inputs'])
@@ -233,6 +260,8 @@ def commands(cfg, cache, tool_capture=False, durable_phase=None, bundle=None, ag
         check += ['--damon-disable']; live += ['--damon-disable']
     if cfg.get('host_file_monitor'):
         live += ['--host-file-monitor']
+    if cfg.get('host_current_only'):
+        live += ['--host-current-only']
     if cfg.get('host_shared_files'):
         check += ['--host-shared-files']; live += ['--host-shared-files']
     if cfg.get('host_prefix_count'):
@@ -241,6 +270,13 @@ def commands(cfg, cache, tool_capture=False, durable_phase=None, bundle=None, ag
     if cfg.get('monitor_mode')=='off':
         check += ['--monitor-mode','off']
         live += ['--prettier6604-monitor-mode' if profile=='prettier6604' else '--python-monitor-mode','off']
+    if cfg.get('grpo_create_before_setup'):
+        check += ['--grpo-create-before-setup']
+        live += ['--prettier6604-grpo-create-before-setup']
+    if cfg.get('light_skip_boundary_vmstat'):
+        check += ['--light-skip-boundary-vmstat'];live += ['--light-skip-boundary-vmstat']
+    if cfg.get('light_merge_boundary_meminfo'):
+        check += ['--light-merge-boundary-meminfo'];live += ['--light-merge-boundary-meminfo']
     return check + ['--check-only'], live
 
 
@@ -294,6 +330,13 @@ def report(directory, output):
         required_cleanup=tuple('original_source_firecracker_identities_unchanged' if k=='original_firecracker_identities_unchanged' else k for k in required_cleanup)
     if outer['status'] != 'PASS' or not all(outer['cleanup'].get(k) for k in required_cleanup):
         raise ValueError('owned runtime or cleanup incomplete')
+    if receipt.get('local_no_proxy_check'):
+        check=outer['local_no_proxy_check']
+        if check['status']!='PASS' or check['actions']!=0:raise ValueError('short local check incomplete')
+        output.mkdir(parents=True,exist_ok=False)
+        write(output/'summary.json',dict(check,cleanup=outer['cleanup'],scope='One local creation and proxy/network checks; no benchmark actions or guest sampling'))
+        write(output/'result.json',dict(status='PASS',cleanup=outer['cleanup'],scope='Local-no-proxy short check only'))
+        return output
     raw = child/('prettier6604' if cfg['task_id'] == 'prettier__prettier-6604' else 'python-backbone')
     if cfg['backend']=='trenvx':
         owned=list((child/'raw').iterdir());assert len(owned)==1
@@ -336,10 +379,30 @@ def report(directory, output):
         python_report(raw, output)
     summary = read(output/'summary.json')
     if cfg.get('host_file_monitor'):
-        from report_host_file import report as host_report
-        host_summary=host_report(directory/'host-file', child/'host-file-residency.json', output/'host-file')
-        summary['host_file']=dict(report='host-file/summary.json',curve='host-file/overview.png',
-                                  file_peak_bytes=host_summary['file_peak_bytes'],scope=host_summary['scope'])
+        if cfg.get('host_current_only') and cfg.get('monitor_mode')=='off':
+            if (receipt['host_file_monitor']['status']!='NOT_REQUESTED' or
+                    receipt['host_file_monitor']['host_sampling']!='off' or
+                    outer['host_file_creation']['host_sampling']!='off' or
+                    outer['host_file_creation']['before_guest_counters'] is not None or
+                    outer['host_file_residency']['status']!='NOT_REQUESTED' or
+                    (directory/'host-file').exists() or (child/'host-file-residency.json').exists()):
+                raise ValueError('current-only monitor-off contains sampling or lacks explicit off evidence')
+            summary['host_file']=dict(status='NOT_REQUESTED',host_sampling='off',report=None,curve=None,
+                primary_metric='memory.current',file_peak_bytes=None,current_peak_bytes=None,
+                current_before_guest_bytes=None,current_peak_increase_bytes=None,
+                scope='Same fresh measurement group and accounting; host sampling disabled, memory not measured')
+        else:
+            from report_host_file import report as host_report
+            if cfg.get('host_current_only') or receipt.get('expanded_files'):
+                host_summary=host_report(directory/'host-file', None, output/'host-file', creation_path=child/'result.json')
+            else:
+                host_summary=host_report(directory/'host-file', child/'host-file-residency.json', output/'host-file')
+            summary['host_file']=dict(report='host-file/summary.json',curve='host-file/overview.png',
+                                      file_peak_bytes=host_summary['file_peak_bytes'],scope=host_summary['scope'],
+                                      primary_metric=host_summary['primary_metric'],
+                                      current_peak_bytes=host_summary['current_peak_bytes'],
+                                      current_before_guest_bytes=host_summary['current']['before_guest_bytes'],
+                                      current_peak_increase_bytes=host_summary['current']['after_service_ready_peak_increase_bytes'])
         (output/'summary.json').write_text(json.dumps(summary,indent=2)+'\n')
     if cfg.get('host_shared_files'):
         from host_rollout_shared import report as shared_report
@@ -364,6 +427,17 @@ def report(directory, output):
             summary['live_cache']['provider_buffer_curve']='live-cache/'+files['curve']
             summary['live_cache']['provider_buffer_table']='live-cache/'+files['table']
         (output/'summary.json').write_text(json.dumps(summary,indent=2)+'\n')
+    if receipt.get('persistent_input'):
+        q=receipt['input_file_check']
+        assert receipt['input_file_validation']=='PASS' and q['status']=='OBSERVED' and q['shortfall_bytes']==0
+        assert q['phase']=='AFTER_ISOLATED_RUNTIME_CLEANUP' and q['start_monotonic_ns']>=receipt['isolated_runtime_end_monotonic_ns']
+        assert (q['group'],q['group_id'])==(receipt['input_import']['group'],receipt['input_import']['group_id'])
+        summary['persistent_input']={k:receipt[k] for k in ('measurement_scope','source_preparation','input_import',
+            'isolated_runtime_end_monotonic_ns','input_file_check','input_file_validation')}
+        (output/'summary.json').write_text(json.dumps(summary,indent=2)+'\n')
+    if receipt.get('local_no_proxy'):
+        summary['local_no_proxy']=receipt['local_no_proxy']
+        (output/'summary.json').write_text(json.dumps(summary,indent=2)+'\n')
     write(output/'result.json', dict(status='PASS', task_id=summary.get('task_id','tool-interface-demo') if receipt.get('workflow')=='tool-capture-demo' else cfg['task_id'], rollout=cfg['rollout'],
         raw=str(raw), source_workflow=str(directory), source_status=outer['status'],
         strict_replay_status=summary.get('strict_replay_status',summary.get('replay',{}).get('strict_output_status','PASS')),
@@ -373,12 +447,30 @@ def report(directory, output):
     return output
 
 
-def run(cfg, tool_capture=False, agent_config=None, task_config=None, replay_source=None, physical_after=None):
+def run(cfg, tool_capture=False, agent_config=None, task_config=None, replay_source=None, physical_after=None, persistent_seed=None):
+    started=time.monotonic_ns()
+    local_no_proxy=os.environ.get('ASB_LOCAL_NO_PROXY')=='on'
+    local_check=os.environ.get('ASB_LOCAL_NO_PROXY_CHECK')=='on'
+    if local_check and not local_no_proxy:raise ValueError('short check requires local-no-proxy')
+    if local_check and cfg['task_id']!='prettier__prettier-6604':raise ValueError('short check remains Prettier-only')
+    if local_check and cfg['rollout']!='single':raise ValueError('short check requires a single guest')
+    if local_check and cfg.get('monitor_mode')=='off':raise ValueError('short check requires sampling-on config')
+    if local_no_proxy:
+        from prettier_no_proxy import require_mode,check_cache
+        require_mode(cfg,persistent_seed)
+    if persistent_seed:
+        from host_persistent_input import single_config,owned
+        single_config(cfg,local_no_proxy=local_no_proxy)
+        if any((tool_capture,agent_config,task_config,replay_source,physical_after)):
+            raise ValueError('persistent input is limited to ordinary current-only tasks')
+        persistent_seed=owned(persistent_seed)
     host_group=None
+    host_off=cfg.get('host_current_only') and cfg.get('monitor_mode')=='off'
     if cfg.get('host_file_monitor'):
         from host_file_monitor import measurement_group
         host_group,_=measurement_group()
-    ready = preflight(cfg,tool_capture=tool_capture,agent_config=agent_config,task_config=task_config,replay_source=replay_source,physical_after=physical_after)
+    persistent_grpo=bool(persistent_seed and cfg['rollout']=='grpo')
+    ready = preflight(cfg,**(dict(offline=True) if persistent_grpo else {}),tool_capture=tool_capture,agent_config=agent_config,task_config=task_config,replay_source=replay_source,physical_after=physical_after)
     out = Path(cfg['output_root'])/(time.strftime('%Y%m%dT%H%M%SZ', time.gmtime())+'-'+str(os.getpid()))
     os.umask(0o077); out.mkdir(parents=True, exist_ok=False)
     write(out/'effective-config.json', cfg); write(out/'preflight.json', ready)
@@ -387,6 +479,8 @@ def run(cfg, tool_capture=False, agent_config=None, task_config=None, replay_sou
     sources=('platform_tasks.py', 'use_platform.py', 'use-platform.sh')
     if cfg.get('host_file_monitor'):
         sources+=('host_file_monitor.py','report_host_file.py','run_host_file_workflow.py','run-host-file-monitor.sh')
+    if persistent_seed:sources+=('host_persistent_input.py',)
+    if local_no_proxy:sources+=('prettier_no_proxy.py',)
     if cfg.get('host_prefix_count'):sources+=('host_prefix_compare.py',)
     if cfg.get('host_shared_files'):sources+=('host_rollout_shared.py','host_rootfs_layers.py','host_prefix_compare.py','run_host_file_restore.py','host_scaling.py')
     for name in sources:
@@ -397,9 +491,17 @@ def run(cfg, tool_capture=False, agent_config=None, task_config=None, replay_sou
     profile = TASKS[cfg['task_id']]
     cache_root = 'prettier6604' if profile == 'prettier6604' else 'sphinx-backbone' if profile == 'sphinx7590' else 'python-backbone'
     cache = ROOT/'.artifacts'/cache_root/('platform-cache-'+out.name)
+    if persistent_seed:cache=persistent_seed
     prepare = [sys.executable, '-B', str(ROOT/'scripts/prepare_prettier6604_cache.py'), str(cache)]
     if cfg.get('cache_backup_directory'): prepare += ['--source-backup-directory', cfg['cache_backup_directory'], '--task-profile', profile]
     result = dict(status='FAIL', workflow='tool-capture-demo' if tool_capture else 'configured-task-v2', task_id='tool-interface-demo' if tool_capture else cfg['task_id'], rollout=cfg['rollout'])
+    if os.environ.get('ASB_HOST_EXPANDED_FILES')=='on':result['expanded_files']=True
+    if local_check:result['local_no_proxy_check']=True
+    if persistent_seed:
+        from host_persistent_input import SCOPE
+        result.update(persistent_input=True,input_directory=str(cache),measurement_scope=SCOPE,
+            workflow_timing_scope='Grouped preflight, import, runtime, cleanup, input query and report; external archive restoration excluded')
+    if host_off:result['host_file_monitor']=dict(status='NOT_REQUESTED',host_sampling='off')
     if agent_config or task_config:result['online_agent']=True
     stage = 'cache-prepare'
     print('status=RUNNING result_dir='+str(out), flush=True)
@@ -408,25 +510,72 @@ def run(cfg, tool_capture=False, agent_config=None, task_config=None, replay_sou
             subprocess.run(argv, cwd=ROOT, stdout=log, stderr=subprocess.STDOUT, timeout=timeout, check=True)
     host_monitor=None
     try:
-        if host_group:
+        if host_group and not host_off:
             from host_file_monitor import HostFileMonitor
-            host_monitor=HostFileMonitor(out/'host-file',host_group,include_pss=not cfg.get('host_shared_files',False))
-        if cfg['backend']!='trenvx':call(prepare, stage, 300)
+            host_monitor=HostFileMonitor(out/'host-file',host_group,include_pss=not (cfg.get('host_shared_files') or cfg.get('host_current_only')))
+        if persistent_seed:
+            from host_persistent_input import run_phase,validate_seed
+            stage='persistent-import'
+            assert read(cache/'source.json')['task_id']==cfg['task_id']
+            run_phase('import',cache,300)
+            seed,_=validate_seed(cache,task_id=cfg['task_id'])
+            if local_no_proxy:result['local_no_proxy']=check_cache(cache/'input/env',task_id=cfg['task_id'])
+            result['input_import']={k:seed[k] for k in ('profile','task_id','group','group_id','import_start_monotonic_ns',
+                'import_end_monotonic_ns','scratch_removed_before_runtime')}
+            result['source_preparation']=read(cache/'source.json')
+            if persistent_grpo:
+                # Import removes the verified restore scratch. Apply the unchanged
+                # 16 GiB runtime budget only after that release, before allocation.
+                stage='runtime-preflight'
+                result['runtime_preflight']=preflight(cfg)
+        elif cfg['backend']!='trenvx':call(prepare, stage, 300)
         stage = 'isolated-runtime'
-        _, live = commands(cfg, cache,tool_capture,agent_config=agent_config,task_config=task_config,replay_source=replay_source,physical_after=physical_after); call(live, stage, 1300)
+        _, live = commands(cfg, cache,tool_capture,agent_config=agent_config,task_config=task_config,replay_source=replay_source,physical_after=physical_after,
+            **(dict(persistent_input=True) if persistent_seed else {}))
+        if local_check:live+=['--local-no-proxy-check']
+        call(live, stage, 1300)
+        if persistent_seed:result['isolated_runtime_end_monotonic_ns']=time.monotonic_ns()
         matches = re.findall(r'status=PASS result_dir=(\S+)', (out/(stage+'.log')).read_text())
         storage_root='storage-isolated-trenvx' if cfg['backend']=='trenvx' else 'storage-isolated-service'
         children = [Path(p) for p in matches if Path(p).parent == ROOT/'.artifacts'/storage_root]
         if len(set(children)) != 1: raise ValueError('expected one owned isolated runtime result')
         result['storage_result_dir'] = str(children[0])
+        if persistent_seed:
+            stage='input-file-check'
+            outer=read(children[0]/'result.json');creation=outer['host_file_creation'];sync=outer['persistent_input_preparation_sync']
+            if local_no_proxy:
+                if outer['local_no_proxy']['guest_check']!='PASS':raise ValueError('missing guest no-proxy evidence')
+                result['local_no_proxy']=outer['local_no_proxy']
+            assert outer['status']=='PASS' and outer['cleanup']['owned_container_removed']
+            assert outer['persistent_cache_seed']['task_id']==cfg['task_id']
+            assert (seed['group'],seed['group_id'])==(outer['persistent_cache_seed']['group'],outer['persistent_cache_seed']['group_id'])
+            assert seed['group']==creation['cgroup']==str(host_group)
+            assert seed['import_end_monotonic_ns']<sync['start_monotonic_ns']<=sync['end_monotonic_ns']<creation['verified_before_guest_creation_ns']
+            assert sync['status']=='PASS'
+            if host_off:
+                assert creation['host_sampling']=='off' and creation['before_guest_counters'] is None
+            else:assert creation['before_guest_counters'] is not None
+            if local_check:result['input_file_validation']='NOT_REQUESTED_SHORT_CHECK'
+            else:
+                from host_persistent_input import observe_input
+                q=observe_input(cache,host_group,out/'input-file-residency.json',task_id=cfg['task_id'])
+                q.update(phase='AFTER_ISOLATED_RUNTIME_CLEANUP',task_id=cfg['task_id'])
+                (out/'input-file-residency.json').write_text(json.dumps(q,indent=2)+'\n')
+                result['input_file_check']=q
+                passed=q['status']=='OBSERVED' and q['shortfall_bytes']==0
+                result['input_file_validation']='PASS' if passed else 'INCOMPLETE'
+                if not passed:raise ValueError('Input residency query failed or found a shortfall; task result retained')
         result['status'] = 'PASS'
     except Exception as exc:
         result.update(error=repr(exc), failed_stage=stage); (out/'failure.txt').write_text(traceback.format_exc())
     finally:
         if host_monitor:
-            try:result['host_file_monitor']=host_monitor.stop()
+            try:
+                result['host_file_monitor']=host_monitor.stop()
+                if persistent_seed and result['host_file_monitor']['status']!='PASS':
+                    result['status']='FAIL';result.setdefault('failed_stage','host-sampling')
             except Exception as exc:result.update(status='FAIL',host_monitor_error=repr(exc))
-        if (cache/'resources.json').exists():
+        if not persistent_seed and (cache/'resources.json').exists():
             try:
                 call([sys.executable, '-B', str(ROOT/'scripts/prepare_prettier6604_cache.py'), str(cache), '--release'], 'cache-release', 90)
                 result['cache_released'] = read(cache/'resources.json')['released']
@@ -441,5 +590,13 @@ def run(cfg, tool_capture=False, agent_config=None, task_config=None, replay_sou
             result.update(status='FAIL', failed_stage='report', error=repr(exc))
             (out/'report-failure.txt').write_text(traceback.format_exc())
         (out/'result.json').write_text(json.dumps(result, indent=2)+'\n')
+    if persistent_seed and result['status']=='PASS':
+        try:
+            run_phase('release-input',cache,120);result['cache_released']=read(cache/'seed.json')['released']
+            assert result['cache_released'] and not (cache/'input').exists()
+        except Exception as exc:result.update(status='FAIL',failed_stage='persistent-cleanup',error=repr(exc))
+    if persistent_seed:
+        result['workflow_elapsed_ns']=time.monotonic_ns()-started
+        (out/'result.json').write_text(json.dumps(result,indent=2)+'\n')
     print('status='+result['status']+' result_dir='+str(out), flush=True)
     return 0 if result['status'] == 'PASS' else 1

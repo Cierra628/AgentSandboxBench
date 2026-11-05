@@ -71,6 +71,9 @@ def prettier_capacity(args, export, role, schedule, checkpoint, seed):
     if scaling:
         if scaling not in ('cold','restore') or not (export and seed and schedule=='grpo' and not (role or checkpoint or getattr(args,'prettier6604_readonly_replay',False))):
             raise ValueError('host scaling requires the explicit GRPO adapter and verified seed')
+        if getattr(args,'host_current_pair',False):
+            if scaling!='cold':raise ValueError('current pair only supports two cold prefixes')
+            return 8*GIB
         return (16 if scaling=='cold' else 24)*GIB
     if getattr(args,'prettier6604_readonly_replay',False):
         if not (getattr(args,'prettier6604_task',None) and seed and not (export or role or checkpoint)):
@@ -108,15 +111,75 @@ def late_owned_container(run_id, call):
     return rows[0] if rows else None
 
 
+def ordinary_current_only(args, *, monitor_mode='continuous'):
+    """Full cold single tasks or explicit local current GRPO, without extra analysis."""
+    if not (getattr(args,'immutable_cache_seed',None) or getattr(args,'persistent_cache_seed',None)):return False
+    local_grpo=(os.environ.get('ASB_LOCAL_NO_PROXY')=='on' and
+        getattr(args,'persistent_cache_seed',None) and getattr(args,'host_current_only',False) and
+        getattr(args,'host_file_monitor',False) and getattr(args,'prettier6604_export',None) and
+        getattr(args,'prettier6604_schedule','grpo')=='grpo' and
+        (not getattr(args,'light_skip_boundary_vmstat',False) or
+            monitor_mode=='continuous' and getattr(args,'light_monitor',False)) and
+        not any(getattr(args,k,None) for k in ('prettier6604_readonly_replay','prettier6604_shared_cache',
+            'prettier6604_root_count','host_scaling_mode','host_prefix_count','host_shared_files',
+            'host_full_rootfs_mode','host_independent_phase','host_restore_short','host_matched_task',
+            'prettier6604_grpo_create_before_setup','local_no_proxy_check')))
+    if getattr(args,'light_merge_boundary_meminfo',False) and not (local_grpo and getattr(args,'light_skip_boundary_vmstat',False)):
+        return False
+    excluded=('prettier6604_export','prettier6604_role','prettier6604_checkpoint',
+        'python_checkpoint','prettier6604_physical_cache_after','python_physical_cache_after',
+        'diagnostic_guest_kernel','online_task_config','python_tool_capture_demo',
+        'python_durable_checkpoint_demo','python_online_agent_config','python_cache_smoke',
+        'python_runtime_smoke','python_command_diagnostic','python_diagnostic_only',
+        'python_evaluation_patch','python_backbone_oci','damon_observe','damon_disable',
+        'host_file_pair_smoke','startup_sampling','exp2_cache_mode')
+    if any(getattr(args,key,False) for key in excluded if key!='prettier6604_export' or not local_grpo):return False
+    prettier=bool(getattr(args,'prettier6604_task',None))
+    python=bool(getattr(args,'python_backbone_inputs',None))
+    if prettier==python:return False
+    if prettier:
+        return ((getattr(args,'prettier6604_readonly_replay',False) or local_grpo) and
+                getattr(args,'prettier6604_monitor_mode','continuous')==monitor_mode)
+    return (getattr(args,'python_task_profile','xarray6992') in ('sphinx7590','xarray6992') and
+            getattr(args,'python_readonly_replay',False) and getattr(args,'python_persistent_sampling',False) and
+            getattr(args,'python_monitor_mode','continuous')==monitor_mode)
+
+
 def main(args):
     os.umask(0o077)
     if os.geteuid()!=0: raise RuntimeError('root required')
+    density_path=getattr(args,'density_request',None)
+    density=None
+    if density_path:
+        from host_density import request as density_request
+        density=density_request(density_path)
     platform_cfg=None
+    external_config=getattr(args,'external_workload_config',None)
+    external_upstream=getattr(args,'external_workload_upstream',None)
+    if bool(external_config)!=bool(external_upstream):raise ValueError('external workload requires config and pinned upstream')
+    external_sampling=getattr(args,'external_workload_sampling','on')
+    if external_sampling not in ('on','off') or external_sampling=='off' and not external_config:raise ValueError('external sampling off requires an explicit supported config')
+    external_off=bool(external_config) and external_sampling=='off'
+    creation_only=getattr(args,'external_creation_controls',False)
+    django_oci_input=getattr(args,'external_creation_oci_input',None)
+    django_oci_state=django_oci_layout=None
+    if django_oci_input and not creation_only:raise ValueError('local Django OCI requires explicit creation controls')
+    if creation_only and not external_off:raise ValueError('creation controls require an explicit external config and periodic sampling off outside each creation')
+    startup_sampling=getattr(args,'startup_sampling',None)
+    if getattr(args,'startup_server_metrics',False) and not startup_sampling:
+        raise ValueError('startup service metrics require the explicit startup sampling experiment')
+    if startup_sampling:
+        from cold_start_sampling import options as startup_options
+        startup_sampling=startup_options(args)
     if getattr(args,'platform_config',None):
         from use_platform import configuration
         platform_cfg=configuration(args.platform_config)
         if platform_cfg['storage']!='isolated' or platform_cfg['backends']!=['agentenv']:
             raise ValueError('AgentENV validator requires isolated single-backend config')
+    exp1_light=False
+    if getattr(args,'exp1_light',False):
+        from exp1_light import mode as exp1_light_mode
+        exp1_light=exp1_light_mode(args,platform_cfg)
     prettier6604=getattr(args,'prettier6604_task',None)
     online_task=getattr(args,'online_task_config',None)
     online_source=getattr(args,'online_replay_source',None)
@@ -187,10 +250,28 @@ def main(args):
     prettier_schedule=getattr(args,'prettier6604_schedule','grpo')
     prettier_readonly=getattr(args,'prettier6604_readonly_replay',False)
     prettier_monitor_mode=getattr(args,'prettier6604_monitor_mode','continuous')
+    create_before_setup=getattr(args,'prettier6604_grpo_create_before_setup',False)
+    if create_before_setup:
+        from run_prettier6604_grpo import create_before_setup_options
+        create_before_setup_options(args)
+    if create_before_setup and not (prettier6604 and prettier_export):
+        raise ValueError('create-before-setup requires the corrected Prettier GRPO export')
+    skip_boundary_vmstat=getattr(args,'light_skip_boundary_vmstat',False)
+    if skip_boundary_vmstat:
+        from run_prettier6604_grpo import skip_boundary_vmstat_options
+        skip_boundary_vmstat_options(args)
+    merge_boundary_meminfo=getattr(args,'light_merge_boundary_meminfo',False)
+    if merge_boundary_meminfo:
+        from run_prettier6604_grpo import merge_boundary_meminfo_options
+        merge_boundary_meminfo_options(args)
     prettier_physical=getattr(args,'prettier6604_physical_cache_after','')
     host_matched=getattr(args,'host_matched_task',False)
     from host_scaling import options as scaling_options, arguments as scaling_arguments
     scaling=scaling_options(args)
+    current_pair=getattr(args,'host_current_pair',False)
+    if current_pair:
+        from host_current_pair import enabled
+        enabled(args)
     from host_independent_task import phase_options, phase_arguments, checked_prefix
     independent_phase=phase_options(args)
     rootfs_short=getattr(args,'host_rootfs_short',False)
@@ -203,8 +284,14 @@ def main(args):
     if host_matched and getattr(args,'host_restore_short',False):raise ValueError('host restore modes are mutually exclusive')
     host_restore=getattr(args,'host_restore_short',False) or host_matched
     host_sampling=os.environ.get('ASB_HOST_FILE_SAMPLING','on')
-    if host_sampling not in ('on','off') or host_sampling=='off' and not scaling and (not host_matched or host_trace_dual or independent_phase):
-        raise ValueError('host sampling off requires matched-task without tracing')
+    if external_config and (host_sampling!=external_sampling or bool(getattr(args,'light_monitor',False))!=(external_sampling=='on')):
+        raise ValueError('external host and guest sampling modes differ')
+    current_monitor_off=(getattr(args,'host_current_only',False) and getattr(args,'host_file_monitor',False) and
+        not getattr(args,'light_monitor',False) and ordinary_current_only(args,monitor_mode='off'))
+    if current_monitor_off and host_sampling!='off':
+        raise ValueError('current-only monitor-off requires host sampling off from the outer entry')
+    if host_sampling not in ('on','off') or host_sampling=='off' and not external_off and not current_monitor_off and not scaling and (not host_matched or host_trace_dual or independent_phase):
+        raise ValueError('host sampling off requires matched-task, scaling or explicit current-only monitor-off')
     if host_restore and not (getattr(args,'host_file_monitor',False) and prettier_export and prettier_schedule=='bpo' and
                              not (diagnostic_kernel or provider_binary or prettier_checkpoint or prettier_readonly or prettier_role or live_task_cache or cache_metadata_probe or prettier_cache_pair)):
         raise ValueError('host restore short requires ordinary-kernel host monitoring and explicit BPO export only')
@@ -213,6 +300,8 @@ def main(args):
     private_control=private_member()
     from host_full_rootfs_control import validate_mode as validate_full_rootfs_mode
     full_rootfs_mode=validate_full_rootfs_mode(args)
+    full_rootfs_residency=getattr(args,'host_full_rootfs_residency','on')
+    full_rootfs_cold_read=getattr(args,'host_full_rootfs_cold_read',False)
     full_rootfs_daemon=getattr(args,'host_full_rootfs_daemon',None)
     if full_rootfs_mode:
         if not (getattr(args,'host_file_monitor',False) and getattr(args,'light_monitor',False) and prettier_export and full_rootfs_daemon and not (private_control or diagnostic_kernel or provider_binary or live_task_cache or cache_metadata_probe or prettier_cache_pair)):
@@ -252,8 +341,32 @@ def main(args):
     if prettier_physical and not (prettier6604 and prettier_readonly and not prettier_checkpoint and not prettier_export and prettier_monitor_mode=='continuous'):
         raise ValueError('physical boundaries require one continuous readonly Prettier replay')
     if prettier_monitor_mode=='off' and not prettier_readonly:
-        raise ValueError('Prettier monitor-off requires complete readonly backbone')
+        if not (prettier_export and prettier_schedule=='grpo' and not (prettier_role or prettier_checkpoint or prettier_shared or prettier_root_count or
+            getattr(args,'light_monitor',False) or getattr(args,'host_file_monitor',False) and not current_monitor_off or full_rootfs_mode or full_shared or
+            scaling or prefix_count or host_restore or independent_phase or prettier_cache_pair or diagnostic_kernel or prettier_physical)):
+            raise ValueError('Prettier monitor-off requires complete readonly backbone or ordinary seven-guest GRPO')
     cache_seed=getattr(args,'immutable_cache_seed',None)
+    schedule_smoke=False
+    if getattr(args,'schedule_smoke_metrics',False):
+        from schedule_smoke_metrics import options as smoke_options
+        schedule_smoke=smoke_options(args,native=True)
+    persistent_seed=getattr(args,'persistent_cache_seed',None)
+    local_no_proxy=os.environ.get('ASB_LOCAL_NO_PROXY')=='on'
+    local_no_proxy_check=getattr(args,'local_no_proxy_check',False)
+    if local_no_proxy_check and not local_no_proxy:raise ValueError('short no-proxy check requires local-no-proxy')
+    if local_no_proxy_check and not prettier6604:raise ValueError('short no-proxy check remains Prettier-only')
+    local_sphinx=(getattr(args,'python_task_profile',None)=='sphinx7590' and bool(getattr(args,'python_backbone_inputs',None)) and
+        getattr(args,'python_sphinx_pipeline_diagnostic',False) and getattr(args,'python_sphinx_pipeline_policy_version',1)==2)
+    local_xarray=(getattr(args,'python_task_profile',None)=='xarray6992' and bool(getattr(args,'python_backbone_inputs',None)) and
+        getattr(args,'python_diagnostic_continuation',False) and not getattr(args,'python_sphinx_pipeline_diagnostic',False))
+    local_task_id='pydata__xarray-6992' if local_xarray else 'sphinx-doc__sphinx-7590' if local_sphinx else 'prettier__prettier-6604'
+    if local_no_proxy and not (persistent_seed and (prettier6604 or local_sphinx or local_xarray) and getattr(args,'host_current_only',False) and
+            (getattr(args,'light_monitor',False) or current_monitor_off and not local_no_proxy_check)):
+        raise ValueError('local-no-proxy requires persistent light current-only input or full sampling-off control')
+    if persistent_seed:
+        from host_persistent_input import native_option
+        native_option(args)
+        cache_seed=persistent_seed
     python_inputs=getattr(args,'python_backbone_inputs',None)
     python_profile=getattr(args,'python_task_profile','xarray6992')
     sphinx=python_profile=='sphinx7590'
@@ -290,6 +403,12 @@ def main(args):
     python_find_diagnostic=getattr(args,'python_find_diagnostic',False)
     python_command_diagnostic=getattr(args,'python_command_diagnostic',False)
     python_tool_capture=getattr(args,'python_tool_capture_demo',False)
+    tool_source=getattr(args,'python_tool_replay_source',None)
+    host_current_only=getattr(args,'host_current_only',False)
+    if tool_source and not (python_tool_capture and getattr(args,'python_tool_task_config',None)):
+        raise ValueError('tool replay source requires explicit Python tool task config')
+    if host_current_only and not (current_monitor_off or external_off and getattr(args,'host_file_monitor',False) or (python_tool_capture and tool_source or exp1_light or external_config or ordinary_current_only(args)) and light_monitor and getattr(args,'host_file_monitor',False)):
+        raise ValueError('host-current-only requires a complete ordinary light/monitor-off task, or light frozen tool replay/Exp1')
     online_agent=getattr(args,'python_online_agent_config',None)
     if online_agent and not (python_tool_capture or online_task):raise ValueError('online agent requires tool capture mode')
     python_durable=getattr(args,'python_durable_checkpoint_demo',False)
@@ -297,9 +416,15 @@ def main(args):
     if durable_bundle and not python_durable:raise ValueError('checkpoint bundle requires durable checkpoint demo')
     if python_find_diagnostic and not (python_runtime_smoke or python_command_diagnostic):
         raise ValueError('find diagnostic requires runtime smoke or command diagnostic')
+    env_command_timing=getattr(args,'python_env_command_timing',None)
+    if env_command_timing and not (python_command_diagnostic and not python_find_diagnostic and
+            not (getattr(args,'light_monitor',False) or getattr(args,'host_file_monitor',False))):
+        raise ValueError('environment timing requires separate command diagnostic without find or memory sampling')
     short_args=['--find-diagnostic'] if python_find_diagnostic else []
+    if env_command_timing:short_args+=['--env-command-timing',env_command_timing]
     if python_durable:short_args=['--phase','restore','--bundle',str(durable_bundle.resolve())] if durable_bundle else ['--phase','capture']
     if getattr(args,'python_tool_task_config',None):short_args+=['--task-config',str(args.python_tool_task_config.resolve())]
+    if tool_source:short_args+=['--replay-source',str(tool_source.resolve())]
     if online_agent:
         from model_tool_agent import configuration
         configuration(online_agent)
@@ -354,15 +479,21 @@ def main(args):
         raise ValueError('Prettier paths require task, official reference, and no checkpoint option')
     if exp2_mode and (not cache_seed or prettier6604 or python_inputs or args.exp1_checkpoint or platform_cfg is not None):
         raise ValueError('Exp2 requires verified Prettier cache and no other workload')
-    if cache_seed and not (online_task or exp2_mode or prettier_export or prettier_readonly or prettier_checkpoint or python_diagnostic or python_readonly_replay or python_evaluation):
+    if cache_seed and not (exp1_light or online_task or exp2_mode or prettier_export or prettier_readonly or prettier_checkpoint or python_diagnostic or python_readonly_replay or python_evaluation):
         raise ValueError('extra cache seed is limited to corrected Prettier paths')
     seed_value=None
-    if cache_seed:
+    if persistent_seed:
+        from host_persistent_input import validate_seed
+        expected_task='sphinx-doc__sphinx-7590' if sphinx else 'pydata__xarray-6992' if python_inputs else 'prettier__prettier-6604'
+        cache_seed=cache_seed.resolve();seed_value,seed_root=validate_seed(cache_seed,task_id=expected_task)
+    elif cache_seed:
         cache_seed=cache_seed.resolve()
         assert cache_seed.is_relative_to(ROOT/'.artifacts'/('sphinx-backbone' if sphinx else 'python-backbone' if python_inputs else 'prettier6604'))
         seed_value=json.loads((cache_seed/'seed.json').read_text())
         assert seed_value['status']=='PASS' and seed_value['server_image']==IMAGE
         assert seed_value['task_id']==('sphinx-doc__sphinx-7590' if sphinx else 'pydata__xarray-6992' if python_inputs else 'prettier__prettier-6604')
+        if exp1_light:
+            assert 'sha256-e625c9b9776870e2cc87172e886bbc90cfc3d6ce1521492f113a46b3f6dfcf44-image.json' in seed_value['parts']['image-cache/configs'], 'verified seed does not contain the Exp1 image'
         if sphinx:
             from sphinx7590_inputs import IMAGE as task_image
             assert seed_value['task_image']==task_image
@@ -373,6 +504,35 @@ def main(args):
     if prettier_checkpoint and not (prettier6604 and expected_audit):
         raise ValueError('Prettier checkpoint requires pinned task and verified official reference')
     capacity=prettier_capacity(args,prettier_export,prettier_role,prettier_schedule,prettier_checkpoint,cache_seed or capacity_recovery)
+    if density:
+        if density['task']=='prettier6604' and (not (prettier6604 and prettier_readonly and persistent_seed and local_no_proxy and light_monitor and host_current_only
+                and getattr(args,'host_file_monitor',False)) or any((prettier_export,external_config,full_rootfs_mode,scaling,
+                private_control,diagnostic_kernel,provider_binary,damon_observe,damon_disable,prettier_checkpoint))):
+            raise ValueError('density requires the explicit local light current-only complete Prettier backbone')
+        capacity=80*GIB
+        if density['task']=='prettier6604':
+            from prettier_no_proxy import metadata as density_local_metadata
+            density_local_metadata(persistent_seed/'local-no-proxy-metadata')
+        else:
+            if not (external_config and light_monitor and host_current_only and getattr(args,'host_file_monitor',False)) or any((cache_seed,prettier6604,full_rootfs_mode,scaling,private_control,diagnostic_kernel,provider_binary,damon_observe,damon_disable)):
+                raise ValueError('C4 density requires its separate full light current-only external task')
+            from c4_density_input import validate as validate_c4_input
+            c4_input_state,c4_layout,_=validate_c4_input(density['oci_input'])
+    if external_config:
+        if not (host_current_only and (light_monitor or external_off) and getattr(args,'host_file_monitor',False)) or any((cache_seed,prettier6604,python_inputs,online_task,exp1_light,exp2_mode,args.exp1_checkpoint,platform_cfg,host_pair_smoke,cache_metadata_probe,scaling,private_control,full_rootfs_mode)):
+            raise ValueError('external workload requires a separate complete light current-only run')
+        from external_workload import load as load_external,budgets as external_budgets
+        external_value,_,_=load_external(external_config,external_upstream)
+        if external_off and external_value['task_id'] not in ('reshard-c4-data','django__django-16819','build-cython-ext'):raise ValueError('sampling off is limited to the explicit C4/Django/Cython controls')
+        if creation_only and external_value['task_id']!='django__django-16819':raise ValueError('creation controls are limited to the fixed Django image')
+        if django_oci_input:
+            from django_oci import validate as validate_django_oci,IMAGE as django_image
+            if external_value['image']!=django_image:raise ValueError('local OCI API image differs')
+            django_oci_state,django_oci_layout=validate_django_oci(django_oci_input)
+        if density:
+            if external_value['task_id']!='reshard-c4-data' or density['task']!='c4':raise ValueError('density external task differs')
+            capacity=80*GIB
+        else:capacity=32*GIB
     if cache_metadata_probe:
         if prettier6604 or python_inputs or exp2_mode or args.exp1_checkpoint or platform_cfg:
             raise ValueError('guest cache metadata probe is a separate short workflow')
@@ -407,7 +567,7 @@ def main(args):
         subprocess.run(check_command,check=True,capture_output=True,timeout=30)
     if prettier6604 and (args.exp1_checkpoint or platform_cfg is not None):
         raise ValueError('Prettier6604 entry cannot be combined with Exp1 config')
-    if prettier6604 and not online_task:
+    if prettier6604 and not online_task and not startup_sampling:
         check_args=['--checkpoint','--expected-official-audit',str(expected_audit)] if prettier_checkpoint else []
         if prettier_readonly:
             if not expected_audit:raise ValueError('Prettier readonly replay requires original task outcome reference')
@@ -419,6 +579,10 @@ def main(args):
         if prettier_export:
             runner='run_prettier6604_grpo.py'
             check_args=['--frozen-export',str(prettier_export),'--expected-official-audit',str(expected_audit),'--schedule',prettier_schedule]
+            if prettier_monitor_mode=='off':check_args+=['--monitor-mode','off']
+            if create_before_setup:check_args+=['--grpo-create-before-setup']
+            if skip_boundary_vmstat:check_args+=['--light-skip-boundary-vmstat']
+            if merge_boundary_meminfo:check_args+=['--light-merge-boundary-meminfo']
             if host_restore:check_args+=['--host-matched-task' if host_matched else '--host-restore-short']
             if host_trace_dual:check_args+=['--host-trace-dual']
             if independent_phase:check_args+=phase_arguments(independent_phase,host_bundle,getattr(args,'host_checkpoint_source',None))
@@ -427,9 +591,14 @@ def main(args):
             if prettier_shared:check_args+=['--shared-cache','--root-count',str(prettier_root_count or 7)]
             if light_monitor:check_args+=['--light-monitor']
             if full_shared:check_args+=['--host-shared-files']
+            if schedule_smoke:check_args+=['--schedule-smoke-metrics']
             if full_rootfs_mode:check_args+=['--host-full-rootfs-mode',full_rootfs_mode]
+            if full_rootfs_residency=='off':check_args+=['--host-full-rootfs-residency','off']
+            if full_rootfs_cold_read:check_args+=['--host-full-rootfs-cold-read']
             if prefix_count:check_args+=['--host-prefix-count',str(prefix_count)]
             if scaling:check_args+=scaling_arguments(scaling,host_bundle,getattr(args,'host_checkpoint_source',None))
+            if current_pair:check_args+=['--host-current-pair']
+            if persistent_seed and current_pair:check_args+=['--host-persistent-seed',str(cache_seed)]
         subprocess.run([sys.executable,'-B',str(ROOT/'scripts'/runner),'--official-task',str(prettier6604),'--check-only',*check_args],check=True,capture_output=True,timeout=15)
     if online_task:
         online_args=['--task-config',str(online_task.resolve()),*(['--agent-config',str(online_agent.resolve())] if online_agent else []),*(['--replay-source',str(online_source.resolve())] if online_source else []),*(['--physical-after',*map(str,online_points)] if online_points else [])]
@@ -439,11 +608,16 @@ def main(args):
     out=ROOT/'.artifacts/storage-isolated-service'/(time.strftime('%Y%m%dT%H%M%SZ',time.gmtime())+'-'+str(os.getpid()))
     out.mkdir(parents=True,exist_ok=False)
     (out/'code').mkdir()
+    if current_pair:shutil.copy2(ROOT/'scripts/host_current_pair.py',out/'code/host_current_pair.py')
+    if persistent_seed:shutil.copy2(ROOT/'scripts/host_persistent_input.py',out/'code/host_persistent_input.py')
+    if exp1_light:
+        for name in ('exp1_light.py','guest_exp1_actions.py','exp1_physical_workload.py'):
+            shutil.copy2(ROOT/'scripts'/name,out/'code'/name)
     if capacity_sequence or capacity_recovery:
         shutil.copy2(ROOT/'scripts/capacity_checkpoint_recovery.py',out/'code/capacity_checkpoint_recovery.py')
     if python_cache_baseline or python_cache_target is not None:
         for name in ('guest_cache_capacity.py','kernel_cache_metadata.py'):shutil.copy2(ROOT/'scripts'/name,out/'code'/name)
-    if prettier6604 or python_inputs or exp2_mode:
+    if prettier6604 or python_inputs or exp2_mode or exp1_light:
         for name in ('sandbox_runtime_monitor.py','report_sandbox_runtime.py','report_task_overview.py','guest_memory_collector.py',
                      'guest_performance.py','guest_diskstats.py','host_sandbox_monitor.py','report_sandbox_performance.py'):
             shutil.copy2(ROOT/'scripts'/name,out/'code'/name)
@@ -455,6 +629,10 @@ def main(args):
     if prettier6604:
         for name in ('run_prettier6604.py','agentenv_cold_start.py','prettier6604_boundary.py','audit_prettier6604_official.py','prettier6604_inputs.py','prettier6604_check.cjs'):
             shutil.copy2(ROOT/'scripts'/name,out/'code'/name)
+        if density:
+            for name in ('host_density.py','run_density_guests.py'):
+                shutil.copy2(ROOT/'scripts'/name,out/'code'/name)
+            shutil.copy2(density_path,out/'density-request.json')
         if damon_disable:shutil.copy2(ROOT/'scripts/guest_task_damon.py',out/'code/guest_task_damon.py')
         if prettier_export:
             for name in ('run_prettier6604_grpo.py','prepare_prettier6604_rollouts.py'):
@@ -463,6 +641,10 @@ def main(args):
             for name in ('guest_page_cache_control.py','kernel_cache_metadata.py','guest_diskstats.py'):
                 shutil.copy2(ROOT/'scripts'/name,out/'code'/name)
             if cache_target is not None:shutil.copy2(ROOT/'scripts/guest_cache_capacity.py',out/'code/guest_cache_capacity.py')
+    if density and density['task']=='c4':
+        for name in ('c4_density_input.py','host_density.py','run_density_guests.py','run_external_workload.py','external_workload.py','agentenv_cold_start.py'):
+            shutil.copy2(ROOT/'scripts'/name,out/'code'/name)
+        shutil.copy2(density_path,out/'density-request.json')
     (out/'source-sha256.json').write_text(json.dumps(immutable_manifest(out/'code'),indent=2)+'\n')
     if cache_metadata_probe:
         for name in ('run_guest_cache_metadata.py','guest_pagecache_marker.py','kernel_cache_metadata.py',
@@ -491,6 +673,8 @@ def main(args):
             if python_command_diagnostic:
                 for name in ('run_sphinx_command_diagnostic.py','guest_command_diagnostic.py','task_metrics_prefix.py'):
                     shutil.copy2(ROOT/'scripts'/name,out/'code'/name)
+                if env_command_timing:
+                    for name in ('sphinx_env_timing.py','guest_sphinx_env_timing.py','report_sphinx_command_diagnostic.py'):shutil.copy2(ROOT/'scripts'/name,out/'code'/name)
         if python_oci:
             for name in ('prepare_xarray6992_image.py','xarray6992_offline_image.py'):shutil.copy2(ROOT/'scripts'/name,out/'code'/name)
         if python_diagnostic:shutil.copy2(ROOT/'scripts/xarray6992_find_probe.py',out/'code/xarray6992_find_probe.py')
@@ -530,6 +714,11 @@ def main(args):
         (out/'source-sha256.json').write_text(json.dumps(immutable_manifest(out/'code'),indent=2)+'\n')
     receipt=dict(status='FAIL',scope='temporary actual AgentENV service and snapshot/restore; not rollout or performance acceptance',
                  checks={},capacity_bytes=capacity,result_dir=str(out),failure_fixture_retained=True)
+    if django_oci_input:
+        receipt['django_oci_input']=dict(status='VALIDATED',directory=str(django_oci_input.resolve()),layout=str(django_oci_layout),
+            image=django_oci_state['image'],downloaded_bytes=django_oci_state['downloaded_bytes'],
+            accounting_scope='Download occurs outside this slice; later validation/copy faults may charge here. This is a sampling-impact control, not full input-cache accounting')
+        shutil.copy2(ROOT/'scripts/django_oci.py',out/'code/django_oci.py')
     image=out/'volume.ext4'; mount=out/'mount'; mount.mkdir()
     container=None; device=None; mounted=False; success=False; sid=None; stage='preflight'; creation_attempted=False
     host_group=host_slice=None
@@ -548,6 +737,7 @@ def main(args):
         if full_shared or rootfs_short:
             for name in ('host_rollout_shared.py','host_rootfs_layers.py','host_prefix_compare.py','host_scaling.py','run_host_file_restore.py'):
                 shutil.copy2(ROOT/'scripts'/name,out/'code'/name)
+            if os.environ.get('ASB_HOST_EXPANDED_FILES')=='on':shutil.copy2(ROOT/'scripts/host_expanded_files.py',out/'code/host_expanded_files.py')
         if independent_phase:
             for name in ('native_checkpoint_bundle.py','host_independent_task.py','host_existing_cache_owner.py'):
                 shutil.copy2(ROOT/'scripts'/name,out/'code'/name)
@@ -569,6 +759,9 @@ def main(args):
                     sampler_stop.wait(.25)
         except Exception as exc:sample_errors.append(repr(exc))
     env=dict(os.environ,PYTHONDONTWRITEBYTECODE='1')
+    if local_no_proxy or schedule_smoke:
+        from prettier_no_proxy import clean_environment
+        env=clean_environment(env)
     env['NO_PROXY']=env.get('NO_PROXY','')+',localhost,127.0.0.1,::1'
     env['no_proxy']=env['NO_PROXY']
 
@@ -633,8 +826,12 @@ def main(args):
                 image_mtime_ns=old_image.stat().st_mtime_ns,scope='original failed volume remains unchanged; readonly source lower commits only')
         if seed_value:
             source=seed_root
-            receipt['immutable_cache_seed']={k:seed_value[k] for k in ('source_backup','backup_sha256','uncompressed_sha256','task_id','ram_allocated_bytes','elapsed_ns')}
-            receipt['cache_state']='reused task-converted immutable layers; no cold-download performance claim'
+            if persistent_seed:
+                receipt['persistent_cache_seed']={k:seed_value[k] for k in ('profile','task_id','group','group_id','source_env','import_start_monotonic_ns','import_end_monotonic_ns','scratch_removed_before_runtime','scope')}
+                receipt['cache_state']='fresh plain-file import in the measurement group; verified warm input, no RAM seed'
+            else:
+                receipt['immutable_cache_seed']={k:seed_value[k] for k in ('source_backup','backup_sha256','uncompressed_sha256','task_id','ram_allocated_bytes','elapsed_ns')}
+                receipt['cache_state']='reused task-converted immutable layers; no cold-download performance claim'
         archive_reserve=0
         if python_durable and not durable_bundle or independent_phase=='capture':
             from native_checkpoint_bundle import ARCHIVE_LIMIT
@@ -676,7 +873,7 @@ def main(args):
         if full_rootfs_mode:full_copy_start=time.monotonic_ns();full_copy_cpu=time.thread_time_ns()
         # Normal initialization excludes source-service state. Recovery above
         # restores only this experiment's stopped, verified full-volume backup.
-        parts=['deps'] if durable_bundle else ['deps']+['image-cache/'+n for n in ['configs','indexes','commits','remote-blocks','convert-blocks']]
+        parts=['deps'] if durable_bundle or external_config else ['deps']+['image-cache/'+n for n in ['configs','indexes','commits','remote-blocks','convert-blocks']]
         if capacity_recovery:parts=[]
         copied={}
         for part in parts:
@@ -689,7 +886,7 @@ def main(args):
                 receipt['private_commit_preparation']=copy_commits(source_part,dest,private_control or {},call)
                 copied[part]=receipt['private_commit_preparation']
                 continue
-            if (readonly_fixture or python_inputs and seed_value or prettier_readonly or online_task) and part=='image-cache/commits':
+            if not density and (readonly_fixture or python_inputs and seed_value or prettier_readonly or online_task or exp1_light or current_pair or persistent_seed and host_current_only) and part=='image-cache/commits':
                 dest.mkdir();copied[part]=before_copy
                 receipt['readonly_commits_bytes']=sum(row.get('size',0) for row in before_copy.values())
                 continue
@@ -708,8 +905,12 @@ def main(args):
             (mount/'env/rootfs-copy-control/preparation.json').write_text(json.dumps(receipt['full_rootfs_preparation'],indent=2)+'\n')
             shutil.copy2(full_rootfs_daemon,mount/'env/deps/rootfs-copy-daemon')
             shutil.copy2(ROOT/'scripts/host_full_rootfs_control.py',out/'code/host_full_rootfs_control.py')
+        if density and density['task']=='prettier6604':
+            from host_density import prepare as prepare_density
+            receipt['density_preparation']=prepare_density(mount,density,call)
+            shutil.copy2(density['daemon'],mount/'env/deps/rootfs-copy-daemon')
         receipt['volume_available_after_copy_bytes']=available(mount)
-        assert receipt['volume_available_after_copy_bytes']>(4*GIB if cache_metadata_probe else 14*GIB if python_runtime_smoke else GIB if python_diagnostic or python_evaluation else 6*GIB if python_readonly_replay or prettier_readonly else 8*GIB)
+        assert receipt['volume_available_after_copy_bytes']>(4*GIB if cache_metadata_probe else 14*GIB if python_runtime_smoke else GIB if python_diagnostic or python_evaluation else 6*GIB if python_readonly_replay or prettier_readonly or current_pair else 8*GIB)
         if cache_metadata_probe:
             if cache_restore_probe:
                 assert receipt['volume_available_after_copy_bytes'] > 14*GIB, 'snapshot calibration headroom insufficient'
@@ -750,11 +951,12 @@ def main(args):
                 writable_workload_budget_bytes=GIB,restore_scratch_budget_bytes=2*GIB,
                 margin_bytes=GIB//2,cleanup_reserve_bytes=GIB//2,
                 scope='two initial 512 MiB VMs and two children of one snapshot; parent sampling resumes before deletion; no 4 GiB baseline or fine physical probe')
-        elif python_readonly_replay or prettier_readonly:
+        elif python_readonly_replay or prettier_readonly or current_pair:
             # >=6 GiB remains after dependencies/metadata and a separate .5 GiB
             # cleanup reserve: 4 GiB writable workload plus 2 GiB margin.
             receipt['readonly_replay_budget']=dict(capacity_bytes=capacity,writable_workload_budget_bytes=4*GIB,
                 margin_bytes=2*GIB,cleanup_reserve_bytes=GIB//2,immutable_commits='external verified read-only RAM cache')
+            if persistent_seed:receipt['readonly_replay_budget']['immutable_commits']='external verified read-only fresh plain files'
         if durable_bundle:
             receipt['readonly_replay_budget']=dict(capacity_bytes=capacity,cleanup_reserve_bytes=GIB//2,immutable_commits='NOT_MOUNTED; native repository plus fixed deps only')
         if python_oci and not python_diagnostic:
@@ -773,6 +975,24 @@ def main(args):
             from host_scaling import sync_preparation
             stage='sync-scaling-preparation'
             receipt['host_scaling_preparation_sync']=sync_preparation(call,mount)
+        elif persistent_seed:
+            if local_no_proxy:
+                from prettier_no_proxy import install as install_local_no_proxy
+                receipt['local_no_proxy']=install_local_no_proxy(persistent_seed,mount,task_id=local_task_id)
+                shutil.copy2(ROOT/'scripts/prettier_no_proxy.py',out/'code/prettier_no_proxy.py')
+            from host_scaling import sync_preparation
+            stage='sync-persistent-input-preparation'
+            receipt['persistent_input_preparation_sync']=sync_preparation(call,mount,**({'timeout':300} if density else {}))
+        elif external_config:
+            if density:
+                from c4_density_input import install as install_c4_input
+                receipt['c4_oci_input']=install_c4_input(mount,density['oci_input'])
+                shutil.copy2(density['daemon'],mount/'env/deps/rootfs-copy-daemon')
+            if django_oci_input:
+                from django_oci import install as install_django_oci
+                receipt['django_oci_input']['entrypoint']=install_django_oci(mount)
+            from host_scaling import sync_preparation
+            receipt['external_workload_preparation_sync']=sync_preparation(call,mount)
         if full_shared or rootfs_short or full_rootfs_mode:
             from host_scaling import sync_preparation
             stage='sync-shared-preparation'
@@ -805,7 +1025,7 @@ def main(args):
             receipt['provider_binary']=dict(source=str(provider_binary),sha256=digest,scope='owned service only')
         # Separate network pools avoid overlap with the existing host-network service.
         routes=call('routes',['ip','-j','route','show','table','all'],10)
-        if rootfs_short or private_control or full_rootfs_mode:
+        if rootfs_short or private_control or full_rootfs_mode or density:
             from isolated_storage import rootfs_network_pools
             pair=rootfs_network_pools(routes) if not private_control else private_control['network_pools']
             if private_control:
@@ -817,6 +1037,9 @@ def main(args):
             receipt['rootfs_network_pools']=pair
         else:assert '10.211.' not in routes and '10.212.' not in routes, 'candidate network pools already in use'
         for section,key,value in overrides:config=config_value(config,section,key,value)
+        if density and density['task']=='c4':
+            assert 'posix_fs' not in tomllib.loads(config).get('backend',{})
+            config+='\n[backend.posix_fs]\nsnapshot_store = \"/workspace/env/snapshot-store\"\n'
         if python_durable:
             assert 'posix_fs' not in tomllib.loads(config).get('backend',{})
             config+='\n[backend.posix_fs]\nsnapshot_store = \"/workspace/env/snapshot-store\"\n'
@@ -834,34 +1057,52 @@ def main(args):
               '--mount','type=bind,src='+str(out/'isolated-config.toml')+',dst=/workspace/config/default.toml,readonly']
         if host_slice:argv+=['--cgroup-parent',host_slice]
         for src,dst in write_mounts(mount).items():argv+=['--mount','type=bind,src='+src+',dst='+dst]
+        if external_config:
+            # Forward approved proxy variables by name; values never enter commands/receipts.
+            for key in ('HTTP_PROXY','HTTPS_PROXY','http_proxy','https_proxy'):
+                if key in os.environ:argv+=['--env',key]
+            argv+=['--env','NO_PROXY=127.0.0.1,localhost,::1,10.0.0.0/8,172.16.0.0/12,192.168.0.0/16,169.254.0.0/16',
+                   '--env','no_proxy=127.0.0.1,localhost,::1,10.0.0.0/8,172.16.0.0/12,192.168.0.0/16,169.254.0.0/16']
         if private_control:
             from host_private_files import target_mounts
             receipt['private_target_mounts']=target_mounts(private_control,mount)
             for row in receipt['private_target_mounts']:
                 argv+=['--mount','type=bind,src='+row['source']+',dst='+row['destination']+',readonly']
-        if not durable_bundle and (readonly_fixture or python_inputs and seed_value or prettier_readonly or online_task):
+        if not density and not durable_bundle and (readonly_fixture or python_inputs and seed_value or prettier_readonly or online_task or exp1_light or current_pair or persistent_seed and host_current_only):
             argv+=['--mount','type=bind,src='+str(source/'image-cache/commits')+',dst=/workspace/env/image-cache/commits,readonly']
         if python_oci:
             argv+=['--mount','type=bind,src='+str(python_oci.resolve()/'ram/oci')+',dst=/asb-frozen-oci,readonly']
+        if density and density['task']=='c4':
+            argv+=['--mount','type=bind,src='+str(c4_layout)+',dst=/asb-c4-oci,readonly']
+        if django_oci_input:
+            argv+=['--mount','type=bind,src='+str(django_oci_layout)+',dst=/asb-django-oci,readonly']
         # Only these path variables are copied; no credentials or source-service state.
         original_env=dict(e.split('=',1) for e in original['Config']['Env'] if '=' in e)
         for key in ['AENV_CONFIG_PATH','AENV_HOME_PATH','AENV_UBLK_DAEMON_BINARY_PATH']:
-            if (provider_binary or full_rootfs_mode) and key=='AENV_UBLK_DAEMON_BINARY_PATH':continue
+            if (provider_binary or full_rootfs_mode or density) and key=='AENV_UBLK_DAEMON_BINARY_PATH':continue
             if key in original_env:argv+=['-e',key+'='+original_env[key]]
         if provider_binary:
             argv+=['-e','AENV_UBLK_DAEMON_BINARY_PATH=/workspace/env/deps/uvm-ublk-daemon',
                    '-e','AENV_PROVIDER_OBSERVE_DIR=/workspace/env/provider-slots']
             if provider_get_data:argv+=['-e','AENV_PROVIDER_NEED_GET_DATA=1']
-        if full_rootfs_mode:
+        if full_rootfs_mode or density:
             argv+=['-e','AENV_UBLK_DAEMON_BINARY_PATH=/workspace/env/deps/rootfs-copy-daemon',
                    '-e','AENV_ROOTFS_COPY_MANIFEST=/workspace/env/rootfs-copy-control/manifest.json']
-        if prettier6604 or python_inputs:
+        if schedule_smoke:
+            from schedule_smoke_metrics import install_offline
+            receipt['schedule_smoke_offline']=install_offline(mount,out)
+            for name in ('schedule_smoke_metrics.py','prettier_no_proxy.py'):
+                shutil.copy2(ROOT/'scripts'/name,out/'code'/name)
+        if (prettier6604 or python_inputs) and not (local_no_proxy or schedule_smoke):
             for key in ('HTTP_PROXY','HTTPS_PROXY','http_proxy','https_proxy'):
                 argv+=['-e',key+'=http://127.0.0.1:17891']
             bypass='localhost,127.0.0.1,::1,10.211.0.0/16,10.212.0.0/16'
             if rootfs_short or private_control or full_rootfs_mode:bypass='localhost,127.0.0.1,::1,'+','.join(receipt['rootfs_network_pools'])
             for key in ('NO_PROXY','no_proxy'):
                 argv+=['-e',key+'='+bypass]
+        if local_no_proxy or schedule_smoke or density and density['task']=='c4':
+            from prettier_no_proxy import container_environment
+            argv+=container_environment()
         argv+=['-e','API_ADDR=127.0.0.1:'+str(port),'-e','AENV_FIRECRACKER_SERIAL_DIR=/workspace/env/logs/serial',
                '--entrypoint','/bin/sh',IMAGE,'-c','exec /server >>/workspace/env/logs/server.log 2>&1']
         stage='isolated-server-start'
@@ -869,6 +1110,10 @@ def main(args):
         container=call('create-server',argv,60)
         receipt['container_id']=container
         receipt['boundary']=verify_container_boundary(inspect(container),mount,device)
+        if django_oci_input:
+            from django_oci import verify_mount as verify_django_oci_mount
+            verify_django_oci_mount(inspect(container),django_oci_layout)
+            receipt['django_oci_input']['read_only_bind_verified']=True
         if private_control:
             from host_private_files import verify_mounts
             verify_mounts(inspect(container),receipt['private_target_mounts'])
@@ -896,7 +1141,7 @@ def main(args):
             assert not [pid for pid in pids(host_group) if Path('/proc',str(pid),'comm').read_text().strip()=='firecracker']
             io_state=dict(measurement_slice=controller_state(host_group),private_service=controller_state(CGROOT/actual.lstrip('/')))
             assert 'io' in io_state['measurement_slice']['subtree_control'].split() and io_state['private_service']['io_stat_exists'], 'host file monitoring requires I/O accounting before guest creation'
-            receipt['host_file_creation']=dict(cgroup=str(host_group),docker_cgroup=actual,
+            receipt['host_file_creation']=dict(cgroup=str(host_group),docker_cgroup=actual,host_sampling=host_sampling,
                 verified_before_guest_creation_ns=time.monotonic_ns(),preexisting_firecrackers=0,
                 before_guest_counters=host_counters(host_group) if host_sampling=='on' or scaling else None,
                 io_controller_state=io_state,
@@ -913,7 +1158,47 @@ def main(args):
                 previous_binding=binding,new_binding=dict(container=container,config_home=str((mount/'controller/config').resolve()),
                 service_url=receipt['address']),template=checkpoint['template'],volume_restore=receipt['capacity_recovery']),indent=2)+'\n')
         frozen=json.loads((ROOT/'configs/exp1-monitor-calibration-smoke.json').read_text())
-        if host_pair_smoke:
+        if density:
+            stage='host-density';replay=mount/'controller/density'
+            call(stage,[sys.executable,'-B',ROOT/'scripts/run_density_guests.py','--request',density_path,
+                '--container',container,'--config-home',mount/'controller/config','--service-url',receipt['address'],
+                '--output',replay,*(['--external-config',external_config,'--upstream',external_upstream] if density['task']=='c4' else
+                ['--official-task',prettier6604,'--expected-official-audit',expected_audit])],1440 if 'pressure_context' in density else 840,environment=env)
+            density_result=json.loads((replay/'result.json').read_text())
+            assert density_result['status']=='PASS' and density_result['actions']==density['count']*(36 if density['task']=='c4' else 29)
+            assert density_result['identity']['status']=='PASS' and density_result['cleanup']['service_sandbox_list_empty']
+            receipt['density_result']=density_result
+            receipt['checks']['density_identical_backbones_and_identity']='PASS'
+        elif creation_only:
+            stage='external-creation-controls';replay=mount/'controller/external-creation'
+            for name in ('host_creation_controls.py','agentenv_cold_start.py'):
+                shutil.copy2(ROOT/'scripts'/name,out/'code'/name)
+            call(stage,[sys.executable,'-B',ROOT/'scripts/host_creation_controls.py','--config',external_config,
+                '--output',replay,'--config-home',mount/'controller/config','--service-url',receipt['address'],
+                '--mount',mount],720,environment=env)
+            created=json.loads((replay/'result.json').read_text())
+            assert created['status']=='PASS' and created['actions']==0 and len(created['runs'])==4 and len(created['guests'])==5
+            assert created['cleanup']['service_sandbox_list_empty'] and created['cleanup']['known_guests_deleted']
+            receipt['external_creation_result']=created
+            receipt['checks']['host_only_creation_controls']='PASS'
+        elif external_config:
+            stage='external-workload';replay=mount/'controller/external-workload'
+            for name in ('external_workload.py','external_guest_proxy.py','run_external_workload.py','agentenv_cold_start.py'):
+                shutil.copy2(ROOT/'scripts'/name,out/'code'/name)
+            call(stage,[sys.executable,'-B',ROOT/'scripts/run_external_workload.py','--config',external_config,
+                '--upstream',external_upstream,'--output',replay,'--container',container,
+                '--config-home',mount/'controller/config','--service-url',receipt['address'],
+                *(['--sampling','off'] if external_off else [])],external_budgets(external_value['task_id'])['controller'],environment=env)
+            external_result=json.loads((replay/'result.json').read_text())
+            assert external_result['status']=='PASS' and external_result['actions']==external_value['actions'] and external_result['task_id']==external_value['task_id'] and external_result['strict_exit_match']
+            if external_value['task_id']=='reshard-c4-data':assert external_result['roundtrip_validation']=='PASS'
+            if external_value['task_id']=='build-cython-ext':assert external_result['functional_validation']=='PASS'
+            assert external_result['cleanup']['sandbox_removed'] and external_result['cleanup']['service_sandbox_list_empty']
+            if external_off:assert external_result['sampling']=='off' and external_result['memory']=='NOT_MEASURED' and external_result['cleanup']['memory_sampling_disabled']
+            receipt['external_workload_result']=external_result
+            key='external_fixed_tools_and_extensions_and_tests' if external_value['task_id']=='build-cython-ext' else 'external_frozen_tools_and_original_syntax_check'
+            receipt['checks'][key]='PASS'
+        elif host_pair_smoke:
             stage='host-file-pair-smoke';replay=mount/'controller/host-file-pair'
             call(stage,[sys.executable,'-B',ROOT/'scripts/run_host_file_pair.py','guests',
                 '--container',container,'--config-home',mount/'controller/config',
@@ -966,12 +1251,29 @@ def main(args):
             call(stage,task_command,900,environment=env)
             task_result=json.loads((replay/'result.json').read_text())
             assert task_result['status']=='PASS'
+            if local_no_proxy:
+                assert task_result['local_no_proxy']=='PASS'
+                receipt['local_no_proxy']['guest_check']='PASS'
+                log=mount/'env/logs/local-no-proxy-regctl.log'
+                registry=log.read_text().splitlines() if log.exists() else []
+                assert 'version' in registry and all(x in ('version','manifest') for x in registry),'unexpected Python-task regctl operation'
+                receipt['local_no_proxy']['registry_commands']=registry
             if python_command_diagnostic:
-                assert task_result['command_diagnostic'] and task_result['checks']['find_captures_and_source_unchanged' if python_find_diagnostic else 'repeats_outputs_exits_and_source_unchanged']=='PASS'
+                assert task_result['command_diagnostic']
+                if env_command_timing:
+                    assert task_result['env_command_timing']==env_command_timing and task_result['checks']['env_command_timing_and_original_prefix']=='PASS'
+                else:assert task_result['checks']['find_captures_and_source_unchanged' if python_find_diagnostic else 'repeats_outputs_exits_and_source_unchanged']=='PASS'
             elif python_durable:assert task_result['native_checkpoint_demo'] and task_result['checks']['process_memory_open_fd_files_and_boundary' if durable_bundle else 'snapshot_after_two_actual_calls']=='PASS'
             elif python_tool_capture:
                 assert task_result['tool_capture_demo'] and task_result['checks']['frozen_replay_matches_calls_and_final_file']=='PASS'
-                if online_agent:
+                if tool_source:
+                    expected=json.loads((tool_source/'manifest.json').read_text())
+                    assert task_result['replay']['action_count']==expected['action_count']
+                    assert task_result['replay']['expected_failures']==expected['expected_failures']
+                    assert task_result['task_id']==json.loads(args.python_tool_task_config.read_text())['task_id']
+                    assert task_result['checks']['independent_task']==task_result['checks']['independent_replayed_task']==task_result['task_outcome']
+                    assert task_result['checks']['task_outcome_preserved']=='PASS'
+                elif online_agent:
                     assert task_result['online_agent'] and task_result['replay']['action_count']>0
                     assert task_result['checks']['independent_csv_task']==task_result['checks']['independent_replayed_csv_task']==task_result['task_outcome']
                     assert task_result['checks']['task_outcome_preserved']=='PASS'
@@ -1050,6 +1352,43 @@ def main(args):
             receipt['scope']=task_result['scope']
             stage='exp2-report'
             call(stage,[sys.executable,'-B',ROOT/'scripts/report_exp2.py',replay,mount/'controller/report'],60,environment=env)
+        elif startup_sampling:
+            stage='cold-start-sampling';replay=mount/'controller/prettier6604'
+            call(stage,[sys.executable,'-B',ROOT/'scripts/cold_start_sampling.py',
+                '--container',container,'--config-home',mount/'controller/config',
+                '--service-url',receipt['address'],'--output',replay,'--mode',startup_sampling,
+                *(['--server-metrics'] if getattr(args,'startup_server_metrics',False) else [])],720,environment=env)
+            measured=json.loads((replay/'result.json').read_text())
+            assert measured['status']=='PASS' and measured['actual_action_count']==0
+            assert len(measured['guests'])==7 and measured['cleanup']['service_sandbox_list_empty']
+            receipt['cold_start_sampling_result']=measured
+            receipt['checks']['seven_cold_guests_sampling_only']='PASS';receipt['scope']=measured['scope']
+        elif local_no_proxy_check:
+            from prettier_no_proxy import IMAGE as local_image,PROXY_KEYS,check_network
+            stage='local-no-proxy-create'
+            info=inspect(container)
+            actual_env=dict(item.split('=',1) for item in info['Config']['Env'] if '=' in item)
+            assert not any(actual_env.get(k) for k in PROXY_KEYS),'private service inherited a proxy'
+            sid=call(stage,[sys.executable,'-B',ROOT/'scripts/agentenv_cold_start.py',
+                '--config-home',mount/'controller/config','--service-url',receipt['address'],
+                '--image',local_image,'--local-no-proxy'],610,environment=env)
+            assert re.fullmatch(r'[a-fA-F0-9-]{36}',sid)
+            stage='local-no-proxy-environment'
+            probe='import os; assert not any(os.environ.get(k) for k in '+repr(PROXY_KEYS)+'); print("guest-no-proxy-ready")'
+            import shlex
+            assert cli(stage,'exec',sid,'bash','-lc','python3 -c '+shlex.quote(probe))=='guest-no-proxy-ready'
+            receipt['local_no_proxy']['guest_check']='PASS'
+            stage='local-no-proxy-network'
+            network=check_network(info['Id'],before,call)
+            log=mount/'env/logs/local-no-proxy-regctl.log'
+            registry=log.read_text().splitlines() if log.exists() else []
+            assert 'version' in registry and all(x in ('version','manifest','config') for x in registry),'unexpected regctl operation'
+            receipt['local_no_proxy']['registry_commands']=registry
+            receipt['local_no_proxy_check']=dict(status='PASS',sandbox_id=sid,image=local_image,
+                actions=0,created_guests=1,service_proxy_empty=True,guest_proxy_empty=True,
+                network=network,registry_commands=registry,guest_sampling='NOT_REQUESTED')
+            receipt['scope']='One local creation and metadata checks; no task, evaluation, snapshot or restore'
+            receipt['checks']['local_no_proxy_creation_environment_network']='PASS'
         elif prettier6604:
             stage='prettier6604-paths' if prettier_export else 'prettier6604-backbone'
             replay=mount/'controller/prettier6604'
@@ -1065,6 +1404,10 @@ def main(args):
             if prettier_export:
                 runner='run_prettier6604_grpo.py'
                 task_args=['--frozen-export',prettier_export,'--expected-official-audit',expected_audit,'--schedule',prettier_schedule]
+                if prettier_monitor_mode=='off':task_args+=['--monitor-mode','off']
+                if create_before_setup:task_args+=['--grpo-create-before-setup']
+                if skip_boundary_vmstat:task_args+=['--light-skip-boundary-vmstat']
+                if merge_boundary_meminfo:task_args+=['--light-merge-boundary-meminfo']
                 if host_restore:task_args+=['--host-matched-task' if host_matched else '--host-restore-short']
                 if host_trace_dual:task_args+=['--host-trace-dual']
                 if independent_phase:task_args+=phase_arguments(independent_phase,host_bundle,getattr(args,'host_checkpoint_source',None))
@@ -1084,13 +1427,18 @@ def main(args):
                 if prettier_shared:task_args+=['--shared-cache','--root-count',str(prettier_root_count or 7)]
                 if light_monitor:task_args+=['--light-monitor']
                 if full_shared:task_args+=['--host-shared-files']
+                if schedule_smoke:task_args+=['--schedule-smoke-metrics']
                 if full_rootfs_mode:task_args+=['--host-full-rootfs-mode',full_rootfs_mode]
+                if full_rootfs_residency=='off':task_args+=['--host-full-rootfs-residency','off']
+                if full_rootfs_cold_read:task_args+=['--host-full-rootfs-cold-read']
                 if prefix_count:
                     roots_file=out/'prefix-roots.json'
                     roots_file.write_text(json.dumps([str(source/'image-cache/commits')])+'\n')
                     task_args+=['--host-prefix-count',str(prefix_count),'--host-prefix-roots',roots_file]
                 if scaling:
                     task_args+=scaling_arguments(scaling,host_bundle,getattr(args,'host_checkpoint_source',None))
+                    if current_pair:task_args+=['--host-current-pair']
+                    if persistent_seed:task_args+=['--host-persistent-seed',str(cache_seed)]
                     if scaling=='cold':
                         roots_file=out/'prefix-roots.json'
                         roots_file.write_text(json.dumps([str(source/'image-cache/commits')])+'\n')
@@ -1112,8 +1460,15 @@ def main(args):
                  '--output',replay,*task_args],900,environment=env)
             task_result=json.loads((replay/'result.json').read_text())
             assert task_result['status']=='PASS'
+            if local_no_proxy:
+                assert task_result['local_no_proxy']=='PASS'
+                receipt['local_no_proxy']['guest_check']='PASS'
+                log=mount/'env/logs/local-no-proxy-regctl.log'
+                receipt['local_no_proxy']['registry_commands']=log.read_text().splitlines() if log.exists() else []
             if full_shared:assert task_result['host_shared_files']['status']=='OBSERVED'
-            if full_rootfs_mode:assert task_result['host_full_rootfs_control']['status']=='OBSERVED'
+            if full_rootfs_mode:
+                from host_full_rootfs_control import validate_observation
+                validate_observation(task_result['host_full_rootfs_control'],full_rootfs_residency)
             receipt['prettier6604_result']=task_result
             if prettier_export:
                 replay_check='sampled_actions_order_exit_codes_and_distinct_instances' if prettier_schedule!='grpo' or scaling=='restore' else 'sampled_actions_order_exit_codes_and_distinct_roots'
@@ -1143,7 +1498,7 @@ def main(args):
                 if host_restore:expected_count=31 if host_trace_dual else 41 if host_matched else 11
                 if independent_phase:expected_count={'capture':11,'single':10,'dual':20}[independent_phase]
                 if capacity_recovery:expected_count=20
-                if scaling:expected_count=77 if scaling=='cold' else 70
+                if scaling:expected_count=22 if current_pair else 77 if scaling=='cold' else 70
                 assert task_result['action_count']==expected_count
                 if prettier_schedule in ('bpo','tvcache'):
                     if independent_phase!='capture':assert task_result['checks']['restored_files_progress_and_process']=='PASS'
@@ -1219,13 +1574,18 @@ def main(args):
                      host_monitor_light=True,expected_patch_sha256=task['expected_patch_sha256'],
                      official_task=frozen_cfg['official_task'],generate_analysis=False)
             cfg_path=mount/'controller/exp1-config.json';cfg_path.write_text(json.dumps(cfg,indent=2)+'\n')
+            if exp1_light:
+                cfg['light_monitor']=True
+                cfg['expected_run_id']=out.name
+                cfg_path.write_text(json.dumps(cfg,indent=2)+'\n')
             call('exp1-checkpoint-workflow',[sys.executable,'-B',ROOT/'scripts/run_exp1_checkpoint.py',cfg_path],300,environment=env)
             audits=list((replay/'audit').iterdir());assert len(audits)==1
             audit=audits[0]
             checks=json.loads((audit/'checks.json').read_text())
             assert json.loads((audit/'result.json').read_text())['status']=='PASS'
             required=['input_hashes','replay_correctness','patch_matches_full_replay',
-                      'independent_svg_properties','official_task_tests','cleanup','host_sampling']
+                      'independent_svg_properties','official_task_tests','cleanup']
+            required+=['guest_light_sampling','uploaded_action_hashes'] if exp1_light else ['host_sampling']
             if boundary:required+=['process_continuity','restored_progress_and_files']
             for key in required:
                 assert checks.get(key)=='PASS', 'missing Exp1 check: '+key
@@ -1233,6 +1593,10 @@ def main(args):
                 call('exp1-phase-report',[sys.executable,'-B',ROOT/'scripts/report_exp1_checkpoint.py',audit],30,environment=env)
                 receipt['exp1_report']=json.loads((audit/'phase-breakdown.json').read_text())
             receipt['exp1_checks']=checks
+            if exp1_light:
+                exp1_light_raw=Path(json.loads((audit/'result.json').read_text())['raw_dir'])
+                receipt['exp1_light']=dict(status='PASS',raw_relative=str(exp1_light_raw.relative_to(replay)),
+                    clock='monotonic_ns',guest_interval_seconds=.1,host_pss=False,mincore=False)
             receipt['checks']['full_exp1_step_022_restore_and_official_tests' if boundary else 'full_exp1_and_official_tests']='PASS'
             receipt['scope']='temporary actual AgentENV storage boundary; frozen Exp1; complete VM restore when requested; not performance comparison or formal backend migration'
         else:
@@ -1259,7 +1623,19 @@ def main(args):
                 'test "$(cat /workspace/storage-step)" = 001; printf "002\\n" >/workspace/storage-step; test "$(cat /workspace/storage-step)" = 002; echo continuation-PASS')
             receipt['checks']['restore_process_files_and_progress']='PASS'
             receipt['process_continuity']={'before':probe_before,'after':probe_after}
-        if host_restore:
+        if local_no_proxy_check:
+            receipt['default_runtime_report']=dict(status='NOT_REQUESTED',scope='Short metadata-only check; no guest sampler or task curves')
+        elif external_config:
+            receipt['default_runtime_report']=dict(status='NOT_REQUESTED',scope='External guest and host lightweight reports are generated from saved output after cleanup')
+        elif startup_sampling:
+            receipt['default_runtime_report']=dict(status='NOT_REQUESTED',scope='Startup-only timing, no task replay, official tests or fabricated task curves')
+        elif exp1_light:
+            stage='default-runtime-report'
+            call(stage,[sys.executable,'-B',ROOT/'scripts/report_sandbox_runtime.py',exp1_light_raw,mount/'controller/report'],60,environment=env)
+            receipt['default_runtime_report']=dict(status='PASS',directory=str(out/'report'),scope='Exp1 guest light curves; host current reported by outer workflow')
+        elif density:
+            receipt['default_runtime_report']=dict(status='NOT_REQUESTED',scope='Density keeps each original guest raw report input; batch publisher creates per-run host and guest curves')
+        elif host_restore:
             receipt['default_runtime_report']=dict(status='NOT_REQUESTED',scope='phase-specific host restore report generated by outer workflow; guest light samples retained')
         elif host_pair_smoke:
             receipt['default_runtime_report']=dict(status='NOT_REQUESTED',scope='host-only short pair; guest meminfo snapshots, no benchmark replay or periodic guest collector')
@@ -1344,7 +1720,7 @@ def main(args):
                 info=inspect(container)
                 assert info['Config']['Labels'].get('agentsandboxbench.run_id')==out.name
                 if info['State']['Running']:call('stop-own-server',['docker','stop','-t','10',container],30)
-            if host_group and mounted and host_sampling=='on' and not (private_control or full_rootfs_mode):
+            if host_group and mounted and host_sampling=='on' and not (private_control or full_rootfs_mode or host_current_only or current_pair or os.environ.get('ASB_HOST_EXPANDED_FILES')=='on'):
                 # Stop our disk sampler and service writers before checking the loop images.
                 # The images remain mounted and available; there is no VM sampling pause.
                 try:
@@ -1366,6 +1742,8 @@ def main(args):
                     if not cleanup['host_file_residency_captured']:success=False
                 except Exception as exc:
                     cleanup['host_file_residency_error']=repr(exc);success=False
+            elif host_current_only or current_pair or os.environ.get('ASB_HOST_EXPANDED_FILES')=='on':
+                receipt['host_file_residency']=dict(status='NOT_REQUESTED',scope='Explicit current-only replay; no final residency inventory requested')
             elif private_control or full_rootfs_mode:
                 receipt['host_file_residency']=dict(status='NOT_REQUESTED',scope='Explicit P0/P1 pinned-file queries owned by private-control coordinator; no broad cleanup scan')
             elif host_group and host_sampling=='off':
@@ -1405,8 +1783,17 @@ def main(args):
                 if prettier_output.exists():
                     shutil.copytree(prettier_output,out/'prettier6604')
                     receipt['preserved_prettier6604_dir']=str(out/'prettier6604')
+                if density:
+                    density_output=mount/'controller/density'
+                    if density_output.exists():shutil.copytree(density_output,out/'density')
+                    for guest_output in sorted((mount/'controller').glob('density-guest-*')):
+                        shutil.copytree(guest_output,out/'density'/guest_output.name)
                 pair_output=mount/'controller/host-file-pair'
                 if pair_output.exists():shutil.copytree(pair_output,out/'host-file-pair')
+                creation_output=mount/'controller/external-creation'
+                if creation_output.exists():shutil.copytree(creation_output,out/'external-creation')
+                external_output=mount/'controller/external-workload'
+                if external_output.exists():shutil.copytree(external_output,out/'external-workload')
                 second_capacity=mount/'controller/prettier6604-128'
                 if second_capacity.exists():shutil.copytree(second_capacity,out/'prettier6604-128')
                 if capacity_recovery:
@@ -1492,14 +1879,31 @@ if __name__=='__main__':
     parser.add_argument('--python-backbone-inputs',type=Path,help='Prepared pinned Xarray backbone; volume budget depends on selected mode')
     parser.add_argument('--prettier6604-readonly-replay',action='store_true',help='8 GiB single backbone; converted immutable commits remain read-only in verified RAM cache')
     parser.add_argument('--prettier6604-monitor-mode',choices=('continuous','off'),default='continuous')
+    parser.add_argument('--prettier6604-grpo-create-before-setup',action='store_true',help='Guest-only GRPO: complete every create before concurrent setup')
+    parser.add_argument('--light-skip-boundary-vmstat',action='store_true',help='Sampled create-before-setup or local current GRPO; preserve memory and skip boundary vmstat')
+    parser.add_argument('--light-merge-boundary-meminfo',action='store_true',help='Explicit local current GRPO with skipped vmstat; merge boundary meminfo into existing timer Python calls')
+    parser.add_argument('--startup-sampling',choices=('on','off'),help='Seven-guest startup-only sampling control; ordinary seeded 16 GiB GRPO environment')
+    parser.add_argument('--startup-server-metrics',action='store_true',help='Two service metric snapshots in the explicit startup sampling experiment')
     parser.add_argument('--light-monitor',action='store_true',help='Complete task: guest meminfo at 0.1 s, no host or CPU/I/O collectors')
+    parser.add_argument('--local-no-proxy-check',action='store_true',help='Explicit local Prettier only: create one guest and inspect proxy/network metadata, no task')
     parser.add_argument('--damon-observe',action='store_true',help='Light Prettier only: read default DAMON state/counters without writes')
     parser.add_argument('--damon-disable',action='store_true',help='Observed light Prettier only: disable owned guest DAMON for task and restore after sampling')
     parser.add_argument('--host-prefix-count',type=int,choices=(1,7))
+    parser.add_argument('--density-request',type=Path,help='Explicit identical-backbone shared/independent density experiment; ordinary defaults unchanged')
     parser.add_argument('--host-scaling-mode',choices=('cold','restore'))
+    parser.add_argument('--host-current-pair',action='store_true')
     parser.add_argument('--host-file-monitor',action='store_true',help='Fresh host workflow slice; file main curve, PSS and pre-cleanup backing mincore')
+    parser.add_argument('--host-current-only',action='store_true',help='Explicit light full task, frozen tool replay or Exp1: skip final backing residency inventory')
+    parser.add_argument('--external-creation-controls',action='store_true',help='Fixed Django: one preparation and four host-only creation controls in one service; no workload')
+    parser.add_argument('--external-creation-oci-input',type=Path,help='Explicit creation controls only: complete fixed Django disk OCI input, mounted read-only')
+    parser.add_argument('--external-workload-config',type=Path,help='Pinned public Django fixed-tool replay; separate 32 GiB private service volume')
+    parser.add_argument('--external-workload-upstream',type=Path,help='Checked-out pinned AgentSandboxWorkloadResults repository')
+    parser.add_argument('--external-workload-sampling',choices=('on','off'),default='on',help='C4/Django/Cython explicit host and guest memory sampling control')
+    parser.add_argument('--exp1-light',action='store_true',help='Explicit full Exp1 light sampler and host current; old Exp1 remains unchanged')
     parser.add_argument('--host-shared-files',action='store_true',help='Full light GRPO/BPO: selected shared-file query before official checks')
     parser.add_argument('--host-full-rootfs-mode',choices=('shared','private'),help='Full GRPO/BPO: fixed initial 19 lower-file copy control')
+    parser.add_argument('--host-full-rootfs-residency',choices=('on','off'),default='on')
+    parser.add_argument('--host-full-rootfs-cold-read',action='store_true',help='Full GRPO only: cold initial target files and background residency curve')
     parser.add_argument('--host-full-rootfs-daemon',type=Path,help='Explicit experiment daemon, copied only into the new private service')
     parser.add_argument('--host-trace-dual',action='store_true',help='Only two matched restores with targeted cache tracing')
     parser.add_argument('--host-independent-phase',choices=('capture','single','dual'))
@@ -1542,10 +1946,12 @@ if __name__=='__main__':
     parser.add_argument('--python-runtime-smoke',action='store_true',help='Two VMs, continuous guest sampling, six frozen Sphinx actions and one snapshot/restore')
     parser.add_argument('--python-find-diagnostic',action='store_true',help='Runtime smoke captures original find exits and suppressed errors before/after restore; no continuation replay acceptance')
     parser.add_argument('--python-command-diagnostic',action='store_true',help='13 original Sphinx actions and repeated slow-command CPU/I/O observations; no full replay')
+    parser.add_argument('--python-env-command-timing',choices=('whole','split'),help='Separate 11-action Sphinx prefix and one first-use environment timing diagnostic')
     parser.add_argument('--python-durable-checkpoint-demo',action='store_true',help='Native POSIX repository export/import and full state continuity; 8 GiB functional fixture')
     parser.add_argument('--python-durable-checkpoint-bundle',type=Path,help='Verified offline bundle to import into a fresh private service')
     parser.add_argument('--python-tool-task-config',type=Path)
     parser.add_argument('--python-tool-capture-demo',action='store_true',help='Four actual tool calls captured and replayed in a fresh sandbox; no model inference')
+    parser.add_argument('--python-tool-replay-source',type=Path,help='Frozen tool trajectory; no model call or new capture')
     parser.add_argument('--online-task-config',type=Path)
     parser.add_argument('--online-replay-source',type=Path)
     parser.add_argument('--online-physical-after',type=int,nargs='+')
@@ -1558,8 +1964,10 @@ if __name__=='__main__':
     parser.add_argument('--prettier6604-export',type=Path,help='Role-specific frozen export; run GRPO, BPO or TVCache paths')
     parser.add_argument('--prettier6604-role',choices=['early_1','early_2','early_3','late_1','late_2','late_3'],help='GRPO branch 20 GiB, BPO/TVCache early_1 restore smoke 24 GiB; omit for full 32 GiB schedule')
     parser.add_argument('--prettier6604-schedule',choices=['grpo','bpo','tvcache'],default='grpo',help='BPO/TVCache uses 24 GiB restore smoke or 32 GiB full schedule')
+    parser.add_argument('--schedule-smoke-metrics',action='store_true',help='Explicit full-profile local-only three-schedule smoke; ordinary defaults unchanged')
     parser.add_argument('--prettier6604-grpo-capacity-gib',type=int,choices=[16,32],default=32,help='16 GiB only for seven GRPO roots using verified converted seed; retains host reserve and >8 GiB post-copy headroom')
     parser.add_argument('--immutable-cache-seed',type=Path,help='Verified read-only local backup cache for Prettier, Xarray or Sphinx paths')
+    parser.add_argument('--persistent-cache-seed',type=Path,help='Current pair only: verified fresh plain files imported in this measurement group')
     parser.add_argument('--expected-official-audit',type=Path,help='Verified official result of original complete replay')
     parser.add_argument('--exp1-checkpoint',action='store_true',help='Also verify frozen Exp1 and step-022 restore on this owned service')
     parser.add_argument('--confirmed-window',action='store_true',help='Legacy explicit user-confirmed window; no longer required')

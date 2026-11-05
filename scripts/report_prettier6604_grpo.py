@@ -8,7 +8,7 @@ import shutil
 
 from prettier6604_inputs import validate, sha
 from prepare_prettier6604_rollouts import audit as audit_inputs, sampled_segment
-from run_prettier6604_grpo import verify_path, execution_paths, verify_process, prefix_tree_plan
+from run_prettier6604_grpo import verify_path, execution_paths, verify_process, prefix_tree_plan, local_current_grpo_record
 from prettier6604_boundary import verify as verify_boundary
 from audit_prettier6604_official import inspect as inspect_official, reference, signature
 
@@ -27,24 +27,51 @@ def audit(raw, task_dir):
     assert result['checks'][check]=='PASS'
     assert result['checks']['final_source_properties_and_complete_official_outcomes']=='PASS'
     light=(raw/'runtime-monitor.json').exists() and json.loads((raw/'runtime-monitor.json').read_text()).get('profile')=='light'
+    off=result.get('monitor_mode')=='off'
+    skip_boundary_vmstat=result.get('light_skip_boundary_vmstat',False)
+    merge_boundary_meminfo=result.get('light_merge_boundary_meminfo',False)
+    if merge_boundary_meminfo:
+        assert skip_boundary_vmstat and light and not off and local_current_grpo_record(result)
+    if skip_boundary_vmstat:
+        assert light and not off and schedule=='grpo' and (
+            result.get('grpo_setup_schedule')=='create-all-before-setup' or local_current_grpo_record(result))
+    if off:
+        assert schedule=='grpo' and len(result['roles'])==7
+        assert result['cleanup']['monitoring_disabled'] and not (raw/'runtime-monitor.json').exists()
+        assert result['physical_page_cache']=='NOT_MEASURED' and result['VMM_PSS']=='NOT_REQUESTED'
+        assert not any(k in result for k in ('host_full_rootfs_control','host_shared_files','host_before_first_tool'))
     assert result['cleanup']['service_sandbox_list_empty']
-    if light:
+    if light or off:
         assert result['cleanup']['legacy_host_monitor_not_requested'] and not (raw/'host/memory-samples.tsv').exists()
     else:assert result['cleanup']['monitor_stopped']
     config=json.loads((raw/'effective-config.json').read_text())
+    assert skip_boundary_vmstat==config.get('light_skip_boundary_vmstat',False), 'candidate option differs from executed config'
+    assert merge_boundary_meminfo==config.get('light_merge_boundary_meminfo',False), 'merged meminfo option differs from executed config'
+    if merge_boundary_meminfo:
+        from sandbox_runtime_monitor import boundary_meminfo_metadata
+        metadata=boundary_meminfo_metadata(result['action_count'],result['segment_count'])
+        assert result['boundary_meminfo']==metadata and result['checks']['boundary_meminfo_timer_merge_preserved']=='PASS'
+        helper=metadata['helper_file']
+        assert (raw/'frozen-input'/helper).read_bytes()==(raw/'code'/helper).read_bytes(), 'frozen meminfo helper differs from recorded source'
     roles=result['roles'];assert roles==config['selected_roles'] and len(set(roles))==len(roles)
     final_roles=result.get('final_roles',roles)
     workload=raw/'frozen-input';provenance=json.loads((raw/'input-provenance.json').read_text())
     assert sha(workload/'agent-sampling.json')==cfg['sampling_sha256']
     variant_file=raw/'sampling-variant.json'
+    if off:assert variant_file.is_file(), 'monitor-off runner provenance missing'
     for name,digest in provenance['exported_sha256'].items():
         if name=='guest-runner.sh' and variant_file.exists():
             from sandbox_runtime_monitor import boundary_runner
             variant=json.loads(variant_file.read_text())
+            assert variant.get('light_merge_boundary_meminfo',False)==merge_boundary_meminfo
             original=workload/'guest-runner.original.sh'
             assert sha(original)==cfg['runner_sha256']==digest==variant['original_runner_sha256']
             assert sha(workload/name)==variant['executed_runner_sha256']
-            assert (workload/name).read_text()==boundary_runner(original.read_text(),guest_phases=variant.get('phase_updates')=='guest runner')
+            if off:
+                from task_metrics_prefix import without_sampling
+                assert variant['mode']=='off' and variant['phase_updates']=='none'
+                assert (workload/name).read_text()==without_sampling(original.read_text())
+            else:assert (workload/name).read_text()==boundary_runner(original.read_text(),guest_phases=variant.get('phase_updates')=='guest runner',skip_vmstat=skip_boundary_vmstat,merge_meminfo=merge_boundary_meminfo)
         else:assert sha(workload/name)==digest
     samples=json.loads((workload/'agent-sampling.json').read_text())['segments']
     paths=json.loads((workload/'rollouts.json').read_text())
@@ -106,15 +133,20 @@ def audit(raw, task_dir):
     for role in roles:
         assert [r['segment'] for r in trace if r['rollout']==role]==executed[role]
         assert all(r['sandbox_id']==by_role[role] for r in trace if r['rollout']==role)
-        info=verify_path(raw,role,executed[role],workload,samples,names)
+        info=verify_path(raw,role,executed[role],workload,samples,names,sampling=not off,skip_boundary_vmstat=skip_boundary_vmstat,**({'merge_boundary_meminfo':True} if merge_boundary_meminfo else {}))
         for key,value in info.items():assert result['paths'][role][key]==value
         guest=[r for segment in executed[role] for r in rows(raw/'rollouts'/role/segment/'guest-memory.tsv')]
-        peak=max(guest,key=lambda r:int(r['MemTotal_kib'])-int(r['MemFree_kib']))
-        used=(int(peak['MemTotal_kib'])-int(peak['MemFree_kib']))*1024
-        parts={k:int(peak[k+'_kib'])*1024 for k in ('AnonPages','Cached','Buffers','Shmem')}
         guests[role]=guest
-        per_role[role]=dict(**info,sample_count=len(guest),components_at_peak_bytes=parts,
-                components_at_peak_percent={k:100*v/used for k,v in parts.items()})
+        if off:
+            assert not guest
+            for segment in executed[role]:assert not rows(raw/'rollouts'/role/segment/'guest-vmstat.tsv')
+            per_role[role]=dict(**info,sample_count=0,components_at_peak_bytes=None,components_at_peak_percent=None)
+        else:
+            peak=max(guest,key=lambda r:int(r['MemTotal_kib'])-int(r['MemFree_kib']))
+            used=(int(peak['MemTotal_kib'])-int(peak['MemFree_kib']))*1024
+            parts={k:int(peak[k+'_kib'])*1024 for k in ('AnonPages','Cached','Buffers','Shmem')}
+            per_role[role]=dict(**info,sample_count=len(guest),components_at_peak_bytes=parts,
+                    components_at_peak_percent={k:100*v/used for k,v in parts.items()})
         if role not in final_roles:
             assert schedule=='bpo' and smoke_role and role=='backbone'
             assert result['paths'][role]['official_task_status']=='NOT_RUN_PREFIX_ONLY'
@@ -133,10 +165,15 @@ def audit(raw, task_dir):
     logical_count=sum(len(sampled_segment(samples,r,names[s])['actions']) for r in final_roles for s in paths[r])
     assert result.get('logical_action_count',result['action_count'])==logical_count
     assert result['segment_count']==len(trace)
-    host=[] if light else rows(raw/'host/memory-samples.tsv')
-    if not light:assert host
+    if skip_boundary_vmstat:
+        assert result['checks']['boundary_vmstat_skipped_memory_preserved']=='PASS'
+        assert result['boundary_vmstat']==dict(status='NOT_MEASURED',reason='explicitly skipped boundary vmstat',row_count=0,
+            boundary_memory_rows=2*len(trace)+2*result['action_count'])
+    host=[] if light or off else rows(raw/'host/memory-samples.tsv')
+    if not (light or off):assert host
     peak=max(host,key=lambda r:int(r['cgroup_current_bytes'])) if host else None
     events=json.loads((raw/'events.json').read_text());assert all(r['exit_code']==0 for r in events)
+    if off:assert not any(re.sub(r'^\d+-','',e['stage']).startswith('monitor-') for e in events), 'monitor-off has sampler control calls'
     cold={role:next(r for r in events if r['stage'].endswith('-cold-'+role)) for role in roles
           if any(r['stage'].endswith('-cold-'+role) for r in events)}
     cold_overlap=(max(e['start_monotonic_ns'] for e in cold.values()) < min(e['start_monotonic_ns']+e['duration_ns'] for e in cold.values())) if len(cold)>1 else None
@@ -150,7 +187,7 @@ def audit(raw, task_dir):
             logical_action_count=logical_count,
             actions=result['action_count'],segments=result['segment_count'],per_role=per_role,
             host=dict(sample_count=len(host),observed_peak_bytes=int(peak['cgroup_current_bytes']),
-                components_at_peak_bytes={k:int(peak['cgroup_'+k+'_bytes']) for k in ('anon','file','kernel')}) if host else dict(status='NOT_REQUESTED',scope='Light profile; outer host-file report is separate'),
+                components_at_peak_bytes={k:int(peak['cgroup_'+k+'_bytes']) for k in ('anon','file','kernel')}) if host else dict(status='NOT_REQUESTED',scope='Monitor-off: no host sampling' if off else 'Light profile; outer host-file report is separate'),
             timing=dict(controller_elapsed_ns=result['controller_elapsed_ns'],cold_request_span_ns=span(list(cold.values())),
                 cold_request_per_role_ns={r:e['duration_ns'] for r,e in cold.items()},cold_requests_overlap=cold_overlap,
                 checkpoint_call_ns=[e['duration_ns'] for e in checkpoint_calls],
@@ -160,6 +197,7 @@ def audit(raw, task_dir):
             cleanup=result['cleanup'],physical_page_cache=result.get('physical_page_cache','NOT_MEASURED'),VMM_PSS=result.get('VMM_PSS','NOT_MEASURED'),
             monitoring_impact='NOT_VALIDATED',checkpoint_restore='PASS' if schedule!='grpo' else 'NOT_RUN',
             checkpoint_count=len(checkpoints),
+            **({'light_merge_boundary_meminfo':True,'boundary_meminfo':metadata} if merge_boundary_meminfo else {}),
             measurement_notes=['Guest: /proc/meminfo KiB converted to bytes; MemTotal-MemFree; runner windows only.',
                 'Per-guest peaks are not summed into a concurrent peak. Guest and host counters are not added.',
                 'Cached is a logical guest counter, not deduplicated physical page cache. Shmem overlaps Cached; Slab not collected.',

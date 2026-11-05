@@ -7,6 +7,7 @@ import json
 import os
 from pathlib import Path
 import re
+import shlex
 import shutil
 import signal
 import subprocess
@@ -80,6 +81,12 @@ def run(args):
         if continuation or getattr(args,'diagnostic_only',False):raise ValueError('evaluation-only cannot replay or run short probes')
     if args.check_only:
         print('status=VALIDATED task='+cfg['task_id']+' actions=35');return 0
+    local_no_proxy=os.environ.get('ASB_LOCAL_NO_PROXY')=='on'
+    if local_no_proxy and not ((light or not monitoring) and getattr(args,'persistent_sampling',False) and
+            not (checkpoint or cache_control or getattr(args,'evaluation_patch',None)) and
+            ((sphinx and pipeline and pipeline_version==2 and not continuation) or
+             (getattr(args,'task_profile','xarray6992')=='xarray6992' and not sphinx and continuation and not pipeline))):
+        raise ValueError('local-no-proxy requires complete persistent light/off Sphinx pipeline-v2 or approved Xarray replay')
     out=args.output.resolve()
     assert out.parent.name=='controller' and out.parent.parent.name=='mount'
     assert out.parents[3]==ROOT/'.artifacts/storage-isolated-service'
@@ -87,6 +94,9 @@ def run(args):
     out.mkdir(exist_ok=False)
     env=dict(os.environ,PATH=str(ROOT/'runtime/bin')+':'+os.environ['PATH'],
              XDG_CONFIG_HOME=str(args.config_home),HOST_MONITOR_LIGHT='1')
+    if local_no_proxy:
+        from prettier_no_proxy import clean_environment
+        env=clean_environment(env)
     from sandbox_runtime_monitor import RuntimeMonitor, boundary_runner
     events=[];controller=None;sid=None;monitor=None;success=False;stage='preflight';snapshot=None;parent=None;physical=None;live=None;capacity_active=False
     started=time.monotonic_ns()
@@ -229,9 +239,14 @@ def run(args):
             live=LiveTaskCache(out,args.container,cli,**(dict(expected_kernel='6.1.175-asb-cache-v3-reclaim') if cache_control else {}))
         stage='cold-start';controller.phase(stage)
         sid=call(stage,[sys.executable,'-B',ROOT/'scripts/agentenv_cold_start.py','--config-home',args.config_home,
-                 '--service-url',args.service_url,'--image',cfg['source_image']],610)
+                 '--service-url',args.service_url,'--image',cfg['source_image'],*(['--local-no-proxy'] if local_no_proxy else [])],610)
         assert re.fullmatch(r'[a-fA-F0-9-]{36}',sid)
         controller.live[sid]=sid
+        if local_no_proxy:
+            from prettier_no_proxy import PROXY_KEYS
+            probe='import os; assert not any(os.environ.get(k) for k in '+repr(PROXY_KEYS)+'); print("guest-no-proxy-ready")'
+            assert guest('guest-no-proxy-check','/opt/miniconda3/envs/testbed/bin/python -c '+shlex.quote(probe))=='guest-no-proxy-ready'
+            result['local_no_proxy']='PASS'
         if cache_control:capacity_start()
         if physical:physical.ready()
         if live:live.start(sid)

@@ -42,6 +42,9 @@ def report(raw,output):
     raw=raw.resolve();output=output.resolve()
     assert raw.is_relative_to(ROOT/'.artifacts/storage-isolated-service')
     assert output.is_relative_to(ROOT/'.artifacts') and not output.is_relative_to(raw) and not raw.is_relative_to(output)
+    if json.loads((raw/'result.json').read_text()).get('env_command_timing'):
+        from sphinx_env_timing import report as env_report
+        return env_report(raw,output)
     def hashes():return {str(p.relative_to(raw)):sha(p) for p in sorted(raw.rglob('*')) if p.is_file()}
     before=hashes();result=json.loads((raw/'result.json').read_text());outer=json.loads((raw.parent/'result.json').read_text())
     outer_sha=sha(raw.parent/'result.json')

@@ -160,29 +160,40 @@ def process_probe():
         temporary.replace(directory/'count');time.sleep(.1)
 
 
-def stop(directory):
+def stop(directory, *, phase_file=None, final_phase=None, wait_reaped=False):
     identity = json.loads((directory/'identity.json').read_text())
     assert process_identity(identity['pid']) == identity, 'collector PID identity changed'
     command = Path(f'/proc/{identity["pid"]}/cmdline').read_bytes().split(b'\0')
     assert b'collect' in command and str(directory).encode() in command, 'not the owned collector'
+    if final_phase is not None:
+        phase_file.write_text(final_phase+'\t\t\n')
     os.kill(identity['pid'], signal.SIGTERM)
     end = time.monotonic()+5
     while True:
         state = Path(f'/proc/{identity["pid"]}/stat')
         exited = not state.exists()
-        if not exited:
+        if not exited and wait_reaped:
+            try:exited=process_identity(identity['pid'])!=identity
+            except (FileNotFoundError,ProcessLookupError):exited=True
+        elif not exited:
             try: exited = state.read_text().rsplit(')', 1)[1].split()[0] == 'Z'
             except (FileNotFoundError,ProcessLookupError): exited = True
         if exited: break
-        if time.monotonic() >= end: raise TimeoutError('owned collector did not exit; retained for diagnosis')
+        if time.monotonic() >= end:
+            raise TimeoutError('owned collector was not reaped; retained for diagnosis' if wait_reaped else 'owned collector did not exit; retained for diagnosis')
         time.sleep(.01)
     receipt = json.loads((directory/'collector-status.json').read_text())
     assert receipt['status'] == 'PASS', receipt
+    if wait_reaped:
+        assert all(receipt[k]==identity[k] for k in ('pid','start_ticks','boot_id'))
+        receipt=dict(receipt,collector_reaped=True)
     print(json.dumps(receipt))
 
 
-def boundary_runner(text, guest_phases=False):
+def boundary_runner(text, guest_phases=False, *, skip_vmstat=False, merge_meminfo=False):
     """Keep original boundary samples and frozen actions; one lifecycle sampler does periodic reads."""
+    if merge_meminfo and not (guest_phases and skip_vmstat):
+        raise ValueError('merged meminfo requires guest phases and skipped boundary vmstat')
     start = '  monitor_step "$step" & monitor_pid=$!'
     end = '  kill "$monitor_pid" 2>/dev/null || true\n  wait "$monitor_pid" 2>/dev/null || true\n'
     assert text.count(start) == text.count(end) == 1
@@ -195,13 +206,36 @@ def boundary_runner(text, guest_phases=False):
     assert text.count(needle) == 2
     text = text.replace(needle, needle+marker, 1)
     text = text.replace(start, '  printf "running\\t%s\\t%s\\n" "$round" "$step" > '+GUEST_ROOT+'/phase')
-    return text.replace(end, '')
+    text = text.replace(end, '')
+    if skip_vmstat:
+        begin=text.index('sample_vmstat() {\n')
+        finish=text.index('\n}\n',begin)+len('\n}')
+        text=text[:begin]+'sample_vmstat() { :; }'+text[finish:]
+    if merge_meminfo:
+        from prototype_boundary_memory import START_CODE,END_CODE
+        for line in ('  sample_memory before "$step"\n','  sample_memory after "$step"\n',
+                     '  printf "running\\t%s\\t%s\\n" "$round" "$step" > '+GUEST_ROOT+'/phase\n'):
+            assert text.count(line)==1
+            text=text.replace(line,'')
+        for name,phase,code in (('start','before',START_CODE),('end','after',END_CODE)):
+            original='  '+name+'_ns="$(python3 -c \'import time; print(time.monotonic_ns())\')"'
+            assert text.count(original)==1
+            arguments=' "$MIXFS_WORKLOAD_ROOT" '+phase+' "$step" "$out/guest-memory.tsv" '+shlex.quote(GUEST_ROOT+'/phase')+' /proc/meminfo "$sandbox_label" "$branch" "$round"'
+            text=text.replace(original,'  '+name+'_ns="$(python3 -B -c '+shlex.quote(code)+arguments+')"')
+    return text
+
+
+def boundary_meminfo_metadata(actions,segments):
+    return dict(status='MERGED_WITH_ACTION_TIMERS',helper_file='prototype_boundary_memory.py',
+        boundary_rows=2*actions+2*segments,action_timer_reads=2*actions,segment_edge_reads=2*segments,
+        date_awk_calls_removed=4*actions,count_scope='Source-derived calls versus separate boundary meminfo; not measured CPU or seconds')
 
 
 class RuntimeMonitor:
-    def __init__(self, raw, cli, container=None, batch_control=False, *, light=False, damon_observe=False):
+    def __init__(self, raw, cli, container=None, batch_control=False, *, light=False, damon_observe=False, guest_script=None):
         self.raw = Path(raw); self.cli = cli; self.active = {}; self.sessions = []
         self.light=light;self.interval=.1
+        self.script=guest_script or SCRIPT
         self.damon_observe=damon_observe
         self.container=None if light else container;self.hosts={};self.host_binding=None;self.host_lock=threading.Lock();self.workers={}
         self.lock = threading.Lock()
@@ -210,14 +244,15 @@ class RuntimeMonitor:
         if not light:names+=('guest_performance.py','guest_diskstats.py','host_sandbox_monitor.py')
         for name in names:
             shutil.copy2(Path(__file__).parent/name, code/name)
-        self.batch_control=batch_control
-        if batch_control:
+        self.batch_control=batch_control or light
+        if self.batch_control:
             self.bundle=code/'guest-bundle';self.bundle.mkdir()
             self.code_sha256={}
-            for source,remote in [('sandbox_runtime_monitor.py',Path(SCRIPT).name),('guest_memory_collector.py','guest_memory_collector.py'),
-                                  ('guest_performance.py','guest_performance.py'),('guest_diskstats.py','guest_diskstats.py')]:
+            sources=[('sandbox_runtime_monitor.py',Path(self.script).name),('guest_memory_collector.py','guest_memory_collector.py')]
+            if not light:sources += [('guest_performance.py','guest_performance.py'),('guest_diskstats.py','guest_diskstats.py')]
+            for source,remote in sources:
                 target=self.bundle/remote;shutil.copy2(code/source,target)
-                self.code_sha256[str(Path(SCRIPT).parent/remote)]=hashlib.sha256(target.read_bytes()).hexdigest()
+                if not light:self.code_sha256[str(Path(self.script).parent/remote)]=hashlib.sha256(target.read_bytes()).hexdigest()
 
     def write(self):
         with self.lock:
@@ -234,7 +269,7 @@ class RuntimeMonitor:
     def mark(self, sid, phase):
         if sid in self.active:
             if sid in self.hosts:self.hosts[sid].phase=phase
-            if self.batch_control:
+            if self.batch_control and not self.light:
                 self.cli('monitor-phase','exec',sid,'python3','-c','import pathlib,sys;pathlib.Path(sys.argv[1]).write_text(sys.argv[2])',GUEST_ROOT+'/phase',phase+'\t\t\n',timeout=15)
             else:
                 self.cli('monitor-phase', 'exec', sid, 'bash', '-lc', 'printf %s '+shlex.quote(phase+'\t\t\n')+' > '+GUEST_ROOT+'/phase', timeout=15)
@@ -246,10 +281,11 @@ class RuntimeMonitor:
                      start_host_monotonic_ns=time.monotonic_ns(), start_host_timestamp_ns=time.time_ns())
         self.sessions.append(entry); self.active[sid] = entry; self.write()
         if self.batch_control:
-            entry['code_reused_from_snapshot']=reuse_code
-            if not reuse_code:self.cli('monitor-upload-bundle','upload',sid,self.bundle,Path(SCRIPT).parent,timeout=30)
+            # Light mode still uploads on every start, including restored guests.
+            entry['code_reused_from_snapshot']=reuse_code and not self.light
+            if not entry['code_reused_from_snapshot']:self.cli('monitor-upload-bundle','upload',sid,self.bundle,Path(self.script).parent,timeout=30)
         else:
-            uploads=[('sandbox_runtime_monitor.py', SCRIPT), ('guest_memory_collector.py', '/workspace/guest_memory_collector.py')]
+            uploads=[('sandbox_runtime_monitor.py', self.script), ('guest_memory_collector.py', '/workspace/guest_memory_collector.py')]
             if not self.light:uploads += [('guest_performance.py','/workspace/guest_performance.py'),('guest_diskstats.py','/workspace/guest_diskstats.py')]
             for name, remote in uploads:
                 self.cli('monitor-upload', 'upload', sid, Path(__file__).parent/name, remote, timeout=30)
@@ -261,7 +297,7 @@ class RuntimeMonitor:
         # waits for it; guest PID 1 need not reap an orphan before a snapshot.
         worker_error=[]
         def managed_collect():
-            argv=['exec',sid,'python3',SCRIPT,'collect','--directory',directory,
+            argv=['exec',sid,'python3',self.script,'collect','--directory',directory,
                 '--phase-file',GUEST_ROOT+'/phase','--sandbox-id',sid,'--role',role,'--session-id',token,
                 '--interval',str(self.interval)]
             argv+=['--light'] if self.light else ['--performance']
@@ -271,8 +307,8 @@ class RuntimeMonitor:
             except BaseException as error:worker_error.append(error)
         worker=threading.Thread(target=managed_collect,daemon=True)
         self.workers[sid]=(worker,worker_error);worker.start()
-        ready_argv=['exec',sid,'python3',SCRIPT,'ready','--directory',directory]
-        if self.batch_control:ready_argv+=['--code-sha256',json.dumps(self.code_sha256)]
+        ready_argv=['exec',sid,'python3',self.script,'ready','--directory',directory]
+        if self.batch_control and not self.light:ready_argv+=['--code-sha256',json.dumps(self.code_sha256)]
         content=self.cli('monitor-ready',*ready_argv,timeout=15)
         entry['identity'] = json.loads(content); assert entry['identity']['status'] == 'STARTED'
         if self.container:
@@ -288,9 +324,9 @@ class RuntimeMonitor:
         if sid not in self.active: return
         entry = self.active[sid]; entry['stop_reason'] = reason
         parent = self.raw/'runtime'/sid; parent.mkdir(parents=True, exist_ok=True)
-        error = None
+        error = None;finished=None
         try:
-            self.mark(sid, reason)
+            if not self.light:self.mark(sid, reason)
         except Exception as exc: error = exc
         if sid in self.hosts:
             host=self.hosts.pop(sid)
@@ -298,7 +334,11 @@ class RuntimeMonitor:
             except Exception as exc:
                 entry['host_receipt']=host.receipt
                 if error is None:error=exc
-        try:self.cli('monitor-stop', 'exec', sid, 'python3', SCRIPT, 'stop', '--directory', entry['guest_directory'], timeout=15)
+        try:
+            if self.light:
+                finished=json.loads(self.cli('monitor-finish','exec',sid,'python3',self.script,'finish',
+                    '--directory',entry['guest_directory'],'--phase-file',GUEST_ROOT+'/phase','--final-phase',reason,timeout=15))
+            else:self.cli('monitor-stop', 'exec', sid, 'python3', self.script, 'stop', '--directory', entry['guest_directory'], timeout=15)
         except Exception as exc:
             if error is None:error=exc
         worker,worker_error=self.workers.pop(sid)
@@ -306,8 +346,12 @@ class RuntimeMonitor:
         try:
             assert not worker.is_alive(),'managed collector command did not finish'
             if worker_error:raise worker_error[0]
-            value=json.loads(self.cli('monitor-reaped','exec',sid,'python3',SCRIPT,'reaped','--directory',entry['guest_directory'],timeout=15))
-            assert value['status']=='REAPED' and all(value[k]==entry['identity'][k] for k in ('pid','start_ticks','boot_id'))
+            if self.light:
+                value=finished;assert value['status']=='PASS' and value['collector_reaped']
+            else:
+                value=json.loads(self.cli('monitor-reaped','exec',sid,'python3',self.script,'reaped','--directory',entry['guest_directory'],timeout=15))
+                assert value['status']=='REAPED'
+            assert all(value[k]==entry['identity'][k] for k in ('pid','start_ticks','boot_id'))
             entry['collector_reaped']=True
         except Exception as exc:
             if error is None:error=exc
@@ -328,7 +372,7 @@ class RuntimeMonitor:
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument('action', choices=['ready', 'collect', 'stop', 'reaped', 'process-probe'])
+    parser.add_argument('action', choices=['ready', 'collect', 'stop', 'finish', 'reaped', 'process-probe'])
     parser.add_argument('--directory', type=Path)
     parser.add_argument('--phase-file', type=Path)
     for name in ('sandbox-id', 'role', 'session-id'): parser.add_argument('--'+name)
@@ -340,6 +384,7 @@ if __name__ == '__main__':
     parser.add_argument('--light',action='store_true',help='Only guest meminfo; no vmstat, CPU, block I/O or host sampling')
     parser.add_argument('--damon-observe',action='store_true',help='Read-only DAMON state and counters alongside memory samples')
     parser.add_argument('--initial-phase',help='Initialize the phase file before the first collector sample')
+    parser.add_argument('--final-phase',help='Set the last phase during finish, then wait for the managed collector to be reaped')
     parser.add_argument('--code-sha256',help='Expected code hashes checked during readiness, including inherited files')
     args = parser.parse_args()
     if args.light and args.performance:parser.error('--light and --performance are mutually exclusive')
@@ -348,4 +393,7 @@ if __name__ == '__main__':
     if args.action == 'collect': raise SystemExit(collect(args))
     if args.action == 'ready': ready(args.directory,args.code_sha256)
     elif args.action=='reaped':reaped(args.directory)
+    elif args.action=='finish':
+        if args.phase_file is None or args.final_phase is None:parser.error('finish requires phase-file and final-phase')
+        stop(args.directory,phase_file=args.phase_file,final_phase=args.final_phase,wait_reaped=True)
     else: stop(args.directory)

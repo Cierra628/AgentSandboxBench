@@ -111,18 +111,19 @@ def prepared_objects(services,mode):
     return list(objects.values())
 
 
-def query_objects(objects,group,label):
+def query_objects(objects,group,label,*,measure_residency=True):
     start=time.monotonic_ns();cpu=time.thread_time_ns();before=counters(group);rows=[]
     for obj in objects:
-        begin=time.monotonic_ns();thread=time.thread_time_ns();residency=mincore_file(Path(obj['path']))
-        if not residency['stable'] or file_identity(Path(obj['path']))!=obj['identity']:raise ValueError('target identity or size changed')
+        begin=time.monotonic_ns();thread=time.thread_time_ns()
+        residency=mincore_file(Path(obj['path'])) if measure_residency else dict(status='NOT_MEASURED',resident_bytes=None)
+        if (measure_residency and not residency['stable']) or file_identity(Path(obj['path']))!=obj['identity']:raise ValueError('target identity or size changed')
         rows.append(dict(obj,residency=residency,query_elapsed_ns=time.monotonic_ns()-begin,query_cpu_ns=time.thread_time_ns()-thread))
     after=counters(group);end=time.monotonic_ns()
-    return dict(status='OBSERVED',label=label,start_monotonic_ns=start,end_monotonic_ns=end,
+    return dict(status='OBSERVED' if measure_residency else 'NOT_MEASURED',label=label,start_monotonic_ns=start,end_monotonic_ns=end,
         elapsed_ns=end-start,cpu_ns=time.thread_time_ns()-cpu,
         counters_before=before,counters_after=after,objects=rows,
-        resident_bytes=sum(r['residency']['resident_bytes'] for r in rows),
-        scope='Unique pinned regular-file cache objects; sequential global residency, not cgroup charge or total RAM')
+        resident_bytes=sum(r['residency']['resident_bytes'] for r in rows) if measure_residency else None,
+        scope='Unique pinned regular-file cache objects; sequential global residency, not cgroup charge or total RAM' if measure_residency else 'File identity checks only; residency not measured')
 
 
 def verify_live(services,objects,group,out):

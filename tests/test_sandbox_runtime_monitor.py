@@ -15,6 +15,68 @@ from report_sandbox_runtime import samples, curve_chunks, write_report
 
 
 class RuntimeSamplingTests(unittest.TestCase):
+    def test_stop_accepts_esrch_when_the_owned_collector_is_reaped_during_stat_read(self):
+        import io
+        from contextlib import redirect_stdout
+        from sandbox_runtime_monitor import stop
+        with tempfile.TemporaryDirectory() as temp:
+            directory=Path(temp);identity=dict(pid=123456789,start_ticks='1',boot_id='test')
+            (directory/'identity.json').write_text(json.dumps(identity))
+            (directory/'collector-status.json').write_text(json.dumps(dict(status='PASS')))
+            stat=Path('/proc/123456789/stat');cmdline=stat.with_name('cmdline')
+            original_read=Path.read_text;original_exists=Path.exists;original_bytes=Path.read_bytes
+            def read(path,*a,**kw):
+                if path==stat:raise ProcessLookupError(3,'No such process')
+                return original_read(path,*a,**kw)
+            def exists(path):return True if path==stat else original_exists(path)
+            def byte_content(path):return b'python3\0collect\0'+str(directory).encode()+b'\0' if path==cmdline else original_bytes(path)
+            with patch('sandbox_runtime_monitor.process_identity',return_value=identity),patch('sandbox_runtime_monitor.os.kill') as kill,patch.object(Path,'read_text',read),patch.object(Path,'exists',exists),patch.object(Path,'read_bytes',byte_content),redirect_stdout(io.StringIO()) as output:
+                stop(directory)
+            kill.assert_called_once();self.assertEqual(json.loads(output.getvalue())['status'],'PASS')
+
+    def test_batched_control_reuses_code_and_checks_each_session_before_snapshot(self):
+        import shutil
+        from sandbox_runtime_monitor import RuntimeMonitor
+        with tempfile.TemporaryDirectory() as temp:
+            root=Path(temp);workspace=root/'workspace';workspace.mkdir();raw=root/'raw';raw.mkdir();calls=[]
+            def cli(label,*argv,timeout=15):
+                calls.append(label)
+                if argv[0]=='upload':
+                    shutil.copytree(argv[2],argv[3],dirs_exist_ok=True);return ''
+                if argv[0]=='download':
+                    shutil.copytree(argv[2],Path(argv[3])/Path(argv[2]).name);return ''
+                return subprocess.check_output(argv[2:],text=True,timeout=timeout).strip()
+            with patch('sandbox_runtime_monitor.GUEST_ROOT',str(workspace/'monitor')),patch('sandbox_runtime_monitor.SCRIPT',str(workspace/'asb-runtime-monitor.py')):
+                monitor=RuntimeMonitor(raw,cli,batch_control=True)
+                try:
+                    for i,sid in enumerate(('parent','restored')):
+                        monitor.start(sid,sid,'round-'+str(i+1),reuse_code=bool(i))
+                        identity=monitor.active[sid]['identity'];pid=identity['pid']
+                        self.assertEqual(identity['code_sha256'],monitor.code_sha256)
+                        time.sleep(.22);monitor.stop(sid,'checkpoint')
+                        entry=monitor.sessions[-1]
+                        self.assertTrue(entry['collector_reaped']);self.assertFalse(Path(f'/proc/{pid}').exists())
+                        self.assertEqual(entry['status'],'PASS');self.assertEqual(entry['code_reused_from_snapshot'],bool(i))
+                        with (raw/entry['raw_directory']/'guest-memory.tsv').open() as f:data=list(csv.DictReader(f,delimiter='\t'))
+                        self.assertEqual(data[0]['phase'],'round-'+str(i+1))
+                        self.assertTrue(all(row['sandbox_id']==sid for row in data))
+                    self.assertEqual(calls.count('monitor-upload-bundle'),1)
+                    self.assertNotIn('monitor-directory',calls);self.assertNotIn('monitor-upload',calls)
+                    self.assertEqual(calls.count('monitor-phase'),2)
+                    self.assertEqual(len(samples(raw)[0]),2)
+                finally:
+                    for sid in list(monitor.active):monitor.stop(sid)
+
+    def test_readiness_rejects_changed_inherited_code(self):
+        import os
+        from sandbox_runtime_monitor import ready,process_identity
+        with tempfile.TemporaryDirectory() as temp:
+            root=Path(temp);code=root/'code.py';code.write_text('changed code')
+            (root/'identity.json').write_text(json.dumps(process_identity(os.getpid())))
+            (root/'ready').write_text('ready')
+            with self.assertRaisesRegex(AssertionError,'restored monitor code differs'):
+                ready(root,json.dumps({str(code):'0'*64}))
+
     def test_managed_sampler_is_waited_for_and_leaves_no_proc_entry(self):
         import shutil
         from sandbox_runtime_monitor import RuntimeMonitor

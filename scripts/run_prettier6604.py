@@ -8,6 +8,7 @@ import json
 import os
 from pathlib import Path
 import re
+import shlex
 import shutil
 import signal
 import subprocess
@@ -26,6 +27,10 @@ def run(args):
     cfg, workload, reference = validate()
     task = load(args.official_task)
     assert task['instance_id'] == cfg['task_id'] and task['base_commit'] == cfg['base_commit']
+    density=None
+    if getattr(args,'density_context',None):
+        from host_density import context as density_context,tools_finished as density_tools_finished
+        density=density_context(args.density_context,args)
     checkpoint=bool(getattr(args,'checkpoint',False))
     monitor_mode=getattr(args,'monitor_mode','continuous')
     assert monitor_mode in ('continuous','off')
@@ -34,6 +39,8 @@ def run(args):
     live_cache = bool(getattr(args, 'live_cache', False))
     live_cache_lower = bool(getattr(args, 'live_cache_lower', False))
     light = getattr(args, 'light_monitor', False)
+    if density and (checkpoint or not light or not os.environ.get('ASB_LOCAL_NO_PROXY')=='on'):
+        raise ValueError('density child requires original complete light local Prettier path')
     if light and (monitor_mode!='continuous' or checkpoint or physical_segments or live_cache):
         raise ValueError('light monitoring requires a complete task without physical cache analysis')
     damon_observe=getattr(args,'damon_observe',False)
@@ -61,6 +68,11 @@ def run(args):
     os.umask(0o077)
     env = dict(os.environ,PATH=str(ROOT/'runtime/bin')+':'+os.environ['PATH'],
                XDG_CONFIG_HOME=str(args.config_home),HOST_MONITOR_LIGHT='1')
+    local_no_proxy=os.environ.get('ASB_LOCAL_NO_PROXY')=='on'
+    if local_no_proxy:
+        from prettier_no_proxy import clean_environment
+        if checkpoint or not (light or monitor_mode=='off'):raise ValueError('local-no-proxy requires complete light replay or sampling-off control')
+        env=clean_environment(env)
     from sandbox_runtime_monitor import RuntimeMonitor, boundary_runner
     events=[];sid=None;monitor=None;success=False;snapshot=None;physical=None;live=None;live_sessions=[];live_gap=None
     damon_restore_needed=False
@@ -164,13 +176,21 @@ def run(args):
             stage='live-cache-capture'
             live=LiveTaskCache(out,args.container,cli,session='parent' if checkpoint else None)
         stage='cold-start';controller.phase(stage)
-        sid=call('cold-start',[sys.executable,'-B',ROOT/'scripts/agentenv_cold_start.py',
-                 '--config-home',args.config_home,'--service-url',args.service_url,
-                 '--image',cfg['source_image']],timeout=610)
+        if density:
+            sid=density['sandbox_id'];result['density_context']=density
+        else:
+            sid=call('cold-start',[sys.executable,'-B',ROOT/'scripts/agentenv_cold_start.py',
+                     '--config-home',args.config_home,'--service-url',args.service_url,
+                     '--image',cfg['source_image'],*(['--local-no-proxy'] if local_no_proxy else [])],timeout=610)
         assert re.fullmatch(r'[a-fA-F0-9-]{36}',sid)
         if physical: physical.ready()
         if live: live.start(sid)
         (out/'sandbox-id.txt').write_text(sid+'\n')
+        if local_no_proxy:
+            from prettier_no_proxy import PROXY_KEYS
+            probe='import os; assert not any(os.environ.get(k) for k in '+repr(PROXY_KEYS)+'); print("guest-no-proxy-ready")'
+            assert guest('guest-no-proxy-check','python3 -c '+shlex.quote(probe))=='guest-no-proxy-ready'
+            result['local_no_proxy']='PASS'
         controller.record('sandbox-ids.tsv',f'backbone\t{sid}\t\troot')
         if damon_disable:
             stage='damon-disable';controller.phase(stage)
@@ -268,6 +288,7 @@ def run(args):
         assert re.search(r'Test Suites:\s+32 passed, 32 total',log) and re.search(r'Tests:\s+66 passed, 66 total',log)
         result['checks']['frozen_order_hashes_exit_codes_patch_and_key_outputs']='PASS'
         result.update(action_count=count,guest_action_sum_ns=guest_durations,final_patch_sha256=hashlib.sha256(patch).hexdigest(),frozen_replay_elapsed_ns=time.monotonic_ns()-replay_begin)
+        if density:density_tools_finished(density,time.monotonic_ns())
         final_code="cd /testbed && python3 - <<'EOF'\nimport subprocess,hashlib,json\nfrom pathlib import Path\npaths=['src/language-js/needs-parens.js']+sorted(str(p) for p in Path('tests/typescript/custom/parenthesizedType').rglob('*') if p.is_file())\nprint(json.dumps(dict(base_commit=subprocess.check_output(['git','rev-parse','HEAD'],text=True).strip(),git_status=subprocess.check_output(['git','status','--porcelain'],text=True),files={p:hashlib.sha256(Path(p).read_bytes()).hexdigest() for p in paths})))\nEOF"
         final_state=json.loads(guest('task-final-state',final_code))
         (out/'final-state.json').write_text(json.dumps(final_state,indent=2)+'\n')
@@ -367,6 +388,7 @@ if __name__=='__main__':
     parser.add_argument('--live-cache-lower',action='store_true',help='Also query current raw snapshot memory-layer PFNs after restore')
     parser.add_argument('--checkpoint',action='store_true',help='Snapshot after core_verify (24/29); resume at backbone_finish')
     parser.add_argument('--expected-official-audit',type=Path,help='Hash-verified official failure from complete original replay')
+    parser.add_argument('--density-context',type=Path,help='Explicit owned density coordinator: reuse its live guest')
     parser.add_argument('--check-only',action='store_true');args=parser.parse_args()
     if not args.check_only and not all((args.container,args.config_home,args.output,args.service_url)):parser.error('live run requires owned container, config-home, output, service-url')
     raise SystemExit(run(args))

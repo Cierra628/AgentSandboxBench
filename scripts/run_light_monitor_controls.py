@@ -84,9 +84,10 @@ def inspect_run(workflow,task,mode):
         original_tests=outcome,patch=patch,owned_resources_removed=True)
 
 
-def summarize(out):
+def summarize(out,tasks=TASKS):
     runs=read(out/'runs.json');pairs=[];summaries={}
-    for task in TASKS:
+    assert len(runs)==6*len(tasks) and {r['task'] for r in runs}==set(tasks)
+    for task in tasks:
         selected=[]
         for round_number in (1,2,3):
             pair=[r for r in runs if r['task']==task and r['round']==round_number]
@@ -113,21 +114,23 @@ def main():
     parser=argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--output',type=Path,required=True)
     parser.add_argument('--report-only',action='store_true')
-    args=parser.parse_args();out=args.output.resolve()
+    parser.add_argument('--tasks',nargs='+',choices=TASKS,default=TASKS,help='Tasks to run, three pairs each; default keeps the original three-task experiment')
+    args=parser.parse_args();out=args.output.resolve();tasks=tuple(args.tasks)
+    if len(tasks)!=len(set(tasks)):parser.error('tasks must not repeat')
     if args.report_only:
-        summarize(out);print('status=PASS result_dir='+str(out));return
+        summarize(out,tasks);print('status=PASS result_dir='+str(out));return
     assert out.is_relative_to(ROOT/'.artifacts') and not out.exists()
     os.umask(0o077);out.mkdir(parents=True);(out/'configs').mkdir()
     (out/'code').mkdir()
-    for name in ('run_light_monitor_controls.py','run-light-monitor-controls.sh','report_task_overview.py'):
+    for name in ('run_light_monitor_controls.py','run-light-monitor-controls.sh','report_task_overview.py','sandbox_runtime_monitor.py','analyze_light_monitor_overhead.py'):
         shutil.copy2(ROOT/'scripts'/name,out/'code'/name)
     os.environ['ASB_AGENTENV_SOURCE_SERVICE']=SOURCE
     plan=[]
-    for number,tasks in enumerate((TASKS,tuple(reversed(TASKS)),TASKS),1):
-        for task in tasks:
+    for number,order in enumerate((tasks,tuple(reversed(tasks)),tasks),1):
+        for task in order:
             modes=('on','off') if (number+(task=='prettier6604'))%2==0 else ('off','on')
             for mode in modes:plan.append(dict(round=number,task=task,mode=mode))
-    write(out/'plan.json',dict(runs=plan,interval_seconds=.1,pairs_per_task=3))
+    write(out/'plan.json',dict(runs=plan,tasks=tasks,interval_seconds=.1,pairs_per_task=3))
     runs=[];write(out/'runs.json',runs);started=False;result=dict(status='FAIL',stage='precheck')
     try:
         source=json.loads(subprocess.check_output(['docker','inspect',SOURCE],timeout=20))[0]
@@ -135,7 +138,7 @@ def main():
         assert source['HostConfig']['RestartPolicy']['Name']=='no'
         write(out/'source-before.json',source['State'])
         checks={}
-        for task in TASKS:
+        for task in tasks:
             for mode in ('on','off'):
                 cfg=read(ROOT/f'configs/platform-{task}.json')
                 if mode=='off':cfg.update(monitor_mode='off',light_monitor=False)
@@ -167,10 +170,16 @@ def main():
             workflows=[p for p in paths if Path(p).parent==ROOT/'.artifacts/platform-tasks']
             assert len(set(workflows))==1
             verified=inspect_run(workflows[0],item['task'],item['mode'])
+            if item['task']=='prettier6604' and item['mode']=='on':
+                raw=Path(verified['raw']);events=read(raw/'events.json')
+                blocking=[e['stage'] for e in events if e['stage'].startswith('monitor-') and not e['stage'].startswith('monitor-collect-')]
+                assert sorted(blocking)==sorted(['monitor-upload-bundle','monitor-ready','monitor-phase','monitor-finish','monitor-download'])
+                assert (raw/'runtime-code/sandbox_runtime_monitor.py').read_bytes()==(ROOT/'scripts/sandbox_runtime_monitor.py').read_bytes()
+                verified['optimized_light_control']='PASS_FIVE_BLOCKING_CALLS'
             runs.append(dict(item,**{k:v for k,v in verified.items() if k not in item},load_average=load))
             write(out/'runs.json',runs)
             print('status=PASS run='+name+' tool_seconds='+str(verified['tool_seconds']),flush=True)
-        summarize(out);result.update(status='PASS',stage='complete',completed=len(runs))
+        summarize(out,tasks);result.update(status='PASS',stage='complete',completed=len(runs))
     except BaseException as error:
         import traceback
         (out/'failure.txt').write_text(traceback.format_exc());result.update(error=repr(error),completed=len(runs))

@@ -16,6 +16,13 @@ from validate_isolated_agentenv import config_value,immutable_manifest,prettier_
 
 
 class IsolatedStorageTests(unittest.TestCase):
+    def test_get_data_requires_owned_binary_before_allocation(self):
+        import validate_isolated_agentenv as validator
+        with patch.object(validator.os,'geteuid',return_value=0),patch.object(validator.os,'posix_fallocate') as allocate:
+            with self.assertRaisesRegex(ValueError,'owned diagnostic binary'):
+                validator.main(SimpleNamespace(snapshot_provider_get_data=True))
+            allocate.assert_not_called()
+
     def test_small_grpo_volume_cannot_be_used_for_snapshots_or_unconverted_images(self):
         args=SimpleNamespace(prettier6604_grpo_capacity_gib=16)
         self.assertEqual(prettier_capacity(args,True,None,'grpo',False,True),16*GIB)
@@ -23,6 +30,13 @@ class IsolatedStorageTests(unittest.TestCase):
                 (True,None,'bpo',False,True),(True,None,'tvcache',False,True),(True,None,'grpo',True,True),(True,None,'grpo',False,False)]:
             with self.assertRaises(ValueError):prettier_capacity(args,export,role,schedule,checkpoint,seed)
         self.assertEqual(prettier_capacity(SimpleNamespace(),True,None,'bpo',False,True),32*GIB)
+
+    def test_real_pair_volume_keeps_24_gib_and_requires_verified_single_snapshot_mode(self):
+        args=SimpleNamespace(prettier6604_snapshot_cache_pair=True)
+        self.assertEqual(prettier_capacity(args,True,None,'bpo',False,True),24*GIB)
+        for export,role,schedule,checkpoint,seed in [(False,None,'bpo',False,True),
+                (True,None,'grpo',False,True),(True,None,'bpo',False,False),(True,'early_1','bpo',False,True)]:
+            with self.assertRaises(ValueError):prettier_capacity(args,export,role,schedule,checkpoint,seed)
 
     def test_standing_authorization_sets_runtime_without_exclusive_disk_claim(self):
         now=datetime(2026,10,9,6,59,tzinfo=timezone.utc)

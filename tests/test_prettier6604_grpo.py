@@ -106,6 +106,18 @@ class BranchInputs(unittest.TestCase):
                        'early_2':['read_repo','shared','early_2']}):
             with self.assertRaises(AssertionError):prefix_tree_plan(paths)
 
+    def test_actual_cache_pair_uses_one_common_prefix_and_distinct_original_suffixes(self):
+        from prepare_prettier6604_rollouts import sampled_segment
+        paths=execution_paths(self.rollouts,'bpo',cache_pair=True)
+        count=sum(len(sampled_segment(self.samples,r,self.names[s])['actions']) for r,path in paths.items() for s in path)
+        self.assertEqual(count,31)
+        self.assertEqual(list(paths),['backbone','early_1','early_2'])
+        self.assertNotEqual(paths['early_1'],paths['early_2'])
+        for r in ['early_1','early_2']:
+            self.assertEqual(paths['backbone']+paths[r],self.rollouts[r])
+        for schedule,role in [('grpo',None),('tvcache',None),('bpo','early_1')]:
+            with self.assertRaises(AssertionError):execution_paths(self.rollouts,schedule,role,cache_pair=True)
+
     def test_branch_inspection_cannot_be_swapped_even_with_new_hash(self):
         with tempfile.TemporaryDirectory() as d:
             out=Path(d)/'export';out.mkdir()

@@ -58,6 +58,9 @@ def curve_chunks(data, max_gap_ns=500_000_000, *, clock='timestamp_ns'):
 def write_report(raw, output, host=None):
     raw = Path(raw); output = Path(output)
     assert not output.resolve().is_relative_to(raw.resolve()), 'report must be outside raw'
+    if (raw/'result.json').exists() and json.loads((raw/'result.json').read_text()).get('monitor_mode')=='off':
+        from report_task_overview import write_tool_report
+        return write_tool_report(raw,output)
     manifest=raw/'runtime-monitor.json'
     if manifest.exists() and json.loads(manifest.read_text()).get('profile')=='light':
         from report_task_overview import write_report as light_report

@@ -6,7 +6,9 @@ cd "$ROOT"
 extra=()
 if [[ $# == 1 && $1 == --find-diagnostic ]]; then
   extra=(--python-find-diagnostic)
-elif (($#)); then printf 'usage: bash scripts/validate-runtime-command.sh [--find-diagnostic]\n' >&2; exit 2; fi
+elif [[ $# == 2 && $1 == --env-command-timing && ($2 == whole || $2 == split) ]]; then
+  extra=(--python-env-command-timing "$2")
+elif (($#)); then printf 'usage: bash scripts/validate-runtime-command.sh [--find-diagnostic | --env-command-timing whole|split]\n' >&2; exit 2; fi
 run_id=$(date -u +%Y%m%dT%H%M%SZ)-$$
 result_dir="$ROOT/.artifacts/runtime-command-validation/$run_id"
 cache_dir="$ROOT/.artifacts/sphinx-backbone/command-cache-$run_id"

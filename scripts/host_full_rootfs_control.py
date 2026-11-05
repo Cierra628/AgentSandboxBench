@@ -11,8 +11,36 @@ ROOT=Path(__file__).resolve().parents[1]
 PROFILE='full-grpo-rootfs-copies-v1'
 
 
+def validate_residency(mode,schedule,residency):
+    if residency not in ('on','off') or residency=='off' and (mode!='shared' or schedule!='grpo'):
+        raise ValueError('residency off requires explicit shared complete GRPO')
+
+
+def validate_cold_read(mode,schedule,residency,cold_read):
+    if cold_read and (mode not in ('shared','private') or schedule!='grpo' or residency!='on'):
+        raise ValueError('cold read requires explicit full GRPO with residency on')
+
+
+def validate_observation(value,residency='on'):
+    validate_residency(value['mode'],value['schedule'],residency)
+    if residency=='on':assert value['status']=='OBSERVED'
+    else:
+        assert value['status']=='VALIDATED' and value['residency_mode']=='off' and value['identity_checks']=='PASS'
+        assert all(key in value for key in ('P0_metadata','P1_metadata','P1_postcheck'))
+        assert all(value[phase]['status']=='NOT_MEASURED' and value[phase]['resident_bytes'] is None for phase in ('P0','P1'))
+    if value.get('cold_read_requested'):
+        validate_cold_read(value['mode'],value['schedule'],residency,True)
+        cold=value['cold_read']
+        assert cold['status']=='PASS' and cold['worker_reaped'] and cold['live_identity_checks']=='PASS'
+        assert cold['initial_residency']=='CONFIRMED_ZERO' and value['P0']['resident_bytes']==0
+        assert cold['points'][0]==value['P0'] and cold['points'][-1]==value['P1']
+
+
 def validate_mode(args):
     mode=getattr(args,'host_full_rootfs_mode',None)
+    validate_residency(mode,getattr(args,'prettier6604_schedule',getattr(args,'schedule','grpo')),getattr(args,'host_full_rootfs_residency','on'))
+    validate_cold_read(mode,getattr(args,'prettier6604_schedule',getattr(args,'schedule','grpo')),
+        getattr(args,'host_full_rootfs_residency','on'),getattr(args,'host_full_rootfs_cold_read',False))
     if mode is None:return None
     if mode not in ('shared','private') or getattr(args,'prettier6604_schedule',getattr(args,'schedule','grpo')) not in ('grpo','bpo'):
         raise ValueError('full rootfs copy control requires complete GRPO or BPO')
@@ -73,13 +101,17 @@ def prepared_objects(preparation):
 
 
 class FullRootfsControl:
-    def __init__(self,mode,out,group,binding,*,schedule='grpo'):
+    def __init__(self,mode,out,group,binding,*,schedule='grpo',residency='on',cold_read=False):
+        validate_residency(mode,schedule,residency);self.residency=residency
+        validate_cold_read(mode,schedule,residency,cold_read);self.cold_read=cold_read;self.cold=None
         self.out=Path(out);self.group=group;self.binding=binding
         self.env=self.out.parent.parent/'env';self.control=self.env/'rootfs-copy-control'
         self.templates={};self.restored={}
         self.state=dict(profile=PROFILE if schedule=='grpo' else 'full-bpo-rootfs-copies-v1',mode=mode,status='PREPARED',pss='NOT_REQUESTED',schedule=schedule,
             scope='Initial 19 lower-file cache only; same complete seven-guest schedule, generated layers separate, not whole RAM')
         if schedule=='bpo':self.state.update(phases=[],generated_layers=dict(P0=dict(status='NOT_CREATED',resident_bytes=None)))
+        if residency=='off':self.state['residency_mode']='off'
+        if cold_read:self.state['cold_read_requested']=True
 
     def save(self):write(self.out/'host-full-rootfs.json',self.state)
 
@@ -91,7 +123,14 @@ class FullRootfsControl:
         self.state['preparation']=self.preparation
         self.objects=prepared_objects(self.preparation)
         self.state['P0_metadata']=dict(start_monotonic_ns=start,end_monotonic_ns=time.monotonic_ns(),cpu_ns=time.thread_time_ns()-cpu)
-        self.state['P0']=query_objects(self.objects,self.group,'prepared-before-guests')
+        if self.cold_read:
+            from host_grpo_cold_read import GrpoColdRead
+            self.cold=GrpoColdRead(self.objects,self.env.parent,self.state['mode'],manifest_layers(),self.group,self.out)
+            try:self.state['P0']=self.cold.initial()
+            except Exception as error:
+                self.cold.state.update(status='FAIL',error=repr(error))
+                self.state.update(status='FAIL',error=repr(error));self.save();raise
+        else:self.state['P0']=query_objects(self.objects,self.group,'prepared-before-guests',**(dict(measure_residency=False) if self.residency=='off' else {}))
         self.state['P0']['scope']='Prepared planned copies, not yet confirmed live guest references'
         self.save()
 
@@ -109,8 +148,11 @@ class FullRootfsControl:
         from host_prefix_compare import drives_for_vm
         from host_rollout_shared import opened_regular_files
         self.state['paths_end_monotonic_ns']=paths_end_ns
-        start=time.monotonic_ns();cpu=time.thread_time_ns()
         try:
+            if self.cold:
+                self.cold.mark('paths-finished',monotonic_ns=paths_end_ns)
+                self.cold.stop()
+            start=time.monotonic_ns();cpu=time.thread_time_ns()
             if len(guests)!=7:raise ValueError('complete copy control requires seven live guests')
             bindings={role:self.binding.resolve(sid) for role,sid in guests.items()}
             drives={role:drives_for_vm(vm) for role,vm in bindings.items()}
@@ -143,13 +185,16 @@ class FullRootfsControl:
             roots['scope']='Explicit initial-lower copy control: all prepared identities confirmed live, including single-user copies; no upper or other devices'
             self.state.update(bindings=bindings,roots=roots,assignments=receipts,
                 P1_metadata=dict(start_monotonic_ns=start,end_monotonic_ns=time.monotonic_ns(),cpu_ns=time.thread_time_ns()-cpu))
-            self.state['P1']=query_objects(active,self.group,'all-original-paths-finished')
+            self.state['P1']=query_objects(active,self.group,'all-original-paths-finished',**(dict(measure_residency=False) if self.residency=='off' else {}))
             if generated:self.state['generated_layers']['P1']=query_objects(generated,self.group,'generated-layers-separate-not-main-savings')
             post_start=time.monotonic_ns();post_cpu=time.thread_time_ns()
             validate_rootfs_inventory(roots)
             if any(self.binding.resolve(guests[role])!=vm for role,vm in bindings.items()):raise ValueError('VMM identity changed during query')
             self.state['P1_postcheck']=dict(start_monotonic_ns=post_start,end_monotonic_ns=time.monotonic_ns(),cpu_ns=time.thread_time_ns()-post_cpu)
-            self.state['status']='OBSERVED'
+            if self.cold:
+                self.cold.complete(self.state['P1']);self.state['cold_read']=self.cold.state
+            self.state['status']='OBSERVED' if self.residency=='on' else 'VALIDATED'
+            if self.residency=='off':self.state['identity_checks']='PASS'
         except Exception as error:
             self.state.update(status='FAIL',error=repr(error));raise
         finally:self.save()

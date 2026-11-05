@@ -16,11 +16,12 @@ from isolated_storage import GIB,available,capacity_budget,rootfs_network_pools
 from platform_tasks import configuration,preflight,commands
 
 
-def wait_event(path,workers,timeout=600):
+def wait_event(path,workers,timeout=600,*,observe=None):
     start=time.monotonic()
     while not path.exists():
         if any(p.poll() is not None for p in workers):raise RuntimeError('member exited before '+str(path))
         if time.monotonic()-start>timeout:raise TimeoutError('member event timeout: '+str(path))
+        if observe:observe()
         time.sleep(.1)
     return read(path)
 
@@ -55,7 +56,7 @@ def audit_member(service):
         official_evaluation='NOT_RUN_PREFIX_ONLY',cleanup=outer['cleanup'])
 
 
-def group(config,mode):
+def group(config,mode,*,cold_read=False):
     from experiment_disk_guard import writer_lock
     from host_file_monitor import measurement_group,HostFileMonitor
     cfg=configuration(config)
@@ -74,7 +75,11 @@ def group(config,mode):
     for name in ('host_private_files.py','run_host_private_files.py','validate_isolated_agentenv.py',
         'run_prettier6604_grpo.py','report_task_overview.py','host_rootfs_layers.py','host_file_monitor.py','experiment_disk_guard.py','run_host_file_workflow.py'):
         shutil.copy2(ROOT/'scripts'/name,code/name)
-    workers=[];logs=[];collector=None
+    workers=[];logs=[];collector=None;cold=None
+    if cold_read:
+        from host_cold_file_read import ColdFileRead
+        shutil.copy2(ROOT/'scripts/host_cold_file_read.py',code/'host_cold_file_read.py')
+        state['cold_read']=True
     print('status=RUNNING result_dir='+str(out),flush=True)
     try:
         with writer_lock() as lock_fd:
@@ -106,25 +111,30 @@ def group(config,mode):
                 objects=prepared_objects(state['services'],mode)
                 state['preparation_metadata']=dict(start_monotonic_ns=preparation_start,
                     end_monotonic_ns=time.monotonic_ns(),cpu_ns=time.thread_time_ns()-preparation_cpu)
-                state['stages']['P0']=query_objects(objects,group_path,'prepared-before-guests')
+                if cold_read:cold=ColdFileRead(objects,state['services'],group_path,out)
+                state['stages']['P0']=cold.initial() if cold else query_objects(objects,group_path,'prepared-before-guests')
                 write(out/'result.json',state)
                 state['guest_creation_begin_monotonic_ns']=time.monotonic_ns()
+                if cold:cold.mark('guest-creation-begin')
                 for service in state['services']:
                     release(service['directory'],'service-ready')
-                    wait_event(Path(service['directory'])/'guest-ready.json',workers)
+                    wait_event(Path(service['directory'])/'guest-ready.json',workers,observe=cold.tick if cold else None)
                 # Both guests exist before the same original prefixes are dispatched.
+                if cold:cold.capture('guests-and-setup-ready');cold.mark('prefix-dispatch')
                 for service in state['services']:release(service['directory'],'guest-ready')
-                finished=[wait_event(Path(service['directory'])/'paths-finished.json',workers) for service in state['services']]
+                finished=[wait_event(Path(service['directory'])/'paths-finished.json',workers,observe=cold.tick if cold else None) for service in state['services']]
                 state['paths_end_monotonic_ns']=max(row['task_end_monotonic_ns'] for row in finished)
                 state['creation_and_prefix_ns']=state['paths_end_monotonic_ns']-state['guest_creation_begin_monotonic_ns']
                 metadata_start=time.monotonic_ns();metadata_cpu=time.thread_time_ns()
                 roots,resolvers=verify_live(state['services'],objects,group_path,out)
                 state['metadata']=dict(start_monotonic_ns=metadata_start,end_monotonic_ns=time.monotonic_ns(),cpu_ns=time.thread_time_ns()-metadata_cpu)
-                state['stages']['P1']=query_objects(objects,group_path,'prefixes-finished-before-delete')
+                if cold:cold.mark('prefixes-finished')
+                state['stages']['P1']=cold.capture('P1') if cold else query_objects(objects,group_path,'prefixes-finished-before-delete')
                 from host_rootfs_layers import validate_rootfs_inventory
                 validate_rootfs_inventory(roots)
                 saved=read(out/'live-targets.json')['bindings']
                 for role,(resolver,sid) in resolvers.items():assert resolver.resolve(sid)==saved[role]
+                if cold:cold.complete()
                 write(out/'result.json',state)
                 state['status']='OBSERVED'
             finally:
@@ -201,12 +211,14 @@ def comparison_for_groups(groups):
     return compare(by_mode['shared']['stages'],by_mode['private']['stages'])
 
 
-def pair(config,resume_shared=None,order='shared-first'):
+def pair(config,resume_shared=None,order='shared-first',*,cold_read=False):
     from run_light_monitor_controls import SOURCE,SOURCE_ID
     modes=execution_modes(order,resume_shared)
+    if cold_read and resume_shared:raise ValueError('cold-read control cannot reuse a warm shared group')
     stamp=time.strftime('%Y%m%dT%H%M%SZ',time.gmtime())+'-'+str(os.getpid())
     out=ROOT/'.artifacts/host-private-file-pairs'/stamp;out.mkdir(parents=True)
     state=dict(status='RUNNING',groups=[],planned_actions=44,requested_order=order,executed_group_order=list(modes));started=False
+    if cold_read:state.update(cold_read=True,scope='Two fresh guests per group, cold owned target files; startup/setup and original 11-action prefixes, not full GRPO')
     print('status=RUNNING result_dir='+str(out),flush=True)
     try:
         if resume_shared:state['groups'].append(recovered_shared(resume_shared))
@@ -229,7 +241,8 @@ def pair(config,resume_shared=None,order='shared-first'):
             if time.monotonic()>deadline:raise TimeoutError('source health timeout')
             time.sleep(1)
         for mode in modes:
-            command=['bash',str(ROOT/'scripts/run-host-file-monitor.sh'),str(Path(config).resolve()),'--private-file-group',mode]
+            command=['bash',str(ROOT/'scripts/run-host-file-monitor.sh'),str(Path(config).resolve()),'--private-file-group',mode,
+                *(['--private-cold-read'] if cold_read else [])]
             write(out/(mode+'-command.json'),command)
             with (out/(mode+'.log')).open('x') as log:
                 completed=subprocess.run(command,cwd=ROOT,env=env,stdout=log,stderr=subprocess.STDOUT,timeout=1700)
@@ -259,6 +272,7 @@ if __name__=='__main__':
     parser=argparse.ArgumentParser(description=__doc__)
     parser.add_argument('action',choices=('pair','group'));parser.add_argument('config',type=Path)
     parser.add_argument('--mode',choices=('shared','private'))
+    parser.add_argument('--cold-read',action='store_true',help='Two cold guests per group: evict only owned target files before creation and sample residency sparsely')
     parser.add_argument('--resume-shared',type=Path,help='Reuse an observed shared group with explicit offline report-recovery evidence; execute only the private group')
     parser.add_argument('--order',choices=('shared-first','private-first'),default='shared-first',help='Actual pair execution order; default preserves the original entry')
     args=parser.parse_args()
@@ -266,4 +280,4 @@ if __name__=='__main__':
     if args.resume_shared and args.action!='pair':parser.error('resume-shared is only for pair')
     if args.order!='shared-first' and args.action!='pair':parser.error('order is only for pair')
     if args.resume_shared and args.order!='shared-first':parser.error('shared recovery requires shared-first')
-    raise SystemExit(group(args.config,args.mode) if args.action=='group' else pair(args.config,args.resume_shared,args.order))
+    raise SystemExit(group(args.config,args.mode,cold_read=args.cold_read) if args.action=='group' else pair(args.config,args.resume_shared,args.order,cold_read=args.cold_read))

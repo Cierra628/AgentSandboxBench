@@ -16,6 +16,12 @@ import time
 CGROOT = Path('/sys/fs/cgroup')
 PAGE = os.sysconf('SC_PAGE_SIZE')
 STAT_KEYS = ('file', 'anon', 'shmem', 'kernel', 'file_mapped', 'file_dirty', 'file_writeback')
+_MINCORE_BITS = bytes(value & 1 for value in range(256))
+
+
+def count_resident(vector):
+    # Only bit 0 is defined; translate/count run in C rather than Python per page.
+    return bytes(vector).translate(_MINCORE_BITS).count(b'\x01')
 
 
 def measurement_group():
@@ -31,12 +37,13 @@ def measurement_group():
     return CGROOT.joinpath(*parts[1:index+1]), unit
 
 
-def counters(group):
+def counters(group, *, extra_keys=()):
     values = dict(line.split() for line in (group/'memory.stat').read_text().splitlines())
     if not {'file', 'anon', 'shmem'} <= values.keys():
         raise ValueError('required cgroup memory counters missing')
+    if not set(extra_keys)<=values.keys():raise ValueError('requested extra cgroup memory counters missing')
     return dict(current=int((group/'memory.current').read_text()),
-                **{key: int(values[key]) if key in values else None for key in STAT_KEYS})
+                **{key: int(values[key]) if key in values else None for key in (*STAT_KEYS,*extra_keys)})
 
 
 def controller_state(group):
@@ -110,7 +117,7 @@ def mincore_file(path, *, block_identity=None, block_length=None, include_reside
             try:
                 vector = (ctypes.c_ubyte*((size+PAGE-1)//PAGE))()
                 if libc.mincore(address, size, vector): raise OSError(ctypes.get_errno(), os.strerror(ctypes.get_errno()))
-                resident += sum(bool(value & 1) for value in vector)
+                resident += count_resident(vector)
                 if include_resident_indices:
                     indices.extend(offset//PAGE+i for i,value in enumerate(vector) if value & 1)
             finally:
@@ -184,9 +191,10 @@ def residency_check(group, roots, output, *, live=False, before_last_file=None):
 
 
 class HostFileMonitor:
-    def __init__(self, output, group, *, include_pss=True):
+    def __init__(self, output, group, *, include_pss=True, extra_stat_keys=()):
         self.output, self.group = Path(output), Path(group)
         self.include_pss = include_pss
+        self.extra_stat_keys=tuple(extra_stat_keys)
         self.output.mkdir(parents=True, exist_ok=False)
         self.stop_event = threading.Event(); self.ready = threading.Event(); self.error = None
         self.count = 0; self.cost_ns = 0; self.cpu_ns = 0
@@ -199,10 +207,10 @@ class HostFileMonitor:
         cpu = time.thread_time_ns(); started = time.monotonic_ns(); next_pss = started
         try:
             with (self.output/'memory.tsv').open('x', buffering=1) as stream, ((self.output/'pss.jsonl').open('x', buffering=1) if self.include_pss else nullcontext(None)) as pss:
-                writer = csv.DictWriter(stream, fieldnames=['monotonic_ns', 'elapsed_ns', 'read_duration_ns', 'current', *STAT_KEYS], delimiter='\t')
+                writer = csv.DictWriter(stream, fieldnames=['monotonic_ns', 'elapsed_ns', 'read_duration_ns', 'current', *STAT_KEYS, *self.extra_stat_keys], delimiter='\t')
                 writer.writeheader()
                 while True:
-                    now = time.monotonic_ns(); values = counters(self.group)
+                    now = time.monotonic_ns(); values = counters(self.group,extra_keys=self.extra_stat_keys)
                     duration = time.monotonic_ns()-now; self.cost_ns += duration
                     writer.writerow(dict(monotonic_ns=now, elapsed_ns=now-started, read_duration_ns=duration, **values))
                     self.count += 1; self.ready.set()
