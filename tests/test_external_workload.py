@@ -183,7 +183,7 @@ class ExternalWorkloadTests(unittest.TestCase):
         node=next(n for n in ast.walk(tree) if isinstance(n,ast.If) and isinstance(n.test,ast.Name) and n.test.id=='external_config' and
             any(isinstance(c,ast.Constant) and c.value=='HTTP_PROXY' for c in ast.walk(n)))
         for enabled in (False,True):
-            ns=dict(external_config=enabled,argv=[],os=SimpleNamespace(environ={'HTTP_PROXY':'private-value-not-for-argv'}))
+            ns=dict(external_config=enabled,five_oci=None,argv=[],os=SimpleNamespace(environ={'HTTP_PROXY':'private-value-not-for-argv'}))
             exec(compile(ast.Module(body=[node],type_ignores=[]),'<actual proxy branch>','exec'),ns)
             if enabled:
                 self.assertIn('HTTP_PROXY',ns['argv']);self.assertNotIn('private-value-not-for-argv',str(ns['argv']))
@@ -192,9 +192,12 @@ class ExternalWorkloadTests(unittest.TestCase):
         tree=ast.parse((root/'scripts/run_host_external_workload.py').read_text())
         node=next(n for n in ast.walk(tree) if isinstance(n,ast.For) and
             any(isinstance(c,ast.Constant) and c.value=='HTTP_PROXY' for c in ast.walk(n)))
-        ns=dict(command=[],os=SimpleNamespace(environ={'HTTP_PROXY':'private-value-not-for-argv'}))
+        ns=dict(command=[],cfg={'task_id':'django__django-16819'},FIVE={'hf-model-inference'},os=SimpleNamespace(environ={'HTTP_PROXY':'private-value-not-for-argv'}))
         exec(compile(ast.Module(body=[node],type_ignores=[]),'<actual systemd forwarding>','exec'),ns)
         self.assertEqual(ns['command'],['--setenv=HTTP_PROXY'])
+        ns.update(command=[],cfg={'task_id':'hf-model-inference'})
+        exec(compile(ast.Module(body=[node],type_ignores=[]),'<five-task direct environment>','exec'),ns)
+        self.assertEqual(ns['command'],[])
 
     def fixture(self,root,task_id='django__django-16819'):
         run=root/'run';run.mkdir();files={};steps=[]

@@ -1,0 +1,331 @@
+{
+  "audit_utc": "2026-11-09T16:10:25.643000+00:00",
+  "source_revision": "cbe767b2aa23ceb59875b1cb0a7a6141c749312a",
+  "benchmark_head": "07f9e6fdb49d80690624e8ce471a28be5257f6c8",
+  "workload_reexecutions": 1,
+  "publishing_workload_executions": 0,
+  "corrective_runs": [
+    {
+      "task_id": "hf-model-inference",
+      "outer": "/home/rashen/work/AgentSandboxBench/results/external-five/20261109T141645Z-425320",
+      "supersedes": "/home/rashen/work/AgentSandboxBench/results/external-five/20261109T054724Z-2626258",
+      "reason": "Explicit user authorization to rerun failed strict acceptance after fixing validation download path",
+      "status": "PASS",
+      "actions": 11,
+      "finished_utc": "2026-11-09T14:19:04.009864+00:00"
+    }
+  ],
+  "trace_exit_matches": 5,
+  "original_lifecycle_passes": 5,
+  "primary_exact_images": 4,
+  "original_checker_passes": 4,
+  "measurement_evidence_complete": 5,
+  "tasks": [
+    "hf-model-inference",
+    "mozilla__pdf.js-20957",
+    "apache__logging-log4j2",
+    "count-dataset-tokens",
+    "compile-compcert"
+  ],
+  "meaning": "Current selected native lifecycle receipts and original expected checker exits are verified separately; historical failures retained; Log4j checker 141 and rebuilt image identity remain explicit",
+  "requirements_check": {
+    "checked_client_date": "2026-11-10",
+    "checked_utc": "2026-11-09T16:10:25.643000+00:00",
+    "workload_runs_during_check": 0,
+    "status": "PASS",
+    "selected_runs": {
+      "hf-model-inference": "/home/rashen/work/AgentSandboxBench/results/external-five/20261109T141645Z-425320",
+      "mozilla__pdf.js-20957": "/home/rashen/work/AgentSandboxBench/results/external-five/20261109T124920Z-209746",
+      "apache__logging-log4j2": "/home/rashen/work/AgentSandboxBench/results/external-five/20261109T124210Z-195034",
+      "count-dataset-tokens": "/home/rashen/work/AgentSandboxBench/results/external-five/20261109T124727Z-207664",
+      "compile-compcert": "/home/rashen/work/AgentSandboxBench/results/external-five/20261109T125247Z-212672"
+    },
+    "tasks": [
+      {
+        "task_id": "hf-model-inference",
+        "status": "PASS",
+        "actions": 11,
+        "expected_nonzero_actions": 4,
+        "N": 1,
+        "guest_samples": 1200,
+        "host_samples": 1381,
+        "periodic_pss_samples": 123,
+        "lower_files": 6,
+        "endpoint_before_check_and_cleanup": true,
+        "guest_fields_preserved": true,
+        "host_fields_preserved": true,
+        "costs_and_timing_verified": true,
+        "preflight_ready": true,
+        "background_waits": 0,
+        "original_checker_exit": 0,
+        "exact_primary_oci": true,
+        "owned_resources_removed": true,
+        "post_run_stop_exit_code": 5,
+        "systemd_units": [
+          {
+            "name": "asbhost-20261109t141645425224.service",
+            "ControlGroup": "",
+            "LoadState": "not-found",
+            "ActiveState": "inactive",
+            "SubState": "dead"
+          },
+          {
+            "name": "asbhost-20261109t141645425224.slice",
+            "ControlGroup": "",
+            "LoadState": "loaded",
+            "ActiveState": "inactive",
+            "SubState": "dead"
+          }
+        ]
+      },
+      {
+        "task_id": "mozilla__pdf.js-20957",
+        "status": "PASS",
+        "actions": 5,
+        "expected_nonzero_actions": 0,
+        "N": 1,
+        "guest_samples": 1832,
+        "host_samples": 2051,
+        "periodic_pss_samples": 187,
+        "lower_files": 9,
+        "endpoint_before_check_and_cleanup": true,
+        "guest_fields_preserved": true,
+        "host_fields_preserved": true,
+        "costs_and_timing_verified": true,
+        "preflight_ready": true,
+        "background_waits": 0,
+        "original_checker_exit": 0,
+        "exact_primary_oci": true,
+        "owned_resources_removed": true,
+        "post_run_stop_exit_code": 5,
+        "systemd_units": [
+          {
+            "name": "asbhost-20261109t124920209630.service",
+            "ControlGroup": "",
+            "LoadState": "not-found",
+            "ActiveState": "inactive",
+            "SubState": "dead"
+          },
+          {
+            "name": "asbhost-20261109t124920209630.slice",
+            "ControlGroup": "",
+            "LoadState": "loaded",
+            "ActiveState": "inactive",
+            "SubState": "dead"
+          }
+        ]
+      },
+      {
+        "task_id": "apache__logging-log4j2",
+        "status": "PASS",
+        "actions": 10,
+        "expected_nonzero_actions": 1,
+        "N": 1,
+        "guest_samples": 2909,
+        "host_samples": 3153,
+        "periodic_pss_samples": 294,
+        "lower_files": 11,
+        "endpoint_before_check_and_cleanup": true,
+        "guest_fields_preserved": true,
+        "host_fields_preserved": true,
+        "costs_and_timing_verified": true,
+        "preflight_ready": true,
+        "background_waits": 0,
+        "original_checker_exit": 141,
+        "exact_primary_oci": false,
+        "owned_resources_removed": true,
+        "post_run_stop_exit_code": 5,
+        "systemd_units": [
+          {
+            "name": "asbhost-20261109t124210194940.service",
+            "ControlGroup": "",
+            "LoadState": "not-found",
+            "ActiveState": "inactive",
+            "SubState": "dead"
+          },
+          {
+            "name": "asbhost-20261109t124210194940.slice",
+            "ControlGroup": "",
+            "LoadState": "loaded",
+            "ActiveState": "inactive",
+            "SubState": "dead"
+          }
+        ]
+      },
+      {
+        "task_id": "count-dataset-tokens",
+        "status": "PASS",
+        "actions": 16,
+        "expected_nonzero_actions": 1,
+        "N": 1,
+        "guest_samples": 1004,
+        "host_samples": 1113,
+        "periodic_pss_samples": 104,
+        "lower_files": 5,
+        "endpoint_before_check_and_cleanup": true,
+        "guest_fields_preserved": true,
+        "host_fields_preserved": true,
+        "costs_and_timing_verified": true,
+        "preflight_ready": true,
+        "background_waits": 0,
+        "original_checker_exit": 0,
+        "exact_primary_oci": true,
+        "owned_resources_removed": true,
+        "post_run_stop_exit_code": 5,
+        "systemd_units": [
+          {
+            "name": "asbhost-20261109t124727207570.service",
+            "ControlGroup": "",
+            "LoadState": "not-found",
+            "ActiveState": "inactive",
+            "SubState": "dead"
+          },
+          {
+            "name": "asbhost-20261109t124727207570.slice",
+            "ControlGroup": "",
+            "LoadState": "loaded",
+            "ActiveState": "inactive",
+            "SubState": "dead"
+          }
+        ]
+      },
+      {
+        "task_id": "compile-compcert",
+        "status": "PASS",
+        "actions": 318,
+        "expected_nonzero_actions": 33,
+        "N": 1,
+        "guest_samples": 20888,
+        "host_samples": 21000,
+        "periodic_pss_samples": 2093,
+        "lower_files": 3,
+        "endpoint_before_check_and_cleanup": true,
+        "guest_fields_preserved": true,
+        "host_fields_preserved": true,
+        "costs_and_timing_verified": true,
+        "preflight_ready": true,
+        "background_waits": 9,
+        "original_checker_exit": 0,
+        "exact_primary_oci": true,
+        "owned_resources_removed": true,
+        "post_run_stop_exit_code": 5,
+        "systemd_units": [
+          {
+            "name": "asbhost-20261109t125247212576.service",
+            "ControlGroup": "",
+            "LoadState": "not-found",
+            "ActiveState": "inactive",
+            "SubState": "dead"
+          },
+          {
+            "name": "asbhost-20261109t125247212576.slice",
+            "ControlGroup": "",
+            "LoadState": "loaded",
+            "ActiveState": "inactive",
+            "SubState": "dead"
+          }
+        ]
+      }
+    ],
+    "issues": [],
+    "log4j_fixed_rebuild_inputs_verified": true,
+    "historical_failed_paths_retained": true,
+    "qualifications": [
+      "Log4j2 original checker exit141 preserved and its fixed rebuild is not byte-identical to primary",
+      "Earlier failed and explicitly authorized corrective runs retained; no statistical repetitions, pressure or scheduler experiments",
+      "Post-run systemctl stop returned5 after auto-collected service; owned service is not-found and slice inactive/dead, with no cgroup processes"
+    ],
+    "items": [
+      {
+        "requirement": "准备、权限与固定输入",
+        "status": "原实跑PASS；当前源服务已清理",
+        "evidence": "原五次运行前预检均READY，root权限、内存/磁盘门槛及固定输入通过。当前离线检查PASS，镜像与输入仍在；现有结果验收完成，重新实跑须重新准备源服务并满足严格大于58 GiB预算。"
+      },
+      {
+        "requirement": "固定版本与完整原轨迹",
+        "status": "PASS",
+        "evidence": "上游cbe767b2固定primary；脚本和辅助输入逐字节匹配；当前11/5/10/16/318步退出码全部匹配，每次选定运行仅一个guest创建和一次完整重放。"
+      },
+      {
+        "requirement": "PSS/N",
+        "status": "PASS",
+        "evidence": "实际sandbox ID绑定PID/start_ticks/boot_id和自有cgroup；N=1；周期PSS及终点PSS均有原始记录，样本数量与CPU/间隔回执核对。"
+      },
+      {
+        "requirement": "guest内存/Cached与host current/file",
+        "status": "PASS",
+        "evidence": "0.1秒目标周期；guest保留MemTotal、MemAvailable、Cached、Shmem、Buffers；host保留current/file/anon/kernel/shmem/dirty/writeback，基线和各窗口统计匹配原始TSV。"
+      },
+      {
+        "requirement": "指定下层终点mincore",
+        "status": "PASS",
+        "evidence": "初始实际清单按device:inode去重，文件数依次6/9/11/5/3；元数据稳定。终点在下载完成后、原检查及删除前；P1前后current/file与覆盖不足标记完整。"
+      },
+      {
+        "requirement": "任务时间、逐工具及累计",
+        "status": "PASS",
+        "evidence": "从控制器入口、创建前至原轨迹及结果下载结束；全部工具起止差值和累计一致，预期非零动作数依次4/0/1/1/33均保留；其他时间边界单列，无保存/恢复实验。"
+      },
+      {
+        "requirement": "采集成本与物理量范围",
+        "status": "PASS",
+        "evidence": "三类采样器CPU/点数/时长/最大间隔、终点查询墙钟/CPU及采样管理调用齐全；CompCert只读进度查询另计。图和表分别报告各物理量，不相加构造总内存或减速率。"
+      },
+      {
+        "requirement": "原检查及CompCert等待",
+        "status": "PASS，含原约定",
+        "evidence": "HF正负样例、PDF.js两轮1127/0/56、token原26行答案79586均满足；Log4j2编译成功、五条class、跳过测试并保留141；CompCert实际32 GiB，九处等待及九个完成标记退出0，原编译运行检查通过。"
+      },
+      {
+        "requirement": "资源清理与失败现场",
+        "status": "PASS，已核实细节",
+        "evidence": "guest、私有服务、挂载/loop和自有relay均已清理，失败原始目录/卷保留。事后stop返回5：service已not-found，slice为inactive/dead且ControlGroup为空，无残留进程；不能仅用该返回码判作清理失败。"
+      },
+      {
+        "requirement": "范围、纠正重跑与镜像",
+        "status": "符合已授权范围",
+        "evidence": "无统计重复、压力、多调度或新模型轨迹。失败后的纠正运行已获授权并保留旧现场；四项镜像精确匹配primary，Log4j2按文档固定基础镜像/Containerfile/源码提交重建，字节摘要差异明示。"
+      }
+    ],
+    "offline_check": "PASS scope=platform-offline",
+    "current_resource_readiness": {
+      "available_disk_bytes": 64586358784,
+      "disk_meets_new_run_budget": true,
+      "source_service_intentionally_removed": true,
+      "new_run_ready": false
+    }
+  },
+  "storage_cleanup": {
+    "updated_ns": 1794241551561153174,
+    "preserved_canonical_dependencies": "/home/rashen/work/AgentSandboxBench/.artifacts/external-five-recovery-20261106/source/env/deps",
+    "removed_duplicate_and_temporary_paths": [
+      {
+        "path": "/home/rashen/work/AgentSandboxBench/.artifacts/external-five-source-20261106/env/deps",
+        "allocated_bytes_before": 189145088,
+        "reason": "Byte-identical inactive dependency copy; canonical retained"
+      },
+      {
+        "path": "/home/rashen/work/AgentSandboxBench/.artifacts/external-five-recovery-20261109/hf-corrective-source/env/deps",
+        "allocated_bytes_before": 189149184,
+        "reason": "Byte-identical inactive dependency copy; canonical retained"
+      },
+      {
+        "path": "/home/rashen/work/AgentSandboxBench/.artifacts/external-five-recovery-20261106/dockerproxy.net/count-dataset-tokens/blobs/sha256/2645779962.tmp",
+        "allocated_bytes_before": 7208960,
+        "reason": "Abandoned incomplete download; validated full OCI retained under docker.1ms.run"
+      }
+    ],
+    "checked_utc": "2026-11-09T16:28:40.410069+00:00",
+    "removed_log4j_build_image_ids": [
+      "c002d31faa226fa0cdadb0cbe806a10a31211f93be64a467e76580b8ec48f37f",
+      "5a7eb3082e590d473b1207a1932aeb98b8f888f22f286ec89894347f21ed05d2"
+    ],
+    "removed_log4j_build_cache_path": "/home/rashen/work/AgentSandboxBench/.artifacts/external-five-recovery-20261109/log4j-build-storage",
+    "removed_pip_download_cache": true,
+    "reclaimed_gib_estimate": 2.3,
+    "available_disk_bytes": 64586358784,
+    "raw_task_evidence_hashes_unchanged": true,
+    "failed_volumes_preserved": true,
+    "fixed_oci_inputs_preserved": true
+  }
+}

@@ -21,12 +21,18 @@ PYCHECK'''
 
 
 def budgets(task_id):
+    from external_five import COUNTS
+    if task_id in COUNTS:
+        seconds=14400 if task_id=='compile-compcert' else 3600
+        return dict(replay=seconds,controller=seconds+1800,native=seconds+2400,workflow=seconds+3000)
     if task_id==CYTHON:return dict(replay=900,controller=1800,native=2100,workflow=2400)
     return dict(replay=240,controller=720,native=1050,workflow=1200)
 
 
 def load(config,upstream):
     cfg=json.loads(Path(config).read_text());upstream=Path(upstream).resolve()
+    from external_five import COUNTS,load as load_five
+    if cfg['task_id'] in COUNTS:return load_five(cfg,upstream)
     count={'django__django-16819':28,C4:36,CYTHON:83}.get(cfg['task_id'])
     if not (count and cfg['version']==1 and cfg['memory_mib']==8192 and cfg['actions']==count):
         raise ValueError('only pinned Django 28-call, C4 36-call and Cython 83-call tasks are supported')
@@ -52,6 +58,8 @@ def load(config,upstream):
 
 
 def write_inputs(directory,replay,task_id):
+    from external_five import COUNTS,write_inputs as write_five
+    if task_id in COUNTS:return write_five(directory,replay)
     for step in replay['steps']:
         names=[f"{step['step']:03}.sh"]
         if task_id in (C4,CYTHON) and step['tool']=='write':names.append(f"{step['step']:03}.payload")
@@ -90,6 +98,8 @@ def validate_timings(rows):
 
 
 def guest_runner(count,*,task_id='django__django-16819'):
+    from external_five import COUNTS,runner
+    if task_id in COUNTS:return runner(task_id)
     setup='cd /testbed || exit 93\nexport GIT_CONFIG_COUNT=1 GIT_CONFIG_KEY_0=safe.directory GIT_CONFIG_VALUE_0=/testbed'
     root='/workspace/asb-external-tools'
     execute='source "$ASB_EXTERNAL_ROOT/$ASB_EXTERNAL_FILE.sh"'

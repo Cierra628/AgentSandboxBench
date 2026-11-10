@@ -191,38 +191,43 @@ def residency_check(group, roots, output, *, live=False, before_last_file=None):
 
 
 class HostFileMonitor:
-    def __init__(self, output, group, *, include_pss=True, extra_stat_keys=()):
+    def __init__(self, output, group, *, include_pss=True, extra_stat_keys=(), max_seconds=1800):
+        if not 0 < max_seconds <= 17400:raise ValueError("invalid collector lifetime")
+        self.max_seconds=max_seconds
         self.output, self.group = Path(output), Path(group)
         self.include_pss = include_pss
         self.extra_stat_keys=tuple(extra_stat_keys)
         self.output.mkdir(parents=True, exist_ok=False)
         self.stop_event = threading.Event(); self.ready = threading.Event(); self.error = None
-        self.count = 0; self.cost_ns = 0; self.cpu_ns = 0
+        self.count = 0; self.cost_ns = 0; self.cpu_ns = 0; self.max_gap_ns=0; self.elapsed_ns=0
         self.thread = threading.Thread(target=self.collect, name='host-file-monitor', daemon=True)
         self.thread.start()
         if not self.ready.wait(5): raise TimeoutError('host collector did not become ready')
         if self.error: raise RuntimeError(self.error)
 
     def collect(self):
-        cpu = time.thread_time_ns(); started = time.monotonic_ns(); next_pss = started
+        cpu = time.thread_time_ns(); started = time.monotonic_ns(); next_pss = started; previous=None
         try:
             with (self.output/'memory.tsv').open('x', buffering=1) as stream, ((self.output/'pss.jsonl').open('x', buffering=1) if self.include_pss else nullcontext(None)) as pss:
                 writer = csv.DictWriter(stream, fieldnames=['monotonic_ns', 'elapsed_ns', 'read_duration_ns', 'current', *STAT_KEYS, *self.extra_stat_keys], delimiter='\t')
                 writer.writeheader()
                 while True:
                     now = time.monotonic_ns(); values = counters(self.group,extra_keys=self.extra_stat_keys)
+                    if previous is not None:self.max_gap_ns=max(self.max_gap_ns,now-previous)
+                    previous=now
                     duration = time.monotonic_ns()-now; self.cost_ns += duration
                     writer.writerow(dict(monotonic_ns=now, elapsed_ns=now-started, read_duration_ns=duration, **values))
                     self.count += 1; self.ready.set()
                     if pss is not None and now >= next_pss:
                         pss.write(json.dumps(pss_snapshot(self.group))+'\n'); next_pss=now+10**9
                     if self.stop_event.is_set(): break
-                    if now-started > 1800*10**9: raise TimeoutError('host collector lifetime exceeded')
+                    if now-started > self.max_seconds*10**9: raise TimeoutError('host collector lifetime exceeded')
                     self.stop_event.wait(max(0, .1-(time.monotonic_ns()-now)/1e9))
         except BaseException as error:
             self.error = repr(error); self.ready.set()
         finally:
             self.cpu_ns = time.thread_time_ns()-cpu
+            self.elapsed_ns=time.monotonic_ns()-started
 
     def stop(self):
         self.stop_event.set(); self.thread.join(timeout=10)
@@ -230,6 +235,7 @@ class HostFileMonitor:
         receipt = dict(status='FAIL' if self.error else 'PASS', error=self.error, cgroup=str(self.group),
                        samples=self.count, interval_seconds=.1, pss_interval_seconds=1 if self.include_pss else None,
                        thread_cpu_ns=self.cpu_ns, counter_read_total_ns=self.cost_ns,
+                       elapsed_ns=self.elapsed_ns,max_sample_interval_ns=self.max_gap_ns,
                        scope='Fresh rollout slice: input preparation, controller, private service and all its descendants; host file includes shmem, not guest Cached.')
         (self.output/'result.json').write_text(json.dumps(receipt, indent=2)+'\n')
         if self.error: raise RuntimeError(self.error)

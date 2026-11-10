@@ -1,0 +1,628 @@
+{
+  "task_id": "count-dataset-tokens",
+  "label": "数据集 token 计数",
+  "original_controller_status": "PASS",
+  "original_native_status": "PASS",
+  "original_outer_status": "PASS",
+  "original_measurement_status": "COMPLETE",
+  "original_error": null,
+  "original_lifecycle_pass": true,
+  "trace_exit_match": true,
+  "original_files_match": true,
+  "actions": 16,
+  "expected_nonzero": [
+    {
+      "step": 11,
+      "exit_code": 1
+    }
+  ],
+  "original_checker": {
+    "exit_code": 0,
+    "status": "PASS",
+    "command": "test \"$(cat /app/answer.txt)\" = 79586 && grep -Ex '[0-9]+' /app/answer.txt && python3 -m py_compile /app/count_tokens.py",
+    "scope": "local artifact/smoke check only; recorded trajectory completion is independent of official benchmark correctness",
+    "actual_exit_code": 0,
+    "actual_status": "PASS"
+  },
+  "functional_evidence": {
+    "answer": 79586,
+    "scope": "Original 26-row input only; not a full large dataset"
+  },
+  "measurement_evidence_complete": true,
+  "exact_primary_oci": true,
+  "actual_oci": {
+    "status": "VERIFIED",
+    "layout": "/home/rashen/work/AgentSandboxBench/.artifacts/external-five-recovery-20261106/docker.1ms.run/count-dataset-tokens",
+    "manifest_digest": "sha256:9c513c4ba342bd95be501f6f5eadd4806a2b18749c87c251615825100130232d",
+    "config_digest": "sha256:acc8c39db027c0cf3f45f960cb88e06be954dc34b15d7ab7622f4614ff21130a",
+    "layers": 5,
+    "scope": "Exact primary manifest/config/layer digests; native conversion unchanged",
+    "primary_verification": null
+  },
+  "primary_manifest": "sha256:9c513c4ba342bd95be501f6f5eadd4806a2b18749c87c251615825100130232d",
+  "source_image": "docker.io/alexgshaw/count-dataset-tokens@sha256:9c513c4ba342bd95be501f6f5eadd4806a2b18749c87c251615825100130232d",
+  "runtime_image": "docker.io/alexgshaw/count-dataset-tokens@sha256:9c513c4ba342bd95be501f6f5eadd4806a2b18749c87c251615825100130232d",
+  "rebuilt_local_image": null,
+  "rebuilt_origin_receipt": null,
+  "primary_run": "results/agentenv/count-dataset-tokens/runs/count-dataset-tokens-20261025T060205Z-976683",
+  "input_sha256": {
+    "run.json": "eee3079624617beafdfa6941b86a344893686976f3781348660b57c222df83e8",
+    "replay-inputs.json": "49c81742ec349c1b2b6f359c26c6e1bb22581dc27f182030130425bc8d2f98e6",
+    "steps.csv": "d93b1281978ade79d1231e2f8d5f3a8b50bf411055dce964520899990661fade",
+    "validation.json": "dfac6caddc2584fdcd3826fe868d1c5851e7bbc0387ea37cc65a9a7f6f19ec95",
+    "oci-origin.json": "9ac5cd830185485fd9e6a31182168489995537712e75662be970b512ce1e8cea"
+  },
+  "helper_sha256": {
+    "clock_ns.c": "c07105c6d999ea7c238b658ae5076c22fe7fe9f91ca78df30d807dbd4e496836"
+  },
+  "sandbox_id": "01a1c059-7d49-7502-b52c-c89b18ec186e",
+  "memory_mib": 8192,
+  "cpu": 2,
+  "task_duration_ns": 107218948098,
+  "tool_cumulative_ns": 100530214126,
+  "controller_elapsed_ns": 107821985366,
+  "outer_elapsed_ns": 111214437334,
+  "replay_duration_ns": 100619708814,
+  "download_duration_ns": 88219977,
+  "cold_create_event": {
+    "stage": "cold-create",
+    "start_monotonic_ns": 15313492781637,
+    "duration_ns": 4044326365,
+    "exit_code": 0,
+    "call_timing_version": 2,
+    "command_start_monotonic_ns": 15313492806179,
+    "command_end_monotonic_ns": 15317536870494,
+    "command_duration_ns": 4044064315,
+    "command_returned": true,
+    "stdout_log_start_monotonic_ns": 15317536879708,
+    "stdout_log_end_monotonic_ns": 15317537105699,
+    "stdout_log_duration_ns": 225991,
+    "stdout_log_completed": true,
+    "event_lock_wait_ns": 1661,
+    "events_log_duration_ns": 251152,
+    "events_log_completed": true,
+    "call_end_monotonic_ns": 15317537365024,
+    "call_elapsed_ns": 4044583387
+  },
+  "endpoint": {
+    "status": "OBSERVED",
+    "pss": {
+      "start_monotonic_ns": 15420629464195,
+      "end_monotonic_ns": 15420651829792,
+      "cpu_ns": 21998883,
+      "denominator": 1,
+      "per_sandbox_bytes": 1128468480,
+      "process": {
+        "start_ticks": "1531668",
+        "user_ticks": 4350,
+        "system_ticks": 637,
+        "rss_kib": 1102076,
+        "read_bytes": 345603072,
+        "write_bytes": 989392896,
+        "rchar": 219397746,
+        "wchar": 2268431,
+        "pss_kib": 1102020,
+        "pss_anon_kib": 1099168,
+        "pss_file_kib": 2844,
+        "pss_shmem_kib": 8,
+        "pss_scan_duration_ns": 16023715
+      },
+      "identity": {
+        "pid": 208457,
+        "start_ticks": "1531668",
+        "boot_id": "473aaa42-7b02-4400-9fad-4b75bae5d7b3",
+        "api_socket": "/proc/208457/root/workspace/env/firecracker-work/agentenv-fc-IXi0Cb/firecracker.socket",
+        "cgroup": "/asbhost.slice/asbhost-20261109t124727207570.slice/docker-9343f01f4ee7ae71c549831579794755cc3ae571770c7b1cdb64196fb9a2a826.scope",
+        "binding_source": "owned service cgroup + Firecracker GET /mmds instanceID"
+      }
+    },
+    "p1": {
+      "files": [
+        {
+          "path": "/proc/208457/cwd/overlaybd/../../../image-cache/commits/sha256-a97df1cbc2ee2b711ed6ff4193fa97261fd4411c72b974461f4e789440107ff4/overlaybd.commit",
+          "device": 1796,
+          "inode": 1966136,
+          "size": 157764608,
+          "mtime_ns": 1794228450392992346,
+          "pages": 38517,
+          "resident_pages": 38517,
+          "resident_bytes": 157765632,
+          "stable": true,
+          "metadata_changed": false,
+          "block_device": false,
+          "rdev": 0,
+          "mapping_length": 157764608
+        },
+        {
+          "path": "/proc/208457/cwd/overlaybd/../../../image-cache/commits/sha256-91585a7a29b17a40ce8f9ea42c5b8f4475504ecb315a610cc2fcf73baa90beb0/overlaybd.commit",
+          "device": 1796,
+          "inode": 1966148,
+          "size": 80139264,
+          "mtime_ns": 1794228450970985773,
+          "pages": 19566,
+          "resident_pages": 19566,
+          "resident_bytes": 80142336,
+          "stable": true,
+          "metadata_changed": false,
+          "block_device": false,
+          "rdev": 0,
+          "mapping_length": 80139264
+        },
+        {
+          "path": "/proc/208457/cwd/overlaybd/../../../image-cache/commits/sha256-3ae40717bea2fefe3d294c245c306a9fddee8efee9d8fe252eb8fa7df135835d/overlaybd.commit",
+          "device": 1796,
+          "inode": 1966153,
+          "size": 111072256,
+          "mtime_ns": 1794228451513979599,
+          "pages": 27118,
+          "resident_pages": 27118,
+          "resident_bytes": 111075328,
+          "stable": true,
+          "metadata_changed": false,
+          "block_device": false,
+          "rdev": 0,
+          "mapping_length": 111072256
+        },
+        {
+          "path": "/proc/208457/cwd/overlaybd/../../../image-cache/commits/sha256-d8e2ba040886ceec83ab41e6a32aee0d916cf781b65992b141180fe81eb8951e/overlaybd.commit",
+          "device": 1796,
+          "inode": 1966158,
+          "size": 67687424,
+          "mtime_ns": 1794228452021973822,
+          "pages": 16526,
+          "resident_pages": 16526,
+          "resident_bytes": 67690496,
+          "stable": true,
+          "metadata_changed": false,
+          "block_device": false,
+          "rdev": 0,
+          "mapping_length": 67687424
+        },
+        {
+          "path": "/proc/208457/cwd/overlaybd/../../../image-cache/commits/sha256-af2c1c5cd7be2acdc460d240e66b8b936c450cbc83d7333005eec3397f7c201f/overlaybd.commit",
+          "device": 1796,
+          "inode": 1966163,
+          "size": 67556352,
+          "mtime_ns": 1794228452427969206,
+          "pages": 16494,
+          "resident_pages": 16494,
+          "resident_bytes": 67559424,
+          "stable": true,
+          "metadata_changed": false,
+          "block_device": false,
+          "rdev": 0,
+          "mapping_length": 67556352
+        }
+      ],
+      "unique_files": 5,
+      "resident_bytes": 484233216,
+      "start_monotonic_ns": 15420652362057,
+      "end_monotonic_ns": 15420672282995,
+      "cpu_ns": 19922690,
+      "counters_before": {
+        "current": 3963592704,
+        "file": 2631303168,
+        "anon": 1228939264,
+        "shmem": 8192,
+        "kernel": 93503488,
+        "file_mapped": 3276800,
+        "file_dirty": 14610432,
+        "file_writeback": 0
+      },
+      "counters_after": {
+        "current": 3963592704,
+        "file": 2631303168,
+        "anon": 1228939264,
+        "shmem": 8192,
+        "kernel": 93503488,
+        "file_mapped": 3276800,
+        "file_dirty": 14610432,
+        "file_writeback": 0
+      }
+    },
+    "cgroup": "/sys/fs/cgroup/asbhost.slice/asbhost-20261109t124727207570.slice",
+    "coverage_insufficient": false,
+    "scope": "N=1; initial immutable rootfs lowers deduplicated by device/inode. Upper and other backing unknown. PSS/current/file/mincore/guest Cached are separate quantities; never sum or infer savings from differences."
+  },
+  "host": {
+    "full": {
+      "samples": 1113,
+      "start_monotonic_ns": 15311016815649,
+      "end_monotonic_ns": 15422227978479,
+      "quantities": {
+        "current": {
+          "observed_peak_bytes": 3970449408,
+          "sample_median_bytes": 2280284160
+        },
+        "file": {
+          "observed_peak_bytes": 2632482816,
+          "sample_median_bytes": 1456340992
+        },
+        "anon": {
+          "observed_peak_bytes": 1298046976,
+          "sample_median_bytes": 746917888
+        },
+        "kernel": {
+          "observed_peak_bytes": 93724672,
+          "sample_median_bytes": 58212352
+        },
+        "shmem": {
+          "observed_peak_bytes": 8192,
+          "sample_median_bytes": 8192
+        },
+        "file_dirty": {
+          "observed_peak_bytes": 597450752,
+          "sample_median_bytes": 301883392
+        },
+        "file_writeback": {
+          "observed_peak_bytes": 31522816,
+          "sample_median_bytes": 0
+        }
+      },
+      "median_method": "Unweighted median of valid periodic samples; observed peaks may miss transients"
+    },
+    "task": {
+      "samples": 1072,
+      "start_monotonic_ns": 15313418769362,
+      "end_monotonic_ns": 15420601532240,
+      "quantities": {
+        "current": {
+          "observed_peak_bytes": 3970449408,
+          "sample_median_bytes": 2290425856.0
+        },
+        "file": {
+          "observed_peak_bytes": 2631303168,
+          "sample_median_bytes": 1456340992.0
+        }
+      },
+      "median_method": "Unweighted median of valid periodic samples; observed peaks may miss transients"
+    },
+    "replay": {
+      "samples": 1005,
+      "start_monotonic_ns": 15319723763173,
+      "end_monotonic_ns": 15420201230136,
+      "quantities": {
+        "current": {
+          "observed_peak_bytes": 3970449408,
+          "sample_median_bytes": 2460856320
+        },
+        "file": {
+          "observed_peak_bytes": 2630004736,
+          "sample_median_bytes": 1459449856
+        }
+      },
+      "median_method": "Unweighted median of valid periodic samples; observed peaks may miss transients"
+    },
+    "before_guest": {
+      "current": 423534592,
+      "file": 314040320,
+      "anon": 66191360,
+      "shmem": 0,
+      "kernel": 18079744,
+      "file_mapped": 339968,
+      "file_dirty": 229376,
+      "file_writeback": 0
+    },
+    "initial_host_sample": {
+      "monotonic_ns": "15311016815649",
+      "elapsed_ns": "218520",
+      "read_duration_ns": "352642",
+      "current": "12607488",
+      "file": "425984",
+      "anon": "9379840",
+      "shmem": "0",
+      "kernel": "1277952",
+      "file_mapped": "0",
+      "file_dirty": "413696",
+      "file_writeback": "0"
+    },
+    "cgroup": "/sys/fs/cgroup/asbhost.slice/asbhost-20261109t124727207570.slice"
+  },
+  "guest_memtotal_kib": 8156716,
+  "guest_monitor_profile": "light",
+  "native_meminfo_only": false,
+  "guest_used_peak_mib": 878.53125,
+  "guest_cached_peak_mib": 587.36328125,
+  "costs": {
+    "endpoint_setup": {
+      "status": "PASS",
+      "start_monotonic_ns": 15317685284077,
+      "end_monotonic_ns": 15317718916584,
+      "cpu_ns": 6929773,
+      "scope": "Control thread: VMM binding, initial lower identity inventory and periodic monitor launch; monitor thread CPU is separate"
+    },
+    "collectors": {
+      "host": {
+        "status": "PASS",
+        "error": null,
+        "cgroup": "/sys/fs/cgroup/asbhost.slice/asbhost-20261109t124727207570.slice",
+        "samples": 1113,
+        "interval_seconds": 0.1,
+        "pss_interval_seconds": null,
+        "thread_cpu_ns": 338704036,
+        "counter_read_total_ns": 270191018,
+        "elapsed_ns": 111211776509,
+        "max_sample_interval_ns": 100104289,
+        "scope": "Fresh rollout slice: input preparation, controller, private service and all its descendants; host file includes shmem, not guest Cached."
+      },
+      "guest": {
+        "status": "PASS",
+        "error": null,
+        "pid": 350,
+        "start_ticks": "248",
+        "boot_id": "bcb38139-136e-48a4-84d9-cc8a1a12c7d7",
+        "sandbox_id": "01a1c059-7d49-7502-b52c-c89b18ec186e",
+        "role": "backbone",
+        "session_id": "8efa649c-6e6e-41e0-ba7d-958bc71b325d",
+        "samples": 1004,
+        "interval_seconds": 0.1,
+        "elapsed_ns": 100819240497,
+        "max_sample_interval_ns": 132840609,
+        "cpu_user_seconds": 0.603775,
+        "cpu_system_seconds": 0.131492,
+        "maxrss_kib": 22624,
+        "scope": "guest logical counters; collector maxrss is not private memory; no physical deduplication",
+        "profile": "light"
+      },
+      "vmm": {
+        "status": "PASS",
+        "error": null,
+        "sandbox_id": "01a1c059-7d49-7502-b52c-c89b18ec186e",
+        "role": "single",
+        "session_id": "single",
+        "identity": {
+          "pid": 208457,
+          "start_ticks": "1531668",
+          "boot_id": "473aaa42-7b02-4400-9fad-4b75bae5d7b3",
+          "api_socket": "/proc/208457/root/workspace/env/firecracker-work/agentenv-fc-IXi0Cb/firecracker.socket",
+          "cgroup": "/asbhost.slice/asbhost-20261109t124727207570.slice/docker-9343f01f4ee7ae71c549831579794755cc3ae571770c7b1cdb64196fb9a2a826.scope",
+          "binding_source": "owned service cgroup + Firecracker GET /mmds instanceID"
+        },
+        "samples": 1033,
+        "pss_samples": 104,
+        "interval_seconds": 0.1,
+        "pss_interval_seconds": 1,
+        "clock_ticks": 100,
+        "cpu_user_seconds": 0.469742,
+        "cpu_system_seconds": 1.291793,
+        "max_scan_duration_ns": 35068082,
+        "max_sample_interval_ns": 100206899,
+        "elapsed_ns": 103192160756,
+        "scope": "owned VMM process only; excludes shared service/block-provider processes; PSS is proportional residency, not unique physical file cache"
+      }
+    },
+    "endpoint_pss": {
+      "cpu_ns": 21998883,
+      "start_monotonic_ns": 15420629464195,
+      "end_monotonic_ns": 15420651829792
+    },
+    "endpoint_mincore": {
+      "cpu_ns": 19922690,
+      "start_monotonic_ns": 15420652362057,
+      "end_monotonic_ns": 15420672282995
+    },
+    "sampling_management_calls": [
+      {
+        "stage": "monitor-upload-bundle",
+        "start_monotonic_ns": 15319314431325,
+        "duration_ns": 38804031,
+        "exit_code": 0,
+        "call_timing_version": 2,
+        "command_start_monotonic_ns": 15319314516264,
+        "command_end_monotonic_ns": 15319352973232,
+        "command_duration_ns": 38456968,
+        "command_returned": true,
+        "stdout_log_start_monotonic_ns": 15319352983811,
+        "stdout_log_end_monotonic_ns": 15319353232613,
+        "stdout_log_duration_ns": 248802,
+        "stdout_log_completed": true,
+        "event_lock_wait_ns": 2027,
+        "events_log_duration_ns": 595606,
+        "events_log_completed": true,
+        "call_end_monotonic_ns": 15319353839779,
+        "call_elapsed_ns": 39408454
+      },
+      {
+        "stage": "monitor-ready",
+        "start_monotonic_ns": 15319354316281,
+        "duration_ns": 283264222,
+        "exit_code": 0,
+        "call_timing_version": 2,
+        "command_start_monotonic_ns": 15319354585848,
+        "command_end_monotonic_ns": 15319637221760,
+        "command_duration_ns": 282635912,
+        "command_returned": true,
+        "stdout_log_start_monotonic_ns": 15319637236463,
+        "stdout_log_end_monotonic_ns": 15319637576529,
+        "stdout_log_duration_ns": 340066,
+        "stdout_log_completed": true,
+        "event_lock_wait_ns": 3151,
+        "events_log_duration_ns": 726039,
+        "events_log_completed": true,
+        "call_end_monotonic_ns": 15319638318165,
+        "call_elapsed_ns": 284001884
+      },
+      {
+        "stage": "monitor-collect-8efa649c-6e6e-41e0-ba7d-958bc71b325d",
+        "start_monotonic_ns": 15319354205305,
+        "duration_ns": 101123633759,
+        "exit_code": 0,
+        "call_timing_version": 2,
+        "command_start_monotonic_ns": 15319354411402,
+        "command_end_monotonic_ns": 15420477528327,
+        "command_duration_ns": 101123116925,
+        "command_returned": true,
+        "stdout_log_start_monotonic_ns": 15420477541892,
+        "stdout_log_end_monotonic_ns": 15420477836877,
+        "stdout_log_duration_ns": 294985,
+        "stdout_log_completed": true,
+        "event_lock_wait_ns": 1623,
+        "events_log_duration_ns": 463082,
+        "events_log_completed": true,
+        "call_end_monotonic_ns": 15420478308349,
+        "call_elapsed_ns": 101124103044
+      },
+      {
+        "stage": "monitor-finish",
+        "start_monotonic_ns": 15420259048527,
+        "duration_ns": 235700724,
+        "exit_code": 0,
+        "call_timing_version": 2,
+        "command_start_monotonic_ns": 15420259159927,
+        "command_end_monotonic_ns": 15420494481220,
+        "command_duration_ns": 235321293,
+        "command_returned": true,
+        "stdout_log_start_monotonic_ns": 15420494492427,
+        "stdout_log_end_monotonic_ns": 15420494745678,
+        "stdout_log_duration_ns": 253251,
+        "stdout_log_completed": true,
+        "event_lock_wait_ns": 2649,
+        "events_log_duration_ns": 814701,
+        "events_log_completed": true,
+        "call_end_monotonic_ns": 15420495573819,
+        "call_elapsed_ns": 236525292
+      },
+      {
+        "stage": "monitor-download",
+        "start_monotonic_ns": 15420495850284,
+        "duration_ns": 43265305,
+        "exit_code": 0,
+        "call_timing_version": 2,
+        "command_start_monotonic_ns": 15420495961053,
+        "command_end_monotonic_ns": 15420538900779,
+        "command_duration_ns": 42939726,
+        "command_returned": true,
+        "stdout_log_start_monotonic_ns": 15420538910912,
+        "stdout_log_end_monotonic_ns": 15420539112516,
+        "stdout_log_duration_ns": 201604,
+        "stdout_log_completed": true,
+        "event_lock_wait_ns": 2203,
+        "events_log_duration_ns": 749179,
+        "events_log_completed": true,
+        "call_end_monotonic_ns": 15420539872955,
+        "call_elapsed_ns": 44022671
+      }
+    ],
+    "interpretation": "Collector CPU and query wall/CPU are observed costs, not task slowdown; no extra control run"
+  },
+  "periodic_pss_observed_peak_bytes": 1196298240,
+  "periodic_pss_max_interval_ns": 1001008407,
+  "extra_management_queries": [],
+  "cleanup": {
+    "guest": {
+      "sandbox_removed": true,
+      "service_sandbox_list_empty": true
+    },
+    "native": {
+      "owned_container_removed": true,
+      "mount_and_loop_removed": true,
+      "successful_fixture_removed": true,
+      "original_firecracker_identities_unchanged": true,
+      "original_source_firecracker_identities_unchanged": true,
+      "original_service_unchanged": true
+    },
+    "relay_stopped": true
+  },
+  "external_firecracker_changes": {
+    "removed": [],
+    "added": [],
+    "scope": "observed host VM churn; functional validation checks owned/source resources, not host exclusivity or causal performance"
+  },
+  "raw_paths": {
+    "controller": "/home/rashen/work/AgentSandboxBench/.artifacts/storage-isolated-service/20261109T124727Z-207688/external-workload",
+    "native": "/home/rashen/work/AgentSandboxBench/.artifacts/storage-isolated-service/20261109T124727Z-207688",
+    "outer": "/home/rashen/work/AgentSandboxBench/results/external-five/20261109T124727Z-207664",
+    "primary": "/home/rashen/work/AgentSandboxWorkloadResults/results/agentenv/count-dataset-tokens/runs/count-dataset-tokens-20261025T060205Z-976683"
+  },
+  "source_sha256": {
+    "/home/rashen/work/AgentSandboxBench/.artifacts/storage-isolated-service/20261109T124727Z-207688/external-workload/reference-steps.csv": "d93b1281978ade79d1231e2f8d5f3a8b50bf411055dce964520899990661fade",
+    "/home/rashen/work/AgentSandboxBench/.artifacts/storage-isolated-service/20261109T124727Z-207688/external-workload/reference-validation.json": "dfac6caddc2584fdcd3826fe868d1c5851e7bbc0387ea37cc65a9a7f6f19ec95",
+    "/home/rashen/work/AgentSandboxBench/.artifacts/storage-isolated-service/20261109T124727Z-207688/external-workload/reference-oci-origin.json": "9ac5cd830185485fd9e6a31182168489995537712e75662be970b512ce1e8cea",
+    "/home/rashen/work/AgentSandboxBench/.artifacts/storage-isolated-service/20261109T124727Z-207688/external-workload/reference-run.json": "eee3079624617beafdfa6941b86a344893686976f3781348660b57c222df83e8",
+    "/home/rashen/work/AgentSandboxBench/results/external-five/20261109T124727Z-207664/report/summary.json": "5866f76eab75aef91b2dec928bc67531ad9eac04cce69e5010ea7c1f6223888d",
+    "/home/rashen/work/AgentSandboxBench/.artifacts/storage-isolated-service/20261109T124727Z-207688/external-workload/result.json": "04b7f0e026d7d6f0773347b2aaf5d0ce474d6b83eef4981fabbe9b6a0041317d",
+    "/home/rashen/work/AgentSandboxBench/.artifacts/storage-isolated-service/20261109T124727Z-207688/result.json": "305b61e8409400cee2676a6367fcbf25f710cb96a743990b4543fe023ba29d5a",
+    "/home/rashen/work/AgentSandboxBench/results/external-five/20261109T124727Z-207664/result.json": "5b1a76ed37424759a60c09ddbfaa0c4f6e2551ad8c373b4b32a0b1363702e23c",
+    "/home/rashen/work/AgentSandboxBench/.artifacts/storage-isolated-service/20261109T124727Z-207688/external-workload/tools.tsv": "cb6f10b05c68ca6870c81d5e3b9e8e4ba9718a1ac7e2bcafb21cd77ead37743b",
+    "/home/rashen/work/AgentSandboxBench/.artifacts/storage-isolated-service/20261109T124727Z-207688/external-workload/events.json": "9c99c3a5170ce02b0ede3df50ad07933b5e31b1639e583f56d18933537ea3b31",
+    "/home/rashen/work/AgentSandboxBench/.artifacts/storage-isolated-service/20261109T124727Z-207688/external-workload/endpoint.json": "0087116c7a14a57af3a9246bf5cbf1c472631189cc6432e3d93f8b0180361ae0",
+    "/home/rashen/work/AgentSandboxBench/.artifacts/storage-isolated-service/20261109T124727Z-207688/external-workload/initial-lowers.json": "2c9fde437ec847c72b64dd4fedbdd17fc3c91e1d7d03ced0e13a21e17c1a43dd",
+    "/home/rashen/work/AgentSandboxBench/.artifacts/storage-isolated-service/20261109T124727Z-207688/external-workload/runtime/01a1c059-7d49-7502-b52c-c89b18ec186e/8efa649c-6e6e-41e0-ba7d-958bc71b325d/guest-memory.tsv": "d184ad46881b2bc940d20d89df94c6fc840607c4bb3f2ab0f673e930b950f1a4",
+    "/home/rashen/work/AgentSandboxBench/results/external-five/20261109T124727Z-207664/host-file/memory.tsv": "0060e83ba7838a6625d896a18ae830a9988c1debf24286fe5dc081cdd95f3e62",
+    "/home/rashen/work/AgentSandboxBench/.artifacts/storage-isolated-service/20261109T124727Z-207688/external-workload/vmm/host-vmm.tsv": "784f7006dc73953618aa92b0c1d3564f65f8f500bc890a2a2a4d77132e9e40b3",
+    "/home/rashen/work/AgentSandboxBench/.artifacts/storage-isolated-service/20261109T124727Z-207688/external-workload/validation-download/validation.exit": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa",
+    "/home/rashen/work/AgentSandboxBench/.artifacts/storage-isolated-service/20261109T124727Z-207688/external-workload/validation-download/validation.stdout": "431eccacfba12dc90a366ea50bc48c30c204a449ec207589606ac6cce2b1d05d",
+    "/home/rashen/work/AgentSandboxBench/.artifacts/storage-isolated-service/20261109T124727Z-207688/external-workload/validation-download/validation.stderr": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "previous_failed_attempts": [
+    {
+      "task_id": "count-dataset-tokens",
+      "outer_status": "FAIL",
+      "controller_status": "FAIL",
+      "reason": "Hugging Face 请求 RemoteProtocolError，后续缺少答案文件",
+      "error": "AssertionError('published reference exits differ')",
+      "actions_completed": 16,
+      "exit_differences": [
+        {
+          "step": 13,
+          "actual": 1,
+          "expected": 0
+        },
+        {
+          "step": 16,
+          "actual": 1,
+          "expected": 0
+        }
+      ],
+      "error_signatures": {
+        "RemoteProtocolError": [
+          "/home/rashen/work/AgentSandboxBench/.artifacts/storage-isolated-service/20261106T104838Z-3492913/external-workload/input/logs/013.stderr"
+        ],
+        "Server disconnected without sending a response": [
+          "/home/rashen/work/AgentSandboxBench/.artifacts/storage-isolated-service/20261106T104838Z-3492913/external-workload/input/logs/013.stderr"
+        ]
+      },
+      "raw_paths": {
+        "outer": "/home/rashen/work/AgentSandboxBench/results/external-five/20261106T104838Z-3492892",
+        "native": "/home/rashen/work/AgentSandboxBench/.artifacts/storage-isolated-service/20261106T104838Z-3492913",
+        "controller": "/home/rashen/work/AgentSandboxBench/.artifacts/storage-isolated-service/20261106T104838Z-3492913/external-workload"
+      },
+      "source_sha256": {
+        "/home/rashen/work/AgentSandboxBench/.artifacts/storage-isolated-service/20261106T104838Z-3492913/external-workload/result.json": "b1c3af54378108777765332d54c0ffae0b6ddeb4e453f1152a4638a70629149b",
+        "/home/rashen/work/AgentSandboxBench/.artifacts/storage-isolated-service/20261106T104838Z-3492913/external-workload/input/logs/001.stdout": "723c5bfef92b136a6156c54f1d6d40baec56d9c79dddef155098a9c0d2212829",
+        "/home/rashen/work/AgentSandboxBench/.artifacts/storage-isolated-service/20261106T104838Z-3492913/external-workload/input/logs/001.stderr": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "/home/rashen/work/AgentSandboxBench/.artifacts/storage-isolated-service/20261106T104838Z-3492913/external-workload/input/logs/003.stdout": "1cc3e8176c94c8ed9d31f119e36652fb6d6a9ed65621fa151b78684ee5abd24c",
+        "/home/rashen/work/AgentSandboxBench/.artifacts/storage-isolated-service/20261106T104838Z-3492913/external-workload/input/logs/003.stderr": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "/home/rashen/work/AgentSandboxBench/.artifacts/storage-isolated-service/20261106T104838Z-3492913/external-workload/input/logs/009.stdout": "25cb039e1b2c5624f27b3ea52c8c1320747fe4434fc4d732ee2bd72447ca3572",
+        "/home/rashen/work/AgentSandboxBench/.artifacts/storage-isolated-service/20261106T104838Z-3492913/external-workload/input/logs/009.stderr": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "/home/rashen/work/AgentSandboxBench/.artifacts/storage-isolated-service/20261106T104838Z-3492913/external-workload/input/logs/013.stdout": "d5098c620b46981bd1aa07ab4cd4b07923447bf5f456ddaf585fe53d0a3468e6",
+        "/home/rashen/work/AgentSandboxBench/.artifacts/storage-isolated-service/20261106T104838Z-3492913/external-workload/input/logs/013.stderr": "e23d14a330b3a20951f8ba64f3d060b14d9881a47810be257bfbd4ab4848adb2",
+        "/home/rashen/work/AgentSandboxBench/.artifacts/storage-isolated-service/20261106T104838Z-3492913/external-workload/input/logs/016.stdout": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "/home/rashen/work/AgentSandboxBench/.artifacts/storage-isolated-service/20261106T104838Z-3492913/external-workload/input/logs/016.stderr": "7859cb52139fdb66b15008ecac4cea6589147561922f13745f00538755bad77f"
+      }
+    }
+  ],
+  "current_run_is_corrective": false,
+  "published_files": {
+    "guest.svg": {
+      "source": "/home/rashen/work/AgentSandboxBench/results/external-five/20261109T124727Z-207664/report/guest.svg",
+      "sha256": "6f4723dd0c48e1ad0638a648033078abf41c37fc46c7d3ffa84b85a8ca992e5b",
+      "bytes": 80602
+    },
+    "pss.svg": {
+      "source": "/home/rashen/work/AgentSandboxBench/results/external-five/20261109T124727Z-207664/report/pss.svg",
+      "sha256": "3b5f7dfd3d194ba6ee53cc9bcfbae571a201638cb3eb47b88a8897397c8880c7",
+      "bytes": 31375
+    },
+    "host.svg": {
+      "source": "/home/rashen/work/AgentSandboxBench/results/external-five/20261109T124727Z-207664/report/host/overview.svg",
+      "sha256": "08e616fa5cc64484c7ad5b52d030132e469c16d52b224c403cbae74fbec227a5",
+      "bytes": 86753
+    },
+    "tools.tsv": {
+      "source": "/home/rashen/work/AgentSandboxBench/.artifacts/storage-isolated-service/20261109T124727Z-207688/external-workload/tools.tsv",
+      "sha256": "cb6f10b05c68ca6870c81d5e3b9e8e4ba9718a1ac7e2bcafb21cd77ead37743b",
+      "bytes": 679
+    }
+  }
+}

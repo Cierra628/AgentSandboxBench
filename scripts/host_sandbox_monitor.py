@@ -88,7 +88,9 @@ def read(pid,proc_root=Path('/proc'),pss=False):
 
 
 class HostMonitor:
-    def __init__(self,binding,sid,role,token,directory,phase):
+    def __init__(self,binding,sid,role,token,directory,phase,*,max_seconds=1800):
+        if not 0 < max_seconds <= 17400:raise ValueError("invalid collector lifetime")
+        self.max_seconds=max_seconds
         self.binding=binding;self.sid=sid;self.role=role;self.token=token;self.directory=directory;self.phase=phase
         self.vmm=binding.resolve(sid);self.stop_event=threading.Event();self.ready=threading.Event();self.receipt=None
         directory.mkdir(parents=True,exist_ok=False)
@@ -99,12 +101,14 @@ class HostMonitor:
         if self.receipt is not None and self.receipt['status']=='FAIL':raise RuntimeError('host VMM monitor failed at readiness')
 
     def collect(self):
-        started=time.monotonic_ns();next_pss=started;count=0;pss_count=0;error=None;max_read=0
+        started=time.monotonic_ns();next_pss=started;count=0;pss_count=0;error=None;max_read=0;previous=None;max_gap=0
         try:
             with (self.directory/'host-vmm.tsv').open('x',buffering=1) as f:
                 f.write('\t'.join(FIELDS)+'\n')
                 while True:
                     now=time.monotonic_ns();pid=self.vmm['pid']
+                    if previous is not None:max_gap=max(max_gap,now-previous)
+                    previous=now
                     assert identity(pid)=={k:self.vmm[k] for k in ('pid','start_ticks','boot_id')} and self.binding.owned(pid),'VMM identity/cgroup changed'
                     value=read(pid,pss=now>=next_pss)
                     assert value['start_ticks']==self.vmm['start_ticks']
@@ -115,14 +119,14 @@ class HostMonitor:
                     max_read=max(max_read,value['scan_duration_ns']);f.write('\t'.join(str(value.get(k,'')) for k in FIELDS)+'\n');count+=1
                     self.ready.set()
                     if self.stop_event.is_set():break
-                    if time.monotonic_ns()-started>1800*10**9:raise TimeoutError('host monitor lifetime exceeded')
+                    if time.monotonic_ns()-started>self.max_seconds*10**9:raise TimeoutError('host monitor lifetime exceeded')
                     self.stop_event.wait(max(0,.1-(time.monotonic_ns()-now)/1e9))
         except Exception as exc:error=repr(exc)
         usage=resource.getrusage(resource.RUSAGE_THREAD)
         self.receipt=dict(status='FAIL' if error else 'PASS',error=error,sandbox_id=self.sid,role=self.role,session_id=self.token,
             identity=self.vmm,samples=count,pss_samples=pss_count,interval_seconds=.1,pss_interval_seconds=1,
             clock_ticks=os.sysconf('SC_CLK_TCK'),cpu_user_seconds=usage.ru_utime,cpu_system_seconds=usage.ru_stime,
-            max_scan_duration_ns=max_read,elapsed_ns=time.monotonic_ns()-started,
+            max_scan_duration_ns=max_read,max_sample_interval_ns=max_gap,elapsed_ns=time.monotonic_ns()-started,
             scope='owned VMM process only; excludes shared service/block-provider processes; PSS is proportional residency, not unique physical file cache')
         (self.directory/'collector-status.json').write_text(json.dumps(self.receipt,indent=2)+'\n');self.ready.set()
 

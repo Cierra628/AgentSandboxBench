@@ -1,0 +1,723 @@
+{
+  "task_id": "mozilla__pdf.js-20957",
+  "label": "PDF.js #20957",
+  "original_controller_status": "PASS",
+  "original_native_status": "PASS",
+  "original_outer_status": "PASS",
+  "original_measurement_status": "COMPLETE",
+  "original_error": null,
+  "original_lifecycle_pass": true,
+  "trace_exit_match": true,
+  "original_files_match": true,
+  "actions": 5,
+  "expected_nonzero": [],
+  "original_checker": {
+    "exit_code": 0,
+    "status": "PASS",
+    "command": "test -d /testbed/node_modules && test -d /testbed/build",
+    "scope": "local functional/artifact check; not the official benchmark hidden verifier",
+    "actual_exit_code": 0,
+    "actual_status": "PASS"
+  },
+  "functional_evidence": {
+    "cli_runs": 2,
+    "specs_each": 1127,
+    "failures_each": 0,
+    "pending_each": 56
+  },
+  "measurement_evidence_complete": true,
+  "exact_primary_oci": true,
+  "actual_oci": {
+    "status": "VERIFIED",
+    "layout": "/home/rashen/work/AgentSandboxBench/.artifacts/external-five-oci-20261106/mozilla__pdf.js-20957",
+    "manifest_digest": "sha256:c56d745e25d78c0bcec99846906f933d714ee8bc7ae82d3ddf2a8153aba5aaca",
+    "config_digest": "sha256:7978236cab552f316c5d54e867a8b1cfcc4620ba3b1703b483ae5a0c3f795e60",
+    "layers": 9,
+    "scope": "Exact primary manifest/config/layer digests; native conversion unchanged",
+    "primary_verification": null
+  },
+  "primary_manifest": "sha256:c56d745e25d78c0bcec99846906f933d714ee8bc7ae82d3ddf2a8153aba5aaca",
+  "source_image": "localhost/asbp-pdfjs:484518614d75",
+  "runtime_image": "localhost/asbp-pdfjs@sha256:c56d745e25d78c0bcec99846906f933d714ee8bc7ae82d3ddf2a8153aba5aaca",
+  "rebuilt_local_image": null,
+  "rebuilt_origin_receipt": null,
+  "primary_run": "results/agentenv/mozilla__pdf.js-20957/runs/mozilla__pdf.js-20957-20261025T070430Z-983806",
+  "input_sha256": {
+    "run.json": "01a5a5e89c75c79526586de17338ec98f7400b5625b15b0f35257b04c8bdb5b8",
+    "replay-inputs.json": "1407ba74f123cfb35de38a5a1d3b6a19e130839c75dc20ecf38b292c920d7cf2",
+    "steps.csv": "531d319a81345ba441909a2ad5cbf274184141ab12d2fb3091bf0a10c64b2b67",
+    "validation.json": "982461f0519be9f4b9d9fdaff1e1b0abd62ea54fbf5fe8cc282ea5ab54b7cc1f",
+    "oci-origin.json": "0230270ba516495bb101988d650b46481e19dced72f7db8755c0c937c3b0c510"
+  },
+  "helper_sha256": {
+    "clock_ns.c": "c07105c6d999ea7c238b658ae5076c22fe7fe9f91ca78df30d807dbd4e496836"
+  },
+  "sandbox_id": "01a1c05b-6332-76f0-b226-d115b282c66e",
+  "memory_mib": 8192,
+  "cpu": 2,
+  "task_duration_ns": 200225823752,
+  "tool_cumulative_ns": 184101446221,
+  "controller_elapsed_ns": 200883925186,
+  "outer_elapsed_ns": 205157039615,
+  "replay_duration_ns": 184188279744,
+  "download_duration_ns": 56189046,
+  "cold_create_event": {
+    "stage": "cold-create",
+    "start_monotonic_ns": 15428097596403,
+    "duration_ns": 13732096409,
+    "exit_code": 0,
+    "call_timing_version": 2,
+    "command_start_monotonic_ns": 15428097630116,
+    "command_end_monotonic_ns": 15441829530464,
+    "command_duration_ns": 13731900348,
+    "command_returned": true,
+    "stdout_log_start_monotonic_ns": 15441829537109,
+    "stdout_log_end_monotonic_ns": 15441829691065,
+    "stdout_log_duration_ns": 153956,
+    "stdout_log_completed": true,
+    "event_lock_wait_ns": 1276,
+    "events_log_duration_ns": 217003,
+    "events_log_completed": true,
+    "call_end_monotonic_ns": 15441829915988,
+    "call_elapsed_ns": 13732319585
+  },
+  "endpoint": {
+    "status": "OBSERVED",
+    "pss": {
+      "start_monotonic_ns": 15628242223696,
+      "end_monotonic_ns": 15628279932574,
+      "cpu_ns": 37157715,
+      "denominator": 1,
+      "per_sandbox_bytes": 2025578496,
+      "process": {
+        "start_ticks": "1544107",
+        "user_ticks": 20549,
+        "system_ticks": 2228,
+        "rss_kib": 1978160,
+        "read_bytes": 822422528,
+        "write_bytes": 2203267072,
+        "rchar": 549200624,
+        "wchar": 4369621,
+        "pss_kib": 1978104,
+        "pss_anon_kib": 1975252,
+        "pss_file_kib": 2844,
+        "pss_shmem_kib": 8,
+        "pss_scan_duration_ns": 31709024
+      },
+      "identity": {
+        "pid": 210632,
+        "start_ticks": "1544107",
+        "boot_id": "473aaa42-7b02-4400-9fad-4b75bae5d7b3",
+        "api_socket": "/proc/210632/root/workspace/env/firecracker-work/agentenv-fc-cx2Psl/firecracker.socket",
+        "cgroup": "/asbhost.slice/asbhost-20261109t124920209630.slice/docker-bee3ae15ab9d7c4943740e0d4c1e98b15e41912f1106edf18716cf85ffd5854e.scope",
+        "binding_source": "owned service cgroup + Firecracker GET /mmds instanceID"
+      }
+    },
+    "p1": {
+      "files": [
+        {
+          "path": "/proc/210632/cwd/overlaybd/../../../image-cache/commits/sha256-b1a659e641be44e471467b9e3c4ed45388ed2e43a19e24c1b393d40ee6b6fc8b/overlaybd.commit",
+          "device": 1796,
+          "inode": 262232,
+          "size": 206130176,
+          "mtime_ns": 1794228565209686726,
+          "pages": 50325,
+          "resident_pages": 50325,
+          "resident_bytes": 206131200,
+          "stable": true,
+          "metadata_changed": false,
+          "block_device": false,
+          "rdev": 0,
+          "mapping_length": 206130176
+        },
+        {
+          "path": "/proc/210632/cwd/overlaybd/../../../image-cache/commits/sha256-065155b02070449d2aef00eb4e7c1001fad478f844825767321f746c91b436f5/overlaybd.commit",
+          "device": 1796,
+          "inode": 262244,
+          "size": 128504832,
+          "mtime_ns": 1794228566177675719,
+          "pages": 31374,
+          "resident_pages": 31374,
+          "resident_bytes": 128507904,
+          "stable": true,
+          "metadata_changed": false,
+          "block_device": false,
+          "rdev": 0,
+          "mapping_length": 128504832
+        },
+        {
+          "path": "/proc/210632/cwd/overlaybd/../../../image-cache/commits/sha256-057e0c935dcd9cf491268a8beb940c2ed3e8c3741d3e2fc43764b6fb3f0b7a78/overlaybd.commit",
+          "device": 1796,
+          "inode": 262249,
+          "size": 286577664,
+          "mtime_ns": 1794228567728658083,
+          "pages": 69966,
+          "resident_pages": 69966,
+          "resident_bytes": 286580736,
+          "stable": true,
+          "metadata_changed": false,
+          "block_device": false,
+          "rdev": 0,
+          "mapping_length": 286577664
+        },
+        {
+          "path": "/proc/210632/cwd/overlaybd/../../../image-cache/commits/sha256-9149b5c6eba8c2f4cd22ed3e90d48cd9698283621b93e404c2c17a4e059fba56/overlaybd.commit",
+          "device": 1796,
+          "inode": 262254,
+          "size": 707974144,
+          "mtime_ns": 1794228571365616726,
+          "pages": 172846,
+          "resident_pages": 172846,
+          "resident_bytes": 707977216,
+          "stable": true,
+          "metadata_changed": false,
+          "block_device": false,
+          "rdev": 0,
+          "mapping_length": 707974144
+        },
+        {
+          "path": "/proc/210632/cwd/overlaybd/../../../image-cache/commits/sha256-c17f590391fe0c3ba77ce692ee9071877521d1cadc71116a63b1a5f3df1fac28/overlaybd.commit",
+          "device": 1796,
+          "inode": 262259,
+          "size": 68211712,
+          "mtime_ns": 1794228572697601580,
+          "pages": 16654,
+          "resident_pages": 16654,
+          "resident_bytes": 68214784,
+          "stable": true,
+          "metadata_changed": false,
+          "block_device": false,
+          "rdev": 0,
+          "mapping_length": 68211712
+        },
+        {
+          "path": "/proc/210632/cwd/overlaybd/../../../image-cache/commits/sha256-cc32fe1db3389400d6f5d2d86e88eee2d3dc55f74212350af4ddd130f107b170/overlaybd.commit",
+          "device": 1796,
+          "inode": 262264,
+          "size": 282645504,
+          "mtime_ns": 1794228574039586320,
+          "pages": 69006,
+          "resident_pages": 69006,
+          "resident_bytes": 282648576,
+          "stable": true,
+          "metadata_changed": false,
+          "block_device": false,
+          "rdev": 0,
+          "mapping_length": 282645504
+        },
+        {
+          "path": "/proc/210632/cwd/overlaybd/../../../image-cache/commits/sha256-6b53b55b215d9fd2cc3254f72ff67eafe593b8146cfd03fb8e665068ecdd0b60/overlaybd.commit",
+          "device": 1796,
+          "inode": 262269,
+          "size": 73192448,
+          "mtime_ns": 1794228574862576961,
+          "pages": 17870,
+          "resident_pages": 17870,
+          "resident_bytes": 73195520,
+          "stable": true,
+          "metadata_changed": false,
+          "block_device": false,
+          "rdev": 0,
+          "mapping_length": 73192448
+        },
+        {
+          "path": "/proc/210632/cwd/overlaybd/../../../image-cache/commits/sha256-5e12d3dd82f2ca7e3378de278f5e67a6fa0455cae7e9231fc01099c5b2421e84/overlaybd.commit",
+          "device": 1796,
+          "inode": 262274,
+          "size": 67687424,
+          "mtime_ns": 1794228575195573175,
+          "pages": 16526,
+          "resident_pages": 16526,
+          "resident_bytes": 67690496,
+          "stable": true,
+          "metadata_changed": false,
+          "block_device": false,
+          "rdev": 0,
+          "mapping_length": 67687424
+        },
+        {
+          "path": "/proc/210632/cwd/overlaybd/../../../image-cache/commits/sha256-c849e79d3b6b335888cd3d0ce87ac31e23a0981fc21db7fb8b1c46ef247137b1/overlaybd.commit",
+          "device": 1796,
+          "inode": 262279,
+          "size": 326554624,
+          "mtime_ns": 1794228576281560826,
+          "pages": 79726,
+          "resident_pages": 79726,
+          "resident_bytes": 326557696,
+          "stable": true,
+          "metadata_changed": false,
+          "block_device": false,
+          "rdev": 0,
+          "mapping_length": 326554624
+        }
+      ],
+      "unique_files": 9,
+      "resident_bytes": 2147504128,
+      "start_monotonic_ns": 15628280476414,
+      "end_monotonic_ns": 15628334461478,
+      "cpu_ns": 53986221,
+      "counters_before": {
+        "current": 11070255104,
+        "file": 8661475328,
+        "anon": 2129100800,
+        "shmem": 8192,
+        "kernel": 270045184,
+        "file_mapped": 3276800,
+        "file_dirty": 11583488,
+        "file_writeback": 0
+      },
+      "counters_after": {
+        "current": 11070435328,
+        "file": 8661475328,
+        "anon": 2129100800,
+        "shmem": 8192,
+        "kernel": 270045184,
+        "file_mapped": 3276800,
+        "file_dirty": 11583488,
+        "file_writeback": 0
+      }
+    },
+    "cgroup": "/sys/fs/cgroup/asbhost.slice/asbhost-20261109t124920209630.slice",
+    "coverage_insufficient": false,
+    "scope": "N=1; initial immutable rootfs lowers deduplicated by device/inode. Upper and other backing unknown. PSS/current/file/mincore/guest Cached are separate quantities; never sum or infer savings from differences."
+  },
+  "host": {
+    "full": {
+      "samples": 2051,
+      "start_monotonic_ns": 15424869678886,
+      "end_monotonic_ns": 15630022321391,
+      "quantities": {
+        "current": {
+          "observed_peak_bytes": 11219116032,
+          "sample_median_bytes": 10991484928
+        },
+        "file": {
+          "observed_peak_bytes": 8662495232,
+          "sample_median_bytes": 8439443456
+        },
+        "anon": {
+          "observed_peak_bytes": 2419671040,
+          "sample_median_bytes": 2128957440
+        },
+        "kernel": {
+          "observed_peak_bytes": 270053376,
+          "sample_median_bytes": 264196096
+        },
+        "shmem": {
+          "observed_peak_bytes": 8192,
+          "sample_median_bytes": 8192
+        },
+        "file_dirty": {
+          "observed_peak_bytes": 3108499456,
+          "sample_median_bytes": 33497088
+        },
+        "file_writeback": {
+          "observed_peak_bytes": 50331648,
+          "sample_median_bytes": 0
+        }
+      },
+      "median_method": "Unweighted median of valid periodic samples; observed peaks may miss transients"
+    },
+    "task": {
+      "samples": 2001,
+      "start_monotonic_ns": 15428072170584,
+      "end_monotonic_ns": 15628230132981,
+      "quantities": {
+        "current": {
+          "observed_peak_bytes": 11219116032,
+          "sample_median_bytes": 11010850816
+        },
+        "file": {
+          "observed_peak_bytes": 8661475328,
+          "sample_median_bytes": 8439451648
+        }
+      },
+      "median_method": "Unweighted median of valid periodic samples; observed peaks may miss transients"
+    },
+    "replay": {
+      "samples": 1841,
+      "start_monotonic_ns": 15443784106523,
+      "end_monotonic_ns": 15627929888475,
+      "quantities": {
+        "current": {
+          "observed_peak_bytes": 11219116032,
+          "sample_median_bytes": 11024117760
+        },
+        "file": {
+          "observed_peak_bytes": 8660074496,
+          "sample_median_bytes": 8446201856
+        }
+      },
+      "median_method": "Unweighted median of valid periodic samples; observed peaks may miss transients"
+    },
+    "before_guest": {
+      "current": 419540992,
+      "file": 314015744,
+      "anon": 66076672,
+      "shmem": 0,
+      "kernel": 17231872,
+      "file_mapped": 339968,
+      "file_dirty": 225280,
+      "file_writeback": 0
+    },
+    "initial_host_sample": {
+      "monotonic_ns": "15424869678886",
+      "elapsed_ns": "225806",
+      "read_duration_ns": "320050",
+      "current": "12521472",
+      "file": "421888",
+      "anon": "9256960",
+      "shmem": "0",
+      "kernel": "1449984",
+      "file_mapped": "0",
+      "file_dirty": "413696",
+      "file_writeback": "0"
+    },
+    "cgroup": "/sys/fs/cgroup/asbhost.slice/asbhost-20261109t124920209630.slice"
+  },
+  "guest_memtotal_kib": 8156716,
+  "guest_monitor_profile": "light",
+  "native_meminfo_only": false,
+  "guest_used_peak_mib": 1582.6953125,
+  "guest_cached_peak_mib": 1256.25390625,
+  "costs": {
+    "endpoint_setup": {
+      "status": "PASS",
+      "start_monotonic_ns": 15441984779249,
+      "end_monotonic_ns": 15442022899616,
+      "cpu_ns": 8880419,
+      "scope": "Control thread: VMM binding, initial lower identity inventory and periodic monitor launch; monitor thread CPU is separate"
+    },
+    "collectors": {
+      "host": {
+        "status": "PASS",
+        "error": null,
+        "cgroup": "/sys/fs/cgroup/asbhost.slice/asbhost-20261109t124920209630.slice",
+        "samples": 2051,
+        "interval_seconds": 0.1,
+        "pss_interval_seconds": null,
+        "thread_cpu_ns": 690880868,
+        "counter_read_total_ns": 553818025,
+        "elapsed_ns": 205153450925,
+        "max_sample_interval_ns": 100153971,
+        "scope": "Fresh rollout slice: input preparation, controller, private service and all its descendants; host file includes shmem, not guest Cached."
+      },
+      "guest": {
+        "status": "PASS",
+        "error": null,
+        "pid": 351,
+        "start_ticks": "236",
+        "boot_id": "e9fa9972-9b14-48bb-8099-8efd6bf36120",
+        "sandbox_id": "01a1c05b-6332-76f0-b226-d115b282c66e",
+        "role": "backbone",
+        "session_id": "05b076f9-785f-4426-80a4-406da2cbfa68",
+        "samples": 1832,
+        "interval_seconds": 0.1,
+        "elapsed_ns": 184327022163,
+        "max_sample_interval_ns": 128576339,
+        "cpu_user_seconds": 0.706186,
+        "cpu_system_seconds": 0.18315199999999998,
+        "maxrss_kib": 18156,
+        "scope": "guest logical counters; collector maxrss is not private memory; no physical deduplication",
+        "profile": "light"
+      },
+      "vmm": {
+        "status": "PASS",
+        "error": null,
+        "sandbox_id": "01a1c05b-6332-76f0-b226-d115b282c66e",
+        "role": "single",
+        "session_id": "single",
+        "identity": {
+          "pid": 210632,
+          "start_ticks": "1544107",
+          "boot_id": "473aaa42-7b02-4400-9fad-4b75bae5d7b3",
+          "api_socket": "/proc/210632/root/workspace/env/firecracker-work/agentenv-fc-cx2Psl/firecracker.socket",
+          "cgroup": "/asbhost.slice/asbhost-20261109t124920209630.slice/docker-bee3ae15ab9d7c4943740e0d4c1e98b15e41912f1106edf18716cf85ffd5854e.scope",
+          "binding_source": "owned service cgroup + Firecracker GET /mmds instanceID"
+        },
+        "samples": 1864,
+        "pss_samples": 187,
+        "interval_seconds": 0.1,
+        "pss_interval_seconds": 1,
+        "clock_ticks": 100,
+        "cpu_user_seconds": 0.885949,
+        "cpu_system_seconds": 5.489276,
+        "max_scan_duration_ns": 35517103,
+        "max_sample_interval_ns": 100248247,
+        "elapsed_ns": 186415955651,
+        "scope": "owned VMM process only; excludes shared service/block-provider processes; PSS is proportional residency, not unique physical file cache"
+      }
+    },
+    "endpoint_pss": {
+      "cpu_ns": 37157715,
+      "start_monotonic_ns": 15628242223696,
+      "end_monotonic_ns": 15628279932574
+    },
+    "endpoint_mincore": {
+      "cpu_ns": 53986221,
+      "start_monotonic_ns": 15628280476414,
+      "end_monotonic_ns": 15628334461478
+    },
+    "sampling_management_calls": [
+      {
+        "stage": "monitor-upload-bundle",
+        "start_monotonic_ns": 15443574660442,
+        "duration_ns": 36419076,
+        "exit_code": 0,
+        "call_timing_version": 2,
+        "command_start_monotonic_ns": 15443574745791,
+        "command_end_monotonic_ns": 15443610897062,
+        "command_duration_ns": 36151271,
+        "command_returned": true,
+        "stdout_log_start_monotonic_ns": 15443610905638,
+        "stdout_log_end_monotonic_ns": 15443611076660,
+        "stdout_log_duration_ns": 171022,
+        "stdout_log_completed": true,
+        "event_lock_wait_ns": 1948,
+        "events_log_duration_ns": 563981,
+        "events_log_completed": true,
+        "call_end_monotonic_ns": 15443611652297,
+        "call_elapsed_ns": 36991855
+      },
+      {
+        "stage": "monitor-ready",
+        "start_monotonic_ns": 15443612160515,
+        "duration_ns": 161603471,
+        "exit_code": 0,
+        "call_timing_version": 2,
+        "command_start_monotonic_ns": 15443612600026,
+        "command_end_monotonic_ns": 15443773566120,
+        "command_duration_ns": 160966094,
+        "command_returned": true,
+        "stdout_log_start_monotonic_ns": 15443773575755,
+        "stdout_log_end_monotonic_ns": 15443773761113,
+        "stdout_log_duration_ns": 185358,
+        "stdout_log_completed": true,
+        "event_lock_wait_ns": 1993,
+        "events_log_duration_ns": 682002,
+        "events_log_completed": true,
+        "call_end_monotonic_ns": 15443774455508,
+        "call_elapsed_ns": 162294993
+      },
+      {
+        "stage": "monitor-collect-05b076f9-785f-4426-80a4-406da2cbfa68",
+        "start_monotonic_ns": 15443612037437,
+        "duration_ns": 184509907804,
+        "exit_code": 0,
+        "call_timing_version": 2,
+        "command_start_monotonic_ns": 15443612272535,
+        "command_end_monotonic_ns": 15628121714279,
+        "command_duration_ns": 184509441744,
+        "command_returned": true,
+        "stdout_log_start_monotonic_ns": 15628121724983,
+        "stdout_log_end_monotonic_ns": 15628121941961,
+        "stdout_log_duration_ns": 216978,
+        "stdout_log_completed": true,
+        "event_lock_wait_ns": 2435,
+        "events_log_duration_ns": 778224,
+        "events_log_completed": true,
+        "call_end_monotonic_ns": 15628122733360,
+        "call_elapsed_ns": 184510695923
+      },
+      {
+        "stage": "monitor-finish",
+        "start_monotonic_ns": 15627964010140,
+        "duration_ns": 168042452,
+        "exit_code": 0,
+        "call_timing_version": 2,
+        "command_start_monotonic_ns": 15627964182763,
+        "command_end_monotonic_ns": 15628131960191,
+        "command_duration_ns": 167777428,
+        "command_returned": true,
+        "stdout_log_start_monotonic_ns": 15628131964511,
+        "stdout_log_end_monotonic_ns": 15628132051192,
+        "stdout_log_duration_ns": 86681,
+        "stdout_log_completed": true,
+        "event_lock_wait_ns": 992,
+        "events_log_duration_ns": 318410,
+        "events_log_completed": true,
+        "call_end_monotonic_ns": 15628132374647,
+        "call_elapsed_ns": 168364507
+      },
+      {
+        "stage": "monitor-download",
+        "start_monotonic_ns": 15628132624475,
+        "duration_ns": 51147078,
+        "exit_code": 0,
+        "call_timing_version": 2,
+        "command_start_monotonic_ns": 15628132706206,
+        "command_end_monotonic_ns": 15628183412910,
+        "command_duration_ns": 50706704,
+        "command_returned": true,
+        "stdout_log_start_monotonic_ns": 15628183427322,
+        "stdout_log_end_monotonic_ns": 15628183767578,
+        "stdout_log_duration_ns": 340256,
+        "stdout_log_completed": true,
+        "event_lock_wait_ns": 3032,
+        "events_log_duration_ns": 870070,
+        "events_log_completed": true,
+        "call_end_monotonic_ns": 15628184652573,
+        "call_elapsed_ns": 52028098
+      }
+    ],
+    "interpretation": "Collector CPU and query wall/CPU are observed costs, not task slowdown; no extra control run"
+  },
+  "periodic_pss_observed_peak_bytes": 2299547648,
+  "periodic_pss_max_interval_ns": 1000946431,
+  "extra_management_queries": [],
+  "cleanup": {
+    "guest": {
+      "sandbox_removed": true,
+      "service_sandbox_list_empty": true
+    },
+    "native": {
+      "owned_container_removed": true,
+      "mount_and_loop_removed": true,
+      "successful_fixture_removed": true,
+      "original_firecracker_identities_unchanged": true,
+      "original_source_firecracker_identities_unchanged": true,
+      "original_service_unchanged": true
+    },
+    "relay_stopped": true
+  },
+  "external_firecracker_changes": {
+    "removed": [],
+    "added": [],
+    "scope": "observed host VM churn; functional validation checks owned/source resources, not host exclusivity or causal performance"
+  },
+  "raw_paths": {
+    "controller": "/home/rashen/work/AgentSandboxBench/.artifacts/storage-isolated-service/20261109T124921Z-209770/external-workload",
+    "native": "/home/rashen/work/AgentSandboxBench/.artifacts/storage-isolated-service/20261109T124921Z-209770",
+    "outer": "/home/rashen/work/AgentSandboxBench/results/external-five/20261109T124920Z-209746",
+    "primary": "/home/rashen/work/AgentSandboxWorkloadResults/results/agentenv/mozilla__pdf.js-20957/runs/mozilla__pdf.js-20957-20261025T070430Z-983806"
+  },
+  "source_sha256": {
+    "/home/rashen/work/AgentSandboxBench/.artifacts/storage-isolated-service/20261109T124921Z-209770/external-workload/reference-steps.csv": "531d319a81345ba441909a2ad5cbf274184141ab12d2fb3091bf0a10c64b2b67",
+    "/home/rashen/work/AgentSandboxBench/.artifacts/storage-isolated-service/20261109T124921Z-209770/external-workload/reference-validation.json": "982461f0519be9f4b9d9fdaff1e1b0abd62ea54fbf5fe8cc282ea5ab54b7cc1f",
+    "/home/rashen/work/AgentSandboxBench/.artifacts/storage-isolated-service/20261109T124921Z-209770/external-workload/reference-oci-origin.json": "0230270ba516495bb101988d650b46481e19dced72f7db8755c0c937c3b0c510",
+    "/home/rashen/work/AgentSandboxBench/.artifacts/storage-isolated-service/20261109T124921Z-209770/external-workload/reference-run.json": "01a5a5e89c75c79526586de17338ec98f7400b5625b15b0f35257b04c8bdb5b8",
+    "/home/rashen/work/AgentSandboxBench/results/external-five/20261109T124920Z-209746/report/summary.json": "1db54e25052708c932220d2e533fe122f08e324a3146fadba34c29a8074e47ad",
+    "/home/rashen/work/AgentSandboxBench/.artifacts/storage-isolated-service/20261109T124921Z-209770/external-workload/result.json": "ca39e4eeba173a0fb3a10f1b51e36481d04ab9ba12e8cdd6cfddcd2679bc3af5",
+    "/home/rashen/work/AgentSandboxBench/.artifacts/storage-isolated-service/20261109T124921Z-209770/result.json": "1c8a5351f78d9045cfa909ecdbf59e7bac1887bfd8a7af4de2eaf7c2b42dabf4",
+    "/home/rashen/work/AgentSandboxBench/results/external-five/20261109T124920Z-209746/result.json": "5a71ea09a40924dfad6b6bea794255f25acf8a95b111e7170e70fcb9b9d738cf",
+    "/home/rashen/work/AgentSandboxBench/.artifacts/storage-isolated-service/20261109T124921Z-209770/external-workload/tools.tsv": "8512e2dc47df5a74a9eb689f3a86b0bb438ca4b3cf3f7ecfb8ff4ea64480d31c",
+    "/home/rashen/work/AgentSandboxBench/.artifacts/storage-isolated-service/20261109T124921Z-209770/external-workload/events.json": "50ec14feea185819017e76879adc6259a5c8f9cd6a5f7fe79aeeba03a54e2794",
+    "/home/rashen/work/AgentSandboxBench/.artifacts/storage-isolated-service/20261109T124921Z-209770/external-workload/endpoint.json": "4f5f508f90b76b694f937a27d443b9d978af447188c1a31624df9b323e14f97b",
+    "/home/rashen/work/AgentSandboxBench/.artifacts/storage-isolated-service/20261109T124921Z-209770/external-workload/initial-lowers.json": "b051453edc0978e23a978d036a7d62f9055c289367a343c03e30e6e5bf57428f",
+    "/home/rashen/work/AgentSandboxBench/.artifacts/storage-isolated-service/20261109T124921Z-209770/external-workload/runtime/01a1c05b-6332-76f0-b226-d115b282c66e/05b076f9-785f-4426-80a4-406da2cbfa68/guest-memory.tsv": "2dd5ee0010625e4c569dd5130cea383222aa845e40bdb214ba1cf299590cda5f",
+    "/home/rashen/work/AgentSandboxBench/results/external-five/20261109T124920Z-209746/host-file/memory.tsv": "0646ec2944fad424c0c2abcaab736e2d447f90eaa95ecf035cc06daf62548d67",
+    "/home/rashen/work/AgentSandboxBench/.artifacts/storage-isolated-service/20261109T124921Z-209770/external-workload/vmm/host-vmm.tsv": "5a7a61f738cf22fb47da641c1d0656a71a4c1ef8cc3f4dbdce9af54f71815995",
+    "/home/rashen/work/AgentSandboxBench/.artifacts/storage-isolated-service/20261109T124921Z-209770/external-workload/validation-download/validation.exit": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa",
+    "/home/rashen/work/AgentSandboxBench/.artifacts/storage-isolated-service/20261109T124921Z-209770/external-workload/validation-download/validation.stdout": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "/home/rashen/work/AgentSandboxBench/.artifacts/storage-isolated-service/20261109T124921Z-209770/external-workload/validation-download/validation.stderr": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "previous_failed_attempts": [
+    {
+      "task_id": "mozilla__pdf.js-20957",
+      "outer_status": "FAIL",
+      "controller_status": "FAIL",
+      "reason": "原安装/下载连接中断，CLI 检查未满足",
+      "error": "AssertionError('published reference exits differ')",
+      "actions_completed": 5,
+      "exit_differences": [
+        {
+          "step": 1,
+          "actual": 1,
+          "expected": 0
+        },
+        {
+          "step": 3,
+          "actual": 1,
+          "expected": 0
+        },
+        {
+          "step": 5,
+          "actual": 1,
+          "expected": 0
+        }
+      ],
+      "error_signatures": {
+        "ECONNRESET": [
+          "/home/rashen/work/AgentSandboxBench/.artifacts/storage-isolated-service/20261106T092140Z-3447885/external-workload/input/logs/001.stderr"
+        ]
+      },
+      "raw_paths": {
+        "outer": "/home/rashen/work/AgentSandboxBench/results/external-five/20261106T092140Z-3447868",
+        "native": "/home/rashen/work/AgentSandboxBench/.artifacts/storage-isolated-service/20261106T092140Z-3447885",
+        "controller": "/home/rashen/work/AgentSandboxBench/.artifacts/storage-isolated-service/20261106T092140Z-3447885/external-workload"
+      },
+      "source_sha256": {
+        "/home/rashen/work/AgentSandboxBench/.artifacts/storage-isolated-service/20261106T092140Z-3447885/external-workload/result.json": "3d6cea7bb81e3d4b945283c55e38949e790cbc2a38ce48ef4ba4bf701c15fb48",
+        "/home/rashen/work/AgentSandboxBench/.artifacts/storage-isolated-service/20261106T092140Z-3447885/external-workload/input/logs/001.stdout": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "/home/rashen/work/AgentSandboxBench/.artifacts/storage-isolated-service/20261106T092140Z-3447885/external-workload/input/logs/001.stderr": "8f146d311a2c14e5fa19b6de0a4d03354691270855601a59c4235be59b237fc8",
+        "/home/rashen/work/AgentSandboxBench/.artifacts/storage-isolated-service/20261106T092140Z-3447885/external-workload/input/logs/003.stdout": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "/home/rashen/work/AgentSandboxBench/.artifacts/storage-isolated-service/20261106T092140Z-3447885/external-workload/input/logs/003.stderr": "ed030b8b6524db7696fe0a5be1841386adcdaffb08dc8a1fda32f0bb235000f8"
+      }
+    },
+    {
+      "task_id": "mozilla__pdf.js-20957",
+      "outer_status": "FAIL",
+      "controller_status": "FAIL",
+      "reason": "原安装/下载连接中断，CLI 检查未满足",
+      "error": "AssertionError('published reference exits differ')",
+      "actions_completed": 5,
+      "exit_differences": [
+        {
+          "step": 1,
+          "actual": 1,
+          "expected": 0
+        },
+        {
+          "step": 3,
+          "actual": 1,
+          "expected": 0
+        },
+        {
+          "step": 5,
+          "actual": 1,
+          "expected": 0
+        }
+      ],
+      "error_signatures": {
+        "ECONNRESET": [
+          "/home/rashen/work/AgentSandboxBench/.artifacts/storage-isolated-service/20261106T110207Z-3499140/external-workload/input/logs/001.stderr"
+        ]
+      },
+      "raw_paths": {
+        "outer": "/home/rashen/work/AgentSandboxBench/results/external-five/20261106T110207Z-3499119",
+        "native": "/home/rashen/work/AgentSandboxBench/.artifacts/storage-isolated-service/20261106T110207Z-3499140",
+        "controller": "/home/rashen/work/AgentSandboxBench/.artifacts/storage-isolated-service/20261106T110207Z-3499140/external-workload"
+      },
+      "source_sha256": {
+        "/home/rashen/work/AgentSandboxBench/.artifacts/storage-isolated-service/20261106T110207Z-3499140/external-workload/result.json": "8be6cd15b0e51df8524d5443b6db48eca65182a54cf6bd69783a987b905bb13a",
+        "/home/rashen/work/AgentSandboxBench/.artifacts/storage-isolated-service/20261106T110207Z-3499140/external-workload/input/logs/001.stdout": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "/home/rashen/work/AgentSandboxBench/.artifacts/storage-isolated-service/20261106T110207Z-3499140/external-workload/input/logs/001.stderr": "5ccea7ec53e3ca13930fc9a8bae9bd7616393a306909c2319aa18566e481b5b7",
+        "/home/rashen/work/AgentSandboxBench/.artifacts/storage-isolated-service/20261106T110207Z-3499140/external-workload/input/logs/003.stdout": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "/home/rashen/work/AgentSandboxBench/.artifacts/storage-isolated-service/20261106T110207Z-3499140/external-workload/input/logs/003.stderr": "919321cbca929638cd9d307549c2bde7f7e983f2ae7e6d1c6e0a837f73b99dc0"
+      }
+    }
+  ],
+  "current_run_is_corrective": false,
+  "published_files": {
+    "guest.svg": {
+      "source": "/home/rashen/work/AgentSandboxBench/results/external-five/20261109T124920Z-209746/report/guest.svg",
+      "sha256": "45f9af03f192b26515fae8cbb4d13cc60cc094b8c4e302899c92aa3345246613",
+      "bytes": 95727
+    },
+    "pss.svg": {
+      "source": "/home/rashen/work/AgentSandboxBench/results/external-five/20261109T124920Z-209746/report/pss.svg",
+      "sha256": "d5bd05fcb3bc801aa53162afe22f9c928f963df97ebeacec7c34c404f4714b0d",
+      "bytes": 36413
+    },
+    "host.svg": {
+      "source": "/home/rashen/work/AgentSandboxBench/results/external-five/20261109T124920Z-209746/report/host/overview.svg",
+      "sha256": "dd796149ca8654835a60130da2f0de3b30fa0fd669a2f39d6fb15e64473317ab",
+      "bytes": 84216
+    },
+    "tools.tsv": {
+      "source": "/home/rashen/work/AgentSandboxBench/.artifacts/storage-isolated-service/20261109T124921Z-209770/external-workload/tools.tsv",
+      "sha256": "8512e2dc47df5a74a9eb689f3a86b0bb438ca4b3cf3f7ecfb8ff4ea64480d31c",
+      "bytes": 260
+    }
+  }
+}

@@ -24,8 +24,10 @@ class GuestProxy:
     def __init__(self,output,upstream):
         self.output=Path(output);self.upstream=Path(upstream);self.process=None;self.address=None
 
-    def start(self):
-        port=upstream_port(os.environ)
+    def start(self, explicit_port=None):
+        port=upstream_port(os.environ) if explicit_port is None else explicit_port
+        if explicit_port is not None and (not 1<=port<=65535 or port==17891):
+            raise ValueError('invalid explicit guest relay upstream port')
         rows=json.loads(subprocess.check_output(['ip','-j','-4','addr','show'],text=True,timeout=10))
         routes=json.loads(subprocess.check_output(['ip','-j','-4','route','show','table','all'],text=True,timeout=10))
         used=[ipaddress.ip_network(a['local']+'/'+str(a['prefixlen']),strict=False) for row in rows for a in row['addr_info'] if a['family']=='inet']

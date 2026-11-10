@@ -150,7 +150,7 @@ class NoProxyTests(unittest.TestCase):
         code=compile(ast.Module(body=[old,new],type_ignores=[]),'<actual Docker environment>','exec')
         for local,smoke in ((False,False),(True,False),(False,True),(True,True)):
             enabled=local or smoke
-            ns=dict(prettier6604=True,python_inputs=None,local_no_proxy=local,schedule_smoke=smoke,density=None,argv=[],rootfs_short=False,private_control=False,full_rootfs_mode=False)
+            ns=dict(prettier6604=True,python_inputs=None,local_no_proxy=local,schedule_smoke=smoke,five_oci=None,density=None,argv=[],rootfs_short=False,private_control=False,full_rootfs_mode=False)
             exec(code,ns)
             self.assertEqual('17891' in str(ns['argv']),not enabled)
             if enabled:

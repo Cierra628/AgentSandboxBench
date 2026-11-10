@@ -41,7 +41,7 @@ def process_identity(pid):
 
 def collect(args):
     assert math.isfinite(args.interval) and args.interval >= .1
-    assert math.isfinite(args.max_seconds) and 0 < args.max_seconds <= 1800
+    assert math.isfinite(args.max_seconds) and 0 < args.max_seconds <= 17400
     directory = args.directory
     directory.mkdir(parents=True, exist_ok=False)
     if getattr(args,'initial_phase',None) is not None:
@@ -56,7 +56,7 @@ def collect(args):
         from guest_performance import cpu, disks, CPUFIELDS
         from guest_diskstats import FIELDS as DISKFIELDS
     (directory/'identity.json').write_text(json.dumps(identity)+'\n')
-    started = time.monotonic_ns(); count = 0; status = 'FAIL'; error = None
+    started = time.monotonic_ns(); previous=None; max_gap_ns=0; count = 0; status = 'FAIL'; error = None
     try:
         with ExitStack() as stack:
             memory=stack.enter_context((directory/'guest-memory.tsv').open('x',buffering=1))
@@ -87,6 +87,8 @@ def collect(args):
                     phase = []
                 if len(phase) != 3: phase = ['unknown', '', '']
                 now = time.monotonic_ns()
+                if previous is not None:max_gap_ns=max(max_gap_ns,now-previous)
+                previous=now
                 prefix = [time.time_ns(), now, now-started, args.sandbox_id, args.role, args.session_id, *phase]
                 memory.write('\t'.join(map(str, [*prefix, *counters(args.proc_root/'meminfo', MEMFIELDS, True)]))+'\n')
                 if damon_observe:
@@ -110,7 +112,7 @@ def collect(args):
     usage = resource.getrusage(resource.RUSAGE_SELF)
     receipt = dict(status=status, error=error, **identity, sandbox_id=args.sandbox_id, role=args.role,
                    session_id=args.session_id, samples=count, interval_seconds=args.interval,
-                   elapsed_ns=time.monotonic_ns()-started, cpu_user_seconds=usage.ru_utime,
+                   elapsed_ns=time.monotonic_ns()-started, max_sample_interval_ns=max_gap_ns, cpu_user_seconds=usage.ru_utime,
                    cpu_system_seconds=usage.ru_stime, maxrss_kib=usage.ru_maxrss,
                    scope='guest logical counters; collector maxrss is not private memory; no physical deduplication')
     if getattr(args,'performance',False):receipt.update(performance_version=1,clock_ticks=os.sysconf('SC_CLK_TCK'),
@@ -232,10 +234,14 @@ def boundary_meminfo_metadata(actions,segments):
 
 
 class RuntimeMonitor:
-    def __init__(self, raw, cli, container=None, batch_control=False, *, light=False, damon_observe=False, guest_script=None):
+    def __init__(self, raw, cli, container=None, batch_control=False, *, light=False, damon_observe=False, guest_script=None, max_seconds=1800, native_light=None):
+        if not 0 < max_seconds <= 17400:raise ValueError("invalid collector lifetime")
+        if native_light and (not light or damon_observe):raise ValueError('native collector supports only meminfo light sampling')
+        self.max_seconds=max_seconds
         self.raw = Path(raw); self.cli = cli; self.active = {}; self.sessions = []
         self.light=light;self.interval=.1
         self.script=guest_script or SCRIPT
+        self.native_binary=None
         self.damon_observe=damon_observe
         self.container=None if light else container;self.hosts={};self.host_binding=None;self.host_lock=threading.Lock();self.workers={}
         self.lock = threading.Lock()
@@ -253,6 +259,9 @@ class RuntimeMonitor:
             for source,remote in sources:
                 target=self.bundle/remote;shutil.copy2(code/source,target)
                 if not light:self.code_sha256[str(Path(self.script).parent/remote)]=hashlib.sha256(target.read_bytes()).hexdigest()
+            if native_light:
+                self.native_binary=str(Path(self.script).with_name('guest-meminfo'))
+                shutil.copy2(native_light,self.bundle/'guest-meminfo')
 
     def write(self):
         with self.lock:
@@ -262,6 +271,7 @@ class RuntimeMonitor:
                 interval_seconds=self.interval, sessions=self.sessions, profile='light' if self.light else 'full',damon_observed=self.damon_observe,
                 collector_lifecycle_version=2,guest_launch_mode='envd-managed foreground command, waited for and reaped before snapshot',
                 control_batching=self.batch_control,
+                native_meminfo_only=bool(self.native_binary),
                 guest_performance_version=None if self.light else 1,host_vmm_requested=bool(self.container),host_pss_interval_seconds=None if self.light else 1,
                 scope='guest tool readiness to pre-delete; sampling stopped before snapshots and restarted afterwards; no samples while VM paused'), indent=2)+'\n')
             temporary.replace(self.raw/'runtime-monitor.json')
@@ -293,21 +303,29 @@ class RuntimeMonitor:
             self.mark(sid, phase)
         directory = GUEST_ROOT+'/'+token
         entry['guest_directory'] = directory
+        if self.native_binary:
+            self.cli('monitor-prepare-binary','exec',sid,'chmod','755',self.native_binary,timeout=15)
+            self.cli('monitor-directory','exec',sid,'mkdir','-p',GUEST_ROOT,timeout=15)
         # Keep the collector as an envd-managed foreground command. Its parent
         # waits for it; guest PID 1 need not reap an orphan before a snapshot.
         worker_error=[]
         def managed_collect():
-            argv=['exec',sid,'python3',self.script,'collect','--directory',directory,
-                '--phase-file',GUEST_ROOT+'/phase','--sandbox-id',sid,'--role',role,'--session-id',token,
-                '--interval',str(self.interval)]
-            argv+=['--light'] if self.light else ['--performance']
-            if self.damon_observe:argv+=['--damon-observe']
-            if self.batch_control:argv+=['--initial-phase',phase]
-            try:self.cli('monitor-collect-'+token,*argv,timeout=1810)
+            if self.native_binary:
+                argv=['exec',sid,self.native_binary,directory,sid,token,str(self.max_seconds)]
+            else:
+                argv=['exec',sid,'python3',self.script,'collect','--directory',directory,
+                    '--phase-file',GUEST_ROOT+'/phase','--sandbox-id',sid,'--role',role,'--session-id',token,
+                    '--interval',str(self.interval),'--max-seconds',str(self.max_seconds)]
+                argv+=['--light'] if self.light else ['--performance']
+                if self.damon_observe:argv+=['--damon-observe']
+                if self.batch_control:argv+=['--initial-phase',phase]
+            try:self.cli('monitor-collect-'+token,*argv,timeout=self.max_seconds+10)
             except BaseException as error:worker_error.append(error)
         worker=threading.Thread(target=managed_collect,daemon=True)
         self.workers[sid]=(worker,worker_error);worker.start()
-        ready_argv=['exec',sid,'python3',self.script,'ready','--directory',directory]
+        if self.native_binary:
+            ready_argv=['exec',sid,'bash','-c','for ((i=0;i<100;i++)); do if test -s "$1/ready"; then exec cat "$1/ready"; fi; sleep .05; done; exit 1','--',directory]
+        else:ready_argv=['exec',sid,'python3',self.script,'ready','--directory',directory]
         if self.batch_control and not self.light:ready_argv+=['--code-sha256',json.dumps(self.code_sha256)]
         content=self.cli('monitor-ready',*ready_argv,timeout=15)
         entry['identity'] = json.loads(content); assert entry['identity']['status'] == 'STARTED'
@@ -335,7 +353,9 @@ class RuntimeMonitor:
                 entry['host_receipt']=host.receipt
                 if error is None:error=exc
         try:
-            if self.light:
+            if self.native_binary:
+                self.cli('monitor-finish','exec',sid,'touch',entry['guest_directory']+'/stop',timeout=15)
+            elif self.light:
                 finished=json.loads(self.cli('monitor-finish','exec',sid,'python3',self.script,'finish',
                     '--directory',entry['guest_directory'],'--phase-file',GUEST_ROOT+'/phase','--final-phase',reason,timeout=15))
             else:self.cli('monitor-stop', 'exec', sid, 'python3', self.script, 'stop', '--directory', entry['guest_directory'], timeout=15)
@@ -346,12 +366,13 @@ class RuntimeMonitor:
         try:
             assert not worker.is_alive(),'managed collector command did not finish'
             if worker_error:raise worker_error[0]
-            if self.light:
-                value=finished;assert value['status']=='PASS' and value['collector_reaped']
-            else:
-                value=json.loads(self.cli('monitor-reaped','exec',sid,'python3',self.script,'reaped','--directory',entry['guest_directory'],timeout=15))
-                assert value['status']=='REAPED'
-            assert all(value[k]==entry['identity'][k] for k in ('pid','start_ticks','boot_id'))
+            if not self.native_binary:
+                if self.light:
+                    value=finished;assert value['status']=='PASS' and value['collector_reaped']
+                else:
+                    value=json.loads(self.cli('monitor-reaped','exec',sid,'python3',self.script,'reaped','--directory',entry['guest_directory'],timeout=15))
+                    assert value['status']=='REAPED'
+                assert all(value[k]==entry['identity'][k] for k in ('pid','start_ticks','boot_id'))
             entry['collector_reaped']=True
         except Exception as exc:
             if error is None:error=exc
@@ -360,6 +381,7 @@ class RuntimeMonitor:
             path = parent/entry['session_id']
             receipt = json.loads((path/'collector-status.json').read_text())
             assert receipt['status'] == 'PASS' and receipt['sandbox_id'] == sid and receipt['session_id'] == entry['session_id']
+            if self.native_binary:assert receipt['pid']==entry['identity']['pid']
             entry.update(raw_directory=str(path.relative_to(self.raw)), receipt=receipt, status='PASS' if error is None else 'FAIL')
         except Exception as exc:
             if error is None: error = exc

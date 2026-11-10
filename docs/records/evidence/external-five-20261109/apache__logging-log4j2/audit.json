@@ -1,0 +1,705 @@
+{
+  "task_id": "apache__logging-log4j2",
+  "label": "Log4j2",
+  "original_controller_status": "PASS",
+  "original_native_status": "PASS",
+  "original_outer_status": "PASS",
+  "original_measurement_status": "COMPLETE",
+  "original_error": null,
+  "original_lifecycle_pass": true,
+  "trace_exit_match": true,
+  "original_files_match": true,
+  "actions": 10,
+  "expected_nonzero": [
+    {
+      "step": 6,
+      "exit_code": 1
+    }
+  ],
+  "original_checker": {
+    "exit_code": 141,
+    "status": "FAIL",
+    "command": "cd /data/project/apache__logging-log4j2@204d8251295dfa816b9b28d8d9cfaebab500f415 && test -d log4j-api/target/classes && test -d log4j-core/target/classes && find . -path '*/target/classes/*.class' | head -5",
+    "scope": "local artifact/smoke check only; recorded trajectory completion is independent of official benchmark correctness",
+    "actual_exit_code": 141,
+    "actual_status": "FAIL"
+  },
+  "functional_evidence": {
+    "compilation": "PASS",
+    "tests": "SKIPPED_BY_ORIGINAL_COMMAND",
+    "checker": "REPORTED_SEPARATELY"
+  },
+  "measurement_evidence_complete": true,
+  "exact_primary_oci": false,
+  "actual_oci": {
+    "status": "VERIFIED",
+    "layout": "/home/rashen/work/AgentSandboxBench/.artifacts/external-five-recovery-20261109/log4j-oci",
+    "manifest_digest": "sha256:16af38e068d0de35a0bda38b675e2c57a6fc91c67e17edd1f267e44963ca1fc6",
+    "config_digest": "sha256:23b938a5db8f6afca6f0f2762c44af4c2cd9f9ba3fa124e388c0c15791a6e4db",
+    "layers": 11,
+    "scope": "Documented fixed base/Containerfile/source rebuild; new OCI digest, not byte-identical to primary",
+    "primary_verification": {
+      "manifest_digest": "sha256:62640316ab1c15923796d7731028e8bdc594c8cbce2243d5d1db522912b5a990",
+      "config_digest": "sha256:71a1db768df75f4b8163325dc2a8808cf2314c9cb158e367bc84ed1f42307a2a",
+      "rootfs_diff_ids": [
+        "sha256:f862e1968e4b4c3c3af141e37d2ec22b19ec0fd50d6a8aaf683de6729e296226",
+        "sha256:4423c3a3a58e092f1fbf98bd3b95baf7e8716ec7ac59a6cab1a25a265ce558c9",
+        "sha256:322342d0f69211e1f5b7c6efd0595bb322eb2b11af3b14f3ad82cec50150032f",
+        "sha256:740bed6b94fc76d74f00de8976f8eb5ebaac7a1b8521553fd2c6186ce5b875e4",
+        "sha256:7e1bb8bdbef1e301caeefa5c20eafd4091e62602b8266a3846f0558add9802b9",
+        "sha256:f11949a4b73a9473f316f0766db69c7cd5638b45dd57cb04b850053edd51d2c1",
+        "sha256:712d2a9d83789476c446ef14eae65c59d4fe0fa24feb1a1edbeeeb04684bd047",
+        "sha256:5c3da76b184544024f2cf906913d5738d67ade4e096f1565390c8f65a8b92c84",
+        "sha256:6f459e3b5d92bfed388a0eb6790c369644d3f2aee33d64b9e0864df81e560956",
+        "sha256:5f70bf18a086007016e948b04aed3b82103a36bea41755b6cddfaf10ace3c6ef",
+        "sha256:da4db4e2c06914bd2dd292180f9ef7433a4163c6608e274420d5e68e8fb0167c"
+      ],
+      "layer_bytes": 1167194507,
+      "layers": 11,
+      "platform": [
+        "linux",
+        "amd64"
+      ],
+      "source_image_id": "9c6aca2ed1f81bbe68f2119af7e4b16d576e0686540ff0c5a0c57081061dbd5d",
+      "runtime_config_fields_match": true
+    }
+  },
+  "primary_manifest": "sha256:62640316ab1c15923796d7731028e8bdc594c8cbce2243d5d1db522912b5a990",
+  "source_image": "localhost/asbp-log4j2:204d8251295d",
+  "runtime_image": "localhost/asbp-log4j2@sha256:16af38e068d0de35a0bda38b675e2c57a6fc91c67e17edd1f267e44963ca1fc6",
+  "rebuilt_local_image": {
+    "source_commit": "204d8251295dfa816b9b28d8d9cfaebab500f415",
+    "containerfile_sha256": "ec21d8411ff88efa4a1df1fb53846192ab32383b9e99c4d2c1c8adece52133ff",
+    "base_image": "ghcr.io/jetbrains-research/envbench-jvm@sha256:e6dbfbdc8f67e420b029440eb54988514bf7d9eca005ce5bad530a823414d388",
+    "prior_image_id": "9c6aca2ed1f81bbe68f2119af7e4b16d576e0686540ff0c5a0c57081061dbd5d",
+    "actual_image_id": "c002d31faa226fa0cdadb0cbe806a10a31211f93be64a467e76580b8ec48f37f"
+  },
+  "rebuilt_origin_receipt": {
+    "path": "/home/rashen/work/AgentSandboxBench/results/external-five-recovery-20261109/log4j-rebuilt-origin.json",
+    "sha256": "157a797edd4ffb80f0ff7cc8dcadfbd1b18baafe19498167bd7c5f41a5ec6e57"
+  },
+  "primary_run": "results/agentenv/apache__logging-log4j2/runs/apache__logging-log4j2-20261025T055131Z-974499",
+  "input_sha256": {
+    "run.json": "8225894bb7aff84d6961b095bd2e9155de0486842804e2667851e31be765d132",
+    "replay-inputs.json": "ccd26bbd9bd906493c23d68bfb3e580a25dc98f3a6d7d041cd265b2a41bbc96b",
+    "steps.csv": "31ef89108b1dac72d186851d070dc7ffab65b9c882b20c8381599681f04fb3d8",
+    "validation.json": "43aa7c61ee4f71f45e2b5f538abfe5ae5df998837b94d289179c447c7b14f677",
+    "oci-origin.json": "066710b9ec8b15324f366d7ce74cf5a59af77e3e377cc6067dc8cd77a7adcf45"
+  },
+  "helper_sha256": {
+    "clock_ns.c": "c07105c6d999ea7c238b658ae5076c22fe7fe9f91ca78df30d807dbd4e496836"
+  },
+  "sandbox_id": "01a1c054-db9b-7e33-b5bf-b507b9198726",
+  "memory_mib": 8192,
+  "cpu": 2,
+  "task_duration_ns": 309470095794,
+  "tool_cumulative_ns": 292015339560,
+  "controller_elapsed_ns": 310103882937,
+  "outer_elapsed_ns": 315353241183,
+  "replay_duration_ns": 292106132615,
+  "download_duration_ns": 82075072,
+  "cold_create_event": {
+    "stage": "cold-create",
+    "start_monotonic_ns": 14998289655772,
+    "duration_ns": 15713320554,
+    "exit_code": 0,
+    "call_timing_version": 2,
+    "command_start_monotonic_ns": 14998289684525,
+    "command_end_monotonic_ns": 15014002634231,
+    "command_duration_ns": 15712949706,
+    "command_returned": true,
+    "stdout_log_start_monotonic_ns": 15014002647338,
+    "stdout_log_end_monotonic_ns": 15014002973179,
+    "stdout_log_duration_ns": 325841,
+    "stdout_log_completed": true,
+    "event_lock_wait_ns": 2377,
+    "events_log_duration_ns": 377934,
+    "events_log_completed": true,
+    "call_end_monotonic_ns": 15014003362390,
+    "call_elapsed_ns": 15713706618
+  },
+  "endpoint": {
+    "status": "OBSERVED",
+    "pss": {
+      "start_monotonic_ns": 15307673533742,
+      "end_monotonic_ns": 15307706569560,
+      "cpu_ns": 32647180,
+      "denominator": 1,
+      "per_sandbox_bytes": 2082603008,
+      "process": {
+        "start_ticks": "1501314",
+        "user_ticks": 27358,
+        "system_ticks": 2027,
+        "rss_kib": 2033848,
+        "read_bytes": 810593280,
+        "write_bytes": 1422450688,
+        "rchar": 583865144,
+        "wchar": 7975695,
+        "pss_kib": 2033792,
+        "pss_anon_kib": 2030940,
+        "pss_file_kib": 2844,
+        "pss_shmem_kib": 8,
+        "pss_scan_duration_ns": 26737564
+      },
+      "identity": {
+        "pid": 196080,
+        "start_ticks": "1501314",
+        "boot_id": "473aaa42-7b02-4400-9fad-4b75bae5d7b3",
+        "api_socket": "/proc/196080/root/workspace/env/firecracker-work/agentenv-fc-9GIh0z/firecracker.socket",
+        "cgroup": "/asbhost.slice/asbhost-20261109t124210194940.slice/docker-915ebe0788dd9f14ef3b79d2c687655662626f743b747f34ad296c412a428e5d.scope",
+        "binding_source": "owned service cgroup + Firecracker GET /mmds instanceID"
+      }
+    },
+    "p1": {
+      "files": [
+        {
+          "path": "/proc/196080/cwd/overlaybd/../../../image-cache/commits/sha256-4ba82890b188dc38b6a1a9f091dfc05e2c6972cd60ee42d8c34553877ca10287/overlaybd.commit",
+          "device": 1796,
+          "inode": 1966140,
+          "size": 159992832,
+          "mtime_ns": 1794228135190576581,
+          "pages": 39061,
+          "resident_pages": 39061,
+          "resident_bytes": 159993856,
+          "stable": true,
+          "metadata_changed": false,
+          "block_device": false,
+          "rdev": 0,
+          "mapping_length": 159992832
+        },
+        {
+          "path": "/proc/196080/cwd/overlaybd/../../../image-cache/commits/sha256-658f4df506d0a39202b54c2800baf4d35fc896660f454e99d56dd42a388b15ce/overlaybd.commit",
+          "device": 1796,
+          "inode": 1966154,
+          "size": 822006784,
+          "mtime_ns": 1794228139411528584,
+          "pages": 200686,
+          "resident_pages": 200686,
+          "resident_bytes": 822009856,
+          "stable": true,
+          "metadata_changed": false,
+          "block_device": false,
+          "rdev": 0,
+          "mapping_length": 822006784
+        },
+        {
+          "path": "/proc/196080/cwd/overlaybd/../../../image-cache/commits/sha256-7685d6ab0b9083f69ac358b3e27772d835066d9e9bc73bc01ac16c948c5d3bb7/overlaybd.commit",
+          "device": 1796,
+          "inode": 1966159,
+          "size": 75682816,
+          "mtime_ns": 1794228140995510572,
+          "pages": 18478,
+          "resident_pages": 18478,
+          "resident_bytes": 75685888,
+          "stable": true,
+          "metadata_changed": false,
+          "block_device": false,
+          "rdev": 0,
+          "mapping_length": 75682816
+        },
+        {
+          "path": "/proc/196080/cwd/overlaybd/../../../image-cache/commits/sha256-8ecbda986f4cbf690dc6251efea5365ce68b08e842523403e48a0ab48e08afeb/overlaybd.commit",
+          "device": 1796,
+          "inode": 1966164,
+          "size": 902353920,
+          "mtime_ns": 1794228143516481905,
+          "pages": 220302,
+          "resident_pages": 220302,
+          "resident_bytes": 902356992,
+          "stable": true,
+          "metadata_changed": false,
+          "block_device": false,
+          "rdev": 0,
+          "mapping_length": 902353920
+        },
+        {
+          "path": "/proc/196080/cwd/overlaybd/../../../image-cache/commits/sha256-1657f6961c11180824604e02e2d1d22c522c53632cc8be97de06756ae2d71b61/overlaybd.commit",
+          "device": 1796,
+          "inode": 1966169,
+          "size": 72799232,
+          "mtime_ns": 1794228144982465236,
+          "pages": 17774,
+          "resident_pages": 17774,
+          "resident_bytes": 72802304,
+          "stable": true,
+          "metadata_changed": false,
+          "block_device": false,
+          "rdev": 0,
+          "mapping_length": 72799232
+        },
+        {
+          "path": "/proc/196080/cwd/overlaybd/../../../image-cache/commits/sha256-7a07ae1191b6f64edc57d83e9df8750dbae8312b480f489e2fdfba9e6f783d96/overlaybd.commit",
+          "device": 1796,
+          "inode": 1966174,
+          "size": 67425280,
+          "mtime_ns": 1794228145372460801,
+          "pages": 16462,
+          "resident_pages": 16462,
+          "resident_bytes": 67428352,
+          "stable": true,
+          "metadata_changed": false,
+          "block_device": false,
+          "rdev": 0,
+          "mapping_length": 67425280
+        },
+        {
+          "path": "/proc/196080/cwd/overlaybd/../../../image-cache/commits/sha256-f72807aec6157489ee3a9f6abf5f9bf167472b54d1cf44ddf3d19106d85d555b/overlaybd.commit",
+          "device": 1796,
+          "inode": 1966179,
+          "size": 67425280,
+          "mtime_ns": 1794228145765456332,
+          "pages": 16462,
+          "resident_pages": 16462,
+          "resident_bytes": 67428352,
+          "stable": true,
+          "metadata_changed": false,
+          "block_device": false,
+          "rdev": 0,
+          "mapping_length": 67425280
+        },
+        {
+          "path": "/proc/196080/cwd/overlaybd/../../../image-cache/commits/sha256-b41d71aeec46ef1eddf85cf1b37218347e69fd1596d6f1f12a44b62ca8726745/overlaybd.commit",
+          "device": 1796,
+          "inode": 1966184,
+          "size": 343725056,
+          "mtime_ns": 1794228147182440219,
+          "pages": 83918,
+          "resident_pages": 83918,
+          "resident_bytes": 343728128,
+          "stable": true,
+          "metadata_changed": false,
+          "block_device": false,
+          "rdev": 0,
+          "mapping_length": 343725056
+        },
+        {
+          "path": "/proc/196080/cwd/overlaybd/../../../image-cache/commits/sha256-90554cbe7fbf688442f46cdaf8f7d0083b323fd39a5ddae842a3ea12c1d0b377/overlaybd.commit",
+          "device": 1796,
+          "inode": 1966189,
+          "size": 67687424,
+          "mtime_ns": 1794228147946431532,
+          "pages": 16526,
+          "resident_pages": 16526,
+          "resident_bytes": 67690496,
+          "stable": true,
+          "metadata_changed": false,
+          "block_device": false,
+          "rdev": 0,
+          "mapping_length": 67687424
+        },
+        {
+          "path": "/proc/196080/cwd/overlaybd/../../../image-cache/commits/sha256-a1d824730ad24c420db8c4a0bf5a2faea8f39c9abcbd67c49bc24997ca50cc8e/overlaybd.commit",
+          "device": 1796,
+          "inode": 1966194,
+          "size": 46080,
+          "mtime_ns": 1794228148306427438,
+          "pages": 12,
+          "resident_pages": 12,
+          "resident_bytes": 49152,
+          "stable": true,
+          "metadata_changed": false,
+          "block_device": false,
+          "rdev": 0,
+          "mapping_length": 46080
+        },
+        {
+          "path": "/proc/196080/cwd/overlaybd/../../../image-cache/commits/sha256-4bb4e8a56e5400b762a6d198c2c88780116b32b6fdb23820252726c84b01ad86/overlaybd.commit",
+          "device": 1796,
+          "inode": 1966199,
+          "size": 113955840,
+          "mtime_ns": 1794228148727422651,
+          "pages": 27822,
+          "resident_pages": 27822,
+          "resident_bytes": 113958912,
+          "stable": true,
+          "metadata_changed": false,
+          "block_device": false,
+          "rdev": 0,
+          "mapping_length": 113955840
+        }
+      ],
+      "unique_files": 11,
+      "resident_bytes": 2693132288,
+      "start_monotonic_ns": 15307707304921,
+      "end_monotonic_ns": 15307767216697,
+      "cpu_ns": 59862969,
+      "counters_before": {
+        "current": 10198310912,
+        "file": 7766839296,
+        "anon": 2179420160,
+        "shmem": 8192,
+        "kernel": 239505408,
+        "file_mapped": 3276800,
+        "file_dirty": 26263552,
+        "file_writeback": 0
+      },
+      "counters_after": {
+        "current": 10198573056,
+        "file": 7766839296,
+        "anon": 2179420160,
+        "shmem": 8192,
+        "kernel": 239505408,
+        "file_mapped": 3276800,
+        "file_dirty": 26263552,
+        "file_writeback": 0
+      }
+    },
+    "cgroup": "/sys/fs/cgroup/asbhost.slice/asbhost-20261109t124210194940.slice",
+    "coverage_insufficient": false,
+    "scope": "N=1; initial immutable rootfs lowers deduplicated by device/inode. Upper and other backing unknown. PSS/current/file/mincore/guest Cached are separate quantities; never sum or infer savings from differences."
+  },
+  "host": {
+    "full": {
+      "samples": 3153,
+      "start_monotonic_ns": 14994090451812,
+      "end_monotonic_ns": 15309440428557,
+      "quantities": {
+        "current": {
+          "observed_peak_bytes": 10205593600,
+          "sample_median_bytes": 8609038336
+        },
+        "file": {
+          "observed_peak_bytes": 7768604672,
+          "sample_median_bytes": 7213477888
+        },
+        "anon": {
+          "observed_peak_bytes": 2185228288,
+          "sample_median_bytes": 1268617216
+        },
+        "kernel": {
+          "observed_peak_bytes": 239869952,
+          "sample_median_bytes": 219516928
+        },
+        "shmem": {
+          "observed_peak_bytes": 8192,
+          "sample_median_bytes": 8192
+        },
+        "file_dirty": {
+          "observed_peak_bytes": 4014776320,
+          "sample_median_bytes": 46526464
+        },
+        "file_writeback": {
+          "observed_peak_bytes": 43368448,
+          "sample_median_bytes": 0
+        }
+      },
+      "median_method": "Unweighted median of valid periodic samples; observed peaks may miss transients"
+    },
+    "task": {
+      "samples": 3092,
+      "start_monotonic_ns": 14998293869310,
+      "end_monotonic_ns": 15307637080243,
+      "quantities": {
+        "current": {
+          "observed_peak_bytes": 10200543232,
+          "sample_median_bytes": 8635224064.0
+        },
+        "file": {
+          "observed_peak_bytes": 7765561344,
+          "sample_median_bytes": 7218636800.0
+        }
+      },
+      "median_method": "Unweighted median of valid periodic samples; observed peaks may miss transients"
+    },
+    "replay": {
+      "samples": 2918,
+      "start_monotonic_ns": 15015308664443,
+      "end_monotonic_ns": 15307236796860,
+      "quantities": {
+        "current": {
+          "observed_peak_bytes": 10199887872,
+          "sample_median_bytes": 8957657088.0
+        },
+        "file": {
+          "observed_peak_bytes": 7764193280,
+          "sample_median_bytes": 7232598016.0
+        }
+      },
+      "median_method": "Unweighted median of valid periodic samples; observed peaks may miss transients"
+    },
+    "before_guest": {
+      "current": 613928960,
+      "file": 501870592,
+      "anon": 66248704,
+      "shmem": 0,
+      "kernel": 17072128,
+      "file_mapped": 339968,
+      "file_dirty": 225280,
+      "file_writeback": 0
+    },
+    "initial_host_sample": {
+      "monotonic_ns": "14994090451812",
+      "elapsed_ns": "257783",
+      "read_duration_ns": "270058",
+      "current": "12009472",
+      "file": "434176",
+      "anon": "9310208",
+      "shmem": "0",
+      "kernel": "1363968",
+      "file_mapped": "0",
+      "file_dirty": "413696",
+      "file_writeback": "0"
+    },
+    "cgroup": "/sys/fs/cgroup/asbhost.slice/asbhost-20261109t124210194940.slice"
+  },
+  "guest_memtotal_kib": 8156716,
+  "guest_monitor_profile": "light",
+  "native_meminfo_only": false,
+  "guest_used_peak_mib": 1823.26953125,
+  "guest_cached_peak_mib": 554.92578125,
+  "costs": {
+    "endpoint_setup": {
+      "status": "PASS",
+      "start_monotonic_ns": 15014176412160,
+      "end_monotonic_ns": 15014213408328,
+      "cpu_ns": 10523000,
+      "scope": "Control thread: VMM binding, initial lower identity inventory and periodic monitor launch; monitor thread CPU is separate"
+    },
+    "collectors": {
+      "host": {
+        "status": "PASS",
+        "error": null,
+        "cgroup": "/sys/fs/cgroup/asbhost.slice/asbhost-20261109t124210194940.slice",
+        "samples": 3153,
+        "interval_seconds": 0.1,
+        "pss_interval_seconds": null,
+        "thread_cpu_ns": 984606908,
+        "counter_read_total_ns": 779484200,
+        "elapsed_ns": 315350439381,
+        "max_sample_interval_ns": 100153465,
+        "scope": "Fresh rollout slice: input preparation, controller, private service and all its descendants; host file includes shmem, not guest Cached."
+      },
+      "guest": {
+        "status": "PASS",
+        "error": null,
+        "pid": 416,
+        "start_ticks": "178",
+        "boot_id": "82724a90-1433-4ce0-a3fa-b268a580cd56",
+        "sandbox_id": "01a1c054-db9b-7e33-b5bf-b507b9198726",
+        "role": "backbone",
+        "session_id": "09eceb89-e0ef-4ff7-9d00-6307a063f285",
+        "samples": 2909,
+        "interval_seconds": 0.1,
+        "elapsed_ns": 292264921527,
+        "max_sample_interval_ns": 132173957,
+        "cpu_user_seconds": 1.085813,
+        "cpu_system_seconds": 0.182148,
+        "maxrss_kib": 17392,
+        "scope": "guest logical counters; collector maxrss is not private memory; no physical deduplication",
+        "profile": "light"
+      },
+      "vmm": {
+        "status": "PASS",
+        "error": null,
+        "sandbox_id": "01a1c054-db9b-7e33-b5bf-b507b9198726",
+        "role": "single",
+        "session_id": "single",
+        "identity": {
+          "pid": 196080,
+          "start_ticks": "1501314",
+          "boot_id": "473aaa42-7b02-4400-9fad-4b75bae5d7b3",
+          "api_socket": "/proc/196080/root/workspace/env/firecracker-work/agentenv-fc-9GIh0z/firecracker.socket",
+          "cgroup": "/asbhost.slice/asbhost-20261109t124210194940.slice/docker-915ebe0788dd9f14ef3b79d2c687655662626f743b747f34ad296c412a428e5d.scope",
+          "binding_source": "owned service cgroup + Firecracker GET /mmds instanceID"
+        },
+        "samples": 2936,
+        "pss_samples": 294,
+        "interval_seconds": 0.1,
+        "pss_interval_seconds": 1,
+        "clock_ticks": 100,
+        "cpu_user_seconds": 1.442113,
+        "cpu_system_seconds": 5.188373,
+        "max_scan_duration_ns": 28251321,
+        "max_sample_interval_ns": 100154997,
+        "elapsed_ns": 293734443693,
+        "scope": "owned VMM process only; excludes shared service/block-provider processes; PSS is proportional residency, not unique physical file cache"
+      }
+    },
+    "endpoint_pss": {
+      "cpu_ns": 32647180,
+      "start_monotonic_ns": 15307673533742,
+      "end_monotonic_ns": 15307706569560
+    },
+    "endpoint_mincore": {
+      "cpu_ns": 59862969,
+      "start_monotonic_ns": 15307707304921,
+      "end_monotonic_ns": 15307767216697
+    },
+    "sampling_management_calls": [
+      {
+        "stage": "monitor-upload-bundle",
+        "start_monotonic_ns": 15015022487690,
+        "duration_ns": 35540110,
+        "exit_code": 0,
+        "call_timing_version": 2,
+        "command_start_monotonic_ns": 15015022569702,
+        "command_end_monotonic_ns": 15015057869455,
+        "command_duration_ns": 35299753,
+        "command_returned": true,
+        "stdout_log_start_monotonic_ns": 15015057877098,
+        "stdout_log_end_monotonic_ns": 15015058024846,
+        "stdout_log_duration_ns": 147748,
+        "stdout_log_completed": true,
+        "event_lock_wait_ns": 2204,
+        "events_log_duration_ns": 548115,
+        "events_log_completed": true,
+        "call_end_monotonic_ns": 15015058583924,
+        "call_elapsed_ns": 36096234
+      },
+      {
+        "stage": "monitor-ready",
+        "start_monotonic_ns": 15015059251379,
+        "duration_ns": 169042864,
+        "exit_code": 0,
+        "call_timing_version": 2,
+        "command_start_monotonic_ns": 15015059619795,
+        "command_end_monotonic_ns": 15015227948318,
+        "command_duration_ns": 168328523,
+        "command_returned": true,
+        "stdout_log_start_monotonic_ns": 15015227963201,
+        "stdout_log_end_monotonic_ns": 15015228290334,
+        "stdout_log_duration_ns": 327133,
+        "stdout_log_completed": true,
+        "event_lock_wait_ns": 2920,
+        "events_log_duration_ns": 708145,
+        "events_log_completed": true,
+        "call_end_monotonic_ns": 15015229012075,
+        "call_elapsed_ns": 169760696
+      },
+      {
+        "stage": "monitor-collect-09eceb89-e0ef-4ff7-9d00-6307a063f285",
+        "start_monotonic_ns": 15015059082574,
+        "duration_ns": 292451863087,
+        "exit_code": 0,
+        "call_timing_version": 2,
+        "command_start_monotonic_ns": 15015059385265,
+        "command_end_monotonic_ns": 15307510573072,
+        "command_duration_ns": 292451187807,
+        "command_returned": true,
+        "stdout_log_start_monotonic_ns": 15307510587869,
+        "stdout_log_end_monotonic_ns": 15307510941178,
+        "stdout_log_duration_ns": 353309,
+        "stdout_log_completed": true,
+        "event_lock_wait_ns": 3410,
+        "events_log_duration_ns": 851317,
+        "events_log_completed": true,
+        "call_end_monotonic_ns": 15307511809618,
+        "call_elapsed_ns": 292452727044
+      },
+      {
+        "stage": "monitor-finish",
+        "start_monotonic_ns": 15307336391016,
+        "duration_ns": 194733039,
+        "exit_code": 0,
+        "call_timing_version": 2,
+        "command_start_monotonic_ns": 15307336502874,
+        "command_end_monotonic_ns": 15307530792389,
+        "command_duration_ns": 194289515,
+        "command_returned": true,
+        "stdout_log_start_monotonic_ns": 15307530804509,
+        "stdout_log_end_monotonic_ns": 15307531120688,
+        "stdout_log_duration_ns": 316179,
+        "stdout_log_completed": true,
+        "event_lock_wait_ns": 2427,
+        "events_log_duration_ns": 818994,
+        "events_log_completed": true,
+        "call_end_monotonic_ns": 15307531952709,
+        "call_elapsed_ns": 195561693
+      },
+      {
+        "stage": "monitor-download",
+        "start_monotonic_ns": 15307532435853,
+        "duration_ns": 56706606,
+        "exit_code": 0,
+        "call_timing_version": 2,
+        "command_start_monotonic_ns": 15307532551418,
+        "command_end_monotonic_ns": 15307588931157,
+        "command_duration_ns": 56379739,
+        "command_returned": true,
+        "stdout_log_start_monotonic_ns": 15307588940558,
+        "stdout_log_end_monotonic_ns": 15307589139174,
+        "stdout_log_duration_ns": 198616,
+        "stdout_log_completed": true,
+        "event_lock_wait_ns": 2505,
+        "events_log_duration_ns": 730554,
+        "events_log_completed": true,
+        "call_end_monotonic_ns": 15307589884360,
+        "call_elapsed_ns": 57448507
+      }
+    ],
+    "interpretation": "Collector CPU and query wall/CPU are observed costs, not task slowdown; no extra control run"
+  },
+  "periodic_pss_observed_peak_bytes": 2082603008,
+  "periodic_pss_max_interval_ns": 1001204876,
+  "extra_management_queries": [],
+  "cleanup": {
+    "guest": {
+      "sandbox_removed": true,
+      "service_sandbox_list_empty": true
+    },
+    "native": {
+      "owned_container_removed": true,
+      "mount_and_loop_removed": true,
+      "successful_fixture_removed": true,
+      "original_firecracker_identities_unchanged": true,
+      "original_source_firecracker_identities_unchanged": true,
+      "original_service_unchanged": true
+    },
+    "relay_stopped": true
+  },
+  "external_firecracker_changes": {
+    "removed": [],
+    "added": [],
+    "scope": "observed host VM churn; functional validation checks owned/source resources, not host exclusivity or causal performance"
+  },
+  "raw_paths": {
+    "controller": "/home/rashen/work/AgentSandboxBench/.artifacts/storage-isolated-service/20261109T124211Z-195058/external-workload",
+    "native": "/home/rashen/work/AgentSandboxBench/.artifacts/storage-isolated-service/20261109T124211Z-195058",
+    "outer": "/home/rashen/work/AgentSandboxBench/results/external-five/20261109T124210Z-195034",
+    "primary": "/home/rashen/work/AgentSandboxWorkloadResults/results/agentenv/apache__logging-log4j2/runs/apache__logging-log4j2-20261025T055131Z-974499"
+  },
+  "source_sha256": {
+    "/home/rashen/work/AgentSandboxBench/.artifacts/storage-isolated-service/20261109T124211Z-195058/external-workload/reference-steps.csv": "31ef89108b1dac72d186851d070dc7ffab65b9c882b20c8381599681f04fb3d8",
+    "/home/rashen/work/AgentSandboxBench/.artifacts/storage-isolated-service/20261109T124211Z-195058/external-workload/reference-validation.json": "43aa7c61ee4f71f45e2b5f538abfe5ae5df998837b94d289179c447c7b14f677",
+    "/home/rashen/work/AgentSandboxBench/.artifacts/storage-isolated-service/20261109T124211Z-195058/external-workload/reference-oci-origin.json": "066710b9ec8b15324f366d7ce74cf5a59af77e3e377cc6067dc8cd77a7adcf45",
+    "/home/rashen/work/AgentSandboxBench/.artifacts/storage-isolated-service/20261109T124211Z-195058/external-workload/reference-run.json": "8225894bb7aff84d6961b095bd2e9155de0486842804e2667851e31be765d132",
+    "/home/rashen/work/AgentSandboxBench/results/external-five/20261109T124210Z-195034/report/summary.json": "648b0260001f368136dce5cfb796a837b5440b36e8b568791c0b54827aaf8b07",
+    "/home/rashen/work/AgentSandboxBench/.artifacts/storage-isolated-service/20261109T124211Z-195058/external-workload/result.json": "b66e5e544b7b3e7afdcaeb79294a5d67fade1b66b63257b4041eacf061100a69",
+    "/home/rashen/work/AgentSandboxBench/.artifacts/storage-isolated-service/20261109T124211Z-195058/result.json": "effb2af4d0bedaf6e529aaf207fcc6e8cd28376e9d904678aab04a7926995265",
+    "/home/rashen/work/AgentSandboxBench/results/external-five/20261109T124210Z-195034/result.json": "01046104565b0cd88f27c50beab7e232f3ce7286ed15b23709d6ce1b519b18ef",
+    "/home/rashen/work/AgentSandboxBench/.artifacts/storage-isolated-service/20261109T124211Z-195058/external-workload/tools.tsv": "87994f71b0b5e22a37f5c9848ca35031bde391a4cc2371d90ddea42ffbdbeb81",
+    "/home/rashen/work/AgentSandboxBench/.artifacts/storage-isolated-service/20261109T124211Z-195058/external-workload/events.json": "dfbb3aa0aa4ba22e32da68b5adc6c5450d10007876805625b72591a9817ace21",
+    "/home/rashen/work/AgentSandboxBench/.artifacts/storage-isolated-service/20261109T124211Z-195058/external-workload/endpoint.json": "ea30080e016de630d31fd27988f99eaf14e6d074765ba0265969a0af71629cf1",
+    "/home/rashen/work/AgentSandboxBench/.artifacts/storage-isolated-service/20261109T124211Z-195058/external-workload/initial-lowers.json": "fc2ca5c75a291cfc03120509e28f1c10466d9ccb6537dddf51b2c0b6017d7c9d",
+    "/home/rashen/work/AgentSandboxBench/.artifacts/storage-isolated-service/20261109T124211Z-195058/external-workload/runtime/01a1c054-db9b-7e33-b5bf-b507b9198726/09eceb89-e0ef-4ff7-9d00-6307a063f285/guest-memory.tsv": "5b825dd79d304dae09e07471388a00fb6f21c2d3f2b6994738f6c237b9742a77",
+    "/home/rashen/work/AgentSandboxBench/results/external-five/20261109T124210Z-195034/host-file/memory.tsv": "fd982fafc4931033ba17fe542d2486f6c3cc8aabb92901b3086bf945a8cf821c",
+    "/home/rashen/work/AgentSandboxBench/.artifacts/storage-isolated-service/20261109T124211Z-195058/external-workload/vmm/host-vmm.tsv": "d36394c9537d02cc4114aa1f66827895ba03914ec6d80aaa8eabd3d5de438a2e",
+    "/home/rashen/work/AgentSandboxBench/.artifacts/storage-isolated-service/20261109T124211Z-195058/external-workload/validation-download/validation.exit": "85a0e6eb5530a682fa88345a5e7a144248f49e5b71b3eb587a9db5cd2957495a",
+    "/home/rashen/work/AgentSandboxBench/.artifacts/storage-isolated-service/20261109T124211Z-195058/external-workload/validation-download/validation.stdout": "13a39168195697a7050d154d40f2db7a2fcbd6da3e3d5c1e89ce147ad4876600",
+    "/home/rashen/work/AgentSandboxBench/.artifacts/storage-isolated-service/20261109T124211Z-195058/external-workload/validation-download/validation.stderr": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "previous_failed_attempts": [],
+  "current_run_is_corrective": false,
+  "published_files": {
+    "guest.svg": {
+      "source": "/home/rashen/work/AgentSandboxBench/results/external-five/20261109T124210Z-195034/report/guest.svg",
+      "sha256": "354214440492f373006b81e98df3917a122dcf66ffa2526b7f041377da1d3324",
+      "bytes": 94849
+    },
+    "pss.svg": {
+      "source": "/home/rashen/work/AgentSandboxBench/results/external-five/20261109T124210Z-195034/report/pss.svg",
+      "sha256": "192f032e9544d5309c99dab5c2c7df8df3bd1197fff4e8947030318fd781dab7",
+      "bytes": 36287
+    },
+    "host.svg": {
+      "source": "/home/rashen/work/AgentSandboxBench/results/external-five/20261109T124210Z-195034/report/host/overview.svg",
+      "sha256": "1ff8f784c6fb70ddbbfef41a89bd184c0a6abb31b360d450238459588b2954a3",
+      "bytes": 91301
+    },
+    "tools.tsv": {
+      "source": "/home/rashen/work/AgentSandboxBench/.artifacts/storage-isolated-service/20261109T124211Z-195058/external-workload/tools.tsv",
+      "sha256": "87994f71b0b5e22a37f5c9848ca35031bde391a4cc2371d90ddea42ffbdbeb81",
+      "bytes": 436
+    }
+  }
+}

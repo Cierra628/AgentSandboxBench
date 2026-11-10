@@ -1,0 +1,1537 @@
+{
+  "task_id": "compile-compcert",
+  "label": "CompCert 编译",
+  "original_controller_status": "PASS",
+  "original_native_status": "PASS",
+  "original_outer_status": "PASS",
+  "original_measurement_status": "COMPLETE",
+  "original_error": null,
+  "original_lifecycle_pass": true,
+  "trace_exit_match": true,
+  "original_files_match": true,
+  "actions": 318,
+  "expected_nonzero": [
+    {
+      "step": 1,
+      "exit_code": 2
+    },
+    {
+      "step": 2,
+      "exit_code": 1
+    },
+    {
+      "step": 10,
+      "exit_code": 8
+    },
+    {
+      "step": 22,
+      "exit_code": 2
+    },
+    {
+      "step": 28,
+      "exit_code": 1
+    },
+    {
+      "step": 56,
+      "exit_code": 8
+    },
+    {
+      "step": 58,
+      "exit_code": 2
+    },
+    {
+      "step": 61,
+      "exit_code": 127
+    },
+    {
+      "step": 65,
+      "exit_code": 1
+    },
+    {
+      "step": 66,
+      "exit_code": 1
+    },
+    {
+      "step": 71,
+      "exit_code": 126
+    },
+    {
+      "step": 87,
+      "exit_code": 2
+    },
+    {
+      "step": 89,
+      "exit_code": 1
+    },
+    {
+      "step": 103,
+      "exit_code": 2
+    },
+    {
+      "step": 105,
+      "exit_code": 1
+    },
+    {
+      "step": 107,
+      "exit_code": 127
+    },
+    {
+      "step": 113,
+      "exit_code": 1
+    },
+    {
+      "step": 114,
+      "exit_code": 1
+    },
+    {
+      "step": 115,
+      "exit_code": 1
+    },
+    {
+      "step": 117,
+      "exit_code": 8
+    },
+    {
+      "step": 118,
+      "exit_code": 1
+    },
+    {
+      "step": 136,
+      "exit_code": 2
+    },
+    {
+      "step": 161,
+      "exit_code": 1
+    },
+    {
+      "step": 166,
+      "exit_code": 1
+    },
+    {
+      "step": 179,
+      "exit_code": 1
+    },
+    {
+      "step": 191,
+      "exit_code": 1
+    },
+    {
+      "step": 207,
+      "exit_code": 1
+    },
+    {
+      "step": 228,
+      "exit_code": 1
+    },
+    {
+      "step": 248,
+      "exit_code": 1
+    },
+    {
+      "step": 260,
+      "exit_code": 1
+    },
+    {
+      "step": 265,
+      "exit_code": 1
+    },
+    {
+      "step": 293,
+      "exit_code": 2
+    },
+    {
+      "step": 295,
+      "exit_code": 2
+    }
+  ],
+  "original_checker": {
+    "exit_code": 0,
+    "status": "PASS",
+    "command": "set -e\nexport PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin\ncd /tmp/CompCert\n./ccomp -version\nprintf 'int main(void) { return 6*7 == 42 ? 0 : 1; }\\n' > /tmp/asbp_smoke.c\n./ccomp /tmp/asbp_smoke.c -o /tmp/asbp_smoke\n/tmp/asbp_smoke\n",
+    "scope": "local artifact/smoke check only; recorded trajectory completion is independent of official benchmark correctness",
+    "actual_exit_code": 0,
+    "actual_status": "PASS"
+  },
+  "functional_evidence": {
+    "background_waits": [
+      [
+        "86",
+        "88",
+        "265715099730",
+        "272674952152",
+        "0"
+      ],
+      [
+        "102",
+        "107",
+        "479520513487",
+        "479522593868",
+        "0"
+      ],
+      [
+        "132",
+        "134",
+        "752062144132",
+        "752064266486",
+        "0"
+      ],
+      [
+        "174",
+        "176",
+        "1021180873702",
+        "1021184257218",
+        "0"
+      ],
+      [
+        "241",
+        "245",
+        "1375892394452",
+        "1437435735952",
+        "0"
+      ],
+      [
+        "258",
+        "260",
+        "1500440878282",
+        "1500443222689",
+        "0"
+      ],
+      [
+        "273",
+        "276",
+        "1831853634266",
+        "1831854273854",
+        "0"
+      ],
+      [
+        "276",
+        "278",
+        "2031867422791",
+        "2031868027401",
+        "0"
+      ],
+      [
+        "299",
+        "304",
+        "2045366941532",
+        "2093866407843",
+        "0"
+      ]
+    ],
+    "compiler_smoke": "ORIGINAL_CHECKER"
+  },
+  "measurement_evidence_complete": true,
+  "exact_primary_oci": true,
+  "actual_oci": {
+    "status": "VERIFIED",
+    "layout": "/home/rashen/work/AgentSandboxBench/.artifacts/external-five-recovery-20261106/dockerproxy.net/compile-compcert",
+    "manifest_digest": "sha256:f60236a4fe55bbb3c573210fe0fcd91551f4ee97c417453cd4985be074b35411",
+    "config_digest": "sha256:773582f15daca73360cd02f77d61626cd90ca0ff5b13c474500c41234c7d59f5",
+    "layers": 3,
+    "scope": "Exact primary manifest/config/layer digests; native conversion unchanged",
+    "primary_verification": null
+  },
+  "primary_manifest": "sha256:f60236a4fe55bbb3c573210fe0fcd91551f4ee97c417453cd4985be074b35411",
+  "source_image": "docker.io/alexgshaw/compile-compcert@sha256:f60236a4fe55bbb3c573210fe0fcd91551f4ee97c417453cd4985be074b35411",
+  "runtime_image": "docker.io/alexgshaw/compile-compcert@sha256:f60236a4fe55bbb3c573210fe0fcd91551f4ee97c417453cd4985be074b35411",
+  "rebuilt_local_image": null,
+  "rebuilt_origin_receipt": null,
+  "primary_run": "results/agentenv/compile-compcert/runs/compile-compcert-20261025T060658Z-978362",
+  "input_sha256": {
+    "run.json": "2a76b82ec811db516dc0a4dff310d61c834c32c3b76945061e9f2187c4969b26",
+    "replay-inputs.json": "db2b789b6c9a85f048bff2955366ac9ad624d7983f022b4153b94f28320e03a3",
+    "steps.csv": "7074f2d96a2ec09acd9e652a9e1b6de2f25fd438def545e92ab4c5ce6746524e",
+    "validation.json": "16b87f80f5f29f76642b943bb777210374b84a1089de79d8ce15fd4918ab18db",
+    "oci-origin.json": "54b3fcfa44060938948f2152685c272da56b85311441129407993ae0a0bc4ce3"
+  },
+  "helper_sha256": {
+    "clock_ns.c": "c07105c6d999ea7c238b658ae5076c22fe7fe9f91ca78df30d807dbd4e496836",
+    "file_reader.c": "2817095806d06a0a25a300c85fc7f724e2515110fe70dc7d42f6a6a4444479e9"
+  },
+  "sandbox_id": "01a1c05e-5db7-76a0-a215-559fcfb5bddb",
+  "memory_mib": 32768,
+  "cpu": 2,
+  "task_duration_ns": 2097039110744,
+  "tool_cumulative_ns": 1975020215218,
+  "controller_elapsed_ns": 2098134194094,
+  "outer_elapsed_ns": 2101462798653,
+  "replay_duration_ns": 2092583659994,
+  "download_duration_ns": 332574497,
+  "cold_create_event": {
+    "stage": "cold-create",
+    "start_monotonic_ns": 15634363689440,
+    "duration_ns": 2740439649,
+    "exit_code": 0,
+    "call_timing_version": 2,
+    "command_start_monotonic_ns": 15634363738896,
+    "command_end_monotonic_ns": 15637103743224,
+    "command_duration_ns": 2740004328,
+    "command_returned": true,
+    "stdout_log_start_monotonic_ns": 15637103757525,
+    "stdout_log_end_monotonic_ns": 15637104124917,
+    "stdout_log_duration_ns": 367392,
+    "stdout_log_completed": true,
+    "event_lock_wait_ns": 2967,
+    "events_log_duration_ns": 528859,
+    "events_log_completed": true,
+    "call_end_monotonic_ns": 15637104668128,
+    "call_elapsed_ns": 2740978688
+  },
+  "endpoint": {
+    "status": "OBSERVED",
+    "pss": {
+      "start_monotonic_ns": 17731098451296,
+      "end_monotonic_ns": 17731136845969,
+      "cpu_ns": 38189979,
+      "denominator": 1,
+      "per_sandbox_bytes": 3531280384,
+      "process": {
+        "start_ticks": "1563626",
+        "user_ticks": 188295,
+        "system_ticks": 7241,
+        "rss_kib": 3448572,
+        "read_bytes": 5483056128,
+        "write_bytes": 10259095552,
+        "rchar": 581428307,
+        "wchar": 11836055,
+        "pss_kib": 3448516,
+        "pss_anon_kib": 3445664,
+        "pss_file_kib": 2844,
+        "pss_shmem_kib": 8,
+        "pss_scan_duration_ns": 36448924
+      },
+      "identity": {
+        "pid": 213530,
+        "start_ticks": "1563626",
+        "boot_id": "473aaa42-7b02-4400-9fad-4b75bae5d7b3",
+        "api_socket": "/proc/213530/root/workspace/env/firecracker-work/agentenv-fc-4irrFA/firecracker.socket",
+        "cgroup": "/asbhost.slice/asbhost-20261109t125247212576.slice/docker-a350bf4486b9b31ed6da7b84a896ae73730bdb7d421a2a50c6e62cc9a39ef888.scope",
+        "binding_source": "owned service cgroup + Firecracker GET /mmds instanceID"
+      }
+    },
+    "p1": {
+      "files": [
+        {
+          "path": "/proc/213530/cwd/overlaybd/../../../image-cache/commits/sha256-91b0fe33dc54b6cf3e851a8b645fe164b35b5e8db7dda34ba7f7d35882f439d6/overlaybd.commit",
+          "device": 1796,
+          "inode": 1441846,
+          "size": 159992832,
+          "mtime_ns": 1794228771311343097,
+          "pages": 39061,
+          "resident_pages": 39061,
+          "resident_bytes": 159993856,
+          "stable": true,
+          "metadata_changed": false,
+          "block_device": false,
+          "rdev": 0,
+          "mapping_length": 159992832
+        },
+        {
+          "path": "/proc/213530/cwd/overlaybd/../../../image-cache/commits/sha256-1cb8c13998d1f1cbeff3c8be42467c502d88717ff706578767eb8add562fdad9/overlaybd.commit",
+          "device": 1796,
+          "inode": 1441858,
+          "size": 67818496,
+          "mtime_ns": 1794228771773337843,
+          "pages": 16558,
+          "resident_pages": 16558,
+          "resident_bytes": 67821568,
+          "stable": true,
+          "metadata_changed": false,
+          "block_device": false,
+          "rdev": 0,
+          "mapping_length": 67818496
+        },
+        {
+          "path": "/proc/213530/cwd/overlaybd/../../../image-cache/commits/sha256-b6aa054251f1173521b0b53ff6c2b63b1fdcda55598b53b2168d823e8eb72a42/overlaybd.commit",
+          "device": 1796,
+          "inode": 1441863,
+          "size": 67556352,
+          "mtime_ns": 1794228772096334170,
+          "pages": 16494,
+          "resident_pages": 16494,
+          "resident_bytes": 67559424,
+          "stable": true,
+          "metadata_changed": false,
+          "block_device": false,
+          "rdev": 0,
+          "mapping_length": 67556352
+        }
+      ],
+      "unique_files": 3,
+      "resident_bytes": 295374848,
+      "start_monotonic_ns": 17731136975044,
+      "end_monotonic_ns": 17731142320769,
+      "cpu_ns": 5346761,
+      "counters_before": {
+        "current": 17171578880,
+        "file": 13094203392,
+        "anon": 3642441728,
+        "shmem": 8192,
+        "kernel": 431915008,
+        "file_mapped": 3276800,
+        "file_dirty": 92708864,
+        "file_writeback": 0
+      },
+      "counters_after": {
+        "current": 17171578880,
+        "file": 13094203392,
+        "anon": 3642441728,
+        "shmem": 8192,
+        "kernel": 431915008,
+        "file_mapped": 3276800,
+        "file_dirty": 92708864,
+        "file_writeback": 0
+      }
+    },
+    "cgroup": "/sys/fs/cgroup/asbhost.slice/asbhost-20261109t125247212576.slice",
+    "coverage_insufficient": false,
+    "scope": "N=1; initial immutable rootfs lowers deduplicated by device/inode. Upper and other backing unknown. PSS/current/file/mincore/guest Cached are separate quantities; never sum or infer savings from differences."
+  },
+  "host": {
+    "full": {
+      "samples": 21000,
+      "start_monotonic_ns": 15631644145313,
+      "end_monotonic_ns": 17733104099025,
+      "quantities": {
+        "current": {
+          "observed_peak_bytes": 23121809408,
+          "sample_median_bytes": 13674885120.0
+        },
+        "file": {
+          "observed_peak_bytes": 13099704320,
+          "sample_median_bytes": 10818994176.0
+        },
+        "anon": {
+          "observed_peak_bytes": 9790902272,
+          "sample_median_bytes": 2544123904.0
+        },
+        "kernel": {
+          "observed_peak_bytes": 437530624,
+          "sample_median_bytes": 338980864.0
+        },
+        "shmem": {
+          "observed_peak_bytes": 8192,
+          "sample_median_bytes": 8192.0
+        },
+        "file_dirty": {
+          "observed_peak_bytes": 1033289728,
+          "sample_median_bytes": 9158656.0
+        },
+        "file_writeback": {
+          "observed_peak_bytes": 25165824,
+          "sample_median_bytes": 0.0
+        }
+      },
+      "median_method": "Unweighted median of valid periodic samples; observed peaks may miss transients"
+    },
+    "task": {
+      "samples": 20954,
+      "start_monotonic_ns": 15634146103207,
+      "end_monotonic_ns": 17731090498040,
+      "quantities": {
+        "current": {
+          "observed_peak_bytes": 23121809408,
+          "sample_median_bytes": 13674885120.0
+        },
+        "file": {
+          "observed_peak_bytes": 13094203392,
+          "sample_median_bytes": 10818998272.0
+        }
+      },
+      "median_method": "Unweighted median of valid periodic samples; observed peaks may miss transients"
+    },
+    "replay": {
+      "samples": 20910,
+      "start_monotonic_ns": 15638149335005,
+      "end_monotonic_ns": 17730690228372,
+      "quantities": {
+        "current": {
+          "observed_peak_bytes": 23121809408,
+          "sample_median_bytes": 13674917888.0
+        },
+        "file": {
+          "observed_peak_bytes": 13085978624,
+          "sample_median_bytes": 10819063808.0
+        }
+      },
+      "median_method": "Unweighted median of valid periodic samples; observed peaks may miss transients"
+    },
+    "before_guest": {
+      "current": 428109824,
+      "file": 314019840,
+      "anon": 70078464,
+      "shmem": 0,
+      "kernel": 17559552,
+      "file_mapped": 339968,
+      "file_dirty": 225280,
+      "file_writeback": 0
+    },
+    "initial_host_sample": {
+      "monotonic_ns": "15631644145313",
+      "elapsed_ns": "213455",
+      "read_duration_ns": "341372",
+      "current": "15491072",
+      "file": "425984",
+      "anon": "12541952",
+      "shmem": "0",
+      "kernel": "1134592",
+      "file_mapped": "0",
+      "file_dirty": "413696",
+      "file_writeback": "0"
+    },
+    "cgroup": "/sys/fs/cgroup/asbhost.slice/asbhost-20261109t125247212576.slice"
+  },
+  "guest_memtotal_kib": 32892444,
+  "guest_monitor_profile": "light",
+  "native_meminfo_only": true,
+  "guest_used_peak_mib": 8175.0703125,
+  "guest_cached_peak_mib": 1797.65625,
+  "costs": {
+    "endpoint_setup": {
+      "status": "PASS",
+      "start_monotonic_ns": 15637253090771,
+      "end_monotonic_ns": 15637296621469,
+      "cpu_ns": 8523966,
+      "scope": "Control thread: VMM binding, initial lower identity inventory and periodic monitor launch; monitor thread CPU is separate"
+    },
+    "collectors": {
+      "host": {
+        "status": "PASS",
+        "error": null,
+        "cgroup": "/sys/fs/cgroup/asbhost.slice/asbhost-20261109t125247212576.slice",
+        "samples": 21000,
+        "interval_seconds": 0.1,
+        "pss_interval_seconds": null,
+        "thread_cpu_ns": 6311671615,
+        "counter_read_total_ns": 4982288337,
+        "elapsed_ns": 2101460260134,
+        "max_sample_interval_ns": 101692771,
+        "scope": "Fresh rollout slice: input preparation, controller, private service and all its descendants; host file includes shmem, not guest Cached."
+      },
+      "guest": {
+        "status": "PASS",
+        "pid": 355,
+        "sandbox_id": "01a1c05e-5db7-76a0-a215-559fcfb5bddb",
+        "session_id": "c56c4586-a465-4d17-b32b-0deaed5ee7dc",
+        "samples": 20888,
+        "interval_seconds": 0.1,
+        "elapsed_ns": 2092704160657,
+        "max_sample_interval_ns": 125598227,
+        "cpu_user_seconds": 1.044016,
+        "cpu_system_seconds": 0.844439,
+        "maxrss_kib": 15708
+      },
+      "vmm": {
+        "status": "PASS",
+        "error": null,
+        "sandbox_id": "01a1c05e-5db7-76a0-a215-559fcfb5bddb",
+        "role": "single",
+        "session_id": "single",
+        "identity": {
+          "pid": 213530,
+          "start_ticks": "1563626",
+          "boot_id": "473aaa42-7b02-4400-9fad-4b75bae5d7b3",
+          "api_socket": "/proc/213530/root/workspace/env/firecracker-work/agentenv-fc-4irrFA/firecracker.socket",
+          "cgroup": "/asbhost.slice/asbhost-20261109t125247212576.slice/docker-a350bf4486b9b31ed6da7b84a896ae73730bdb7d421a2a50c6e62cc9a39ef888.scope",
+          "binding_source": "owned service cgroup + Firecracker GET /mmds instanceID"
+        },
+        "samples": 20926,
+        "pss_samples": 2093,
+        "interval_seconds": 0.1,
+        "pss_interval_seconds": 1,
+        "clock_ticks": 100,
+        "cpu_user_seconds": 8.847169,
+        "cpu_system_seconds": 88.76834,
+        "max_scan_duration_ns": 105169231,
+        "max_sample_interval_ns": 105233429,
+        "elapsed_ns": 2094206458834,
+        "scope": "owned VMM process only; excludes shared service/block-provider processes; PSS is proportional residency, not unique physical file cache"
+      }
+    },
+    "endpoint_pss": {
+      "cpu_ns": 38189979,
+      "start_monotonic_ns": 17731098451296,
+      "end_monotonic_ns": 17731136845969
+    },
+    "endpoint_mincore": {
+      "cpu_ns": 5346761,
+      "start_monotonic_ns": 17731136975044,
+      "end_monotonic_ns": 17731142320769
+    },
+    "sampling_management_calls": [
+      {
+        "stage": "monitor-upload-bundle",
+        "start_monotonic_ns": 15637908540850,
+        "duration_ns": 45131069,
+        "exit_code": 0,
+        "call_timing_version": 2,
+        "command_start_monotonic_ns": 15637908633110,
+        "command_end_monotonic_ns": 15637953442086,
+        "command_duration_ns": 44808976,
+        "command_returned": true,
+        "stdout_log_start_monotonic_ns": 15637953452263,
+        "stdout_log_end_monotonic_ns": 15637953669091,
+        "stdout_log_duration_ns": 216828,
+        "stdout_log_completed": true,
+        "event_lock_wait_ns": 2036,
+        "events_log_duration_ns": 716917,
+        "events_log_completed": true,
+        "call_end_monotonic_ns": 15637954397628,
+        "call_elapsed_ns": 45856778
+      },
+      {
+        "stage": "monitor-prepare-binary",
+        "start_monotonic_ns": 15637954437025,
+        "duration_ns": 30060828,
+        "exit_code": 0,
+        "call_timing_version": 2,
+        "command_start_monotonic_ns": 15637954532071,
+        "command_end_monotonic_ns": 15637984334112,
+        "command_duration_ns": 29802041,
+        "command_returned": true,
+        "stdout_log_start_monotonic_ns": 15637984342062,
+        "stdout_log_end_monotonic_ns": 15637984495073,
+        "stdout_log_duration_ns": 153011,
+        "stdout_log_completed": true,
+        "event_lock_wait_ns": 1960,
+        "events_log_duration_ns": 712829,
+        "events_log_completed": true,
+        "call_end_monotonic_ns": 15637985229605,
+        "call_elapsed_ns": 30792580
+      },
+      {
+        "stage": "monitor-directory",
+        "start_monotonic_ns": 15637985263190,
+        "duration_ns": 34904471,
+        "exit_code": 0,
+        "call_timing_version": 2,
+        "command_start_monotonic_ns": 15637985361033,
+        "command_end_monotonic_ns": 15638019950863,
+        "command_duration_ns": 34589830,
+        "command_returned": true,
+        "stdout_log_start_monotonic_ns": 15638019960913,
+        "stdout_log_end_monotonic_ns": 15638020164613,
+        "stdout_log_duration_ns": 203700,
+        "stdout_log_completed": true,
+        "event_lock_wait_ns": 2026,
+        "events_log_duration_ns": 780461,
+        "events_log_completed": true,
+        "call_end_monotonic_ns": 15638020956629,
+        "call_elapsed_ns": 35693439
+      },
+      {
+        "stage": "monitor-ready",
+        "start_monotonic_ns": 15638021565285,
+        "duration_ns": 88873219,
+        "exit_code": 0,
+        "call_timing_version": 2,
+        "command_start_monotonic_ns": 15638021831603,
+        "command_end_monotonic_ns": 15638110202847,
+        "command_duration_ns": 88371244,
+        "command_returned": true,
+        "stdout_log_start_monotonic_ns": 15638110213630,
+        "stdout_log_end_monotonic_ns": 15638110435348,
+        "stdout_log_duration_ns": 221718,
+        "stdout_log_completed": true,
+        "event_lock_wait_ns": 1917,
+        "events_log_duration_ns": 821974,
+        "events_log_completed": true,
+        "call_end_monotonic_ns": 15638111268955,
+        "call_elapsed_ns": 89703670
+      },
+      {
+        "stage": "monitor-finish",
+        "start_monotonic_ns": 17730695622473,
+        "duration_ns": 18685440,
+        "exit_code": 0,
+        "call_timing_version": 2,
+        "command_start_monotonic_ns": 17730695656592,
+        "command_end_monotonic_ns": 17730714258160,
+        "command_duration_ns": 18601568,
+        "command_returned": true,
+        "stdout_log_start_monotonic_ns": 17730714260957,
+        "stdout_log_end_monotonic_ns": 17730714307088,
+        "stdout_log_duration_ns": 46131,
+        "stdout_log_completed": true,
+        "event_lock_wait_ns": 620,
+        "events_log_duration_ns": 220334,
+        "events_log_completed": true,
+        "call_end_monotonic_ns": 17730714531197,
+        "call_elapsed_ns": 18908724
+      },
+      {
+        "stage": "monitor-collect-c56c4586-a465-4d17-b32b-0deaed5ee7dc",
+        "start_monotonic_ns": 15638021401491,
+        "duration_ns": 2092715883944,
+        "exit_code": 0,
+        "call_timing_version": 2,
+        "command_start_monotonic_ns": 15638021700464,
+        "command_end_monotonic_ns": 17730737161421,
+        "command_duration_ns": 2092715460957,
+        "command_returned": true,
+        "stdout_log_start_monotonic_ns": 17730737167825,
+        "stdout_log_end_monotonic_ns": 17730737284281,
+        "stdout_log_duration_ns": 116456,
+        "stdout_log_completed": true,
+        "event_lock_wait_ns": 840,
+        "events_log_duration_ns": 292232,
+        "events_log_completed": true,
+        "call_end_monotonic_ns": 17730737581290,
+        "call_elapsed_ns": 2092716179799
+      },
+      {
+        "stage": "monitor-download",
+        "start_monotonic_ns": 17730737694567,
+        "duration_ns": 27468122,
+        "exit_code": 0,
+        "call_timing_version": 2,
+        "command_start_monotonic_ns": 17730737742128,
+        "command_end_monotonic_ns": 17730765093637,
+        "command_duration_ns": 27351509,
+        "command_returned": true,
+        "stdout_log_start_monotonic_ns": 17730765096626,
+        "stdout_log_end_monotonic_ns": 17730765161949,
+        "stdout_log_duration_ns": 65323,
+        "stdout_log_completed": true,
+        "event_lock_wait_ns": 425,
+        "events_log_duration_ns": 225355,
+        "events_log_completed": true,
+        "call_end_monotonic_ns": 17730765390419,
+        "call_elapsed_ns": 27695852
+      }
+    ],
+    "interpretation": "Collector CPU and query wall/CPU are observed costs, not task slowdown; no extra control run"
+  },
+  "periodic_pss_observed_peak_bytes": 9678340096,
+  "periodic_pss_max_interval_ns": 1006325465,
+  "extra_management_queries": [
+    {
+      "kind": "READ_ONLY_PROGRESS_QUERY",
+      "business_actions_reexecuted": 0,
+      "sandbox_id": "01a1c05e-5db7-76a0-a215-559fcfb5bddb",
+      "start_monotonic_ns": 16202508585543,
+      "end_monotonic_ns": 16202565125208,
+      "wall_ns": 56539665,
+      "parent_cpu_ns": 844775,
+      "child_user_seconds": 0.022135,
+      "child_system_seconds": 0.008661,
+      "exit_code": 0,
+      "stdout": "MemTotal:       32892444 kB\ncompleted tools (tail):\n113\t563918802096\t563942893977\t24091881\t1\n114\t563944925219\t563956752780\t11827561\t1\n115\t563958713860\t563973764550\t15050690\t1\n116\t563975684142\t564262830418\t287146276\t0\n117\t564263835111\t565432160392\t1168325281\t8\ncompleted dependency waits (tail):\n86\t88\t265715099730\t272674952152\t0\n102\t107\t479520513487\t479522593868\t0\n",
+      "stderr": "",
+      "scope": "One diagnostic read outside benchmark tool timing and collector CPU; original trace unchanged"
+    },
+    {
+      "kind": "READ_ONLY_PROGRESS_QUERY",
+      "business_actions_reexecuted": 0,
+      "sandbox_id": "01a1c05e-5db7-76a0-a215-559fcfb5bddb",
+      "start_monotonic_ns": 16522667357959,
+      "end_monotonic_ns": 16522743576420,
+      "wall_ns": 76218461,
+      "parent_cpu_ns": 658111,
+      "child_user_seconds": 0.025394,
+      "child_system_seconds": 0.004063,
+      "exit_code": 0,
+      "stdout": "MemTotal:       32892444 kB\ncompleted tools (tail):\n170\t780265243426\t780270842595\t5599169\t0\n171\t780271565277\t780438432316\t166867039\t0\n172\t780439219616\t780505553875\t66334259\t0\n173\t780506380640\t781153917143\t647536503\t0\n174\t781154626310\t781156619044\t1992734\t0\ncompleted dependency waits (tail):\n86\t88\t265715099730\t272674952152\t0\n102\t107\t479520513487\t479522593868\t0\n132\t134\t752062144132\t752064266486\t0\n",
+      "stderr": "",
+      "scope": "One diagnostic read outside benchmark tool timing and collector CPU; original trace unchanged"
+    },
+    {
+      "kind": "READ_ONLY_PROGRESS_QUERY",
+      "business_actions_reexecuted": 0,
+      "sandbox_id": "01a1c05e-5db7-76a0-a215-559fcfb5bddb",
+      "start_monotonic_ns": 16897739866233,
+      "end_monotonic_ns": 16897896530090,
+      "wall_ns": 156663857,
+      "parent_cpu_ns": 686318,
+      "child_user_seconds": 0.025071,
+      "child_system_seconds": 0.005222999999999999,
+      "exit_code": 0,
+      "stdout": "MemTotal:       32892444 kB\ncompleted tools (tail):\n238\t1179814659806\t1179856400093\t41740287\t0\n239\t1179856851706\t1179858822578\t1970872\t0\n240\t1179859261110\t1180616399922\t757138812\t0\n241\t1180618017806\t1180624149534\t6131728\t0\n242\t1180626306602\t1255686222495\t75059915893\t0\ncompleted dependency waits (tail):\n86\t88\t265715099730\t272674952152\t0\n102\t107\t479520513487\t479522593868\t0\n132\t134\t752062144132\t752064266486\t0\n174\t176\t1021180873702\t1021184257218\t0\n",
+      "stderr": "",
+      "scope": "One diagnostic read outside benchmark tool timing and collector CPU; original trace unchanged"
+    },
+    {
+      "kind": "READ_ONLY_PROGRESS_QUERY",
+      "business_actions_reexecuted": 0,
+      "sandbox_id": "01a1c05e-5db7-76a0-a215-559fcfb5bddb",
+      "start_monotonic_ns": 17232208186765,
+      "end_monotonic_ns": 17232346442678,
+      "wall_ns": 138255913,
+      "parent_cpu_ns": 428699,
+      "child_user_seconds": 0.021127,
+      "child_system_seconds": 0.008048,
+      "exit_code": 0,
+      "stdout": "MemTotal:       32892444 kB\ncompleted tools (tail):\n270\t1501629834103\t1501670481862\t40647759\t0\n271\t1501672207121\t1501694007491\t21800370\t0\n272\t1501695285999\t1501712754594\t17468595\t0\n273\t1501714237668\t1501718752988\t4515320\t0\n274\t1501720095836\t1591792804330\t90072708494\t0\ncompleted dependency waits (tail):\n132\t134\t752062144132\t752064266486\t0\n174\t176\t1021180873702\t1021184257218\t0\n241\t245\t1375892394452\t1437435735952\t0\n258\t260\t1500440878282\t1500443222689\t0\n",
+      "stderr": "",
+      "scope": "One diagnostic read outside benchmark tool timing and collector CPU; original trace unchanged"
+    },
+    {
+      "kind": "READ_ONLY_PROGRESS_QUERY",
+      "business_actions_reexecuted": 0,
+      "sandbox_id": "01a1c05e-5db7-76a0-a215-559fcfb5bddb",
+      "start_monotonic_ns": 17502903267370,
+      "end_monotonic_ns": 17502929340109,
+      "wall_ns": 26072739,
+      "parent_cpu_ns": 416689,
+      "child_user_seconds": 0.014606,
+      "child_system_seconds": 0.001825,
+      "exit_code": 0,
+      "stdout": "MemTotal:       32892444 kB\ncompleted tools (tail):\n272\t1501695285999\t1501712754594\t17468595\t0\n273\t1501714237668\t1501718752988\t4515320\t0\n274\t1501720095836\t1591792804330\t90072708494\t0\n275\t1591812405551\t1831852651864\t240040246313\t0\n276\t1831855629144\t1831858349140\t2719996\t0\ncompleted dependency waits (tail):\n174\t176\t1021180873702\t1021184257218\t0\n241\t245\t1375892394452\t1437435735952\t0\n258\t260\t1500440878282\t1500443222689\t0\n273\t276\t1831853634266\t1831854273854\t0\n",
+      "stderr": "",
+      "scope": "One diagnostic read outside benchmark tool timing and collector CPU; original trace unchanged"
+    }
+  ],
+  "cleanup": {
+    "guest": {
+      "sandbox_removed": true,
+      "service_sandbox_list_empty": true
+    },
+    "native": {
+      "owned_container_removed": true,
+      "mount_and_loop_removed": true,
+      "successful_fixture_removed": true,
+      "original_firecracker_identities_unchanged": false,
+      "original_source_firecracker_identities_unchanged": true,
+      "original_service_unchanged": true
+    },
+    "relay_stopped": true
+  },
+  "external_firecracker_changes": {
+    "removed": [],
+    "added": [
+      {
+        "pid": 272519,
+        "start_ticks": "1773012",
+        "cgroup": "0::/asbhost.slice/asbhost-text20261109t125928zr2tvcache.slice/docker-1339ad839c3a0ad1d5c5cfe90f13596dfe3b38432abe41458135bbe0fa8c7811.scope\n"
+      }
+    ],
+    "scope": "observed host VM churn; functional validation checks owned/source resources, not host exclusivity or causal performance"
+  },
+  "raw_paths": {
+    "controller": "/home/rashen/work/AgentSandboxBench/.artifacts/storage-isolated-service/20261109T125247Z-212698/external-workload",
+    "native": "/home/rashen/work/AgentSandboxBench/.artifacts/storage-isolated-service/20261109T125247Z-212698",
+    "outer": "/home/rashen/work/AgentSandboxBench/results/external-five/20261109T125247Z-212672",
+    "primary": "/home/rashen/work/AgentSandboxWorkloadResults/results/agentenv/compile-compcert/runs/compile-compcert-20261025T060658Z-978362"
+  },
+  "source_sha256": {
+    "/home/rashen/work/AgentSandboxBench/.artifacts/storage-isolated-service/20261109T125247Z-212698/external-workload/reference-steps.csv": "7074f2d96a2ec09acd9e652a9e1b6de2f25fd438def545e92ab4c5ce6746524e",
+    "/home/rashen/work/AgentSandboxBench/.artifacts/storage-isolated-service/20261109T125247Z-212698/external-workload/reference-validation.json": "16b87f80f5f29f76642b943bb777210374b84a1089de79d8ce15fd4918ab18db",
+    "/home/rashen/work/AgentSandboxBench/.artifacts/storage-isolated-service/20261109T125247Z-212698/external-workload/reference-oci-origin.json": "54b3fcfa44060938948f2152685c272da56b85311441129407993ae0a0bc4ce3",
+    "/home/rashen/work/AgentSandboxBench/.artifacts/storage-isolated-service/20261109T125247Z-212698/external-workload/reference-run.json": "2a76b82ec811db516dc0a4dff310d61c834c32c3b76945061e9f2187c4969b26",
+    "/home/rashen/work/AgentSandboxBench/results/external-five/20261109T125247Z-212672/report/summary.json": "247fd8d05d59d764e9df7867a679ce6a53cb683d617f79e49e12813daa71519c",
+    "/home/rashen/work/AgentSandboxBench/.artifacts/storage-isolated-service/20261109T125247Z-212698/external-workload/result.json": "583262d05f4f62da4fe0140291090419913641f74fa1239e9bee14223c5163a5",
+    "/home/rashen/work/AgentSandboxBench/.artifacts/storage-isolated-service/20261109T125247Z-212698/result.json": "480f18ed297aa856003159c30e5cdefa858071320c977af47a06631e058ea0d8",
+    "/home/rashen/work/AgentSandboxBench/results/external-five/20261109T125247Z-212672/result.json": "dffb87f9741c22df2ab07a9972e609680e47ddea1ca924061f78bc93051769b9",
+    "/home/rashen/work/AgentSandboxBench/.artifacts/storage-isolated-service/20261109T125247Z-212698/external-workload/tools.tsv": "8eab5e7abaee50b83ad3af55e4bb22263424109cab9d435113a5e1d6d09360da",
+    "/home/rashen/work/AgentSandboxBench/.artifacts/storage-isolated-service/20261109T125247Z-212698/external-workload/events.json": "a04f2c164af47077749fdc76caa4e883dea4ccfeb155caeb7421f0fd38365560",
+    "/home/rashen/work/AgentSandboxBench/.artifacts/storage-isolated-service/20261109T125247Z-212698/external-workload/endpoint.json": "220196e729271322d59968c873f520efc3c1074156e4fc97ec087c1b22a82e70",
+    "/home/rashen/work/AgentSandboxBench/.artifacts/storage-isolated-service/20261109T125247Z-212698/external-workload/initial-lowers.json": "043703b7074a72a82ae5f0a8991a2c09fdac15497dd1f78ccaddc57b1db5f1cc",
+    "/home/rashen/work/AgentSandboxBench/.artifacts/storage-isolated-service/20261109T125247Z-212698/external-workload/runtime/01a1c05e-5db7-76a0-a215-559fcfb5bddb/c56c4586-a465-4d17-b32b-0deaed5ee7dc/guest-memory.tsv": "020b930aa4cb2819a07a1fda040718b5039065e6e61f19a6b30c2b40fc235eca",
+    "/home/rashen/work/AgentSandboxBench/results/external-five/20261109T125247Z-212672/host-file/memory.tsv": "b1e59031767d234214f226a277a7e3530f4ba5fbb0794b875bb3653f1fadfe98",
+    "/home/rashen/work/AgentSandboxBench/.artifacts/storage-isolated-service/20261109T125247Z-212698/external-workload/vmm/host-vmm.tsv": "67dd6e83a6235e919ac44125dc70e8eebbe85903547670738581f1c844be2ff0",
+    "/home/rashen/work/AgentSandboxBench/.artifacts/storage-isolated-service/20261109T125247Z-212698/external-workload/validation-download/validation.exit": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa",
+    "/home/rashen/work/AgentSandboxBench/.artifacts/storage-isolated-service/20261109T125247Z-212698/external-workload/validation-download/validation.stdout": "1668aaf8c39220fab662ba3a95f5ea6497e354a0d136b3b5c96c8d4b25465242",
+    "/home/rashen/work/AgentSandboxBench/.artifacts/storage-isolated-service/20261109T125247Z-212698/external-workload/validation-download/validation.stderr": "04cd90aaed059aa0120ec703beec76dcf0db7d851e02f2ef839c3afd64368120"
+  },
+  "previous_failed_attempts": [
+    {
+      "task_id": "compile-compcert",
+      "outer_status": "FAIL",
+      "controller_status": "FAIL",
+      "reason": "原 apt 依赖安装失败，后续工具发生退出码不一致",
+      "error": "AssertionError('published reference exits differ')",
+      "actions_completed": 318,
+      "exit_differences": [
+        {
+          "step": 10,
+          "actual": 127,
+          "expected": 8
+        },
+        {
+          "step": 14,
+          "actual": 127,
+          "expected": 0
+        },
+        {
+          "step": 15,
+          "actual": 2,
+          "expected": 0
+        },
+        {
+          "step": 16,
+          "actual": 1,
+          "expected": 0
+        },
+        {
+          "step": 17,
+          "actual": 1,
+          "expected": 0
+        },
+        {
+          "step": 18,
+          "actual": 1,
+          "expected": 0
+        },
+        {
+          "step": 19,
+          "actual": 1,
+          "expected": 0
+        },
+        {
+          "step": 21,
+          "actual": 127,
+          "expected": 0
+        },
+        {
+          "step": 25,
+          "actual": 127,
+          "expected": 0
+        },
+        {
+          "step": 26,
+          "actual": 1,
+          "expected": 0
+        },
+        {
+          "step": 27,
+          "actual": 1,
+          "expected": 0
+        },
+        {
+          "step": 29,
+          "actual": 1,
+          "expected": 0
+        },
+        {
+          "step": 30,
+          "actual": 1,
+          "expected": 0
+        },
+        {
+          "step": 31,
+          "actual": 1,
+          "expected": 0
+        },
+        {
+          "step": 32,
+          "actual": 2,
+          "expected": 0
+        },
+        {
+          "step": 33,
+          "actual": 1,
+          "expected": 0
+        },
+        {
+          "step": 34,
+          "actual": 1,
+          "expected": 0
+        },
+        {
+          "step": 36,
+          "actual": 1,
+          "expected": 0
+        },
+        {
+          "step": 37,
+          "actual": 1,
+          "expected": 0
+        },
+        {
+          "step": 38,
+          "actual": 2,
+          "expected": 0
+        },
+        {
+          "step": 39,
+          "actual": 1,
+          "expected": 0
+        },
+        {
+          "step": 40,
+          "actual": 127,
+          "expected": 0
+        },
+        {
+          "step": 41,
+          "actual": 1,
+          "expected": 0
+        },
+        {
+          "step": 42,
+          "actual": 127,
+          "expected": 0
+        },
+        {
+          "step": 45,
+          "actual": 127,
+          "expected": 0
+        },
+        {
+          "step": 50,
+          "actual": 1,
+          "expected": 0
+        },
+        {
+          "step": 56,
+          "actual": 127,
+          "expected": 8
+        },
+        {
+          "step": 58,
+          "actual": 127,
+          "expected": 2
+        },
+        {
+          "step": 59,
+          "actual": 2,
+          "expected": 0
+        },
+        {
+          "step": 60,
+          "actual": 2,
+          "expected": 0
+        },
+        {
+          "step": 66,
+          "actual": 2,
+          "expected": 1
+        },
+        {
+          "step": 67,
+          "actual": 2,
+          "expected": 0
+        },
+        {
+          "step": 68,
+          "actual": 1,
+          "expected": 0
+        },
+        {
+          "step": 70,
+          "actual": 1,
+          "expected": 0
+        },
+        {
+          "step": 71,
+          "actual": 1,
+          "expected": 126
+        },
+        {
+          "step": 72,
+          "actual": 1,
+          "expected": 0
+        },
+        {
+          "step": 75,
+          "actual": 1,
+          "expected": 0
+        },
+        {
+          "step": 76,
+          "actual": 1,
+          "expected": 0
+        },
+        {
+          "step": 77,
+          "actual": 1,
+          "expected": 0
+        },
+        {
+          "step": 78,
+          "actual": 1,
+          "expected": 0
+        },
+        {
+          "step": 79,
+          "actual": 2,
+          "expected": 0
+        },
+        {
+          "step": 81,
+          "actual": 1,
+          "expected": 0
+        },
+        {
+          "step": 83,
+          "actual": 1,
+          "expected": 0
+        },
+        {
+          "step": 84,
+          "actual": 1,
+          "expected": 0
+        },
+        {
+          "step": 85,
+          "actual": 1,
+          "expected": 0
+        },
+        {
+          "step": 88,
+          "actual": 1,
+          "expected": 0
+        },
+        {
+          "step": 89,
+          "actual": 2,
+          "expected": 1
+        },
+        {
+          "step": 90,
+          "actual": 127,
+          "expected": 0
+        },
+        {
+          "step": 93,
+          "actual": 127,
+          "expected": 0
+        },
+        {
+          "step": 98,
+          "actual": 127,
+          "expected": 0
+        },
+        {
+          "step": 99,
+          "actual": 1,
+          "expected": 0
+        },
+        {
+          "step": 101,
+          "actual": 1,
+          "expected": 0
+        },
+        {
+          "step": 106,
+          "actual": 1,
+          "expected": 0
+        },
+        {
+          "step": 110,
+          "actual": 2,
+          "expected": 0
+        },
+        {
+          "step": 111,
+          "actual": 127,
+          "expected": 0
+        },
+        {
+          "step": 112,
+          "actual": 1,
+          "expected": 0
+        },
+        {
+          "step": 117,
+          "actual": 127,
+          "expected": 8
+        },
+        {
+          "step": 121,
+          "actual": 2,
+          "expected": 0
+        },
+        {
+          "step": 136,
+          "actual": 127,
+          "expected": 2
+        },
+        {
+          "step": 137,
+          "actual": 2,
+          "expected": 0
+        },
+        {
+          "step": 141,
+          "actual": 1,
+          "expected": 0
+        },
+        {
+          "step": 142,
+          "actual": 1,
+          "expected": 0
+        },
+        {
+          "step": 143,
+          "actual": 2,
+          "expected": 0
+        },
+        {
+          "step": 145,
+          "actual": 1,
+          "expected": 0
+        },
+        {
+          "step": 146,
+          "actual": 1,
+          "expected": 0
+        },
+        {
+          "step": 148,
+          "actual": 1,
+          "expected": 0
+        },
+        {
+          "step": 149,
+          "actual": 1,
+          "expected": 0
+        },
+        {
+          "step": 151,
+          "actual": 1,
+          "expected": 0
+        },
+        {
+          "step": 152,
+          "actual": 1,
+          "expected": 0
+        },
+        {
+          "step": 153,
+          "actual": 1,
+          "expected": 0
+        },
+        {
+          "step": 158,
+          "actual": 127,
+          "expected": 0
+        },
+        {
+          "step": 159,
+          "actual": 127,
+          "expected": 0
+        },
+        {
+          "step": 160,
+          "actual": 2,
+          "expected": 0
+        },
+        {
+          "step": 162,
+          "actual": 127,
+          "expected": 0
+        },
+        {
+          "step": 170,
+          "actual": 1,
+          "expected": 0
+        },
+        {
+          "step": 173,
+          "actual": 127,
+          "expected": 0
+        },
+        {
+          "step": 182,
+          "actual": 1,
+          "expected": 0
+        },
+        {
+          "step": 183,
+          "actual": 1,
+          "expected": 0
+        },
+        {
+          "step": 184,
+          "actual": 1,
+          "expected": 0
+        },
+        {
+          "step": 185,
+          "actual": 2,
+          "expected": 0
+        },
+        {
+          "step": 191,
+          "actual": 2,
+          "expected": 1
+        },
+        {
+          "step": 198,
+          "actual": 1,
+          "expected": 0
+        },
+        {
+          "step": 203,
+          "actual": 1,
+          "expected": 0
+        },
+        {
+          "step": 204,
+          "actual": 1,
+          "expected": 0
+        },
+        {
+          "step": 205,
+          "actual": 1,
+          "expected": 0
+        },
+        {
+          "step": 206,
+          "actual": 2,
+          "expected": 0
+        },
+        {
+          "step": 207,
+          "actual": 2,
+          "expected": 1
+        },
+        {
+          "step": 208,
+          "actual": 1,
+          "expected": 0
+        },
+        {
+          "step": 210,
+          "actual": 1,
+          "expected": 0
+        },
+        {
+          "step": 219,
+          "actual": 1,
+          "expected": 0
+        },
+        {
+          "step": 221,
+          "actual": 2,
+          "expected": 0
+        },
+        {
+          "step": 223,
+          "actual": 127,
+          "expected": 0
+        },
+        {
+          "step": 224,
+          "actual": 1,
+          "expected": 0
+        },
+        {
+          "step": 225,
+          "actual": 1,
+          "expected": 0
+        },
+        {
+          "step": 227,
+          "actual": 1,
+          "expected": 0
+        },
+        {
+          "step": 231,
+          "actual": 1,
+          "expected": 0
+        },
+        {
+          "step": 234,
+          "actual": 1,
+          "expected": 0
+        },
+        {
+          "step": 235,
+          "actual": 1,
+          "expected": 0
+        },
+        {
+          "step": 236,
+          "actual": 2,
+          "expected": 0
+        },
+        {
+          "step": 237,
+          "actual": 2,
+          "expected": 0
+        },
+        {
+          "step": 239,
+          "actual": 1,
+          "expected": 0
+        },
+        {
+          "step": 244,
+          "actual": 1,
+          "expected": 0
+        },
+        {
+          "step": 246,
+          "actual": 127,
+          "expected": 0
+        },
+        {
+          "step": 247,
+          "actual": 1,
+          "expected": 0
+        },
+        {
+          "step": 249,
+          "actual": 127,
+          "expected": 0
+        },
+        {
+          "step": 251,
+          "actual": 2,
+          "expected": 0
+        },
+        {
+          "step": 253,
+          "actual": 127,
+          "expected": 0
+        },
+        {
+          "step": 254,
+          "actual": 1,
+          "expected": 0
+        },
+        {
+          "step": 259,
+          "actual": 1,
+          "expected": 0
+        },
+        {
+          "step": 260,
+          "actual": 2,
+          "expected": 1
+        },
+        {
+          "step": 262,
+          "actual": 2,
+          "expected": 0
+        },
+        {
+          "step": 263,
+          "actual": 2,
+          "expected": 0
+        },
+        {
+          "step": 264,
+          "actual": 2,
+          "expected": 0
+        },
+        {
+          "step": 269,
+          "actual": 2,
+          "expected": 0
+        },
+        {
+          "step": 271,
+          "actual": 2,
+          "expected": 0
+        },
+        {
+          "step": 272,
+          "actual": 2,
+          "expected": 0
+        },
+        {
+          "step": 280,
+          "actual": 127,
+          "expected": 0
+        },
+        {
+          "step": 283,
+          "actual": 2,
+          "expected": 0
+        },
+        {
+          "step": 288,
+          "actual": 1,
+          "expected": 0
+        },
+        {
+          "step": 290,
+          "actual": 1,
+          "expected": 0
+        },
+        {
+          "step": 291,
+          "actual": 1,
+          "expected": 0
+        },
+        {
+          "step": 293,
+          "actual": 127,
+          "expected": 2
+        },
+        {
+          "step": 294,
+          "actual": 127,
+          "expected": 0
+        },
+        {
+          "step": 295,
+          "actual": 127,
+          "expected": 2
+        },
+        {
+          "step": 304,
+          "actual": 1,
+          "expected": 0
+        },
+        {
+          "step": 309,
+          "actual": 1,
+          "expected": 0
+        },
+        {
+          "step": 313,
+          "actual": 1,
+          "expected": 0
+        },
+        {
+          "step": 318,
+          "actual": 127,
+          "expected": 0
+        }
+      ],
+      "error_signatures": {
+        "Failed to fetch": [
+          "/home/rashen/work/AgentSandboxBench/.artifacts/storage-isolated-service/20261106T110725Z-3501415/external-workload/input/logs/009.stdout"
+        ],
+        "Connection failed": [
+          "/home/rashen/work/AgentSandboxBench/.artifacts/storage-isolated-service/20261106T110725Z-3501415/external-workload/input/logs/009.stdout"
+        ]
+      },
+      "raw_paths": {
+        "outer": "/home/rashen/work/AgentSandboxBench/results/external-five/20261106T110725Z-3501391",
+        "native": "/home/rashen/work/AgentSandboxBench/.artifacts/storage-isolated-service/20261106T110725Z-3501415",
+        "controller": "/home/rashen/work/AgentSandboxBench/.artifacts/storage-isolated-service/20261106T110725Z-3501415/external-workload"
+      },
+      "source_sha256": {
+        "/home/rashen/work/AgentSandboxBench/.artifacts/storage-isolated-service/20261106T110725Z-3501415/external-workload/result.json": "d2975ee202ced9011a846cf4dc78d86c277b8dbe430f414ac26030e8d12ba527",
+        "/home/rashen/work/AgentSandboxBench/.artifacts/storage-isolated-service/20261106T110725Z-3501415/external-workload/input/logs/001.stdout": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "/home/rashen/work/AgentSandboxBench/.artifacts/storage-isolated-service/20261106T110725Z-3501415/external-workload/input/logs/001.stderr": "8e9ca42e8d15d6bbf3eea21365aa99886ad6c000f2ede92e3650789183697052",
+        "/home/rashen/work/AgentSandboxBench/.artifacts/storage-isolated-service/20261106T110725Z-3501415/external-workload/input/logs/003.stdout": "c98a7795ee46813d0c1544350e5c3f432017bec56751a073a7b684a061015b98",
+        "/home/rashen/work/AgentSandboxBench/.artifacts/storage-isolated-service/20261106T110725Z-3501415/external-workload/input/logs/003.stderr": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "/home/rashen/work/AgentSandboxBench/.artifacts/storage-isolated-service/20261106T110725Z-3501415/external-workload/input/logs/009.stdout": "8d0bd38f28ad8826a63dc607bf3b476b634915f705831a4ad58362f246a049ea",
+        "/home/rashen/work/AgentSandboxBench/.artifacts/storage-isolated-service/20261106T110725Z-3501415/external-workload/input/logs/009.stderr": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "/home/rashen/work/AgentSandboxBench/.artifacts/storage-isolated-service/20261106T110725Z-3501415/external-workload/input/logs/013.stdout": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "/home/rashen/work/AgentSandboxBench/.artifacts/storage-isolated-service/20261106T110725Z-3501415/external-workload/input/logs/013.stderr": "2b8d9ecf9aadeb53329ca96e017672f14b619efc4788427ca522d6c2ec7b1530",
+        "/home/rashen/work/AgentSandboxBench/.artifacts/storage-isolated-service/20261106T110725Z-3501415/external-workload/input/logs/016.stdout": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "/home/rashen/work/AgentSandboxBench/.artifacts/storage-isolated-service/20261106T110725Z-3501415/external-workload/input/logs/016.stderr": "1e8cea2f7df0c82a09c9885f6bafc32e62d2b7908e51d2903ebb81b23bc14553"
+      }
+    }
+  ],
+  "current_run_is_corrective": false,
+  "published_files": {
+    "guest.svg": {
+      "source": "/home/rashen/work/AgentSandboxBench/results/external-five/20261109T125247Z-212672/report/guest.svg",
+      "sha256": "cace25728513a6f8440184b5a20b3e94119bb516108cf9f514a8a906f9260d06",
+      "bytes": 246889
+    },
+    "pss.svg": {
+      "source": "/home/rashen/work/AgentSandboxBench/results/external-five/20261109T125247Z-212672/report/pss.svg",
+      "sha256": "7c52643e05a39695850ae4226ee62e599f21e38590a0a27c7e26e710219c51fb",
+      "bytes": 39625
+    },
+    "host.svg": {
+      "source": "/home/rashen/work/AgentSandboxBench/results/external-five/20261109T125247Z-212672/report/host/overview.svg",
+      "sha256": "539948bb116897234189a1f086099e3bd94d5a7826b9335bea240b56a3e1b24b",
+      "bytes": 106778
+    },
+    "tools.tsv": {
+      "source": "/home/rashen/work/AgentSandboxBench/.artifacts/storage-isolated-service/20261109T125247Z-212698/external-workload/tools.tsv",
+      "sha256": "8eab5e7abaee50b83ad3af55e4bb22263424109cab9d435113a5e1d6d09360da",
+      "bytes": 13349
+    }
+  }
+}

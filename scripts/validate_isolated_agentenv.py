@@ -161,6 +161,8 @@ def main(args):
     if external_sampling not in ('on','off') or external_sampling=='off' and not external_config:raise ValueError('external sampling off requires an explicit supported config')
     external_off=bool(external_config) and external_sampling=='off'
     creation_only=getattr(args,'external_creation_controls',False)
+    five_oci=getattr(args,'external_five_oci',None)
+    if five_oci and not external_config:raise ValueError('five-task OCI requires external config')
     django_oci_input=getattr(args,'external_creation_oci_input',None)
     django_oci_state=django_oci_layout=None
     if django_oci_input and not creation_only:raise ValueError('local Django OCI requires explicit creation controls')
@@ -522,7 +524,14 @@ def main(args):
         if not (host_current_only and (light_monitor or external_off) and getattr(args,'host_file_monitor',False)) or any((cache_seed,prettier6604,python_inputs,online_task,exp1_light,exp2_mode,args.exp1_checkpoint,platform_cfg,host_pair_smoke,cache_metadata_probe,scaling,private_control,full_rootfs_mode)):
             raise ValueError('external workload requires a separate complete light current-only run')
         from external_workload import load as load_external,budgets as external_budgets
-        external_value,_,_=load_external(external_config,external_upstream)
+        external_value,external_replay,_=load_external(external_config,external_upstream)
+        from external_five import COUNTS as FIVE
+        if external_value['task_id'] in FIVE:
+            if not five_oci:raise ValueError('five tasks require a digest-verified local OCI layout')
+            from external_five_oci import validate as validate_five_oci
+            five_origin=external_replay['origin']
+            five_oci_state,_=validate_five_oci(five_oci,five_origin)
+        elif five_oci:raise ValueError('OCI option is restricted to five tasks')
         if external_off and external_value['task_id'] not in ('reshard-c4-data','django__django-16819','build-cython-ext'):raise ValueError('sampling off is limited to the explicit C4/Django/Cython controls')
         if creation_only and external_value['task_id']!='django__django-16819':raise ValueError('creation controls are limited to the fixed Django image')
         if django_oci_input:
@@ -604,7 +613,13 @@ def main(args):
         online_args=['--task-config',str(online_task.resolve()),*(['--agent-config',str(online_agent.resolve())] if online_agent else []),*(['--replay-source',str(online_source.resolve())] if online_source else []),*(['--physical-after',*map(str,online_points)] if online_points else [])]
         subprocess.run([sys.executable,'-B',ROOT/'scripts/run_tool_capture.py','--inputs',prettier6604,'--check-only',*online_args],check=True,capture_output=True,timeout=30)
     exp1=args.exp1_checkpoint or platform_cfg is not None
-    window=execution_window(args.window_start_utc,args.window_end_utc,automatic=getattr(args,'automatic_window',False) or not getattr(args,'confirmed_window',False))
+    if five_oci:
+        if args.window_start_utc or args.window_end_utc or getattr(args,'confirmed_window',False):
+            raise ValueError('five-task entry uses its fixed bounded runtime budget')
+        from external_five import runtime_window
+        window=runtime_window(external_value['task_id'])
+    else:
+        window=execution_window(args.window_start_utc,args.window_end_utc,automatic=getattr(args,'automatic_window',False) or not getattr(args,'confirmed_window',False))
     out=ROOT/'.artifacts/storage-isolated-service'/(time.strftime('%Y%m%dT%H%M%SZ',time.gmtime())+'-'+str(os.getpid()))
     out.mkdir(parents=True,exist_ok=False)
     (out/'code').mkdir()
@@ -759,7 +774,7 @@ def main(args):
                     sampler_stop.wait(.25)
         except Exception as exc:sample_errors.append(repr(exc))
     env=dict(os.environ,PYTHONDONTWRITEBYTECODE='1')
-    if local_no_proxy or schedule_smoke:
+    if local_no_proxy or schedule_smoke or five_oci:
         from prettier_no_proxy import clean_environment
         env=clean_environment(env)
     env['NO_PROXY']=env.get('NO_PROXY','')+',localhost,127.0.0.1,::1'
@@ -808,7 +823,8 @@ def main(args):
         receipt['source_service_name']=SERVICE
         receipt['source_service_kind']=original['Config']['Labels'].get('agentenv.experiment')
         receipt['original_service']={k:original['State'][k] for k in ['Pid','StartedAt','Running']}
-        if online_agent or online_task or rootfs_short or private_control or full_rootfs_mode:receipt['original_service_cgroup']=Path('/proc',str(original['State']['Pid']),'cgroup').read_text()
+        if online_agent or online_task or rootfs_short or private_control or full_rootfs_mode or five_oci:
+            receipt['original_service_cgroup']=Path('/proc',str(original['State']['Pid']),'cgroup').read_text()
         source=Path('/proc')/str(original['State']['Pid'])/'root/workspace/env'
         if readonly_fixture:
             readonly_fixture=readonly_fixture.resolve()
@@ -988,6 +1004,9 @@ def main(args):
                 from c4_density_input import install as install_c4_input
                 receipt['c4_oci_input']=install_c4_input(mount,density['oci_input'])
                 shutil.copy2(density['daemon'],mount/'env/deps/rootfs-copy-daemon')
+            if five_oci:
+                from external_five_oci import install as install_five_oci
+                receipt['external_five_oci']=install_five_oci(mount,five_oci,external_value,five_origin)
             if django_oci_input:
                 from django_oci import install as install_django_oci
                 receipt['django_oci_input']['entrypoint']=install_django_oci(mount)
@@ -1060,7 +1079,7 @@ def main(args):
         if external_config:
             # Forward approved proxy variables by name; values never enter commands/receipts.
             for key in ('HTTP_PROXY','HTTPS_PROXY','http_proxy','https_proxy'):
-                if key in os.environ:argv+=['--env',key]
+                if not five_oci and key in os.environ:argv+=['--env',key]
             argv+=['--env','NO_PROXY=127.0.0.1,localhost,::1,10.0.0.0/8,172.16.0.0/12,192.168.0.0/16,169.254.0.0/16',
                    '--env','no_proxy=127.0.0.1,localhost,::1,10.0.0.0/8,172.16.0.0/12,192.168.0.0/16,169.254.0.0/16']
         if private_control:
@@ -1074,6 +1093,8 @@ def main(args):
             argv+=['--mount','type=bind,src='+str(python_oci.resolve()/'ram/oci')+',dst=/asb-frozen-oci,readonly']
         if density and density['task']=='c4':
             argv+=['--mount','type=bind,src='+str(c4_layout)+',dst=/asb-c4-oci,readonly']
+        if five_oci:
+            argv+=['--mount','type=bind,src='+str(five_oci.resolve())+',dst=/asb-external-five-oci,readonly']
         if django_oci_input:
             argv+=['--mount','type=bind,src='+str(django_oci_layout)+',dst=/asb-django-oci,readonly']
         # Only these path variables are copied; no credentials or source-service state.
@@ -1100,7 +1121,7 @@ def main(args):
             if rootfs_short or private_control or full_rootfs_mode:bypass='localhost,127.0.0.1,::1,'+','.join(receipt['rootfs_network_pools'])
             for key in ('NO_PROXY','no_proxy'):
                 argv+=['-e',key+'='+bypass]
-        if local_no_proxy or schedule_smoke or density and density['task']=='c4':
+        if local_no_proxy or schedule_smoke or five_oci or density and density['task']=='c4':
             from prettier_no_proxy import container_environment
             argv+=container_environment()
         argv+=['-e','API_ADDR=127.0.0.1:'+str(port),'-e','AENV_FIRECRACKER_SERIAL_DIR=/workspace/env/logs/serial',
@@ -1110,6 +1131,9 @@ def main(args):
         container=call('create-server',argv,60)
         receipt['container_id']=container
         receipt['boundary']=verify_container_boundary(inspect(container),mount,device)
+        if five_oci:
+            from external_five_oci import verify_mount as verify_five_mount
+            verify_five_mount(inspect(container),five_oci)
         if django_oci_input:
             from django_oci import verify_mount as verify_django_oci_mount
             verify_django_oci_mount(inspect(container),django_oci_layout)
@@ -1183,8 +1207,9 @@ def main(args):
             receipt['checks']['host_only_creation_controls']='PASS'
         elif external_config:
             stage='external-workload';replay=mount/'controller/external-workload'
-            for name in ('external_workload.py','external_guest_proxy.py','run_external_workload.py','agentenv_cold_start.py'):
+            for name in ('external_workload.py','external_five.py','external_five_oci.py','external_endpoint.py','host_sandbox_monitor.py','external_guest_proxy.py','run_external_workload.py','agentenv_cold_start.py'):
                 shutil.copy2(ROOT/'scripts'/name,out/'code'/name)
+            receipt['external_workload_code_sha256']=immutable_manifest(out/'code')
             call(stage,[sys.executable,'-B',ROOT/'scripts/run_external_workload.py','--config',external_config,
                 '--upstream',external_upstream,'--output',replay,'--container',container,
                 '--config-home',mount/'controller/config','--service-url',receipt['address'],
@@ -1836,8 +1861,8 @@ def main(args):
         after=identities()
         (out/'firecracker-after.json').write_text(json.dumps(after,indent=2)+'\n')
         cleanup['original_firecracker_identities_unchanged']=before==after
-        if online_agent or online_task or rootfs_short or private_control or full_rootfs_mode:
-            options=dict(allow_empty=True) if rootfs_short or private_control or full_rootfs_mode else {}
+        if online_agent or online_task or rootfs_short or private_control or full_rootfs_mode or five_oci:
+            options=dict(allow_empty=True) if rootfs_short or private_control or full_rootfs_mode or five_oci else {}
             cleanup['original_source_firecracker_identities_unchanged']=source_vm_identities_unchanged(before,after,receipt.get('original_service_cgroup','UNAVAILABLE'),**options)
             receipt['external_firecracker_changes']={'removed':[v for v in before if v not in after],
                 'added':[v for v in after if v not in before],
@@ -1896,6 +1921,7 @@ if __name__=='__main__':
     parser.add_argument('--host-current-only',action='store_true',help='Explicit light full task, frozen tool replay or Exp1: skip final backing residency inventory')
     parser.add_argument('--external-creation-controls',action='store_true',help='Fixed Django: one preparation and four host-only creation controls in one service; no workload')
     parser.add_argument('--external-creation-oci-input',type=Path,help='Explicit creation controls only: complete fixed Django disk OCI input, mounted read-only')
+    parser.add_argument('--external-five-oci',type=Path,help='Exact primary OCI layout for a five-task replay; read-only mount')
     parser.add_argument('--external-workload-config',type=Path,help='Pinned public Django fixed-tool replay; separate 32 GiB private service volume')
     parser.add_argument('--external-workload-upstream',type=Path,help='Checked-out pinned AgentSandboxWorkloadResults repository')
     parser.add_argument('--external-workload-sampling',choices=('on','off'),default='on',help='C4/Django/Cython explicit host and guest memory sampling control')
