@@ -1,0 +1,375 @@
+{
+  "status": "PASS",
+  "scope": "AgentENV original Exp2 four rounds, two cache configurations once each; no TrEnv-X or statistical performance claim",
+  "runs": [
+    {
+      "mode": "preserve",
+      "workflow": ".artifacts/platform-tasks/20261012T030341Z-800232",
+      "raw": ".artifacts/storage-isolated-service/20261012T030459Z-800877/prettier6604",
+      "report": ".artifacts/platform-tasks/report-20261012T030341Z-800232",
+      "recomputed_report": ".artifacts/platform-tasks/report-exp2-preserve-recomputed-20261012",
+      "report_files": 17,
+      "raw_files": 451,
+      "raw_sha256_unchanged": true,
+      "status": "PASS",
+      "action_count": 32,
+      "checkpoint_count": 4,
+      "restore_count": 4,
+      "focused_tests": [
+        {
+          "round": 3,
+          "step": "008",
+          "passed": 1,
+          "total": 1
+        },
+        {
+          "round": 4,
+          "step": "006",
+          "passed": 6,
+          "total": 6
+        }
+      ],
+      "guest_action_sum_ns": 8425589453,
+      "controller_elapsed_ns": 28033349490,
+      "transitions": [
+        {
+          "after_round": 1,
+          "checkpoint_ns": 2040817620,
+          "restore_ns": 250367185,
+          "image_rebuild_ns": 0,
+          "state_verification_ns": 252378500,
+          "guest_cache_clear_ns": 0
+        },
+        {
+          "after_round": 2,
+          "checkpoint_ns": 455024321,
+          "restore_ns": 254843522,
+          "image_rebuild_ns": 0,
+          "state_verification_ns": 187875364,
+          "guest_cache_clear_ns": 0
+        },
+        {
+          "after_round": 3,
+          "checkpoint_ns": 565019006,
+          "restore_ns": 279479307,
+          "image_rebuild_ns": 0,
+          "state_verification_ns": 251833101,
+          "guest_cache_clear_ns": 0
+        },
+        {
+          "after_round": 4,
+          "checkpoint_ns": 469709162,
+          "restore_ns": 289866300,
+          "image_rebuild_ns": 0,
+          "state_verification_ns": 256563263,
+          "guest_cache_clear_ns": 0
+        }
+      ],
+      "boundary_memory": [
+        {
+          "round": 1,
+          "runner_baseline_nonfree_bytes": 302981120,
+          "runner_baseline_file_cache_estimate_bytes": 163090432,
+          "before_drop_cached_bytes": 192233472,
+          "at_snapshot_cached_bytes": 192233472,
+          "immediate_restored_cached_bytes": 193462272
+        },
+        {
+          "round": 2,
+          "runner_baseline_nonfree_bytes": 358895616,
+          "runner_baseline_file_cache_estimate_bytes": 225333248,
+          "before_drop_cached_bytes": 203415552,
+          "at_snapshot_cached_bytes": 203415552,
+          "immediate_restored_cached_bytes": 205164544
+        },
+        {
+          "round": 3,
+          "runner_baseline_nonfree_bytes": 348405760,
+          "runner_baseline_file_cache_estimate_bytes": 237387776,
+          "before_drop_cached_bytes": 208330752,
+          "at_snapshot_cached_bytes": 208330752,
+          "immediate_restored_cached_bytes": 209764352
+        },
+        {
+          "round": 4,
+          "runner_baseline_nonfree_bytes": 375287808,
+          "runner_baseline_file_cache_estimate_bytes": 256446464,
+          "before_drop_cached_bytes": 211103744,
+          "at_snapshot_cached_bytes": 211193856,
+          "immediate_restored_cached_bytes": 212422656
+        }
+      ],
+      "final_patch_sha256": "1f8f98afa26eb3164c584a015fc0d40356af8d5363254e6a578b30074caf8da2",
+      "final_source_sha256": "123b5e6c1be804ff1c7649b217a64576fb41ed3beb1185f2b8c728f49741829f",
+      "runtime_per_sandbox": [
+        {
+          "role": "round-1",
+          "sample_count": 32,
+          "observed_nonfree_peak_bytes": 426614784,
+          "cached_observed_peak_bytes": 192204800
+        },
+        {
+          "role": "round-2",
+          "sample_count": 20,
+          "observed_nonfree_peak_bytes": 416497664,
+          "cached_observed_peak_bytes": 203300864
+        },
+        {
+          "role": "round-3",
+          "sample_count": 31,
+          "observed_nonfree_peak_bytes": 486404096,
+          "cached_observed_peak_bytes": 208318464
+        },
+        {
+          "role": "round-4",
+          "sample_count": 31,
+          "observed_nonfree_peak_bytes": 447074304,
+          "cached_observed_peak_bytes": 212426752
+        },
+        {
+          "role": "final-restored",
+          "sample_count": 8,
+          "observed_nonfree_peak_bytes": 370946048,
+          "cached_observed_peak_bytes": 198594560
+        }
+      ],
+      "volume_used_peak_bytes": 7093112832,
+      "host_available_min_bytes": 29027975168,
+      "cleanup": {
+        "owned_container_removed": true,
+        "mount_and_loop_removed": true,
+        "successful_fixture_removed": true,
+        "original_firecracker_identities_unchanged": true,
+        "original_service_unchanged": true
+      },
+      "performance": {
+        "status": "MEASURED",
+        "per_sandbox": [
+          {
+            "role": "round-1",
+            "guest_cpu_status": "MEASURED",
+            "guest_io_status": "MEASURED",
+            "host_vmm_status": "MEASURED",
+            "guest_cpu_observed_peak_percent": 85.71428571428571
+          },
+          {
+            "role": "round-2",
+            "guest_cpu_status": "MEASURED",
+            "guest_io_status": "MEASURED",
+            "host_vmm_status": "MEASURED",
+            "guest_cpu_observed_peak_percent": 71.42857142857143
+          },
+          {
+            "role": "round-3",
+            "guest_cpu_status": "MEASURED",
+            "guest_io_status": "MEASURED",
+            "host_vmm_status": "MEASURED",
+            "guest_cpu_observed_peak_percent": 81.81818181818181
+          },
+          {
+            "role": "round-4",
+            "guest_cpu_status": "MEASURED",
+            "guest_io_status": "MEASURED",
+            "host_vmm_status": "MEASURED",
+            "guest_cpu_observed_peak_percent": 80.95238095238095
+          },
+          {
+            "role": "final-restored",
+            "guest_cpu_status": "MEASURED",
+            "guest_io_status": "MEASURED",
+            "host_vmm_status": "MEASURED",
+            "guest_cpu_observed_peak_percent": 57.142857142857146
+          }
+        ]
+      },
+      "memory_chart": "docs/records/evidence/exp2-preserve-memory-20261012.svg"
+    },
+    {
+      "mode": "drop",
+      "workflow": ".artifacts/platform-tasks/20261012T030636Z-803055",
+      "raw": ".artifacts/storage-isolated-service/20261012T030755Z-804092/prettier6604",
+      "report": ".artifacts/platform-tasks/report-20261012T030636Z-803055",
+      "recomputed_report": ".artifacts/platform-tasks/report-exp2-drop-recomputed-20261012",
+      "report_files": 17,
+      "raw_files": 459,
+      "raw_sha256_unchanged": true,
+      "status": "PASS",
+      "action_count": 32,
+      "checkpoint_count": 4,
+      "restore_count": 4,
+      "focused_tests": [
+        {
+          "round": 3,
+          "step": "008",
+          "passed": 1,
+          "total": 1
+        },
+        {
+          "round": 4,
+          "step": "006",
+          "passed": 6,
+          "total": 6
+        }
+      ],
+      "guest_action_sum_ns": 12371774599,
+      "controller_elapsed_ns": 33592876753,
+      "transitions": [
+        {
+          "after_round": 1,
+          "checkpoint_ns": 2473027519,
+          "restore_ns": 273098442,
+          "image_rebuild_ns": 0,
+          "state_verification_ns": 408432970,
+          "guest_cache_clear_ns": 156608919
+        },
+        {
+          "after_round": 2,
+          "checkpoint_ns": 547738537,
+          "restore_ns": 269936372,
+          "image_rebuild_ns": 0,
+          "state_verification_ns": 386080354,
+          "guest_cache_clear_ns": 112734244
+        },
+        {
+          "after_round": 3,
+          "checkpoint_ns": 733603492,
+          "restore_ns": 319438370,
+          "image_rebuild_ns": 0,
+          "state_verification_ns": 405167322,
+          "guest_cache_clear_ns": 97078451
+        },
+        {
+          "after_round": 4,
+          "checkpoint_ns": 593292671,
+          "restore_ns": 277805401,
+          "image_rebuild_ns": 0,
+          "state_verification_ns": 451406097,
+          "guest_cache_clear_ns": 106978838
+        }
+      ],
+      "boundary_memory": [
+        {
+          "round": 1,
+          "runner_baseline_nonfree_bytes": 300478464,
+          "runner_baseline_file_cache_estimate_bytes": 163295232,
+          "before_drop_cached_bytes": 192532480,
+          "at_snapshot_cached_bytes": 61468672,
+          "immediate_restored_cached_bytes": 65343488
+        },
+        {
+          "round": 2,
+          "runner_baseline_nonfree_bytes": 200482816,
+          "runner_baseline_file_cache_estimate_bytes": 85340160,
+          "before_drop_cached_bytes": 112685056,
+          "at_snapshot_cached_bytes": 40828928,
+          "immediate_restored_cached_bytes": 44105728
+        },
+        {
+          "round": 3,
+          "runner_baseline_nonfree_bytes": 167792640,
+          "runner_baseline_file_cache_estimate_bytes": 65114112,
+          "before_drop_cached_bytes": 122712064,
+          "at_snapshot_cached_bytes": 35332096,
+          "immediate_restored_cached_bytes": 40374272
+        },
+        {
+          "round": 4,
+          "runner_baseline_nonfree_bytes": 140189696,
+          "runner_baseline_file_cache_estimate_bytes": 37294080,
+          "before_drop_cached_bytes": 83808256,
+          "at_snapshot_cached_bytes": 25149440,
+          "immediate_restored_cached_bytes": 28995584
+        }
+      ],
+      "final_patch_sha256": "1f8f98afa26eb3164c584a015fc0d40356af8d5363254e6a578b30074caf8da2",
+      "final_source_sha256": "123b5e6c1be804ff1c7649b217a64576fb41ed3beb1185f2b8c728f49741829f",
+      "runtime_per_sandbox": [
+        {
+          "role": "round-1",
+          "sample_count": 34,
+          "observed_nonfree_peak_bytes": 420270080,
+          "cached_observed_peak_bytes": 192507904
+        },
+        {
+          "role": "round-2",
+          "sample_count": 30,
+          "observed_nonfree_peak_bytes": 289001472,
+          "cached_observed_peak_bytes": 134295552
+        },
+        {
+          "role": "round-3",
+          "sample_count": 47,
+          "observed_nonfree_peak_bytes": 381673472,
+          "cached_observed_peak_bytes": 123817984
+        },
+        {
+          "role": "round-4",
+          "sample_count": 45,
+          "observed_nonfree_peak_bytes": 302174208,
+          "cached_observed_peak_bytes": 86999040
+        },
+        {
+          "role": "final-restored",
+          "sample_count": 7,
+          "observed_nonfree_peak_bytes": 156852224,
+          "cached_observed_peak_bytes": 40873984
+        }
+      ],
+      "volume_used_peak_bytes": 7353241600,
+      "host_available_min_bytes": 29022707712,
+      "cleanup": {
+        "owned_container_removed": true,
+        "mount_and_loop_removed": true,
+        "successful_fixture_removed": true,
+        "original_firecracker_identities_unchanged": true,
+        "original_service_unchanged": true
+      },
+      "performance": {
+        "status": "MEASURED",
+        "per_sandbox": [
+          {
+            "role": "round-1",
+            "guest_cpu_status": "MEASURED",
+            "guest_io_status": "MEASURED",
+            "host_vmm_status": "MEASURED",
+            "guest_cpu_observed_peak_percent": 72.22222222222223
+          },
+          {
+            "role": "round-2",
+            "guest_cpu_status": "MEASURED",
+            "guest_io_status": "MEASURED",
+            "host_vmm_status": "MEASURED",
+            "guest_cpu_observed_peak_percent": 77.27272727272727
+          },
+          {
+            "role": "round-3",
+            "guest_cpu_status": "MEASURED",
+            "guest_io_status": "MEASURED",
+            "host_vmm_status": "MEASURED",
+            "guest_cpu_observed_peak_percent": 75.0
+          },
+          {
+            "role": "round-4",
+            "guest_cpu_status": "MEASURED",
+            "guest_io_status": "MEASURED",
+            "host_vmm_status": "MEASURED",
+            "guest_cpu_observed_peak_percent": 84.21052631578948
+          },
+          {
+            "role": "final-restored",
+            "guest_cpu_status": "MEASURED",
+            "guest_io_status": "MEASURED",
+            "host_vmm_status": "MEASURED",
+            "guest_cpu_observed_peak_percent": 52.63157894736842
+          }
+        ]
+      },
+      "memory_chart": "docs/records/evidence/exp2-drop-memory-20261012.svg"
+    }
+  ],
+  "final_patch_and_source_match": true,
+  "cache_reduction_observed": true,
+  "units": "bytes and ns; MiB=2^20 bytes",
+  "physical_cache_measurement": "NOT_RUN",
+  "independent_task_tests": "NOT_RUN"
+}

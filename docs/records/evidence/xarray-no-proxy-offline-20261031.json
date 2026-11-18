@@ -1,0 +1,329 @@
+{
+  "date": "2026-10-31",
+  "status": "ASSESSMENT_COMPLETE",
+  "scope": "Offline plan only; no runtime implementation changes",
+  "image": {
+    "reference": "ghcr.io/epoch-research/swe-bench.eval.x86_64.pydata__xarray-6992@sha256:c05101ef7105599eca1b7d15279a2928ac5453876cd2b83008deb9165d752655",
+    "raw_manifest": ".artifacts/python-backbone/20261008T153524Z/registry-manifest.json",
+    "manifest_bytes": 3043,
+    "manifest_pin": "sha256:c05101ef7105599eca1b7d15279a2928ac5453876cd2b83008deb9165d752655",
+    "manifest_identity": "PASS",
+    "manifest_matches_latest_saved_response": true,
+    "layer_count": 13,
+    "media_type": "application/vnd.docker.distribution.manifest.v2+json",
+    "config_descriptor": {
+      "mediaType": "application/vnd.docker.container.image.v1+json",
+      "size": 8085,
+      "digest": "sha256:1b79fce561cc98c742d259c9fcf3ec7989749cd1c41ddcd5be8265aa02cebce6"
+    },
+    "raw_config_present_in_known_docker_store": false,
+    "fixed_docker_image_present": false,
+    "referrer_prefixes": [],
+    "proposal": "Fixed manifest only; use valid converted config and metadata; missing cache must stop without fetching raw config"
+  },
+  "backup": {
+    "archive": ".artifacts/storage-isolated-service/20261008T165515Z-3834076/volume.ext4.gz",
+    "compressed_bytes": 3644879815,
+    "source_bytes": 25769803776,
+    "prior_integrity": "PASS receipt reused; future normal restore must perform its existing integrity verification",
+    "input_files": 116,
+    "input_logical_bytes": 10892928293,
+    "categories": {
+      "deps": 13,
+      "image-cache/configs": 10,
+      "image-cache/indexes": 36,
+      "image-cache/commits": 36,
+      "image-cache/remote-blocks": 21,
+      "image-cache/convert-blocks": 0
+    },
+    "cached_image_config": {
+      "type": "file",
+      "size": 3566,
+      "sha256": "d832b21410f886dfd71f4e28e0c13ef0e922827d2b74006ef1792f389b0ae5d6"
+    },
+    "cached_metadata": {
+      "type": "file",
+      "size": 1765,
+      "sha256": "02c2e81db4927916bd70e7d713f9df24045e02ed9b6d162f851ce9a731b48c5c"
+    },
+    "current_expanded_input_exists": false,
+    "cache_contents": "NOT_READ_THIS_STAGE; validate restored metadata, 13 distinct local lowers, sizes, tools and version before service"
+  },
+  "regctl": {
+    "saved_wrapper_bytes": 1020,
+    "saved_real_binary_bytes": 12255358,
+    "saved_real_identity_matches_verified_prettier": true,
+    "actual_restored_version": "NOT_CHECKED_THIS_STAGE",
+    "proposal": "Check restored regctl.real ELF/version v0.11.5; save but never execute old wrapper"
+  },
+  "commands": {
+    "count": 35,
+    "manifest_equals_sampling": true,
+    "categories": {
+      "environment_listing": 2,
+      "local_edits": 3,
+      "local_pytest": 6,
+      "local_python": 14,
+      "local_shell_inspection": 10
+    },
+    "explicit_download_or_install": 0,
+    "environment_listing_steps": [
+      3,
+      7
+    ],
+    "local_pytest_steps": [
+      18,
+      19,
+      28,
+      31,
+      34,
+      35
+    ],
+    "original_nonzero_exits": [
+      {
+        "step": 1,
+        "segment": "read_repo",
+        "segment_step": "001",
+        "expected_exit": 1
+      },
+      {
+        "step": 3,
+        "segment": "read_repo",
+        "segment_step": "003",
+        "expected_exit": 127
+      },
+      {
+        "step": 5,
+        "segment": "read_repo",
+        "segment_step": "005",
+        "expected_exit": 1
+      },
+      {
+        "step": 6,
+        "segment": "read_repo",
+        "segment_step": "006",
+        "expected_exit": 1
+      },
+      {
+        "step": 10,
+        "segment": "trace_index_state",
+        "segment_step": "004",
+        "expected_exit": 1
+      },
+      {
+        "step": 21,
+        "segment": "core_patch",
+        "segment_step": "008",
+        "expected_exit": 1
+      },
+      {
+        "step": 23,
+        "segment": "core_verify",
+        "segment_step": "001",
+        "expected_exit": 1
+      },
+      {
+        "step": 24,
+        "segment": "core_verify",
+        "segment_step": "002",
+        "expected_exit": 1
+      },
+      {
+        "step": 26,
+        "segment": "core_verify",
+        "segment_step": "004",
+        "expected_exit": 1
+      },
+      {
+        "step": 27,
+        "segment": "core_verify",
+        "segment_step": "005",
+        "expected_exit": 1
+      },
+      {
+        "step": 31,
+        "segment": "backbone_finish",
+        "segment_step": "002",
+        "expected_exit": 1
+      },
+      {
+        "step": 34,
+        "segment": "backbone_finish",
+        "segment_step": "005",
+        "expected_exit": 1
+      },
+      {
+        "step": 35,
+        "segment": "backbone_finish",
+        "segment_step": "006",
+        "expected_exit": 1
+      }
+    ],
+    "replay_policy": "xarray-approved-sigpipe",
+    "frozen_shell_environment": {
+      "PATH": "/opt/miniconda3/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin",
+      "unset": [
+        "CONDA_PREFIX",
+        "CONDA_DEFAULT_ENV",
+        "CONDA_SHLVL"
+      ],
+      "reason": "restore image-configured PATH; original sampled which/python outputs select base interpreter"
+    },
+    "allowed_sigpipe": {
+      "global_step": 8,
+      "segment": "trace_index_state",
+      "segment_step": "002",
+      "expected_exit": 0,
+      "allowed_observed_exits": [
+        0,
+        141
+      ],
+      "condition": "Only existing exact command and 955-byte expected stdout identity; no exception for other actions"
+    },
+    "indirect_network": "Imports, package internals and test helpers not exhaustively inspected; no claim of zero runtime requests"
+  },
+  "reference": {
+    "official": {
+      "status": "FAIL",
+      "exit_code": 1,
+      "passed": 945,
+      "failed": 12,
+      "skipped": 0,
+      "failed_tests": [
+        "xarray/tests/test_dataarray.py::TestDataArray::test_reset_index",
+        "xarray/tests/test_dataset.py::TestDataset::test_reset_index",
+        "xarray/tests/test_dataset.py::TestDataset::test_reset_index_drop_dims",
+        "xarray/tests/test_dataset.py::TestDataset::test_reset_index_drop_convert[foo-False-dropped0-converted0-renamed0]",
+        "xarray/tests/test_dataset.py::TestDataset::test_reset_index_drop_convert[foo-True-dropped1-converted1-renamed1]",
+        "xarray/tests/test_dataset.py::TestDataset::test_reset_index_drop_convert[x-False-dropped2-converted2-renamed2]",
+        "xarray/tests/test_dataset.py::TestDataset::test_reset_index_drop_convert[x-True-dropped3-converted3-renamed3]",
+        "xarray/tests/test_dataset.py::TestDataset::test_reset_index_drop_convert[arg4-False-dropped4-converted4-renamed4]",
+        "xarray/tests/test_dataset.py::TestDataset::test_reset_index_drop_convert[arg5-True-dropped5-converted5-renamed5]",
+        "xarray/tests/test_dataset.py::TestDataset::test_reset_index_drop_convert[arg6-False-dropped6-converted6-renamed6]",
+        "xarray/tests/test_dataset.py::TestDataset::test_reset_index_drop_convert[arg7-True-dropped7-converted7-renamed7]",
+        "xarray/tests/test_groupby.py::test_groupby_drops_nans"
+      ],
+      "skipped_tests": [],
+      "F2P_passed": 0,
+      "F2P_total": 12,
+      "P2P_passed": 945,
+      "P2P_total": 945,
+      "scope": "SWE-bench test patch and exact F2P/P2P case selection; direct image pytest, not full official Docker harness"
+    },
+    "strict_replay_status": "FAIL",
+    "diagnostic_status": "PASS",
+    "latest_observed_exit_codes_status": "PASS",
+    "latest_exit_differences": [],
+    "baseline": {
+      "status": "PASS",
+      "phase": "unfixed_negative_control",
+      "coord_names_consistent": false,
+      "imported_source": "/testbed/xarray/__init__.py",
+      "python": "/opt/miniconda3/envs/testbed/bin/python",
+      "scope": "single reset_index reproducer; not full task evaluation"
+    },
+    "invariant": {
+      "status": "PASS",
+      "phase": "small_invariant_check",
+      "coord_names_consistent": true,
+      "imported_source": "/testbed/xarray/__init__.py",
+      "python": "/opt/miniconda3/envs/testbed/bin/python",
+      "scope": "single reset_index reproducer; not full task evaluation"
+    },
+    "required_cases": 957,
+    "f2p": 12,
+    "p2p": 945
+  },
+  "differences_from_sphinx": [
+    "Different pinned image/manifest/config metadata; do not route through Sphinx task id even though both have 13 layers",
+    "Xarray uses diagnostic-continuation with its one exact SIGPIPE policy, not sphinx-pipeline-v2; current local guard rejects continuation",
+    "Frozen original runner selects base Python; independent checks use testbed Python; retain both and do not fix expected base-import failures",
+    "957 official cases with original 945 pass/12 fail, not Sphinx 25 cases; Xarray uses reset_index negative control and invariant, not seven UDL cases",
+    "24 GiB source and 12 GiB imported-input budget; preparation requires strictly above 62 GiB"
+  ],
+  "source_evidence": [
+    {
+      "path": "AgentENV/src/image/oci_image.rs",
+      "lines": "855-918; 1210-1260",
+      "finding": "Raw manifest first; supports Docker schema2; StandardOci has no repository scope"
+    },
+    {
+      "path": "AgentENV/src/image/resolver.rs",
+      "lines": "272-279; 330-388",
+      "finding": "Referrer list controls extra requests; usable config plus metadata returns before raw config blob"
+    },
+    {
+      "path": "AgentENV/src/image/cache/service.rs",
+      "lines": "999-1024",
+      "finding": "Cached config usability and parsed metadata lookup"
+    },
+    {
+      "path": "AgentENV/src/image/cache/source_config.rs",
+      "lines": "96-107; 158-205",
+      "finding": "Parsed metadata and local lower file/size conditions"
+    },
+    {
+      "path": "scripts/xarray6992_inputs.py",
+      "lines": "17-28; 56-61",
+      "finding": "One exact SIGPIPE rule and original frozen base Python PATH"
+    },
+    {
+      "path": "scripts/run_xarray6992.py",
+      "lines": "84-88; 240-247",
+      "finding": "Current Sphinx-only local guard; existing reusable proxy check before sampling/tools"
+    },
+    {
+      "path": "scripts/validate_isolated_agentenv.py",
+      "lines": "329-338; 1167-1176",
+      "finding": "Current Sphinx/Prettier task selection and existing Python proof/registry receipt"
+    },
+    {
+      "path": "scripts/platform_tasks.py",
+      "lines": "222-228",
+      "finding": "Xarray native python-diagnostic-continuation vs Sphinx pipeline flags"
+    },
+    {
+      "path": "scripts/xarray6992_check.py",
+      "finding": "Independent reset_index invariant and official local pytest; never installs packages"
+    }
+  ],
+  "minimal_changes": [
+    "Add fixed Xarray profile to existing helper: manifest only, 13 layers, regctl.real; allow exact version and pinned manifest, block other commands exit 78",
+    "Extend explicit-mode policy to xarray-approved-sigpipe and actual native python_task_profile/python_diagnostic_continuation; preserve Sphinx and Prettier modes",
+    "Allow Xarray pinned 4 GiB cold API request, same six empty proxies and deny-egress request; leave default/old requests unchanged",
+    "In Python runner permit only complete persistent light Xarray diagnostic replay without checkpoint/cache controls/evaluation-only; retain probe and result propagation",
+    "Keep local-no-proxy-check Prettier-only; update help/notes; leave original task commands, environment, exit policy, evaluation selection and cleanup unchanged"
+  ],
+  "validation_plan": {
+    "next_stage": "OFFLINE_IMPLEMENTATION_AND_TOY_REGRESSIONS_ONLY",
+    "checks": [
+      "Exact manifest/version success and blocked blob/copy/other-image commands; missing cache/lower/real binary stops before service",
+      "Use actual platform/native parser flags for Xarray, Sphinx, Prettier; retain guards against short/checkpoint/off/unknown profile modes",
+      "Check no-proxy API/env plus probe-before-sampling/tools and bad-proof cleanup/result propagation; old/default requests stay the same",
+      "Preserve original 35 actions, one exact SIGPIPE condition, base/testbed Python distinction, negative/invariant controls and 957-case selection"
+    ],
+    "later_live": "After separate confirmation and disk readiness: one original Xarray 35-action task and original 957 tests, no extra creation-only or four-run control"
+  },
+  "resources": {
+    "available_disk_bytes": 65464668160,
+    "prepare_requires_strictly_more_than_bytes": 66571993088,
+    "disk_ready": false,
+    "source_budget_bytes": 25769803776,
+    "input_budget_bytes": 12884901888,
+    "runtime_volume_bytes": 8589934592,
+    "required_available_memory_bytes": 68719476736,
+    "preservation": "No deletion authorized in this offline stage; retain archives/results/logs and original dynamic guard"
+  },
+  "execution": {
+    "runtime_code_files_changed": 0,
+    "services_started": 0,
+    "guests_created": 0,
+    "network_requests": 0,
+    "archives_restored": 0,
+    "archive_payload_bytes_read": 0,
+    "image_layer_payload_bytes_read": 0,
+    "workload_actions_executed": 0,
+    "files_deleted": 0
+  },
+  "local_evidence_directory": ".artifacts/xarray-no-proxy-offline-20261031"
+}

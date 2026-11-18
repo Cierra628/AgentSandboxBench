@@ -145,12 +145,12 @@ class NoProxyTests(unittest.TestCase):
 
     def test_native_branch_omits_hardcoded_proxy_and_overrides_container_image_defaults(self):
         tree=ast.parse((ROOT/'scripts/validate_isolated_agentenv.py').read_text())
-        old=next(x for x in ast.walk(tree) if isinstance(x,ast.If) and ast.unparse(x.test)=='(prettier6604 or python_inputs) and (not (local_no_proxy or schedule_smoke))')
+        old=next(x for x in ast.walk(tree) if isinstance(x,ast.If) and ast.unparse(x.test)=='(prettier6604 or python_inputs) and (not (local_no_proxy or schedule_smoke or python_schedule))')
         new=next(x for x in ast.walk(tree) if isinstance(x,ast.If) and any(isinstance(c,ast.Name) and c.id=='container_environment' for c in ast.walk(x)) and 'schedule_smoke' in ast.unparse(x.test))
         code=compile(ast.Module(body=[old,new],type_ignores=[]),'<actual Docker environment>','exec')
         for local,smoke in ((False,False),(True,False),(False,True),(True,True)):
             enabled=local or smoke
-            ns=dict(prettier6604=True,python_inputs=None,local_no_proxy=local,schedule_smoke=smoke,density=None,argv=[],rootfs_short=False,private_control=False,full_rootfs_mode=False)
+            ns=dict(prettier6604=True,python_inputs=None,local_no_proxy=local,schedule_smoke=smoke,python_schedule=False,child_cache_probe=False,density=None,argv=[],rootfs_short=False,private_control=False,full_rootfs_mode=False)
             exec(code,ns)
             self.assertEqual('17891' in str(ns['argv']),not enabled)
             if enabled:

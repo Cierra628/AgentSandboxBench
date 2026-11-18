@@ -1,0 +1,428 @@
+{
+  "status": "PASS",
+  "scope": "Current six task families and fixed AgentENV backend; known source caches, task archives and OCI stores. Historical TrEnv-X Docker images are not substitutes.",
+  "network_requests": 0,
+  "services_started": 0,
+  "sandboxes_started": 0,
+  "archives_restored": 0,
+  "new_digest_calculations": 0,
+  "available_disk_bytes": 65521401856,
+  "backend": {
+    "id": "8635246521cb148c41f0d97ae13dbd0f6b470883c856bb3d47a5e9fb872aaa3e",
+    "image": "sha256:db9eb044ae3d85f9b276b9d2e5dea28cb0be95263d217ea4989f095e1d828681",
+    "running": false,
+    "dependency_files": 13,
+    "dependency_logical_bytes": 189057208,
+    "source_image_cache_present": false,
+    "dependencies": [
+      {
+        "path": ".artifacts/source-service-rebuilt-20261018T160925Z-2726362/env/deps/overlaybd/tools-release.json",
+        "exists": true,
+        "size": 122,
+        "device": 64512,
+        "inode": 50897882,
+        "mtime_ns": 1789712392000000000,
+        "allocated_bytes": 4096
+      },
+      {
+        "path": ".artifacts/source-service-rebuilt-20261018T160925Z-2726362/env/deps/firecracker/1.15.1-patch-v1/firecracker",
+        "exists": true,
+        "size": 3430568,
+        "device": 64512,
+        "inode": 50897874,
+        "mtime_ns": 1789712391000000000,
+        "allocated_bytes": 3432448
+      },
+      {
+        "path": ".artifacts/source-service-rebuilt-20261018T160925Z-2726362/env/deps/firecracker/1.15.1-patch-v1/cpu-template-helper",
+        "exists": true,
+        "size": 2560976,
+        "device": 64512,
+        "inode": 50897875,
+        "mtime_ns": 1789712391000000000,
+        "allocated_bytes": 2564096
+      },
+      {
+        "path": ".artifacts/source-service-rebuilt-20261018T160925Z-2726362/env/deps/overlaybd/bin/overlaybd-commit",
+        "exists": true,
+        "size": 11274456,
+        "device": 64512,
+        "inode": 50897880,
+        "mtime_ns": 1789712392000000000,
+        "allocated_bytes": 11276288
+      },
+      {
+        "path": ".artifacts/source-service-rebuilt-20261018T160925Z-2726362/env/deps/overlaybd/bin/overlaybd-apply",
+        "exists": true,
+        "size": 11417816,
+        "device": 64512,
+        "inode": 50897879,
+        "mtime_ns": 1789712392000000000,
+        "allocated_bytes": 11419648
+      },
+      {
+        "path": ".artifacts/source-service-rebuilt-20261018T160925Z-2726362/env/deps/overlaybd/bin/overlaybd-create",
+        "exists": true,
+        "size": 9060536,
+        "device": 64512,
+        "inode": 50897878,
+        "mtime_ns": 1789712392000000000,
+        "allocated_bytes": 9064448
+      },
+      {
+        "path": ".artifacts/source-service-rebuilt-20261018T160925Z-2726362/env/deps/overlaybd/bin/overlaybd-resize",
+        "exists": true,
+        "size": 11258072,
+        "device": 64512,
+        "inode": 50897881,
+        "mtime_ns": 1789712392000000000,
+        "allocated_bytes": 11259904
+      },
+      {
+        "path": ".artifacts/source-service-rebuilt-20261018T160925Z-2726362/env/deps/overlaybd/etc/overlaybd/overlaybd.json",
+        "exists": true,
+        "size": 1045,
+        "device": 64512,
+        "inode": 50897885,
+        "mtime_ns": 1789712392000000000,
+        "allocated_bytes": 4096
+      },
+      {
+        "path": ".artifacts/source-service-rebuilt-20261018T160925Z-2726362/env/deps/kernel/vmlinux-6.1.175/vmlinux.bin",
+        "exists": true,
+        "size": 44480952,
+        "device": 64512,
+        "inode": 50897892,
+        "mtime_ns": 1789712391000000000,
+        "allocated_bytes": 44486656
+      },
+      {
+        "path": ".artifacts/source-service-rebuilt-20261018T160925Z-2726362/env/deps/regctl/v0.11.5/regctl.real",
+        "exists": true,
+        "size": 12255358,
+        "device": 64512,
+        "inode": 50897889,
+        "mtime_ns": 1789712392000000000,
+        "allocated_bytes": 12259328
+      },
+      {
+        "path": ".artifacts/source-service-rebuilt-20261018T160925Z-2726362/env/deps/regctl/v0.11.5/regctl",
+        "exists": true,
+        "size": 1028,
+        "device": 64512,
+        "inode": 50897888,
+        "mtime_ns": 1791522437986292847,
+        "allocated_bytes": 4096
+      },
+      {
+        "path": ".artifacts/source-service-rebuilt-20261018T160925Z-2726362/env/deps/tools/0.1.1/image.json",
+        "exists": true,
+        "size": 567,
+        "device": 64512,
+        "inode": 50897895,
+        "mtime_ns": 1789712393000000000,
+        "allocated_bytes": 4096
+      },
+      {
+        "path": ".artifacts/source-service-rebuilt-20261018T160925Z-2726362/env/deps/tools/0.1.1/sha256-0025158ff64f93188a0cac3d58f6bf641441d2cfffe9897cd390077427166e13.commit",
+        "exists": true,
+        "size": 83315712,
+        "device": 64512,
+        "inode": 50897896,
+        "mtime_ns": 1789712393000000000,
+        "allocated_bytes": 83320832
+      }
+    ],
+    "tools": {
+      "docker": true,
+      "pigz": true,
+      "losetup": true,
+      "mount": true,
+      "umount": true,
+      "systemd-run": true,
+      "python3": true
+    },
+    "aenv_cli_present": true
+  },
+  "standard_tasks": [
+    {
+      "task": "prettier6604",
+      "task_id": "prettier__prettier-6604",
+      "archive": ".artifacts/storage-isolated-service/20261008T102942Z-3642885/volume.ext4.gz",
+      "archive_stat": {
+        "exists": true,
+        "size": 2245185148,
+        "device": 64512,
+        "inode": 50365045,
+        "mtime_ns": 1791456478867073246,
+        "allocated_bytes": 2245189632
+      },
+      "prior_receipt": ".artifacts/storage-isolated-service/20261008T102942Z-3642885/volume-backup.json",
+      "prior_status": "PASS",
+      "uncompressed_gib": 20,
+      "input_paths": 105,
+      "input_logical_bytes": 7367703084,
+      "input_categories": {
+        "deps": 12,
+        "image-cache/configs": 10,
+        "image-cache/indexes": 31,
+        "image-cache/commits": 31,
+        "image-cache/remote-blocks": 21,
+        "image-cache/convert-blocks": 0
+      },
+      "seed_metadata": ".artifacts/prettier6604/host-persistent-asbhost-20261029t1314102450905/seed.json",
+      "prior_import_released": true,
+      "prior_input_directory_present": false,
+      "task_inputs": ".artifacts/prettier6604/20261008T082850Z/shared-prepare-check",
+      "reference": ".artifacts/prettier6604/20261008T102942Z-retry/official-audit-recheck.json",
+      "preparation_free_disk_gib_exclusive": 54,
+      "current_disk_ready": true,
+      "remaining_work": "Explicit no-proxy service/guest launch required; current standard branch hardcodes port 17891. This inventory does not execute or modify it."
+    },
+    {
+      "task": "sphinx7590",
+      "task_id": "sphinx-doc__sphinx-7590",
+      "archive": ".artifacts/storage-isolated-service/20261009T050703Z-3934019/volume.ext4.gz",
+      "archive_stat": {
+        "exists": true,
+        "size": 2862171516,
+        "device": 64512,
+        "inode": 50372609,
+        "mtime_ns": 1791522536791913513,
+        "allocated_bytes": 2862178304
+      },
+      "prior_receipt": ".artifacts/storage-isolated-service/20261009T050703Z-3934019/backup.json",
+      "prior_status": "PASS",
+      "uncompressed_gib": 20,
+      "input_paths": 116,
+      "input_logical_bytes": 8913602637,
+      "input_categories": {
+        "deps": 13,
+        "image-cache/configs": 10,
+        "image-cache/indexes": 36,
+        "image-cache/commits": 36,
+        "image-cache/remote-blocks": 21,
+        "image-cache/convert-blocks": 0
+      },
+      "seed_metadata": ".artifacts/sphinx-backbone/host-persistent-asbhost-20261029t1439462470229/seed.json",
+      "prior_import_released": true,
+      "prior_input_directory_present": false,
+      "task_inputs": ".artifacts/sphinx-backbone/prepare-20261009T041720Z",
+      "reference": ".artifacts/storage-isolated-service/20261009T055637Z-3955483/python-backbone",
+      "preparation_free_disk_gib_exclusive": 56,
+      "current_disk_ready": true,
+      "remaining_work": "Explicit no-proxy service/guest launch required; current standard branch hardcodes port 17891. This inventory does not execute or modify it."
+    },
+    {
+      "task": "xarray6992",
+      "task_id": "pydata__xarray-6992",
+      "archive": ".artifacts/storage-isolated-service/20261008T165515Z-3834076/volume.ext4.gz",
+      "archive_stat": {
+        "exists": true,
+        "size": 3644879815,
+        "device": 64512,
+        "inode": 50370368,
+        "mtime_ns": 1791479823878611396,
+        "allocated_bytes": 3644887040
+      },
+      "prior_receipt": ".artifacts/storage-isolated-service/20261008T165515Z-3834076/backup.json",
+      "prior_status": "PASS",
+      "uncompressed_gib": 24,
+      "input_paths": 116,
+      "input_logical_bytes": 10892928293,
+      "input_categories": {
+        "deps": 13,
+        "image-cache/configs": 10,
+        "image-cache/indexes": 36,
+        "image-cache/commits": 36,
+        "image-cache/remote-blocks": 21,
+        "image-cache/convert-blocks": 0
+      },
+      "seed_metadata": ".artifacts/python-backbone/host-persistent-asbhost-20261029t1700252513952/seed.json",
+      "prior_import_released": true,
+      "prior_input_directory_present": false,
+      "task_inputs": ".artifacts/python-backbone/shell-environment-20261009",
+      "reference": ".artifacts/storage-isolated-service/20261009T033359Z-3893120/python-backbone",
+      "preparation_free_disk_gib_exclusive": 62,
+      "current_disk_ready": false,
+      "remaining_work": "Explicit no-proxy service/guest launch required; current standard branch hardcodes port 17891. This inventory does not execute or modify it."
+    }
+  ],
+  "django": {
+    "image": "docker.io/swebench/sweb.eval.x86_64.django_1776_django-16819@sha256:6c46d22aaf692840f16209fe29b1d0c940bed043fce8047eb12169215222f044",
+    "directory": ".artifacts/django-oci/django16819",
+    "prior_status": "PASS",
+    "objects": [
+      {
+        "digest": "sha256:ebd2a396da682fd0ebc4d0e4c0c7a93f2f0a922d7948e4e7a4866e773c3e5c1d",
+        "exists": true,
+        "size": 4215,
+        "device": 64512,
+        "inode": 52701288,
+        "mtime_ns": 1793378376874731275,
+        "allocated_bytes": 8192
+      },
+      {
+        "digest": "sha256:39a945af8df2ad9343f141c82355d3f2c4b576d432eda34c460d630607462b60",
+        "exists": true,
+        "size": 29736517,
+        "device": 64512,
+        "inode": 52701285,
+        "mtime_ns": 1793378364025877385,
+        "allocated_bytes": 29736960
+      },
+      {
+        "digest": "sha256:fd3f01088aa854fa99907bd918d9bc8146064c2f452aae3e07d61a6244ca9968",
+        "exists": true,
+        "size": 210296452,
+        "device": 64512,
+        "inode": 52701250,
+        "mtime_ns": 1793378295288659030,
+        "allocated_bytes": 210300928
+      },
+      {
+        "digest": "sha256:079027039e9d5fa1677dd462c60fd9240097243a87ff8a124fffbd16f909c266",
+        "exists": true,
+        "size": 420170791,
+        "device": 64512,
+        "inode": 52701249,
+        "mtime_ns": 1793378466650710399,
+        "allocated_bytes": 420175872
+      },
+      {
+        "digest": "sha256:407de719c2d3bde9e1d31481e451ac465ef6cdcf90f48b446b000dd907979233",
+        "exists": true,
+        "size": 21565,
+        "device": 64512,
+        "inode": 52701286,
+        "mtime_ns": 1793378372148785017,
+        "allocated_bytes": 24576
+      },
+      {
+        "digest": "sha256:0ddda5039dab8b2772d0f65857071df489438384259b8fabd0a7882656cf8ca0",
+        "exists": true,
+        "size": 164,
+        "device": 64512,
+        "inode": 52701290,
+        "mtime_ns": 1793378381525678388,
+        "allocated_bytes": 4096
+      },
+      {
+        "digest": "sha256:53752545c9b26814a5dadb2ac5d26e71ee039f17d72ee04fbc55e8e14a42966e",
+        "exists": true,
+        "size": 4313,
+        "device": 64512,
+        "inode": 52701287,
+        "mtime_ns": 1793378374493758351,
+        "allocated_bytes": 8192
+      },
+      {
+        "digest": "sha256:ac7756917c6714c127c9ecf98074801233eee3400c00153aa1c13b91151b7f70",
+        "exists": true,
+        "size": 476296665,
+        "device": 64512,
+        "inode": 52701248,
+        "mtime_ns": 1793378583602380501,
+        "allocated_bytes": 476303360
+      },
+      {
+        "digest": "sha256:7d46deda440ab6108994059ea5bd9e9cef0cc8afe060a3401ad921387388de97",
+        "exists": true,
+        "size": 190,
+        "device": 64512,
+        "inode": 52701289,
+        "mtime_ns": 1793378379125705679,
+        "allocated_bytes": 4096
+      },
+      {
+        "digest": "sha256:b9b2b9e3dfa132dd21492bb46719717b1965ec2d08796f59606ef5139082a98c",
+        "exists": true,
+        "size": 105590514,
+        "device": 64512,
+        "inode": 52701253,
+        "mtime_ns": 1793378348247056808,
+        "allocated_bytes": 105594880
+      },
+      {
+        "digest": "sha256:4f4fb700ef54461cfa02571ae0db9a0dc1e0cdb5577484a6d75e68dc38e8acc1",
+        "exists": true,
+        "size": 32,
+        "device": 64512,
+        "inode": 52701291,
+        "mtime_ns": 1793378383704653608,
+        "allocated_bytes": 4096
+      }
+    ],
+    "layer_count": 10,
+    "config_and_layer_bytes": 1242121418,
+    "partial_files": [],
+    "metadata_checks": "Index/platform/layout, object existence and sizes match. Prior integrity evidence reused; no new digest or layer-body read.",
+    "launch_scope": "Current --oci-input is accepted only for host creation controls, not the full 28-step workload. Its wrapper intercepts image copy, not all registry metadata commands. Whole-flow zero-network operation not verified.",
+    "current_creation_disk_ready": true
+  },
+  "external_tasks": [
+    {
+      "task_id": "django__django-16819",
+      "image": "docker.io/swebench/sweb.eval.x86_64.django_1776_django-16819@sha256:6c46d22aaf692840f16209fe29b1d0c940bed043fce8047eb12169215222f044",
+      "actions": 28,
+      "published_files": 29,
+      "task_scripts_present": true,
+      "docker_exact_image_present": false,
+      "network_command_candidates": [],
+      "previous_successful_volume_present": false
+    },
+    {
+      "task_id": "reshard-c4-data",
+      "image": "docker.io/alexgshaw/reshard-c4-data@sha256:92d209e704785e17ad6b3f740e813dd72bc7ac33982ce435d197ab9d890eac2a",
+      "actions": 36,
+      "published_files": 45,
+      "task_scripts_present": true,
+      "docker_exact_image_present": false,
+      "network_command_candidates": [],
+      "previous_successful_volume_present": false,
+      "expected_layers": 9,
+      "compressed_layer_bytes": 1432498021,
+      "matching_objects_in_known_oci_store": 0,
+      "required_objects": 10,
+      "complete_local_oci_found": false,
+      "offline_dependency_bundle_verified": null
+    },
+    {
+      "task_id": "build-cython-ext",
+      "image": "docker.io/alexgshaw/build-cython-ext@sha256:3612a38fadb89a96f74a1a951fb0b0af734198fd160571eeaba6401593234594",
+      "actions": 83,
+      "published_files": 105,
+      "task_scripts_present": true,
+      "docker_exact_image_present": false,
+      "network_command_candidates": [
+        1,
+        24,
+        25,
+        26,
+        35,
+        36,
+        44,
+        55,
+        59,
+        60
+      ],
+      "previous_successful_volume_present": false,
+      "expected_layers": 7,
+      "compressed_layer_bytes": 303214315,
+      "matching_objects_in_known_oci_store": 0,
+      "required_objects": 8,
+      "complete_local_oci_found": false,
+      "offline_dependency_bundle_verified": false
+    }
+  ],
+  "known_oci_stores": [
+    ".artifacts/django-oci/django16819/oci"
+  ],
+  "limitations": [
+    "Archive contents were not reopened; current size/existence and prior successful restore evidence are reported separately.",
+    "Docker image inspection is local and does not pull.",
+    "No absence claim over unrelated host paths; full offline readiness requires a separate no-proxy runtime validation."
+  ],
+  "archive_and_image_layer_payload_bytes_read": 0,
+  "available_memory_bytes": 514137018368
+}

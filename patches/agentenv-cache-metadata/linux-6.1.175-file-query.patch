@@ -1,0 +1,270 @@
+--- a/mm/asb_pagecache.c
++++ b/mm/asb_pagecache.c
+@@ -109,6 +109,30 @@
+ 	spin_unlock_irqrestore(&asb_lock, flags);
+ }
+ 
++/* Snapshot helpers used only by the explicit named-file diagnostic query. */
++u64 asb_pagecache_generation(void)
++{
++	unsigned long flags;
++	u64 generation;
++	spin_lock_irqsave(&asb_lock, flags);
++	generation = asb_generation;
++	spin_unlock_irqrestore(&asb_lock, flags);
++	return generation;
++}
++
++u64 asb_pagecache_file_tag(struct address_space *mapping,
++		struct folio *folio, unsigned long offset)
++{
++	unsigned long flags, pfn = folio_pfn(folio) + offset;
++	u64 tag = 0;
++	spin_lock_irqsave(&asb_lock, flags);
++	if (folio->mapping == mapping && pfn < ASB_MAX_PFN &&
++	    test_bit(pfn, asb_present))
++		tag = asb_tags[pfn];
++	spin_unlock_irqrestore(&asb_lock, flags);
++	return tag;
++}
++
+ struct asb_header {
+ 	char magic[8];
+ 	u64 version, page_size, max_pfn, records, generation, shmem_pages;
+--- a/include/linux/asb_pagecache.h
++++ b/include/linux/asb_pagecache.h
+@@ -2,7 +2,11 @@
+ #ifndef _LINUX_ASB_PAGECACHE_H
+ #define _LINUX_ASB_PAGECACHE_H
+ struct folio;
++struct address_space;
+ #ifdef CONFIG_ASB_PAGECACHE
++#include <linux/types.h>
++u64 asb_pagecache_generation(void);
++u64 asb_pagecache_file_tag(struct address_space *, struct folio *, unsigned long);
+ void asb_pagecache_add(struct folio *folio);
+ void asb_pagecache_remove(struct folio *folio);
+ void asb_pagecache_move(struct folio *old, struct folio *new);
+--- a/mm/Makefile
++++ b/mm/Makefile
+@@ -142,1 +142,2 @@
+ obj-$(CONFIG_ASB_PAGECACHE) += asb_pagecache.o
++obj-$(CONFIG_ASB_PAGECACHE) += asb_filecache.o
+--- /dev/null
++++ b/mm/asb_filecache.c
+@@ -0,0 +1,215 @@
++// SPDX-License-Identifier: GPL-2.0
++/* Diagnostic guest only. Enumerate existing cache entries, never read payload.
++ * A folio reference is held only while copying metadata, then released. No
++ * fault-in, target mlock, invalidation or DAMON policy change is performed.
++ */
++#include <linux/asb_pagecache.h>
++#include <linux/capability.h>
++#include <linux/dcache.h>
++#include <linux/stat.h>
++#include <linux/file.h>
++#include <linux/fs.h>
++#include <linux/init.h>
++#include <linux/kdev_t.h>
++#include <linux/ktime.h>
++#include <linux/mutex.h>
++#include <linux/pagemap.h>
++#include <linux/pagevec.h>
++#include <linux/proc_fs.h>
++#include <linux/slab.h>
++#include <linux/uaccess.h>
++#include <linux/vmalloc.h>
++
++#define ASB_FILE_MAX_PAGES 8192 /* one declared file <=32 MiB */
++struct asb_file_header {
++	char magic[8];
++	u64 version, page_size, records, start_ns, end_ns;
++	u64 file_dev, file_ino, file_generation, size_before, size_after;
++	u64 mapping_dev, mapping_ino, mapping_generation;
++	u64 generation_before, generation_after, unknown_records;
++	u64 mapping_pages_before, mapping_pages_after;
++};
++struct asb_file_record { u64 index, pfn, tag; };
++struct asb_file_dump {
++	struct asb_file_header header;
++	struct asb_file_record records[];
++};
++struct asb_file_context {
++	struct mutex lock;
++	struct asb_file_dump *dump;
++};
++
++static int asb_file_open(struct inode *inode, struct file *file)
++{
++	struct asb_file_context *ctx;
++	if (!capable(CAP_SYS_ADMIN))
++		return -EPERM;
++	ctx = kzalloc(sizeof(*ctx), GFP_KERNEL);
++	if (!ctx)
++		return -ENOMEM;
++	mutex_init(&ctx->lock);
++	file->private_data = ctx;
++	return 0;
++}
++
++static int asb_file_collect(struct file *target, struct asb_file_dump *dump)
++{
++	struct inode *inode = file_inode(target);
++	struct address_space *mapping;
++	struct inode *backing;
++	struct kstat before, after;
++	struct asb_file_header *h = &dump->header;
++	struct folio_batch batch;
++	pgoff_t cursor = 0;
++	unsigned long i, offset;
++	loff_t size;
++	int error = 0;
++
++	/* Overlay f_mapping can be empty; d_real_inode follows the current data
++	 * inode without faulting file payload. Record visible stat identity and
++	 * actual mapping identity separately, and reject copy-up during lookup.
++	 */
++	backing = d_real_inode(file_dentry(target));
++	mapping = backing ? backing->i_mapping : NULL;
++	if (!(target->f_mode & FMODE_READ) || !S_ISREG(inode->i_mode) ||
++	    !mapping || !mapping->host || !S_ISREG(mapping->host->i_mode))
++		return -EINVAL;
++	error = vfs_getattr(&target->f_path, &before, STATX_BASIC_STATS, AT_STATX_DONT_SYNC);
++	if (error)
++		return error;
++	size = before.size;
++	if (size < 0 || size > ASB_FILE_MAX_PAGES * PAGE_SIZE)
++		return -E2BIG;
++	memcpy(h->magic, "ASBFILE1", 8);
++	h->version = 1;
++	h->page_size = PAGE_SIZE;
++	h->file_dev = huge_encode_dev(before.dev);
++	h->file_ino = before.ino;
++	h->file_generation = inode->i_generation;
++	h->mapping_dev = huge_encode_dev(mapping->host->i_sb->s_dev);
++	h->mapping_ino = mapping->host->i_ino;
++	h->mapping_generation = mapping->host->i_generation;
++	h->size_before = size;
++	h->start_ns = ktime_get_ns();
++	h->generation_before = asb_pagecache_generation();
++	h->mapping_pages_before = READ_ONCE(mapping->nrpages);
++	folio_batch_init(&batch);
++	/* Search the entire bounded index range, including entries beyond EOF.
++	 * Growth/oversize observed at either endpoint is an error, not truncation.
++	 */
++	while (filemap_get_folios(mapping, &cursor, ASB_FILE_MAX_PAGES - 1, &batch)) {
++		for (i = 0; i < folio_batch_count(&batch); i++) {
++			struct folio *folio = batch.folios[i];
++			pgoff_t index = folio->index;
++			for (offset = 0; offset < folio_nr_pages(folio); offset++) {
++				struct asb_file_record *r;
++				if (index + offset >= ASB_FILE_MAX_PAGES ||
++				    h->records >= ASB_FILE_MAX_PAGES) {
++					error = -E2BIG;
++					goto release;
++				}
++				r = &dump->records[h->records++];
++				r->index = index + offset;
++				r->pfn = folio_pfn(folio) + offset;
++				r->tag = asb_pagecache_file_tag(mapping, folio, offset);
++				h->unknown_records += !r->tag;
++			}
++		}
++release:
++		folio_batch_release(&batch);
++		if (error)
++			return error;
++		if (fatal_signal_pending(current))
++			return -EINTR;
++		cond_resched();
++		if (cursor >= ASB_FILE_MAX_PAGES)
++			break;
++	}
++	error = vfs_getattr(&target->f_path, &after, STATX_BASIC_STATS, AT_STATX_DONT_SYNC);
++	if (error)
++		return error;
++	if (d_real_inode(file_dentry(target)) != backing || before.dev != after.dev || before.ino != after.ino)
++		return -ESTALE;
++	h->size_after = after.size;
++	h->mapping_pages_after = READ_ONCE(mapping->nrpages);
++	h->generation_after = asb_pagecache_generation();
++	h->end_ns = ktime_get_ns();
++	if (h->size_after > ASB_FILE_MAX_PAGES * PAGE_SIZE ||
++	    h->mapping_pages_before > ASB_FILE_MAX_PAGES ||
++	    h->mapping_pages_after > ASB_FILE_MAX_PAGES)
++		return -E2BIG;
++	return 0;
++}
++
++static ssize_t asb_file_write(struct file *file, const char __user *buf,
++		size_t count, loff_t *position)
++{
++	struct asb_file_context *ctx = file->private_data;
++	struct asb_file_dump *dump;
++	struct file *target;
++	unsigned int fd;
++	int error;
++
++	if (!capable(CAP_SYS_ADMIN))
++		return -EPERM;
++	error = kstrtouint_from_user(buf, count, 10, &fd);
++	if (error)
++		return error;
++	target = fget(fd);
++	if (!target)
++		return -EBADF;
++	dump = kvzalloc(struct_size(dump, records, ASB_FILE_MAX_PAGES), GFP_KERNEL);
++	if (!dump) {
++		fput(target);
++		return -ENOMEM;
++	}
++	error = asb_file_collect(target, dump);
++	fput(target);
++	if (error) {
++		kvfree(dump);
++		return error;
++	}
++	mutex_lock(&ctx->lock);
++	kvfree(ctx->dump);
++	ctx->dump = dump;
++	*position = 0;
++	mutex_unlock(&ctx->lock);
++	return count;
++}
++
++static ssize_t asb_file_read(struct file *file, char __user *buf,
++		size_t count, loff_t *position)
++{
++	struct asb_file_context *ctx = file->private_data;
++	ssize_t result;
++	mutex_lock(&ctx->lock);
++	if (!ctx->dump)
++		result = -ENODATA;
++	else
++		result = simple_read_from_buffer(buf, count, position, ctx->dump,
++			struct_size(ctx->dump, records, ctx->dump->header.records));
++	mutex_unlock(&ctx->lock);
++	return result;
++}
++
++static int asb_file_release(struct inode *inode, struct file *file)
++{
++	struct asb_file_context *ctx = file->private_data;
++	kvfree(ctx->dump);
++	kfree(ctx);
++	return 0;
++}
++
++static const struct proc_ops asb_file_ops = {
++	.proc_open = asb_file_open,
++	.proc_read = asb_file_read,
++	.proc_write = asb_file_write,
++	.proc_release = asb_file_release,
++	.proc_lseek = default_llseek,
++};
++
++static int __init asb_file_init(void)
++{
++	return proc_create("asb_filecache", 0600, NULL, &asb_file_ops) ? 0 : -ENOMEM;
++}
++fs_initcall(asb_file_init);

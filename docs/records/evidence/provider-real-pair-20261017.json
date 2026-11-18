@@ -1,0 +1,896 @@
+{
+  "status": "PASS",
+  "date": "2026-10-17",
+  "wrapper": ".artifacts/prettier-snapshot-cache-pair/20261017T105623Z-2449781",
+  "storage_run": "20261017T105741Z-2450246",
+  "configuration": {
+    "vcpu": 2,
+    "memory_mib": 4096,
+    "page_size": 4096,
+    "volume_gib": 24,
+    "guest_kernel": "6.1.175-asb-cache-v3",
+    "get_data": true,
+    "bpf_batch": true,
+    "mincore_max_gap_pages": 2
+  },
+  "action_count": 31,
+  "logical_action_count": 42,
+  "task_checks": {
+    "sampled_actions_order_exit_codes_and_distinct_instances": "PASS",
+    "restored_files_progress_and_process": "PASS",
+    "final_source_properties_and_complete_official_outcomes": "PASS"
+  },
+  "paths": {
+    "backbone": {
+      "action_count": 11,
+      "guest_action_sum_ns": 1116865114,
+      "guest_observed_peak_bytes": 325029888,
+      "final_patch_sha256": "5721325c7f24fc147069e055f431aa294b0762824a44056afe378955de15fa24",
+      "official_task_status": "NOT_RUN_PREFIX_ONLY"
+    },
+    "early_1": {
+      "action_count": 10,
+      "guest_action_sum_ns": 2382443967,
+      "guest_observed_peak_bytes": 209567744,
+      "final_patch_sha256": "6a74b179e74a2fb00f4cf334c3cccd3405168025974c9a3b3550614cb1976de5",
+      "source_patch_check": "PASS",
+      "independent_check": "PASS",
+      "official_task_status": "FAIL",
+      "official_passed": 0,
+      "official_failed": 2
+    },
+    "early_2": {
+      "action_count": 10,
+      "guest_action_sum_ns": 2747522639,
+      "guest_observed_peak_bytes": 228564992,
+      "final_patch_sha256": "5721325c7f24fc147069e055f431aa294b0762824a44056afe378955de15fa24",
+      "source_patch_check": "PASS",
+      "independent_check": "PASS",
+      "official_task_status": "FAIL",
+      "official_passed": 0,
+      "official_failed": 2
+    }
+  },
+  "branch_sides": {
+    "child-a": "early_1",
+    "child-b": "early_2"
+  },
+  "sides": {
+    "child-a": {
+      "samples": 14,
+      "collector_version": "snapshot-provider-segment-pfn-union-v6",
+      "initial_logical_bytes": 26181632,
+      "initial_guest_cached_bytes": 26116096,
+      "unknown_guest_capacity_range_bytes": [
+        0,
+        7344128
+      ],
+      "provider_current_range_bytes": [
+        0,
+        69632
+      ],
+      "provider_unknown_range_bytes": [
+        57344,
+        794624
+      ],
+      "provider_boundary_pages_range": [
+        21,
+        21
+      ],
+      "last_map_keys": 78295,
+      "map_capacity": 131072,
+      "point_cpu_mean_ns": 393400828.71428573,
+      "point_elapsed_mean_ns": 421993795,
+      "receive_array_resident_range_bytes": [
+        688128,
+        3760128
+      ],
+      "metadata_counters": {
+        "duplicate_adds": 0,
+        "missing_removes": 0,
+        "out_of_range": 0,
+        "moved_pages": 0,
+        "stale_records": 1
+      },
+      "provider_added_to_three_layer_range_bytes": [
+        0,
+        69632
+      ],
+      "provider_positive_points": [
+        2,
+        11
+      ]
+    },
+    "child-b": {
+      "samples": 13,
+      "collector_version": "snapshot-provider-segment-pfn-union-v6",
+      "initial_logical_bytes": 44752896,
+      "initial_guest_cached_bytes": 44699648,
+      "unknown_guest_capacity_range_bytes": [
+        4096,
+        6184960
+      ],
+      "provider_current_range_bytes": [
+        0,
+        20480
+      ],
+      "provider_unknown_range_bytes": [
+        57344,
+        565248
+      ],
+      "provider_boundary_pages_range": [
+        21,
+        21
+      ],
+      "last_map_keys": 86374,
+      "map_capacity": 131072,
+      "point_cpu_mean_ns": 385627298,
+      "point_elapsed_mean_ns": 415086810.46153843,
+      "receive_array_resident_range_bytes": [
+        1081344,
+        4153344
+      ],
+      "metadata_counters": {
+        "duplicate_adds": 0,
+        "missing_removes": 0,
+        "out_of_range": 0,
+        "moved_pages": 0,
+        "stale_records": 0
+      },
+      "provider_added_to_three_layer_range_bytes": [
+        0,
+        20480
+      ],
+      "provider_positive_points": [
+        0,
+        1,
+        2,
+        3
+      ]
+    }
+  },
+  "pairs": [
+    {
+      "phase": "real-task-branches",
+      "point_a": 2,
+      "point_b": 1,
+      "timestamp_ns": 1792234700154696665,
+      "overlap_ns": 29598113,
+      "guest_a_cached_bytes": 66338816,
+      "guest_b_cached_bytes": 82845696,
+      "host_a_bytes": 82141184,
+      "host_b_bytes": 117166080,
+      "host_sum_bytes": 199307264,
+      "host_union_bytes": 163086336,
+      "shared_bytes": 36220928,
+      "unknown_a_capacity_bytes": 2490368,
+      "unknown_b_capacity_bytes": 1339392
+    },
+    {
+      "phase": "real-task-branches",
+      "point_a": 3,
+      "point_b": 2,
+      "timestamp_ns": 1792234701154799050,
+      "overlap_ns": 35452922,
+      "guest_a_cached_bytes": 74334208,
+      "guest_b_cached_bytes": 90849280,
+      "host_a_bytes": 92426240,
+      "host_b_bytes": 125579264,
+      "host_sum_bytes": 218005504,
+      "host_union_bytes": 181874688,
+      "shared_bytes": 36130816,
+      "unknown_a_capacity_bytes": 57344,
+      "unknown_b_capacity_bytes": 1011712
+    },
+    {
+      "phase": "real-task-branches",
+      "point_a": 4,
+      "point_b": 3,
+      "timestamp_ns": 1792234702154906084,
+      "overlap_ns": 116915312,
+      "guest_a_cached_bytes": 79986688,
+      "guest_b_cached_bytes": 96583680,
+      "host_a_bytes": 98144256,
+      "host_b_bytes": 132161536,
+      "host_sum_bytes": 230305792,
+      "host_union_bytes": 194125824,
+      "shared_bytes": 36179968,
+      "unknown_a_capacity_bytes": 90112,
+      "unknown_b_capacity_bytes": 53248
+    },
+    {
+      "phase": "real-task-branches",
+      "point_a": 5,
+      "point_b": 4,
+      "timestamp_ns": 1792234703155007046,
+      "overlap_ns": 33693647,
+      "guest_a_cached_bytes": 80740352,
+      "guest_b_cached_bytes": 97361920,
+      "host_a_bytes": 98926592,
+      "host_b_bytes": 133087232,
+      "host_sum_bytes": 232013824,
+      "host_union_bytes": 195776512,
+      "shared_bytes": 36237312,
+      "unknown_a_capacity_bytes": 8192,
+      "unknown_b_capacity_bytes": 12288
+    },
+    {
+      "phase": "real-task-branches",
+      "point_a": 6,
+      "point_b": 5,
+      "timestamp_ns": 1792234704155110200,
+      "overlap_ns": 95900081,
+      "guest_a_cached_bytes": 81211392,
+      "guest_b_cached_bytes": 97849344,
+      "host_a_bytes": 98967552,
+      "host_b_bytes": 133689344,
+      "host_sum_bytes": 232656896,
+      "host_union_bytes": 196427776,
+      "shared_bytes": 36229120,
+      "unknown_a_capacity_bytes": 561152,
+      "unknown_b_capacity_bytes": 16384
+    },
+    {
+      "phase": "real-task-branches",
+      "point_a": 7,
+      "point_b": 6,
+      "timestamp_ns": 1792234705155213276,
+      "overlap_ns": 107995855,
+      "guest_a_cached_bytes": 121626624,
+      "guest_b_cached_bytes": 143564800,
+      "host_a_bytes": 132612096,
+      "host_b_bytes": 174661632,
+      "host_sum_bytes": 307273728,
+      "host_union_bytes": 271036416,
+      "shared_bytes": 36237312,
+      "unknown_a_capacity_bytes": 7344128,
+      "unknown_b_capacity_bytes": 4685824
+    },
+    {
+      "phase": "real-task-branches",
+      "point_a": 8,
+      "point_b": 7,
+      "timestamp_ns": 1792234706155278430,
+      "overlap_ns": 238088358,
+      "guest_a_cached_bytes": 129232896,
+      "guest_b_cached_bytes": 152006656,
+      "host_a_bytes": 147279872,
+      "host_b_bytes": 187883520,
+      "host_sum_bytes": 335163392,
+      "host_union_bytes": 298926080,
+      "shared_bytes": 36237312,
+      "unknown_a_capacity_bytes": 163840,
+      "unknown_b_capacity_bytes": 143360
+    },
+    {
+      "phase": "real-task-branches",
+      "point_a": 9,
+      "point_b": 8,
+      "timestamp_ns": 1792234707155355700,
+      "overlap_ns": 227756102,
+      "guest_a_cached_bytes": 134991872,
+      "guest_b_cached_bytes": 65351680,
+      "host_a_bytes": 151535616,
+      "host_b_bytes": 75280384,
+      "host_sum_bytes": 226816000,
+      "host_union_bytes": 209555456,
+      "shared_bytes": 17260544,
+      "unknown_a_capacity_bytes": 1724416,
+      "unknown_b_capacity_bytes": 126976
+    },
+    {
+      "phase": "real-task-branches",
+      "point_a": 10,
+      "point_b": 9,
+      "timestamp_ns": 1792234708155423895,
+      "overlap_ns": 279849593,
+      "guest_a_cached_bytes": 135045120,
+      "guest_b_cached_bytes": 70500352,
+      "host_a_bytes": 153280512,
+      "host_b_bytes": 74235904,
+      "host_sum_bytes": 227516416,
+      "host_union_bytes": 210255872,
+      "shared_bytes": 17260544,
+      "unknown_a_capacity_bytes": 12288,
+      "unknown_b_capacity_bytes": 6184960
+    },
+    {
+      "phase": "real-task-branches",
+      "point_a": 11,
+      "point_b": 10,
+      "timestamp_ns": 1792234709155524255,
+      "overlap_ns": 223805660,
+      "guest_a_cached_bytes": 139407360,
+      "guest_b_cached_bytes": 87535616,
+      "host_a_bytes": 154800128,
+      "host_b_bytes": 93097984,
+      "host_sum_bytes": 247898112,
+      "host_union_bytes": 230637568,
+      "shared_bytes": 17260544,
+      "unknown_a_capacity_bytes": 2945024,
+      "unknown_b_capacity_bytes": 4096000
+    },
+    {
+      "phase": "real-task-branches",
+      "point_a": 12,
+      "point_b": 11,
+      "timestamp_ns": 1792234710155603485,
+      "overlap_ns": 321622511,
+      "guest_a_cached_bytes": 151244800,
+      "guest_b_cached_bytes": 45887488,
+      "host_a_bytes": 166047744,
+      "host_b_bytes": 52482048,
+      "host_sum_bytes": 218529792,
+      "host_union_bytes": 205737984,
+      "shared_bytes": 12791808,
+      "unknown_a_capacity_bytes": 3608576,
+      "unknown_b_capacity_bytes": 12288
+    }
+  ],
+  "costs": {
+    "child-a": {
+      "samples": 14,
+      "host_thread_cpu_ns": 5628927143,
+      "guest_cpu_ns": 52384563,
+      "tracer_cpu_ns": 890000000,
+      "missing_kernel_results": 0,
+      "host_pair_mean_ns": 421993795,
+      "host_pair_max_ns": 617404297
+    },
+    "child-b": {
+      "samples": 13,
+      "host_thread_cpu_ns": 5125941472,
+      "guest_cpu_ns": 36935149,
+      "tracer_cpu_ns": 930000000,
+      "missing_kernel_results": 0,
+      "host_pair_mean_ns": 415086810.46153843,
+      "host_pair_max_ns": 548435770
+    }
+  },
+  "phase_pairs": {
+    "real-task-branches": 11
+  },
+  "provider_buffers": {
+    "schema": 1,
+    "page_size": 4096,
+    "sessions": {
+      "child-a": {
+        "status": "PASS",
+        "points": [
+          {
+            "point": 0,
+            "timestamp_ns": 1792234697858731404,
+            "current_cache_bytes": 0,
+            "old_snapshot_only_bytes": 0,
+            "unused_allocation_bytes": 1912832,
+            "source_absent_both_bytes": 2158592,
+            "mixed_sources_bytes": 8192,
+            "unresolved_bytes": 57344,
+            "whole_resident_bytes": 4136960,
+            "boundary_pages": 21,
+            "current_old_overlap_bytes": 0,
+            "original_unattributed_bytes": 4136960,
+            "unresolved_reason_bytes": {
+              "segment_never_filled": 57344
+            }
+          },
+          {
+            "point": 1,
+            "timestamp_ns": 1792234698858802734,
+            "current_cache_bytes": 0,
+            "old_snapshot_only_bytes": 0,
+            "unused_allocation_bytes": 1912832,
+            "source_absent_both_bytes": 2154496,
+            "mixed_sources_bytes": 12288,
+            "unresolved_bytes": 57344,
+            "whole_resident_bytes": 4136960,
+            "boundary_pages": 21,
+            "current_old_overlap_bytes": 0,
+            "original_unattributed_bytes": 4136960,
+            "unresolved_reason_bytes": {
+              "segment_never_filled": 57344
+            }
+          },
+          {
+            "point": 2,
+            "timestamp_ns": 1792234699858903733,
+            "current_cache_bytes": 36864,
+            "old_snapshot_only_bytes": 8192,
+            "unused_allocation_bytes": 1912832,
+            "source_absent_both_bytes": 2023424,
+            "mixed_sources_bytes": 81920,
+            "unresolved_bytes": 73728,
+            "whole_resident_bytes": 4136960,
+            "boundary_pages": 21,
+            "current_old_overlap_bytes": 0,
+            "original_unattributed_bytes": 4091904,
+            "unresolved_reason_bytes": {
+              "offset_not_in_initial_candidates": 16384,
+              "segment_never_filled": 57344
+            }
+          },
+          {
+            "point": 3,
+            "timestamp_ns": 1792234700858993195,
+            "current_cache_bytes": 0,
+            "old_snapshot_only_bytes": 16384,
+            "unused_allocation_bytes": 1912832,
+            "source_absent_both_bytes": 2011136,
+            "mixed_sources_bytes": 12288,
+            "unresolved_bytes": 184320,
+            "whole_resident_bytes": 4136960,
+            "boundary_pages": 21,
+            "current_old_overlap_bytes": 0,
+            "original_unattributed_bytes": 4120576,
+            "unresolved_reason_bytes": {
+              "offset_not_in_initial_candidates": 126976,
+              "segment_never_filled": 57344
+            }
+          },
+          {
+            "point": 4,
+            "timestamp_ns": 1792234701859101807,
+            "current_cache_bytes": 0,
+            "old_snapshot_only_bytes": 16384,
+            "unused_allocation_bytes": 1912832,
+            "source_absent_both_bytes": 2129920,
+            "mixed_sources_bytes": 16384,
+            "unresolved_bytes": 61440,
+            "whole_resident_bytes": 4136960,
+            "boundary_pages": 21,
+            "current_old_overlap_bytes": 0,
+            "original_unattributed_bytes": 4120576,
+            "unresolved_reason_bytes": {
+              "offset_not_in_initial_candidates": 4096,
+              "segment_never_filled": 57344
+            }
+          },
+          {
+            "point": 5,
+            "timestamp_ns": 1792234702859196576,
+            "current_cache_bytes": 0,
+            "old_snapshot_only_bytes": 16384,
+            "unused_allocation_bytes": 1912832,
+            "source_absent_both_bytes": 2138112,
+            "mixed_sources_bytes": 12288,
+            "unresolved_bytes": 57344,
+            "whole_resident_bytes": 4136960,
+            "boundary_pages": 21,
+            "current_old_overlap_bytes": 0,
+            "original_unattributed_bytes": 4120576,
+            "unresolved_reason_bytes": {
+              "segment_never_filled": 57344
+            }
+          },
+          {
+            "point": 6,
+            "timestamp_ns": 1792234703859299159,
+            "current_cache_bytes": 0,
+            "old_snapshot_only_bytes": 16384,
+            "unused_allocation_bytes": 1912832,
+            "source_absent_both_bytes": 2138112,
+            "mixed_sources_bytes": 12288,
+            "unresolved_bytes": 57344,
+            "whole_resident_bytes": 4136960,
+            "boundary_pages": 21,
+            "current_old_overlap_bytes": 0,
+            "original_unattributed_bytes": 4120576,
+            "unresolved_reason_bytes": {
+              "segment_never_filled": 57344
+            }
+          },
+          {
+            "point": 7,
+            "timestamp_ns": 1792234704859392817,
+            "current_cache_bytes": 0,
+            "old_snapshot_only_bytes": 49152,
+            "unused_allocation_bytes": 1912832,
+            "source_absent_both_bytes": 1974272,
+            "mixed_sources_bytes": 49152,
+            "unresolved_bytes": 151552,
+            "whole_resident_bytes": 4136960,
+            "boundary_pages": 21,
+            "current_old_overlap_bytes": 0,
+            "original_unattributed_bytes": 4087808,
+            "unresolved_reason_bytes": {
+              "offset_not_in_initial_candidates": 94208,
+              "segment_never_filled": 57344
+            }
+          },
+          {
+            "point": 8,
+            "timestamp_ns": 1792234705859463217,
+            "current_cache_bytes": 0,
+            "old_snapshot_only_bytes": 98304,
+            "unused_allocation_bytes": 1912832,
+            "source_absent_both_bytes": 1220608,
+            "mixed_sources_bytes": 110592,
+            "unresolved_bytes": 794624,
+            "whole_resident_bytes": 4136960,
+            "boundary_pages": 21,
+            "current_old_overlap_bytes": 0,
+            "original_unattributed_bytes": 4038656,
+            "unresolved_reason_bytes": {
+              "offset_not_in_initial_candidates": 389120,
+              "segment_never_filled": 57344,
+              "segment_record_changed": 348160
+            }
+          },
+          {
+            "point": 9,
+            "timestamp_ns": 1792234706859539258,
+            "current_cache_bytes": 0,
+            "old_snapshot_only_bytes": 0,
+            "unused_allocation_bytes": 1912832,
+            "source_absent_both_bytes": 2101248,
+            "mixed_sources_bytes": 65536,
+            "unresolved_bytes": 57344,
+            "whole_resident_bytes": 4136960,
+            "boundary_pages": 21,
+            "current_old_overlap_bytes": 0,
+            "original_unattributed_bytes": 4136960,
+            "unresolved_reason_bytes": {
+              "segment_never_filled": 57344
+            }
+          },
+          {
+            "point": 10,
+            "timestamp_ns": 1792234707859610436,
+            "current_cache_bytes": 0,
+            "old_snapshot_only_bytes": 0,
+            "unused_allocation_bytes": 1912832,
+            "source_absent_both_bytes": 2105344,
+            "mixed_sources_bytes": 61440,
+            "unresolved_bytes": 57344,
+            "whole_resident_bytes": 4136960,
+            "boundary_pages": 21,
+            "current_old_overlap_bytes": 0,
+            "original_unattributed_bytes": 4136960,
+            "unresolved_reason_bytes": {
+              "segment_never_filled": 57344
+            }
+          },
+          {
+            "point": 11,
+            "timestamp_ns": 1792234708859710698,
+            "current_cache_bytes": 69632,
+            "old_snapshot_only_bytes": 249856,
+            "unused_allocation_bytes": 1912832,
+            "source_absent_both_bytes": 925696,
+            "mixed_sources_bytes": 557056,
+            "unresolved_bytes": 421888,
+            "whole_resident_bytes": 4136960,
+            "boundary_pages": 21,
+            "current_old_overlap_bytes": 0,
+            "original_unattributed_bytes": 3817472,
+            "unresolved_reason_bytes": {
+              "mixed_versions": 12288,
+              "offset_not_in_initial_candidates": 278528,
+              "segment_never_filled": 57344,
+              "segment_record_changed": 73728
+            }
+          },
+          {
+            "point": 12,
+            "timestamp_ns": 1792234709859821699,
+            "current_cache_bytes": 0,
+            "old_snapshot_only_bytes": 1155072,
+            "unused_allocation_bytes": 1912832,
+            "source_absent_both_bytes": 872448,
+            "mixed_sources_bytes": 122880,
+            "unresolved_bytes": 73728,
+            "whole_resident_bytes": 4136960,
+            "boundary_pages": 21,
+            "current_old_overlap_bytes": 0,
+            "original_unattributed_bytes": 2981888,
+            "unresolved_reason_bytes": {
+              "mixed_versions": 4096,
+              "offset_not_in_initial_candidates": 12288,
+              "segment_never_filled": 57344
+            }
+          },
+          {
+            "point": 13,
+            "timestamp_ns": 1792234710859897322,
+            "current_cache_bytes": 0,
+            "old_snapshot_only_bytes": 49152,
+            "unused_allocation_bytes": 1912832,
+            "source_absent_both_bytes": 1667072,
+            "mixed_sources_bytes": 143360,
+            "unresolved_bytes": 364544,
+            "whole_resident_bytes": 4136960,
+            "boundary_pages": 21,
+            "current_old_overlap_bytes": 0,
+            "original_unattributed_bytes": 4087808,
+            "unresolved_reason_bytes": {
+              "offset_not_in_initial_candidates": 53248,
+              "segment_never_filled": 49152,
+              "segment_record_changed": 262144
+            }
+          }
+        ],
+        "unclassified_points": []
+      },
+      "child-b": {
+        "status": "PASS",
+        "points": [
+          {
+            "point": 0,
+            "timestamp_ns": 1792234699154584402,
+            "current_cache_bytes": 12288,
+            "old_snapshot_only_bytes": 0,
+            "unused_allocation_bytes": 1912832,
+            "source_absent_both_bytes": 1597440,
+            "mixed_sources_bytes": 49152,
+            "unresolved_bytes": 565248,
+            "whole_resident_bytes": 4136960,
+            "boundary_pages": 21,
+            "current_old_overlap_bytes": 0,
+            "original_unattributed_bytes": 4124672,
+            "unresolved_reason_bytes": {
+              "segment_never_filled": 40960,
+              "segment_record_changed": 524288
+            }
+          },
+          {
+            "point": 1,
+            "timestamp_ns": 1792234700154696665,
+            "current_cache_bytes": 20480,
+            "old_snapshot_only_bytes": 0,
+            "unused_allocation_bytes": 1912832,
+            "source_absent_both_bytes": 2129920,
+            "mixed_sources_bytes": 16384,
+            "unresolved_bytes": 57344,
+            "whole_resident_bytes": 4136960,
+            "boundary_pages": 21,
+            "current_old_overlap_bytes": 0,
+            "original_unattributed_bytes": 4116480,
+            "unresolved_reason_bytes": {
+              "segment_never_filled": 57344
+            }
+          },
+          {
+            "point": 2,
+            "timestamp_ns": 1792234701154799050,
+            "current_cache_bytes": 4096,
+            "old_snapshot_only_bytes": 4096,
+            "unused_allocation_bytes": 1912832,
+            "source_absent_both_bytes": 2150400,
+            "mixed_sources_bytes": 8192,
+            "unresolved_bytes": 57344,
+            "whole_resident_bytes": 4136960,
+            "boundary_pages": 21,
+            "current_old_overlap_bytes": 0,
+            "original_unattributed_bytes": 4128768,
+            "unresolved_reason_bytes": {
+              "segment_never_filled": 57344
+            }
+          },
+          {
+            "point": 3,
+            "timestamp_ns": 1792234702154906084,
+            "current_cache_bytes": 4096,
+            "old_snapshot_only_bytes": 4096,
+            "unused_allocation_bytes": 1912832,
+            "source_absent_both_bytes": 2150400,
+            "mixed_sources_bytes": 8192,
+            "unresolved_bytes": 57344,
+            "whole_resident_bytes": 4136960,
+            "boundary_pages": 21,
+            "current_old_overlap_bytes": 0,
+            "original_unattributed_bytes": 4128768,
+            "unresolved_reason_bytes": {
+              "segment_never_filled": 57344
+            }
+          },
+          {
+            "point": 4,
+            "timestamp_ns": 1792234703155007046,
+            "current_cache_bytes": 0,
+            "old_snapshot_only_bytes": 4096,
+            "unused_allocation_bytes": 1912832,
+            "source_absent_both_bytes": 2158592,
+            "mixed_sources_bytes": 4096,
+            "unresolved_bytes": 57344,
+            "whole_resident_bytes": 4136960,
+            "boundary_pages": 21,
+            "current_old_overlap_bytes": 0,
+            "original_unattributed_bytes": 4132864,
+            "unresolved_reason_bytes": {
+              "segment_never_filled": 57344
+            }
+          },
+          {
+            "point": 5,
+            "timestamp_ns": 1792234704155110200,
+            "current_cache_bytes": 0,
+            "old_snapshot_only_bytes": 4096,
+            "unused_allocation_bytes": 1912832,
+            "source_absent_both_bytes": 2158592,
+            "mixed_sources_bytes": 4096,
+            "unresolved_bytes": 57344,
+            "whole_resident_bytes": 4136960,
+            "boundary_pages": 21,
+            "current_old_overlap_bytes": 0,
+            "original_unattributed_bytes": 4132864,
+            "unresolved_reason_bytes": {
+              "segment_never_filled": 57344
+            }
+          },
+          {
+            "point": 6,
+            "timestamp_ns": 1792234705155213276,
+            "current_cache_bytes": 0,
+            "old_snapshot_only_bytes": 90112,
+            "unused_allocation_bytes": 1912832,
+            "source_absent_both_bytes": 1998848,
+            "mixed_sources_bytes": 45056,
+            "unresolved_bytes": 90112,
+            "whole_resident_bytes": 4136960,
+            "boundary_pages": 21,
+            "current_old_overlap_bytes": 0,
+            "original_unattributed_bytes": 4046848,
+            "unresolved_reason_bytes": {
+              "offset_not_in_initial_candidates": 32768,
+              "segment_never_filled": 57344
+            }
+          },
+          {
+            "point": 7,
+            "timestamp_ns": 1792234706155278430,
+            "current_cache_bytes": 0,
+            "old_snapshot_only_bytes": 8192,
+            "unused_allocation_bytes": 1912832,
+            "source_absent_both_bytes": 2072576,
+            "mixed_sources_bytes": 36864,
+            "unresolved_bytes": 106496,
+            "whole_resident_bytes": 4136960,
+            "boundary_pages": 21,
+            "current_old_overlap_bytes": 0,
+            "original_unattributed_bytes": 4128768,
+            "unresolved_reason_bytes": {
+              "offset_not_in_initial_candidates": 20480,
+              "segment_never_filled": 57344,
+              "segment_record_changed": 28672
+            }
+          },
+          {
+            "point": 8,
+            "timestamp_ns": 1792234707155355700,
+            "current_cache_bytes": 0,
+            "old_snapshot_only_bytes": 151552,
+            "unused_allocation_bytes": 1912832,
+            "source_absent_both_bytes": 1859584,
+            "mixed_sources_bytes": 24576,
+            "unresolved_bytes": 188416,
+            "whole_resident_bytes": 4136960,
+            "boundary_pages": 21,
+            "current_old_overlap_bytes": 0,
+            "original_unattributed_bytes": 3985408,
+            "unresolved_reason_bytes": {
+              "segment_never_filled": 57344,
+              "segment_record_changed": 131072
+            }
+          },
+          {
+            "point": 9,
+            "timestamp_ns": 1792234708155423895,
+            "current_cache_bytes": 0,
+            "old_snapshot_only_bytes": 12288,
+            "unused_allocation_bytes": 1912832,
+            "source_absent_both_bytes": 2019328,
+            "mixed_sources_bytes": 12288,
+            "unresolved_bytes": 180224,
+            "whole_resident_bytes": 4136960,
+            "boundary_pages": 21,
+            "current_old_overlap_bytes": 0,
+            "original_unattributed_bytes": 4124672,
+            "unresolved_reason_bytes": {
+              "segment_never_filled": 57344,
+              "segment_record_changed": 122880
+            }
+          },
+          {
+            "point": 10,
+            "timestamp_ns": 1792234709155524255,
+            "current_cache_bytes": 0,
+            "old_snapshot_only_bytes": 0,
+            "unused_allocation_bytes": 1912832,
+            "source_absent_both_bytes": 2158592,
+            "mixed_sources_bytes": 8192,
+            "unresolved_bytes": 57344,
+            "whole_resident_bytes": 4136960,
+            "boundary_pages": 21,
+            "current_old_overlap_bytes": 0,
+            "original_unattributed_bytes": 4136960,
+            "unresolved_reason_bytes": {
+              "segment_never_filled": 57344
+            }
+          },
+          {
+            "point": 11,
+            "timestamp_ns": 1792234710155603485,
+            "current_cache_bytes": 0,
+            "old_snapshot_only_bytes": 69632,
+            "unused_allocation_bytes": 1912832,
+            "source_absent_both_bytes": 2088960,
+            "mixed_sources_bytes": 8192,
+            "unresolved_bytes": 57344,
+            "whole_resident_bytes": 4136960,
+            "boundary_pages": 21,
+            "current_old_overlap_bytes": 0,
+            "original_unattributed_bytes": 4067328,
+            "unresolved_reason_bytes": {
+              "segment_never_filled": 57344
+            }
+          },
+          {
+            "point": 12,
+            "timestamp_ns": 1792234711155693966,
+            "current_cache_bytes": 0,
+            "old_snapshot_only_bytes": 4096,
+            "unused_allocation_bytes": 1912832,
+            "source_absent_both_bytes": 2154496,
+            "mixed_sources_bytes": 8192,
+            "unresolved_bytes": 57344,
+            "whole_resident_bytes": 4136960,
+            "boundary_pages": 21,
+            "current_old_overlap_bytes": 0,
+            "original_unattributed_bytes": 4132864,
+            "unresolved_reason_bytes": {
+              "segment_never_filled": 57344
+            }
+          }
+        ],
+        "unclassified_points": []
+      }
+    },
+    "category_fields": [
+      "current_cache_bytes",
+      "old_snapshot_only_bytes",
+      "unused_allocation_bytes",
+      "source_absent_both_bytes",
+      "mixed_sources_bytes",
+      "unresolved_bytes"
+    ],
+    "scope": "Mutually exclusive whole resident provider PFNs per point; boundary pages separate.",
+    "meanings": {
+      "source_absent_both_bytes": "All source guest pages absent from both endpoint cache tables; not continuous absence or a memory type.",
+      "mixed_sources_bytes": "At least one absent source and other sources; not wholly non-cache.",
+      "old_snapshot_only_bytes": "Old buffer copies excluding PFNs also confirmed current."
+    },
+    "original_metrics": "UNCHANGED",
+    "current_physical_union": "UNCHANGED"
+  },
+  "verification": {
+    "status": "PASS",
+    "live_runs": 1,
+    "related_tests_passed": 43,
+    "query_tests_reused": 52,
+    "independent_current_physical_sets": true,
+    "independent_provider_maps": 4,
+    "queries_checked": 108,
+    "metadata_exports": 54,
+    "stale_rows_observed": 1,
+    "buffer_six_class_sums": true,
+    "all_slot_and_segment_records_released_invalid": true,
+    "same_observed_provider_and_device": true,
+    "owned_resources_released": true,
+    "original_service_and_vmm_unchanged": true
+  },
+  "native_checkpoint_pause_bounds_ns": [
+    371288662,
+    371819682
+  ],
+  "disk": {
+    "start_available_bytes": 59537088512,
+    "minimum_available_bytes": 33765355520,
+    "after_cleanup_available_bytes": 59428675584
+  },
+  "scope": "One actual shared-prefix/two-suffix run with newest four-source collector; overlap-based cross-guest PFN union, unknowns and old copies separate.",
+  "limitations": [
+    "Not an atomic snapshot.",
+    "Not compressed/multiple raw-layer coverage.",
+    "Recorded collection cost is not a controlled full-task slowdown comparison."
+  ]
+}

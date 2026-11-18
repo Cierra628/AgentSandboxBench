@@ -1,0 +1,315 @@
+{
+  "status": "PASS_MULTI_HOST_COST_VALIDATION",
+  "actual_actions": 189,
+  "guest_samples": 2166,
+  "group": ".artifacts/host-full-rootfs/20261025T141514Z-shared-1050198",
+  "storage": ".artifacts/storage-isolated-service/20261025T141633Z-1050414",
+  "scope": "One full shared GRPO, seven guests; no off control, private-copy live run or BPO live run; default reclaim and original two endpoints",
+  "guests": [
+    {
+      "role": "late_1",
+      "samples": 310,
+      "cpu_seconds": 0.233753,
+      "one_core_cpu_percent": 0.75255210371449,
+      "peak_rss_mib": 16.75,
+      "collector_reaped": true
+    },
+    {
+      "role": "early_2",
+      "samples": 310,
+      "cpu_seconds": 0.21774,
+      "one_core_cpu_percent": 0.7030113273822735,
+      "peak_rss_mib": 16.66796875,
+      "collector_reaped": true
+    },
+    {
+      "role": "early_3",
+      "samples": 309,
+      "cpu_seconds": 0.231257,
+      "one_core_cpu_percent": 0.7470020998639679,
+      "peak_rss_mib": 16.28515625,
+      "collector_reaped": true
+    },
+    {
+      "role": "late_3",
+      "samples": 309,
+      "cpu_seconds": 0.23886799999999997,
+      "one_core_cpu_percent": 0.7715477866784101,
+      "peak_rss_mib": 16.09375,
+      "collector_reaped": true
+    },
+    {
+      "role": "early_1",
+      "samples": 310,
+      "cpu_seconds": 0.202396,
+      "one_core_cpu_percent": 0.6537854350670518,
+      "peak_rss_mib": 16.5625,
+      "collector_reaped": true
+    },
+    {
+      "role": "late_2",
+      "samples": 309,
+      "cpu_seconds": 0.20487,
+      "one_core_cpu_percent": 0.6628514570068378,
+      "peak_rss_mib": 16.796875,
+      "collector_reaped": true
+    },
+    {
+      "role": "backbone",
+      "samples": 309,
+      "cpu_seconds": 0.21560199999999996,
+      "one_core_cpu_percent": 0.6966673095714263,
+      "peak_rss_mib": 16.7578125,
+      "collector_reaped": true
+    }
+  ],
+  "cleanup": {
+    "elapsed_ns": 514281303,
+    "sum_guest_ns": 3278336214,
+    "guests": [
+      {
+        "role": "late_1",
+        "stopped": true,
+        "deleted": true,
+        "errors": [],
+        "start_relative_ns": 248323,
+        "end_relative_ns": 448100462
+      },
+      {
+        "role": "early_2",
+        "stopped": true,
+        "deleted": true,
+        "errors": [],
+        "start_relative_ns": 653258,
+        "end_relative_ns": 496936205
+      },
+      {
+        "role": "early_3",
+        "stopped": true,
+        "deleted": true,
+        "errors": [],
+        "start_relative_ns": 967526,
+        "end_relative_ns": 442415935
+      },
+      {
+        "role": "late_3",
+        "stopped": true,
+        "deleted": true,
+        "errors": [],
+        "start_relative_ns": 1806581,
+        "end_relative_ns": 504607671
+      },
+      {
+        "role": "early_1",
+        "stopped": true,
+        "deleted": true,
+        "errors": [],
+        "start_relative_ns": 2501037,
+        "end_relative_ns": 469921979
+      },
+      {
+        "role": "late_2",
+        "stopped": true,
+        "deleted": true,
+        "errors": [],
+        "start_relative_ns": 3252437,
+        "end_relative_ns": 416352058
+      },
+      {
+        "role": "backbone",
+        "stopped": true,
+        "deleted": true,
+        "errors": [],
+        "start_relative_ns": 4043722,
+        "end_relative_ns": 513474788
+      }
+    ]
+  },
+  "main_queries": {
+    "P0": {
+      "elapsed_ns": 68691874,
+      "cpu_ns": 68693201,
+      "objects": 19,
+      "users_per_object": 7,
+      "resident_bytes": 4418736128
+    },
+    "P1": {
+      "elapsed_ns": 75510316,
+      "cpu_ns": 74365783,
+      "objects": 19,
+      "users_per_object": 7,
+      "resident_bytes": 4419571712
+    }
+  },
+  "main_query_total_ns": 144202190,
+  "host_periodic": {
+    "status": "PASS",
+    "error": null,
+    "samples": 1275,
+    "interval_seconds": 0.1,
+    "pss_interval_seconds": null,
+    "thread_cpu_ns": 501929378,
+    "counter_read_total_ns": 399183040,
+    "scope": "Fresh rollout slice: input preparation, controller, private service and all its descendants; host file includes shmem, not guest Cached.",
+    "elapsed_observation_ns": 127487762333
+  },
+  "tool_duration_sum_ns": 65474315803,
+  "controller_elapsed_ns": 34508393196,
+  "rollout_elapsed_ns": 33689987731,
+  "historical": [
+    {
+      "storage": ".artifacts/storage-isolated-service/20261025T033849Z-931236",
+      "schedule": "grpo",
+      "objects": 19,
+      "cleanup_ns": 4733889822,
+      "cleanup_call_ns": 4630546334,
+      "main_queries_ns": 346159185,
+      "main_query_cpu_ns": 344534532
+    },
+    {
+      "storage": ".artifacts/storage-isolated-service/20261025T035223Z-938973",
+      "schedule": "grpo",
+      "objects": 133,
+      "cleanup_ns": 4480046728,
+      "cleanup_call_ns": 4375516395,
+      "main_queries_ns": 2337044720,
+      "main_query_cpu_ns": 2330308583
+    },
+    {
+      "storage": ".artifacts/storage-isolated-service/20261025T042752Z-952495",
+      "schedule": "bpo",
+      "objects": 19,
+      "cleanup_ns": 4714467535,
+      "cleanup_call_ns": 4623374056,
+      "main_queries_ns": 377248143,
+      "main_query_cpu_ns": 377070195
+    },
+    {
+      "storage": ".artifacts/storage-isolated-service/20261025T043037Z-956058",
+      "schedule": "bpo",
+      "objects": 133,
+      "cleanup_ns": 4571721859,
+      "cleanup_call_ns": 4500661137,
+      "main_queries_ns": 2304143565,
+      "main_query_cpu_ns": 2298382583
+    }
+  ],
+  "vector_benchmark": {
+    "status": "PASS_SYNTHETIC_VECTOR_BENCHMARK",
+    "rows": [
+      {
+        "copies": 1,
+        "objects": 19,
+        "pages": 1358865,
+        "equal_resident_counts": {
+          "old": 679432,
+          "new": 679432
+        },
+        "old": {
+          "runs": [
+            {
+              "wall_ns": 115499363,
+              "cpu_ns": 115454153
+            },
+            {
+              "wall_ns": 112837311,
+              "cpu_ns": 112753888
+            },
+            {
+              "wall_ns": 113249654,
+              "cpu_ns": 113200832
+            }
+          ],
+          "median_wall_ns": 113249654
+        },
+        "new": {
+          "runs": [
+            {
+              "wall_ns": 1678904,
+              "cpu_ns": 1678998
+            },
+            {
+              "wall_ns": 1676595,
+              "cpu_ns": 1676606
+            },
+            {
+              "wall_ns": 1657529,
+              "cpu_ns": 1657506
+            }
+          ],
+          "median_wall_ns": 1676595
+        }
+      },
+      {
+        "copies": 7,
+        "objects": 133,
+        "pages": 9512055,
+        "equal_resident_counts": {
+          "old": 4756027,
+          "new": 4756027
+        },
+        "old": {
+          "runs": [
+            {
+              "wall_ns": 795155745,
+              "cpu_ns": 794432753
+            },
+            {
+              "wall_ns": 793676059,
+              "cpu_ns": 793096524
+            },
+            {
+              "wall_ns": 793856496,
+              "cpu_ns": 793419843
+            }
+          ],
+          "median_wall_ns": 793856496
+        },
+        "new": {
+          "runs": [
+            {
+              "wall_ns": 11567234,
+              "cpu_ns": 11567421
+            },
+            {
+              "wall_ns": 11644978,
+              "cpu_ns": 11573797
+            },
+            {
+              "wall_ns": 11528029,
+              "cpu_ns": 11528208
+            }
+          ],
+          "median_wall_ns": 11567234
+        }
+      }
+    ],
+    "scope": "Resident-bit counting only; synthetic bytes, not real residency or whole mincore query cost; no data pages read or faulted"
+  },
+  "correctness": {
+    "actions_and_original_outcomes": "PASS",
+    "official_per_instance": {
+      "passed": 0,
+      "failed": 2
+    },
+    "same_two_phases_and_file_scope": true,
+    "source_snapshots_match": true
+  },
+  "cleanup_checks": {
+    "source_stopped": true,
+    "firecrackers": 0,
+    "owned_volume_removed": true,
+    "owned_mount_empty": true,
+    "outer_cleanup": {
+      "owned_container_removed": true,
+      "mount_and_loop_removed": true,
+      "successful_fixture_removed": true,
+      "original_firecracker_identities_unchanged": true,
+      "original_source_firecracker_identities_unchanged": true,
+      "original_service_unchanged": true
+    },
+    "minimum_free_disk_gib": 82.90675354003906,
+    "free_disk_gib": 130.89807510375977
+  },
+  "inference": "Direct costs and historical comparison, not whole-task speedup or new memory saving; bit benchmark is synthetic vector work only"
+}

@@ -1,0 +1,71 @@
+{
+  "status": "OFFLINE_IMPLEMENTED_LIVE_NOT_RUN",
+  "option": "host_current_only",
+  "profiles": [
+    {
+      "profile": "prettier6604",
+      "config": "configs/platform-prettier6604-host-current.json",
+      "input_status": "VALIDATED",
+      "expected_frozen_actions": 29,
+      "host_current_only": true,
+      "guest_light": true,
+      "expected_host_pss": false,
+      "expected_final_mincore": false
+    },
+    {
+      "profile": "sphinx7590",
+      "config": "configs/platform-sphinx7590-host-current.json",
+      "input_status": "VALIDATED",
+      "expected_frozen_actions": 35,
+      "host_current_only": true,
+      "guest_light": true,
+      "expected_host_pss": false,
+      "expected_final_mincore": false
+    },
+    {
+      "profile": "xarray6992",
+      "config": "configs/platform-xarray6992-host-current.json",
+      "input_status": "VALIDATED",
+      "expected_frozen_actions": 35,
+      "host_current_only": true,
+      "guest_light": true,
+      "expected_host_pss": false,
+      "expected_final_mincore": false
+    }
+  ],
+  "tests": {
+    "new-tests": 7,
+    "host-file-tests": 15,
+    "platform-tests": 14,
+    "tool-replay-tests": 10,
+    "exp1-tests": 5
+  },
+  "tests_total": 51,
+  "new_live_runs": 0,
+  "scope": "Full ordinary AgentENV single tasks only; no checkpoint, branch schedule or reclaim intervention",
+  "preserves": [
+    "original host-file configs and runtime behavior",
+    "guest sampler and frozen task checks",
+    "fresh cgroup before preparation",
+    "exact before-guest counters and I/O controller checks",
+    "host collector CPU/read cost receipt",
+    "automatic guest and host reports",
+    "final writable-file and fixed-volume checks",
+    "owned cleanup and failed-volume retention"
+  ],
+  "runtime_changes": [
+    "host sampler include_pss=False for explicit config",
+    "native --host-current-only skips final residency only",
+    "host report uses saved creation counters without a residency inventory"
+  ],
+  "live_metrics": null,
+  "next_proposed_run": {
+    "profile": "prettier6604",
+    "runs": 1,
+    "guests": 1,
+    "actions": 29,
+    "capacity_gib": 8,
+    "required_free_gib_strictly_greater_than": 34,
+    "authorized_by_this_record": false
+  }
+}

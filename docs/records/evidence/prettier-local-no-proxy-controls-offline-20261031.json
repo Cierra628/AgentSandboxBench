@@ -1,0 +1,229 @@
+{
+  "date": "2026-10-31",
+  "status": "OFFLINE_ASSESSMENT_COMPLETE",
+  "scope": "Plan and read-only source/saved-metadata checks only; no runtime implementation changes",
+  "raw_config_difference": {
+    "monitor_mode": {
+      "on": "not set; continuous default",
+      "off": "off"
+    }
+  },
+  "normalized_config_difference": {
+    "monitor_mode": {
+      "on": null,
+      "off": "off"
+    },
+    "light_monitor": {
+      "on": true,
+      "off": false
+    }
+  },
+  "planned_native_off_flags_from_actual_on_args": {
+    "guest_monitor_mode": "off",
+    "light_monitor": false,
+    "persistent_seed": "/seed",
+    "host_file_monitor": true,
+    "host_current_only": true
+  },
+  "current_rejections": [
+    {
+      "boundary": "local-mode config guard",
+      "status": "REJECTED_AS_CURRENTLY_IMPLEMENTED",
+      "error": "local-no-proxy requires a persistent complete light current-only task"
+    },
+    {
+      "boundary": "persistent input config guard",
+      "status": "REJECTED_AS_CURRENTLY_IMPLEMENTED",
+      "error": "persistent input requires a complete sampled current-only task with default reclaim"
+    },
+    {
+      "boundary": "platform persistent command builder",
+      "status": "REJECTED_AS_CURRENTLY_IMPLEMENTED",
+      "error": "persistent input requires a complete sampled current-only task with default reclaim"
+    },
+    {
+      "boundary": "persistent native option guard",
+      "status": "REJECTED_AS_CURRENTLY_IMPLEMENTED",
+      "error": "persistent cache requires a sampled current pair or full current-only task, default reclaim and no RAM seed"
+    },
+    {
+      "boundary": "actual outer entry, before Docker or preparation",
+      "status": "REJECTED_AS_CURRENTLY_IMPLEMENTED",
+      "error": "local-no-proxy requires a persistent complete light current-only task"
+    },
+    {
+      "boundary": "native local-mode guard",
+      "status": "REJECTED_AS_CURRENTLY_IMPLEMENTED",
+      "error": "local-no-proxy requires persistent Prettier/Sphinx/Xarray light current-only input"
+    },
+    {
+      "boundary": "Prettier leaf local-mode guard",
+      "status": "REJECTED_AS_CURRENTLY_IMPLEMENTED",
+      "error": "local-no-proxy requires complete light replay"
+    }
+  ],
+  "reusable": {
+    "host": "platform_tasks.run already avoids constructing HostFileMonitor when host_off; outer maps off config to ASB_HOST_FILE_SAMPLING=off",
+    "guest": "RuntimeMonitor is None in old off path; without_sampling removes periodic child and makes memory/vmstat boundary functions no-ops",
+    "report": "Existing off branch writes tools only, memory NOT_MEASURED, host curve/baseline/peak null; persistent input receipt attaches separately",
+    "end_query": "observe_input runs after isolated runtime cleanup; keep it for both groups without moving into task window"
+  },
+  "new_counterevidence": {
+    "existing_full_run_boundary_rows": [
+      {
+        "segment": "read_repo",
+        "memory_rows": 12,
+        "vmstat_rows": 12
+      },
+      {
+        "segment": "read_typescript",
+        "memory_rows": 14,
+        "vmstat_rows": 14
+      },
+      {
+        "segment": "core_patch",
+        "memory_rows": 16,
+        "vmstat_rows": 16
+      },
+      {
+        "segment": "core_verify",
+        "memory_rows": 14,
+        "vmstat_rows": 14
+      },
+      {
+        "segment": "backbone_finish",
+        "memory_rows": 12,
+        "vmstat_rows": 12
+      }
+    ],
+    "total_memory_rows": 68,
+    "total_vmstat_rows": 68,
+    "matches_executed_runner_source": true,
+    "matches_executed_boundary_transform": true,
+    "sampler_cpu_scope": "The recorded guest collector CPU and 5 management calls exclude the runner Shell boundary memory/vmstat/phase work",
+    "experiment_scope": "Toggle the existing entire light sampling path, including periodic and boundary/phase work; not a periodic-only effect"
+  },
+  "source_evidence": [
+    {
+      "path": "scripts/prettier_no_proxy.py",
+      "function": "require_mode",
+      "finding": "Requires continuous light mode; first rejection for explicit local off"
+    },
+    {
+      "path": "scripts/host_persistent_input.py",
+      "function": "single_config/native_option",
+      "finding": "Persistent cache currently requires sampled config/native path"
+    },
+    {
+      "path": "scripts/run_host_file_workflow.py",
+      "finding": "Persistent-input explicitly rejects host sampling off even after prior guards"
+    },
+    {
+      "path": "scripts/validate_isolated_agentenv.py",
+      "finding": "Local mode requires light; existing current off creation deliberately has before_guest_counters=None"
+    },
+    {
+      "path": "scripts/run_prettier6604.py",
+      "finding": "Local-mode leaf rejects non-light; established monitor-off logic otherwise preserves timing/task/cleanup"
+    },
+    {
+      "path": "scripts/platform_tasks.py",
+      "finding": "commands() rejects persistent off through single_config; persistent post-runtime check requires a baseline while off report requires None"
+    },
+    {
+      "path": "scripts/sandbox_runtime_monitor.py",
+      "function": "boundary_runner",
+      "finding": "Keeps original per-step and segment boundary memory/vmstat; adds phase writes"
+    },
+    {
+      "path": "scripts/task_metrics_prefix.py",
+      "function": "without_sampling",
+      "finding": "Turns both boundary sample functions into no-ops and removes old monitor child"
+    }
+  ],
+  "minimal_changes": [
+    "Permit only explicit local persistent Prettier single complete off mode; keep all old defaults, local Sphinx/Xarray off rejection and legacy nonpersistent off behavior",
+    "Align outer require_mode, commands/run single_config calls and native_option/native/leaf eligibility using an explicit opt-in for this new usage, not global relaxation",
+    "Keep host collector and guest sampler off through established branches; retain creation identity, I/O accounting, sync and before_guest_counters=None",
+    "In persistent workflow, require real baseline for on and None plus matching off evidence for off; keep same post-runtime input query and success-only cleanup",
+    "Reuse tool-only report and separate persistent query receipt; preserve old broad-residency rejection and do not label post-run input query as a running memory curve",
+    "Add a small serial four-run driver around the original entry; do not build a new task executor or change original commands/tests"
+  ],
+  "plan": {
+    "task_id": "prettier__prettier-6604",
+    "pairs": 2,
+    "runs": 4,
+    "order": [
+      "off",
+      "on",
+      "on",
+      "off"
+    ],
+    "total_original_actions": 116,
+    "first_run": "First formal off run validates new path; stop at first actual failure, no extra smoke or automatic replacement",
+    "fresh_per_run": [
+      "measurement cgroup",
+      "imported 105 file inodes",
+      "private service",
+      "4 GiB/2 vCPU guest",
+      "8 GiB runtime volume"
+    ],
+    "common": [
+      "same pinned backend/CLI/image/source input",
+      "six proxy variables empty and same guest denial request with DNS exception",
+      "full local metadata whitelist and proxy proof",
+      "default reclaim, no pause/pre-read/forced residency",
+      "same input integrity/import/sync and source cleanup before runtime",
+      "original 29 actions/exit codes/final patch/independent and official checks",
+      "same post-runtime input mincore after owned runtime cleanup, before successful input release",
+      "same disk guard, timeouts and owned cleanup"
+    ],
+    "on": "Current 0.1s host/guest light path, original boundary memory/vmstat and phase updates, 5 blocking management calls, no PSS",
+    "off": "No periodic host/guest sampler or guest boundary memory/vmstat/phase work; still original tool timing, proxy proof and common post-runtime input query",
+    "off_missing": "No runtime memory samples, no C0/peak/growth or fake curves; post-runtime imported-file capacity is a separate observed item",
+    "timing": [
+      "tool sum",
+      "frozen replay",
+      "task controller",
+      "cold-create call",
+      "original official tests",
+      "grouped workflow",
+      "external archive preparation",
+      "import",
+      "post-runtime query",
+      "management/direct CPU for on only"
+    ],
+    "comparison": "Per pair: on-off seconds and (on/off-1)*100, all signed values; show two pairs separately and do not promise fixed slowdown from 2 pairs",
+    "context": "Controller minus cold-create call remains mixed work, not net sampler time. Keep original cold call; do not discard slow runs or substitute the prior on run.",
+    "acceptance": [
+      "original actions/expected exit 127/patch and independent baseline/final checks unchanged",
+      "local final suites32/tests66 and official 1 suite/2 failures match reference",
+      "on covers task and sampler termination, off has no periodic/boundary data and preserves timing",
+      "same task/input/backend versions and no-proxy proof for all runs",
+      "common post-runtime 105 unique file query and phase/cost verified",
+      "reports/real writable-files/fixed volume/read-only root and owned cleanup verified"
+    ],
+    "next_stage": "Offline implementation and mocked/toy regressions only; live four runs require separate confirmation"
+  },
+  "resources": {
+    "available_bytes": 66907099136,
+    "available_gib": 62.312,
+    "prepare_requires_strictly_above_gib": 54,
+    "prepare_source_gib": 20,
+    "import_budget_gib": 8,
+    "runtime_volume_gib": 8,
+    "runtime_allocation_requires_strictly_above_gib": 34,
+    "required_memory_available_gib": 64,
+    "protection": "Original 20 GiB running reserve and margin, single writer lock, failed input/volume preservation unchanged; no deletion this stage"
+  },
+  "execution": {
+    "runtime_code_files_changed": 0,
+    "services_started": 0,
+    "guests_created": 0,
+    "archive_reads": 0,
+    "new_queries": 0,
+    "network_requests": 0,
+    "files_deleted": 0
+  },
+  "evidence_directory": ".artifacts/prettier-local-no-proxy-controls-offline-20261031"
+}

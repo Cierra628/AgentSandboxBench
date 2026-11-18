@@ -1,0 +1,353 @@
+--- a/mm/filemap.c
++++ b/mm/filemap.c
+@@ -24,6 +24,7 @@
+ #include <linux/swapops.h>
+ #include <linux/mman.h>
+ #include <linux/pagemap.h>
++#include <linux/asb_pagecache.h>
+ #include <linux/file.h>
+ #include <linux/uio.h>
+ #include <linux/error-injection.h>
+@@ -178,6 +179,7 @@
+ 	if (folio_test_hugetlb(folio))
+ 		return;
+ 
++	asb_pagecache_remove(folio);
+ 	nr = folio_nr_pages(folio);
+ 
+ 	__lruvec_stat_mod_folio(folio, NR_FILE_PAGES, -nr);
+@@ -818,6 +820,8 @@
+ 
+ 	xas_lock_irq(&xas);
+ 	xas_store(&xas, new);
++	asb_pagecache_remove(fold);
++	asb_pagecache_add(fnew);
+ 
+ 	old->mapping = NULL;
+ 	/* hugetlb pages do not participate in page cache accounting. */
+@@ -914,6 +918,7 @@
+ 		/* hugetlb pages do not participate in page cache accounting */
+ 		if (!huge) {
+ 			__lruvec_stat_mod_folio(folio, NR_FILE_PAGES, nr);
++			asb_pagecache_add(folio);
+ 			if (folio_test_pmd_mappable(folio))
+ 				__lruvec_stat_mod_folio(folio,
+ 						NR_FILE_THPS, nr);
+--- a/mm/shmem.c
++++ b/mm/shmem.c
+@@ -27,6 +27,7 @@
+ #include <linux/mount.h>
+ #include <linux/ramfs.h>
+ #include <linux/pagemap.h>
++#include <linux/asb_pagecache.h>
+ #include <linux/file.h>
+ #include <linux/fileattr.h>
+ #include <linux/mm.h>
+@@ -736,6 +737,7 @@
+ 		mapping->nrpages += nr;
+ 		__lruvec_stat_mod_folio(folio, NR_FILE_PAGES, nr);
+ 		__lruvec_stat_mod_folio(folio, NR_SHMEM, nr);
++		asb_pagecache_add(folio);
+ unlock:
+ 		xas_unlock_irq(&xas);
+ 	} while (xas_nomem(&xas, gfp));
+@@ -763,6 +765,7 @@
+ 
+ 	xa_lock_irq(&mapping->i_pages);
+ 	error = shmem_replace_entry(mapping, folio->index, folio, radswap);
++	asb_pagecache_remove(folio);
+ 	folio->mapping = NULL;
+ 	mapping->nrpages -= nr;
+ 	__lruvec_stat_mod_folio(folio, NR_FILE_PAGES, -nr);
+@@ -1682,6 +1685,7 @@
+ 	error = shmem_replace_entry(swap_mapping, swap_index, old, new);
+ 	if (!error) {
+ 		mem_cgroup_migrate(old, new);
++		asb_pagecache_move(old, new);
+ 		__lruvec_stat_mod_folio(new, NR_FILE_PAGES, 1);
+ 		__lruvec_stat_mod_folio(new, NR_SHMEM, 1);
+ 		__lruvec_stat_mod_folio(old, NR_FILE_PAGES, -1);
+--- a/mm/migrate.c
++++ b/mm/migrate.c
+@@ -18,6 +18,7 @@
+ #include <linux/swap.h>
+ #include <linux/swapops.h>
+ #include <linux/pagemap.h>
++#include <linux/asb_pagecache.h>
+ #include <linux/buffer_head.h>
+ #include <linux/mm_inline.h>
+ #include <linux/nsproxy.h>
+@@ -452,6 +453,7 @@
+ 	 * to one less reference.
+ 	 * We know this isn't the last reference.
+ 	 */
++	asb_pagecache_move(folio, newfolio);
+ 	folio_ref_unfreeze(folio, expected_count - nr);
+ 
+ 	xas_unlock(&xas);
+--- a/mm/Makefile
++++ b/mm/Makefile
+@@ -138,3 +138,5 @@
+ obj-$(CONFIG_HAVE_BOOTMEM_INFO_NODE) += bootmem_info.o
+ obj-$(CONFIG_GENERIC_IOREMAP) += ioremap.o
+ obj-$(CONFIG_SHRINKER_DEBUG) += shrinker_debug.o
++
++obj-$(CONFIG_ASB_PAGECACHE) += asb_pagecache.o
+--- a/mm/Kconfig
++++ b/mm/Kconfig
+@@ -1185,3 +1185,12 @@
+ source "mm/damon/Kconfig"
+ 
+ endmenu
++
++config ASB_PAGECACHE
++	bool "AgentSandboxBench diagnostic page-cache membership"
++	depends on PROC_FS && X86_64
++	default n
++	help
++	  Record cache PFNs and lifetime tags from boot in separate metadata.
++	  Diagnostic guests only: adds about 16.25 MiB static metadata and
++	  exports root-only /proc/asb_pagecache. Physical PFNs below 8 GiB.
+--- /dev/null
++++ b/mm/asb_pagecache.c
+@@ -0,0 +1,201 @@
++// SPDX-License-Identifier: GPL-2.0
++/* Diagnostic guest only: current file-cache membership and lifetime tags.
++ * Mirrors Cached's file/shmem scope, excluding block-device and swap-only cache.
++ * Fixed limit is a guest physical address bound, not configured RAM size.
++ */
++#include <linux/asb_pagecache.h>
++#include <linux/bitmap.h>
++#include <linux/fs.h>
++#include <linux/init.h>
++#include <linux/ktime.h>
++#include <linux/pagemap.h>
++#include <linux/proc_fs.h>
++#include <linux/slab.h>
++#include <linux/spinlock.h>
++#include <linux/uaccess.h>
++#include <linux/vmalloc.h>
++
++#define ASB_MAX_PFN (1UL << 21) /* 8 GiB guest physical address space, 4 KiB pages */
++static DECLARE_BITMAP(asb_present, ASB_MAX_PFN);
++static u64 asb_tags[ASB_MAX_PFN];
++static DEFINE_SPINLOCK(asb_lock);
++static u64 asb_generation, asb_pages, asb_shmem;
++static u64 asb_duplicates, asb_missing, asb_overflow, asb_moves;
++
++/* Low tag bit distinguishes shmem; remaining bits never repeat in a boot. */
++static bool eligible(struct folio *folio)
++{
++	/* Callers hold the actual file-cache mapping, including shmem transitions. */
++	struct address_space *mapping = folio->mapping;
++	return !folio_test_hugetlb(folio) &&
++		mapping && mapping->host && !S_ISBLK(mapping->host->i_mode);
++}
++
++static bool asb_pfn_range(unsigned long pfn, unsigned long nr)
++{
++	if (pfn >= ASB_MAX_PFN || nr > ASB_MAX_PFN - pfn) {
++		asb_overflow += nr;
++		return false;
++	}
++	return true;
++}
++
++static void add_locked(unsigned long pfn, unsigned long nr, bool shmem)
++{
++	unsigned long i;
++	if (!asb_pfn_range(pfn, nr))
++		return;
++	for (i = pfn; i < pfn + nr; i++) {
++		if (test_and_set_bit(i, asb_present)) {
++			asb_duplicates++;
++			continue;
++		}
++		WRITE_ONCE(asb_tags[i], (++asb_generation << 1) | shmem);
++		asb_pages++;
++		asb_shmem += shmem;
++	}
++}
++
++static void remove_locked(unsigned long pfn, unsigned long nr)
++{
++	unsigned long i;
++	if (!asb_pfn_range(pfn, nr))
++		return;
++	for (i = pfn; i < pfn + nr; i++) {
++		if (!test_and_clear_bit(i, asb_present)) {
++			asb_missing++;
++			continue;
++		}
++		asb_shmem -= READ_ONCE(asb_tags[i]) & 1;
++		WRITE_ONCE(asb_tags[i], 0);
++		asb_pages--;
++		asb_generation++;
++	}
++}
++
++void asb_pagecache_add(struct folio *folio)
++{
++	unsigned long flags;
++	if (!eligible(folio))
++		return;
++	spin_lock_irqsave(&asb_lock, flags);
++	add_locked(folio_pfn(folio), folio_nr_pages(folio),
++		folio_test_swapbacked(folio));
++	spin_unlock_irqrestore(&asb_lock, flags);
++}
++
++void asb_pagecache_remove(struct folio *folio)
++{
++	unsigned long flags;
++	if (!eligible(folio))
++		return;
++	spin_lock_irqsave(&asb_lock, flags);
++	remove_locked(folio_pfn(folio), folio_nr_pages(folio));
++	spin_unlock_irqrestore(&asb_lock, flags);
++}
++
++void asb_pagecache_move(struct folio *old, struct folio *new)
++{
++	unsigned long flags, pfn = folio_pfn(old), nr = folio_nr_pages(old);
++	bool shmem;
++	spin_lock_irqsave(&asb_lock, flags);
++	/* Anonymous, swap-cache and block-device migrations were never tagged. */
++	if (pfn < ASB_MAX_PFN && test_bit(pfn, asb_present)) {
++		shmem = READ_ONCE(asb_tags[pfn]) & 1;
++		remove_locked(pfn, nr);
++		add_locked(folio_pfn(new), nr, shmem);
++		asb_moves += nr;
++	}
++	spin_unlock_irqrestore(&asb_lock, flags);
++}
++
++struct asb_header {
++	char magic[8];
++	u64 version, page_size, max_pfn, records, generation, shmem_pages;
++	u64 duplicate_adds, missing_removes, out_of_range, moved_pages;
++	u64 stale_records, bitmap_lock_ns;
++};
++struct asb_record { u64 pfn, tag; };
++struct asb_dump {
++	struct asb_header header;
++	struct asb_record records[];
++};
++
++static int asb_open(struct inode *inode, struct file *file)
++{
++	struct asb_dump *dump;
++	struct asb_header h = { .magic = "ASBCACH1", .version = 1,
++		.page_size = PAGE_SIZE, .max_pfn = ASB_MAX_PFN };
++	unsigned long *bitmap, flags, pfn, i = 0;
++	u64 started;
++	bitmap = bitmap_zalloc(ASB_MAX_PFN, GFP_KERNEL);
++	if (!bitmap)
++		return -ENOMEM;
++	spin_lock_irqsave(&asb_lock, flags);
++	started = ktime_get_ns();
++	bitmap_copy(bitmap, asb_present, ASB_MAX_PFN);
++	h.records = asb_pages;
++	h.generation = asb_generation;
++	h.shmem_pages = asb_shmem;
++	h.duplicate_adds = asb_duplicates;
++	h.missing_removes = asb_missing;
++	h.out_of_range = asb_overflow;
++	h.moved_pages = asb_moves;
++	h.bitmap_lock_ns = ktime_get_ns() - started;
++	spin_unlock_irqrestore(&asb_lock, flags);
++	dump = kvzalloc(struct_size(dump, records, h.records), GFP_KERNEL);
++	if (!dump) {
++		bitmap_free(bitmap);
++		return -ENOMEM;
++	}
++	for_each_set_bit(pfn, bitmap, ASB_MAX_PFN) {
++		u64 tag = READ_ONCE(asb_tags[pfn]);
++		if (i >= h.records) {
++			kvfree(dump);
++			bitmap_free(bitmap);
++			return -EIO;
++		}
++		/* Lifetime changed after the bitmap copy: retain as unknown. */
++		if (!tag || (tag >> 1) > h.generation) {
++			tag = 0;
++			h.stale_records++;
++		}
++		dump->records[i].pfn = pfn;
++		dump->records[i++].tag = tag;
++	}
++	bitmap_free(bitmap);
++	if (i != h.records) {
++		kvfree(dump);
++		return -EIO;
++	}
++	dump->header = h;
++	file->private_data = dump;
++	return 0;
++}
++
++static ssize_t asb_read(struct file *file, char __user *buf, size_t count, loff_t *pos)
++{
++	struct asb_dump *dump = file->private_data;
++	return simple_read_from_buffer(buf, count, pos, dump,
++		struct_size(dump, records, dump->header.records));
++}
++
++static int asb_release(struct inode *inode, struct file *file)
++{
++	kvfree(file->private_data);
++	return 0;
++}
++
++static const struct proc_ops asb_ops = {
++	.proc_open = asb_open,
++	.proc_read = asb_read,
++	.proc_release = asb_release,
++	.proc_lseek = default_llseek,
++};
++
++static int __init asb_init(void)
++{
++	BUILD_BUG_ON(PAGE_SIZE != 4096);
++	return proc_create("asb_pagecache", 0400, NULL, &asb_ops) ? 0 : -ENOMEM;
++}
++fs_initcall(asb_init);
+--- /dev/null
++++ b/include/linux/asb_pagecache.h
+@@ -0,0 +1,14 @@
++/* SPDX-License-Identifier: GPL-2.0 */
++#ifndef _LINUX_ASB_PAGECACHE_H
++#define _LINUX_ASB_PAGECACHE_H
++struct folio;
++#ifdef CONFIG_ASB_PAGECACHE
++void asb_pagecache_add(struct folio *folio);
++void asb_pagecache_remove(struct folio *folio);
++void asb_pagecache_move(struct folio *old, struct folio *new);
++#else
++static inline void asb_pagecache_add(struct folio *folio) {}
++static inline void asb_pagecache_remove(struct folio *folio) {}
++static inline void asb_pagecache_move(struct folio *old, struct folio *new) {}
++#endif
++#endif
+--- a/drivers/virtio/virtio_mmio.c
++++ b/drivers/virtio/virtio_mmio.c
+@@ -481,13 +481,17 @@
+ 	int irq = platform_get_irq(vm_dev->pdev, 0);
+ 	int i, err, queue_idx = 0;
+ 
+-	if (irq < 0)
++	if (irq < 0) {
++		dev_err(&vdev->dev, "ASB platform_get_irq failed: %d\n", irq);
+ 		return irq;
++	}
+ 
+ 	err = request_irq(irq, vm_interrupt, IRQF_SHARED,
+ 			dev_name(&vdev->dev), vm_dev);
+-	if (err)
++	if (err) {
++		dev_err(&vdev->dev, "ASB request_irq(%d) failed: %d\n", irq, err);
+ 		return err;
++	}
+ 
+ 	if (of_property_read_bool(vm_dev->pdev->dev.of_node, "wakeup-source"))
+ 		enable_irq_wake(irq);

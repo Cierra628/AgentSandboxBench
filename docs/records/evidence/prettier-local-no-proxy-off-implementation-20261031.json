@@ -1,0 +1,69 @@
+{
+  "date": "2026-10-31",
+  "status": "OFFLINE_IMPLEMENTATION_PASS",
+  "scope": "Explicit local-no-proxy persistent full single Prettier sampling-off path; no live validation",
+  "runtime_files": [
+    "scripts/prettier_no_proxy.py",
+    "scripts/host_persistent_input.py",
+    "scripts/run_host_file_workflow.py",
+    "scripts/platform_tasks.py",
+    "scripts/validate_isolated_agentenv.py",
+    "scripts/run_prettier6604.py"
+  ],
+  "configuration": "configs/platform-prettier6604-host-current-off.json",
+  "required_options": [
+    "--persistent-input",
+    "--local-no-proxy"
+  ],
+  "tests": {
+    "total": 92,
+    "new": 12,
+    "existing": 80,
+    "result": "PASS",
+    "entry": "PYTHONPATH=scripts:tests python3 -B -m unittest test_prettier_no_proxy_sampling_off test_prettier_no_proxy test_sphinx_no_proxy test_xarray_no_proxy test_host_persistent_input test_host_persistent_tasks test_host_current_sampling_control test_host_current_tasks -v",
+    "log": ".artifacts/prettier-local-no-proxy-off-implementation-20261031/final-regressions.log"
+  },
+  "checked": {
+    "actual_configuration_and_native_cli": "PASS",
+    "native_to_leaf_dispatch": "PASS",
+    "original_timed_commands": "UNCHANGED",
+    "host_thread_off": "PASS_MOCKED",
+    "guest_sampler_off": "PASS_SOURCE_BRANCH_AND_GENERATED_RUNNER",
+    "boundary_reads_off": "PASS_GENERATED_RUNNER",
+    "before_guest_counters": null,
+    "running_memory": "NOT_MEASURED",
+    "final_imported_file_query": "PRESERVED_AFTER_RUNTIME_CLEANUP",
+    "query_cpu_and_wall_timing": "PRESERVED",
+    "report_nulls_and_no_memory_curve": "PASS_REAL_REPORT_TOY_DATA",
+    "failure_input_retention": "PASS_MOCKED",
+    "old_on_and_off_paths": "PASS_REGRESSIONS",
+    "short_check_and_python_local_off": "REJECTED_AS_PLANNED",
+    "guest_phase_markers": "PASS_GENERATED_RUNNER_USES_ACTUAL_GUEST_ROOT"
+  },
+  "repaired_existing_test_fixtures": "Added existing external_off/external_config context to AST snippets and updated final-inventory locator for existing expanded-files branch; production behavior unchanged by these fixture repairs",
+  "syntax": "PASS",
+  "help_exit_codes": {
+    "run_host_file_workflow": 0,
+    "validate_isolated_agentenv": 0,
+    "run_prettier6604": 0
+  },
+  "live_runs": "NOT_RUN",
+  "network": "NOT_USED",
+  "next_stage": {
+    "order": [
+      "off",
+      "on",
+      "on",
+      "off"
+    ],
+    "runs": 4,
+    "actions": 116,
+    "guest_memory_gib": 4,
+    "vcpu": 2,
+    "default_reclaim": true,
+    "prepare_disk_strictly_above_gib": 54,
+    "prepare_memavailable_strictly_above_gib": 64,
+    "runtime_allocation_disk_strictly_above_gib": 34,
+    "authorization": "separate later stage"
+  }
+}

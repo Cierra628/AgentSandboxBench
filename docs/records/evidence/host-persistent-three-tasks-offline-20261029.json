@@ -1,0 +1,227 @@
+{
+  "status": "PASS_OFFLINE_INPUT_INVENTORY",
+  "scope": "Saved JSON metadata and archive stat only; no archive/workload data reads, new hashes, restore, devices, cgroup, service, guest, residency query or task run.",
+  "task_count": 3,
+  "rows": [
+    {
+      "profile": "prettier6604",
+      "task_id": "prettier__prettier-6604",
+      "config": "configs/platform-prettier6604-host-current.json",
+      "replay_policy": "strict",
+      "source_backup": ".artifacts/storage-isolated-service/20261008T102942Z-3642885/volume.ext4.gz",
+      "backup_receipt": ".artifacts/storage-isolated-service/20261008T102942Z-3642885/volume-backup.json",
+      "seed_receipt": ".artifacts/prettier6604/host-persistent-asbhost-20261029t0737562407778/seed.json",
+      "task_image": "ghcr.io/timesler/swe-polybench.eval.x86_64.prettier__prettier-6604@sha256:8159d38fcbd6d5f09402d93d3e15cf2a891058ddd835a224f1d6b3357a87cc94",
+      "source_gib": 20,
+      "archive_bytes": 2245185148,
+      "categories": [
+        {
+          "part": "deps",
+          "path_count": 12,
+          "logical_bytes": 189056180
+        },
+        {
+          "part": "image-cache/configs",
+          "path_count": 10,
+          "logical_bytes": 16380
+        },
+        {
+          "part": "image-cache/indexes",
+          "path_count": 31,
+          "logical_bytes": 13780
+        },
+        {
+          "part": "image-cache/commits",
+          "path_count": 31,
+          "logical_bytes": 7178259456
+        },
+        {
+          "part": "image-cache/remote-blocks",
+          "path_count": 21,
+          "logical_bytes": 357288
+        },
+        {
+          "part": "image-cache/convert-blocks",
+          "path_count": 0,
+          "logical_bytes": 0
+        }
+      ],
+      "path_count": 105,
+      "logical_bytes": 7367703084,
+      "logical_gib": 6.861708205193281,
+      "input_budget_gib": 8,
+      "input_budget_minus_logical_gib": 1.1382917948067188,
+      "unique_inode_count": 105,
+      "unique_inode_scope": "Saved real persistent import",
+      "prepare_free_required_strictly_gib": 54,
+      "available_now_gib": 54.730220794677734,
+      "prepare_ready_now": true,
+      "deficit_to_threshold_gib": 0,
+      "runtime_free_required_strictly_gib": 34,
+      "from_initial_runtime_combined_budget_gib": 42,
+      "old_complete_task": {
+        "storage": ".artifacts/storage-isolated-service/20261028T094351Z-2169958",
+        "actions": 29,
+        "capacity_gib": 8,
+        "after_copy_available_gib": 7.149658203125,
+        "strict_replay_status": "SEE_ORIGINAL_RESULT",
+        "official_task_status": "FAIL"
+      },
+      "current_full_single_persistent_entry": "REJECTED_BY_CURRENT_NATIVE_OPTION",
+      "current_config_commands_constructed": true,
+      "new_entry_implemented": false
+    },
+    {
+      "profile": "sphinx7590",
+      "task_id": "sphinx-doc__sphinx-7590",
+      "config": "configs/platform-sphinx7590-host-current.json",
+      "replay_policy": "sphinx-pipeline-v2",
+      "source_backup": ".artifacts/storage-isolated-service/20261009T050703Z-3934019/volume.ext4.gz",
+      "backup_receipt": ".artifacts/storage-isolated-service/20261009T050703Z-3934019/backup.json",
+      "seed_receipt": ".artifacts/sphinx-backbone/platform-cache-20261028T103552Z-2208296/seed.json",
+      "task_image": "ghcr.io/epoch-research/swe-bench.eval.x86_64.sphinx-doc__sphinx-7590@sha256:577ebfcce825e4c9621e066dc1c8375443be94bbc6de30b9368e422b8f123731",
+      "source_gib": 20,
+      "archive_bytes": 2862171516,
+      "categories": [
+        {
+          "part": "deps",
+          "path_count": 13,
+          "logical_bytes": 189057208
+        },
+        {
+          "part": "image-cache/configs",
+          "path_count": 10,
+          "logical_bytes": 15181
+        },
+        {
+          "part": "image-cache/indexes",
+          "path_count": 36,
+          "logical_bytes": 15968
+        },
+        {
+          "part": "image-cache/commits",
+          "path_count": 36,
+          "logical_bytes": 8724162560
+        },
+        {
+          "part": "image-cache/remote-blocks",
+          "path_count": 21,
+          "logical_bytes": 351720
+        },
+        {
+          "part": "image-cache/convert-blocks",
+          "path_count": 0,
+          "logical_bytes": 0
+        }
+      ],
+      "path_count": 116,
+      "logical_bytes": 8913602637,
+      "logical_gib": 8.301439356990159,
+      "input_budget_gib": 10,
+      "input_budget_minus_logical_gib": 1.6985606430098414,
+      "unique_inode_count": null,
+      "unique_inode_scope": "Not available in old manifest; must record on fresh import",
+      "prepare_free_required_strictly_gib": 56,
+      "available_now_gib": 54.730220794677734,
+      "prepare_ready_now": false,
+      "deficit_to_threshold_gib": 1.2697792053222656,
+      "runtime_free_required_strictly_gib": 34,
+      "from_initial_runtime_combined_budget_gib": 44,
+      "old_complete_task": {
+        "storage": ".artifacts/storage-isolated-service/20261028T103715Z-2210161",
+        "actions": 35,
+        "capacity_gib": 8,
+        "after_copy_available_gib": 7.149623870849609,
+        "strict_replay_status": "FAIL",
+        "official_task_status": "FAIL"
+      },
+      "current_full_single_persistent_entry": "REJECTED_BY_CURRENT_NATIVE_OPTION",
+      "current_config_commands_constructed": true,
+      "new_entry_implemented": false
+    },
+    {
+      "profile": "xarray6992",
+      "task_id": "pydata__xarray-6992",
+      "config": "configs/platform-xarray6992-host-current.json",
+      "replay_policy": "xarray-approved-sigpipe",
+      "source_backup": ".artifacts/storage-isolated-service/20261008T165515Z-3834076/volume.ext4.gz",
+      "backup_receipt": ".artifacts/storage-isolated-service/20261008T165515Z-3834076/backup.json",
+      "seed_receipt": ".artifacts/python-backbone/platform-cache-20261028T103757Z-2212463/seed.json",
+      "task_image": "ghcr.io/epoch-research/swe-bench.eval.x86_64.pydata__xarray-6992@sha256:c05101ef7105599eca1b7d15279a2928ac5453876cd2b83008deb9165d752655",
+      "source_gib": 24,
+      "archive_bytes": 3644879815,
+      "categories": [
+        {
+          "part": "deps",
+          "path_count": 13,
+          "logical_bytes": 189057200
+        },
+        {
+          "part": "image-cache/configs",
+          "path_count": 10,
+          "logical_bytes": 15165
+        },
+        {
+          "part": "image-cache/indexes",
+          "path_count": 36,
+          "logical_bytes": 15968
+        },
+        {
+          "part": "image-cache/commits",
+          "path_count": 36,
+          "logical_bytes": 10703484928
+        },
+        {
+          "part": "image-cache/remote-blocks",
+          "path_count": 21,
+          "logical_bytes": 355032
+        },
+        {
+          "part": "image-cache/convert-blocks",
+          "path_count": 0,
+          "logical_bytes": 0
+        }
+      ],
+      "path_count": 116,
+      "logical_bytes": 10892928293,
+      "logical_gib": 10.14483002293855,
+      "input_budget_gib": 12,
+      "input_budget_minus_logical_gib": 1.8551699770614505,
+      "unique_inode_count": null,
+      "unique_inode_scope": "Not available in old manifest; must record on fresh import",
+      "prepare_free_required_strictly_gib": 62,
+      "available_now_gib": 54.730220794677734,
+      "prepare_ready_now": false,
+      "deficit_to_threshold_gib": 7.269779205322266,
+      "runtime_free_required_strictly_gib": 34,
+      "from_initial_runtime_combined_budget_gib": 46,
+      "old_complete_task": {
+        "storage": ".artifacts/storage-isolated-service/20261028T103939Z-2214400",
+        "actions": 35,
+        "capacity_gib": 8,
+        "after_copy_available_gib": 7.149620056152344,
+        "strict_replay_status": "FAIL",
+        "official_task_status": "FAIL"
+      },
+      "current_full_single_persistent_entry": "REJECTED_BY_CURRENT_NATIVE_OPTION",
+      "current_config_commands_constructed": true,
+      "new_entry_implemented": false
+    }
+  ],
+  "payload_integrity": "Saved receipts agree; archive contents not reverified this turn",
+  "new_experiment_runs": 0,
+  "new_guest_count": 0,
+  "new_task_actions": 0,
+  "new_runtime_code_changes": 0,
+  "proposed_order": [
+    "out-of-group restore",
+    "fresh group creation",
+    "in-group fresh plain-file import and fsync",
+    "scratch unmount/detach/removal",
+    "8 GiB runtime volume and owned-filesystem sync",
+    "private service readiness and synchronous baseline",
+    "original full single-task replay",
+    "after-runtime one input-only residency check",
+    "reports and successful input cleanup"
+  ]
+}

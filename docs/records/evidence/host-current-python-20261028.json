@@ -1,0 +1,273 @@
+{
+  "status": "PASS_TWO_FULL_CURRENT_ONLY_PYTHON_TASKS",
+  "new_tasks": 2,
+  "new_guests": 2,
+  "actual_actions": 70,
+  "guest_interval_seconds": 0.1,
+  "host_interval_seconds": 0.1,
+  "pss": "NOT_REQUESTED",
+  "mincore": "NOT_REQUESTED",
+  "tasks": [
+    {
+      "profile": "sphinx7590",
+      "task_id": "sphinx-doc__sphinx-7590",
+      "status": "PASS_FULL_CURRENT_ONLY_CAPTURE",
+      "actions": 35,
+      "cpu": 2,
+      "memory_mib": 4096,
+      "workflow": ".artifacts/platform-tasks/20261028T103552Z-2208296",
+      "storage": ".artifacts/storage-isolated-service/20261028T103715Z-2210161",
+      "raw": ".artifacts/storage-isolated-service/20261028T103715Z-2210161/python-backbone",
+      "report": ".artifacts/platform-tasks/report-20261028T103552Z-2208296",
+      "tool_seconds": 10.839868388,
+      "frozen_replay_seconds": 14.436026318,
+      "controller_seconds": 28.519156009,
+      "original_official": {
+        "passed": 24,
+        "failed": 1,
+        "skipped": 0
+      },
+      "strict_replay_status": "FAIL",
+      "diagnostic_status": "PASS",
+      "task_checks": {
+        "first_segment_smoke": "PASS",
+        "key_outputs": "PASS",
+        "frozen_actions_order_and_diagnostic_exit_policy": "PASS",
+        "final_patch_and_source_hashes": "PASS",
+        "complete_benchmark_results_and_source_unchanged": "PASS"
+      },
+      "guest_samples": 224,
+      "guest_used_peak_mib": 291.69140625,
+      "guest_cached_peak_mib": 115.08203125,
+      "guest_maximum_gap_seconds": 0.103043981,
+      "guest_collector_cpu_seconds": 0.230549,
+      "guest_collector_elapsed_ns": 22395694531,
+      "guest_collector_maxrss_kib": 17668,
+      "monitor_control_calls": [
+        {
+          "stage": "monitor-upload-bundle",
+          "duration_ns": 42497861
+        },
+        {
+          "stage": "monitor-ready",
+          "duration_ns": 214954472
+        },
+        {
+          "stage": "monitor-phase",
+          "duration_ns": 180021886
+        },
+        {
+          "stage": "monitor-finish",
+          "duration_ns": 109368373
+        },
+        {
+          "stage": "monitor-download",
+          "duration_ns": 37847516
+        }
+      ],
+      "monitor_control_total_ns": 584690108,
+      "host_samples": 1214,
+      "host_maximum_gap_ns": 100180027,
+      "host_current": {
+        "metric": "memory.current",
+        "unit": "bytes",
+        "scope": "Measurement cgroup and descendants: preparation, controller, private service and all sandboxes.",
+        "window_start_monotonic_ns": 14953985276003701,
+        "window_end_monotonic_ns": 14954106625802000,
+        "initial_bytes": 45182976,
+        "final_bytes": 18152751104,
+        "observed_peak_bytes": 19042152448,
+        "time_weighted_mean_bytes": 10826771730.014536,
+        "mean_method": "Previous sample held until next sample; first-to-last sample only, including recorded gaps. Estimate, not a continuous integral.",
+        "before_guest_bytes": 18433343488,
+        "baseline_status": "OBSERVED_BEFORE_GUEST",
+        "after_service_ready_observed_peak_bytes": 19042152448,
+        "after_service_ready_peak_increase_bytes": 608808960,
+        "final_increase_from_before_guest_bytes": -280592384,
+        "interpretation": "Charged group memory, not complete sandbox physical memory. Before-guest baseline includes prepared inputs and service; increases include subsequent control and service work. Peaks are sampled, final sample may be after guest deletion.",
+        "coverage": {
+          "outside_group_charges": "NOT_INCLUDED",
+          "unaccounted_kernel_allocations": "NOT_INCLUDED",
+          "swap_bytes": "NOT_MEASURED",
+          "hugetlb_coverage": "NOT_VERIFIED"
+        },
+        "components": "anon/file/kernel explain current; shmem is part of file. Counters are sequential and may lag: do not add them to current or label their residual unaccounted memory."
+      },
+      "host_collector": {
+        "status": "PASS",
+        "error": null,
+        "samples": 1214,
+        "interval_seconds": 0.1,
+        "pss_interval_seconds": null,
+        "thread_cpu_ns": 445346312,
+        "counter_read_total_ns": 353405930,
+        "scope": "Fresh rollout slice: input preparation, controller, private service and all its descendants; host file includes shmem, not guest Cached."
+      },
+      "pss": "NOT_REQUESTED",
+      "mincore": "NOT_REQUESTED",
+      "default_reclaim_unchanged": true,
+      "new_model_requests": 0,
+      "checkpoint": false,
+      "completed": {
+        "original_35_actions": true,
+        "expected_patch_and_outputs": true,
+        "original_official_outcome": true,
+        "guest_sampling": true,
+        "host_sampling": true,
+        "automatic_reports": true,
+        "final_writable_files": true,
+        "fixed_volume_boundary": true,
+        "owned_cleanup": true
+      },
+      "matched_executed_sources": [
+        "platform_tasks.py",
+        "run_host_file_workflow.py",
+        "host_file_monitor.py",
+        "report_host_file.py",
+        "validate_isolated_agentenv.py",
+        "run_xarray6992.py",
+        "sandbox_runtime_monitor.py",
+        "report_task_overview.py",
+        "agentenv_cold_start.py"
+      ],
+      "available_start_bytes": 42943877120,
+      "available_min_bytes": 32602451968,
+      "native_min_available_bytes": 32559542272,
+      "available_after_bytes": 42835849216,
+      "source_restored_stopped": true
+    },
+    {
+      "profile": "xarray6992",
+      "task_id": "pydata__xarray-6992",
+      "status": "PASS_FULL_CURRENT_ONLY_CAPTURE",
+      "actions": 35,
+      "cpu": 2,
+      "memory_mib": 4096,
+      "workflow": ".artifacts/platform-tasks/20261028T103757Z-2212463",
+      "storage": ".artifacts/storage-isolated-service/20261028T103939Z-2214400",
+      "raw": ".artifacts/storage-isolated-service/20261028T103939Z-2214400/python-backbone",
+      "report": ".artifacts/platform-tasks/report-20261028T103757Z-2212463",
+      "tool_seconds": 35.318568636,
+      "frozen_replay_seconds": 38.504633103,
+      "controller_seconds": 71.456344536,
+      "original_official": {
+        "passed": 945,
+        "failed": 12,
+        "skipped": 0
+      },
+      "strict_replay_status": "FAIL",
+      "diagnostic_status": "PASS",
+      "task_checks": {
+        "first_segment_smoke": "PASS",
+        "key_outputs": "PASS",
+        "frozen_actions_order_and_diagnostic_exit_policy": "PASS",
+        "final_patch_and_source_hashes": "PASS",
+        "complete_benchmark_results_and_source_unchanged": "PASS"
+      },
+      "guest_samples": 666,
+      "guest_used_peak_mib": 735.4765625,
+      "guest_cached_peak_mib": 297.7578125,
+      "guest_maximum_gap_seconds": 0.123815481,
+      "guest_collector_cpu_seconds": 0.373986,
+      "guest_collector_elapsed_ns": 66795248636,
+      "guest_collector_maxrss_kib": 17688,
+      "monitor_control_calls": [
+        {
+          "stage": "monitor-upload-bundle",
+          "duration_ns": 44944964
+        },
+        {
+          "stage": "monitor-ready",
+          "duration_ns": 231647115
+        },
+        {
+          "stage": "monitor-phase",
+          "duration_ns": 185857730
+        },
+        {
+          "stage": "monitor-finish",
+          "duration_ns": 228713865
+        },
+        {
+          "stage": "monitor-download",
+          "duration_ns": 37763498
+        }
+      ],
+      "monitor_control_total_ns": 728927172,
+      "host_samples": 1839,
+      "host_maximum_gap_ns": 100120829,
+      "host_current": {
+        "metric": "memory.current",
+        "unit": "bytes",
+        "scope": "Measurement cgroup and descendants: preparation, controller, private service and all sandboxes.",
+        "window_start_monotonic_ns": 14954110610870021,
+        "window_end_monotonic_ns": 14954294546442040,
+        "initial_bytes": 44302336,
+        "final_bytes": 22672760832,
+        "observed_peak_bytes": 24284258304,
+        "time_weighted_mean_bytes": 15735592602.181425,
+        "mean_method": "Previous sample held until next sample; first-to-last sample only, including recorded gaps. Estimate, not a continuous integral.",
+        "before_guest_bytes": 22949109760,
+        "baseline_status": "OBSERVED_BEFORE_GUEST",
+        "after_service_ready_observed_peak_bytes": 24284258304,
+        "after_service_ready_peak_increase_bytes": 1335148544,
+        "final_increase_from_before_guest_bytes": -276348928,
+        "interpretation": "Charged group memory, not complete sandbox physical memory. Before-guest baseline includes prepared inputs and service; increases include subsequent control and service work. Peaks are sampled, final sample may be after guest deletion.",
+        "coverage": {
+          "outside_group_charges": "NOT_INCLUDED",
+          "unaccounted_kernel_allocations": "NOT_INCLUDED",
+          "swap_bytes": "NOT_MEASURED",
+          "hugetlb_coverage": "NOT_VERIFIED"
+        },
+        "components": "anon/file/kernel explain current; shmem is part of file. Counters are sequential and may lag: do not add them to current or label their residual unaccounted memory."
+      },
+      "host_collector": {
+        "status": "PASS",
+        "error": null,
+        "samples": 1839,
+        "interval_seconds": 0.1,
+        "pss_interval_seconds": null,
+        "thread_cpu_ns": 624056613,
+        "counter_read_total_ns": 496302022,
+        "scope": "Fresh rollout slice: input preparation, controller, private service and all its descendants; host file includes shmem, not guest Cached."
+      },
+      "pss": "NOT_REQUESTED",
+      "mincore": "NOT_REQUESTED",
+      "default_reclaim_unchanged": true,
+      "new_model_requests": 0,
+      "checkpoint": false,
+      "completed": {
+        "original_35_actions": true,
+        "expected_patch_and_outputs": true,
+        "original_official_outcome": true,
+        "guest_sampling": true,
+        "host_sampling": true,
+        "automatic_reports": true,
+        "final_writable_files": true,
+        "fixed_volume_boundary": true,
+        "owned_cleanup": true
+      },
+      "matched_executed_sources": [
+        "platform_tasks.py",
+        "run_host_file_workflow.py",
+        "host_file_monitor.py",
+        "report_host_file.py",
+        "validate_isolated_agentenv.py",
+        "run_xarray6992.py",
+        "sandbox_runtime_monitor.py",
+        "report_task_overview.py",
+        "agentenv_cold_start.py"
+      ],
+      "available_start_bytes": 42835836928,
+      "available_min_bytes": 33559683072,
+      "native_min_available_bytes": 33559314432,
+      "available_after_bytes": 42144735232,
+      "source_restored_stopped": true
+    }
+  ],
+  "limitations": [
+    "current is charged group memory, not complete physical coverage",
+    "each task ran once; no same-task off/on slowdown or sharing/density control",
+    "collector CPU excludes runner boundary commands; control calls are not total task slowdown"
+  ]
+}

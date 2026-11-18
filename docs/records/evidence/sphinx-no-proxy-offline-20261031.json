@@ -1,0 +1,235 @@
+{
+  "date": "2026-10-31",
+  "status": "ASSESSMENT_COMPLETE",
+  "scope": "Read-only runtime-code review, frozen command comparison and local metadata; implementation not changed",
+  "image": {
+    "reference": "ghcr.io/epoch-research/swe-bench.eval.x86_64.sphinx-doc__sphinx-7590@sha256:577ebfcce825e4c9621e066dc1c8375443be94bbc6de30b9368e422b8f123731",
+    "raw_manifest": ".artifacts/sphinx-backbone/prepare-20261009T041720Z/image-manifest.json",
+    "manifest_bytes": 3045,
+    "manifest_identity": {
+      "status": "PASS_REUSED",
+      "observed_digest": "sha256:577ebfcce825e4c9621e066dc1c8375443be94bbc6de30b9368e422b8f123731",
+      "check": "One KB-scale pinned raw OCI digest check performed earlier in this assessment"
+    },
+    "oci_layers": 13,
+    "compressed_layers_bytes": 935158562,
+    "config_digest": "sha256:78cd6b990e7cd091922255ebf5fd9eb110ed407198bb9e80cf4df2cda482c5d6",
+    "config_bytes": 8123,
+    "config_blob_in_known_docker_location": false,
+    "fixed_docker_image_inspect_exit": 1,
+    "conclusion": "Missing raw config body does not block the cache-hit route; do not download it",
+    "referrer_discovery": {
+      "actual_private_config": ".artifacts/storage-isolated-service/20261031T062113Z-2848125/isolated-config.toml",
+      "try_referrers_overlaybd_prefixes": [],
+      "finding": "No extra referrer discovery in the current fixed service configuration"
+    }
+  },
+  "backup": {
+    "path": ".artifacts/storage-isolated-service/20261009T050703Z-3934019/volume.ext4.gz",
+    "compressed_bytes": 2862171516,
+    "uncompressed_bytes": 21474836480,
+    "prior_integrity_status": "PASS; restore must retain original verification",
+    "file_count": 116,
+    "input_logical_bytes": 8913602637,
+    "categories": {
+      "deps": 13,
+      "image-cache/configs": 10,
+      "image-cache/indexes": 36,
+      "image-cache/commits": 36,
+      "image-cache/remote-blocks": 21,
+      "image-cache/convert-blocks": 0
+    },
+    "saved_config": {
+      "type": "file",
+      "size": 3566,
+      "sha256": "77ec8f4b1a8586b47c86d3768d0013f1e265c030ed3b13d0bfae70e0ead6a4d0"
+    },
+    "saved_metadata": {
+      "type": "file",
+      "size": 1781,
+      "sha256": "892662634f7e879eb03dd0f090f60e51119283e4a7523214b31d7affae87f6e9"
+    },
+    "current_import_exists": false,
+    "prior_import_released": true,
+    "restored_cache_content": "NOT_READ_THIS_STAGE; require usable local lowers, valid metadata and tools after original restore/import"
+  },
+  "regctl": {
+    "entrypoint_bytes": 1028,
+    "real_binary_bytes": 12255358,
+    "real_matches_prettier_saved_binary": true,
+    "version_evidence": "Reuse stored binary identity and prior Prettier v0.11.5 observation; future install still checks actual ELF/version",
+    "proposal": "Use restored regctl.real for the local version query, save old wrapper without executing it; expose exact version and manifest commands only"
+  },
+  "commands": {
+    "count": 35,
+    "manifest_equals_sampling": true,
+    "categories": {
+      "environment_listing": 2,
+      "local_edits": 4,
+      "local_pytest": 1,
+      "local_python": 9,
+      "local_shell_inspection": 19
+    },
+    "explicit_download_or_install": 0,
+    "pip_and_conda_step": 12,
+    "pytest_step": 35,
+    "uninspected_indirect_network": "Package manager internals, imported helpers and tests may make ancillary requests; no zero-request claim",
+    "original_nonzero_exits": [
+      {
+        "step": 1,
+        "segment": "read_repo",
+        "segment_step": "001",
+        "expected_exit": 141
+      },
+      {
+        "step": 9,
+        "segment": "trace_cpp_parser",
+        "segment_step": "003",
+        "expected_exit": 1
+      },
+      {
+        "step": 10,
+        "segment": "trace_cpp_parser",
+        "segment_step": "004",
+        "expected_exit": 1
+      },
+      {
+        "step": 12,
+        "segment": "trace_cpp_parser",
+        "segment_step": "006",
+        "expected_exit": 1
+      },
+      {
+        "step": 13,
+        "segment": "trace_cpp_parser",
+        "segment_step": "007",
+        "expected_exit": 1
+      },
+      {
+        "step": 14,
+        "segment": "core_patch",
+        "segment_step": "001",
+        "expected_exit": 141
+      },
+      {
+        "step": 34,
+        "segment": "backbone_finish",
+        "segment_step": "005",
+        "expected_exit": 1
+      }
+    ],
+    "policy": "sphinx-pipeline-v2",
+    "source_shell_environment": {
+      "PATH": "/opt/miniconda3/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin",
+      "unset": [
+        "CONDA_PREFIX",
+        "CONDA_DEFAULT_ENV",
+        "CONDA_SHLVL"
+      ]
+    },
+    "preserve": "Original 35 commands, original Python choices/expected failures; exact two pipeline exceptions only; no dependency installation"
+  },
+  "reference_official": {
+    "status": "FAIL",
+    "exit_code": 1,
+    "passed": 24,
+    "failed": 1,
+    "skipped": 0,
+    "failed_tests": [
+      "tests/test_domain_cpp.py::test_expressions"
+    ],
+    "skipped_tests": [],
+    "F2P_passed": 0,
+    "F2P_total": 1,
+    "P2P_passed": 24,
+    "P2P_total": 24,
+    "scope": "SWE-bench selected C++ tests and test patch; direct image pytest, not full official Docker harness"
+  },
+  "source_evidence": [
+    {
+      "path": "AgentENV/src/image/oci_image.rs",
+      "lines": "855-918; 436-484",
+      "finding": "Pinned manifest first; StandardOci has no repository scope; one converted lower per manifest layer"
+    },
+    {
+      "path": "AgentENV/src/image/resolver.rs",
+      "lines": "315-388",
+      "finding": "Usable config plus metadata Some returns cache hit before config blob fetch; missing metadata fetches blob"
+    },
+    {
+      "path": "AgentENV/src/image/cache/service.rs",
+      "lines": "999-1024",
+      "finding": "cached config usable check and local metadata lookup"
+    },
+    {
+      "path": "AgentENV/src/image/cache/source_config.rs",
+      "lines": "96-107; 158-205",
+      "finding": "Metadata JSON parse and local lower availability/size checks"
+    },
+    {
+      "path": "scripts/prettier_no_proxy.py",
+      "finding": "Current fixed pins/count, config export and version source are Prettier-specific"
+    },
+    {
+      "path": "scripts/run_xarray6992.py",
+      "finding": "Sphinx uses the Python runner; cold helper and guest proxy probe must be added only for explicit no-proxy"
+    },
+    {
+      "path": "scripts/validate_isolated_agentenv.py",
+      "finding": "Explicit mode guard and Python branch receipt need Sphinx support; shared container proxy removal already exists"
+    }
+  ],
+  "minimal_changes": [
+    "Add one explicit Sphinx profile to the existing local helper while preserving Prettier defaults and constants",
+    "Sphinx supplies fixed raw manifest only; blob/config fetch, image copy and unknown requests exit 78 without fallback",
+    "After original restore/import require fixed image config+metadata and 13 distinct local lowers, no remote references, plus tools and regctl.real",
+    "Route the explicit persistent Sphinx current/light mode through outer preparation, platform/native checks, pinned cold API and Python runner",
+    "Clear the same six proxy variables in host/service/guest; guest allowInternetAccess=false retains the recorded default DNS exception",
+    "Add guest proxy probe before sampling/tools and preserve its proof through task/native/workflow/report; leave old entries and Xarray untouched"
+  ],
+  "validation_plan": {
+    "next_stage": "OFFLINE_IMPLEMENTATION_ONLY",
+    "tests": [
+      "Sphinx manifest-only version/manifest success and blocked config/blob/image-copy/other-image commands",
+      "Fail before service when metadata/lower/real binary is missing or invalid; never invoke the old wrapper",
+      "New cold API Sphinx request fields and six empty proxies; old and Prettier requests unchanged",
+      "Python runner probe and result propagation; original 35 commands, pipeline-v2, official test selection and cleanup unchanged"
+    ],
+    "later_live": "One full original 35-action Sphinx run, seven-case oracle and 25 selected tests; first formal run verifies new path; no extra creation smoke or four controls",
+    "preserved_statuses": {
+      "replay_policy": "sphinx-pipeline-v2",
+      "historical_strict_replay": "FAIL",
+      "diagnostic_replay_required": "PASS",
+      "original_step35": "25 passed before official test patch",
+      "official_selected_tests": {
+        "total": 25,
+        "passed": 24,
+        "failed": 1,
+        "failed_test": "tests/test_domain_cpp.py::test_expressions"
+      }
+    },
+    "short_option": "Keep local-no-proxy-check limited to Prettier; do not route a Sphinx request to the hardcoded Prettier creation branch"
+  },
+  "resources": {
+    "available_disk_bytes": 60060839936,
+    "prepare_requires_strictly_more_than_bytes": 60129542144,
+    "disk_ready": false,
+    "runtime_volume_bytes": 8589934592,
+    "import_budget_bytes": 10737418240,
+    "source_budget_bytes": 21474836480,
+    "required_available_memory_bytes": 68719476736,
+    "reserve_and_failed_volume_rules": "Unchanged; future cleanup needs separate specific authorization; no deletion this stage"
+  },
+  "execution": {
+    "services_started": 0,
+    "guests_created": 0,
+    "network_requests": 0,
+    "archive_payload_bytes_read": 0,
+    "image_layer_payload_bytes_read": 0,
+    "archives_restored": 0,
+    "workload_actions_executed": 0,
+    "files_deleted": 0,
+    "runtime_code_files_changed": 0
+  },
+  "local_evidence_directory": ".artifacts/sphinx-no-proxy-offline-20261031"
+}

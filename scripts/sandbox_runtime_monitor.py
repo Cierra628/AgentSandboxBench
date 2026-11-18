@@ -21,6 +21,8 @@ from guest_memory_collector import counters, FIELDS, VMFIELDS
 
 GUEST_ROOT = '/workspace/asb-runtime-monitor'
 SCRIPT = '/workspace/asb-runtime-monitor.py'
+STOP_TIMEOUT_SECONDS = 5
+KILL_REAP_TIMEOUT_SECONDS = 2
 MEMFIELDS = [*FIELDS, 'Active(file)', 'Inactive(file)', 'Dirty']
 PREFIX = ['timestamp_ns', 'monotonic_ns', 'elapsed_ns', 'sandbox_id', 'role', 'session_id', 'phase', 'round', 'step']
 DAMON_FIELDS = ['enabled', 'kdamond_pid', 'nr_reclaim_tried_regions', 'bytes_reclaim_tried_regions',
@@ -160,6 +162,63 @@ def process_probe():
         temporary.replace(directory/'count');time.sleep(.1)
 
 
+def collector_process_state(identity):
+    try:
+        observed = process_identity(identity['pid'])
+        if observed != identity:
+            return dict(state='IDENTITY_CHANGED', target_disappeared=True, observed_identity=observed)
+        text = Path(f'/proc/{identity["pid"]}/stat').read_text()
+        return dict(state=text.rsplit(')', 1)[1].split()[0], target_disappeared=False, stat=text)
+    except (FileNotFoundError, ProcessLookupError):
+        return dict(state='ABSENT', target_disappeared=True)
+
+
+def kill_timed_out_collector(directory, identity, original_error):
+    event = dict(event='COLLECTOR_STOP_TIMEOUT', status='FAIL', timeout_timestamp_ns=time.time_ns(),
+        timeout_monotonic_ns=time.monotonic_ns(), identity=identity, pid=identity['pid'],
+        original_error=original_error, stop_timeout_seconds=STOP_TIMEOUT_SECONDS,
+        kill_wait_seconds=KILL_REAP_TIMEOUT_SECONDS, kill_attempted=False, signal_sent=False,
+        kill_success=False, errors=[])
+    fd = None
+    try:
+        event['before_kill'] = collector_process_state(identity)
+        if not event['before_kill']['target_disappeared']:
+            # Pin the process before checking its identity again: a reused PID must
+            # never redirect SIGKILL to an unrelated process.
+            fd = os.pidfd_open(identity['pid'])
+            assert process_identity(identity['pid']) == identity, 'collector PID identity changed before SIGKILL'
+            command = Path(f'/proc/{identity["pid"]}/cmdline').read_bytes().split(b'\0')
+            assert b'collect' in command and str(directory).encode() in command, 'not the owned collector before SIGKILL'
+            event['kill_attempted'] = True
+            signal.pidfd_send_signal(fd, signal.SIGKILL)
+            event['signal_sent'] = True
+    except (OSError, AttributeError, AssertionError) as error:
+        event['errors'].append(repr(error))
+    finally:
+        if fd is not None: os.close(fd)
+    end = time.monotonic() + KILL_REAP_TIMEOUT_SECONDS
+    while True:
+        try:
+            event['after_kill'] = collector_process_state(identity)
+        except OSError as error:
+            event['after_kill'] = dict(state='UNAVAILABLE', target_disappeared=False)
+            event['errors'].append(repr(error))
+        if event['after_kill']['target_disappeared'] or time.monotonic() >= end: break
+        time.sleep(.01)
+    event['kill_success'] = event['signal_sent'] and event['after_kill']['target_disappeared']
+    if not event['after_kill']['target_disappeared']:
+        event['errors'].append('collector still present or state unavailable after 2-second SIGKILL fallback wait')
+    event['finished_monotonic_ns'] = time.monotonic_ns()
+    try:
+        (directory/'stop-timeout.json').write_text(json.dumps(event, indent=2)+'\n')
+    except OSError as error:
+        event['errors'].append('timeout event write failed: '+repr(error))
+    print(json.dumps(event), file=sys.stderr, flush=True)
+    # Reclamation is not successful sampling. Preserve the original error even
+    # when SIGKILL succeeds, including when an earlier PASS receipt exists.
+    raise TimeoutError(original_error + '; SIGKILL fallback: ' + json.dumps(event))
+
+
 def stop(directory, *, phase_file=None, final_phase=None, wait_reaped=False):
     identity = json.loads((directory/'identity.json').read_text())
     assert process_identity(identity['pid']) == identity, 'collector PID identity changed'
@@ -168,7 +227,7 @@ def stop(directory, *, phase_file=None, final_phase=None, wait_reaped=False):
     if final_phase is not None:
         phase_file.write_text(final_phase+'\t\t\n')
     os.kill(identity['pid'], signal.SIGTERM)
-    end = time.monotonic()+5
+    end = time.monotonic()+STOP_TIMEOUT_SECONDS
     while True:
         state = Path(f'/proc/{identity["pid"]}/stat')
         exited = not state.exists()
@@ -180,7 +239,8 @@ def stop(directory, *, phase_file=None, final_phase=None, wait_reaped=False):
             except (FileNotFoundError,ProcessLookupError): exited = True
         if exited: break
         if time.monotonic() >= end:
-            raise TimeoutError('owned collector was not reaped; retained for diagnosis' if wait_reaped else 'owned collector did not exit; retained for diagnosis')
+            kill_timed_out_collector(directory, identity,
+                'owned collector was not reaped; retained for diagnosis' if wait_reaped else 'owned collector did not exit; retained for diagnosis')
         time.sleep(.01)
     receipt = json.loads((directory/'collector-status.json').read_text())
     assert receipt['status'] == 'PASS', receipt
@@ -358,6 +418,10 @@ class RuntimeMonitor:
         try:
             self.cli('monitor-download', 'download', sid, entry['guest_directory'], parent, timeout=30)
             path = parent/entry['session_id']
+            entry['raw_directory'] = str(path.relative_to(self.raw))
+            if (path/'stop-timeout.json').exists():
+                entry['stop_timeout_event'] = json.loads((path/'stop-timeout.json').read_text())
+                if error is None: error = TimeoutError('collector stop timed out; SIGKILL event retained')
             receipt = json.loads((path/'collector-status.json').read_text())
             assert receipt['status'] == 'PASS' and receipt['sandbox_id'] == sid and receipt['session_id'] == entry['session_id']
             entry.update(raw_directory=str(path.relative_to(self.raw)), receipt=receipt, status='PASS' if error is None else 'FAIL')

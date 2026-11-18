@@ -1,0 +1,402 @@
+{
+  "status": "PASS",
+  "date": "2026-10-18",
+  "live_runs": 3,
+  "synthetic_guests": 1,
+  "real_task_runs": 2,
+  "task_actions": 62,
+  "configuration": {
+    "cpu": 2,
+    "guest_memory_mib": 4096,
+    "page_size": 4096,
+    "kernel": "6.1.175-asb-cache-v3-reclaim",
+    "period_seconds": 0.05,
+    "hard_limit": false,
+    "eviction": "clean unmapped regular-file mappings, inode/index traversal; anonymous/shmem/slab reclaim not requested",
+    "damon": "Disabled only in owned guest during control and restored afterward"
+  },
+  "calibration": {
+    "control_result": "PASS",
+    "phases": [
+      {
+        "phase": "high",
+        "samples": 60,
+        "target_bytes": 134217728,
+        "settle_seconds": 5,
+        "before_range_bytes": [
+          134217728,
+          136318976
+        ],
+        "before_mean_bytes": 135069354.66666666,
+        "after_range_bytes": [
+          134217728,
+          134742016
+        ],
+        "after_mean_bytes": 134278894.93333334,
+        "observed_window_ns": 3016149446,
+        "sample_hold_above_target_estimate_ns": 2312828054,
+        "before_above_target_samples": 46,
+        "max_before_excess_bytes": 2101248,
+        "max_after_excess_bytes": 524288
+      },
+      {
+        "phase": "low",
+        "samples": 60,
+        "target_bytes": 67108864,
+        "settle_seconds": 5,
+        "before_range_bytes": [
+          68620288,
+          68685824
+        ],
+        "before_mean_bytes": 68648618.66666667,
+        "after_range_bytes": [
+          67108864,
+          67633152
+        ],
+        "after_mean_bytes": 67283626.66666667,
+        "observed_window_ns": 3017318243,
+        "sample_hold_above_target_estimate_ns": 3017318243,
+        "before_above_target_samples": 60,
+        "max_before_excess_bytes": 1576960,
+        "max_after_excess_bytes": 524288
+      },
+      {
+        "phase": "high-return",
+        "samples": 60,
+        "target_bytes": 134217728,
+        "settle_seconds": 5,
+        "before_range_bytes": [
+          135213056,
+          136318976
+        ],
+        "before_mean_bytes": 135780147.2,
+        "after_range_bytes": [
+          134217728,
+          135151616
+        ],
+        "after_mean_bytes": 134281352.53333333,
+        "observed_window_ns": 3016721547,
+        "sample_hold_above_target_estimate_ns": 3016721547,
+        "before_above_target_samples": 60,
+        "max_before_excess_bytes": 2101248,
+        "max_after_excess_bytes": 933888
+      }
+    ],
+    "cycle_samples": 539,
+    "reclaim_calls": 412,
+    "invalidated_entries": 222312,
+    "reclaim_write_total_ns": 1182377307,
+    "reclaim_write_max_ns": 89652774,
+    "controller_cpu_ns": 2631662386,
+    "controller_cycle_max_ns": 96832475,
+    "guest_cpu_seconds": 4.345086,
+    "anonymous_guard_bytes": 8388608,
+    "shmem_guard_bytes": 1048576,
+    "anonymous_guard_pages_before": 2048,
+    "anonymous_guard_pages_after": 2048,
+    "anon_pages_range_bytes": [
+      80027648,
+      114733056
+    ],
+    "swap_used_range_bytes": [
+      0,
+      0
+    ],
+    "host_sampling": {
+      "samples": 28,
+      "host_confirmed_range_bytes": [
+        67055616,
+        376164352
+      ],
+      "unknown_guest_capacity_max_bytes": 5537792,
+      "collector_thread_cpu_ns": 2144919127,
+      "scope": "VMM RAM PFNs only; no snapshot/provider source validation in this run"
+    },
+    "checks": {
+      "content_and_guards": "PASS",
+      "anonymous_not_cache": "PASS",
+      "metadata_counters": "PASS",
+      "independent_physical_recount": "PASS",
+      "two_target_ranges_separated": true,
+      "target_means_nearer_requested_level": true
+    }
+  },
+  "capabilities": {
+    "cgroup_version": 2,
+    "memory_controller_present": true,
+    "root_memory_reclaim_exists": true,
+    "root_memory_reclaim_writable": true,
+    "swap_areas": 0,
+    "damon_enabled_before": "Y",
+    "damon_worker_stopped": true,
+    "damon_enabled_restored": "Y",
+    "skip_anon_parameter_present": false
+  },
+  "task_runs": {
+    "128": {
+      "storage_run": "20261018T033611Z-2600964",
+      "physical_samples": {
+        "child-a": 14,
+        "child-b": 13
+      },
+      "overlap_pairs": 12,
+      "queries": 108,
+      "preparation_ns": 324292807,
+      "stop_ns": 241237220,
+      "metrics": {
+        "task_tool_sum_ns": 6361640167,
+        "prefix_tool_sum_ns": 968938534,
+        "suffix_tool_sum_ns": 5392701633,
+        "early_1_tool_sum_ns": 2608921873,
+        "early_2_tool_sum_ns": 2783779760,
+        "branch_replay_elapsed_ns": 4041741362,
+        "branch_phase_with_checks_ns": 12442030224,
+        "restore_and_cache_ready_ns": 7401596735,
+        "controller_elapsed_ns": 36491534021,
+        "cold_start_cli_ns": 2723159832,
+        "checkpoint_cli_ns": 2426793795,
+        "restore_cli_sum_ns": 336581090,
+        "official_early_1_cli_ns": 5926522337,
+        "official_early_2_cli_ns": 7433849667,
+        "cache_sampler_stop_ns": 1579135475
+      },
+      "roles": {
+        "early_1": {
+          "samples": 83,
+          "target_bytes": 134217728,
+          "io_window_ns": 4184333532,
+          "virtio_read_bytes": 61145088,
+          "guest_vmstat_delta": {
+            "pgfault": 128050,
+            "pgmajfault": 356,
+            "pgpgin": 59712,
+            "pgpgout": 324
+          },
+          "before_range_bytes": [
+            46620672,
+            99561472
+          ],
+          "after_range_bytes": [
+            46620672,
+            99561472
+          ],
+          "after_mean_bytes": 89691937.92771085,
+          "reclaim_calls": 0,
+          "reclaim_write_total_ns": 0,
+          "controller_cycle_cpu_ns": 138872505,
+          "controller_process_cpu_seconds": 0.276541,
+          "swap_used_range_bytes": [
+            0,
+            0
+          ],
+          "physical_samples_guest_interval_inside_control": 4,
+          "host_confirmed_range_bytes": [
+            119635968,
+            136871936
+          ],
+          "unknown_guest_capacity_max_bytes": 1789952
+        },
+        "early_2": {
+          "samples": 82,
+          "target_bytes": 134217728,
+          "io_window_ns": 4136512195,
+          "virtio_read_bytes": 60928000,
+          "guest_vmstat_delta": {
+            "pgfault": 132600,
+            "pgmajfault": 353,
+            "pgpgin": 59500,
+            "pgpgout": 1004
+          },
+          "before_range_bytes": [
+            47157248,
+            99893248
+          ],
+          "after_range_bytes": [
+            47157248,
+            99893248
+          ],
+          "after_mean_bytes": 89801503.2195122,
+          "reclaim_calls": 0,
+          "reclaim_write_total_ns": 0,
+          "controller_cycle_cpu_ns": 156290060,
+          "controller_process_cpu_seconds": 0.31815799999999994,
+          "swap_used_range_bytes": [
+            0,
+            0
+          ],
+          "physical_samples_guest_interval_inside_control": 4,
+          "host_confirmed_range_bytes": [
+            120795136,
+            137551872
+          ],
+          "unknown_guest_capacity_max_bytes": 4403200
+        }
+      },
+      "startup_available_bytes": 58584629248,
+      "minimum_available_bytes": 32813498368
+    },
+    "64": {
+      "storage_run": "20261018T033845Z-2604981",
+      "physical_samples": {
+        "child-a": 15,
+        "child-b": 14
+      },
+      "overlap_pairs": 12,
+      "queries": 116,
+      "preparation_ns": 331687623,
+      "stop_ns": 234710332,
+      "metrics": {
+        "task_tool_sum_ns": 6249271138,
+        "prefix_tool_sum_ns": 1020322180,
+        "suffix_tool_sum_ns": 5228948958,
+        "early_1_tool_sum_ns": 2725127551,
+        "early_2_tool_sum_ns": 2503821407,
+        "branch_replay_elapsed_ns": 3993919565,
+        "branch_phase_with_checks_ns": 12934826865,
+        "restore_and_cache_ready_ns": 7570823756,
+        "controller_elapsed_ns": 36447476684,
+        "cold_start_cli_ns": 2461489171,
+        "checkpoint_cli_ns": 2860821349,
+        "restore_cli_sum_ns": 378461563,
+        "official_early_1_cli_ns": 7703851238,
+        "official_early_2_cli_ns": 7183597484,
+        "cache_sampler_stop_ns": 1629665015
+      },
+      "roles": {
+        "early_1": {
+          "samples": 82,
+          "target_bytes": 67108864,
+          "io_window_ns": 4138488399,
+          "virtio_read_bytes": 89559040,
+          "guest_vmstat_delta": {
+            "pgfault": 123932,
+            "pgmajfault": 525,
+            "pgpgin": 87460,
+            "pgpgout": 316
+          },
+          "before_range_bytes": [
+            27308032,
+            74559488
+          ],
+          "after_range_bytes": [
+            27308032,
+            72355840
+          ],
+          "after_mean_bytes": 63358576.3902439,
+          "reclaim_calls": 58,
+          "reclaim_write_total_ns": 121248993,
+          "controller_cycle_cpu_ns": 263856730,
+          "controller_process_cpu_seconds": 0.411011,
+          "swap_used_range_bytes": [
+            0,
+            0
+          ],
+          "physical_samples_guest_interval_inside_control": 4,
+          "host_confirmed_range_bytes": [
+            78127104,
+            83238912
+          ],
+          "unknown_guest_capacity_max_bytes": 2760704
+        },
+        "early_2": {
+          "samples": 81,
+          "target_bytes": 67108864,
+          "io_window_ns": 4083621301,
+          "virtio_read_bytes": 95076352,
+          "guest_vmstat_delta": {
+            "pgfault": 132269,
+            "pgmajfault": 507,
+            "pgpgin": 92848,
+            "pgpgout": 1008
+          },
+          "before_range_bytes": [
+            27676672,
+            74919936
+          ],
+          "after_range_bytes": [
+            27676672,
+            67231744
+          ],
+          "after_mean_bytes": 62637144.493827164,
+          "reclaim_calls": 49,
+          "reclaim_write_total_ns": 91210686,
+          "controller_cycle_cpu_ns": 216812263,
+          "controller_process_cpu_seconds": 0.39032,
+          "swap_used_range_bytes": [
+            0,
+            0
+          ],
+          "physical_samples_guest_interval_inside_control": 4,
+          "host_confirmed_range_bytes": [
+            81035264,
+            84635648
+          ],
+          "unknown_guest_capacity_max_bytes": 1437696
+        }
+      },
+      "startup_available_bytes": 58478669824,
+      "minimum_available_bytes": 32707121152
+    }
+  },
+  "task_comparison": {
+    "early_1_tool_sum_ns": {
+      "target128": 2608921873,
+      "target64": 2725127551,
+      "delta": 116205678,
+      "delta_percent": 4.454164733816849
+    },
+    "early_2_tool_sum_ns": {
+      "target128": 2783779760,
+      "target64": 2503821407,
+      "delta": -279958353,
+      "delta_percent": -10.056770906330607
+    },
+    "suffix_tool_sum_ns": {
+      "target128": 5392701633,
+      "target64": 5228948958,
+      "delta": -163752675,
+      "delta_percent": -3.036561006786188
+    },
+    "branch_replay_elapsed_ns": {
+      "target128": 4041741362,
+      "target64": 3993919565,
+      "delta": -47821797,
+      "delta_percent": -1.1831978525299809
+    },
+    "controller_elapsed_ns": {
+      "target128": 36491534021,
+      "target64": 36447476684,
+      "delta": -44057337,
+      "delta_percent": -0.12073303625615207
+    }
+  },
+  "limitations": [
+    "Periodic target for total guest logical file/shmem cache; reclaim attempts only clean unmapped regular-file pages.",
+    "Victims follow superblock/inode/page-index traversal, not the normal LRU replacement policy.",
+    "Dirty/mapped/shmem and other unhandled pages can prevent reaching the target. No admission-time hard cap.",
+    "Invalidated-entry count may include concurrent shadow entries; current capacity comes from independent membership snapshots.",
+    "Above-target duration is a sample-and-hold estimate using before-reclaim observations, not continuous event timing.",
+    "One synthetic-demand guest, no real task replay, restore, dual-guest deduplication or sampling-off cost control.",
+    "Whole-guest AnonPages includes control buffers; guard residency and source exclusions do not imply an unchanged total anonymous RSS.",
+    "One sequential pair; descriptive impact, not a stable slowdown estimate.",
+    "Continuous target after restore, not a forced initial fill; cache can remain below target when demand is small.",
+    "Control curves include preparation and stop; original suffix execution timers exclude those operations.",
+    "Guest device/fault deltas cover the entire controller window, including preparation/stop and monitors; not host disk I/O.",
+    "Both conditions disable only owned guest DAMON while the controller runs and restore it before official checks.",
+    "Normal sampler, custom controller and kernel instrumentation costs are included; no no-controller baseline in this pair.",
+    "Reclaim is clean unmapped regular-file only, traversal policy not LRU, periodic target not a hard admission cap."
+  ],
+  "verification": {
+    "status": "PASS",
+    "offline_test_cases": 69,
+    "task_actions_and_exits_patches_restore_unchanged": true,
+    "independent_physical_recounts": true,
+    "query_missing_results": 0,
+    "original_service_and_12_vmm_unchanged": true,
+    "owned_resources_released": true,
+    "short_fixture_functions_unchanged": true,
+    "source_candidates_match": true,
+    "metadata_inputs_unchanged": 24,
+    "additional_calibrations": 0
+  }
+}

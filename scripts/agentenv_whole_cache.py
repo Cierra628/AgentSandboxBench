@@ -26,7 +26,7 @@ def slots_for_ram(lines,pid,iomem):
     return chosen
 
 
-def bind_vm(directory,pids,cgroup,exe,sid):
+def bind_vm(directory,pids,cgroup,exe,sid,*,proc_root=Path('/proc'),cgroup_root=Path('/sys/fs/cgroup')):
     iomem=(directory/'iomem.txt').read_text();marker=json.loads((directory/'marker.json').read_text())
     assert marker['sandbox_id']==sid
     found=[]
@@ -34,10 +34,10 @@ def bind_vm(directory,pids,cgroup,exe,sid):
     registered={int(row[0]) for line in captured.splitlines() if len(row:=line.split('\t'))==6 and row[0].isdigit()}
     for pid in pids:
         if pid not in registered:continue
-        proc=Path('/proc')/str(pid)
+        proc=proc_root/str(pid)
         vm=dict(pid=pid,start_time_ticks=int((proc/'stat').read_text().rsplit(')',1)[1].split()[19]),
                 executable=exe,cgroup=cgroup,sandbox_id=sid)
-        identity(vm,Path('/proc'),Path('/sys/fs/cgroup'))
+        identity(vm,proc_root,cgroup_root)
         slots=slots_for_ram(captured,pid,iomem)
         with (proc/'mem').open('rb',buffering=0) as stream:
             actual=os.pread(stream.fileno(),len(marker['text']),ram_address(marker['pfn'],slots))

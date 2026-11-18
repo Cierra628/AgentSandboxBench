@@ -1,0 +1,81 @@
+{
+  "status": "PASS_SMALL_DELETED_BACKING_QUERY",
+  "raw_result": ".artifacts/host-deleted-backing/20261021T102642Z-19141",
+  "logical_test_data_bytes": 40960,
+  "page_size": 4096,
+  "host_kernel": "6.19.9+",
+  "objects": [
+    {
+      "family": "memfd",
+      "status": "OBSERVED",
+      "mapping_count": 2,
+      "logical_size_bytes": 32768,
+      "whole_backing_cache_bytes": 8192,
+      "cache_counters": {
+        "nr_cache": 2,
+        "nr_dirty": 0,
+        "nr_writeback": 0,
+        "nr_evicted": 0,
+        "nr_recently_evicted": 0
+      },
+      "query_ns": 627502
+    },
+    {
+      "family": "dev_zero",
+      "status": "OBSERVED",
+      "mapping_count": 1,
+      "logical_size_bytes": 8192,
+      "whole_backing_cache_bytes": 4096,
+      "cache_counters": {
+        "nr_cache": 1,
+        "nr_dirty": 0,
+        "nr_writeback": 0,
+        "nr_evicted": 0,
+        "nr_recently_evicted": 0
+      },
+      "query_ns": 428728
+    }
+  ],
+  "total_unique_backing_cache_bytes": 12288,
+  "total_query_ns": 1069606,
+  "memfd_mapped_rss_bytes": 4096,
+  "memfd_cache_indices_before": [
+    0,
+    7
+  ],
+  "memfd_cache_indices_after": [
+    0,
+    7
+  ],
+  "dev_zero_cache_indices_before": [
+    0
+  ],
+  "dev_zero_cache_indices_after": [
+    0
+  ],
+  "checks": {
+    "resource_budget": "PASS",
+    "original_descriptors_closed_and_page7_unmapped": "PASS",
+    "opath_rejected": "PASS",
+    "whole_backing_includes_unmapped_cache": "PASS",
+    "deduplicated_objects": "PASS",
+    "tmpfs_identity": "PASS",
+    "residency_unchanged_and_query_handles_closed": "PASS"
+  },
+  "cleanup": {
+    "errors": [],
+    "owned_fds_closed": true,
+    "initial_fd_set_restored": true,
+    "owned_mappings_absent": true
+  },
+  "opath_errno": 9,
+  "mocked_unit_tests": 10,
+  "production_monitor_integration": "NOT_IMPLEMENTED_THIS_STAGE",
+  "actual_task_deleted_backing_query": "NOT_RUN",
+  "actual_task_unknown_bytes": null,
+  "page_charge_owner": "NOT_MEASURED",
+  "whole_host_physical_saving": "NOT_MEASURED",
+  "new_sandbox_actions": 0,
+  "task_files_read": 0,
+  "scope": "One self-owned 40 KiB logical fixture. Cache observation includes unmapped test page; not actual AgentENV objects, task overhead or whole-host physical savings."
+}

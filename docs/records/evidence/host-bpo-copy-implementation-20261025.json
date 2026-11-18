@@ -1,0 +1,196 @@
+{
+  "status": "PASS_OFFLINE_BPO_COPY_IMPLEMENTATION",
+  "observed_at_utc": "2026-10-25T04:23:28.972068+00:00",
+  "live": "NOT_RUN",
+  "new_actions": 0,
+  "new_sandboxes": 0,
+  "scope": "Same complete BPO; initial 19 layers shared/private only, two generated layers kept unchanged and queried separately",
+  "counts": {
+    "initial_shared": 19,
+    "initial_private": 133,
+    "generated": 2,
+    "total_shared": 21,
+    "total_private": 135,
+    "generated_users": [
+      7,
+      4
+    ],
+    "actual_actions_per_group": 84,
+    "pair_actual_actions": 168,
+    "native_captures_per_group": 2,
+    "restores_per_group": 6
+  },
+  "phases": {
+    "P0": "Initial prepared files only, generated layers NOT_CREATED and residency null",
+    "middle": "Seven metadata-only phases; no mincore or added guest pause",
+    "P1": "Actual seven-guest references: initial set and generated set queried separately, then identity rechecked"
+  },
+  "defaults": {
+    "schedule": "grpo",
+    "manifest_schedule_when_absent": "grpo",
+    "pss": "NOT_REQUESTED",
+    "interval_seconds": 0.1,
+    "reclaim": "AgentENV default",
+    "old_grpo_binary": ".artifacts/host-full-grpo-build-20261024/uvm-ublk-daemon"
+  },
+  "code_evidence": [
+    {
+      "path": "AgentENV/src/sandbox/firecracker/overlaybd_snapshot.rs",
+      "functions": [
+        "rewrite_live_runtime_config_for_restack",
+        "split_runtime_suffix",
+        "rewrite_lowers_with_runtime_roots"
+      ],
+      "finding": "Restack appends generated lowers; stable initial prefix unchanged. Prepared copies live outside managed-snapshot and persisted-sandbox runtime roots."
+    },
+    {
+      "path": "AgentENV/storage/ublk-daemon/src/runtime.rs",
+      "functions": [
+        "materialize_runtime_contents"
+      ],
+      "finding": "Existing hook runs after source config materialization, before final config write/device open. Initial 19 source digests/sizes matched and redirected; generated tail preserved."
+    },
+    {
+      "path": "AgentENV/storage/ublk-daemon/src/rootfs_copies.rs",
+      "functions": [
+        "apply"
+      ],
+      "finding": "BPO permits 19/20/21 lowers, rewrites only first 19 and allocates seven unique copy sets; absent schedule keeps strict GRPO behavior."
+    }
+  ],
+  "validation": {
+    "python": [
+      {
+        "name": "host_full_rootfs_control",
+        "count": 11,
+        "status": "PASS"
+      },
+      {
+        "name": "prettier6604_grpo",
+        "count": 9,
+        "status": "PASS"
+      },
+      {
+        "name": "isolated_storage",
+        "count": 27,
+        "status": "PASS"
+      },
+      {
+        "name": "host_private_files",
+        "count": 14,
+        "status": "PASS"
+      },
+      {
+        "name": "light_task_metrics",
+        "count": 7,
+        "status": "PASS"
+      }
+    ],
+    "python_bpo_tests": 3,
+    "python_total": 71,
+    "rust_filtered_tests": 4,
+    "rust_other_tests": "49 FILTERED, NOT_RUN",
+    "rustfmt": "PASS",
+    "clippy": "PASS; existing overlaybd dependency warning retained",
+    "binary_build": "PASS",
+    "offline": {
+      "status": "PASS",
+      "original_scheduling_unchanged": "PASS_AFTER_REMOVING_NEW_METADATA_HOOKS",
+      "saved_bpo_source": ".artifacts/storage-isolated-service/20261024T032905Z-704559/prettier6604",
+      "saved_generated_layers": [
+        {
+          "step": 11,
+          "users": [
+            "backbone",
+            "early_1",
+            "early_2",
+            "early_3",
+            "late_1",
+            "late_2",
+            "late_3"
+          ],
+          "identity": {
+            "device": 1795,
+            "inode": 1835238,
+            "size": 1175552,
+            "mtime_ns": 1792812575928578798
+          }
+        },
+        {
+          "step": 24,
+          "users": [
+            "backbone",
+            "late_1",
+            "late_2",
+            "late_3"
+          ],
+          "identity": {
+            "device": 1795,
+            "inode": 1835261,
+            "size": 9043968,
+            "mtime_ns": 1792812583167496483
+          }
+        }
+      ],
+      "check_only": [
+        {
+          "schedule": "grpo",
+          "mode": "default",
+          "status": "PASS",
+          "output": "status=VALIDATED schedule=grpo roles=backbone,early_1,early_2,early_3,late_1,late_2,late_3"
+        },
+        {
+          "schedule": "grpo",
+          "mode": "private",
+          "status": "PASS",
+          "output": "status=VALIDATED schedule=grpo roles=backbone,early_1,early_2,early_3,late_1,late_2,late_3"
+        },
+        {
+          "schedule": "bpo",
+          "mode": "default",
+          "status": "PASS",
+          "output": "status=VALIDATED schedule=bpo roles=backbone,early_1,early_2,early_3,late_1,late_2,late_3"
+        },
+        {
+          "schedule": "bpo",
+          "mode": "shared",
+          "status": "PASS",
+          "output": "status=VALIDATED schedule=bpo roles=backbone,early_1,early_2,early_3,late_1,late_2,late_3"
+        },
+        {
+          "schedule": "bpo",
+          "mode": "private",
+          "status": "PASS",
+          "output": "status=VALIDATED schedule=bpo roles=backbone,early_1,early_2,early_3,late_1,late_2,late_3"
+        }
+      ],
+      "live": "NOT_RUN",
+      "saved_bpo_monitor": {
+        "sessions": 9,
+        "sandboxes": 7,
+        "reason": "Three backbone sessions around two native checkpoints, six restored guest sessions"
+      }
+    }
+  },
+  "binary": ".artifacts/host-bpo-copy-build-20261025/uvm-ublk-daemon",
+  "artifacts": ".artifacts/host-bpo-copy-implementation-20261025",
+  "sources": [
+    "scripts/host_full_rootfs_control.py",
+    "scripts/run_host_full_rootfs.py",
+    "scripts/run_host_file_workflow.py",
+    "scripts/run_prettier6604_grpo.py",
+    "scripts/validate_isolated_agentenv.py",
+    "scripts/report_task_overview.py",
+    "AgentENV/storage/ublk-daemon/src/rootfs_copies.rs",
+    "tests/test_host_full_rootfs_control.py",
+    "tests/test_host_bpo_rootfs_control.py"
+  ],
+  "free_bytes": 107953434624,
+  "bpo_volume_bytes": 68719476736,
+  "bpo_required_free_strictly_greater_than_bytes": 96636764160,
+  "remaining": [
+    "New daemon with actual BPO capture/restore has not been exercised",
+    "No new physical residency or savings results; previous GRPO result unchanged",
+    "Next proposed run is one shared/private BPO pair, not an extra smoke or repeated GRPO"
+  ]
+}

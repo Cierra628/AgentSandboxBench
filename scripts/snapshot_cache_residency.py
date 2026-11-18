@@ -1,6 +1,6 @@
 """Query snapshot cache PFNs through mincore, without faulting file contents.
 
-Linux x86-64 with BTF and vmemmap_base is required. Only this process's mincore
+Linux x86-64 with BTF and vmemmap_base is required. Only the active reader thread's mincore
 lookups are traced. BPF maps carry synchronous results, not lossy event streams.
 """
 import ctypes
@@ -14,6 +14,7 @@ import signal
 import stat
 import subprocess
 import time
+import threading
 
 import numpy as np
 from measure_file_physical import parse_maps, ram_address
@@ -38,8 +39,11 @@ def _query_cost(start):
 
 class BatchEntries:
     """Read one complete, quiescent ordinary HASH map; never delete entries."""
-    def __init__(self, lib, fd, info):
-        if (info.get('type'), info.get('bytes_key'), info.get('bytes_value'), info.get('flags')) != ('hash', 8, 16, 0):
+    def __init__(self, lib, fd, info, *, value_words=2):
+        if value_words not in (2, 8):
+            raise ValueError('unsupported batch value width')
+        self.value_words = value_words
+        if (info.get('type'), info.get('bytes_key'), info.get('bytes_value'), info.get('flags')) != ('hash', 8, value_words*8, 0):
             raise ValueError(f'unsupported batch entries layout: {info}')
         capacity = info.get('max_entries', 0)
         if not isinstance(capacity, int) or not 0 < capacity <= 131072:
@@ -51,7 +55,7 @@ class BatchEntries:
         self.lookup.restype = ctypes.c_int
         self.fd, self.info, self.capacity = fd, dict(info), capacity
         self.keys = np.empty(capacity, dtype='<u8')
-        self.values = np.empty((capacity, 2), dtype='<u8')
+        self.values = np.empty((capacity, value_words), dtype='<u8')
         self.buffer_bytes = self.keys.nbytes+self.values.nbytes
         self.last_statistics = None
 
@@ -71,14 +75,157 @@ class BatchEntries:
         started = _query_clock()
         keys, values = self.keys[:count.value], self.values[:count.value]
         selected = (values[:, 0] == token) & np.isin(keys, ordered, assume_unique=True)
-        result = dict(zip(map(int, keys[selected]), map(int, values[selected, 1])))
+        payload = map(int, values[selected, 1]) if self.value_words == 2 else (tuple(map(int, row)) for row in values[selected, 1:])
+        result = dict(zip(map(int, keys[selected]), payload))
         self.last_costs['batch_filter'] = _query_cost(started)
         return result
 
 
+# bpftrace map names are fixed at compile time. Give each simultaneous reader
+# its own result map so a batch lookup never traverses a live neighbour's map.
+READER_BANKS = 7
+
+
+def _probe_program(pid, *, dispatch_counts=False):
+    routes = ' else '.join(
+        f'if ($bank == {i}) {{ @entries{i}[@idx[tid]]=(@active[tid],$pfn); }}'
+        for i in range(1, READER_BANKS+1))
+    clears = ' '.join(f'clear(@entries{i});' for i in range(1, READER_BANKS+1))
+    program = r'''
+BEGIN { @token[(uint64)0]=((uint64)0,(uint64)0,(uint64)0,(uint64)0); printf("READY\n"); }
+tracepoint:syscalls:sys_enter_mincore /pid == TARGET/ {
+ $r=@token[(uint64)tid];
+ if ($r.0 && args->start >= $r.1 && args->start < $r.2 && args->len <= $r.2-args->start) {
+  @active[tid]=$r.0; @bank[tid]=$r.3;
+ }
+}
+tracepoint:syscalls:sys_exit_mincore /pid == TARGET && @active[tid]/ { delete(@active[tid]); delete(@bank[tid]); }
+kprobe:filemap_get_entry /@active[tid]/ { @idx[tid]=arg1; }
+kretprobe:filemap_get_entry /@active[tid]/ {
+ $f=(struct folio *)retval; $pfn=0;
+ if (retval && !(retval & 3)) {
+  $base=*(uint64*)kaddr("vmemmap_base");
+  $pfn=(retval-$base)/sizeof(struct page)+@idx[tid]-$f->index;
+ }
+ $bank=@bank[tid]; ROUTES delete(@idx[tid]);
+}
+interval:s:900 { exit(); }
+END { clear(@active); clear(@idx); clear(@bank); CLEARS clear(@token); }
+'''.replace('TARGET', str(pid)).replace('ROUTES', routes).replace('CLEARS', clears)
+
+    if dispatch_counts:
+        program=program.replace('$r=@token', '@nent[(uint64)tid]=@nent[(uint64)tid]+1; $r=@token')
+        old=f'/pid == {pid} && @active[tid]/ {{ delete(@active[tid]); delete(@bank[tid]); }}'
+        assert old in program
+        program=program.replace(old,f'/pid == {pid}/ {{ @nexit[(uint64)tid]=@nexit[(uint64)tid]+1; if (@active[tid]) {{ delete(@active[tid]); delete(@bank[tid]); }} }}')
+        program=program.replace('clear(@token);','clear(@token); clear(@nent); clear(@nexit);')
+    return program
+
+
+class SourceTracer:
+    """A process-local attachment for direct backing OR immutable lower."""
+    lock = threading.Lock()
+    sources = {}
+
+    def __init__(self, key, directory, lib, *, dispatch_counts=False):
+        self.key = key
+        self.dispatch_counts = dispatch_counts
+        self.fds, self.info, self.used, self.leased = {}, {}, set(), set()
+        self.proc = None
+        self.pending_receipts = []
+        program = directory/'snapshot-query.bt'
+        program.write_text(_probe_program(os.getpid(),dispatch_counts=True) if dispatch_counts else _probe_program(os.getpid()))
+        try:
+            with (directory/'snapshot-query.stdout').open('x') as stdout, (directory/'snapshot-query.stderr').open('x') as stderr:
+                self.proc = subprocess.Popen(['bpftrace','-q','-B','line',program],
+                    stdout=stdout, stderr=stderr, env=dict(os.environ,BPFTRACE_MAX_MAP_KEYS='131072'))
+            deadline = time.monotonic()+20
+            while 'READY' not in (directory/'snapshot-query.stdout').read_text():
+                if self.proc.poll() is not None or time.monotonic() >= deadline:
+                    raise RuntimeError(f'shared snapshot probe attach failed: {directory}/snapshot-query.stderr')
+                time.sleep(.05)
+            required = {'token'} | {f'entries{i}' for i in range(1,READER_BANKS+1)}
+            if dispatch_counts:required.update(('nent','nexit'))
+            seen = set()
+            for info in Path('/proc',str(self.proc.pid),'fdinfo').iterdir():
+                match = re.search(r'map_id:\s*(\d+)',info.read_text())
+                if not match or (mid:=int(match[1])) in seen:continue
+                seen.add(mid)
+                d=json.loads(subprocess.check_output(['bpftool','-j','map','show','id',str(mid)],timeout=5))
+                name=d['name'].removeprefix('AT_')
+                if name not in required:continue
+                if (d['type'],d['bytes_key'],d['bytes_value']) != ('hash',8,32 if name=='token' else 8 if name in ('nent','nexit') else 16):
+                    raise ValueError(f'unexpected shared probe map layout: {d}')
+                fd=lib.bpf_map_get_fd_by_id(mid)
+                if fd<0:raise OSError(f'cannot open {name} map')
+                self.fds[name],self.info[name]=fd,d
+            if set(self.fds)!=required:raise RuntimeError(f'missing shared probe maps: {required-self.fds.keys()}')
+        except BaseException:
+            self.stop()
+            raise
+
+    def detach(self):
+        if self.proc and self.proc.poll() is None:
+            self.proc.send_signal(signal.SIGINT)
+            try:self.proc.wait(timeout=10)
+            except subprocess.TimeoutExpired:self.proc.kill();self.proc.wait(timeout=5)
+
+    def stop(self):
+        try:self.detach()
+        finally:
+            for fd in self.fds.values():os.close(fd)
+            self.fds.clear()
+
+    @classmethod
+    def acquire(cls, source, directory, lib, *, dispatch_counts=False):
+        key=(os.getpid(),source)
+        with cls.lock:
+            service=cls.sources.get(key)
+            if service is None:
+                service=cls.sources[key]=cls(key,directory,lib,dispatch_counts=True) if dispatch_counts else cls(key,directory,lib)
+            elif service.proc.poll() is not None:
+                raise RuntimeError(f'{source} shared probe exited')
+            if dispatch_counts != getattr(service,'dispatch_counts',False):raise RuntimeError('shared tracer counter mode conflict')
+            for bank in range(1, READER_BANKS+1):
+                if bank not in service.leased:break
+            else:raise RuntimeError(f'{source} shared probe has {READER_BANKS} active readers')
+            if bank in service.used:
+                # Retired reader's offsets and tokens cannot survive a new lease.
+                fd=service.fds[f'entries{bank}']; k=ctypes.c_uint64()
+                while lib.bpf_map_get_next_key(fd,None,ctypes.byref(k))==0:
+                    if lib.bpf_map_delete_elem(fd,ctypes.byref(k)):
+                        raise RuntimeError('could not clear retired result map')
+                if ctypes.get_errno()!=errno.ENOENT:raise RuntimeError('could not enumerate retired result map')
+            service.used.add(bank);service.leased.add(bank)
+            return service,bank
+
+    def release(self, bank, receipt, data):
+        with self.lock:
+            self.leased.remove(bank)
+            if self.leased:
+                data.update(returncode=self.proc.poll(),tracer_cpu_ns=0,shared_tracer_last_close=False)
+                receipt.write_text(json.dumps(data,indent=2)+'\n')
+                self.pending_receipts.append(receipt)
+                return
+            del self.sources[self.key]
+            try:
+                cpu=None
+                if self.proc.poll() is None:
+                    cpu=time.clock_gettime_ns(((~self.proc.pid)<<3)|2)
+            finally:self.stop()
+            data.update(returncode=self.proc.returncode,tracer_cpu_ns=cpu,shared_tracer_last_close=True)
+            receipt.write_text(json.dumps(data,indent=2)+'\n')
+            # A reader may finish before its tracer. Publish the actual exit
+            # status to those receipts only after it exists (never assume zero).
+            for path in self.pending_receipts:
+                previous=json.loads(path.read_text())
+                previous['returncode']=self.proc.returncode
+                path.write_text(json.dumps(previous,indent=2)+'\n')
+
+
 class SnapshotCache:
-    def __init__(self, proc, slots, directory, *, file_path=None, batch_lookup=False):
-        # Batch mode is restricted to the private, single-query-thread workflow.
+    def __init__(self, proc, slots, directory, *, file_path=None, batch_lookup=False, dispatch_counts=False):
+        # Each batch scan still traverses one quiescent, reader-private map.
         self.batch_entries = None
         self.proc, self.slots, self.directory = proc, slots, directory
         self.regions = self.ram_regions() if file_path is None else []
@@ -100,57 +247,27 @@ class SnapshotCache:
         self.libc.mincore.argtypes = [ctypes.c_void_p, ctypes.c_size_t, ctypes.c_void_p]
         self.lib = ctypes.CDLL('libbpf.so.1', use_errno=True)
         self.lib.bpf_map_get_fd_by_id.argtypes = [ctypes.c_uint]
+        self.lib.bpf_map_delete_elem.argtypes = [ctypes.c_int, ctypes.c_void_p]
         self.lib.bpf_map_lookup_elem.argtypes = [ctypes.c_int, ctypes.c_void_p, ctypes.c_void_p]
         self.lib.bpf_map_update_elem.argtypes = [ctypes.c_int, ctypes.c_void_p, ctypes.c_void_p, ctypes.c_ulonglong]
+        self.query_lock = threading.Lock()
         self.token = 0
         self.query_statistics = []
         self.query_costs = []
         self.mapfds = {}
-        map_info = {}
-        self.tracer = None
-        program = r'''
-BEGIN { @token[0]=0; printf("READY\n"); }
-tracepoint:syscalls:sys_enter_mincore /pid == TARGET/ { @active[tid]=1; }
-tracepoint:syscalls:sys_exit_mincore /pid == TARGET/ { delete(@active[tid]); }
-kprobe:filemap_get_entry /@active[tid]/ { @idx[tid]=arg1; }
-kretprobe:filemap_get_entry /@active[tid]/ {
- $f=(struct folio *)retval; $pfn=0;
- if (retval && !(retval & 3)) {
-  $base=*(uint64*)kaddr("vmemmap_base");
-  $pfn=(retval-$base)/sizeof(struct page)+@idx[tid]-$f->index;
- }
- @entries[@idx[tid]]=(@token[0],$pfn); delete(@idx[tid]);
-}
-interval:s:900 { exit(); }
-END { clear(@active); clear(@idx); clear(@entries); clear(@token); }
-'''.replace('TARGET', str(os.getpid()))
-        (directory/'snapshot-query.bt').write_text(program)
+        self.service = self.tracer = None
+        self.limit = self.address+((length+PAGE-1)//PAGE)*PAGE
         try:
-            with (directory/'snapshot-query.stdout').open('x') as stdout, (directory/'snapshot-query.stderr').open('x') as stderr:
-                self.tracer = subprocess.Popen(['bpftrace', '-q', '-B', 'line', directory/'snapshot-query.bt'],
-                    stdout=stdout, stderr=stderr, env=dict(os.environ, BPFTRACE_MAX_MAP_KEYS='131072'))
-            deadline = time.monotonic()+20
-            while 'READY' not in (directory/'snapshot-query.stdout').read_text():
-                assert self.tracer.poll() is None and time.monotonic() < deadline, 'snapshot query attach failed'
-                time.sleep(.05)
-            for info in Path('/proc', str(self.tracer.pid), 'fdinfo').iterdir():
-                data = info.read_text()
-                if 'map_id:' not in data:
-                    continue
-                mapid = int(re.search(r'map_id:\s*(\d+)', data)[1])
-                details = json.loads(subprocess.check_output(['bpftool','-j','map','show','id',str(mapid)], timeout=5))
-                name = details['name'].removeprefix('AT_')
-                if name in ('entries', 'token'):
-                    self.mapfds[name] = self.lib.bpf_map_get_fd_by_id(mapid)
-                    assert self.mapfds[name] >= 0
-                    map_info[name] = details
-            assert set(self.mapfds) == {'entries','token'}, self.mapfds
+            self.service,self.bank = SourceTracer.acquire('backend' if file_path is None else 'lower',directory,self.lib,dispatch_counts=dispatch_counts)
+            self.tracer = self.service.proc
+            name = f'entries{self.bank}'
+            self.mapfds = {'token':self.service.fds['token'],'entries':self.service.fds[name]}
             if batch_lookup:
-                self.batch_entries = BatchEntries(self.lib, self.mapfds['entries'], map_info['entries'])
+                self.batch_entries = BatchEntries(self.lib,self.mapfds['entries'],self.service.info[name])
             (directory/'snapshot-backend.json').write_text(json.dumps(dict(
                 regions=self.regions, identity=dict(device=st.st_dev,inode=st.st_ino,rdev=st.st_rdev),
                 block_device=stat.S_ISBLK(st.st_mode), mapping_length=length, page_size=PAGE,
-                host_kernel=os.uname().release,
+                tracer_pid=self.tracer.pid, reader_bank=self.bank, host_kernel=os.uname().release, query_binding='controller PID, caller native TID, reader mapping and generation',
                 method='mincore + synchronous filemap_get_entry return PFN; no content read or fault',
                 offset_rule='raw file offsets from saved LSMT metadata' if file_path is not None else 'KVM host + guest PFN*4096 - KVM guest; then VMA offset + host address - VMA start',
                 **(dict(batch_lookup=dict(map_info=self.batch_entries.info,
@@ -208,12 +325,31 @@ END { clear(@active); clear(@idx); clear(@entries); clear(@token); }
     def query(self, offsets):
         if self.batch_entries is not None:
             started = _query_clock()
-        st = os.fstat(self.fd)
-        assert (st.st_dev, st.st_ino, st.st_rdev) == self.identity
-        assert self.tracer.poll() is None
-        self.token += 1
-        key, token = ctypes.c_uint64(0), ctypes.c_uint64(self.token)
-        assert self.lib.bpf_map_update_elem(self.mapfds['token'], ctypes.byref(key), ctypes.byref(token), 0) == 0
+        if not self.query_lock.acquire(blocking=False):
+            raise RuntimeError('overlapping queries on the same snapshot reader')
+        try:
+            if self.fd is None:raise RuntimeError('closed snapshot reader')
+            st = os.fstat(self.fd)
+            assert (st.st_dev, st.st_ino, st.st_rdev) == self.identity
+            assert self.tracer.poll() is None
+            self.token += 1
+            key = ctypes.c_uint64(threading.get_native_id())
+            owner = (ctypes.c_uint64*4)(self.token, self.address, self.limit, self.bank)
+            fd = self.mapfds['token']
+            if self.lib.bpf_map_update_elem(fd, ctypes.byref(key), ctypes.byref(owner), 1):
+                raise RuntimeError('could not bind snapshot query to its caller')
+            try:
+                return self._query_owned(offsets, started if self.batch_entries is not None else None)
+            finally:
+                if self.lib.bpf_map_delete_elem(fd, ctypes.byref(key)):
+                    # A stale TID/range must never survive reuse of this bank.
+                    # Keep peers' map descriptors valid until their final close.
+                    with self.service.lock:self.service.detach()
+                    raise RuntimeError('could not disarm snapshot query; shared probe detached')
+        finally:
+            self.query_lock.release()
+
+    def _query_owned(self, offsets, started):
         ordered = np.unique(offsets[offsets != np.uint64((1<<64)-1)])
         residency = {}
         if self.batch_entries is not None:
@@ -285,20 +421,19 @@ END { clear(@active); clear(@idx); clear(@entries); clear(@token); }
         return result
 
     def close(self):
-        if self.tracer and self.tracer.poll() is None:
-            ticks=Path('/proc',str(self.tracer.pid),'stat').read_text().split()
-            self.tracer_cpu_ns=int((int(ticks[13])+int(ticks[14]))*1e9/os.sysconf('SC_CLK_TCK'))
-            self.tracer.send_signal(signal.SIGINT)
-            try:self.tracer.wait(timeout=10)
-            except subprocess.TimeoutExpired:self.tracer.kill();self.tracer.wait(timeout=5)
-        if self.tracer:
-            (self.directory/'snapshot-query-result.json').write_text(json.dumps(dict(
-                returncode=self.tracer.returncode,tracer_cpu_ns=getattr(self,'tracer_cpu_ns',None),
-                queries=self.query_statistics,
-                **(dict(query_costs=self.query_costs) if self.batch_entries is not None else {}),
-                event_transport='none; synchronous BPF maps; missing results stay unknown'),indent=2)+'\n')
-        for fd in self.mapfds.values():os.close(fd)
-        self.mapping.close();os.close(self.fd)
+        with self.query_lock:
+            if self.fd is None:return
+            try:
+                if self.service:
+                    self.service.release(self.bank,self.directory/'snapshot-query-result.json',dict(
+                        tracer_pid=self.tracer.pid,reader_bank=self.bank,
+                        tracer_cpu_scope='whole shared process before stop; charged only on last close',
+                        queries=self.query_statistics,
+                        **(dict(query_costs=self.query_costs) if self.batch_entries is not None else {}),
+                        event_transport='none; synchronous BPF maps; missing results stay unknown'))
+            finally:
+                self.service=None
+                self.mapping.close();os.close(self.fd);self.fd=None
 
 
 def account(before, after, host, backing):

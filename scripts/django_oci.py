@@ -5,6 +5,7 @@ import hashlib
 import json
 import os
 from pathlib import Path
+import shlex
 import threading
 import time
 import urllib.error
@@ -281,9 +282,45 @@ def creation_wrapper(saved):
     return guard+wrapper(saved,Path('/asb-django-oci'),PLATFORM_IMAGE)
 
 
-def install(mount):
+def local_wrapper(real,metadata_directory,config_digest,layout=Path('/asb-django-oci')):
+    """Fixed Django resolver calls only; unknown requests never reach a registry."""
+    base=Path(metadata_directory)
+    body='#!/bin/sh\nset -eu\n'
+    for image,name in ((IMAGE,'index.json'),(PLATFORM_IMAGE,'manifest.json')):
+        body+='if [ "$#" -eq 5 ] && [ "$1" = manifest ] && [ "$2" = get ] && [ "$3" = --format ] && [ "$4" = raw-body ] && [ "$5" = '+shlex.quote(image)+' ]; then exec cat '+shlex.quote(str(base/name))+'; fi\n'
+    body+='if [ "$#" -eq 4 ] && [ "$1" = blob ] && [ "$2" = get ] && [ "$3" = '+shlex.quote(IMAGE.split('@')[0])+' ] && [ "$4" = '+shlex.quote(config_digest)+' ]; then exec cat '+shlex.quote(str(base/'config.json'))+'; fi\n'
+    body+='if [ "$#" -eq 1 ] && [ "$1" = version ]; then exec '+shlex.quote(str(real))+' version; fi\n'
+    body+='if [ "$#" -eq 6 ] && [ "$1" = image ] && [ "$2" = copy ] && [ "$3" = --platform ] && [ "$4" = local ] && [ "$5" = '+shlex.quote(PLATFORM_IMAGE)+' ]; then\n case "$6" in ocidir:///workspace/env/image-cache/staging/*/oci:latest) ;; *) exit 78;; esac\n exec '+shlex.quote(str(real))+' image copy --platform local '+shlex.quote('ocidir://'+str(layout)+':latest')+' "$6"\nfi\necho "Django OCI: unsupported request, remote fallback disabled" >&2\nexit 78\n'
+    return body
+
+
+def install(mount,*,local_metadata_layout=None):
     path=mount/'env/deps/regctl/v0.11.5/regctl';saved=path.with_name('regctl.before-django')
     if not path.is_file() or path.is_symlink() or saved.exists():raise ValueError('private original regctl entrypoint required')
+    if local_metadata_layout is not None:
+        # The caller has validated the whole OCI input. Only small resolver
+        # metadata is copied here; layer data stays in the read-only OCI bind.
+        store=Path(local_metadata_layout)/'blobs/sha256'
+        index_raw=(store/INDEX[7:]).read_bytes();manifest_raw=(store/MANIFEST[7:]).read_bytes()
+        manifest,_,_=metadata(index_raw,manifest_raw)
+        config_digest=manifest['config']['digest'];config_raw=(store/config_digest[7:]).read_bytes()
+        cfg=checked_json(config_raw,config_digest)
+        if len(config_raw)!=manifest['config']['size'] or (cfg.get('os'),cfg.get('architecture'))!=('linux','amd64'):
+            raise ValueError('Django config platform or size differs')
+        def is_elf(candidate):
+            if not candidate.is_file() or candidate.is_symlink():return False
+            with candidate.open('rb') as stream:return stream.read(4)==b'\x7fELF'
+        real=next((p for p in (path,path.with_name('regctl.real')) if is_elf(p)),None)
+        if real is None:raise ValueError('private original regctl ELF required for local Django copy')
+        target=mount/'env/django-local-metadata';target.mkdir()
+        for name,data in (('index.json',index_raw),('manifest.json',manifest_raw),('config.json',config_raw)):
+            (target/name).write_bytes(data)
+        binary=Path('/workspace/env/deps/regctl/v0.11.5')/(saved.name if real==path else real.name)
+        body=local_wrapper(binary,Path('/workspace/env/django-local-metadata'),config_digest)
+        path.rename(saved);path.write_text(body);path.chmod(0o755)
+        return dict(status='INSTALLED',api_image=IMAGE,copy_source=PLATFORM_IMAGE,
+            local_metadata=True,remote_fallback=False,config_digest=config_digest,
+            scope='Explicit Django schedule only; fixed index, manifest, config and local OCI copy; original entrypoint preserved')
     path.rename(saved)
     path.write_text(creation_wrapper(Path('/workspace/env/deps/regctl/v0.11.5/regctl.before-django')))
     path.chmod(0o755)

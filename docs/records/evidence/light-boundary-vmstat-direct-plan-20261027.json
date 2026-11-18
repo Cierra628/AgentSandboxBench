@@ -1,0 +1,63 @@
+{
+  "status": "PASS_OFFLINE_DESIGN_AND_CONFIG_ROUTING",
+  "date": "2026-10-27",
+  "scope": "Configuration JSON and source only; task commands not executed; task payloads not read",
+  "config_difference": [
+    "light_skip_boundary_vmstat"
+  ],
+  "existing_pair_contract": "off/on only; keep unchanged; use individual platform runs and inspect_run(workflow, on) for both",
+  "command_routing": {
+    "both_light": true,
+    "both_create_all_before_setup": true,
+    "only_skip_flag_differs": true
+  },
+  "planned_order": [
+    "retain",
+    "skip"
+  ],
+  "planned_runs": 2,
+  "planned_guests": 14,
+  "planned_actions": 378,
+  "expected_boundary_rows": {
+    "retain": {
+      "memory": 448,
+      "vmstat": 448
+    },
+    "skip": {
+      "memory": 448,
+      "vmstat": 0,
+      "vmstat_header_required": true
+    }
+  },
+  "expected_sampler_sessions_per_run": 7,
+  "interval_seconds": 0.1,
+  "sample_count": "Observed per run; not fixed to the previous 1976 points",
+  "cost_metrics": [
+    "frozen_tools_and_downloads_span",
+    "created_to_controller_end_ns",
+    "controller",
+    "tool_sum",
+    "cold_request_span",
+    "create_to_setup_ns",
+    "monitor_control_call_sum",
+    "monitor_control_union",
+    "cleanup"
+  ],
+  "percent_definition": "(skip / retain - 1) * 100; negative means faster in this pair",
+  "primary_cost_metric": "frozen_tools_and_downloads_span",
+  "sources": {
+    "configuration": "scripts/platform_tasks.py:30",
+    "command_routing": "scripts/platform_tasks.py:143",
+    "existing_pair_configs": "scripts/run_grpo_light_pair.py:18",
+    "existing_pair_summary": "scripts/run_grpo_light_pair.py:109",
+    "single_run_audit": "scripts/run_grpo_light_pair.py:38",
+    "runner_transform": "scripts/sandbox_runtime_monitor.py:193",
+    "strict_report_audit": "scripts/report_prettier6604_grpo.py:20"
+  },
+  "runtime_code_changed": false,
+  "new_guests": 0,
+  "new_actions": 0,
+  "services_started": 0,
+  "prior_functional_evidence": "docs/records/LIGHT_BOUNDARY_VMSTAT_PAIR.md; unchanged code, reuse 10 passing regressions and strict recovered audit",
+  "next_step": "One real retain/skip pair, subject to user confirmation; no automatic repeats"
+}

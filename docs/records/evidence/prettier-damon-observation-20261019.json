@@ -1,0 +1,166 @@
+{
+  "status": "PASS",
+  "sample_count": 219,
+  "elapsed_seconds": 21.982490475,
+  "enabled_states": [
+    "Y"
+  ],
+  "kdamond_pids": [
+    64
+  ],
+  "counter_resets": [],
+  "total_reclaimed_bytes": 259584000,
+  "total_tried_bytes": 37262196736,
+  "counter_increases": [
+    {
+      "start_seconds": 6.458178617,
+      "end_seconds": 6.559335547,
+      "reclaimed_bytes": 1097728
+    },
+    {
+      "start_seconds": 8.476150681,
+      "end_seconds": 8.577120878,
+      "reclaimed_bytes": 35495936
+    },
+    {
+      "start_seconds": 14.521982551,
+      "end_seconds": 14.622747413,
+      "reclaimed_bytes": 32489472
+    },
+    {
+      "start_seconds": 15.030956952,
+      "end_seconds": 15.131739271,
+      "reclaimed_bytes": 115912704
+    },
+    {
+      "start_seconds": 17.048702031,
+      "end_seconds": 17.149779579,
+      "reclaimed_bytes": 54247424
+    },
+    {
+      "start_seconds": 17.553557319,
+      "end_seconds": 17.65465278,
+      "reclaimed_bytes": 36864
+    },
+    {
+      "start_seconds": 19.069505309,
+      "end_seconds": 19.170248306,
+      "reclaimed_bytes": 17768448
+    },
+    {
+      "start_seconds": 19.574213007,
+      "end_seconds": 19.675722008,
+      "reclaimed_bytes": 2535424
+    }
+  ],
+  "cached_drops_at_least_1mib": [
+    {
+      "start_seconds": 8.375254807,
+      "end_seconds": 8.476150681,
+      "cached_before_bytes": 204513280,
+      "cached_after_bytes": 173391872,
+      "drop_bytes": 31121408,
+      "phase": "running",
+      "round": "core_verify",
+      "step": "005"
+    },
+    {
+      "start_seconds": 14.420739574,
+      "end_seconds": 14.521982551,
+      "cached_before_bytes": 197316608,
+      "cached_after_bytes": 174940160,
+      "drop_bytes": 22376448,
+      "phase": "running",
+      "round": "backbone_finish",
+      "step": "005"
+    },
+    {
+      "start_seconds": 14.925678241,
+      "end_seconds": 15.030956952,
+      "cached_before_bytes": 174993408,
+      "cached_after_bytes": 85430272,
+      "drop_bytes": 89563136,
+      "phase": "running",
+      "round": "backbone_finish",
+      "step": "005"
+    },
+    {
+      "start_seconds": 15.030956952,
+      "end_seconds": 15.131739271,
+      "cached_before_bytes": 85430272,
+      "cached_after_bytes": 82284544,
+      "drop_bytes": 3145728,
+      "phase": "running",
+      "round": "backbone_finish",
+      "step": "005"
+    },
+    {
+      "start_seconds": 16.947481664,
+      "end_seconds": 17.048702031,
+      "cached_before_bytes": 83767296,
+      "cached_after_bytes": 34881536,
+      "drop_bytes": 48885760,
+      "phase": "after",
+      "round": "backbone_finish",
+      "step": "005"
+    }
+  ],
+  "max_memory_sample_gap_seconds": 0.105278711,
+  "max_damon_read_duration_ns": 1105580,
+  "notes": [
+    "Counter publication can lag reclaim; fields are sequential reads, not an atomic event stream.",
+    "Cumulative successful reclaim is not current cache size; concurrent reads can refill cache.",
+    "PASS means complete aligned data; it does not require a cache drop or reclaim."
+  ],
+  "raw": "/home/yyxie/agentenv_experiment/.artifacts/storage-isolated-service/20261019T092641Z-3167407/prettier6604",
+  "interval_seconds": 0.1,
+  "settings": {
+    "kernel_release": "6.1.175",
+    "parameters": {
+      "enabled": "Y",
+      "kdamond_pid": "64",
+      "nr_reclaim_tried_regions": "0",
+      "bytes_reclaim_tried_regions": "0",
+      "nr_reclaimed_regions": "0",
+      "bytes_reclaimed_regions": "0",
+      "nr_quota_exceeds": "0",
+      "min_age": "100000",
+      "sample_interval": "5000",
+      "aggr_interval": "100000",
+      "quota_ms": "20",
+      "quota_sz": "1073741824",
+      "quota_reset_interval_ms": "500",
+      "wmarks_high": "990",
+      "wmarks_mid": "990",
+      "wmarks_low": "200",
+      "wmarks_interval": "1000000",
+      "monitor_region_start": "4096",
+      "monitor_region_end": "5368709120"
+    },
+    "scope": "read-only; no enabled, commit_inputs or reclaim writes"
+  },
+  "task": {
+    "status": "PASS",
+    "workflow": "/home/yyxie/agentenv_experiment/.artifacts/platform-tasks/20261019T092523Z-3166721",
+    "raw": "/home/yyxie/agentenv_experiment/.artifacts/storage-isolated-service/20261019T092641Z-3167407/prettier6604",
+    "report": "/home/yyxie/agentenv_experiment/.artifacts/platform-tasks/report-20261019T092523Z-3166721",
+    "task": "prettier6604",
+    "mode": "on",
+    "tool_count": 29,
+    "tool_seconds": 11.973540729,
+    "frozen_replay_seconds": 14.361162724,
+    "controller_seconds": 27.275167864,
+    "sample_count": 219,
+    "collector_cpu_seconds": 0.229647,
+    "max_sample_gap_seconds": 0.105278711,
+    "memory_peak_mib": 491.4296875,
+    "cached_peak_mib": 195.0390625,
+    "minimum_host_available_gib": 96.2770767211914,
+    "original_tests": {
+      "passed": 0,
+      "failed": 2
+    },
+    "owned_resources_removed": true
+  },
+  "source_returned_to_stopped": true
+}

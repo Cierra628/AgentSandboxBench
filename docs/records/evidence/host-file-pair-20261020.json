@@ -1,0 +1,360 @@
+{
+  "status": "PASS",
+  "workflow": "/home/yyxie/agentenv_experiment/.artifacts/host-file-pair-smoke/20261020T032456Z-3323364",
+  "storage": "/home/yyxie/agentenv_experiment/.artifacts/storage-isolated-service/20261020T032614Z-3324076",
+  "host_report": "/home/yyxie/agentenv_experiment/.artifacts/host-file-pair-smoke/20261020T032456Z-3323364/report",
+  "corrected_short_pair_runs": 1,
+  "failed_short_pair_runs": 2,
+  "total_guest_creations": 6,
+  "full_task_executions": 0,
+  "scope": "Two cold 2 CPU/4096 MiB sandboxes from the same image; synthetic marker writes/reads and idle overlap only; no snapshot or sharing savings estimate.",
+  "host": {
+    "status": "PASS",
+    "scope": "Host cgroup file accounting, including shmem and workflow preparation/controller/service; not guest Cached or exact guest-cache physical residency.",
+    "primary_metric": "memory.stat:file",
+    "context_metric": "memory.current",
+    "samples": 1005,
+    "pss_samples": 101,
+    "partial_pss_samples": 0,
+    "file_initial_bytes": 184320,
+    "file_final_bytes": 14974218240,
+    "file_peak_bytes": 15192236032,
+    "current_peak_bytes": 16147578880,
+    "creation_baseline": {
+      "synchronous_counters": {
+        "current": 15333363712,
+        "file": 15168581632,
+        "anon": 56274944,
+        "shmem": 7604273152,
+        "kernel": 77762560,
+        "file_mapped": 339968,
+        "file_dirty": 119992320,
+        "file_writeback": 0
+      },
+      "preceding_sample": {
+        "monotonic_ns": 14237013795368531,
+        "elapsed_ns": 84566138272,
+        "read_duration_ns": 122741,
+        "current": 15344705536,
+        "file": 15168573440,
+        "anon": 68374528,
+        "shmem": 7604273152,
+        "kernel": 78905344,
+        "file_mapped": 339968,
+        "file_dirty": 119984128,
+        "file_writeback": 0
+      },
+      "following_sample": {
+        "monotonic_ns": 14237013895444067,
+        "elapsed_ns": 84666213808,
+        "read_duration_ns": 355224,
+        "current": 15343099904,
+        "file": 15168581632,
+        "anon": 66736128,
+        "shmem": 7604273152,
+        "kernel": 77365248,
+        "file_mapped": 339968,
+        "file_dirty": 119992320,
+        "file_writeback": 0
+      },
+      "preceding_gap_ns": 39453997,
+      "following_gap_ns": 60621539,
+      "interpretation": "Exact creation-time counter exists only in synchronous_counters. Bracketing samples retain their own times; not an interpolated baseline."
+    },
+    "file_before_guest_bytes": 15168581632,
+    "shmem_peak_bytes": 7604289536,
+    "file_excluding_shmem_peak_bytes": 7587954688,
+    "file_peak_after_service_ready_bytes": 15192236032,
+    "pss_observed_peak_bytes": 888081408,
+    "maximum_sampling_gap_ns": 100171581,
+    "creation": {
+      "cgroup": "/sys/fs/cgroup/asbhost.slice/asbhost-20261020t0324563323282.slice",
+      "docker_cgroup": "/asbhost.slice/asbhost-20261020t0324563323282.slice/docker-9299fc93021c90038911247d731439a5d34ed8a4eb5bb83b2c722557c39be28f.scope",
+      "verified_before_guest_creation_ns": 14237013834822528,
+      "preexisting_firecrackers": 0,
+      "before_guest_counters": {
+        "current": 15333363712,
+        "file": 15168581632,
+        "anon": 56274944,
+        "shmem": 7604273152,
+        "kernel": 77762560,
+        "file_mapped": 339968,
+        "file_dirty": 119992320,
+        "file_writeback": 0
+      },
+      "firecracker_pool": false,
+      "startup_prewarm": false,
+      "block_pool": false,
+      "scope": "Fresh workflow slice covers cache preparation and new Docker service; no pooled guest process reused"
+    },
+    "collector": {
+      "status": "PASS",
+      "error": null,
+      "cgroup": "/sys/fs/cgroup/asbhost.slice/asbhost-20261020t0324563323282.slice",
+      "samples": 1005,
+      "interval_seconds": 0.1,
+      "pss_interval_seconds": 1,
+      "thread_cpu_ns": 870167617,
+      "counter_read_total_ns": 261502029,
+      "scope": "Fresh rollout slice: input preparation, controller, private service and all its descendants; host file includes shmem, not guest Cached."
+    },
+    "mincore": {
+      "status": "OBSERVED",
+      "resident_bytes": 14790328320,
+      "cgroup_before": {
+        "current": 15281881088,
+        "file": 15169159168,
+        "anon": 32636928,
+        "shmem": 7604273152,
+        "kernel": 71335936,
+        "file_mapped": 0,
+        "file_dirty": 120258560,
+        "file_writeback": 0
+      },
+      "cgroup_after": {
+        "current": 15280730112,
+        "file": 15169159168,
+        "anon": 32636928,
+        "shmem": 7604273152,
+        "kernel": 71335936,
+        "file_mapped": 0,
+        "file_dirty": 120258560,
+        "file_writeback": 0
+      },
+      "minimum_unaccounted_or_timing_bytes": 0,
+      "file_residency_lower_bound_bytes": 15169159168,
+      "accounting": "NO_SHORTFALL_DETECTED_NOT_PROOF_OF_COMPLETE_ACCOUNTING",
+      "scope": "Retained regular input/private image-cache files and explicitly listed loop backing images, deduplicated by device+inode; excludes removed files and ublk device cache. Not guest cache attribution.",
+      "cpu_ns": 1036650255,
+      "start_monotonic_ns": 14237028361269975,
+      "end_monotonic_ns": 14237029399297334
+    },
+    "accounting_completeness": "NOT_PROVEN_BY_AGGREGATES",
+    "pss_interpretation": "Independent mapped-memory check. Total PSS is compared with current as context; file PSS is mapped file memory, not all cached file memory. Differences may be legitimate, including unmapped cache, kernel memory, outside sharers and process exits.",
+    "curve_caption": "Guest Cached and host file are different layers. Guest cache in private anonymous guest RAM contributes to host anon; file-backed guest RAM may contribute to host file regardless of the guest page type. No equality expected.",
+    "comparison": "No measured no-sharing baseline. N*A is a separately labelled single-sandbox extrapolation; use the same workload phase, initial cache and concurrency conditions and report common preparation overhead."
+  },
+  "both_live_seconds": 5.564937828,
+  "both_live_host_samples": 55,
+  "paired_pss_samples": 6,
+  "paired_vmm_pss_range_bytes": [
+    635375616,
+    748408832
+  ],
+  "periodic_pair_coverage": [
+    {
+      "start_monotonic_ns": 14237022302741124,
+      "end_monotonic_ns": 14237022323064706,
+      "vmm_pss_bytes": 635375616,
+      "vmm_pss": [
+        {
+          "pid": 3324865,
+          "start_ticks": "1423701662",
+          "pss_bytes": 369735680
+        },
+        {
+          "pid": 3324925,
+          "start_ticks": "1423702120",
+          "pss_bytes": 265639936
+        }
+      ]
+    },
+    {
+      "start_monotonic_ns": 14237023303346205,
+      "end_monotonic_ns": 14237023325311710,
+      "vmm_pss_bytes": 746905600,
+      "vmm_pss": [
+        {
+          "pid": 3324865,
+          "start_ticks": "1423701662",
+          "pss_bytes": 369739776
+        },
+        {
+          "pid": 3324925,
+          "start_ticks": "1423702120",
+          "pss_bytes": 377165824
+        }
+      ]
+    },
+    {
+      "start_monotonic_ns": 14237024304225210,
+      "end_monotonic_ns": 14237024326154288,
+      "vmm_pss_bytes": 747450368,
+      "vmm_pss": [
+        {
+          "pid": 3324865,
+          "start_ticks": "1423701662",
+          "pss_bytes": 369739776
+        },
+        {
+          "pid": 3324925,
+          "start_ticks": "1423702120",
+          "pss_bytes": 377710592
+        }
+      ]
+    },
+    {
+      "start_monotonic_ns": 14237025305089192,
+      "end_monotonic_ns": 14237025325612468,
+      "vmm_pss_bytes": 747954176,
+      "vmm_pss": [
+        {
+          "pid": 3324865,
+          "start_ticks": "1423701662",
+          "pss_bytes": 369739776
+        },
+        {
+          "pid": 3324925,
+          "start_ticks": "1423702120",
+          "pss_bytes": 378214400
+        }
+      ]
+    },
+    {
+      "start_monotonic_ns": 14237026305816831,
+      "end_monotonic_ns": 14237026326386676,
+      "vmm_pss_bytes": 748380160,
+      "vmm_pss": [
+        {
+          "pid": 3324865,
+          "start_ticks": "1423701662",
+          "pss_bytes": 369739776
+        },
+        {
+          "pid": 3324925,
+          "start_ticks": "1423702120",
+          "pss_bytes": 378640384
+        }
+      ]
+    },
+    {
+      "start_monotonic_ns": 14237027306842746,
+      "end_monotonic_ns": 14237027328158753,
+      "vmm_pss_bytes": 748408832,
+      "vmm_pss": [
+        {
+          "pid": 3324865,
+          "start_ticks": "1423701662",
+          "pss_bytes": 369752064
+        },
+        {
+          "pid": 3324925,
+          "start_ticks": "1423702120",
+          "pss_bytes": 378656768
+        }
+      ]
+    }
+  ],
+  "backing_file_count": 102,
+  "mincore_resident_bytes": 14790328320,
+  "mincore_loop_images": [
+    {
+      "kind": "private_volume_image",
+      "size_bytes": 8589934592,
+      "resident_bytes": 6987776,
+      "stable": true
+    },
+    {
+      "kind": "input_ram_image",
+      "size_bytes": 21474836480,
+      "resident_bytes": 7604273152,
+      "stable": true
+    }
+  ],
+  "mincore_other_regular_files_bytes": 7179067392,
+  "minimum_unaccounted_or_timing_bytes": 0,
+  "creation": {
+    "cgroup": "/sys/fs/cgroup/asbhost.slice/asbhost-20261020t0324563323282.slice",
+    "docker_cgroup": "/asbhost.slice/asbhost-20261020t0324563323282.slice/docker-9299fc93021c90038911247d731439a5d34ed8a4eb5bb83b2c722557c39be28f.scope",
+    "verified_before_guest_creation_ns": 14237013834822528,
+    "preexisting_firecrackers": 0,
+    "before_guest_counters": {
+      "current": 15333363712,
+      "file": 15168581632,
+      "anon": 56274944,
+      "shmem": 7604273152,
+      "kernel": 77762560,
+      "file_mapped": 339968,
+      "file_dirty": 119992320,
+      "file_writeback": 0
+    },
+    "firecracker_pool": false,
+    "startup_prewarm": false,
+    "block_pool": false,
+    "scope": "Fresh workflow slice covers cache preparation and new Docker service; no pooled guest process reused"
+  },
+  "guest_snapshots": [
+    {
+      "role": "a",
+      "before": {
+        "marker": "host-pair-a",
+        "boot_id": "81082255-a9d5-4c08-bdd6-ac259a9801b3",
+        "MemTotal": 4130914304,
+        "MemAvailable": 3887063040,
+        "Cached": 62709760,
+        "Shmem": 1093632
+      },
+      "after": {
+        "marker": "host-pair-a",
+        "boot_id": "81082255-a9d5-4c08-bdd6-ac259a9801b3",
+        "MemTotal": 4130914304,
+        "MemAvailable": 3926474752,
+        "Cached": 24002560,
+        "Shmem": 1089536
+      }
+    },
+    {
+      "role": "b",
+      "before": {
+        "marker": "host-pair-b",
+        "boot_id": "7ad27905-74be-44d4-a503-f1cfa9c1e645",
+        "MemTotal": 4130914304,
+        "MemAvailable": 3948433408,
+        "Cached": 35385344,
+        "Shmem": 716800
+      },
+      "after": {
+        "marker": "host-pair-b",
+        "boot_id": "7ad27905-74be-44d4-a503-f1cfa9c1e645",
+        "MemTotal": 4130914304,
+        "MemAvailable": 3891486720,
+        "Cached": 59392000,
+        "Shmem": 1093632
+      }
+    }
+  ],
+  "cleanup": {
+    "host_file_residency_captured": true,
+    "owned_container_removed": true,
+    "mount_and_loop_removed": true,
+    "successful_fixture_removed": true,
+    "original_firecracker_identities_unchanged": true,
+    "original_service_unchanged": true
+  },
+  "source_returned_to_stopped": true,
+  "min_available_disk_gib": 74.02779769897461,
+  "failed_fixtures": [
+    {
+      "source": "/home/yyxie/agentenv_experiment/.artifacts/storage-isolated-service/20261020T031741Z-3317364",
+      "allocated_bytes": 8589979648,
+      "retained": true,
+      "reason": "Probe used absent /workspace"
+    },
+    {
+      "source": "/home/yyxie/agentenv_experiment/.artifacts/storage-isolated-service/20261020T032052Z-3320190",
+      "allocated_bytes": 8589967360,
+      "retained": true,
+      "reason": "Guest B temporary marker disappeared during boot; exact deletion actor not recorded"
+    }
+  ],
+  "local_tests": {
+    "host_and_pair": 15,
+    "isolation": 27
+  },
+  "limits": [
+    "Host file is not guest Cached.",
+    "Mincore inventory covers listed retained regular files and loop images, not ublk device cache or all ownership.",
+    "No N=1/N=2 matched workload comparison or savings ratio.",
+    "No host-sampling slowdown control."
+  ]
+}

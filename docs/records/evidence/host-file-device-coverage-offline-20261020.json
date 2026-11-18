@@ -1,0 +1,59 @@
+{
+  "status": "PASS",
+  "scope": "Offline patch and regression; candidate not attached or run.",
+  "original_run": ".artifacts/storage-isolated-service/20261020T124115Z-3733562",
+  "original_workflow_status_preserved": "PASS",
+  "event_counts": {
+    "1": 226452,
+    "2": 96209,
+    "3": 318,
+    "4": 172
+  },
+  "zero_initial_assumption_replay": {
+    "rdev": 271581186,
+    "resident_bytes": 411254784,
+    "initial_bytes": 0,
+    "query_start_ns": 14270347198359602,
+    "query_end_ns": 14270347303834730,
+    "event_delta_lower_bytes": 410185728,
+    "event_delta_upper_bytes": 410185728,
+    "unknown_owner_add_bytes": 0,
+    "unknown_owner_del_bytes": 0,
+    "ownership_status": "RECORDED_OWNERS_KNOWN",
+    "meaning": "Event deltas exclude initial cache. Boundary bins are bounds, not interpolated events; unknown-owner bytes are event totals, not current residency.",
+    "query_lower_bytes": 410185728,
+    "query_upper_bytes": 410185728,
+    "unexplained_resident_bytes": 1069056,
+    "event_excess_bytes": 0,
+    "status": "COVERAGE_GAP"
+  },
+  "old_capture_metadata_check": [
+    {
+      "rdev": 271581186,
+      "resident_bytes": 411254784,
+      "initial_bytes": null,
+      "query_start_ns": 14270347198359602,
+      "query_end_ns": 14270347303834730,
+      "event_delta_lower_bytes": 410185728,
+      "event_delta_upper_bytes": 410185728,
+      "unknown_owner_add_bytes": 0,
+      "unknown_owner_del_bytes": 0,
+      "ownership_status": "RECORDED_OWNERS_KNOWN",
+      "meaning": "Event deltas exclude initial cache. Boundary bins are bounds, not interpolated events; unknown-owner bytes are event totals, not current residency.",
+      "status": "INITIAL_STATE_UNKNOWN",
+      "sandboxes": 2,
+      "initial_basis": "UNKNOWN"
+    }
+  ],
+  "confirmed_261_page_owners": "UNKNOWN",
+  "candidate_live_validation": "NOT_RUN",
+  "tests": {
+    "host_file": 47,
+    "isolated_storage": 27,
+    "legacy_loop": 3
+  },
+  "compilation": "PASS_ACTUAL_KERNEL_BTF_NO_ATTACH",
+  "capture_change": "Retain all block-device cache owners during the short probe; select only the actual shared VMM device for endpoint coverage.",
+  "unknown_owner_policy": "Owner 0 is retained as unknown; no root or zero-occupancy substitution.",
+  "initial_policy": "Zero only if target rdev absent in saved initial block-device inventory and restore starts after READY; old missing inventory remains unknown."
+}

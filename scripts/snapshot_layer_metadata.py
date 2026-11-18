@@ -87,35 +87,50 @@ class RawMemoryLayer:
         return np.array(result,dtype='<u8')
 
 
-def owned_memory_layer(out,proc,directory):
+def owned_memory_layer(out,proc,directory,*,binding=None,vm=None,device_path=None):
     env=out.parent.parent/'env'
     configs=list((env/'snapshot-local-cache/runtime').glob('*/memory/image.json'))
-    assert len(configs)==1, 'one owned memory snapshot config required'
-    value=json.loads(configs[0].read_text());lowers=value['lowers']
+    if binding is None:
+        assert len(configs)==1, 'one owned memory snapshot config required'
+        config=configs[0]
+    else:
+        from snapshot_lower_owner import select_config
+        assert vm is not None and device_path is not None
+        config=select_config((env/'logs/server.log').read_text(),vm['sandbox_id'],device_path,configs,env)
+    value=json.loads(config.read_text());lowers=value['lowers']
     assert len(lowers)==1 and not value.get('upper',{}).get('data'), 'one immutable memory lower required'
     lower=lowers[0];name=lower['file']
     assert name.startswith('/workspace/env/snapshot-store/repository/managed-layers/')
     path=env/name.removeprefix('/workspace/env/')
+    if binding is not None:
+        assert path.resolve().is_relative_to((env/'snapshot-store/repository/managed-layers').resolve()), 'layer escaped owned storage'
     assert path.is_file() and not path.is_symlink() and path.stat().st_size==lower['size']
     assert lower['digest'].replace(':','_') in path.name
     # The provider must actually have this immutable layer open; a config alone
     # is insufficient ownership/usage proof. Restrict to the owned service cgroup.
     from pathlib import Path as P
-    group=(proc/'cgroup').read_text()
-    found=[]
-    for p in P('/proc').iterdir():
-        if not p.name.isdigit():continue
-        try:
-            if (p/'cgroup').read_text()!=group:continue
-            for fd in (p/'fd').iterdir():
-                try:
-                    st=fd.stat()
-                    if (st.st_dev,st.st_ino)==(path.stat().st_dev,path.stat().st_ino):found.append(dict(pid=int(p.name),fd=fd.name))
-                except FileNotFoundError:continue
-        except (FileNotFoundError,ProcessLookupError):continue
+    if binding is not None:
+        from snapshot_lower_owner import service_openers
+        found=service_openers(binding,vm,path)
+    else:
+        group=(proc/'cgroup').read_text()
+        found=[]
+        for p in P('/proc').iterdir():
+            if not p.name.isdigit():continue
+            try:
+                if (p/'cgroup').read_text()!=group:continue
+                for fd in (p/'fd').iterdir():
+                    try:
+                        st=fd.stat()
+                        if (st.st_dev,st.st_ino)==(path.stat().st_dev,path.stat().st_ino):found.append(dict(pid=int(p.name),fd=fd.name))
+                    except FileNotFoundError:continue
+            except (FileNotFoundError,ProcessLookupError):continue
     assert found, 'memory layer not open in owned service'
     layer=RawMemoryLayer(path,directory)
-    (directory/'ownership.json').write_text(json.dumps(dict(config=str(configs[0]),layer=lower,open_descriptors=found),indent=2)+'\n')
+    if binding is not None:
+        assert json.loads(config.read_text())==value, 'memory config changed during ownership query'
+    (directory/'ownership.json').write_text(json.dumps(dict(config=str(config),layer=lower,open_descriptors=found,
+        ownership_mode='explicit_private_service_sibling' if binding is not None else 'legacy_same_cgroup'),indent=2)+'\n')
     return layer
 
 

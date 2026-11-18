@@ -1,0 +1,150 @@
+--- a/fs/drop_caches.c
++++ b/fs/drop_caches.c
+@@ -75,3 +75,147 @@
+ 	}
+ 	return 0;
+ }
++
++#ifdef CONFIG_ASB_PAGECACHE
++/* Private diagnostic guest: budgeted clean regular-file cache invalidation.
++ * No anonymous/shmem/slab reclaim, no I/O or payload read. This is a reclaim
++ * request, not an allocation-time cache limit. Normal drop_caches is unchanged.
++ */
++#include <linux/init.h>
++#include <linux/ktime.h>
++#include <linux/mutex.h>
++#include <linux/pagevec.h>
++#include <linux/proc_fs.h>
++#include <linux/seq_file.h>
++#include <linux/shmem_fs.h>
++
++struct asb_reclaim_request {
++	unsigned long requested, remaining, invalidated, scanned;
++	u64 elapsed_ns;
++};
++static DEFINE_MUTEX(asb_reclaim_mutex);
++static struct asb_reclaim_request asb_reclaim_last;
++
++static void asb_reclaim_mapping(struct inode *inode,
++		struct asb_reclaim_request *request)
++{
++	struct address_space *mapping = inode->i_mapping;
++	struct folio_batch batch;
++	pgoff_t indices[PAGEVEC_SIZE], index = 0, end;
++	loff_t size = i_size_read(inode);
++	unsigned int count, i;
++
++	if (size <= 0)
++		return;
++	end = (size - 1) >> PAGE_SHIFT;
++	folio_batch_init(&batch);
++	while (request->remaining && index <= end &&
++	       !fatal_signal_pending(current)) {
++		if (!filemap_get_folios(mapping, &index, end, &batch))
++			break;
++		count = folio_batch_count(&batch);
++		for (i = 0; i < count; i++)
++			indices[i] = batch.folios[i]->index;
++		/* Drop lookup references before asking the normal invalidator.
++		 * Concurrent replacements are allowed; every attempt still acts
++		 * only on this regular-file mapping and its clean unlocked pages.
++		 */
++		folio_batch_release(&batch);
++		for (i = 0; i < count && request->remaining; i++) {
++			unsigned long removed;
++
++			removed = invalidate_mapping_pages(mapping, indices[i], indices[i]);
++			request->scanned++;
++			request->invalidated += removed;
++			request->remaining -= min(request->remaining, removed);
++			cond_resched();
++		}
++		if (!index)
++			break;
++	}
++}
++
++static void asb_reclaim_sb(struct super_block *sb, void *argument)
++{
++	struct asb_reclaim_request *request = argument;
++	struct inode *inode, *toput = NULL;
++
++	if (!request->remaining)
++		return;
++	spin_lock(&sb->s_inode_list_lock);
++	list_for_each_entry(inode, &sb->s_inodes, i_sb_list) {
++		if (!request->remaining || fatal_signal_pending(current))
++			break;
++		spin_lock(&inode->i_lock);
++		if ((inode->i_state & (I_FREEING | I_WILL_FREE | I_NEW)) ||
++		    !S_ISREG(inode->i_mode) || shmem_mapping(inode->i_mapping) ||
++		    mapping_empty(inode->i_mapping)) {
++			spin_unlock(&inode->i_lock);
++			continue;
++		}
++		__iget(inode);
++		spin_unlock(&inode->i_lock);
++		spin_unlock(&sb->s_inode_list_lock);
++		asb_reclaim_mapping(inode, request);
++		iput(toput);
++		toput = inode;
++		cond_resched();
++		spin_lock(&sb->s_inode_list_lock);
++	}
++	spin_unlock(&sb->s_inode_list_lock);
++	iput(toput);
++}
++
++static ssize_t asb_reclaim_write(struct file *file, const char __user *buffer,
++		size_t count, loff_t *position)
++{
++	struct asb_reclaim_request request = { 0 };
++	u64 started;
++	int error;
++
++	error = kstrtoul_from_user(buffer, count, 10, &request.requested);
++	if (error)
++		return error;
++	/* The diagnostic metadata supports an 8 GiB guest address range. */
++	if (request.requested > (1UL << 21))
++		return -EINVAL;
++	request.remaining = request.requested;
++	if (mutex_lock_interruptible(&asb_reclaim_mutex))
++		return -EINTR;
++	started = ktime_get_ns();
++	iterate_supers(asb_reclaim_sb, &request);
++	request.elapsed_ns = ktime_get_ns() - started;
++	asb_reclaim_last = request;
++	mutex_unlock(&asb_reclaim_mutex);
++	return count;
++}
++
++static int asb_reclaim_show(struct seq_file *seq, void *unused)
++{
++	mutex_lock(&asb_reclaim_mutex);
++	seq_printf(seq, "requested_pages %lu\ninvalidated_entries %lu\nscanned_folios %lu\nelapsed_ns %llu\n",
++		asb_reclaim_last.requested, asb_reclaim_last.invalidated,
++		asb_reclaim_last.scanned, asb_reclaim_last.elapsed_ns);
++	mutex_unlock(&asb_reclaim_mutex);
++	return 0;
++}
++
++static int asb_reclaim_open(struct inode *inode, struct file *file)
++{
++	return single_open(file, asb_reclaim_show, NULL);
++}
++
++static const struct proc_ops asb_reclaim_ops = {
++	.proc_open = asb_reclaim_open,
++	.proc_read = seq_read,
++	.proc_write = asb_reclaim_write,
++	.proc_lseek = seq_lseek,
++	.proc_release = single_release,
++};
++
++static int __init asb_reclaim_init(void)
++{
++	return proc_create("asb_cache_reclaim", 0600, NULL, &asb_reclaim_ops) ? 0 : -ENOMEM;
++}
++late_initcall(asb_reclaim_init);
++#endif

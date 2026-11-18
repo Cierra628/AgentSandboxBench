@@ -1,0 +1,622 @@
+{
+  "status": "PASS",
+  "date": "2026-10-15",
+  "backend": "AgentENV",
+  "cpu": 2,
+  "memory_mib": 4096,
+  "page_size": 4096,
+  "run": "20261015T143027Z-2009384",
+  "action_count": 31,
+  "logical_action_count": 42,
+  "common_prefix_actions": 11,
+  "branch_suffix_actions": 10,
+  "controller_elapsed_ns": 32019086444,
+  "shared_memory_backend": true,
+  "shared_raw_memory_layer": true,
+  "checks": {
+    "sampled_actions_order_exit_codes_and_distinct_instances": "PASS",
+    "restored_files_progress_and_process": "PASS",
+    "final_source_properties_and_complete_official_outcomes": "PASS"
+  },
+  "paths": {
+    "backbone": {
+      "action_count": 11,
+      "guest_action_sum_ns": 853640763,
+      "guest_observed_peak_bytes": 337858560,
+      "final_patch_sha256": "5721325c7f24fc147069e055f431aa294b0762824a44056afe378955de15fa24",
+      "official_task_status": "NOT_RUN_PREFIX_ONLY"
+    },
+    "early_1": {
+      "action_count": 10,
+      "guest_action_sum_ns": 2162732056,
+      "guest_observed_peak_bytes": 229797888,
+      "final_patch_sha256": "6a74b179e74a2fb00f4cf334c3cccd3405168025974c9a3b3550614cb1976de5",
+      "source_patch_check": "PASS",
+      "independent_check": "PASS",
+      "official_task_status": "FAIL",
+      "official_passed": 0,
+      "official_failed": 2
+    },
+    "early_2": {
+      "action_count": 10,
+      "guest_action_sum_ns": 2116742486,
+      "guest_observed_peak_bytes": 230137856,
+      "final_patch_sha256": "5721325c7f24fc147069e055f431aa294b0762824a44056afe378955de15fa24",
+      "source_patch_check": "PASS",
+      "independent_check": "PASS",
+      "official_task_status": "FAIL",
+      "official_passed": 0,
+      "official_failed": 2
+    }
+  },
+  "process_checks": {
+    "early_1": {
+      "status": "PASS",
+      "before_count": 21,
+      "after_count": 33,
+      "identity_equal": true,
+      "files_and_progress": "PASS"
+    },
+    "early_2": {
+      "status": "PASS",
+      "before_count": 21,
+      "after_count": 34,
+      "identity_equal": true,
+      "files_and_progress": "PASS"
+    }
+  },
+  "branch_sides": {
+    "child-a": "early_1",
+    "child-b": "early_2"
+  },
+  "observations": {
+    "child-a": {
+      "role": "early_1",
+      "samples": 11,
+      "initial_metadata_pages": 11058,
+      "initial_metadata_bytes": 45293568,
+      "initial_guest_cached_bytes": 45293568,
+      "initial_shmem_pages": 284,
+      "initial_tagged_minus_cached_bytes": 0,
+      "guest_cached_range_bytes": [
+        45293568,
+        121036800
+      ],
+      "host_confirmed_range_bytes": [
+        73744384,
+        134283264
+      ],
+      "unknown_guest_capacity_max_bytes": 11988992,
+      "requested_pages": 823158,
+      "metadata_counters": {
+        "duplicate_adds": 0,
+        "missing_removes": 0,
+        "out_of_range": 0,
+        "moved_pages": 0,
+        "stale_records": 1
+      }
+    },
+    "child-b": {
+      "role": "early_2",
+      "samples": 10,
+      "initial_metadata_pages": 11322,
+      "initial_metadata_bytes": 46374912,
+      "initial_guest_cached_bytes": 46493696,
+      "initial_shmem_pages": 284,
+      "initial_tagged_minus_cached_bytes": -118784,
+      "guest_cached_range_bytes": [
+        46493696,
+        173715456
+      ],
+      "host_confirmed_range_bytes": [
+        78069760,
+        209825792
+      ],
+      "unknown_guest_capacity_max_bytes": 15523840,
+      "requested_pages": 1111614,
+      "metadata_counters": {
+        "duplicate_adds": 0,
+        "missing_removes": 0,
+        "out_of_range": 0,
+        "moved_pages": 0,
+        "stale_records": 0
+      }
+    }
+  },
+  "measurements": {
+    "child-a": [
+      {
+        "point": 0,
+        "guest_cached_bytes": 45293568,
+        "host_vmm_confirmed_bytes": 32571392,
+        "host_current_union_bytes": 39792640,
+        "host_lower_current_bytes": 39346176,
+        "host_three_current_union_bytes": 79138816,
+        "snapshot_old_version_bytes": 5922816,
+        "host_lower_old_snapshot_bytes": 5906432,
+        "lower_resolved_guest_pages": 1340,
+        "host_three_unconfirmed_guest_capacity_bytes": 12288,
+        "host_elapsed_ns": 310051484,
+        "host_thread_cpu_ns": 274219099
+      },
+      {
+        "point": 1,
+        "guest_cached_bytes": 46919680,
+        "host_vmm_confirmed_bytes": 32595968,
+        "host_current_union_bytes": 40333312,
+        "host_lower_current_bytes": 39342080,
+        "host_three_current_union_bytes": 79675392,
+        "snapshot_old_version_bytes": 5947392,
+        "host_lower_old_snapshot_bytes": 5931008,
+        "lower_resolved_guest_pages": 1213,
+        "host_three_unconfirmed_guest_capacity_bytes": 1650688,
+        "host_elapsed_ns": 260034421,
+        "host_thread_cpu_ns": 249569971
+      },
+      {
+        "point": 2,
+        "guest_cached_bytes": 93007872,
+        "host_vmm_confirmed_bytes": 78962688,
+        "host_current_union_bytes": 90214400,
+        "host_lower_current_bytes": 38719488,
+        "host_three_current_union_bytes": 128933888,
+        "snapshot_old_version_bytes": 52686848,
+        "host_lower_old_snapshot_bytes": 52662272,
+        "lower_resolved_guest_pages": 294,
+        "host_three_unconfirmed_guest_capacity_bytes": 1642496,
+        "host_elapsed_ns": 577086784,
+        "host_thread_cpu_ns": 546204187
+      },
+      {
+        "point": 3,
+        "guest_cached_bytes": 97722368,
+        "host_vmm_confirmed_bytes": 84754432,
+        "host_current_union_bytes": 95748096,
+        "host_lower_current_bytes": 38535168,
+        "host_three_current_union_bytes": 134283264,
+        "snapshot_old_version_bytes": 58404864,
+        "host_lower_old_snapshot_bytes": 58380288,
+        "lower_resolved_guest_pages": 294,
+        "host_three_unconfirmed_guest_capacity_bytes": 815104,
+        "host_elapsed_ns": 589498381,
+        "host_thread_cpu_ns": 558623589
+      },
+      {
+        "point": 4,
+        "guest_cached_bytes": 64352256,
+        "host_vmm_confirmed_bytes": 52412416,
+        "host_current_union_bytes": 55951360,
+        "host_lower_current_bytes": 17793024,
+        "host_three_current_union_bytes": 73744384,
+        "snapshot_old_version_bytes": 38895616,
+        "host_lower_old_snapshot_bytes": 38879232,
+        "lower_resolved_guest_pages": 181,
+        "host_three_unconfirmed_guest_capacity_bytes": 7729152,
+        "host_elapsed_ns": 433729734,
+        "host_thread_cpu_ns": 392935130
+      },
+      {
+        "point": 5,
+        "guest_cached_bytes": 76242944,
+        "host_vmm_confirmed_bytes": 71192576,
+        "host_current_union_bytes": 74731520,
+        "host_lower_current_bytes": 17788928,
+        "host_three_current_union_bytes": 92520448,
+        "snapshot_old_version_bytes": 57675776,
+        "host_lower_old_snapshot_bytes": 57651200,
+        "lower_resolved_guest_pages": 180,
+        "host_three_unconfirmed_guest_capacity_bytes": 868352,
+        "host_elapsed_ns": 529969040,
+        "host_thread_cpu_ns": 493952591
+      },
+      {
+        "point": 6,
+        "guest_cached_bytes": 121036800,
+        "host_vmm_confirmed_bytes": 104919040,
+        "host_current_union_bytes": 108339200,
+        "host_lower_current_bytes": 17174528,
+        "host_three_current_union_bytes": 125513728,
+        "snapshot_old_version_bytes": 91897856,
+        "host_lower_old_snapshot_bytes": 91865088,
+        "lower_resolved_guest_pages": 180,
+        "host_three_unconfirmed_guest_capacity_bytes": 11988992,
+        "host_elapsed_ns": 591484343,
+        "host_thread_cpu_ns": 570791759
+      },
+      {
+        "point": 7,
+        "guest_cached_bytes": 74125312,
+        "host_vmm_confirmed_bytes": 65150976,
+        "host_current_union_bytes": 67211264,
+        "host_lower_current_bytes": 13332480,
+        "host_three_current_union_bytes": 80543744,
+        "snapshot_old_version_bytes": 54525952,
+        "host_lower_old_snapshot_bytes": 54489088,
+        "lower_resolved_guest_pages": 159,
+        "host_three_unconfirmed_guest_capacity_bytes": 6303744,
+        "host_elapsed_ns": 504013539,
+        "host_thread_cpu_ns": 462991348
+      },
+      {
+        "point": 8,
+        "guest_cached_bytes": 77918208,
+        "host_vmm_confirmed_bytes": 75362304,
+        "host_current_union_bytes": 77422592,
+        "host_lower_current_bytes": 13328384,
+        "host_three_current_union_bytes": 90750976,
+        "snapshot_old_version_bytes": 64741376,
+        "host_lower_old_snapshot_bytes": 64696320,
+        "lower_resolved_guest_pages": 159,
+        "host_three_unconfirmed_guest_capacity_bytes": 16384,
+        "host_elapsed_ns": 486722065,
+        "host_thread_cpu_ns": 456039007
+      },
+      {
+        "point": 9,
+        "guest_cached_bytes": 86155264,
+        "host_vmm_confirmed_bytes": 76869632,
+        "host_current_union_bytes": 77602816,
+        "host_lower_current_bytes": 8798208,
+        "host_three_current_union_bytes": 86401024,
+        "snapshot_old_version_bytes": 69369856,
+        "host_lower_old_snapshot_bytes": 69324800,
+        "lower_resolved_guest_pages": 138,
+        "host_three_unconfirmed_guest_capacity_bytes": 7946240,
+        "host_elapsed_ns": 556687705,
+        "host_thread_cpu_ns": 510643032
+      },
+      {
+        "point": 10,
+        "guest_cached_bytes": 104431616,
+        "host_vmm_confirmed_bytes": 96354304,
+        "host_current_union_bytes": 97087488,
+        "host_lower_current_bytes": 8798208,
+        "host_three_current_union_bytes": 105885696,
+        "snapshot_old_version_bytes": 88854528,
+        "host_lower_old_snapshot_bytes": 88137728,
+        "lower_resolved_guest_pages": 138,
+        "host_three_unconfirmed_guest_capacity_bytes": 6787072,
+        "host_elapsed_ns": 578358934,
+        "host_thread_cpu_ns": 547201352
+      }
+    ],
+    "child-b": [
+      {
+        "point": 0,
+        "guest_cached_bytes": 46493696,
+        "host_vmm_confirmed_bytes": 33423360,
+        "host_current_union_bytes": 39129088,
+        "host_lower_current_bytes": 38940672,
+        "host_three_current_union_bytes": 78069760,
+        "snapshot_old_version_bytes": 5115904,
+        "host_lower_old_snapshot_bytes": 5107712,
+        "lower_resolved_guest_pages": 1207,
+        "host_three_unconfirmed_guest_capacity_bytes": 2301952,
+        "host_elapsed_ns": 249199244,
+        "host_thread_cpu_ns": 218485680
+      },
+      {
+        "point": 1,
+        "guest_cached_bytes": 97550336,
+        "host_vmm_confirmed_bytes": 81571840,
+        "host_current_union_bytes": 91017216,
+        "host_lower_current_bytes": 39022592,
+        "host_three_current_union_bytes": 130039808,
+        "snapshot_old_version_bytes": 53182464,
+        "host_lower_old_snapshot_bytes": 53153792,
+        "lower_resolved_guest_pages": 294,
+        "host_three_unconfirmed_guest_capacity_bytes": 5373952,
+        "host_elapsed_ns": 507193153,
+        "host_thread_cpu_ns": 486450251
+      },
+      {
+        "point": 2,
+        "guest_cached_bytes": 98250752,
+        "host_vmm_confirmed_bytes": 87715840,
+        "host_current_union_bytes": 97124352,
+        "host_lower_current_bytes": 39022592,
+        "host_three_current_union_bytes": 136146944,
+        "snapshot_old_version_bytes": 59289600,
+        "host_lower_old_snapshot_bytes": 59260928,
+        "lower_resolved_guest_pages": 294,
+        "host_three_unconfirmed_guest_capacity_bytes": 16384,
+        "host_elapsed_ns": 561216177,
+        "host_thread_cpu_ns": 530352213
+      },
+      {
+        "point": 3,
+        "guest_cached_bytes": 99074048,
+        "host_vmm_confirmed_bytes": 88440832,
+        "host_current_union_bytes": 98074624,
+        "host_lower_current_bytes": 39022592,
+        "host_three_current_union_bytes": 137097216,
+        "snapshot_old_version_bytes": 60014592,
+        "host_lower_old_snapshot_bytes": 59985920,
+        "lower_resolved_guest_pages": 239,
+        "host_three_unconfirmed_guest_capacity_bytes": 20480,
+        "host_elapsed_ns": 535770991,
+        "host_thread_cpu_ns": 508424723
+      },
+      {
+        "point": 4,
+        "guest_cached_bytes": 99495936,
+        "host_vmm_confirmed_bytes": 88436736,
+        "host_current_union_bytes": 98295808,
+        "host_lower_current_bytes": 39014400,
+        "host_three_current_union_bytes": 137310208,
+        "snapshot_old_version_bytes": 60010496,
+        "host_lower_old_snapshot_bytes": 59981824,
+        "lower_resolved_guest_pages": 182,
+        "host_three_unconfirmed_guest_capacity_bytes": 536576,
+        "host_elapsed_ns": 583536536,
+        "host_thread_cpu_ns": 542601229
+      },
+      {
+        "point": 5,
+        "guest_cached_bytes": 129589248,
+        "host_vmm_confirmed_bytes": 103538688,
+        "host_current_union_bytes": 113397760,
+        "host_lower_current_bytes": 39022592,
+        "host_three_current_union_bytes": 152420352,
+        "snapshot_old_version_bytes": 75104256,
+        "host_lower_old_snapshot_bytes": 75067392,
+        "lower_resolved_guest_pages": 182,
+        "host_three_unconfirmed_guest_capacity_bytes": 15523840,
+        "host_elapsed_ns": 590674657,
+        "host_thread_cpu_ns": 559599349
+      },
+      {
+        "point": 6,
+        "guest_cached_bytes": 142659584,
+        "host_vmm_confirmed_bytes": 126496768,
+        "host_current_union_bytes": 136384512,
+        "host_lower_current_bytes": 39022592,
+        "host_three_current_union_bytes": 175407104,
+        "snapshot_old_version_bytes": 98009088,
+        "host_lower_old_snapshot_bytes": 97955840,
+        "lower_resolved_guest_pages": 162,
+        "host_three_unconfirmed_guest_capacity_bytes": 5763072,
+        "host_elapsed_ns": 779174551,
+        "host_thread_cpu_ns": 737578358
+      },
+      {
+        "point": 7,
+        "guest_cached_bytes": 146038784,
+        "host_vmm_confirmed_bytes": 135548928,
+        "host_current_union_bytes": 145448960,
+        "host_lower_current_bytes": 39022592,
+        "host_three_current_union_bytes": 184471552,
+        "snapshot_old_version_bytes": 107061248,
+        "host_lower_old_snapshot_bytes": 106434560,
+        "lower_resolved_guest_pages": 159,
+        "host_three_unconfirmed_guest_capacity_bytes": 24576,
+        "host_elapsed_ns": 751084320,
+        "host_thread_cpu_ns": 720020677
+      },
+      {
+        "point": 8,
+        "guest_cached_bytes": 166891520,
+        "host_vmm_confirmed_bytes": 146255872,
+        "host_current_union_bytes": 156241920,
+        "host_lower_current_bytes": 39022592,
+        "host_three_current_union_bytes": 195264512,
+        "snapshot_old_version_bytes": 117731328,
+        "host_lower_old_snapshot_bytes": 106450944,
+        "lower_resolved_guest_pages": 138,
+        "host_three_unconfirmed_guest_capacity_bytes": 10088448,
+        "host_elapsed_ns": 806675704,
+        "host_thread_cpu_ns": 769374115
+      },
+      {
+        "point": 9,
+        "guest_cached_bytes": 173715456,
+        "host_vmm_confirmed_bytes": 160817152,
+        "host_current_union_bytes": 170803200,
+        "host_lower_current_bytes": 39022592,
+        "host_three_current_union_bytes": 209825792,
+        "snapshot_old_version_bytes": 130404352,
+        "host_lower_old_snapshot_bytes": 106557440,
+        "lower_resolved_guest_pages": 138,
+        "host_three_unconfirmed_guest_capacity_bytes": 2351104,
+        "host_elapsed_ns": 871398217,
+        "host_thread_cpu_ns": 834813012
+      }
+    ]
+  },
+  "pairs": [
+    {
+      "phase": "real-task-branches",
+      "point_a": 2,
+      "point_b": 1,
+      "timestamp_ns": 1792074666390748583,
+      "overlap_ns": 507193153,
+      "guest_a_cached_bytes": 93007872,
+      "guest_b_cached_bytes": 97550336,
+      "host_a_bytes": 128933888,
+      "host_b_bytes": 130039808,
+      "host_sum_bytes": 258973696,
+      "host_union_bytes": 185323520,
+      "shared_bytes": 73650176,
+      "unknown_a_capacity_bytes": 1642496,
+      "unknown_b_capacity_bytes": 5373952
+    },
+    {
+      "phase": "real-task-branches",
+      "point_a": 3,
+      "point_b": 2,
+      "timestamp_ns": 1792074667390830913,
+      "overlap_ns": 561216177,
+      "guest_a_cached_bytes": 97722368,
+      "guest_b_cached_bytes": 98250752,
+      "host_a_bytes": 134283264,
+      "host_b_bytes": 136146944,
+      "host_sum_bytes": 270430208,
+      "host_union_bytes": 197140480,
+      "shared_bytes": 73289728,
+      "unknown_a_capacity_bytes": 815104,
+      "unknown_b_capacity_bytes": 16384
+    },
+    {
+      "phase": "real-task-branches",
+      "point_a": 4,
+      "point_b": 3,
+      "timestamp_ns": 1792074668390906744,
+      "overlap_ns": 409014329,
+      "guest_a_cached_bytes": 64352256,
+      "guest_b_cached_bytes": 99074048,
+      "host_a_bytes": 73744384,
+      "host_b_bytes": 137097216,
+      "host_sum_bytes": 210841600,
+      "host_union_bytes": 177451008,
+      "shared_bytes": 33390592,
+      "unknown_a_capacity_bytes": 7729152,
+      "unknown_b_capacity_bytes": 20480
+    },
+    {
+      "phase": "real-task-branches",
+      "point_a": 5,
+      "point_b": 4,
+      "timestamp_ns": 1792074669390982414,
+      "overlap_ns": 505290764,
+      "guest_a_cached_bytes": 76242944,
+      "guest_b_cached_bytes": 99495936,
+      "host_a_bytes": 92520448,
+      "host_b_bytes": 137310208,
+      "host_sum_bytes": 229830656,
+      "host_union_bytes": 196444160,
+      "shared_bytes": 33386496,
+      "unknown_a_capacity_bytes": 868352,
+      "unknown_b_capacity_bytes": 536576
+    },
+    {
+      "phase": "real-task-branches",
+      "point_a": 6,
+      "point_b": 5,
+      "timestamp_ns": 1792074670391077911,
+      "overlap_ns": 566810678,
+      "guest_a_cached_bytes": 121036800,
+      "guest_b_cached_bytes": 129589248,
+      "host_a_bytes": 125513728,
+      "host_b_bytes": 152420352,
+      "host_sum_bytes": 277934080,
+      "host_union_bytes": 245719040,
+      "shared_bytes": 32215040,
+      "unknown_a_capacity_bytes": 11988992,
+      "unknown_b_capacity_bytes": 15523840
+    },
+    {
+      "phase": "real-task-branches",
+      "point_a": 7,
+      "point_b": 6,
+      "timestamp_ns": 1792074671391153521,
+      "overlap_ns": 479339688,
+      "guest_a_cached_bytes": 74125312,
+      "guest_b_cached_bytes": 142659584,
+      "host_a_bytes": 80543744,
+      "host_b_bytes": 175407104,
+      "host_sum_bytes": 255950848,
+      "host_union_bytes": 230883328,
+      "shared_bytes": 25067520,
+      "unknown_a_capacity_bytes": 6303744,
+      "unknown_b_capacity_bytes": 5763072
+    },
+    {
+      "phase": "real-task-branches",
+      "point_a": 8,
+      "point_b": 7,
+      "timestamp_ns": 1792074672391230891,
+      "overlap_ns": 462053301,
+      "guest_a_cached_bytes": 77918208,
+      "guest_b_cached_bytes": 146038784,
+      "host_a_bytes": 90750976,
+      "host_b_bytes": 184471552,
+      "host_sum_bytes": 275222528,
+      "host_union_bytes": 250163200,
+      "shared_bytes": 25059328,
+      "unknown_a_capacity_bytes": 16384,
+      "unknown_b_capacity_bytes": 24576
+    },
+    {
+      "phase": "real-task-branches",
+      "point_a": 9,
+      "point_b": 8,
+      "timestamp_ns": 1792074673391304349,
+      "overlap_ns": 532055752,
+      "guest_a_cached_bytes": 86155264,
+      "guest_b_cached_bytes": 166891520,
+      "host_a_bytes": 86401024,
+      "host_b_bytes": 195264512,
+      "host_sum_bytes": 281665536,
+      "host_union_bytes": 265076736,
+      "shared_bytes": 16588800,
+      "unknown_a_capacity_bytes": 7946240,
+      "unknown_b_capacity_bytes": 10088448
+    }
+  ],
+  "costs": {
+    "child-a": {
+      "samples": 11,
+      "host_thread_cpu_ns": 5074332761,
+      "guest_cpu_ns": 45706214,
+      "tracer_cpu_ns": 970000000,
+      "missing_kernel_results": 0,
+      "host_pair_mean_ns": 492512402.72727275,
+      "host_pair_max_ns": 591484343
+    },
+    "child-b": {
+      "samples": 10,
+      "host_thread_cpu_ns": 5921398449,
+      "guest_cpu_ns": 47250849,
+      "tracer_cpu_ns": 890000000,
+      "missing_kernel_results": 0,
+      "host_pair_mean_ns": 623592355,
+      "host_pair_max_ns": 871398217
+    }
+  },
+  "phase_pairs": {
+    "real-task-branches": 8
+  },
+  "native_pause_log_bounds": {
+    "lower_bound_ns": 342199575,
+    "upper_bound_ns": 342742537,
+    "checkpoint_interface_ns": 2622256814
+  },
+  "verification": {
+    "status": "PASS",
+    "wrapper": ".artifacts/prettier-snapshot-cache-pair/20261015T142908Z-2008914",
+    "run": "20261015T143027Z-2009384",
+    "report_identical_files": 4,
+    "raw_unchanged_files": 610,
+    "prior_unchanged_files": 448,
+    "prior_single_unchanged_files": 472,
+    "original_failed_backup_preserved": true,
+    "resources_released": true,
+    "native_pause_log_bounds": {
+      "lower_bound_ns": 342199575,
+      "upper_bound_ns": 342742537,
+      "checkpoint_interface_ns": 2622256814
+    },
+    "startup_available_bytes": 53702418432,
+    "capacity_bytes": 25769803776,
+    "volume_used_peak_bytes": 6695342080,
+    "host_available_min_bytes": 27931717632,
+    "host_available_after_cleanup_bytes": 53637554176,
+    "executed_source_sha256": {
+      "scripts/run-prettier-snapshot-cache-pair.sh": "04ece263e68187aa356385d23ea85468caa9d94b825fc02f58a42019465af988",
+      "scripts/run_prettier6604_grpo.py": "8844f6d8acd54b4e5d92daa4bb5e2176b12265c24c31d595d6d98ea0f824a27b",
+      "scripts/exp1-process-probe.sh": "f119640e8288369a8a800764d9ce1c67e174ad04b304d44e6e051be1b61f77ab",
+      "scripts/collect_snapshot_child.py": "aba9f79224bbea63ca2e8fa788e29de988b04991c35d6b0fa3dffc4ce20ad028",
+      "scripts/live_task_cache.py": "5e53c1446426e622f6cec3ee9ba59b560b3d7fef2c74ed8d53c08f069b4eb656",
+      "scripts/snapshot_cache_residency.py": "9f88fa4cf3ea75fc5fb265dee90a3051633bcba58d4ab37ad7c41376533ae0c6",
+      "scripts/snapshot_layer_metadata.py": "fe5fe29fa601eada28fe7a39cfface86fae42395061903809fc4baf50dbe4b78",
+      "scripts/report_snapshot_cache_pair.py": "04b5ebda92e6b54ac6330331a96678a0e8ffd7592378ef288fda9fb1f222448f"
+    }
+  },
+  "storage_reclaimed_bytes": 993742848,
+  "sparse_images": 72,
+  "limitations": [
+    "One common 11-step prefix and two original 10-step suffixes; not the full seven-path schedule.",
+    "Provider temporary/anonymous buffers and compressed/multi-layer snapshots are not attributed.",
+    "Guest cache and host PFNs change during collection; unknown capacity is not physical RAM."
+  ]
+}

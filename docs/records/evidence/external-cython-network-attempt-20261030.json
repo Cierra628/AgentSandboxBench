@@ -1,0 +1,77 @@
+{
+  "status": "PLATFORM_NETWORK_CHECK_FAILED_BEFORE_TASK",
+  "date": "2026-10-30",
+  "task_id": "build-cython-ext",
+  "image_preflight": {
+    "status": "PASS",
+    "image": "docker.io/alexgshaw/build-cython-ext@sha256:3612a38fadb89a96f74a1a951fb0b0af734198fd160571eeaba6401593234594",
+    "platform": "linux/amd64",
+    "layers": 7,
+    "compressed_bytes": 303214315
+  },
+  "guest_creation": "PASS",
+  "cold_create_seconds": 45.801197638,
+  "controller_seconds": 46.664548003,
+  "guest_network_check": {
+    "status": "FAIL",
+    "duration_seconds": 0.304957816,
+    "error": "URLError: Connection refused"
+  },
+  "task_calls_executed": 0,
+  "guest_sampler_started": false,
+  "host_sampler": {
+    "status": "PASS",
+    "error": null,
+    "cgroup": "/sys/fs/cgroup/asbhost.slice/asbhost-20261030t0903382643662.slice",
+    "samples": 504,
+    "interval_seconds": 0.1,
+    "pss_interval_seconds": null,
+    "thread_cpu_ns": 190439341,
+    "counter_read_total_ns": 151617260,
+    "scope": "Fresh rollout slice: input preparation, controller, private service and all its descendants; host file includes shmem, not guest Cached."
+  },
+  "task_curves": "NOT_AVAILABLE_TASK_NOT_STARTED",
+  "initial_available_gib": 63.198062896728516,
+  "initial_mem_available_gib": 479.33553314208984,
+  "available_after_gib": 31.190616607666016,
+  "source_returned_stopped": true,
+  "cleanup": {
+    "status": "PASS",
+    "guest_proxy_process_absent": true,
+    "guest_proxy_address_absent": true,
+    "failed_volume_present": true,
+    "failed_volume_size_bytes": 34359738368,
+    "failed_volume_allocated_bytes": 34359803904,
+    "failed_volume_has_loop": false,
+    "failed_volume_mount_present": false,
+    "failed_volume_fuser_returncode": 1,
+    "failed_volume_fuser_processes": "",
+    "active_docker_containers": 0,
+    "active_firecracker_processes": "",
+    "available_bytes": 33490669568
+  },
+  "failed_volume": ".artifacts/storage-isolated-service/20261030T090338Z-2643675/volume.ext4",
+  "failed_volume_deletion": "NOT_AUTHORIZED_NOT_DELETED",
+  "observed_proxy": {
+    "startup_receipt": "PASS",
+    "address": "192.0.2.17",
+    "address_removed": true,
+    "owned_process_stopped": true
+  },
+  "analysis": {
+    "observed": "The guest request was refused after successful relay readiness and upload of the relay environment. The service log identifies the guest host-interaction address as 10.211.0.1.",
+    "source_fact": "global_host_iptables_commands accepts established replies then rejects new guest-to-host INPUT traffic; assigning a local address routes guest requests to INPUT, not FORWARD.",
+    "interpretation": "Host INPUT rejection is the leading explanation; the previous offline review checked namespace egress CIDRs but omitted host INPUT.",
+    "missing_direct_evidence": "The matching 10.211 INPUT rule counter was not saved during the failed request. After service cleanup its rule was removed, so an actual counter hit is not verified.",
+    "source_references": [
+      "AgentENV/src/sandbox/network/manager.rs:578-597",
+      "AgentENV/src/sandbox/network/policy.rs:309-346",
+      "AgentENV/src/sandbox/network/slot.rs:546-560"
+    ]
+  },
+  "boundary_checks": "NOT_REACHED_FINAL_VOLUME_CHECKS",
+  "workflow": ".artifacts/host-external-workload/20261030T090338Z-2643666",
+  "storage": ".artifacts/storage-isolated-service/20261030T090338Z-2643675",
+  "driver": ".artifacts/external-cython-live-20261030",
+  "next_requirement": "Confirm a temporary, exact guest source / relay destination / TCP port INPUT exception and deletion of only the retained failed volume before another live run; preserve default private egress denies and every other rule."
+}

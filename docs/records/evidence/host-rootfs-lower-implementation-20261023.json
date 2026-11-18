@@ -1,0 +1,39 @@
+{
+  "status": "PASS",
+  "scope": "Offline implementation and compatibility only",
+  "tests_run": 25,
+  "test_modules": [
+    "test_host_rootfs_layers",
+    "test_host_rollout_shared",
+    "test_light_rollout_pair"
+  ],
+  "legacy_report_compatibility": [
+    {
+      "schedule": "grpo",
+      "status": "PASS",
+      "old_fields_preserved": 16,
+      "rootfs_coverage": "NOT_RECORDED"
+    },
+    {
+      "schedule": "bpo",
+      "status": "PASS",
+      "old_fields_preserved": 16,
+      "rootfs_coverage": "NOT_RECORDED"
+    }
+  ],
+  "live_validation": "NOT_RUN",
+  "coverage": [
+    "inode dedup and hardlinks",
+    "copies with same digest remain separate",
+    "ordered references and subset users",
+    "file and directory commit/sealed paths",
+    "missing/remote/unopened lowers stay unknown",
+    "config/lower replacement detection",
+    "reserved slots do not substitute for rootfs",
+    "final-stage-only capture; each selected file queried once with mocked mincore",
+    "metadata and query CPU/time recorded separately",
+    "original scheduling and query-failure official checks",
+    "PSS disabled and old light defaults unchanged",
+    "source receipt includes new module"
+  ]
+}

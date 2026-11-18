@@ -1,0 +1,43 @@
+{
+  "status": "PASS_OFFLINE_FULL_SHARED_IMPLEMENTATION",
+  "profile": "full-shared-files-v1",
+  "related_checks": 60,
+  "new_checks": 12,
+  "source": "scripts/host_rollout_shared.py",
+  "configs": [
+    "configs/platform-prettier6604-grpo-shared-files.json",
+    "configs/platform-prettier6604-bpo-shared-files.json"
+  ],
+  "entry": "bash scripts/run-light-rollout-pair.sh --shared-files --output \".artifacts/host-full-shared-$(date -u +%Y%m%dT%H%M%SZ)\"",
+  "changes": [
+    "Global identity dedup across both snapshots",
+    "Actual users and template associations",
+    "CREATED_THIS_ROLLOUT memory layers",
+    "Skipped residency null, not zero",
+    "Metadata outside original pause; one final query",
+    "PSS disabled only in explicit new profile",
+    "Owned preparation sync before private service",
+    "Query failure preserves original official checks, measurement remains FAIL",
+    "Report cost intervals and unchanged full-rollout timing"
+  ],
+  "live_actions": 0,
+  "live_validation": "NOT_RUN",
+  "actual_device_queries": 0,
+  "task_payload_preflight": "NOT_RUN_OFFLINE_BOUNDARY",
+  "tests": "tests/test_host_rollout_shared.py",
+  "logs": ".artifacts/host-full-shared-implementation-20261023",
+  "preview": {
+    "source": ".artifacts/host-scaling/20261022T161046Z-397110/host-file",
+    "status": "EXISTING_SAVED_DATA_FORMAT_ONLY",
+    "pss": "NOT_REQUESTED",
+    "visual_inspection": "PASS_TWO_PANELS"
+  },
+  "next": {
+    "scope": "One new complete GRPO and one BPO",
+    "actual_actions": 273,
+    "grpo_available_gib_must_exceed": 42,
+    "bpo_available_gib_must_exceed": 58,
+    "authorization": "NOT_STARTED"
+  },
+  "physical_scope": "Selected read-only drives, restored memory devices and memory lowers; not all rootfs lowers, guest Cached physical union or whole RAM"
+}

@@ -1,0 +1,31 @@
+{
+  "status": "WAITING_FOR_DISK_SPACE",
+  "checked_at": "2026-10-23T15:41:53.533913+00:00",
+  "free_bytes": 39212142592,
+  "required_free_bytes": 53687091200,
+  "volume_capacity_bytes": 25769803776,
+  "live_validation": "NOT_RUN",
+  "new_actions": 0,
+  "external_running_services": 1,
+  "external_service_action": "NONE",
+  "deletion_requested": {
+    "path": ".artifacts/storage-isolated-service/20261022T074758Z-185533/volume.ext4",
+    "allocated_bytes": 17180549120,
+    "permission": "NOT_YET_RECEIVED",
+    "scope": "Only this failed volume; retain all logs and results; recheck mounts/loop/open users before deletion"
+  },
+  "offline": {
+    "status": "PASS_OFFLINE",
+    "tests": 30,
+    "checks": [
+      "test_host_rootfs_short",
+      "test_host_rootfs_layers",
+      "test_host_rollout_shared",
+      "test_host_file_matched_task.MatchedSequenceTests",
+      "test_host_independent_pair.IndependentSequenceTests"
+    ],
+    "live_validation": "NOT_RUN",
+    "new_actions": 0,
+    "scope": "Short entry and original sequence compatibility; no real task or service operations"
+  }
+}

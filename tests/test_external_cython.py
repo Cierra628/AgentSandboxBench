@@ -107,7 +107,7 @@ class CythonTests(unittest.TestCase):
                     any(isinstance(a,ast.Subscript) and ast.unparse(a)==key+"['functional_validation']" for a in ast.walk(n)))
                 code=compile(ast.Module(body=[node],type_ignores=[]),'<actual Cython success guard>','exec')
                 result=dict(functional_validation='PASS')
-                ns={key:result,config:{'task_id':CYTHON},'CYTHON':CYTHON,'proxy':types.SimpleNamespace(check=lambda:None)};exec(code,ns)
+                ns={key:result,config:{'task_id':CYTHON},'CYTHON':CYTHON,'proxy':types.SimpleNamespace(check=lambda:None),'endpoint_metrics':False};exec(code,ns)
                 result['functional_validation']='FAIL'
                 with self.assertRaises(AssertionError):exec(code,ns)
         self.assertEqual(stages,{'replay','controller','native','workflow'})
@@ -136,7 +136,7 @@ class CythonTests(unittest.TestCase):
                     return child
                 addresses=json.dumps([dict(addr_info=[dict(family='inet',local='172.17.0.1',prefixlen=16)])])
                 with patch.dict('os.environ',{'HTTP_PROXY':'http://127.0.0.1:17891'}),patch('external_guest_proxy.subprocess.check_output',side_effect=[addresses,'[]']) as ip,patch('external_guest_proxy.subprocess.run') as change,patch('external_guest_proxy.socket.socket',return_value=sock),patch('external_guest_proxy.subprocess.Popen',side_effect=opened):
-                    proxy=GuestProxy(out,up);self.assertEqual(proxy.start(),'http://192.0.2.17:34567');proxy.check();proxy.stop()
+                    proxy=GuestProxy(out,up,proxy_url='http://127.0.0.1:17891') if timeout else GuestProxy(out,up);self.assertEqual(proxy.start(),'http://192.0.2.17:34567');proxy.check();proxy.stop()
                 self.assertEqual(ip.call_count,2)
                 self.assertEqual([c.args[0] for c in change.call_args_list],[['ip','addr','add','192.0.2.17/32','dev','lo'],['ip','addr','del','192.0.2.17/32','dev','lo']])
                 self.assertEqual(json.loads((out/'guest-proxy-address.json').read_text())['status'],'REMOVED')
@@ -174,20 +174,26 @@ class CythonTests(unittest.TestCase):
 
     def test_controller_pass_and_real_failure_boundaries_cleanup_owned_resources(self):
         import run_external_workload as controller
-        for sampling,fault in ((s,f) for s in ('on','off') for f in (None,'network','counter','tests','extensions','clock','bad-exit')):
+        for sampling,upgraded,fault in ((s,u,f) for s,u in (('on',False),('off',False),('on',True)) for f in (None,'network','counter','tests','extensions','clock','bad-exit')):
             with self.subTest(sampling=sampling,fault=fault),tempfile.TemporaryDirectory() as tmp:
-                root=Path(tmp);cfg,_=fixture(root);args=types.SimpleNamespace(config=cfg,upstream=root,output=root/'out',config_home=root/'cfg',service_url='http://127.0.0.1:1',container='unused',sampling=sampling)
+                root=Path(tmp);cfg,_=fixture(root);args=types.SimpleNamespace(config=cfg,upstream=root,output=root/'out',config_home=root/'cfg',service_url='http://127.0.0.1:1',container='unused',sampling=sampling,endpoint_metrics=upgraded,guest_relay=upgraded)
                 seen=[]
                 class Monitor:
                     def __init__(self,*a,**kw):self.active={}
                     def start(self,sid,*a):self.active[sid]=True
                     def stop(self,sid,*a):self.active.pop(sid)
+                class Metrics:
+                    def __init__(self,*a,pss_interval_seconds=1):
+                        self.pss_interval_seconds=pss_interval_seconds
+                    def observe(self):return dict(status='OBSERVED')
+                    def stop(self):return dict(status='PASS',pss_samples=1)
                 def fake(argv,**kwargs):
+                    if upgraded:self.assertEqual(kwargs['env']['HTTP_PROXY'],'')
                     argv=list(map(str,argv));seen.append((argv,kwargs));stdout='';status=0
                     if argv[0]=='git':stdout='unit-revision'
                     elif 'agentenv_cold_start.py' in argv[1]:stdout='00000000-0000-0000-0000-000000000001'
                     elif 'upload' in argv:
-                        bundle=Path(argv[-2]);self.assertEqual(argv[-1],'/probe/input');self.assertEqual(len(list(bundle.glob('*-read.py'))),20);self.assertEqual(len(list(bundle.glob('*.payload'))),2);self.assertTrue((bundle/'guest-env.sh').is_file())
+                        bundle=Path(argv[-2]);self.assertEqual(argv[-1],'/probe/input');self.assertEqual(len(list(bundle.glob('*-read.py'))),20);self.assertEqual(len(list(bundle.glob('*.payload'))),2);self.assertTrue((bundle/'guest-env.sh').is_file());self.assertIn('HTTP_PROXY=http://192.0.2.17:34567',(bundle/'guest-env.sh').read_text())
                     elif 'download' in argv:
                         target=args.output/'input';target.mkdir();logs=target/'logs';outputs(logs)
                         _,_,reference=load(cfg,root)
@@ -204,7 +210,7 @@ class CythonTests(unittest.TestCase):
                         elif 'compiled extensions import successfully' in command:
                             stdout='source_repo_commit: unit-commit\ncompiled extensions import successfully';status=int(fault=='extensions')
                     return types.SimpleNamespace(returncode=status,stdout=stdout)
-                with patch.object(controller.subprocess,'run',side_effect=fake),patch.object(controller,'RuntimeMonitor',side_effect=Monitor if sampling=='on' else AssertionError('off must not create sampler')) as monitor,patch.object(controller,'allow_guest_relay',return_value={'status':'ADDED'}),patch.object(controller,'capture_relay_counters',side_effect=lambda output,stage:dict(allowed_packets=0 if stage=='before-head' or fault=='counter' else 2)),patch.dict('os.environ',{'ASB_EXTERNAL_GUEST_RELAY_URL':'http://192.0.2.17:34567','ASB_EXTERNAL_GUEST_RELAY_STATE':str(root/'relay')}),contextlib.redirect_stdout(io.StringIO()):
+                with patch.object(controller.subprocess,'run',side_effect=fake),patch.object(controller,'RuntimeMonitor',side_effect=Monitor if sampling=='on' else AssertionError('off must not create sampler')) as monitor,patch.object(controller,'ExternalMetrics',Metrics),patch.object(controller,'allow_guest_relay',return_value={'status':'ADDED'}),patch.object(controller,'capture_relay_counters',side_effect=lambda output,stage:dict(allowed_packets=0 if stage=='before-head' or fault=='counter' else 2)),patch.dict('os.environ',{'ASB_EXTERNAL_GUEST_RELAY_URL':'http://192.0.2.17:34567','ASB_EXTERNAL_GUEST_RELAY_STATE':str(root/'relay')}),contextlib.redirect_stdout(io.StringIO()):
                     result=controller.run(args)
                 value=json.loads((args.output/'result.json').read_text())
                 self.assertEqual(result,0 if fault is None else 1,value)
@@ -218,6 +224,7 @@ class CythonTests(unittest.TestCase):
                 else:self.assertEqual(replay[0]['timeout'],900)
                 if fault is None:
                     self.assertEqual(value['functional_validation'],'PASS')
+                    if upgraded:self.assertEqual(value['measurement_status'],'PASS');self.assertEqual(value['guest_network_preflight'],'PASS')
                     self.assertEqual(value['syntax_validation'],'NOT_REQUESTED_ORIGINAL_EXTENSION_CHECK')
 
     def test_outer_workflow_owns_relay_cleanup_on_success_failure_and_timeout(self):

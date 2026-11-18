@@ -25,6 +25,10 @@ def read(path):return json.loads(Path(path).read_text())
 def write(path, value):Path(path).write_text(json.dumps(value, indent=2, ensure_ascii=False)+'\n')
 
 
+def cache_can_release(cache,preexisting):
+    return not preexisting and (cache/'resources.json').exists()
+
+
 def summarize(storage):
     raw = storage/'prettier6604'; outer = read(storage/'result.json'); task = read(raw/'result.json')
     monitor = read(raw/'runtime-monitor.json'); metrics = read(raw/'schedule-smoke-metrics.json')
@@ -63,6 +67,29 @@ def summarize(storage):
         metrics_path=str(raw/'schedule-smoke-metrics.json'))
 
 
+def expanded_summary(storage):
+    metrics=read(storage/'prettier6604/schedule-smoke-metrics.json');e=metrics['expanded_files']
+    assert e['status'] in ('OBSERVED','PARTIAL') and e['reused_initial_objects']==19
+    rows=e['files'];keys=[tuple(r['object_key']) for r in rows]
+    assert len(keys)==len(set(keys))==e['unique_objects']
+    rootfs=metrics['rootfs_inventory']
+    for role,guest in rootfs['guests'].items():
+        for lower in guest['lowers']:
+            if lower['status']=='IDENTIFIED':assert ('regular',lower['device'],lower['inode']) in keys
+        for kind in ('data','index'):
+            assert any('rootfs_upper_'+kind in r['categories'] and role in r['users'] for r in rows) or any(
+                u.get('role')==role and u['source']=='rootfs_upper_'+kind for u in e['unresolved'])
+    stable=sum(r['resident_bytes'] for r in rows if r['status']=='OBSERVED')
+    assert stable==e['stable_regular_resident_bytes']==sum(r['stable_resident_bytes'] for r in e['primary_categories'].values())
+    return dict(status=e['status'],unique_objects=e['unique_objects'],
+        stable_regular_mib=stable/2**20,new_stable_regular_mib=e['new_stable_regular_resident_bytes']/2**20,
+        unknown_objects=e['unknown_objects'],unresolved_sources=len(e['unresolved']),
+        separate_shmem_or_hugetlb_objects=e['separate_shmem_or_hugetlb_objects'],
+        primary_categories=e['primary_categories'],
+        wall_seconds=(e['end_monotonic_ns']-e['start_monotonic_ns'])/1e9,cpu_seconds=e['cpu_ns']/1e9,
+        full_host_coverage=False)
+
+
 def report(out, result):
     lines=['# 三调度单次可用性验证','', '仅为冒烟测试，每种至多一次；未运行和失败项不补零，不作性能优劣结论。', '',
         '| 调度 | 是否跑通 | 动作数（实际／逻辑） | 官方结果 | save/restore次数 | PSS总量 MiB | 每沙箱PSS MiB | mincore P1 MiB | cgroup file（P1）MiB | 整轮秒 | 工具累计秒 | 备注 |',
@@ -83,36 +110,94 @@ def report(out, result):
         lines += ['### '+r['schedule'].upper(), '', '```json', json.dumps(r,indent=2,ensure_ascii=False), '```', '']
     if result.get('error'):lines += ['## 首个错误', '', '```text', result['error'], '```', '完整错误：`'+str(out/'failure.txt')+'`。原始目录保存在result.json，不自动重跑。', '']
     lines += ['批次原始记录：`'+str(out)+'`。完整save/restore逐次耗时、动作窗口及查询成本见逐次记录；失败组的原始文件不覆盖。', '']
+    if result.get('expanded_files_requested'):
+        lines += ['## 扩展普通文件查询', '',
+                  '原19文件P1单独保留。扩展结果按设备号:inode去重，包括全部活跃lower／upper、本服务env、打开的普通文件及文件映射。未知、变化、shmem／hugetlb和设备层分列；不把已查询小计当作全部host缓存。', '',
+                  '| 调度 | 覆盖状态 | 唯一对象 | 稳定普通文件驻留 MiB | 新增驻留 MiB | 未知／变化对象 | 未解析来源 | 查询墙钟秒 | CPU秒 |',
+                  '| --- | --- | ---: | ---: | ---: | ---: | ---: | ---: | ---: |']
+        for r in result['runs']:
+            e=r.get('expanded_files')
+            if not e:continue
+            lines.append(f"| {r['schedule'].upper()} | {e['status']} | {e['unique_objects']} | {e['stable_regular_mib']:.3f} | {e['new_stable_regular_mib']:.3f} | {e['unknown_objects']} | {e['unresolved_sources']} | {e['wall_seconds']:.6f} | {e['cpu_seconds']:.6f} |")
+        lines += ['', 'OBSERVED仅表示该次登记范围的普通文件查询完整；PARTIAL表示存在明确未知或变化，原任务通过与覆盖状态分开。分类、完整对象及排除项在每次原始`schedule-smoke-metrics.json`的`expanded_files`中。没有周期mincore、预读、暂停、强制驻留或额外缓存控制。', '']
+    if result.get('light_rollout_requested'):
+        lines=[line.replace('file是该私有服务cgroup的文件记账，含shmem。','本次显式light-rollout的file来自专属slice父组，含控制程序、服务、VMM与shmem；旧host/memory-samples.tsv仍是Docker范围，不混用。') for line in lines]
+        lines += ['', '## 本次新增统一轮次', '',
+                  '本次仅BPO一次，保留原有guest与host监控及终点19文件查询，另加0.1秒统一父组/PSS轮次；并非仅开轻量采样的开销实验。light-memory.jsonl中待创建和保存中的角色总量留空，实际绑定分母逐点保存。父子闭合只诊断，不作业务失败条件。普通入口默认未改变。', '']
     (out/'REPORT.md').write_text('\n'.join(lines))
 
 
 def main():
     parser=argparse.ArgumentParser(description=__doc__);parser.add_argument('--output',type=Path,required=True)
+    parser.add_argument('--schedule',choices=SCHEDULES,help='Run only this schedule once; omitted retains all three')
+    parser.add_argument('--block-cache-method',choices=('mincore','cachestat','compare'),help='Explicit block cache method, requires cache layers; omitted preserves mincore')
+    parser.add_argument('--memory-backing-links',action='store_true',help='Record memory configuration and backing layer links; requires cache layers')
+    parser.add_argument('--split-ram-cache',action='store_true',help='Extra preplanned RAM-device cachestat, separate from strict mapping checks; requires cache layers and cachestat')
+    parser.add_argument('--cache-layers',action='store_true',help='Opt-in four cache layers; requires expanded files')
+    parser.add_argument('--expanded-files',action='store_true',help='Opt-in endpoint file coverage, once per schedule')
+    parser.add_argument('--unused-network-pools',action='store_true',help='Explicit existing unused-network selector; ordinary defaults unchanged')
+    parser.add_argument('--light-rollout',action='store_true',help='Explicit single BPO light rounds alongside original validation')
+    parser.add_argument('--diagnostic-guest-kernel',type=Path)
+    parser.add_argument('--diagnostic-server',type=Path)
     args=parser.parse_args();out=args.output.resolve()
+    from light_prettier_rollout import diagnostic_kernel_args
+    if args.diagnostic_guest_kernel and not args.light_rollout:parser.error('diagnostic guest kernel requires light BPO')
+    kernel_flags=diagnostic_kernel_args(args.diagnostic_guest_kernel)
+    if args.light_rollout:
+        if args.schedule!='bpo' or not args.diagnostic_server or args.expanded_files or args.cache_layers:
+            parser.error('light rollout requires single BPO and diagnostic server without expanded queries')
+    elif args.diagnostic_server:parser.error('diagnostic server requires light rollout')
+    if args.memory_backing_links and not args.cache_layers:parser.error('--memory-backing-links requires --cache-layers')
+    if args.cache_layers and not args.expanded_files:parser.error('--cache-layers requires --expanded-files')
+    if args.block_cache_method is not None and not args.cache_layers:parser.error('--block-cache-method requires --cache-layers')
+    if args.split_ram_cache and (not args.cache_layers or args.block_cache_method!='cachestat'):
+        parser.error('--split-ram-cache requires --cache-layers and --block-cache-method cachestat')
+    schedules=(args.schedule,) if args.schedule else SCHEDULES
     assert out.is_relative_to(ROOT/'.artifacts') and not out.exists()
     os.umask(0o077);out.mkdir(parents=True);(out/'code').mkdir()
     for name in ('run_schedule_smoke.py','schedule_smoke_metrics.py','validate_isolated_agentenv.py','run_prettier6604_grpo.py','prettier_no_proxy.py'):
         shutil.copy2(ROOT/'scripts'/name,out/'code'/name)
+    if args.expanded_files:
+        for name in ('host_schedule_files.py','host_file_monitor.py','experiment_memory.py','host_special_metadata.py','host_rootfs_layers.py'):
+            shutil.copy2(ROOT/'scripts'/name,out/'code'/name)
+    if args.cache_layers:
+        for name in ('host_schedule_cache_layers.py','host_deleted_backing.py','isolated_storage.py','host_memory_backing_links.py'):
+            shutil.copy2(ROOT/'scripts'/name,out/'code'/name)
     env=clean_environment(dict(os.environ,ASB_AGENTENV_SOURCE_SERVICE=SOURCE,PYTHONDONTWRITEBYTECODE='1'))
     env.pop('ASB_LOCAL_NO_PROXY',None);env.pop('ASB_LOCAL_NO_PROXY_CHECK',None)
+    if args.unused_network_pools:env['ASB_ISOLATED_UNUSED_NETWORK_POOLS']='on'
+    flags=['--schedule-smoke-metrics']+(['--schedule-expanded-files'] if args.expanded_files else [])+(['--schedule-cache-layers'] if args.cache_layers else [])
+    if args.block_cache_method is not None:flags+=['--schedule-block-cache-method',args.block_cache_method]
+    if args.memory_backing_links:flags+=['--schedule-memory-backing-links']
+    if args.split_ram_cache:flags+=['--schedule-split-ram-cache']
+    if args.light_rollout:flags+=['--light-rollout']
     cache=ROOT/'.artifacts/prettier6604'/('schedule-smoke-cache-'+out.name)
+    cache_preexisting=cache.exists()
     result=dict(status='RUNNING',stage='preflight',runs=[]);started=False
+    if args.light_rollout:result['light_rollout_requested']=True
+    if args.expanded_files:result['expanded_files_requested']=True
+    if args.cache_layers:result['cache_layers_requested']=True
+    if args.split_ram_cache:result['split_ram_cache_requested']=True
     def call(argv,label,timeout):
         with (out/(label+'.log')).open('x') as log:
             p=subprocess.run(list(map(str,argv)),cwd=ROOT,env=env,stdout=log,stderr=subprocess.STDOUT,timeout=timeout)
         if p.returncode:raise RuntimeError(label+' exited '+str(p.returncode)+'; '+str(out/(label+'.log')))
     try:
+        if cache_preexisting:raise FileExistsError('cache directory already exists; not owned by this run: '+str(cache))
         source=json.loads(subprocess.check_output(['docker','inspect',SOURCE],timeout=15))[0]
         assert source['Id']==SOURCE_ID and not source['State']['Running'] and source['HostConfig']['RestartPolicy']['Name']=='no'
         write(out/'source-before.json',source['State'])
-        configs={s:configuration(ROOT/f'configs/platform-prettier6604-{s}.json') for s in SCHEDULES}
-        write(out/'effective-plan.json',dict(configs=configs,extra_flag='--schedule-smoke-metrics',
+        configs={s:configuration(ROOT/f'configs/platform-prettier6604-{s}.json') for s in schedules}
+        write(out/'effective-plan.json',dict(configs=configs,extra_flag='--schedule-smoke-metrics',extra_flags=flags,
+            expanded_files_requested=args.expanded_files,cache_layers_requested=args.cache_layers,block_cache_method=args.block_cache_method or 'mincore',selected_schedules=schedules,
+            unused_network_pools=args.unused_network_pools,
+            split_ram_cache=args.split_ram_cache,
             repeats_per_schedule=1,guest_count=7,ordinary_interval_seconds=.1,pss_interval_seconds=1,
             initial_lower_p1_count=19,pressure=False,source_service=SOURCE,
             proxy_policy='Empty proxy environment in controller/private service/guest; pinned local registry responses only'))
         for s,cfg in configs.items():
             check,_=commands(cfg,cache)
-            call(check+['--schedule-smoke-metrics'],s+'-offline',60)
+            call(check+flags,s+'-offline',60)
         assert capacity_budget(available(ROOT),32*GIB)['ready'],'disk must exceed 58 GiB before preparation'
         result['stage']='cache-prepare';write(out/'result.json',result)
         call([sys.executable,'-B','scripts/prepare_prettier6604_cache.py',cache],'cache-prepare',300)
@@ -128,17 +213,25 @@ def main():
         for schedule,cfg in configs.items():
             budget=capacity_budget(available(ROOT),(16 if schedule=='grpo' else 32)*GIB)
             assert budget['ready'],schedule+' disk budget insufficient'
+            memory=int(next(line for line in Path('/proc/meminfo').read_text().splitlines() if line.startswith('MemAvailable:')).split()[1])*1024
+            assert memory>64*GIB,'preparation requires more than 64 GiB available memory'
             result['stage']=schedule;write(out/'result.json',result)
             write(out/(schedule+'-resources.json'),dict(budget=budget,load=os.getloadavg()))
             print('status=RUNNING schedule='+schedule+' result_dir='+str(out),flush=True)
             _,live=commands(cfg,cache);start=time.monotonic_ns()
             try:
-                call(live+['--schedule-smoke-metrics'],schedule,1100)
+                call(live+flags+(['--diagnostic-server-binary',str(args.diagnostic_server)] if args.light_rollout else [])+kernel_flags,schedule,1100)
                 log=(out/(schedule+'.log')).read_text()
                 paths=re.findall(r'status=PASS result_dir=(\S+)',log)
                 storage=[Path(p) for p in paths if Path(p).parent==ROOT/'.artifacts/storage-isolated-service']
                 assert len(storage)==1
-                row=summarize(storage[0]);row['private_service_round_seconds']=(time.monotonic_ns()-start)/1e9
+                row=summarize(storage[0])
+                if args.light_rollout:
+                    row['light_rollout_sampling']=read(storage[0]/'prettier6604/result.json')['light_rollout_sampling']
+                    assert row['light_rollout_sampling']['status']=='PASS'
+                row['private_service_round_seconds']=(time.monotonic_ns()-start)/1e9
+                if args.expanded_files:row['expanded_files']=expanded_summary(storage[0])
+                if args.cache_layers:row['cache_layers']=read(storage[0]/'prettier6604/schedule-smoke-metrics.json')['cache_layers']
                 result['runs'].append(row)
                 print('status=PASS schedule='+schedule,flush=True)
             except BaseException as error:
@@ -160,7 +253,7 @@ def main():
                 write(out/'source-after.json',state);assert not state['Running']
                 result['source_returned_to_stopped']=True
             except Exception as error:result.update(status='FAIL',source_cleanup_error=repr(error))
-        if (cache/'resources.json').exists():
+        if cache_can_release(cache,cache_preexisting):
             try:
                 call([sys.executable,'-B','scripts/prepare_prettier6604_cache.py',cache,'--release'],'cache-release',90)
                 result['cache_released']=read(cache/'resources.json')['released']

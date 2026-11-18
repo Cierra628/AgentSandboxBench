@@ -1,0 +1,79 @@
+{
+  "status": "FAIL",
+  "analysis_status": "PASS",
+  "task_id": "pydata__xarray-6992",
+  "failed_stage": "sandbox creation / remote manifest fetch",
+  "completed_task_actions": 0,
+  "on_status": "NOT_RUN",
+  "failure_kind": "platform failure; no task or sampling-overhead result",
+  "workflow": ".artifacts/platform-tasks/20261028T145801Z-2277290",
+  "storage": ".artifacts/storage-isolated-service/20261028T145943Z-2278267",
+  "outer_elapsed_seconds": 712.439861455,
+  "controller_elapsed_seconds": 600.220707449,
+  "cold_start_timeout_seconds": 600,
+  "guest_samples": null,
+  "host_samples": null,
+  "sampling_cpu_seconds": null,
+  "tool_elapsed_seconds": null,
+  "official_result_status": "NOT_RUN",
+  "remote_evidence": {
+    "first_manifest_retry_utc": "2026-10-28T15:04:52.228587Z",
+    "error": "context deadline exceeded",
+    "detail": "DNS, TCP/TLS, remote response, and proxy contribution not distinguished"
+  },
+  "local_cache": {
+    "image_config_present": true,
+    "runtime_metadata_present": true,
+    "validity": "file presence only; cache validation and guest creation were not reached"
+  },
+  "source_state": {
+    "id": "8635246521cb148c41f0d97ae13dbd0f6b470883c856bb3d47a5e9fb872aaa3e",
+    "running": false
+  },
+  "cleanup": {
+    "owned_container_removed": true,
+    "mount_and_loop_removed": true,
+    "failed_fixture_retained": true,
+    "original_firecracker_identities_unchanged": true,
+    "original_service_unchanged": true
+  },
+  "resource_checks": {
+    "mounts": {
+      "exit_code": 1,
+      "stdout": "",
+      "stderr": ""
+    },
+    "loop_devices": {
+      "exit_code": 0,
+      "stdout": "",
+      "stderr": ""
+    },
+    "open_users": {
+      "exit_code": 1,
+      "stdout": "",
+      "stderr": ""
+    },
+    "firecracker": {
+      "exit_code": 1,
+      "stdout": "",
+      "stderr": ""
+    }
+  },
+  "retained_volume": {
+    "path": ".artifacts/storage-isolated-service/20261028T145943Z-2278267/volume.ext4",
+    "size_bytes": 8589934592,
+    "allocated_bytes": 8589963264,
+    "deletion_authorized": false
+  },
+  "available_bytes": 32893456384,
+  "required_available_bytes": 36507222016,
+  "ready_for_new_run": false,
+  "checked_unix_ns": 1793201178345981337,
+  "code_changed": false,
+  "source_evidence": [
+    "AgentENV/src/image/resolver.rs:191-212",
+    "AgentENV/src/image/resolver.rs:318-340",
+    "AgentENV/src/image/oci_image.rs:861-873",
+    "scripts/agentenv_cold_start.py"
+  ]
+}

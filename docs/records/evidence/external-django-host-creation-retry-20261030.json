@@ -1,0 +1,131 @@
+{
+  "status": "FAIL_IMAGE_PREPARATION_TIMEOUT",
+  "scope": "One diagnostic retry; no measured creation or task action completed",
+  "source_directory": ".artifacts/external-django-host-creation-controls-retry-20261030",
+  "storage_directory": ".artifacts/storage-isolated-service/20261030T132618Z-2712183",
+  "preparation_call_seconds": 600.088946956,
+  "returned_guest_ids": 0,
+  "measured_creations_completed": 0,
+  "planned_measured_creations": 4,
+  "task_actions": 0,
+  "periodic_host_sampling_started": false,
+  "guest_sampling_started": false,
+  "trace_samples": 120,
+  "trace_span_seconds": 595.461651793,
+  "process_observations": [
+    {
+      "comm": "server",
+      "observed_process_instances": 1,
+      "longest_series_samples": 120,
+      "observed_span_seconds": 595.461651793,
+      "cpu_seconds_delta": 1.6,
+      "storage_write_mib_delta": 310.58984375,
+      "last_120s_observed_span_seconds": 115.082000867,
+      "last_120s_storage_write_mib_delta": 0.0,
+      "sampled_main_thread_waits": {
+        "futex_do_wait": 120
+      }
+    },
+    {
+      "comm": "regctl.real",
+      "observed_process_instances": 3,
+      "longest_series_samples": 117,
+      "observed_span_seconds": 580.453774433,
+      "cpu_seconds_delta": 2.51,
+      "storage_write_mib_delta": 128.13671875,
+      "last_120s_observed_span_seconds": 115.082000867,
+      "last_120s_storage_write_mib_delta": 0.6796875,
+      "sampled_main_thread_waits": {
+        "futex_do_wait": 117
+      }
+    },
+    {
+      "comm": "uvm-ublk-daemon",
+      "observed_process_instances": 1,
+      "longest_series_samples": 120,
+      "observed_span_seconds": 595.461651793,
+      "cpu_seconds_delta": 0.0,
+      "storage_write_mib_delta": 0.0,
+      "last_120s_observed_span_seconds": 115.082000867,
+      "last_120s_storage_write_mib_delta": 0.0,
+      "sampled_main_thread_waits": {
+        "futex_do_wait": 120
+      }
+    }
+  ],
+  "single_network_snapshot": {
+    "subcommands": [
+      "image",
+      "copy"
+    ],
+    "connections_established": 2,
+    "loopback_proxy": true,
+    "thread_wait_counts": {
+      "futex_do_wait": 8,
+      "do_epoll_wait": 1
+    }
+  },
+  "index_metadata_check": {
+    "exit_code": 0,
+    "elapsed_seconds": 4.765208663418889,
+    "media_type": "application/vnd.oci.image.index.v1+json",
+    "manifests": 2,
+    "layers": 0
+  },
+  "platform_manifest_and_blob_head": {
+    "scope": "Current availability only; manifest GET and one blob HEAD, no layer body reads or sandbox",
+    "checks": [
+      {
+        "name": "retry-platform-manifest",
+        "exit_code": 0,
+        "elapsed_seconds": 3.1230383962392807,
+        "layer_count": 10,
+        "compressed_layer_bytes": 1242117203,
+        "largest_layer_bytes": 476296665
+      },
+      {
+        "name": "retry-largest-blob-head",
+        "exit_code": 0,
+        "elapsed_seconds": 4.16465780697763,
+        "headers_received": true
+      }
+    ]
+  },
+  "cleanup": {
+    "owned_container_removed": true,
+    "mount_and_loop_removed": true,
+    "failed_fixture_retained": true,
+    "original_firecracker_identities_unchanged": true,
+    "original_service_unchanged": true
+  },
+  "source_returned_stopped": true,
+  "no_active_docker_or_firecracker": true,
+  "new_failed_volume": ".artifacts/storage-isolated-service/20261030T132618Z-2712183/volume.ext4",
+  "failed_volume_size_bytes": 34359738368,
+  "failed_volume_unmounted_no_loop_or_users": true,
+  "available_after_gib": 31.049938201904297,
+  "peak_volume_used_gib": 0.9018630981445312,
+  "authorized_previous_cleanup": {
+    "status": "PASS",
+    "authorization": "User explicitly approved deleting the one failed volume and continuing",
+    "deleted": ".artifacts/storage-isolated-service/20261030T122503Z-2704313/volume.ext4",
+    "size_bytes": 34359738368,
+    "allocated_bytes": 34359799808,
+    "log_files_preserved": true,
+    "no_mount_loop_or_users": true,
+    "available_before_bytes": 33340022784,
+    "available_after_bytes": 67699822592,
+    "timestamp_ns": 1793366764315153822
+  },
+  "checks": {
+    "immutable_cache_copy": "PASS",
+    "isolated_service_ready": "PASS"
+  },
+  "interpretation": [
+    "The long-lived image-copy process is observed, not a completed image or guest startup.",
+    "Process storage write bytes are not network transfer bytes; main-thread waits do not describe every thread.",
+    "Metadata/HEAD success after the retry establishes current endpoint availability, not bulk throughput or the historic root cause.",
+    "Five-second snapshots can miss short-lived processes; no total conversion CPU or total causal-delay bound is inferred."
+  ],
+  "next_step": "Offline scope only: separate fixed Docker Hub OCI preparation from the 600-second creation request; do not run a third unchanged retry."
+}

@@ -13,6 +13,8 @@ import stat
 import threading
 import time
 
+from experiment_memory import HOST_SCOPE, resolve_scope, snapshot, observation_status
+
 CGROOT = Path('/sys/fs/cgroup')
 PAGE = os.sysconf('SC_PAGE_SIZE')
 STAT_KEYS = ('file', 'anon', 'shmem', 'kernel', 'file_mapped', 'file_dirty', 'file_writeback')
@@ -37,12 +39,20 @@ def measurement_group():
     return CGROOT.joinpath(*parts[1:index+1]), unit
 
 
-def counters(group, *, extra_keys=()):
-    values = dict(line.split() for line in (group/'memory.stat').read_text().splitlines())
+def counters(group, *, extra_keys=(), read_timings=None):
+    def read(path):
+        if read_timings is None:return path.read_text()
+        row=dict(path=str(path),start_monotonic_ns=time.monotonic_ns(),status='STARTED')
+        read_timings.append(row)
+        try:
+            text=path.read_text();row['status']='READ';return text
+        except OSError as error:row.update(status='FAIL',error=repr(error));raise
+        finally:row['end_monotonic_ns']=time.monotonic_ns()
+    values = dict(line.split() for line in read(group/'memory.stat').splitlines())
     if not {'file', 'anon', 'shmem'} <= values.keys():
         raise ValueError('required cgroup memory counters missing')
     if not set(extra_keys)<=values.keys():raise ValueError('requested extra cgroup memory counters missing')
-    return dict(current=int((group/'memory.current').read_text()),
+    return dict(current=int(read(group/'memory.current')),
                 **{key: int(values[key]) if key in values else None for key in (*STAT_KEYS,*extra_keys)})
 
 
@@ -87,9 +97,40 @@ def pss_snapshot(group, proc=Path('/proc')):
                 end_monotonic_ns=time.monotonic_ns(), processes=entries, disappeared_pids=gone, **totals)
 
 
-def mincore_file(path, *, block_identity=None, block_length=None, include_resident_indices=False, live=False):
-    """Only mmap(PROT_NONE)+mincore; no payload read, touch, lock or readahead."""
-    fd = os.open(path, os.O_RDONLY | os.O_CLOEXEC | (0 if block_identity is not None else os.O_NOFOLLOW))
+def mincore_permission(fd, info):
+    """Establish permission on the pinned inode before trusting mincore's bits."""
+    status = dict(line.split(':', 1) for line in Path('/proc/thread-self/status').read_text().splitlines()
+                  if ':' in line)
+    uids = list(map(int, status['Uid'].split()))
+    gids = list(map(int, status['Gid'].split()))
+    caps = int(status['CapEff'], 16)
+    uid_map = Path('/proc/thread-self/uid_map').read_text().split()
+    host_ids = uid_map == ['0', '0', '4294967295']
+    # The full host UID map avoids mistaking an unmapped inode's overflow UID
+    # for ownership. In other namespaces we require the kernel write check.
+    if host_ids and caps & (1 << 3):
+        basis = 'HOST_CAP_FOWNER'
+    elif host_ids and uids[3] == info.st_uid:
+        basis = 'HOST_INODE_OWNER'
+    elif (uids[1] == uids[3] and gids[1] == gids[3]
+          and os.access(f'/proc/thread-self/fd/{fd}', os.W_OK, effective_ids=True)):
+        # Follow our pinned FD, not the original pathname, including unlinked
+        # files. access uses effective IDs; require them to match filesystem IDs.
+        basis = 'PINNED_FD_WRITABLE'
+    else:
+        raise PermissionError('mincore residency permission not established; kernel may return all ones')
+    return dict(basis=basis, fsuid=uids[3], cap_eff=hex(caps), uid_map=uid_map)
+
+
+def mincore_file(path, *, block_identity=None, block_length=None, include_resident_indices=False, live=False,
+                 file_descriptor=None, include_metadata=False):
+    """Permission-checked mmap(PROT_NONE)+mincore; no payload read or touch."""
+    # An opt-in caller may pin an already identity-checked ordinary file, including
+    # an unlinked open file. Duplicate it so ownership remains with that caller.
+    if file_descriptor is not None and block_identity is not None:
+        raise ValueError('a pinned ordinary file cannot also be a block device')
+    fd = (os.dup(file_descriptor) if file_descriptor is not None else
+          os.open(path, os.O_RDONLY | os.O_CLOEXEC | (0 if block_identity is not None else os.O_NOFOLLOW)))
     try:
         info = os.fstat(fd)
         is_block=stat.S_ISBLK(info.st_mode)
@@ -101,6 +142,7 @@ def mincore_file(path, *, block_identity=None, block_length=None, include_reside
             if not block_length or capacity[0]!=block_length:raise ValueError('block backing capacity mismatch')
             length=block_length
         elif not stat.S_ISREG(info.st_mode): raise ValueError('residency input must be a regular backing file')
+        permission = mincore_permission(fd, info)
         identity = dict(device=info.st_dev, inode=info.st_ino, size=info.st_size, mtime_ns=info.st_mtime_ns)
         pages = (length+PAGE-1)//PAGE
         resident = 0; indices = []
@@ -131,9 +173,16 @@ def mincore_file(path, *, block_identity=None, block_length=None, include_reside
         else:stable=same_identity and not metadata_changed
         result = dict(path=str(path), **identity, pages=pages, resident_pages=resident,
                     resident_bytes=resident*PAGE, stable=stable,metadata_changed=metadata_changed,
-                    block_device=is_block,rdev=info.st_rdev,mapping_length=length)
+                    block_device=is_block,rdev=info.st_rdev,mapping_length=length,
+                    mincore_permission=permission)
         if include_resident_indices: result['resident_indices'] = indices
         if live: result.update(identity_stable=same_identity,size_stable=last.st_size==info.st_size)
+        if include_metadata:
+            fields={'device':'st_dev','inode':'st_ino','rdev':'st_rdev','size':'st_size','mtime_ns':'st_mtime_ns'}
+            before={k:getattr(info,attr) for k,attr in fields.items()}
+            after={k:getattr(last,attr) for k,attr in fields.items()}
+            result.update(metadata_before=before,metadata_after=after,
+                metadata_changes={k:dict(before=before[k],after=after[k]) for k in fields if before[k]!=after[k]})
         return result
     finally: os.close(fd)
 
@@ -191,10 +240,14 @@ def residency_check(group, roots, output, *, live=False, before_last_file=None):
 
 
 class HostFileMonitor:
-    def __init__(self, output, group, *, include_pss=True, extra_stat_keys=()):
+    def __init__(self, output, group, *, include_pss=True, extra_stat_keys=(), scope=None, experiment_context=None):
         self.output, self.group = Path(output), Path(group)
         self.include_pss = include_pss
         self.extra_stat_keys=tuple(extra_stat_keys)
+        self.scope = scope
+        self.experiment_context = resolve_scope(self.group) if experiment_context is None else experiment_context
+        self.experiment_status_counts = {}
+        self.experiment_cost_ns = 0
         self.output.mkdir(parents=True, exist_ok=False)
         self.stop_event = threading.Event(); self.ready = threading.Event(); self.error = None
         self.count = 0; self.cost_ns = 0; self.cpu_ns = 0
@@ -206,13 +259,19 @@ class HostFileMonitor:
     def collect(self):
         cpu = time.thread_time_ns(); started = time.monotonic_ns(); next_pss = started
         try:
-            with (self.output/'memory.tsv').open('x', buffering=1) as stream, ((self.output/'pss.jsonl').open('x', buffering=1) if self.include_pss else nullcontext(None)) as pss:
+            with (self.output/'memory.tsv').open('x', buffering=1) as stream, ((self.output/'pss.jsonl').open('x', buffering=1) if self.include_pss else nullcontext(None)) as pss, (self.output/'experiment-memory.jsonl').open('x', buffering=1) as experiment:
                 writer = csv.DictWriter(stream, fieldnames=['monotonic_ns', 'elapsed_ns', 'read_duration_ns', 'current', *STAT_KEYS, *self.extra_stat_keys], delimiter='\t')
                 writer.writeheader()
                 while True:
                     now = time.monotonic_ns(); values = counters(self.group,extra_keys=self.extra_stat_keys)
                     duration = time.monotonic_ns()-now; self.cost_ns += duration
                     writer.writerow(dict(monotonic_ns=now, elapsed_ns=now-started, read_duration_ns=duration, **values))
+                    if self.experiment_context['status']=='AVAILABLE':
+                        row = snapshot(self.experiment_context)
+                        self.experiment_cost_ns += row['duration_ns']
+                        state = observation_status(row)
+                        self.experiment_status_counts[state] = self.experiment_status_counts.get(state, 0)+1
+                        experiment.write(json.dumps(row)+'\n')
                     self.count += 1; self.ready.set()
                     if pss is not None and now >= next_pss:
                         pss.write(json.dumps(pss_snapshot(self.group))+'\n'); next_pss=now+10**9
@@ -230,7 +289,15 @@ class HostFileMonitor:
         receipt = dict(status='FAIL' if self.error else 'PASS', error=self.error, cgroup=str(self.group),
                        samples=self.count, interval_seconds=.1, pss_interval_seconds=1 if self.include_pss else None,
                        thread_cpu_ns=self.cpu_ns, counter_read_total_ns=self.cost_ns,
-                       scope='Fresh rollout slice: input preparation, controller, private service and all its descendants; host file includes shmem, not guest Cached.')
+                       scope=self.scope or 'Fresh rollout slice: input preparation, controller, private service and all its descendants; host file includes shmem, not guest Cached.')
+        receipt.update(host_scope=HOST_SCOPE, legacy_cgroup=str(self.group),
+                       legacy_host_scope='experiment_slice_cgroup' if self.experiment_context['parent']==str(self.group) else 'explicit_legacy_cgroup',
+                       experiment_memory_context=self.experiment_context,
+                       experiment_memory_status=('UNAVAILABLE' if self.experiment_context['status']!='AVAILABLE' else
+                           'ANOMALY' if any(k!='WITHIN_THRESHOLD' for k in self.experiment_status_counts) else
+                           'OBSERVED' if self.experiment_status_counts else 'NOT_OBSERVED'),
+                       experiment_observation_status_counts=self.experiment_status_counts,
+                       experiment_read_total_ns=self.experiment_cost_ns)
         (self.output/'result.json').write_text(json.dumps(receipt, indent=2)+'\n')
         if self.error: raise RuntimeError(self.error)
         return receipt

@@ -1,0 +1,172 @@
+{
+  "status": "PASS_OFFLINE_SOURCE_REVIEW",
+  "source_tree": "/home/yxli/linux-6.19.9-ioctl",
+  "source_release_matches": true,
+  "environment": {
+    "running_release": "6.19.9+",
+    "boot_config": "/boot/config-6.19.9+",
+    "config": {
+      "CONFIG_CACHESTAT_SYSCALL": "y",
+      "CONFIG_MEMCG": "y",
+      "CONFIG_PROC_PAGE_MONITOR": "y",
+      "CONFIG_CHECKPOINT_RESTORE": "y",
+      "CONFIG_SHMEM": "y",
+      "CONFIG_TMPFS": "y",
+      "CONFIG_SWAP": "y",
+      "CONFIG_SECURITY_YAMA": "y"
+    },
+    "capabilities": {
+      "CAP_SYS_ADMIN": true,
+      "CAP_CHECKPOINT_RESTORE": true,
+      "CAP_FOWNER": true
+    },
+    "scope": "Release, boot config and this reviewer process capabilities only. No target process, page cache, device or sandbox query."
+  },
+  "sources": [
+    {
+      "path": "fs/proc/base.c",
+      "first_line": 2253,
+      "last_line": 2289
+    },
+    {
+      "path": "fs/proc/base.c",
+      "first_line": 2300,
+      "last_line": 2317
+    },
+    {
+      "path": "fs/proc/base.c",
+      "first_line": 1799,
+      "last_line": 1820
+    },
+    {
+      "path": "include/linux/capability.h",
+      "first_line": 200,
+      "last_line": 210
+    },
+    {
+      "path": "fs/open.c",
+      "first_line": 904,
+      "last_line": 925
+    },
+    {
+      "path": "fs/file.c",
+      "first_line": 1174,
+      "last_line": 1212
+    },
+    {
+      "path": "include/linux/file.h",
+      "first_line": 82,
+      "last_line": 86
+    },
+    {
+      "path": "mm/shmem.c",
+      "first_line": 2976,
+      "last_line": 2994
+    },
+    {
+      "path": "fs/open.c",
+      "first_line": 1607,
+      "last_line": 1613
+    },
+    {
+      "path": "include/uapi/linux/mman.h",
+      "first_line": 46,
+      "last_line": 58
+    },
+    {
+      "path": "mm/filemap.c",
+      "first_line": 4563,
+      "last_line": 4660
+    },
+    {
+      "path": "mm/filemap.c",
+      "first_line": 4707,
+      "last_line": 4746
+    },
+    {
+      "path": "mm/filemap.c",
+      "first_line": 4664,
+      "last_line": 4671
+    },
+    {
+      "path": "fs/proc/page.c",
+      "first_line": 64,
+      "last_line": 106
+    },
+    {
+      "path": "fs/proc/task_mmu.c",
+      "first_line": 1894,
+      "last_line": 1936
+    },
+    {
+      "path": "mm/memcontrol.c",
+      "first_line": 263,
+      "last_line": 291
+    },
+    {
+      "path": "mm/filemap.c",
+      "first_line": 2220,
+      "last_line": 2240
+    },
+    {
+      "path": "mm/filemap.c",
+      "first_line": 2060,
+      "last_line": 2094
+    },
+    {
+      "path": "include/linux/memcontrol.h",
+      "first_line": 466,
+      "last_line": 503
+    },
+    {
+      "path": "mm/mincore.c",
+      "first_line": 59,
+      "last_line": 146
+    },
+    {
+      "path": "mm/shmem.c",
+      "first_line": 5923,
+      "last_line": 5953
+    },
+    {
+      "path": "arch/x86/include/generated/uapi/asm/unistd_64.h",
+      "first_line": 366,
+      "last_line": 370
+    }
+  ],
+  "source_excerpt_count": 22,
+  "groups": [
+    {
+      "sandboxes": 1,
+      "existing_deleted_objects": 2,
+      "existing_mapped_pss_bytes": 4096,
+      "map_files_open_status": "NOT_RUN",
+      "cachestat_status": "NOT_RUN",
+      "whole_backing_cache_bytes": null,
+      "initial_cache_owner_bytes": null
+    },
+    {
+      "sandboxes": 2,
+      "existing_deleted_objects": 4,
+      "existing_mapped_pss_bytes": 8192,
+      "map_files_open_status": "NOT_RUN",
+      "cachestat_status": "NOT_RUN",
+      "whole_backing_cache_bytes": null,
+      "initial_cache_owner_bytes": null
+    }
+  ],
+  "deleted_backing_path": "map_files O_PATH identity -> regular TMPFS check -> O_RDONLY reopen -> cachestat(off=0,len=0,flags=0)",
+  "deleted_backing_feasibility": "SOURCE_SUPPORTED_RUNTIME_NOT_TESTED",
+  "direct_opath_cachestat": "EBADF_FROM_FDGET_FMODE_PATH_FILTER",
+  "shmem_swap_entries": "nr_evicted does not reveal swap-cache physical residency; preserve partial status if nonzero.",
+  "cache_owner_via_cachestat": "NOT_AVAILABLE_IN_UAPI",
+  "old_unmapped_page_owner_via_pagemap": "NOT_COVERED_NO_PRESENT_PTE",
+  "kpagecgroup_role": "Requires known PFN; returns closest online memcg ancestor and is racy, not file-index enumeration.",
+  "kernel_internal_traversal": "filemap_get_folios obtains temporary folio references; does not by itself provide stable complete memcg ownership or a userspace ABI.",
+  "target_backing_queries": 0,
+  "new_sandbox_actions": 0,
+  "kernel_changes": 0,
+  "collector_changes": 0,
+  "whole_host_physical_saving": "NOT_MEASURED",
+  "guest_cached_physical_subset": "NOT_MEASURED"
+}

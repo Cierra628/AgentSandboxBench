@@ -1,0 +1,121 @@
+{
+  "date": "2026-10-28",
+  "mode": "OFFLINE_SAVED_COUNTERS",
+  "new_services": 0,
+  "new_guests": 0,
+  "runtime_sampler_changed": false,
+  "cases": {
+    "sphinx": {
+      "status": "PASS",
+      "samples": 1271,
+      "current_peak_bytes": 19020734464,
+      "file_peak_bytes": 18389766144,
+      "maximum_sampling_gap_ns": 100144574,
+      "current": {
+        "metric": "memory.current",
+        "unit": "bytes",
+        "scope": "Measurement cgroup and descendants: preparation, controller, private service and all sandboxes.",
+        "window_start_monotonic_ns": 14284900664673631,
+        "window_end_monotonic_ns": 14285027716122256,
+        "initial_bytes": 42655744,
+        "final_bytes": 18164248576,
+        "observed_peak_bytes": 19020734464,
+        "time_weighted_mean_bytes": 10533111480.457422,
+        "mean_method": "Previous sample held until next sample; first-to-last sample only, including recorded gaps. Estimate, not a continuous integral.",
+        "before_guest_bytes": 18411995136,
+        "baseline_status": "OBSERVED_BEFORE_GUEST",
+        "after_service_ready_observed_peak_bytes": 19020734464,
+        "after_service_ready_peak_increase_bytes": 608739328,
+        "final_increase_from_before_guest_bytes": -247746560,
+        "interpretation": "Charged group memory, not complete sandbox physical memory. Before-guest baseline includes prepared inputs and service; increases include subsequent control and service work. Peaks are sampled, final sample may be after guest deletion.",
+        "coverage": {
+          "outside_group_charges": "NOT_INCLUDED",
+          "unaccounted_kernel_allocations": "NOT_INCLUDED",
+          "swap_bytes": "NOT_MEASURED",
+          "hugetlb_coverage": "NOT_VERIFIED"
+        },
+        "components": "anon/file/kernel explain current; shmem is part of file. Counters are sequential and may lag: do not add them to current or label their residual unaccounted memory."
+      },
+      "collector": {
+        "status": "PASS",
+        "error": null,
+        "samples": 1271,
+        "interval_seconds": 0.1,
+        "pss_interval_seconds": 1,
+        "thread_cpu_ns": 1316112885,
+        "counter_read_total_ns": 392585285,
+        "scope": "Fresh rollout slice: input preparation, controller, private service and all its descendants; host file includes shmem, not guest Cached."
+      }
+    },
+    "grpo-no-pss": {
+      "status": "PASS",
+      "samples": 1355,
+      "current_peak_bytes": 31224553472,
+      "file_peak_bytes": 26264981504,
+      "maximum_sampling_gap_ns": 101508312,
+      "current": {
+        "metric": "memory.current",
+        "unit": "bytes",
+        "scope": "Measurement cgroup and descendants: preparation, controller, private service and all sandboxes.",
+        "window_start_monotonic_ns": 14717410687056280,
+        "window_end_monotonic_ns": 14717546132796830,
+        "initial_bytes": 43761664,
+        "final_bytes": 15084625920,
+        "observed_peak_bytes": 31224553472,
+        "time_weighted_mean_bytes": 15013787654.054213,
+        "mean_method": "Previous sample held until next sample; first-to-last sample only, including recorded gaps. Estimate, not a continuous integral.",
+        "before_guest_bytes": 26552160256,
+        "baseline_status": "OBSERVED_BEFORE_GUEST",
+        "after_service_ready_observed_peak_bytes": 31224553472,
+        "after_service_ready_peak_increase_bytes": 4672393216,
+        "final_increase_from_before_guest_bytes": -11467534336,
+        "interpretation": "Charged group memory, not complete sandbox physical memory. Before-guest baseline includes prepared inputs and service; increases include subsequent control and service work. Peaks are sampled, final sample may be after guest deletion.",
+        "coverage": {
+          "outside_group_charges": "NOT_INCLUDED",
+          "unaccounted_kernel_allocations": "NOT_INCLUDED",
+          "swap_bytes": "NOT_MEASURED",
+          "hugetlb_coverage": "NOT_VERIFIED"
+        },
+        "components": "anon/file/kernel explain current; shmem is part of file. Counters are sequential and may lag: do not add them to current or label their residual unaccounted memory."
+      },
+      "collector": {
+        "status": "PASS",
+        "error": null,
+        "samples": 1355,
+        "interval_seconds": 0.1,
+        "pss_interval_seconds": null,
+        "thread_cpu_ns": 455032225,
+        "counter_read_total_ns": 369784966,
+        "scope": "Fresh rollout slice: input preparation, controller, private service and all its descendants; host file includes shmem, not guest Cached."
+      }
+    }
+  },
+  "validation": {
+    "status": "PASS",
+    "saved_cases": 2,
+    "offline_tests_passed": 28,
+    "cli_report": "PASS",
+    "legacy_metric_fields_unchanged": [
+      "file_initial_bytes",
+      "file_final_bytes",
+      "file_peak_bytes",
+      "current_peak_bytes",
+      "file_before_guest_bytes",
+      "shmem_peak_bytes",
+      "file_excluding_shmem_peak_bytes",
+      "file_peak_after_service_ready_bytes",
+      "pss_observed_peak_bytes",
+      "maximum_sampling_gap_ns",
+      "samples",
+      "pss_samples",
+      "partial_pss_samples",
+      "mincore",
+      "creation_baseline"
+    ],
+    "current_only_rejected_by_file_extrapolation": true,
+    "new_services": 0,
+    "new_guests": 0,
+    "plots_visually_inspected": 4,
+    "earlier_test_failure": "Two existing extracted-controller fixtures lacked globals added by earlier features; fixture defaults supplied, runtime unchanged. Original failing log retained."
+  }
+}

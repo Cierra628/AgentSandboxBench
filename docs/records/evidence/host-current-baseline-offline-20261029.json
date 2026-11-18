@@ -1,0 +1,242 @@
+{
+  "status": "PASS_OFFLINE_SCOPE_REVIEW",
+  "new_guests": 0,
+  "new_task_actions": 0,
+  "new_residency_queries": 0,
+  "runs": [
+    {
+      "workflow": ".artifacts/host-scaling/20261029T030902Z-2331870",
+      "storage": ".artifacts/storage-isolated-service/20261029T031020Z-2332646",
+      "cache": ".artifacts/prettier6604/host-scaling-cache-20261029T030902Z-2331870",
+      "live_workflow_status": "FAIL",
+      "ram_image_logical_bytes": 21474836480,
+      "ram_image_allocated_bytes": 7604273152,
+      "ram_image_allocated_mib": 7252.0,
+      "baseline_counters_mib": {
+        "current": 14806.5625,
+        "file": 14581.01171875,
+        "anon": 121.390625,
+        "shmem": 7252.0,
+        "kernel": 79.05078125,
+        "file_mapped": 0.32421875,
+        "file_dirty": 0.859375,
+        "file_writeback": 0.0
+      },
+      "baseline_file_excluding_shmem_mib": 7329.01171875,
+      "baseline_current_excluding_file_mib": 225.55078125,
+      "baseline_current_minus_file_anon_kernel_mib": 25.109375,
+      "baseline_current_minus_ram_image_mib": 7554.5625,
+      "file_inventory": {
+        "deps": {
+          "regular_file_paths": 12,
+          "logical_size_sum_bytes": 189056180,
+          "logical_size_sum_mib": 180.29802322387695,
+          "resident_bytes": null,
+          "unique_inode_bytes": null
+        },
+        "image-cache/configs": {
+          "regular_file_paths": 10,
+          "logical_size_sum_bytes": 16380,
+          "logical_size_sum_mib": 0.015621185302734375,
+          "resident_bytes": null,
+          "unique_inode_bytes": null
+        },
+        "image-cache/indexes": {
+          "regular_file_paths": 31,
+          "logical_size_sum_bytes": 13780,
+          "logical_size_sum_mib": 0.013141632080078125,
+          "resident_bytes": null,
+          "unique_inode_bytes": null
+        },
+        "image-cache/commits": {
+          "regular_file_paths": 31,
+          "logical_size_sum_bytes": 7178259456,
+          "logical_size_sum_mib": 6845.7216796875,
+          "resident_bytes": null,
+          "unique_inode_bytes": null
+        },
+        "image-cache/remote-blocks": {
+          "regular_file_paths": 21,
+          "logical_size_sum_bytes": 357288,
+          "logical_size_sum_mib": 0.34073638916015625,
+          "resident_bytes": null,
+          "unique_inode_bytes": null
+        },
+        "image-cache/convert-blocks": {
+          "regular_file_paths": 0,
+          "logical_size_sum_bytes": 0,
+          "logical_size_sum_mib": 0.0,
+          "resident_bytes": null,
+          "unique_inode_bytes": null
+        }
+      },
+      "inventory_logical_size_sum_mib": 7026.38920211792,
+      "after_service_and_volume_cleanup_before_ram_release": {
+        "counters_mib": {
+          "current": 14501.37109375,
+          "file": 14402.796875,
+          "anon": 23.30078125,
+          "shmem": 7252.0,
+          "kernel": 66.40625,
+          "file_mapped": 0.0,
+          "file_dirty": 1.65625,
+          "file_writeback": 0.0
+        },
+        "file_excluding_shmem_mib": 7150.796875,
+        "nonshmem_file_minus_inventory_logical_size_mib": 124.40767288208008
+      },
+      "readonly_commits_dependency": "RAM image -> read-only loop/ext4 -> commits directory -> private service read-only bind",
+      "preparation_scope": "Whole sparse 20 GiB old backup image; manifest verification reads every regular cache file; only selected parts become service input",
+      "source_evidence": [
+        ".artifacts/prettier6604/host-scaling-cache-20261029T030902Z-2331870/seed.json",
+        ".artifacts/prettier6604/host-scaling-cache-20261029T030902Z-2331870/filesystem-header.txt",
+        ".artifacts/storage-isolated-service/20261029T031020Z-2332646/prefix-roots.json",
+        ".artifacts/storage-isolated-service/20261029T031020Z-2332646/copied-input-hashes.json",
+        ".artifacts/host-scaling/20261029T030902Z-2331870/host-file/memory.tsv"
+      ]
+    },
+    {
+      "workflow": ".artifacts/host-scaling/20261029T032742Z-2339983",
+      "storage": ".artifacts/storage-isolated-service/20261029T032859Z-2340697",
+      "cache": ".artifacts/prettier6604/host-scaling-cache-20261029T032742Z-2339983",
+      "live_workflow_status": "PASS",
+      "ram_image_logical_bytes": 21474836480,
+      "ram_image_allocated_bytes": 7604273152,
+      "ram_image_allocated_mib": 7252.0,
+      "baseline_counters_mib": {
+        "current": 14804.51171875,
+        "file": 14580.95703125,
+        "anon": 121.32421875,
+        "shmem": 7252.0,
+        "kernel": 78.46875,
+        "file_mapped": 0.32421875,
+        "file_dirty": 0.87109375,
+        "file_writeback": 0.0
+      },
+      "baseline_file_excluding_shmem_mib": 7328.95703125,
+      "baseline_current_excluding_file_mib": 223.5546875,
+      "baseline_current_minus_file_anon_kernel_mib": 23.76171875,
+      "baseline_current_minus_ram_image_mib": 7552.51171875,
+      "file_inventory": {
+        "deps": {
+          "regular_file_paths": 12,
+          "logical_size_sum_bytes": 189056180,
+          "logical_size_sum_mib": 180.29802322387695,
+          "resident_bytes": null,
+          "unique_inode_bytes": null
+        },
+        "image-cache/configs": {
+          "regular_file_paths": 10,
+          "logical_size_sum_bytes": 16380,
+          "logical_size_sum_mib": 0.015621185302734375,
+          "resident_bytes": null,
+          "unique_inode_bytes": null
+        },
+        "image-cache/indexes": {
+          "regular_file_paths": 31,
+          "logical_size_sum_bytes": 13780,
+          "logical_size_sum_mib": 0.013141632080078125,
+          "resident_bytes": null,
+          "unique_inode_bytes": null
+        },
+        "image-cache/commits": {
+          "regular_file_paths": 31,
+          "logical_size_sum_bytes": 7178259456,
+          "logical_size_sum_mib": 6845.7216796875,
+          "resident_bytes": null,
+          "unique_inode_bytes": null
+        },
+        "image-cache/remote-blocks": {
+          "regular_file_paths": 21,
+          "logical_size_sum_bytes": 357288,
+          "logical_size_sum_mib": 0.34073638916015625,
+          "resident_bytes": null,
+          "unique_inode_bytes": null
+        },
+        "image-cache/convert-blocks": {
+          "regular_file_paths": 0,
+          "logical_size_sum_bytes": 0,
+          "logical_size_sum_mib": 0.0,
+          "resident_bytes": null,
+          "unique_inode_bytes": null
+        }
+      },
+      "inventory_logical_size_sum_mib": 7026.38920211792,
+      "after_service_and_volume_cleanup_before_ram_release": {
+        "counters_mib": {
+          "current": 14390.6796875,
+          "file": 14282.1171875,
+          "anon": 34.88671875,
+          "shmem": 7252.0,
+          "kernel": 63.73828125,
+          "file_mapped": 0.0,
+          "file_dirty": 1.625,
+          "file_writeback": 0.0
+        },
+        "file_excluding_shmem_mib": 7030.1171875,
+        "nonshmem_file_minus_inventory_logical_size_mib": 3.727985382080078
+      },
+      "readonly_commits_dependency": "RAM image -> read-only loop/ext4 -> commits directory -> private service read-only bind",
+      "preparation_scope": "Whole sparse 20 GiB old backup image; manifest verification reads every regular cache file; only selected parts become service input",
+      "source_evidence": [
+        ".artifacts/prettier6604/host-scaling-cache-20261029T032742Z-2339983/seed.json",
+        ".artifacts/prettier6604/host-scaling-cache-20261029T032742Z-2339983/filesystem-header.txt",
+        ".artifacts/storage-isolated-service/20261029T032859Z-2340697/prefix-roots.json",
+        ".artifacts/storage-isolated-service/20261029T032859Z-2340697/copied-input-hashes.json",
+        ".artifacts/host-scaling/20261029T032742Z-2339983/host-file/memory.tsv"
+      ]
+    }
+  ],
+  "categories": [
+    {
+      "object": "tmpfs sparse preparation image",
+      "current_mode": "required by the mounted commits source",
+      "deployment": "experimental RAM container; direct persistent commits can avoid this container",
+      "capacity_evidence": "7252 MiB allocation matches baseline shmem in both runs",
+      "resident_subtraction": "not a measured alternate deployment total"
+    },
+    {
+      "object": "commits files",
+      "current_mode": "read-only runtime source",
+      "deployment": "keep required immutable layer files, count their actually resident pages once",
+      "capacity_evidence": "6845.722 MiB path logical-size inventory; per-file residency and charge ownership unavailable"
+    },
+    {
+      "object": "deps / image configs / indexes / remote blocks",
+      "current_mode": "selected inputs copied to writable volume; source copies also retained",
+      "deployment": "keep required runtime files, remove staging copies only after dependencies are changed",
+      "capacity_evidence": "logical-size inventory only, not resident bytes"
+    },
+    {
+      "object": "writable loop image, its inner files, control logs and reports",
+      "current_mode": "experiment isolation and output plus actual service writes mixed",
+      "deployment": "service writes remain; fixture image and experiment control need not use this arrangement",
+      "capacity_evidence": "aggregate file accounting cannot split per object"
+    },
+    {
+      "object": "service, controller and kernel",
+      "current_mode": "anon and kernel include both",
+      "deployment": "service and necessary kernel overhead remain; sampler/controller costs are separate",
+      "capacity_evidence": "no per-process split in current light mode"
+    },
+    {
+      "object": "shared cache or host services outside the measured group",
+      "current_mode": "not guaranteed covered by current",
+      "deployment": "include shared objects once or list external attribution explicitly",
+      "capacity_evidence": "unknown; do not substitute the old 1.7 GiB gap as this run correction"
+    }
+  ],
+  "recommendation": "Keep raw group current and the existing same-baseline increases. For deployment totals, use a separately verified direct persistent-file preparation mode; do not subtract the whole baseline or turn logical file sizes into resident RAM.",
+  "unresolved": [
+    "Per-file residency, inode uniqueness and charge ownership of saved cache inventory",
+    "Experimental versus required-service share of remaining file/anon/kernel memory",
+    "Node-level shared costs outside this cgroup; no complete physical union established"
+  ],
+  "source_semantics": {
+    "kernel_document": "/home/yxli/linux-6.19.9-ioctl/Documentation/admin-guide/cgroup-v2.rst:1300,1549,1579,1961",
+    "preparation": "scripts/prepare_prettier6604_cache.py:76-105",
+    "runtime": "archived validate_isolated_agentenv.py:764-787,926-927",
+    "collector_lifecycle": "scripts/run_host_scaling.py:73-75,89-98",
+    "deployment_paths": "AgentENV/config/default.toml:8-19,88-90; AgentENV/src/cfg/image.rs:128-140"
+  }
+}

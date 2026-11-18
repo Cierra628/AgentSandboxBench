@@ -1,0 +1,262 @@
+{
+  "date": "2026-10-28",
+  "status": "PASS_TWO_FIRST_USE_ENVIRONMENT_DIAGNOSTICS",
+  "new_guests": 2,
+  "original_prefix_commands": 22,
+  "target_invocations": 2,
+  "order": [
+    "whole",
+    "split"
+  ],
+  "cpu": 2,
+  "memory_mib": 4096,
+  "volume_gib": 8,
+  "sampling": "NOT_REQUESTED",
+  "process_scans": false,
+  "pip_version_check_override": false,
+  "default_reclaim_unchanged": true,
+  "source_restored_stopped": true,
+  "all_target_outputs_equal": true,
+  "runs": [
+    {
+      "mode": "whole",
+      "storage": ".artifacts/storage-isolated-service/20261028T144420Z-2269066",
+      "validation": ".artifacts/runtime-command-validation/20261028T144257Z-2268297",
+      "report": ".artifacts/sphinx-env-timing-live-20261028/whole-report",
+      "prefix_actions": 11,
+      "prefix_exits": [
+        {
+          "segment": "read_repo",
+          "step": "001",
+          "exit_code": 141
+        },
+        {
+          "segment": "read_repo",
+          "step": "002",
+          "exit_code": 0
+        },
+        {
+          "segment": "read_repo",
+          "step": "003",
+          "exit_code": 0
+        },
+        {
+          "segment": "read_repo",
+          "step": "004",
+          "exit_code": 0
+        },
+        {
+          "segment": "read_repo",
+          "step": "005",
+          "exit_code": 0
+        },
+        {
+          "segment": "read_repo",
+          "step": "006",
+          "exit_code": 0
+        },
+        {
+          "segment": "trace_cpp_parser",
+          "step": "001",
+          "exit_code": 0
+        },
+        {
+          "segment": "trace_cpp_parser",
+          "step": "002",
+          "exit_code": 0
+        },
+        {
+          "segment": "trace_cpp_parser",
+          "step": "003",
+          "exit_code": 1
+        },
+        {
+          "segment": "trace_cpp_parser",
+          "step": "004",
+          "exit_code": 1
+        },
+        {
+          "segment": "trace_cpp_parser",
+          "step": "005",
+          "exit_code": 0
+        }
+      ],
+      "strict_prefix_status": "PASS",
+      "target": {
+        "status": "CAPTURED",
+        "parts": [
+          {
+            "name": "whole",
+            "command": "cd /testbed && ls /opt/miniconda3/envs 2>/dev/null; /opt/miniconda3/bin/conda env list 2>/dev/null; pip list 2>/dev/null | grep -i -E \"docutils|sphinx|pytest\"",
+            "exit_code": 1,
+            "elapsed_ns": 1567082232,
+            "child_user_seconds": 0.786674,
+            "child_system_seconds": 0.16289700000000001,
+            "child_minor_faults": 28406,
+            "child_major_faults": 296
+          }
+        ],
+        "exit_code": 1,
+        "elapsed_ns": 1567237081,
+        "parts_elapsed_sum_ns": 1567082232,
+        "between_parts_ns": 154849,
+        "observer_cpu_seconds": 0.0015759999999999993,
+        "shell_invocations": 1,
+        "process_scans": false,
+        "scope": "Diagnostic shell wall time and waited-child counters; split adds shell startups and is not frozen-command latency",
+        "mode": "whole",
+        "inherited_pip_disable_version_check": null
+      },
+      "whole_entry_seconds": 101.104545315,
+      "cache_preparation_seconds": 80.876668792,
+      "available_before_bytes": 41500651520,
+      "available_after_bytes": 41497518080,
+      "native_min_available_bytes": 32909426688,
+      "checks": {
+        "original_prefix": true,
+        "target_first_use": true,
+        "outputs_and_expected_exit": true,
+        "source_and_original_oracle": true,
+        "fixed_volume": true,
+        "owned_cleanup": true
+      },
+      "official_task_status": "NOT_RUN",
+      "strict_replay_status": "NOT_RUN"
+    },
+    {
+      "mode": "split",
+      "storage": ".artifacts/storage-isolated-service/20261028T144602Z-2271167",
+      "validation": ".artifacts/runtime-command-validation/20261028T144438Z-2270351",
+      "report": ".artifacts/sphinx-env-timing-live-20261028/split-report",
+      "prefix_actions": 11,
+      "prefix_exits": [
+        {
+          "segment": "read_repo",
+          "step": "001",
+          "exit_code": 0
+        },
+        {
+          "segment": "read_repo",
+          "step": "002",
+          "exit_code": 0
+        },
+        {
+          "segment": "read_repo",
+          "step": "003",
+          "exit_code": 0
+        },
+        {
+          "segment": "read_repo",
+          "step": "004",
+          "exit_code": 0
+        },
+        {
+          "segment": "read_repo",
+          "step": "005",
+          "exit_code": 0
+        },
+        {
+          "segment": "read_repo",
+          "step": "006",
+          "exit_code": 0
+        },
+        {
+          "segment": "trace_cpp_parser",
+          "step": "001",
+          "exit_code": 0
+        },
+        {
+          "segment": "trace_cpp_parser",
+          "step": "002",
+          "exit_code": 0
+        },
+        {
+          "segment": "trace_cpp_parser",
+          "step": "003",
+          "exit_code": 1
+        },
+        {
+          "segment": "trace_cpp_parser",
+          "step": "004",
+          "exit_code": 1
+        },
+        {
+          "segment": "trace_cpp_parser",
+          "step": "005",
+          "exit_code": 0
+        }
+      ],
+      "strict_prefix_status": "FAIL",
+      "target": {
+        "status": "CAPTURED",
+        "parts": [
+          {
+            "name": "ls",
+            "command": "cd /testbed && ls /opt/miniconda3/envs 2>/dev/null",
+            "exit_code": 0,
+            "elapsed_ns": 7819879,
+            "child_user_seconds": 0.004224999999999993,
+            "child_system_seconds": 0.0,
+            "child_minor_faults": 294,
+            "child_major_faults": 0
+          },
+          {
+            "name": "conda",
+            "command": "/opt/miniconda3/bin/conda env list 2>/dev/null",
+            "exit_code": 0,
+            "elapsed_ns": 715321180,
+            "child_user_seconds": 0.43341799999999997,
+            "child_system_seconds": 0.149639,
+            "child_minor_faults": 17007,
+            "child_major_faults": 261
+          },
+          {
+            "name": "pip",
+            "command": "pip list 2>/dev/null | grep -i -E \"docutils|sphinx|pytest\"",
+            "exit_code": 1,
+            "elapsed_ns": 1218356362,
+            "child_user_seconds": 0.6057620000000001,
+            "child_system_seconds": 0.106183,
+            "child_minor_faults": 11368,
+            "child_major_faults": 35
+          }
+        ],
+        "exit_code": 1,
+        "elapsed_ns": 1942509152,
+        "parts_elapsed_sum_ns": 1941497421,
+        "between_parts_ns": 1011731,
+        "observer_cpu_seconds": 0.0036209999999999975,
+        "shell_invocations": 3,
+        "process_scans": false,
+        "scope": "Diagnostic shell wall time and waited-child counters; split adds shell startups and is not frozen-command latency",
+        "mode": "split",
+        "inherited_pip_disable_version_check": null
+      },
+      "whole_entry_seconds": 103.206981168,
+      "cache_preparation_seconds": 81.812826946,
+      "available_before_bytes": 41497497600,
+      "available_after_bytes": 41494241280,
+      "native_min_available_bytes": 32906059776,
+      "checks": {
+        "original_prefix": true,
+        "target_first_use": true,
+        "outputs_and_expected_exit": true,
+        "source_and_original_oracle": true,
+        "fixed_volume": true,
+        "owned_cleanup": true
+      },
+      "official_task_status": "NOT_RUN",
+      "strict_replay_status": "NOT_RUN"
+    }
+  ],
+  "source_available_after_bytes": 41494220800,
+  "context": {
+    "original_slow_call_seconds": 7.177710679,
+    "original_slow_call_record": "docs/records/HOST_CURRENT_SPHINX_SAMPLING_PAIR.md"
+  },
+  "limits": [
+    "Separate first-use diagnostics with no memory sampling; not a new on/off monitoring control",
+    "Split adds two shell startups; do not infer probe overhead from different VMs",
+    "No process scans/network waits/DAMON events; elapsed minus CPU is not a network attribution"
+  ]
+}

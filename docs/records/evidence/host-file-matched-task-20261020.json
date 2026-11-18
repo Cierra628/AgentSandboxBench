@@ -1,0 +1,287 @@
+{
+  "status": "PASS",
+  "scope": "One matched early_1 suffix pair; selected memory-device cache only, not full host physical saving.",
+  "workflow": ".artifacts/host-file-matched-task/20261020T102847Z-3627283",
+  "storage_result": ".artifacts/storage-isolated-service/20261020T103005Z-3637785",
+  "actual_actions": 41,
+  "logical_actions": 63,
+  "suffix_actions": 30,
+  "full_backbone_runs": 0,
+  "functional_validation": "PASS",
+  "accounting_validation": "SHORTFALL_REQUIRES_RESOLUTION",
+  "creation_file_baseline_bytes": 23555768320,
+  "final_inventory": {
+    "file_count": 190,
+    "page_size": 4096,
+    "resident_bytes": 28950937600,
+    "cgroup_file_before_bytes": 28949442560,
+    "cgroup_file_after_bytes": 28949442560,
+    "file_minus_inventory_bytes": -1495040,
+    "cgroup_shmem_before_bytes": 7604273152,
+    "cgroup_shmem_after_bytes": 7604273152,
+    "input_ram_image_resident_bytes": 7604273152,
+    "categories": {
+      "input-commits": {
+        "file_count": 31,
+        "resident_bytes": 7178346496
+      },
+      "private-image-cache": {
+        "file_count": 101,
+        "resident_bytes": 7179067392
+      },
+      "private-loop-image": {
+        "file_count": 1,
+        "resident_bytes": 6030057472
+      },
+      "input-ram-loop-image": {
+        "file_count": 1,
+        "resident_bytes": 7604273152
+      },
+      "snapshot-store": {
+        "file_count": 2,
+        "resident_bytes": 580747264
+      },
+      "snapshot-runtime": {
+        "file_count": 2,
+        "resident_bytes": 16384
+      },
+      "input-deps": {
+        "file_count": 12,
+        "resident_bytes": 189087744
+      },
+      "private-deps": {
+        "file_count": 12,
+        "resident_bytes": 189087744
+      },
+      "private-logs": {
+        "file_count": 14,
+        "resident_bytes": 143360
+      },
+      "sandbox-records": {
+        "file_count": 7,
+        "resident_bytes": 57344
+      },
+      "template-builds": {
+        "file_count": 7,
+        "resident_bytes": 53248
+      }
+    },
+    "omitted_writable_paths": [],
+    "omitted_paths_observed_size_bytes": 0,
+    "omitted_paths_page_rounded_size_bytes": 0,
+    "omitted_deps_manifest": {
+      "file_count_per_tree": 12,
+      "logical_size_per_tree_bytes": 189056180,
+      "page_rounded_size_per_tree_bytes": 189087744,
+      "omitted_trees": [],
+      "two_trees_logical_size_bytes": 378112360
+    },
+    "omitted_size_meaning": "Saved logical lengths only, not measured residency or a final-time upper bound; paths are not inode identities.",
+    "accounting_validation": "AGGREGATES_DO_NOT_RESOLVE_OWNERSHIP"
+  },
+  "device_linear_reference": {
+    "single_bytes": 427094016,
+    "multiple_bytes": 418041856,
+    "sandboxes": 2,
+    "linear_reference_bytes": 854188032,
+    "reduction_vs_linear_reference": 0.5105973856585244,
+    "meaning": "Extrapolation from one sandbox, not a measured no-sharing control; common overhead and cache state affect the ratio."
+  },
+  "device_reference_scope": "Only the shared memory-device cache, at post-suffix scan windows; fixed order with different host cache states. Hypothetical separate devices, not a measured no-sharing backend or causal saving.",
+  "whole_host_physical_savings": "NOT_MEASURED",
+  "phases": [
+    {
+      "sandboxes": 1,
+      "duration_ns": 2839362395,
+      "host_samples": 29,
+      "complete_task_vmm_pss_samples": 3,
+      "endpoint_vmm_pss_bytes": 352550912,
+      "endpoint_group_pss_status": "OBSERVED",
+      "baseline": {
+        "current": 29003132928,
+        "file": 28442112000,
+        "anon": 120172544,
+        "shmem": 7604273152,
+        "kernel": 417222656,
+        "file_mapped": 348160,
+        "file_dirty": 517283840,
+        "file_writeback": 0
+      },
+      "file_delta_range_bytes": [
+        318312448,
+        426819584
+      ],
+      "memory_device_resident_bytes": 427094016,
+      "raw_memory_layer_resident_bytes": 571138048,
+      "query_start_after_replay_ns": 1647558114,
+      "memory_device_query_duration_ns": 106827783,
+      "live_residency_cpu_ns": 3268837679,
+      "guests": [
+        {
+          "role": "N1-a",
+          "host_replay_ns": 2838044555,
+          "wait_after_replay_ns": 60239,
+          "guest_samples": 127,
+          "guest_action_sum_ns": 1983058040,
+          "official_task_status": "FAIL",
+          "official_passed": 0,
+          "official_failed": 2,
+          "guest_command_phase_samples": 26,
+          "guest_command_phase_cached_range_bytes": [
+            171495424,
+            199741440
+          ],
+          "guest_command_phase_memory_used_range_bytes": [
+            308539392,
+            381890560
+          ]
+        }
+      ],
+      "context_delta_range_bytes": {
+        "anon": [
+          51740672,
+          159027200
+        ],
+        "current": [
+          375689216,
+          590094336
+        ],
+        "shmem": [
+          4096,
+          4096
+        ]
+      },
+      "endpoint_vmm_pss_components_bytes": {
+        "pss": 352550912,
+        "pss_anon": 162557952,
+        "pss_file": 189988864,
+        "pss_shmem": 4096
+      }
+    },
+    {
+      "sandboxes": 2,
+      "duration_ns": 3066866522,
+      "host_samples": 31,
+      "complete_task_vmm_pss_samples": 3,
+      "endpoint_vmm_pss_bytes": 534517760,
+      "endpoint_group_pss_status": "OBSERVED",
+      "baseline": {
+        "current": 28984508416,
+        "file": 28443906048,
+        "anon": 108879872,
+        "shmem": 7604273152,
+        "kernel": 416841728,
+        "file_mapped": 356352,
+        "file_dirty": 517750784,
+        "file_writeback": 0
+      },
+      "file_delta_range_bytes": [
+        323563520,
+        933359616
+      ],
+      "memory_device_resident_bytes": 418041856,
+      "raw_memory_layer_resident_bytes": 571138048,
+      "query_start_after_replay_ns": 1674743307,
+      "memory_device_query_duration_ns": 108256914,
+      "live_residency_cpu_ns": 4821920291,
+      "guests": [
+        {
+          "role": "N2-a",
+          "host_replay_ns": 2903245281,
+          "wait_after_replay_ns": 159985728,
+          "guest_samples": 171,
+          "guest_action_sum_ns": 2036655941,
+          "official_task_status": "FAIL",
+          "official_passed": 0,
+          "official_failed": 2,
+          "guest_command_phase_samples": 27,
+          "guest_command_phase_cached_range_bytes": [
+            113442816,
+            136527872
+          ],
+          "guest_command_phase_memory_used_range_bytes": [
+            286613504,
+            352088064
+          ]
+        },
+        {
+          "role": "N2-b",
+          "host_replay_ns": 3062591124,
+          "wait_after_replay_ns": 30696,
+          "guest_samples": 154,
+          "guest_action_sum_ns": 2029374945,
+          "official_task_status": "FAIL",
+          "official_passed": 0,
+          "official_failed": 2,
+          "guest_command_phase_samples": 28,
+          "guest_command_phase_cached_range_bytes": [
+            75264000,
+            118759424
+          ],
+          "guest_command_phase_memory_used_range_bytes": [
+            263991296,
+            342093824
+          ]
+        }
+      ],
+      "context_delta_range_bytes": {
+        "anon": [
+          135806976,
+          375341056
+        ],
+        "current": [
+          486334464,
+          1341939712
+        ],
+        "shmem": [
+          8192,
+          8192
+        ]
+      },
+      "endpoint_vmm_pss_components_bytes": {
+        "pss": 534517760,
+        "pss_anon": 352411648,
+        "pss_file": 182097920,
+        "pss_shmem": 8192
+      }
+    }
+  ],
+  "io_controller_state": {
+    "measurement_slice": {
+      "controllers": "cpuset cpu io memory hugetlb pids rdma misc dmem",
+      "subtree_control": "cpuset cpu io memory hugetlb pids rdma misc dmem",
+      "io_stat_exists": true
+    },
+    "private_service": {
+      "controllers": "cpuset cpu io memory hugetlb pids rdma misc dmem",
+      "subtree_control": "",
+      "io_stat_exists": true
+    }
+  },
+  "final_inventory_cpu_ns": 1735263695,
+  "collector": {
+    "status": "PASS",
+    "error": null,
+    "samples": 1440,
+    "interval_seconds": 0.1,
+    "pss_interval_seconds": 1,
+    "thread_cpu_ns": 1896019840,
+    "counter_read_total_ns": 406211680,
+    "scope": "Fresh rollout slice: input preparation, controller, private service and all its descendants; host file includes shmem, not guest Cached."
+  },
+  "host_max_gap_ns": 101079024,
+  "guest_samples_total": 506,
+  "cleanup": {
+    "host_file_residency_captured": true,
+    "owned_container_removed": true,
+    "mount_and_loop_removed": true,
+    "successful_fixture_removed": true,
+    "original_firecracker_identities_unchanged": true,
+    "original_service_unchanged": true
+  },
+  "initial_available_bytes": 60648390656,
+  "observed_host_available_min_bytes": 34309697536,
+  "host_available_after_cleanup_bytes": 60077637632,
+  "periodic_pss_samples": 144,
+  "partial_periodic_pss_samples": 0
+}

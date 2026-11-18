@@ -1,0 +1,145 @@
+{
+  "status": "PASS",
+  "date": "2026-10-16",
+  "scope": "default-off batch implementation and one owned synthetic HASH map; no probes or sandbox",
+  "implementation": {
+    "entry": "SnapshotCache(..., batch_lookup=True)",
+    "default_enabled": false,
+    "scalar_default_preserved": true,
+    "read_only": true,
+    "single_full_capacity_call": true,
+    "expected_layout": {
+      "type": "hash",
+      "bytes_key": 8,
+      "bytes_value": 16,
+      "flags": 0,
+      "max_entries_upper_bound": 131072
+    },
+    "max_receive_bytes_per_map": 3145728,
+    "max_receive_bytes_two_maps": 6291456,
+    "no_retry_or_scalar_fallback": true,
+    "live_integration_enabled": false
+  },
+  "owned_map_test": {
+    "host_kernel": "6.19.9+",
+    "maps_created": 1,
+    "map_info": {
+      "type": "hash",
+      "bytes_key": 8,
+      "bytes_value": 16,
+      "max_entries": 8,
+      "flags": 0
+    },
+    "receive_buffer_bytes": 192,
+    "phases": [
+      {
+        "phase": "empty",
+        "stored_entries": 0,
+        "output_equal": true,
+        "original_statistics_equal": true,
+        "rows_unchanged": true,
+        "batch_lookup": {
+          "mode": "batch",
+          "returncode": -2,
+          "returned_entries": 0
+        },
+        "statistics": {
+          "query": 5,
+          "requested_pages": 6,
+          "missing_kernel_results": 8,
+          "mincore_resident_pages": 5,
+          "confirmed_pfn_pages": 0,
+          "no_file_mapping_pages": 1
+        }
+      },
+      {
+        "phase": "partial",
+        "stored_entries": 4,
+        "output_equal": true,
+        "original_statistics_equal": true,
+        "rows_unchanged": true,
+        "batch_lookup": {
+          "mode": "batch",
+          "returncode": -2,
+          "returned_entries": 4
+        },
+        "statistics": {
+          "query": 5,
+          "requested_pages": 6,
+          "missing_kernel_results": 4,
+          "mincore_resident_pages": 5,
+          "confirmed_pfn_pages": 2,
+          "no_file_mapping_pages": 1
+        }
+      },
+      {
+        "phase": "full",
+        "stored_entries": 8,
+        "output_equal": true,
+        "original_statistics_equal": true,
+        "rows_unchanged": true,
+        "batch_lookup": {
+          "mode": "batch",
+          "returncode": -2,
+          "returned_entries": 8
+        },
+        "statistics": {
+          "query": 5,
+          "requested_pages": 6,
+          "missing_kernel_results": 3,
+          "mincore_resident_pages": 5,
+          "confirmed_pfn_pages": 3,
+          "no_file_mapping_pages": 1
+        }
+      }
+    ],
+    "batch_calls": 3,
+    "own_fd_closed": true,
+    "map_pinned": false,
+    "programs_attached": 0,
+    "token_and_mincore": "synthetic; only map API is under real-kernel test"
+  },
+  "verification": {
+    "related_tests_passed": 53,
+    "new_batch_tests": 13,
+    "new_historical_candidate_test": 1,
+    "compatibility": {
+      "status": "PASS",
+      "unchanged_functions": [
+        "offsets",
+        "ram_regions",
+        "close",
+        "account"
+      ],
+      "probe_program_unchanged": true,
+      "original_source_comparisons": [
+        {
+          "rows": 8,
+          "outputs_equal": true,
+          "original_statistics_equal": true
+        },
+        {
+          "rows": 0,
+          "outputs_equal": true,
+          "original_statistics_equal": true
+        },
+        {
+          "rows": 2,
+          "outputs_equal": true,
+          "original_statistics_equal": true
+        }
+      ],
+      "historical_offset_candidate_keeps_captured_query": true,
+      "live_sampler_unchanged": true
+    },
+    "errors": "EFAULT/ENOSPC/unsupported/nonterminal/overflow simulated; no invalid real pointers used",
+    "checker_correction": "AST checker fixed offline; real map run not repeated"
+  },
+  "limits": {
+    "actual_bpftrace_map_layout": "not yet measured",
+    "sandbox_integration": "not run",
+    "performance": "not measured",
+    "physical_cache_union": "unchanged; no new cache measurement"
+  },
+  "evidence_dir": ".artifacts/provider-bpf-batch-validation-20261016"
+}

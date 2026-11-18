@@ -1,0 +1,808 @@
+{
+  "status": "PASS",
+  "groups": [
+    {
+      "sandboxes": 1,
+      "baseline": {
+        "current": 23937015808,
+        "file": 23516422144,
+        "anon": 117755904,
+        "shmem": 7604273152,
+        "kernel": 276910080,
+        "file_mapped": 348160,
+        "file_dirty": 1017278464,
+        "file_writeback": 0
+      },
+      "host_samples": 50,
+      "duration_ns": 5005286697,
+      "file_range_bytes": [
+        23831265280,
+        23853277184
+      ],
+      "file_delta_range_bytes": [
+        314843136,
+        336855040
+      ],
+      "pss": [
+        {
+          "start_monotonic_ns": 14238792115395579,
+          "end_monotonic_ns": 14238792132663062,
+          "vmm_pss_bytes": 223879168,
+          "processes": [
+            {
+              "pid": 3342850,
+              "start_ticks": "1423879115",
+              "comm": "firecracker",
+              "pss": 223879168,
+              "pss_anon": 62857216,
+              "pss_file": 161017856,
+              "pss_shmem": 4096
+            }
+          ]
+        },
+        {
+          "start_monotonic_ns": 14238793116062184,
+          "end_monotonic_ns": 14238793133497145,
+          "vmm_pss_bytes": 244043776,
+          "processes": [
+            {
+              "pid": 3342850,
+              "start_ticks": "1423879115",
+              "comm": "firecracker",
+              "pss": 244043776,
+              "pss_anon": 66134016,
+              "pss_file": 177905664,
+              "pss_shmem": 4096
+            }
+          ]
+        },
+        {
+          "start_monotonic_ns": 14238794116873535,
+          "end_monotonic_ns": 14238794134498454,
+          "vmm_pss_bytes": 245428224,
+          "processes": [
+            {
+              "pid": 3342850,
+              "start_ticks": "1423879115",
+              "comm": "firecracker",
+              "pss": 245428224,
+              "pss_anon": 66727936,
+              "pss_file": 178696192,
+              "pss_shmem": 4096
+            }
+          ]
+        },
+        {
+          "start_monotonic_ns": 14238795117668684,
+          "end_monotonic_ns": 14238795135256104,
+          "vmm_pss_bytes": 246726656,
+          "processes": [
+            {
+              "pid": 3342850,
+              "start_ticks": "1423879115",
+              "comm": "firecracker",
+              "pss": 246726656,
+              "pss_anon": 68452352,
+              "pss_file": 178270208,
+              "pss_shmem": 4096
+            }
+          ]
+        },
+        {
+          "start_monotonic_ns": 14238796118487805,
+          "end_monotonic_ns": 14238796136377095,
+          "vmm_pss_bytes": 250445824,
+          "processes": [
+            {
+              "pid": 3342850,
+              "start_ticks": "1423879115",
+              "comm": "firecracker",
+              "pss": 250445824,
+              "pss_anon": 70680576,
+              "pss_file": 179761152,
+              "pss_shmem": 4096
+            }
+          ]
+        }
+      ],
+      "guest_samples": {
+        "01a15773-a1b2-7e13-80f8-5d0d42c00c45": 92
+      },
+      "residency": {
+        "status": "OBSERVED",
+        "start_monotonic_ns": 14238797122306379,
+        "end_monotonic_ns": 14238800428186081,
+        "cpu_ns": 3302218684,
+        "cgroup_before": {
+          "current": 24344694784,
+          "file": 23853277184,
+          "anon": 183074816,
+          "shmem": 7604277248,
+          "kernel": 281243648,
+          "file_mapped": 179875840,
+          "file_dirty": 903036928,
+          "file_writeback": 0
+        },
+        "cgroup_after": {
+          "current": 24364929024,
+          "file": 23862521856,
+          "anon": 194789376,
+          "shmem": 7604277248,
+          "kernel": 281407488,
+          "file_mapped": 173821952,
+          "file_dirty": 519704576,
+          "file_writeback": 0
+        },
+        "backends": [
+          {
+            "path": "/proc/3342850/root/dev/ublkb106",
+            "device": 6,
+            "inode": 31011,
+            "rdev": 66306,
+            "regions": [
+              {
+                "start": 129694084800512,
+                "end": 129694936244224,
+                "offset": 3221225472,
+                "device": 6,
+                "inode": 31011,
+                "permissions": "rw-p",
+                "path": "/dev/ublkb106"
+              },
+              {
+                "start": 129695024324608,
+                "end": 129695158542336,
+                "offset": 4160749568,
+                "device": 6,
+                "inode": 31011,
+                "permissions": "rw-p",
+                "path": "/dev/ublkb106"
+              },
+              {
+                "start": 129695158542336,
+                "end": 129696009986048,
+                "offset": 0,
+                "device": 6,
+                "inode": 31011,
+                "permissions": "rw-p",
+                "path": "/dev/ublkb106"
+              },
+              {
+                "start": 129697217945600,
+                "end": 129698379767808,
+                "offset": 2059403264,
+                "device": 6,
+                "inode": 31011,
+                "permissions": "rw-p",
+                "path": "/dev/ublkb106"
+              }
+            ]
+          }
+        ],
+        "files": [
+          {
+            "path": "/proc/self/fd/7",
+            "device": 6,
+            "inode": 30996,
+            "size": 0,
+            "mtime_ns": 1792468549101582456,
+            "pages": 16777216,
+            "resident_pages": 3173,
+            "resident_bytes": 12996608,
+            "stable": true,
+            "metadata_changed": false,
+            "block_device": true,
+            "rdev": 66304,
+            "mapping_length": 68719476736,
+            "start_monotonic_ns": 14238797128086794,
+            "end_monotonic_ns": 14238798779975461,
+            "target": "/dev/ublkb103",
+            "owner_pid": 3342098,
+            "kind": "other-owned-block-device"
+          },
+          {
+            "path": "/proc/self/fd/7",
+            "device": 6,
+            "inode": 31011,
+            "size": 0,
+            "mtime_ns": 1792468558342062591,
+            "pages": 1048576,
+            "resident_pages": 83500,
+            "resident_bytes": 342016000,
+            "stable": true,
+            "metadata_changed": false,
+            "block_device": true,
+            "rdev": 66306,
+            "mapping_length": 4294967296,
+            "start_monotonic_ns": 14238798779982738,
+            "end_monotonic_ns": 14238798886750195,
+            "target": "/dev/ublkb106",
+            "owner_pid": 3342850,
+            "kind": "memory-device"
+          },
+          {
+            "path": "/proc/self/fd/7",
+            "device": 6,
+            "inode": 31007,
+            "size": 0,
+            "mtime_ns": 1792468565946390906,
+            "pages": 16777216,
+            "resident_pages": 0,
+            "resident_bytes": 0,
+            "stable": true,
+            "metadata_changed": true,
+            "block_device": true,
+            "rdev": 66305,
+            "mapping_length": 68719476736,
+            "start_monotonic_ns": 14238798886755917,
+            "end_monotonic_ns": 14238800410735474,
+            "target": "/dev/ublkb104",
+            "owner_pid": 3342850,
+            "kind": "other-owned-block-device"
+          },
+          {
+            "path": "/home/yyxie/agentenv_experiment/.artifacts/storage-isolated-service/20261020T035529Z-3341715/mount/env/snapshot-store/repository/managed-layers/sha256_70a955d76485108571d40591f66373a4795909dbbdd12ccf8dccd5522bd4224d.overlaybd.commit",
+            "device": 1802,
+            "inode": 131322,
+            "size": 572051456,
+            "mtime_ns": 1792468554739518346,
+            "pages": 139661,
+            "resident_pages": 139661,
+            "resident_bytes": 572051456,
+            "stable": true,
+            "metadata_changed": false,
+            "block_device": false,
+            "rdev": 0,
+            "mapping_length": 572051456,
+            "start_monotonic_ns": 14238800410945748,
+            "end_monotonic_ns": 14238800426827950,
+            "kind": "raw-memory-layer",
+            "open_descriptors": [
+              {
+                "pid": 3342320,
+                "fd": "58"
+              }
+            ]
+          }
+        ],
+        "resident_bytes": 927064064,
+        "minimum_unaccounted_or_timing_bytes": 0,
+        "accounting": "NO_SHORTFALL_DETECTED_NOT_PROOF_OF_COMPLETE_ACCOUNTING",
+        "scope": "Live owned block devices and open immutable memory layers, unique device identities; not a simultaneous physical union or exact guest cache. Final ordinary-file inventory is a separate time window."
+      }
+    },
+    {
+      "sandboxes": 2,
+      "baseline": {
+        "current": 23919550464,
+        "file": 23521755136,
+        "anon": 108212224,
+        "shmem": 7604273152,
+        "kernel": 276242432,
+        "file_mapped": 348160,
+        "file_dirty": 519770112,
+        "file_writeback": 0
+      },
+      "host_samples": 50,
+      "duration_ns": 5005297733,
+      "file_range_bytes": [
+        23853498368,
+        24374681600
+      ],
+      "file_delta_range_bytes": [
+        331743232,
+        852926464
+      ],
+      "pss": [
+        {
+          "start_monotonic_ns": 14238803124405772,
+          "end_monotonic_ns": 14238803149732990,
+          "vmm_pss_bytes": 318595072,
+          "processes": [
+            {
+              "pid": 3343007,
+              "start_ticks": "1423880123",
+              "comm": "firecracker",
+              "pss": 160483328,
+              "pss_anon": 65904640,
+              "pss_file": 94574592,
+              "pss_shmem": 4096
+            },
+            {
+              "pid": 3343064,
+              "start_ticks": "1423880221",
+              "comm": "firecracker",
+              "pss": 158111744,
+              "pss_anon": 52011008,
+              "pss_file": 106096640,
+              "pss_shmem": 4096
+            }
+          ]
+        },
+        {
+          "start_monotonic_ns": 14238804125193454,
+          "end_monotonic_ns": 14238804149930152,
+          "vmm_pss_bytes": 325900288,
+          "processes": [
+            {
+              "pid": 3343007,
+              "start_ticks": "1423880123",
+              "comm": "firecracker",
+              "pss": 159027200,
+              "pss_anon": 67764224,
+              "pss_file": 91258880,
+              "pss_shmem": 4096
+            },
+            {
+              "pid": 3343064,
+              "start_ticks": "1423880221",
+              "comm": "firecracker",
+              "pss": 166873088,
+              "pss_anon": 53882880,
+              "pss_file": 112986112,
+              "pss_shmem": 4096
+            }
+          ]
+        },
+        {
+          "start_monotonic_ns": 14238805126066234,
+          "end_monotonic_ns": 14238805150209335,
+          "vmm_pss_bytes": 328749056,
+          "processes": [
+            {
+              "pid": 3343007,
+              "start_ticks": "1423880123",
+              "comm": "firecracker",
+              "pss": 160905216,
+              "pss_anon": 69660672,
+              "pss_file": 91240448,
+              "pss_shmem": 4096
+            },
+            {
+              "pid": 3343064,
+              "start_ticks": "1423880221",
+              "comm": "firecracker",
+              "pss": 167843840,
+              "pss_anon": 54722560,
+              "pss_file": 113117184,
+              "pss_shmem": 4096
+            }
+          ]
+        },
+        {
+          "start_monotonic_ns": 14238806126837791,
+          "end_monotonic_ns": 14238806150871788,
+          "vmm_pss_bytes": 334798848,
+          "processes": [
+            {
+              "pid": 3343007,
+              "start_ticks": "1423880123",
+              "comm": "firecracker",
+              "pss": 164425728,
+              "pss_anon": 72466432,
+              "pss_file": 91955200,
+              "pss_shmem": 4096
+            },
+            {
+              "pid": 3343064,
+              "start_ticks": "1423880221",
+              "comm": "firecracker",
+              "pss": 170373120,
+              "pss_anon": 58073088,
+              "pss_file": 112295936,
+              "pss_shmem": 4096
+            }
+          ]
+        },
+        {
+          "start_monotonic_ns": 14238807127676321,
+          "end_monotonic_ns": 14238807153215846,
+          "vmm_pss_bytes": 348336128,
+          "processes": [
+            {
+              "pid": 3343007,
+              "start_ticks": "1423880123",
+              "comm": "firecracker",
+              "pss": 169506816,
+              "pss_anon": 82227200,
+              "pss_file": 87275520,
+              "pss_shmem": 4096
+            },
+            {
+              "pid": 3343064,
+              "start_ticks": "1423880221",
+              "comm": "firecracker",
+              "pss": 178829312,
+              "pss_anon": 68882432,
+              "pss_file": 109942784,
+              "pss_shmem": 4096
+            }
+          ]
+        }
+      ],
+      "guest_samples": {
+        "01a15773-c916-7282-8acd-f83dc125becb": 123,
+        "01a15773-ccc6-73b3-ac52-fd393176d895": 108
+      },
+      "residency": {
+        "status": "OBSERVED",
+        "start_monotonic_ns": 14238808125518515,
+        "end_monotonic_ns": 14238812942456296,
+        "cpu_ns": 4812222529,
+        "cgroup_before": {
+          "current": 24982745088,
+          "file": 24374681600,
+          "anon": 278454272,
+          "shmem": 7604281344,
+          "kernel": 302735360,
+          "file_mapped": 196096000,
+          "file_dirty": 11452416,
+          "file_writeback": 0
+        },
+        "cgroup_after": {
+          "current": 25004003328,
+          "file": 24377552896,
+          "anon": 299282432,
+          "shmem": 7604281344,
+          "kernel": 302743552,
+          "file_mapped": 191614976,
+          "file_dirty": 11288576,
+          "file_writeback": 0
+        },
+        "backends": [
+          {
+            "path": "/proc/3343007/root/dev/ublkb106",
+            "device": 6,
+            "inode": 31020,
+            "rdev": 66306,
+            "regions": [
+              {
+                "start": 136530534322176,
+                "end": 136531385765888,
+                "offset": 3221225472,
+                "device": 6,
+                "inode": 31020,
+                "permissions": "rw-p",
+                "path": "/dev/ublkb106"
+              },
+              {
+                "start": 136531473846272,
+                "end": 136531608064000,
+                "offset": 4160749568,
+                "device": 6,
+                "inode": 31020,
+                "permissions": "rw-p",
+                "path": "/dev/ublkb106"
+              },
+              {
+                "start": 136531608064000,
+                "end": 136532459507712,
+                "offset": 0,
+                "device": 6,
+                "inode": 31020,
+                "permissions": "rw-p",
+                "path": "/dev/ublkb106"
+              },
+              {
+                "start": 136533667467264,
+                "end": 136534829289472,
+                "offset": 2059403264,
+                "device": 6,
+                "inode": 31020,
+                "permissions": "rw-p",
+                "path": "/dev/ublkb106"
+              }
+            ]
+          },
+          {
+            "path": "/proc/3343064/root/dev/ublkb106",
+            "device": 6,
+            "inode": 31020,
+            "rdev": 66306,
+            "regions": [
+              {
+                "start": 128126677929984,
+                "end": 128126847799296,
+                "offset": 3221225472,
+                "device": 6,
+                "inode": 31020,
+                "permissions": "rw-p",
+                "path": "/dev/ublkb106"
+              },
+              {
+                "start": 128126849896448,
+                "end": 128127032348672,
+                "offset": 3393191936,
+                "device": 6,
+                "inode": 31020,
+                "permissions": "rw-p",
+                "path": "/dev/ublkb106"
+              },
+              {
+                "start": 128127034445824,
+                "end": 128127038640128,
+                "offset": 3577741312,
+                "device": 6,
+                "inode": 31020,
+                "permissions": "rw-p",
+                "path": "/dev/ublkb106"
+              },
+              {
+                "start": 128127040737280,
+                "end": 128127047028736,
+                "offset": 3584032768,
+                "device": 6,
+                "inode": 31020,
+                "permissions": "rw-p",
+                "path": "/dev/ublkb106"
+              },
+              {
+                "start": 128127049125888,
+                "end": 128127053320192,
+                "offset": 3592421376,
+                "device": 6,
+                "inode": 31020,
+                "permissions": "rw-p",
+                "path": "/dev/ublkb106"
+              },
+              {
+                "start": 128127055417344,
+                "end": 128127065903104,
+                "offset": 3598712832,
+                "device": 6,
+                "inode": 31020,
+                "permissions": "rw-p",
+                "path": "/dev/ublkb106"
+              },
+              {
+                "start": 128127068000256,
+                "end": 128127529373696,
+                "offset": 3611295744,
+                "device": 6,
+                "inode": 31020,
+                "permissions": "rw-p",
+                "path": "/dev/ublkb106"
+              },
+              {
+                "start": 128127617454080,
+                "end": 128127751671808,
+                "offset": 4160749568,
+                "device": 6,
+                "inode": 31020,
+                "permissions": "rw-p",
+                "path": "/dev/ublkb106"
+              },
+              {
+                "start": 128127751671808,
+                "end": 128128603115520,
+                "offset": 0,
+                "device": 6,
+                "inode": 31020,
+                "permissions": "rw-p",
+                "path": "/dev/ublkb106"
+              },
+              {
+                "start": 128129811075072,
+                "end": 128130972897280,
+                "offset": 2059403264,
+                "device": 6,
+                "inode": 31020,
+                "permissions": "rw-p",
+                "path": "/dev/ublkb106"
+              }
+            ]
+          }
+        ],
+        "files": [
+          {
+            "path": "/proc/self/fd/9",
+            "device": 6,
+            "inode": 30996,
+            "size": 0,
+            "mtime_ns": 1792468549101582456,
+            "pages": 16777216,
+            "resident_pages": 3173,
+            "resident_bytes": 12996608,
+            "stable": true,
+            "metadata_changed": false,
+            "block_device": true,
+            "rdev": 66304,
+            "mapping_length": 68719476736,
+            "start_monotonic_ns": 14238808134017232,
+            "end_monotonic_ns": 14238809766957558,
+            "target": "/dev/ublkb103",
+            "owner_pid": 3342098,
+            "kind": "other-owned-block-device"
+          },
+          {
+            "path": "/proc/self/fd/9",
+            "device": 6,
+            "inode": 31020,
+            "size": 0,
+            "mtime_ns": 1792468568403362967,
+            "pages": 1048576,
+            "resident_pages": 82310,
+            "resident_bytes": 337141760,
+            "stable": true,
+            "metadata_changed": false,
+            "block_device": true,
+            "rdev": 66306,
+            "mapping_length": 4294967296,
+            "start_monotonic_ns": 14238809766962982,
+            "end_monotonic_ns": 14238809877302161,
+            "target": "/dev/ublkb106",
+            "owner_pid": 3343007,
+            "kind": "memory-device"
+          },
+          {
+            "path": "/proc/self/fd/9",
+            "device": 6,
+            "inode": 31017,
+            "size": 0,
+            "mtime_ns": 1792468576936265933,
+            "pages": 16777216,
+            "resident_pages": 0,
+            "resident_bytes": 0,
+            "stable": true,
+            "metadata_changed": true,
+            "block_device": true,
+            "rdev": 66305,
+            "mapping_length": 68719476736,
+            "start_monotonic_ns": 14238809877306885,
+            "end_monotonic_ns": 14238811399796734,
+            "target": "/dev/ublkb104",
+            "owner_pid": 3343007,
+            "kind": "other-owned-block-device"
+          },
+          {
+            "path": "/proc/self/fd/9",
+            "device": 6,
+            "inode": 31026,
+            "size": 0,
+            "mtime_ns": 1792468578528247830,
+            "pages": 16777216,
+            "resident_pages": 0,
+            "resident_bytes": 0,
+            "stable": true,
+            "metadata_changed": true,
+            "block_device": true,
+            "rdev": 66307,
+            "mapping_length": 68719476736,
+            "start_monotonic_ns": 14238811399800645,
+            "end_monotonic_ns": 14238812923491140,
+            "target": "/dev/ublkb107",
+            "owner_pid": 3343064,
+            "kind": "other-owned-block-device"
+          },
+          {
+            "path": "/home/yyxie/agentenv_experiment/.artifacts/storage-isolated-service/20261020T035529Z-3341715/mount/env/snapshot-store/repository/managed-layers/sha256_70a955d76485108571d40591f66373a4795909dbbdd12ccf8dccd5522bd4224d.overlaybd.commit",
+            "device": 1802,
+            "inode": 131322,
+            "size": 572051456,
+            "mtime_ns": 1792468554739518346,
+            "pages": 139661,
+            "resident_pages": 139661,
+            "resident_bytes": 572051456,
+            "stable": true,
+            "metadata_changed": false,
+            "block_device": false,
+            "rdev": 0,
+            "mapping_length": 572051456,
+            "start_monotonic_ns": 14238812923684273,
+            "end_monotonic_ns": 14238812939374811,
+            "kind": "raw-memory-layer",
+            "open_descriptors": [
+              {
+                "pid": 3342320,
+                "fd": "58"
+              }
+            ]
+          }
+        ],
+        "resident_bytes": 922189824,
+        "minimum_unaccounted_or_timing_bytes": 0,
+        "accounting": "NO_SHORTFALL_DETECTED_NOT_PROOF_OF_COMPLETE_ACCOUNTING",
+        "scope": "Live owned block devices and open immutable memory layers, unique device identities; not a simultaneous physical union or exact guest cache. Final ordinary-file inventory is a separate time window."
+      }
+    }
+  ],
+  "action_count": 11,
+  "suffix_actions": 0,
+  "percentage_output": false,
+  "baseline_file_difference_bytes": 5332992,
+  "scope": "Fixed-order idle restore validation; preparation and pre-restore baselines retained. No savings ratio or exact guest-cache physical attribution.",
+  "accounting_validation": "SHORTFALL_REQUIRES_RESOLUTION",
+  "final_inventory": {
+    "resident_bytes": 28563542016,
+    "cgroup_before": {
+      "current": 24349945856,
+      "file": 24019730432,
+      "anon": 39948288,
+      "shmem": 7604273152,
+      "kernel": 281710592,
+      "file_mapped": 0,
+      "file_dirty": 1028096,
+      "file_writeback": 0
+    },
+    "cgroup_after": {
+      "current": 24348450816,
+      "file": 24019730432,
+      "anon": 39948288,
+      "shmem": 7604273152,
+      "kernel": 281710592,
+      "file_mapped": 0,
+      "file_dirty": 1028096,
+      "file_writeback": 0
+    },
+    "minimum_unaccounted_or_timing_bytes": 4543811584,
+    "accounting": "SHORTFALL_REQUIRES_RESOLUTION",
+    "cpu_ns": 1738880795
+  },
+  "functional_validation": "PASS",
+  "host_collector": {
+    "status": "PASS",
+    "error": null,
+    "cgroup": "/sys/fs/cgroup/asbhost.slice/asbhost-20261020t0354023340857.slice",
+    "samples": 1418,
+    "interval_seconds": 0.1,
+    "pss_interval_seconds": 1,
+    "thread_cpu_ns": 1592049277,
+    "counter_read_total_ns": 410331690,
+    "scope": "Fresh rollout slice: input preparation, controller, private service and all its descendants; host file includes shmem, not guest Cached."
+  },
+  "host_samples": 1418,
+  "maximum_host_gap_ns": 100159191,
+  "final_inventory_categories": [
+    {
+      "root": "/home/yyxie/agentenv_experiment/.artifacts/prettier6604/host-pair-cache-20261020T035403Z-3340937/readonly/env/image-cache/commits",
+      "files": 31,
+      "resident_bytes": 7178346496
+    },
+    {
+      "root": "/home/yyxie/agentenv_experiment/.artifacts/storage-isolated-service/20261020T035529Z-3341715/mount/env/image-cache",
+      "files": 101,
+      "resident_bytes": 7179059200
+    },
+    {
+      "root": "/home/yyxie/agentenv_experiment/.artifacts/storage-isolated-service/20261020T035529Z-3341715/volume.ext4",
+      "files": 1,
+      "resident_bytes": 6024654848
+    },
+    {
+      "root": "/home/yyxie/agentenv_experiment/.artifacts/prettier6604/host-pair-cache-20261020T035403Z-3340937/memory/volume.ext4",
+      "files": 1,
+      "resident_bytes": 7604273152
+    },
+    {
+      "root": "/home/yyxie/agentenv_experiment/.artifacts/storage-isolated-service/20261020T035529Z-3341715/mount/env/snapshot-store",
+      "files": 2,
+      "resident_bytes": 577191936
+    },
+    {
+      "root": "/home/yyxie/agentenv_experiment/.artifacts/storage-isolated-service/20261020T035529Z-3341715/mount/env/snapshot-local-cache",
+      "files": 2,
+      "resident_bytes": 16384
+    }
+  ],
+  "workflow": ".artifacts/host-file-restore/20261020T035403Z-3340937",
+  "raw": ".artifacts/storage-isolated-service/20261020T035529Z-3341715",
+  "minimum_host_available_bytes": 36526202880,
+  "attempts": [
+    {
+      "workflow": ".artifacts/host-file-restore/20261020T035032Z-3337236",
+      "status": "FAIL",
+      "stage": "N=1 live mincore stability check; per-file failed result was not saved",
+      "task_prefix_actions": 11,
+      "retained_failed_volume_gib": 24
+    },
+    {
+      "workflow": ".artifacts/host-file-restore/20261020T035403Z-3340937",
+      "status": "PASS",
+      "task_prefix_actions": 11
+    }
+  ],
+  "original_kernel_path": true,
+  "diagnostic_kernel_replacement": false,
+  "full_task_executions": 0,
+  "interpretation": "Functional restore/collection PASS; final accounting SHORTFALL requires resolution. No savings ratio. mincore device/layer and guest Cached describe different objects."
+}

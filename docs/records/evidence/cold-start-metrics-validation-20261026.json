@@ -1,0 +1,452 @@
+{
+  "status": "PASS_STARTUP_METRICS_PAIR",
+  "created_guests": 14,
+  "actual_actions": 0,
+  "runs": [
+    {
+      "status": "PASS",
+      "mode": "off",
+      "storage": ".artifacts/storage-isolated-service/20261026T113912Z-1423103",
+      "actual_actions": 0,
+      "created_guests": 7,
+      "cold_span_ns": 3271516313,
+      "cold_dispatch_span_ns": 3644874,
+      "controller_elapsed_ns": 4092149052,
+      "sample_count": 0,
+      "upload_command_before_last_cold_return_ns": null,
+      "collector_ready_before_last_cold_return_ns": null,
+      "event_wall_minus_monotonic_offset_range_ns": 1129,
+      "requests": [
+        {
+          "role": "backbone",
+          "start_monotonic_ns": 14785003012088748,
+          "duration_ns": 3151827314,
+          "phases_ns": {
+            "before_create_log": 2180706336,
+            "create_to_launch_log": 961540000,
+            "launch_to_client_return": 9580978
+          },
+          "server_log_lines": {
+            "create": 21,
+            "launch": 51
+          }
+        },
+        {
+          "role": "early_1",
+          "start_monotonic_ns": 14785003012461161,
+          "duration_ns": 3259575067,
+          "phases_ns": {
+            "before_create_log": 2175747981,
+            "create_to_launch_log": 1072298000,
+            "launch_to_client_return": 11529086
+          },
+          "server_log_lines": {
+            "create": 19,
+            "launch": 53
+          }
+        },
+        {
+          "role": "early_2",
+          "start_monotonic_ns": 14785003013577230,
+          "duration_ns": 3255355422,
+          "phases_ns": {
+            "before_create_log": 2181410852,
+            "create_to_launch_log": 1062409000,
+            "launch_to_client_return": 11535570
+          },
+          "server_log_lines": {
+            "create": 22,
+            "launch": 52
+          }
+        },
+        {
+          "role": "early_3",
+          "start_monotonic_ns": 14785003014282943,
+          "duration_ns": 3122972064,
+          "phases_ns": {
+            "before_create_log": 2169937590,
+            "create_to_launch_log": 943173000,
+            "launch_to_client_return": 9861474
+          },
+          "server_log_lines": {
+            "create": 17,
+            "launch": 50
+          }
+        },
+        {
+          "role": "late_1",
+          "start_monotonic_ns": 14785003014831864,
+          "duration_ns": 3263517952,
+          "phases_ns": {
+            "before_create_log": 2175932386,
+            "create_to_launch_log": 1077755000,
+            "launch_to_client_return": 9830566
+          },
+          "server_log_lines": {
+            "create": 20,
+            "launch": 54
+          }
+        },
+        {
+          "role": "late_2",
+          "start_monotonic_ns": 14785003015116897,
+          "duration_ns": 3268488164,
+          "phases_ns": {
+            "before_create_log": 2170861304,
+            "create_to_launch_log": 1086953000,
+            "launch_to_client_return": 10673860
+          },
+          "server_log_lines": {
+            "create": 18,
+            "launch": 56
+          }
+        },
+        {
+          "role": "late_3",
+          "start_monotonic_ns": 14785003015733622,
+          "duration_ns": 3265534035,
+          "phases_ns": {
+            "before_create_log": 2430370631,
+            "create_to_launch_log": 825762000,
+            "launch_to_client_return": 9401404
+          },
+          "server_log_lines": {
+            "create": 37,
+            "launch": 55
+          }
+        }
+      ],
+      "source_matches": {
+        "cold_start_sampling.py": true,
+        "agentenv_cold_start.py": true,
+        "sandbox_runtime_monitor.py": true,
+        "guest_memory_collector.py": true,
+        "cold_start_metrics.py": true
+      },
+      "minimum_free_bytes": 116100796416,
+      "available_after_cleanup_bytes": 133280661504,
+      "checks": {
+        "parallel_seven": "PASS",
+        "no_task_work_during_creation": "PASS",
+        "sampler_profile": "PASS",
+        "identities": "PASS",
+        "cleanup": "PASS"
+      },
+      "server_metrics": {
+        "status": "PASS",
+        "stages": {
+          "resolve_rootfs": {
+            "count": 7,
+            "seconds": 14.942334549,
+            "other_status_counts": {}
+          },
+          "resolve_attached_drives": {
+            "count": 7,
+            "seconds": 3.645200000000001e-05,
+            "other_status_counts": {}
+          },
+          "create_sandbox": {
+            "count": 7,
+            "seconds": 7.031459708,
+            "other_status_counts": {}
+          }
+        },
+        "http": {
+          "count": 7,
+          "seconds": 21.976887607000002,
+          "other_status_counts": {}
+        },
+        "image_stages": {
+          "manifest_fetch": {
+            "count": 7,
+            "seconds": 13.763380105,
+            "other_status_counts": {}
+          },
+          "config_fetch": {
+            "status": "NO_RECORDED_EVENT"
+          },
+          "layer_convert": {
+            "status": "NO_RECORDED_EVENT"
+          }
+        },
+        "image_cache": {
+          "hit": 7.0,
+          "miss": 0
+        },
+        "http_other_processing_seconds": 0.003056898000002306,
+        "rootfs_other_than_manifest_seconds": 1.1789544440000004,
+        "scope": "Seven-request cumulative seconds, not batch wall time; nested image stages are not added to rootfs; aggregate labels cannot identify one slow request",
+        "snapshots": [
+          {
+            "status": "PASS",
+            "label": "before",
+            "start_monotonic_ns": 14785002959244922,
+            "get_start_monotonic_ns": 14785002993230385,
+            "get_end_monotonic_ns": 14785002995126709,
+            "get_duration_ns": 1896324,
+            "raw_file": "server-metrics-before.prom",
+            "response_bytes": 6394,
+            "end_monotonic_ns": 14785003011248703,
+            "duration_ns": 52003781
+          },
+          {
+            "status": "PASS",
+            "label": "after",
+            "start_monotonic_ns": 14785006286078375,
+            "get_start_monotonic_ns": 14785006337501389,
+            "get_end_monotonic_ns": 14785006339747922,
+            "get_duration_ns": 2246533,
+            "raw_file": "server-metrics-after.prom",
+            "response_bytes": 28764,
+            "end_monotonic_ns": 14785006362100695,
+            "duration_ns": 76022320
+          }
+        ],
+        "get_duration_sum_ns": 4142857,
+        "snapshot_duration_sum_ns": 128026101,
+        "same_service_process_verified": true
+      },
+      "pair": 1,
+      "collector_cpu_seconds": null,
+      "request_elapsed_sum_seconds": 22.587270018,
+      "pre_create_log_sum_seconds": 15.48496708,
+      "create_to_launch_sum_seconds": 7.02989
+    },
+    {
+      "status": "PASS",
+      "mode": "on",
+      "storage": ".artifacts/storage-isolated-service/20261026T114056Z-1425871",
+      "actual_actions": 0,
+      "created_guests": 7,
+      "cold_span_ns": 8576968964,
+      "cold_dispatch_span_ns": 4160399,
+      "controller_elapsed_ns": 10760827291,
+      "sample_count": 131,
+      "upload_command_before_last_cold_return_ns": 159667411,
+      "collector_ready_before_last_cold_return_ns": -24482313,
+      "event_wall_minus_monotonic_offset_range_ns": 1787,
+      "requests": [
+        {
+          "role": "backbone",
+          "start_monotonic_ns": 14785107203853744,
+          "duration_ns": 8415552488,
+          "phases_ns": {
+            "before_create_log": 7458049132,
+            "create_to_launch_log": 947427000,
+            "launch_to_client_return": 10076356
+          },
+          "server_log_lines": {
+            "create": 20,
+            "launch": 50
+          }
+        },
+        {
+          "role": "early_1",
+          "start_monotonic_ns": 14785107204464388,
+          "duration_ns": 8479663978,
+          "phases_ns": {
+            "before_create_log": 7479952084,
+            "create_to_launch_log": 988588000,
+            "launch_to_client_return": 11123894
+          },
+          "server_log_lines": {
+            "create": 22,
+            "launch": 52
+          }
+        },
+        {
+          "role": "early_2",
+          "start_monotonic_ns": 14785107205547228,
+          "duration_ns": 8507164177,
+          "phases_ns": {
+            "before_create_log": 7452666824,
+            "create_to_launch_log": 1042377000,
+            "launch_to_client_return": 12120353
+          },
+          "server_log_lines": {
+            "create": 18,
+            "launch": 54
+          }
+        },
+        {
+          "role": "early_3",
+          "start_monotonic_ns": 14785107205975526,
+          "duration_ns": 8434687027,
+          "phases_ns": {
+            "before_create_log": 7454092756,
+            "create_to_launch_log": 968134000,
+            "launch_to_client_return": 12460271
+          },
+          "server_log_lines": {
+            "create": 19,
+            "launch": 51
+          }
+        },
+        {
+          "role": "late_1",
+          "start_monotonic_ns": 14785107206815013,
+          "duration_ns": 8488595825,
+          "phases_ns": {
+            "before_create_log": 7456507351,
+            "create_to_launch_log": 1020662000,
+            "launch_to_client_return": 11426474
+          },
+          "server_log_lines": {
+            "create": 21,
+            "launch": 53
+          }
+        },
+        {
+          "role": "late_2",
+          "start_monotonic_ns": 14785107207379632,
+          "duration_ns": 8573443076,
+          "phases_ns": {
+            "before_create_log": 7448711567,
+            "create_to_launch_log": 1115264000,
+            "launch_to_client_return": 9467509
+          },
+          "server_log_lines": {
+            "create": 17,
+            "launch": 56
+          }
+        },
+        {
+          "role": "late_3",
+          "start_monotonic_ns": 14785107208014143,
+          "duration_ns": 8534388211,
+          "phases_ns": {
+            "before_create_log": 7536352175,
+            "create_to_launch_log": 986632000,
+            "launch_to_client_return": 11404036
+          },
+          "server_log_lines": {
+            "create": 34,
+            "launch": 55
+          }
+        }
+      ],
+      "source_matches": {
+        "cold_start_sampling.py": true,
+        "agentenv_cold_start.py": true,
+        "sandbox_runtime_monitor.py": true,
+        "guest_memory_collector.py": true,
+        "cold_start_metrics.py": true
+      },
+      "minimum_free_bytes": 116099272704,
+      "available_after_cleanup_bytes": 133278638080,
+      "checks": {
+        "parallel_seven": "PASS",
+        "no_task_work_during_creation": "PASS",
+        "sampler_profile": "PASS",
+        "identities": "PASS",
+        "cleanup": "PASS"
+      },
+      "server_metrics": {
+        "status": "PASS",
+        "stages": {
+          "resolve_rootfs": {
+            "count": 7,
+            "seconds": 51.731183095999995,
+            "other_status_counts": {}
+          },
+          "resolve_attached_drives": {
+            "count": 7,
+            "seconds": 1.9594999999999998e-05,
+            "other_status_counts": {}
+          },
+          "create_sandbox": {
+            "count": 7,
+            "seconds": 7.070453028,
+            "other_status_counts": {}
+          }
+        },
+        "http": {
+          "count": 7,
+          "seconds": 58.80344193,
+          "other_status_counts": {}
+        },
+        "image_stages": {
+          "manifest_fetch": {
+            "count": 7,
+            "seconds": 51.65770442200001,
+            "other_status_counts": {}
+          },
+          "config_fetch": {
+            "status": "NO_RECORDED_EVENT"
+          },
+          "layer_convert": {
+            "status": "NO_RECORDED_EVENT"
+          }
+        },
+        "image_cache": {
+          "hit": 7.0,
+          "miss": 0
+        },
+        "http_other_processing_seconds": 0.0017862110000024245,
+        "rootfs_other_than_manifest_seconds": 0.0734786739999862,
+        "scope": "Seven-request cumulative seconds, not batch wall time; nested image stages are not added to rootfs; aggregate labels cannot identify one slow request",
+        "snapshots": [
+          {
+            "status": "PASS",
+            "label": "before",
+            "start_monotonic_ns": 14785107137582762,
+            "get_start_monotonic_ns": 14785107178384297,
+            "get_end_monotonic_ns": 14785107180827475,
+            "get_duration_ns": 2443178,
+            "raw_file": "server-metrics-before.prom",
+            "response_bytes": 6394,
+            "end_monotonic_ns": 14785107203284031,
+            "duration_ns": 65701269
+          },
+          {
+            "status": "PASS",
+            "label": "after",
+            "start_monotonic_ns": 14785115958298096,
+            "get_start_monotonic_ns": 14785116039203536,
+            "get_end_monotonic_ns": 14785116041651500,
+            "get_duration_ns": 2447964,
+            "raw_file": "server-metrics-after.prom",
+            "response_bytes": 38616,
+            "end_monotonic_ns": 14785116066551593,
+            "duration_ns": 108253497
+          }
+        ],
+        "get_duration_sum_ns": 4891142,
+        "snapshot_duration_sum_ns": 173954766,
+        "same_service_process_verified": true
+      },
+      "pair": 1,
+      "first_upload_after_all_create_logs_ns": 876788979,
+      "collector_cpu_seconds": 0.46038899999999994,
+      "request_elapsed_sum_seconds": 59.433494782,
+      "pre_create_log_sum_seconds": 52.286331889,
+      "create_to_launch_sum_seconds": 7.069084
+    }
+  ],
+  "cold_span": {
+    "off_ns": 3271516313,
+    "on_ns": 8576968964,
+    "difference_ns": 5305452651,
+    "change_percent": 162.1710590259863
+  },
+  "scope": "One startup-only pair with two metric reads per group; cumulative service stages are distinct from batch wall time; no causal slowdown estimate",
+  "sample_count": 131,
+  "source_returned_to_stopped": true,
+  "post_run_checks": {
+    "command_inventory": "PASS",
+    "sample_data": "PASS",
+    "two_successful_volumes_removed": "PASS",
+    "two_seed_resources_released": "PASS"
+  },
+  "stage_differences_seconds": {
+    "resolve_rootfs": 36.78884854699999,
+    "resolve_attached_drives": -1.685700000000001e-05,
+    "create_sandbox": 0.03899332000000033
+  },
+  "manifest_difference_seconds": 37.89432431700001,
+  "http_difference_seconds": 36.826554322999996,
+  "minimum_free_gib": 108.12587356567383,
+  "functional_status": "PASS",
+  "diagnostic_status": "PASS",
+  "finding": "This pair has extra cumulative manifest-fetch waiting before first guest sampler upload; no per-request manifest attribution or stable slowdown estimate; old 43-second request remains unexplained by its own missing metrics"
+}

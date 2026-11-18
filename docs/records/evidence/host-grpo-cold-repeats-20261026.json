@@ -1,0 +1,1234 @@
+{
+  "status": "PASS_THREE_COLD_GRPO_PAIRS",
+  "scope": "Initial lower-file cache only, not total host RAM",
+  "actual_actions": 1134,
+  "new_actions": 756,
+  "reused_actions": 378,
+  "pair_rows": [
+    {
+      "pair_index": 1,
+      "pair": ".artifacts/host-full-rootfs-pairs/20261026T080110Z-1241209",
+      "execution_order": [
+        "shared",
+        "private"
+      ],
+      "shared_bytes": 281952256,
+      "private_bytes": 1775939584,
+      "difference_bytes": 1493987328,
+      "reduction_fraction": 0.84123769832026,
+      "reused": true
+    },
+    {
+      "pair_index": 2,
+      "pair": ".artifacts/host-full-rootfs-pairs/20261026T082515Z-1265827",
+      "execution_order": [
+        "private",
+        "shared"
+      ],
+      "shared_bytes": 282030080,
+      "private_bytes": 1775239168,
+      "difference_bytes": 1493209088,
+      "reduction_fraction": 0.8411312204666272,
+      "reused": false
+    },
+    {
+      "pair_index": 3,
+      "pair": ".artifacts/host-full-rootfs-pairs/20261026T083143Z-1282779",
+      "execution_order": [
+        "shared",
+        "private"
+      ],
+      "shared_bytes": 282640384,
+      "private_bytes": 1779339264,
+      "difference_bytes": 1496698880,
+      "reduction_fraction": 0.8411543038933356,
+      "reused": false
+    }
+  ],
+  "pairs": [
+    {
+      "status": "PASS_COMPLETE_GRPO_COLD_READ_PAIR",
+      "actual_actions": 378,
+      "pair": ".artifacts/host-full-rootfs-pairs/20261026T080110Z-1241209",
+      "groups": [
+        {
+          "mode": "shared",
+          "group": ".artifacts/host-full-rootfs/20261026T080112Z-shared-1241650",
+          "storage": ".artifacts/storage-isolated-service/20261026T080230Z-1242540",
+          "report": ".artifacts/storage-isolated-service/20261026T080230Z-1242540/report",
+          "actual_actions": 189,
+          "objects": 19,
+          "users_per_object": 7,
+          "points": [
+            {
+              "label": "P0",
+              "phase": "before-guests",
+              "start_monotonic_ns": 14771996163501500,
+              "end_monotonic_ns": 14771996176451971,
+              "elapsed_ns": 12950471,
+              "cpu_ns": 12739115,
+              "resident_bytes": 0
+            },
+            {
+              "label": "periodic",
+              "phase": "startup-and-setup",
+              "start_monotonic_ns": 14772001176577265,
+              "end_monotonic_ns": 14772001217481621,
+              "elapsed_ns": 40904356,
+              "cpu_ns": 40725226,
+              "resident_bytes": 136261632
+            },
+            {
+              "label": "periodic",
+              "phase": "original-paths-and-downloads",
+              "start_monotonic_ns": 14772006217604293,
+              "end_monotonic_ns": 14772006267872647,
+              "elapsed_ns": 50268354,
+              "cpu_ns": 50266499,
+              "resident_bytes": 219811840
+            },
+            {
+              "label": "periodic",
+              "phase": "original-paths-and-downloads",
+              "start_monotonic_ns": 14772011268027158,
+              "end_monotonic_ns": 14772011317459965,
+              "elapsed_ns": 49432807,
+              "cpu_ns": 49430886,
+              "resident_bytes": 280756224
+            },
+            {
+              "label": "periodic",
+              "phase": "original-paths-and-downloads",
+              "start_monotonic_ns": 14772016317589953,
+              "end_monotonic_ns": 14772016377859065,
+              "elapsed_ns": 60269112,
+              "cpu_ns": 60267352,
+              "resident_bytes": 281550848
+            },
+            {
+              "label": "periodic",
+              "phase": "original-paths-and-downloads",
+              "start_monotonic_ns": 14772021378022345,
+              "end_monotonic_ns": 14772021430476050,
+              "elapsed_ns": 52453705,
+              "cpu_ns": 52428983,
+              "resident_bytes": 281952256
+            },
+            {
+              "label": "all-original-paths-finished",
+              "phase": "after-paths",
+              "start_monotonic_ns": 14772025925489124,
+              "end_monotonic_ns": 14772025964585996,
+              "elapsed_ns": 39096872,
+              "cpu_ns": 38963452,
+              "resident_bytes": 281952256
+            }
+          ],
+          "boundaries": {
+            "guest-creation-begin": 14771996177783555,
+            "guests-and-setup-ready": 14772003880922353,
+            "paths-finished": 14772025812692906
+          },
+          "guest_samples": 2313,
+          "official_outcomes": {
+            "backbone": {
+              "passed": 0,
+              "failed": 2
+            },
+            "early_1": {
+              "passed": 0,
+              "failed": 2
+            },
+            "early_2": {
+              "passed": 0,
+              "failed": 2
+            },
+            "early_3": {
+              "passed": 0,
+              "failed": 2
+            },
+            "late_1": {
+              "passed": 0,
+              "failed": 2
+            },
+            "late_2": {
+              "passed": 0,
+              "failed": 2
+            },
+            "late_3": {
+              "passed": 0,
+              "failed": 2
+            }
+          },
+          "first_task_observation_bytes": 219811840,
+          "last_task_observation_bytes": 281952256,
+          "endpoint_resident_bytes": 281952256,
+          "query_total_ns": 305375677,
+          "query_cpu_ns": 304821513,
+          "query_median_ns": 49432807,
+          "query_max_ns": 60269112,
+          "periodic_gaps_ns": [
+            5000125294,
+            5000122672,
+            5000154511,
+            5000129988,
+            5000163280
+          ],
+          "initial_eviction": {
+            "start_monotonic_ns": 14771995938426555,
+            "end_monotonic_ns": 14771996163495890,
+            "cpu_ns": 221352406,
+            "files": 19,
+            "operation": "POSIX_FADV_DONTNEED after coordinator filesystem sync; no global drop_caches"
+          },
+          "worker_timing": {
+            "start_monotonic_ns": 14771996178406952,
+            "end_monotonic_ns": 14772025827102243,
+            "cpu_ns": 273950061,
+            "scope": "Worker lifetime including periodic queries, data writes and waits; overlaps query/write costs"
+          },
+          "stop": {
+            "start_monotonic_ns": 14772025827013499,
+            "end_monotonic_ns": 14772025827242781,
+            "cpu_ns": 89784,
+            "worker_started": true,
+            "reaped": true
+          },
+          "write_cost": {
+            "data_wall_ns_before_final_receipt": 30526435,
+            "data_cpu_ns_before_final_receipt": 30539670,
+            "event_wall_ns": 54819037,
+            "event_cpu_ns": 52485622,
+            "scope": "Actual prior data/event writes; excludes this final receipt write"
+          },
+          "preparation_sync": {
+            "status": "PASS",
+            "start_monotonic_ns": 14771990830270617,
+            "end_monotonic_ns": 14771994258124149,
+            "scope": "Owned filesystem after preparation/import, before private service or guest creation; no global sync or cache drop",
+            "cpu_ns": 1514704
+          },
+          "timings_ns": {
+            "controller": 38409125658,
+            "rollout": 37392756018,
+            "setup": 7703138798,
+            "original_paths_and_downloads": 21931770553,
+            "tool_sum": 66742123226
+          },
+          "observed_host_available_min_bytes": 87743098880,
+          "available_after_cleanup_bytes": 139275837440,
+          "checks": {
+            "original_replay": "PASS",
+            "real_targets": "PASS",
+            "p0_zero": "PASS",
+            "samplers_and_query_reaped": "PASS",
+            "cleanup": "PASS"
+          },
+          "independent_per_role_resident_bytes": {},
+          "executed_source_matches_current": {
+            "host_grpo_cold_read.py": true,
+            "host_full_rootfs_control.py": true,
+            "run_prettier6604_grpo.py": true
+          }
+        },
+        {
+          "mode": "private",
+          "group": ".artifacts/host-full-rootfs/20261026T080325Z-private-1245115",
+          "storage": ".artifacts/storage-isolated-service/20261026T080444Z-1245986",
+          "report": ".artifacts/storage-isolated-service/20261026T080444Z-1245986/report",
+          "actual_actions": 189,
+          "objects": 133,
+          "users_per_object": 1,
+          "points": [
+            {
+              "label": "P0",
+              "phase": "before-guests",
+              "start_monotonic_ns": 14772226985241533,
+              "end_monotonic_ns": 14772227068379578,
+              "elapsed_ns": 83138045,
+              "cpu_ns": 82842877,
+              "resident_bytes": 0
+            },
+            {
+              "label": "periodic",
+              "phase": "startup-and-setup",
+              "start_monotonic_ns": 14772232068507267,
+              "end_monotonic_ns": 14772232199729150,
+              "elapsed_ns": 131221883,
+              "cpu_ns": 130748222,
+              "resident_bytes": 0
+            },
+            {
+              "label": "periodic",
+              "phase": "startup-and-setup",
+              "start_monotonic_ns": 14772237199851765,
+              "end_monotonic_ns": 14772237290926695,
+              "elapsed_ns": 91074930,
+              "cpu_ns": 91072903,
+              "resident_bytes": 149876736
+            },
+            {
+              "label": "periodic",
+              "phase": "startup-and-setup",
+              "start_monotonic_ns": 14772242291065948,
+              "end_monotonic_ns": 14772242410339129,
+              "elapsed_ns": 119273181,
+              "cpu_ns": 118578277,
+              "resident_bytes": 957435904
+            },
+            {
+              "label": "periodic",
+              "phase": "original-paths-and-downloads",
+              "start_monotonic_ns": 14772247410487771,
+              "end_monotonic_ns": 14772247541257348,
+              "elapsed_ns": 130769577,
+              "cpu_ns": 128717373,
+              "resident_bytes": 1530245120
+            },
+            {
+              "label": "periodic",
+              "phase": "original-paths-and-downloads",
+              "start_monotonic_ns": 14772252541381297,
+              "end_monotonic_ns": 14772252671675243,
+              "elapsed_ns": 130293946,
+              "cpu_ns": 130292522,
+              "resident_bytes": 1719775232
+            },
+            {
+              "label": "periodic",
+              "phase": "original-paths-and-downloads",
+              "start_monotonic_ns": 14772257671782125,
+              "end_monotonic_ns": 14772257804650474,
+              "elapsed_ns": 132868349,
+              "cpu_ns": 132868183,
+              "resident_bytes": 1774985216
+            },
+            {
+              "label": "periodic",
+              "phase": "original-paths-and-downloads",
+              "start_monotonic_ns": 14772262804765992,
+              "end_monotonic_ns": 14772262939247965,
+              "elapsed_ns": 134481973,
+              "cpu_ns": 131534434,
+              "resident_bytes": 1775808512
+            },
+            {
+              "label": "periodic",
+              "phase": "original-paths-and-downloads",
+              "start_monotonic_ns": 14772267939360393,
+              "end_monotonic_ns": 14772268071193137,
+              "elapsed_ns": 131832744,
+              "cpu_ns": 131824827,
+              "resident_bytes": 1775939584
+            },
+            {
+              "label": "all-original-paths-finished",
+              "phase": "after-paths",
+              "start_monotonic_ns": 14772269259534465,
+              "end_monotonic_ns": 14772269412676391,
+              "elapsed_ns": 153141926,
+              "cpu_ns": 152536958,
+              "resident_bytes": 1775939584
+            }
+          ],
+          "boundaries": {
+            "guest-creation-begin": 14772227075428424,
+            "guests-and-setup-ready": 14772245542492328,
+            "paths-finished": 14772269124049737
+          },
+          "guest_samples": 2703,
+          "official_outcomes": {
+            "backbone": {
+              "passed": 0,
+              "failed": 2
+            },
+            "early_1": {
+              "passed": 0,
+              "failed": 2
+            },
+            "early_2": {
+              "passed": 0,
+              "failed": 2
+            },
+            "early_3": {
+              "passed": 0,
+              "failed": 2
+            },
+            "late_1": {
+              "passed": 0,
+              "failed": 2
+            },
+            "late_2": {
+              "passed": 0,
+              "failed": 2
+            },
+            "late_3": {
+              "passed": 0,
+              "failed": 2
+            }
+          },
+          "first_task_observation_bytes": 1530245120,
+          "last_task_observation_bytes": 1775939584,
+          "endpoint_resident_bytes": 1775939584,
+          "query_total_ns": 1238096554,
+          "query_cpu_ns": 1231016576,
+          "query_median_ns": 130995730.0,
+          "query_max_ns": 153141926,
+          "periodic_gaps_ns": [
+            5000127689,
+            5000122615,
+            5000139253,
+            5000148642,
+            5000123949,
+            5000106882,
+            5000115518,
+            5000112428
+          ],
+          "initial_eviction": {
+            "start_monotonic_ns": 14772225661980868,
+            "end_monotonic_ns": 14772226985232574,
+            "cpu_ns": 1297575872,
+            "files": 133,
+            "operation": "POSIX_FADV_DONTNEED after coordinator filesystem sync; no global drop_caches"
+          },
+          "worker_timing": {
+            "start_monotonic_ns": 14772227077760014,
+            "end_monotonic_ns": 14772269138372142,
+            "cpu_ns": 1092093181,
+            "scope": "Worker lifetime including periodic queries, data writes and waits; overlaps query/write costs"
+          },
+          "stop": {
+            "start_monotonic_ns": 14772269138299257,
+            "end_monotonic_ns": 14772269138471021,
+            "cpu_ns": 84487,
+            "worker_started": true,
+            "reaped": true
+          },
+          "write_cost": {
+            "data_wall_ns_before_final_receipt": 169026626,
+            "data_cpu_ns_before_final_receipt": 168695524,
+            "event_wall_ns": 57401129,
+            "event_cpu_ns": 55323639,
+            "scope": "Actual prior data/event writes; excludes this final receipt write"
+          },
+          "preparation_sync": {
+            "status": "PASS",
+            "start_monotonic_ns": 14772137210863577,
+            "end_monotonic_ns": 14772223942204853,
+            "scope": "Owned filesystem after preparation/import, before private service or guest creation; no global sync or cache drop",
+            "cpu_ns": 2111331
+          },
+          "timings_ns": {
+            "controller": 53985458954,
+            "rollout": 51745205299,
+            "setup": 18467063904,
+            "original_paths_and_downloads": 23581557409,
+            "tool_sum": 75180426006
+          },
+          "observed_host_available_min_bytes": 87733067776,
+          "available_after_cleanup_bytes": 139261984768,
+          "checks": {
+            "original_replay": "PASS",
+            "real_targets": "PASS",
+            "p0_zero": "PASS",
+            "samplers_and_query_reaped": "PASS",
+            "cleanup": "PASS"
+          },
+          "independent_per_role_resident_bytes": {
+            "backbone": 280039424,
+            "early_1": 218558464,
+            "early_2": 219025408,
+            "early_3": 218693632,
+            "late_1": 279724032,
+            "late_2": 280006656,
+            "late_3": 279891968
+          },
+          "executed_source_matches_current": {
+            "host_grpo_cold_read.py": true,
+            "host_full_rootfs_control.py": true,
+            "run_prettier6604_grpo.py": true
+          }
+        }
+      ],
+      "endpoint_difference_bytes": 1493987328,
+      "endpoint_reduction_fraction": 0.84123769832026,
+      "scope": "Seven actual guests per group, initial lower files confirmed zero before creation; shared 19 vs independent 133 global file-cache objects, not whole host RAM",
+      "source_returned_to_stopped": true,
+      "new_retries": 0,
+      "actual_cleanup_check": {
+        "status": "PASS",
+        "source_stopped": true,
+        "no_firecracker": true,
+        "owned_resources": [
+          {
+            "storage": ".artifacts/storage-isolated-service/20261026T080230Z-1242540",
+            "mount_not_active": true,
+            "image_removed": true,
+            "no_loop": true
+          },
+          {
+            "storage": ".artifacts/storage-isolated-service/20261026T080444Z-1245986",
+            "mount_not_active": true,
+            "image_removed": true,
+            "no_loop": true
+          }
+        ],
+        "observed_utc": "2026-10-26T08:11:47.769196+00:00"
+      }
+    },
+    {
+      "status": "PASS_COMPLETE_GRPO_COLD_READ_PAIR",
+      "actual_actions": 378,
+      "pair": ".artifacts/host-full-rootfs-pairs/20261026T082515Z-1265827",
+      "execution_order": [
+        "private",
+        "shared"
+      ],
+      "groups": [
+        {
+          "mode": "shared",
+          "group": ".artifacts/host-full-rootfs/20261026T082908Z-shared-1272282",
+          "storage": ".artifacts/storage-isolated-service/20261026T083034Z-1276399",
+          "report": ".artifacts/storage-isolated-service/20261026T083034Z-1276399/report",
+          "actual_actions": 189,
+          "objects": 19,
+          "users_per_object": 7,
+          "points": [
+            {
+              "label": "P0",
+              "phase": "before-guests",
+              "start_monotonic_ns": 14773682010279690,
+              "end_monotonic_ns": 14773682023453281,
+              "elapsed_ns": 13173591,
+              "cpu_ns": 12897869,
+              "resident_bytes": 0
+            },
+            {
+              "label": "periodic",
+              "phase": "startup-and-setup",
+              "start_monotonic_ns": 14773687023633153,
+              "end_monotonic_ns": 14773687050761519,
+              "elapsed_ns": 27128366,
+              "cpu_ns": 27125917,
+              "resident_bytes": 0
+            },
+            {
+              "label": "periodic",
+              "phase": "startup-and-setup",
+              "start_monotonic_ns": 14773692050886520,
+              "end_monotonic_ns": 14773692093220192,
+              "elapsed_ns": 42333672,
+              "cpu_ns": 42230037,
+              "resident_bytes": 205742080
+            },
+            {
+              "label": "periodic",
+              "phase": "startup-and-setup",
+              "start_monotonic_ns": 14773697093347472,
+              "end_monotonic_ns": 14773697137720429,
+              "elapsed_ns": 44372957,
+              "cpu_ns": 44370916,
+              "resident_bytes": 217194496
+            },
+            {
+              "label": "periodic",
+              "phase": "startup-and-setup",
+              "start_monotonic_ns": 14773702137840552,
+              "end_monotonic_ns": 14773702171737811,
+              "elapsed_ns": 33897259,
+              "cpu_ns": 33895893,
+              "resident_bytes": 217620480
+            },
+            {
+              "label": "periodic",
+              "phase": "original-paths-and-downloads",
+              "start_monotonic_ns": 14773707171878129,
+              "end_monotonic_ns": 14773707217634977,
+              "elapsed_ns": 45756848,
+              "cpu_ns": 44866188,
+              "resident_bytes": 235569152
+            },
+            {
+              "label": "periodic",
+              "phase": "original-paths-and-downloads",
+              "start_monotonic_ns": 14773712217783873,
+              "end_monotonic_ns": 14773712272699375,
+              "elapsed_ns": 54915502,
+              "cpu_ns": 54831474,
+              "resident_bytes": 281448448
+            },
+            {
+              "label": "periodic",
+              "phase": "original-paths-and-downloads",
+              "start_monotonic_ns": 14773717272848794,
+              "end_monotonic_ns": 14773717322490686,
+              "elapsed_ns": 49641892,
+              "cpu_ns": 49618240,
+              "resident_bytes": 281796608
+            },
+            {
+              "label": "periodic",
+              "phase": "original-paths-and-downloads",
+              "start_monotonic_ns": 14773722322597120,
+              "end_monotonic_ns": 14773722342272625,
+              "elapsed_ns": 19675505,
+              "cpu_ns": 19673940,
+              "resident_bytes": 282030080
+            },
+            {
+              "label": "all-original-paths-finished",
+              "phase": "after-paths",
+              "start_monotonic_ns": 14773724251173975,
+              "end_monotonic_ns": 14773724285580038,
+              "elapsed_ns": 34406063,
+              "cpu_ns": 34406816,
+              "resident_bytes": 282030080
+            }
+          ],
+          "boundaries": {
+            "guest-creation-begin": 14773682024789197,
+            "guests-and-setup-ready": 14773702257157968,
+            "paths-finished": 14773724166762516
+          },
+          "endpoint_resident_bytes": 282030080,
+          "first_task_observation_bytes": 235569152,
+          "last_task_observation_bytes": 282030080,
+          "query_total_ns": 365301655,
+          "query_cpu_ns": 363917290,
+          "query_median_ns": 38369867.5,
+          "query_max_ns": 54915502,
+          "worker_timing": {
+            "start_monotonic_ns": 14773682025481435,
+            "end_monotonic_ns": 14773724181051893,
+            "cpu_ns": 352174954,
+            "scope": "Worker lifetime including periodic queries, data writes and waits; overlaps query/write costs"
+          },
+          "stop": {
+            "start_monotonic_ns": 14773724180970838,
+            "end_monotonic_ns": 14773724181160806,
+            "cpu_ns": 96737,
+            "worker_started": true,
+            "reaped": true
+          },
+          "write_cost": {
+            "data_wall_ns_before_final_receipt": 49200422,
+            "data_cpu_ns_before_final_receipt": 49188221,
+            "event_wall_ns": 48921515,
+            "event_cpu_ns": 47523258,
+            "scope": "Actual prior data/event writes; excludes this final receipt write"
+          },
+          "initial_eviction": {
+            "start_monotonic_ns": 14773681770211844,
+            "end_monotonic_ns": 14773682010274618,
+            "cpu_ns": 235486181,
+            "files": 19,
+            "operation": "POSIX_FADV_DONTNEED after coordinator filesystem sync; no global drop_caches"
+          },
+          "preparation_sync": {
+            "status": "PASS",
+            "start_monotonic_ns": 14773673888685576,
+            "end_monotonic_ns": 14773678834611549,
+            "scope": "Owned filesystem after preparation/import, before private service or guest creation; no global sync or cache drop",
+            "cpu_ns": 1183229
+          },
+          "guest_samples": 2616,
+          "executed_source_matches_current": {
+            "host_grpo_cold_read.py": true,
+            "host_full_rootfs_control.py": true,
+            "run_prettier6604_grpo.py": true
+          },
+          "configuration_matches": true,
+          "timings_ns": {
+            "controller": 50471583106,
+            "rollout": 49392720218,
+            "setup": 20232368771,
+            "original_paths_and_downloads": 21909604548,
+            "tool_sum": 69190906601
+          },
+          "observed_host_available_min_bytes": 87017172992,
+          "available_after_cleanup_bytes": 138549452800,
+          "checks": {
+            "original_replay": "PASS",
+            "official_original_0_pass_2_fail": "PRESERVED",
+            "real_targets": "PASS",
+            "p0_zero": "PASS",
+            "samplers_and_query_reaped": "PASS",
+            "cleanup": "PASS"
+          }
+        },
+        {
+          "mode": "private",
+          "group": ".artifacts/host-full-rootfs/20261026T082517Z-private-1266262",
+          "storage": ".artifacts/storage-isolated-service/20261026T082633Z-1268009",
+          "report": ".artifacts/storage-isolated-service/20261026T082633Z-1268009/report",
+          "actual_actions": 189,
+          "objects": 133,
+          "users_per_object": 1,
+          "points": [
+            {
+              "label": "P0",
+              "phase": "before-guests",
+              "start_monotonic_ns": 14773538768982260,
+              "end_monotonic_ns": 14773538852371002,
+              "elapsed_ns": 83388742,
+              "cpu_ns": 83078379,
+              "resident_bytes": 0
+            },
+            {
+              "label": "periodic",
+              "phase": "startup-and-setup",
+              "start_monotonic_ns": 14773543852520435,
+              "end_monotonic_ns": 14773544035402536,
+              "elapsed_ns": 182882101,
+              "cpu_ns": 181213144,
+              "resident_bytes": 1142149120
+            },
+            {
+              "label": "periodic",
+              "phase": "original-paths-and-downloads",
+              "start_monotonic_ns": 14773549035539968,
+              "end_monotonic_ns": 14773549159866160,
+              "elapsed_ns": 124326192,
+              "cpu_ns": 124221287,
+              "resident_bytes": 1530888192
+            },
+            {
+              "label": "periodic",
+              "phase": "original-paths-and-downloads",
+              "start_monotonic_ns": 14773554159987197,
+              "end_monotonic_ns": 14773554288804425,
+              "elapsed_ns": 128817228,
+              "cpu_ns": 128815005,
+              "resident_bytes": 1772937216
+            },
+            {
+              "label": "periodic",
+              "phase": "original-paths-and-downloads",
+              "start_monotonic_ns": 14773559288932099,
+              "end_monotonic_ns": 14773559418713033,
+              "elapsed_ns": 129780934,
+              "cpu_ns": 129623254,
+              "resident_bytes": 1775046656
+            },
+            {
+              "label": "periodic",
+              "phase": "original-paths-and-downloads",
+              "start_monotonic_ns": 14773564418841196,
+              "end_monotonic_ns": 14773564547967870,
+              "elapsed_ns": 129126674,
+              "cpu_ns": 129072778,
+              "resident_bytes": 1775239168
+            },
+            {
+              "label": "all-original-paths-finished",
+              "phase": "after-paths",
+              "start_monotonic_ns": 14773566701704793,
+              "end_monotonic_ns": 14773566855305631,
+              "elapsed_ns": 153600838,
+              "cpu_ns": 153552814,
+              "resident_bytes": 1775239168
+            }
+          ],
+          "boundaries": {
+            "guest-creation-begin": 14773538859295687,
+            "guests-and-setup-ready": 14773545610428403,
+            "paths-finished": 14773566569854461
+          },
+          "endpoint_resident_bytes": 1775239168,
+          "first_task_observation_bytes": 1530888192,
+          "last_task_observation_bytes": 1775239168,
+          "query_total_ns": 931922709,
+          "query_cpu_ns": 929576661,
+          "query_median_ns": 129126674,
+          "query_max_ns": 182882101,
+          "worker_timing": {
+            "start_monotonic_ns": 14773538861655905,
+            "end_monotonic_ns": 14773566584628780,
+            "cpu_ns": 736604094,
+            "scope": "Worker lifetime including periodic queries, data writes and waits; overlaps query/write costs"
+          },
+          "stop": {
+            "start_monotonic_ns": 14773566584556178,
+            "end_monotonic_ns": 14773566584722129,
+            "cpu_ns": 86572,
+            "worker_started": true,
+            "reaped": true
+          },
+          "write_cost": {
+            "data_wall_ns_before_final_receipt": 99625821,
+            "data_cpu_ns_before_final_receipt": 99528258,
+            "event_wall_ns": 55419898,
+            "event_cpu_ns": 52465336,
+            "scope": "Actual prior data/event writes; excludes this final receipt write"
+          },
+          "initial_eviction": {
+            "start_monotonic_ns": 14773537272928477,
+            "end_monotonic_ns": 14773538768974893,
+            "cpu_ns": 1460886124,
+            "files": 133,
+            "operation": "POSIX_FADV_DONTNEED after coordinator filesystem sync; no global drop_caches"
+          },
+          "preparation_sync": {
+            "status": "PASS",
+            "start_monotonic_ns": 14773446241619171,
+            "end_monotonic_ns": 14773535584711182,
+            "scope": "Owned filesystem after preparation/import, before private service or guest creation; no global sync or cache drop",
+            "cpu_ns": 1897104
+          },
+          "guest_samples": 2374,
+          "executed_source_matches_current": {
+            "host_grpo_cold_read.py": true,
+            "host_full_rootfs_control.py": true,
+            "run_prettier6604_grpo.py": true
+          },
+          "configuration_matches": true,
+          "timings_ns": {
+            "controller": 39201784259,
+            "rollout": 36781991541,
+            "setup": 6751132716,
+            "original_paths_and_downloads": 20959426058,
+            "tool_sum": 69144238970
+          },
+          "observed_host_available_min_bytes": 87181312000,
+          "available_after_cleanup_bytes": 138712072192,
+          "checks": {
+            "original_replay": "PASS",
+            "official_original_0_pass_2_fail": "PRESERVED",
+            "real_targets": "PASS",
+            "p0_zero": "PASS",
+            "samplers_and_query_reaped": "PASS",
+            "cleanup": "PASS"
+          }
+        }
+      ],
+      "endpoint_difference_bytes": 1493209088,
+      "endpoint_reduction_fraction": 0.8411312204666272,
+      "source_returned_to_stopped": true
+    },
+    {
+      "status": "PASS_COMPLETE_GRPO_COLD_READ_PAIR",
+      "actual_actions": 378,
+      "pair": ".artifacts/host-full-rootfs-pairs/20261026T083143Z-1282779",
+      "execution_order": [
+        "shared",
+        "private"
+      ],
+      "groups": [
+        {
+          "mode": "shared",
+          "group": ".artifacts/host-full-rootfs/20261026T083144Z-shared-1283201",
+          "storage": ".artifacts/storage-isolated-service/20261026T083302Z-1283955",
+          "report": ".artifacts/storage-isolated-service/20261026T083302Z-1283955/report",
+          "actual_actions": 189,
+          "objects": 19,
+          "users_per_object": 7,
+          "points": [
+            {
+              "label": "P0",
+              "phase": "before-guests",
+              "start_monotonic_ns": 14773828733180723,
+              "end_monotonic_ns": 14773828746193213,
+              "elapsed_ns": 13012490,
+              "cpu_ns": 12550506,
+              "resident_bytes": 0
+            },
+            {
+              "label": "periodic",
+              "phase": "startup-and-setup",
+              "start_monotonic_ns": 14773833746362622,
+              "end_monotonic_ns": 14773833778207199,
+              "elapsed_ns": 31844577,
+              "cpu_ns": 31842478,
+              "resident_bytes": 774144
+            },
+            {
+              "label": "periodic",
+              "phase": "startup-and-setup",
+              "start_monotonic_ns": 14773838778357938,
+              "end_monotonic_ns": 14773838816990719,
+              "elapsed_ns": 38632781,
+              "cpu_ns": 38630921,
+              "resident_bytes": 217493504
+            },
+            {
+              "label": "periodic",
+              "phase": "startup-and-setup",
+              "start_monotonic_ns": 14773843817131081,
+              "end_monotonic_ns": 14773843857940392,
+              "elapsed_ns": 40809311,
+              "cpu_ns": 40662129,
+              "resident_bytes": 218415104
+            },
+            {
+              "label": "periodic",
+              "phase": "original-paths-and-downloads",
+              "start_monotonic_ns": 14773848858065763,
+              "end_monotonic_ns": 14773848895477715,
+              "elapsed_ns": 37411952,
+              "cpu_ns": 37409234,
+              "resident_bytes": 221433856
+            },
+            {
+              "label": "periodic",
+              "phase": "original-paths-and-downloads",
+              "start_monotonic_ns": 14773853895622848,
+              "end_monotonic_ns": 14773853941050814,
+              "elapsed_ns": 45427966,
+              "cpu_ns": 45424489,
+              "resident_bytes": 282140672
+            },
+            {
+              "label": "periodic",
+              "phase": "original-paths-and-downloads",
+              "start_monotonic_ns": 14773858941209405,
+              "end_monotonic_ns": 14773858986594834,
+              "elapsed_ns": 45385429,
+              "cpu_ns": 45382644,
+              "resident_bytes": 282509312
+            },
+            {
+              "label": "periodic",
+              "phase": "original-paths-and-downloads",
+              "start_monotonic_ns": 14773863986741812,
+              "end_monotonic_ns": 14773864031589669,
+              "elapsed_ns": 44847857,
+              "cpu_ns": 44845440,
+              "resident_bytes": 282640384
+            },
+            {
+              "label": "all-original-paths-finished",
+              "phase": "after-paths",
+              "start_monotonic_ns": 14773866529572312,
+              "end_monotonic_ns": 14773866568512345,
+              "elapsed_ns": 38940033,
+              "cpu_ns": 38940623,
+              "resident_bytes": 282640384
+            }
+          ],
+          "boundaries": {
+            "guest-creation-begin": 14773828747557665,
+            "guests-and-setup-ready": 14773845506040042,
+            "paths-finished": 14773866413836488
+          },
+          "endpoint_resident_bytes": 282640384,
+          "first_task_observation_bytes": 221433856,
+          "last_task_observation_bytes": 282640384,
+          "query_total_ns": 336312396,
+          "query_cpu_ns": 335688464,
+          "query_median_ns": 38940033,
+          "query_max_ns": 45427966,
+          "worker_timing": {
+            "start_monotonic_ns": 14773828748264644,
+            "end_monotonic_ns": 14773866428160678,
+            "cpu_ns": 313640408,
+            "scope": "Worker lifetime including periodic queries, data writes and waits; overlaps query/write costs"
+          },
+          "stop": {
+            "start_monotonic_ns": 14773866428077254,
+            "end_monotonic_ns": 14773866428261099,
+            "cpu_ns": 85426,
+            "worker_started": true,
+            "reaped": true
+          },
+          "write_cost": {
+            "data_wall_ns_before_final_receipt": 41691496,
+            "data_cpu_ns_before_final_receipt": 41706050,
+            "event_wall_ns": 52480551,
+            "event_cpu_ns": 49403034,
+            "scope": "Actual prior data/event writes; excludes this final receipt write"
+          },
+          "initial_eviction": {
+            "start_monotonic_ns": 14773828476598454,
+            "end_monotonic_ns": 14773828733172028,
+            "cpu_ns": 250781811,
+            "files": 19,
+            "operation": "POSIX_FADV_DONTNEED after coordinator filesystem sync; no global drop_caches"
+          },
+          "preparation_sync": {
+            "status": "PASS",
+            "start_monotonic_ns": 14773822961663516,
+            "end_monotonic_ns": 14773826518548059,
+            "scope": "Owned filesystem after preparation/import, before private service or guest creation; no global sync or cache drop",
+            "cpu_ns": 1503242
+          },
+          "guest_samples": 2504,
+          "executed_source_matches_current": {
+            "host_grpo_cold_read.py": true,
+            "host_full_rootfs_control.py": true,
+            "run_prettier6604_grpo.py": true
+          },
+          "configuration_matches": true,
+          "timings_ns": {
+            "controller": 46499255249,
+            "rollout": 45421074800,
+            "setup": 16758482377,
+            "original_paths_and_downloads": 20907796446,
+            "tool_sum": 68379593306
+          },
+          "observed_host_available_min_bytes": 86840823808,
+          "available_after_cleanup_bytes": 138436976640,
+          "checks": {
+            "original_replay": "PASS",
+            "official_original_0_pass_2_fail": "PRESERVED",
+            "real_targets": "PASS",
+            "p0_zero": "PASS",
+            "samplers_and_query_reaped": "PASS",
+            "cleanup": "PASS"
+          }
+        },
+        {
+          "mode": "private",
+          "group": ".artifacts/host-full-rootfs/20261026T083406Z-private-1288263",
+          "storage": ".artifacts/storage-isolated-service/20261026T083523Z-1292736",
+          "report": ".artifacts/storage-isolated-service/20261026T083523Z-1292736/report",
+          "actual_actions": 189,
+          "objects": 133,
+          "users_per_object": 1,
+          "points": [
+            {
+              "label": "P0",
+              "phase": "before-guests",
+              "start_monotonic_ns": 14774072302910387,
+              "end_monotonic_ns": 14774072389892615,
+              "elapsed_ns": 86982228,
+              "cpu_ns": 86343787,
+              "resident_bytes": 0
+            },
+            {
+              "label": "periodic",
+              "phase": "startup-and-setup",
+              "start_monotonic_ns": 14774077390066591,
+              "end_monotonic_ns": 14774077527138851,
+              "elapsed_ns": 137072260,
+              "cpu_ns": 137070438,
+              "resident_bytes": 150781952
+            },
+            {
+              "label": "periodic",
+              "phase": "startup-and-setup",
+              "start_monotonic_ns": 14774082527276644,
+              "end_monotonic_ns": 14774082622966121,
+              "elapsed_ns": 95689477,
+              "cpu_ns": 95613471,
+              "resident_bytes": 358580224
+            },
+            {
+              "label": "periodic",
+              "phase": "startup-and-setup",
+              "start_monotonic_ns": 14774087623099026,
+              "end_monotonic_ns": 14774087735031781,
+              "elapsed_ns": 111932755,
+              "cpu_ns": 111911036,
+              "resident_bytes": 944365568
+            },
+            {
+              "label": "periodic",
+              "phase": "startup-and-setup",
+              "start_monotonic_ns": 14774092735160713,
+              "end_monotonic_ns": 14774092857099482,
+              "elapsed_ns": 121938769,
+              "cpu_ns": 121936064,
+              "resident_bytes": 1343909888
+            },
+            {
+              "label": "periodic",
+              "phase": "original-paths-and-downloads",
+              "start_monotonic_ns": 14774097857237584,
+              "end_monotonic_ns": 14774097986519776,
+              "elapsed_ns": 129282192,
+              "cpu_ns": 126223186,
+              "resident_bytes": 1532542976
+            },
+            {
+              "label": "periodic",
+              "phase": "original-paths-and-downloads",
+              "start_monotonic_ns": 14774102986664434,
+              "end_monotonic_ns": 14774103114506887,
+              "elapsed_ns": 127842453,
+              "cpu_ns": 127822140,
+              "resident_bytes": 1681190912
+            },
+            {
+              "label": "periodic",
+              "phase": "original-paths-and-downloads",
+              "start_monotonic_ns": 14774108114643215,
+              "end_monotonic_ns": 14774108244666057,
+              "elapsed_ns": 130022842,
+              "cpu_ns": 130001371,
+              "resident_bytes": 1778274304
+            },
+            {
+              "label": "periodic",
+              "phase": "original-paths-and-downloads",
+              "start_monotonic_ns": 14774113244802488,
+              "end_monotonic_ns": 14774113374774952,
+              "elapsed_ns": 129972464,
+              "cpu_ns": 129969998,
+              "resident_bytes": 1778884608
+            },
+            {
+              "label": "periodic",
+              "phase": "original-paths-and-downloads",
+              "start_monotonic_ns": 14774118374876803,
+              "end_monotonic_ns": 14774118504736932,
+              "elapsed_ns": 129860129,
+              "cpu_ns": 129708187,
+              "resident_bytes": 1779339264
+            },
+            {
+              "label": "all-original-paths-finished",
+              "phase": "after-paths",
+              "start_monotonic_ns": 14774118804464406,
+              "end_monotonic_ns": 14774118953096518,
+              "elapsed_ns": 148632112,
+              "cpu_ns": 148246061,
+              "resident_bytes": 1779339264
+            }
+          ],
+          "boundaries": {
+            "guest-creation-begin": 14774072397069809,
+            "guests-and-setup-ready": 14774095657387512,
+            "paths-finished": 14774118665186019
+          },
+          "endpoint_resident_bytes": 1779339264,
+          "first_task_observation_bytes": 1532542976,
+          "last_task_observation_bytes": 1779339264,
+          "query_total_ns": 1349227681,
+          "query_cpu_ns": 1344845739,
+          "query_median_ns": 129282192,
+          "query_max_ns": 148632112,
+          "worker_timing": {
+            "start_monotonic_ns": 14774072399496987,
+            "end_monotonic_ns": 14774118679361875,
+            "cpu_ns": 1228541619,
+            "scope": "Worker lifetime including periodic queries, data writes and waits; overlaps query/write costs"
+          },
+          "stop": {
+            "start_monotonic_ns": 14774118679306859,
+            "end_monotonic_ns": 14774118679413203,
+            "cpu_ns": 80700,
+            "worker_started": true,
+            "reaped": true
+          },
+          "write_cost": {
+            "data_wall_ns_before_final_receipt": 195747349,
+            "data_cpu_ns_before_final_receipt": 195664200,
+            "event_wall_ns": 54616329,
+            "event_cpu_ns": 52987863,
+            "scope": "Actual prior data/event writes; excludes this final receipt write"
+          },
+          "initial_eviction": {
+            "start_monotonic_ns": 14774070956393527,
+            "end_monotonic_ns": 14774072302899063,
+            "cpu_ns": 1312868267,
+            "files": 133,
+            "operation": "POSIX_FADV_DONTNEED after coordinator filesystem sync; no global drop_caches"
+          },
+          "preparation_sync": {
+            "status": "PASS",
+            "start_monotonic_ns": 14773975519511791,
+            "end_monotonic_ns": 14774067252553932,
+            "scope": "Owned filesystem after preparation/import, before private service or guest creation; no global sync or cache drop",
+            "cpu_ns": 1562250
+          },
+          "guest_samples": 2980,
+          "executed_source_matches_current": {
+            "host_grpo_cold_read.py": true,
+            "host_full_rootfs_control.py": true,
+            "run_prettier6604_grpo.py": true
+          },
+          "configuration_matches": true,
+          "timings_ns": {
+            "controller": 57614657751,
+            "rollout": 55297904938,
+            "setup": 23260317703,
+            "original_paths_and_downloads": 23007798507,
+            "tool_sum": 75386556246
+          },
+          "observed_host_available_min_bytes": 86326059008,
+          "available_after_cleanup_bytes": 86362361856,
+          "checks": {
+            "original_replay": "PASS",
+            "official_original_0_pass_2_fail": "PRESERVED",
+            "real_targets": "PASS",
+            "p0_zero": "PASS",
+            "samplers_and_query_reaped": "PASS",
+            "cleanup": "PASS"
+          }
+        }
+      ],
+      "endpoint_difference_bytes": 1496698880,
+      "endpoint_reduction_fraction": 0.8411543038933356,
+      "source_returned_to_stopped": true
+    }
+  ],
+  "statistics": {
+    "shared_bytes": {
+      "mean": 282207573.3333333,
+      "minimum": 281952256,
+      "maximum": 282640384
+    },
+    "private_bytes": {
+      "mean": 1776839338.6666667,
+      "minimum": 1775239168,
+      "maximum": 1779339264
+    },
+    "difference_bytes": {
+      "mean": 1494631765.3333333,
+      "minimum": 1493209088,
+      "maximum": 1496698880
+    },
+    "reduction_fraction": {
+      "mean": 0.8411744075600742,
+      "minimum": 0.8411312204666272,
+      "maximum": 0.84123769832026
+    }
+  },
+  "mean_definition": "Arithmetic mean of three per-pair reductions; not reduction computed after pooling endpoints",
+  "guest_samples": 15490,
+  "actual_new_cleanup_check": {
+    "status": "PASS",
+    "observed_utc": "2026-10-26T08:41:47.318760+00:00",
+    "source_stopped": true,
+    "no_firecracker": true,
+    "owned_new_resources": [
+      {
+        "storage": ".artifacts/storage-isolated-service/20261026T083034Z-1276399",
+        "mount_not_active": true,
+        "image_removed": true,
+        "no_loop": true
+      },
+      {
+        "storage": ".artifacts/storage-isolated-service/20261026T082633Z-1268009",
+        "mount_not_active": true,
+        "image_removed": true,
+        "no_loop": true
+      },
+      {
+        "storage": ".artifacts/storage-isolated-service/20261026T083302Z-1283955",
+        "mount_not_active": true,
+        "image_removed": true,
+        "no_loop": true
+      },
+      {
+        "storage": ".artifacts/storage-isolated-service/20261026T083523Z-1292736",
+        "mount_not_active": true,
+        "image_removed": true,
+        "no_loop": true
+      }
+    ],
+    "available_bytes": 137796321280
+  },
+  "implementation": {
+    "status": "PASS",
+    "unchanged_functions": {
+      "group": true,
+      "member_command": true,
+      "require_budget": true,
+      "full_comparison": true
+    },
+    "new_checks": 6,
+    "existing_entry_checks": 11,
+    "collection_code": "UNCHANGED"
+  }
+}

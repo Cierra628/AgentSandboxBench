@@ -1,0 +1,338 @@
+{
+  "status": "PASS_GRPO_CREATE_SETUP_PAIR",
+  "date": "2026-10-26",
+  "order": [
+    "off",
+    "on"
+  ],
+  "actual_actions": 378,
+  "new_guests": 14,
+  "sample_count": 1822,
+  "grpo_setup_schedule": "create-all-before-setup",
+  "comparison": {
+    "tool_sum": {
+      "off_ns": 57763962863,
+      "on_ns": 60183224658,
+      "change_percent": 4.188185289049184
+    },
+    "frozen_tools_and_downloads_span": {
+      "off_ns": 16573966289,
+      "on_ns": 18150502148,
+      "change_percent": 9.512121790945915
+    },
+    "cold_request_span": {
+      "off_ns": 2858760666,
+      "on_ns": 8025720132,
+      "change_percent": 180.74123963758217
+    },
+    "monitor_control_call_sum": {
+      "off_ns": 0,
+      "on_ns": 4024469135,
+      "change_percent": null
+    },
+    "monitor_control_union": {
+      "off_ns": 0,
+      "on_ns": 704558198,
+      "change_percent": null
+    },
+    "cleanup": {
+      "off_ns": 241622946,
+      "on_ns": 541106344,
+      "change_percent": 123.94658825159759
+    },
+    "controller": {
+      "off_ns": 27618273965,
+      "on_ns": 34698677895,
+      "change_percent": 25.636663388062676
+    },
+    "rollout": {
+      "off_ns": 27174841586,
+      "on_ns": 33953475246,
+      "change_percent": 24.944519505468744
+    },
+    "created_to_controller_end_ns": {
+      "off_ns": 24706467708,
+      "on_ns": 26622781393,
+      "change_percent": 7.756324002477677
+    },
+    "create_to_setup_ns": {
+      "off_ns": 2195440758,
+      "on_ns": 2251959962,
+      "change_percent": 2.574389848327674
+    }
+  },
+  "runs": [
+    {
+      "mode": "off",
+      "grpo_setup_schedule": "create-all-before-setup",
+      "actual_actions": 189,
+      "timings_ns": {
+        "tool_sum": 57763962863,
+        "frozen_tools_and_downloads_span": 16573966289,
+        "cold_request_span": 2858760666,
+        "monitor_control_call_sum": 0,
+        "monitor_control_union": 0,
+        "cleanup": 241622946,
+        "controller": 27618273965,
+        "rollout": 27174841586,
+        "created_to_controller_end_ns": 24706467708,
+        "create_to_setup_ns": 2195440758
+      },
+      "phases_ns": {
+        "before_rollout": 51906594,
+        "creation": 2859899663,
+        "preparation": 2195440758,
+        "prepared_to_first_action": 446478,
+        "actions_and_downloads": 16574884695,
+        "final_checks": 5544169992,
+        "after_checks_and_cleanup": 391525785
+      },
+      "sessions": [],
+      "sampler_details": [],
+      "minimum_free_disk_gib": 108.3050765991211,
+      "order_audit": {
+        "status": "PASS",
+        "roles": 7,
+        "preparation_calls": 28,
+        "earliest_preparation_after_last_create_ns": 1451859,
+        "first_task_after_all_prepared_ns": 446478
+      },
+      "official": {
+        "backbone": {
+          "passed": 0,
+          "failed": 2
+        },
+        "early_1": {
+          "passed": 0,
+          "failed": 2
+        },
+        "early_2": {
+          "passed": 0,
+          "failed": 2
+        },
+        "early_3": {
+          "passed": 0,
+          "failed": 2
+        },
+        "late_1": {
+          "passed": 0,
+          "failed": 2
+        },
+        "late_2": {
+          "passed": 0,
+          "failed": 2
+        },
+        "late_3": {
+          "passed": 0,
+          "failed": 2
+        }
+      },
+      "paths": {
+        "workflow": ".artifacts/platform-tasks/20261026T143251Z-1556005",
+        "storage": ".artifacts/storage-isolated-service/20261026T143416Z-1556966",
+        "raw": ".artifacts/storage-isolated-service/20261026T143416Z-1556966/prettier6604",
+        "report": ".artifacts/platform-tasks/report-20261026T143251Z-1556005"
+      }
+    },
+    {
+      "mode": "on",
+      "grpo_setup_schedule": "create-all-before-setup",
+      "actual_actions": 189,
+      "timings_ns": {
+        "tool_sum": 60183224658,
+        "frozen_tools_and_downloads_span": 18150502148,
+        "cold_request_span": 8025720132,
+        "monitor_control_call_sum": 4024469135,
+        "monitor_control_union": 704558198,
+        "cleanup": 541106344,
+        "controller": 34698677895,
+        "rollout": 33953475246,
+        "created_to_controller_end_ns": 26622781393,
+        "create_to_setup_ns": 2251959962
+      },
+      "phases_ns": {
+        "before_rollout": 49070661,
+        "creation": 8026825841,
+        "preparation": 2251959962,
+        "prepared_to_first_action": 455421,
+        "actions_and_downloads": 18151447872,
+        "final_checks": 5522786150,
+        "after_checks_and_cleanup": 696131988
+      },
+      "sessions": [
+        {
+          "role": "backbone",
+          "samples": 260,
+          "cpu_seconds": 0.211022,
+          "peak_rss_mib": 16.60546875,
+          "max_gap_seconds": 0.105896875
+        },
+        {
+          "role": "early_1",
+          "samples": 261,
+          "cpu_seconds": 0.212102,
+          "peak_rss_mib": 16.859375,
+          "max_gap_seconds": 0.104475361
+        },
+        {
+          "role": "early_2",
+          "samples": 261,
+          "cpu_seconds": 0.20301999999999998,
+          "peak_rss_mib": 16.3046875,
+          "max_gap_seconds": 0.101326235
+        },
+        {
+          "role": "early_3",
+          "samples": 260,
+          "cpu_seconds": 0.19071499999999997,
+          "peak_rss_mib": 16.71484375,
+          "max_gap_seconds": 0.103804295
+        },
+        {
+          "role": "late_1",
+          "samples": 260,
+          "cpu_seconds": 0.20018099999999997,
+          "peak_rss_mib": 16.5625,
+          "max_gap_seconds": 0.10792217
+        },
+        {
+          "role": "late_2",
+          "samples": 260,
+          "cpu_seconds": 0.212724,
+          "peak_rss_mib": 16.7890625,
+          "max_gap_seconds": 0.102663219
+        },
+        {
+          "role": "late_3",
+          "samples": 260,
+          "cpu_seconds": 0.17252299999999998,
+          "peak_rss_mib": 16.11328125,
+          "max_gap_seconds": 0.103299382
+        }
+      ],
+      "sampler_details": [
+        {
+          "role": "backbone",
+          "samples": 260,
+          "collector_cpu_seconds": 0.211022,
+          "collector_one_core_percent": 0.8102410535260346,
+          "sample_interval_seconds": 0.1,
+          "sampling_start_after_all_created_ns": 570658,
+          "ready_before_source_check_ns": 683164
+        },
+        {
+          "role": "early_1",
+          "samples": 261,
+          "collector_cpu_seconds": 0.212102,
+          "collector_one_core_percent": 0.8135576124445679,
+          "sample_interval_seconds": 0.1,
+          "sampling_start_after_all_created_ns": 809671,
+          "ready_before_source_check_ns": 1535469
+        },
+        {
+          "role": "early_2",
+          "samples": 261,
+          "collector_cpu_seconds": 0.20301999999999998,
+          "collector_one_core_percent": 0.7788920307844219,
+          "sample_interval_seconds": 0.1,
+          "sampling_start_after_all_created_ns": 934735,
+          "ready_before_source_check_ns": 1817720
+        },
+        {
+          "role": "early_3",
+          "samples": 260,
+          "collector_cpu_seconds": 0.19071499999999997,
+          "collector_one_core_percent": 0.735075221713811,
+          "sample_interval_seconds": 0.1,
+          "sampling_start_after_all_created_ns": 1038343,
+          "ready_before_source_check_ns": 1897268
+        },
+        {
+          "role": "late_1",
+          "samples": 260,
+          "collector_cpu_seconds": 0.20018099999999997,
+          "collector_one_core_percent": 0.7704228232394044,
+          "sample_interval_seconds": 0.1,
+          "sampling_start_after_all_created_ns": 1081994,
+          "ready_before_source_check_ns": 1606985
+        },
+        {
+          "role": "late_2",
+          "samples": 260,
+          "collector_cpu_seconds": 0.212724,
+          "collector_one_core_percent": 0.8177099238283753,
+          "sample_interval_seconds": 0.1,
+          "sampling_start_after_all_created_ns": 1133902,
+          "ready_before_source_check_ns": 717553
+        },
+        {
+          "role": "late_3",
+          "samples": 260,
+          "collector_cpu_seconds": 0.17252299999999998,
+          "collector_one_core_percent": 0.6627274193370132,
+          "sample_interval_seconds": 0.1,
+          "sampling_start_after_all_created_ns": 1164498,
+          "ready_before_source_check_ns": 1671108
+        }
+      ],
+      "minimum_free_disk_gib": 108.29999542236328,
+      "order_audit": {
+        "status": "PASS",
+        "roles": 7,
+        "preparation_calls": 28,
+        "earliest_preparation_after_last_create_ns": 200035398,
+        "first_task_after_all_prepared_ns": 455421
+      },
+      "official": {
+        "backbone": {
+          "passed": 0,
+          "failed": 2
+        },
+        "early_1": {
+          "passed": 0,
+          "failed": 2
+        },
+        "early_2": {
+          "passed": 0,
+          "failed": 2
+        },
+        "early_3": {
+          "passed": 0,
+          "failed": 2
+        },
+        "late_1": {
+          "passed": 0,
+          "failed": 2
+        },
+        "late_2": {
+          "passed": 0,
+          "failed": 2
+        },
+        "late_3": {
+          "passed": 0,
+          "failed": 2
+        }
+      },
+      "paths": {
+        "workflow": ".artifacts/platform-tasks/20261026T143507Z-1559236",
+        "storage": ".artifacts/storage-isolated-service/20261026T143630Z-1559559",
+        "raw": ".artifacts/storage-isolated-service/20261026T143630Z-1559559/prettier6604",
+        "report": ".artifacts/platform-tasks/report-20261026T143507Z-1559236"
+      }
+    }
+  ],
+  "scope": "One real pair, guest-only 0.1-second sampling vs off, default reclaim, no host/PSS/physical/metrics/cache controls",
+  "source_returned_to_stopped": true,
+  "additional_pairs": 0,
+  "distinct_guest_identity_audit": "PASS_14_DISTINCT_NEW_IDS",
+  "files": {
+    "guest_curve": "results/sampling-overhead/grpo-create-before-setup-20261026/guest-memory.png",
+    "timing_table": "results/sampling-overhead/grpo-create-before-setup-20261026/timings.tsv"
+  },
+  "cleanup": {
+    "both_workflow_and_storage_acceptance": "PASS",
+    "two_success_volumes_removed": true,
+    "source_stopped": true,
+    "new_failed_volumes": 0
+  }
+}

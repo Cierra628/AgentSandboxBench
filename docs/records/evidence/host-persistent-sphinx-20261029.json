@@ -1,0 +1,168 @@
+{
+  "status": "PASS_ONE_FULL_PERSISTENT_CURRENT_SPHINX7590",
+  "task_id": "sphinx-doc__sphinx-7590",
+  "actions": 35,
+  "cpu": 2,
+  "memory_mib": 4096,
+  "workflow": ".artifacts/platform-tasks/20261029T144145Z-2471325",
+  "storage": ".artifacts/storage-isolated-service/20261029T144209Z-2471586",
+  "raw": ".artifacts/storage-isolated-service/20261029T144209Z-2471586/python-backbone",
+  "report": ".artifacts/platform-tasks/report-20261029T144145Z-2471325",
+  "tool_seconds": 19.971674374,
+  "frozen_replay_seconds": 23.056219638,
+  "controller_seconds": 33.313059686,
+  "original_official": {
+    "passed": 24,
+    "failed": 1,
+    "skipped": 0
+  },
+  "task_replay_checks": "PASS_APPROVED_DIAGNOSTIC_RULES",
+  "guest_samples": 300,
+  "guest_used_peak_mib": 294.83984375,
+  "guest_cached_peak_mib": 120.03515625,
+  "guest_maximum_gap_seconds": 0.102763061,
+  "guest_collector_cpu_seconds": 0.216516,
+  "guest_collector_elapsed_ns": 29960145706,
+  "guest_collector_maxrss_kib": 17800,
+  "monitor_control_calls": [
+    {
+      "stage": "monitor-upload-bundle",
+      "duration_ns": 23702045
+    },
+    {
+      "stage": "monitor-ready",
+      "duration_ns": 174549607
+    },
+    {
+      "stage": "monitor-phase",
+      "duration_ns": 126270844
+    },
+    {
+      "stage": "monitor-finish",
+      "duration_ns": 202200460
+    },
+    {
+      "stage": "monitor-download",
+      "duration_ns": 36299358
+    }
+  ],
+  "monitor_control_total_ns": 563022314,
+  "host_samples": 678,
+  "host_maximum_gap_ns": 100180085,
+  "host_current": {
+    "metric": "memory.current",
+    "unit": "bytes",
+    "scope": "Measurement cgroup and descendants: preparation, controller, private service and all sandboxes.",
+    "window_start_monotonic_ns": 15055137960408088,
+    "window_end_monotonic_ns": 15055205684970851,
+    "initial_bytes": 44249088,
+    "final_bytes": 9155682304,
+    "observed_peak_bytes": 10064445440,
+    "time_weighted_mean_bytes": 8529464989.508505,
+    "mean_method": "Previous sample held until next sample; first-to-last sample only, including recorded gaps. Estimate, not a continuous integral.",
+    "before_guest_bytes": 9556471808,
+    "baseline_status": "OBSERVED_BEFORE_GUEST",
+    "after_service_ready_observed_peak_bytes": 10064445440,
+    "after_service_ready_peak_increase_bytes": 507973632,
+    "final_increase_from_before_guest_bytes": -400789504,
+    "interpretation": "Charged group memory, not complete sandbox physical memory. Before-guest baseline includes prepared inputs and service; increases include subsequent control and service work. Peaks are sampled, final sample may be after guest deletion.",
+    "coverage": {
+      "outside_group_charges": "NOT_INCLUDED",
+      "unaccounted_kernel_allocations": "NOT_INCLUDED",
+      "swap_bytes": "NOT_MEASURED",
+      "hugetlb_coverage": "NOT_VERIFIED"
+    },
+    "components": "anon/file/kernel explain current; shmem is part of file. Counters are sequential and may lag: do not add them to current or label their residual unaccounted memory."
+  },
+  "host_collector": {
+    "status": "PASS",
+    "error": null,
+    "samples": 678,
+    "interval_seconds": 0.1,
+    "pss_interval_seconds": null,
+    "thread_cpu_ns": 209899453,
+    "counter_read_total_ns": 167348595,
+    "scope": "Fresh rollout slice: input preparation, controller, private service and all its descendants; host file includes shmem, not guest Cached.",
+    "sample_span_seconds": 67.724562763,
+    "single_core_cpu_percent": 0.30993105667516324
+  },
+  "pss": "NOT_REQUESTED",
+  "mincore": "IMPORTED_INPUTS_ONCE_AFTER_RUNTIME_CLEANUP",
+  "default_reclaim_unchanged": true,
+  "new_model_requests": 0,
+  "checkpoint": false,
+  "completed": {
+    "original_35_actions": true,
+    "expected_patch_and_outputs": true,
+    "original_official_outcome": true,
+    "guest_sampling": true,
+    "host_sampling": true,
+    "automatic_reports": true,
+    "final_writable_files": true,
+    "fixed_volume_boundary": true,
+    "owned_cleanup": true
+  },
+  "matched_executed_sources": [
+    "platform_tasks.py",
+    "use_platform.py",
+    "run_host_file_workflow.py",
+    "host_file_monitor.py",
+    "report_host_file.py",
+    "host_persistent_input.py",
+    "validate_isolated_agentenv.py",
+    "run_xarray6992.py",
+    "sandbox_runtime_monitor.py",
+    "report_task_overview.py",
+    "report_sandbox_runtime.py",
+    "agentenv_cold_start.py",
+    "sphinx7590_inputs.py",
+    "xarray6992_inputs.py"
+  ],
+  "available_start_bytes": 63036977152,
+  "available_min_bytes": 34893914112,
+  "available_after_bytes": 63029309440,
+  "source_restored_stopped": true,
+  "cleanup": {
+    "successful_runtime_and_input_removed": true,
+    "source_restored_stopped": true
+  },
+  "limitations": [
+    "current covers the charged experimental group, not complete sandbox physical memory",
+    "one run without an off/on timing control; no new slowdown or sharing/density estimate",
+    "collector CPU excludes task-runner boundary commands; control call time is not total sampling-induced slowdown"
+  ],
+  "strict_replay_status": "FAIL",
+  "diagnostic_status": "PASS",
+  "sphinx_pipeline_policy_version": 2,
+  "persistent_input": {
+    "profile": "host-persistent-input-v1",
+    "path_count": 116,
+    "unique_file_count": 116,
+    "logical_mib": 8500.673901557922,
+    "resident_mib": 8501.0078125,
+    "file_before_mib": 8504.67578125,
+    "file_after_mib": 8504.67578125,
+    "shortfall_mib": 0.0,
+    "query_phase": "AFTER_ISOLATED_RUNTIME_CLEANUP",
+    "query_wall_seconds": 0.194928418,
+    "query_thread_cpu_seconds": 0.192011787,
+    "ownership": "NOT_QUERIED",
+    "source_prepare_seconds": 118.367961189,
+    "import_seconds": 24.138363819
+  },
+  "baseline_counters_mib": {
+    "current": 9113.76171875,
+    "file": 8801.7578125,
+    "anon": 78.484375,
+    "shmem": 0.0,
+    "kernel": 210.50390625,
+    "file_mapped": 0.32421875,
+    "file_dirty": 0.1953125,
+    "file_writeback": 0.0
+  },
+  "measurement_scope": "Fresh imported plain files, controller, private service and guests; archive restoration is outside this group and its scratch is removed before the baseline.",
+  "workflow_seconds": 69.316432315,
+  "outer_launch_seconds": 188.568254018,
+  "guest_single_core_cpu_percent": 0.7226800634572321,
+  "broad_mincore": "NOT_REQUESTED"
+}

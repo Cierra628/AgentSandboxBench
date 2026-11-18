@@ -1,0 +1,66 @@
+{
+  "status": "PASS_OFFLINE_IMPLEMENTATION",
+  "candidate_live_status": "NOT_RUN",
+  "new_live_guests": 0,
+  "new_live_actions": 0,
+  "downloads": 0,
+  "residency_queries": 0,
+  "cleanup_actions": 0,
+  "candidate_config": "configs/platform-prettier6604-grpo-host-current-skip-vmstat.json",
+  "single_config_change": {
+    "light_skip_boundary_vmstat": true
+  },
+  "comparison": "boundary-vmstat",
+  "order": [
+    "keep",
+    "skip",
+    "skip",
+    "keep"
+  ],
+  "sampling_modes": [
+    "on",
+    "on",
+    "on",
+    "on"
+  ],
+  "periodic_interval_seconds": 0.1,
+  "expected_boundary_memory_rows": 448,
+  "expected_candidate_vmstat": "NOT_MEASURED; original header and zero data rows",
+  "old_sampling_default": "off,on,on,off; unchanged",
+  "tests": {
+    "no-proxy-regressions": 76,
+    "legacy-vmstat-regressions": 10,
+    "new-regressions-final": 9,
+    "persistent-regressions": 31,
+    "grpo-regressions": 9,
+    "platform-regressions": 14
+  },
+  "test_count": 149,
+  "current_assessment_checks": 20,
+  "actual_check_only": "VALIDATED, 7 roles, no live command executed",
+  "saved_full_audits": [
+    "off: 189 actions PASS",
+    "on: 189 actions PASS"
+  ],
+  "old_report_rebuild_identical": [
+    "summary.json",
+    "runs.tsv",
+    "pairs.tsv",
+    "REPORT.md"
+  ],
+  "synthetic_layout": "SYNTHETIC_LAYOUT: fixture only, no performance inference; timing figure inspected",
+  "candidate_performance": "UNMEASURED",
+  "sampling_settings_applied": false,
+  "source_files": [
+    "host_persistent_input.py",
+    "platform_tasks.py",
+    "validate_isolated_agentenv.py",
+    "run_prettier6604_grpo.py",
+    "report_prettier6604_grpo.py",
+    "run_grpo_light_pair.py",
+    "run_grpo_local_no_proxy_controls.py",
+    "report_grpo_local_no_proxy_controls.py",
+    "assess_grpo_local_vmstat.py"
+  ],
+  "artifacts": ".artifacts/grpo-local-vmstat-implementation-20261101"
+}

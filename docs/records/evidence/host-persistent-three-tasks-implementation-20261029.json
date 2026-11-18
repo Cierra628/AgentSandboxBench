@@ -1,0 +1,148 @@
+{
+  "status": "PASS_OFFLINE_IMPLEMENTATION",
+  "date": "2026-10-29",
+  "scope": "Three full current-only tasks; toy files and mocked device/service/cgroup/mincore operations. No real archive restore, guest, task or residency query.",
+  "total_valid_tests": 86,
+  "tests_rerun_after_resume": 28,
+  "tests_reused_from_unchanged_paths": 58,
+  "test_suites": [
+    {
+      "suite": "new_persistent_tasks",
+      "count": 13,
+      "status": "PASS",
+      "log": ".artifacts/host-persistent-three-tasks-implementation-20261029/resume-host_persistent_tasks.log",
+      "reused_from_before_pause": false
+    },
+    {
+      "suite": "original_persistent_input",
+      "count": 15,
+      "status": "PASS",
+      "log": ".artifacts/host-persistent-three-tasks-implementation-20261029/resume-host_persistent_input.log",
+      "reused_from_before_pause": false
+    },
+    {
+      "suite": "current_tasks",
+      "count": 7,
+      "status": "PASS",
+      "log": ".artifacts/host-persistent-three-tasks-implementation-20261029/tests-host_current_tasks.log",
+      "reused_from_before_pause": true
+    },
+    {
+      "suite": "sampling_control",
+      "count": 5,
+      "status": "PASS",
+      "log": ".artifacts/host-persistent-three-tasks-implementation-20261029/tests-host_current_sampling_control.log",
+      "reused_from_before_pause": true
+    },
+    {
+      "suite": "current_pair",
+      "count": 7,
+      "status": "PASS",
+      "log": ".artifacts/host-persistent-three-tasks-implementation-20261029/tests-host_current_pair.log",
+      "reused_from_before_pause": true
+    },
+    {
+      "suite": "scaling",
+      "count": 12,
+      "status": "PASS",
+      "log": ".artifacts/host-persistent-three-tasks-implementation-20261029/tests-host_scaling.log",
+      "reused_from_before_pause": true
+    },
+    {
+      "suite": "isolated_storage",
+      "count": 27,
+      "status": "PASS",
+      "log": ".artifacts/host-persistent-three-tasks-implementation-20261029/tests-isolated_storage.log",
+      "reused_from_before_pause": true
+    }
+  ],
+  "task_options": [
+    {
+      "task_id": "prettier__prettier-6604",
+      "config": "configs/platform-prettier6604-host-current.json",
+      "full_actions": 29,
+      "source_gib": 20,
+      "input_budget_gib": 8,
+      "prepare_free_required_strictly_gib": 54,
+      "runtime_volume_gib": 8,
+      "runtime_free_required_strictly_gib": 34
+    },
+    {
+      "task_id": "sphinx-doc__sphinx-7590",
+      "config": "configs/platform-sphinx7590-host-current.json",
+      "full_actions": 35,
+      "source_gib": 20,
+      "input_budget_gib": 10,
+      "prepare_free_required_strictly_gib": 56,
+      "runtime_volume_gib": 8,
+      "runtime_free_required_strictly_gib": 34
+    },
+    {
+      "task_id": "pydata__xarray-6992",
+      "config": "configs/platform-xarray6992-host-current.json",
+      "full_actions": 35,
+      "source_gib": 24,
+      "input_budget_gib": 12,
+      "prepare_free_required_strictly_gib": 62,
+      "runtime_volume_gib": 8,
+      "runtime_free_required_strictly_gib": 34
+    }
+  ],
+  "changes": [
+    "scripts/host_persistent_input.py",
+    "scripts/run_host_file_workflow.py",
+    "scripts/platform_tasks.py",
+    "scripts/use_platform.py",
+    "scripts/validate_isolated_agentenv.py",
+    "tests/test_host_persistent_input.py",
+    "tests/test_host_persistent_tasks.py",
+    "tests/test_host_current_tasks.py"
+  ],
+  "entry_flag": "--persistent-input",
+  "internal_seed_flag": "--persistent-seed",
+  "primary_metric": "memory.current",
+  "period_seconds": 0.1,
+  "pss": "NOT_REQUESTED",
+  "broad_mincore": "NOT_REQUESTED",
+  "input_query": {
+    "phase": "AFTER_ISOLATED_RUNTIME_CLEANUP",
+    "frequency": "ONCE",
+    "deduplication": "device+inode",
+    "path_and_unique_file_counts": true,
+    "wall_and_thread_cpu_recorded": true,
+    "ownership": "NOT_QUERIED"
+  },
+  "old_entries_preserved": [
+    "RAM input",
+    "Prettier current pair",
+    "ordinary host-file configuration",
+    "sampling-off control",
+    "scaling"
+  ],
+  "tested_failures": [
+    "import",
+    "isolated runtime",
+    "input query error",
+    "input residency shortfall",
+    "collector failure",
+    "report failure",
+    "input cleanup exception",
+    "input release flag false"
+  ],
+  "source_integrity": "Existing archive and file-content integrity protocol retained; only toy data processed in this implementation stage",
+  "checks": {
+    "python_syntax": "PASS",
+    "new_commands_only_replace_seed_switch": "PASS",
+    "query_phase_and_group": "PASS",
+    "inode_deduplication_and_cost": "PASS",
+    "cleanup_and_failure_retention": "PASS",
+    "first_failed_stage_retained_if_collector_also_fails": "PASS"
+  },
+  "live_validation": "NOT_RUN",
+  "new_services": 0,
+  "new_guests": 0,
+  "new_task_actions": 0,
+  "new_real_residency_queries": 0,
+  "remaining": "One complete Prettier run may serve as the first live validation; Sphinx and Xarray require greater than 56 and 62 GiB free before their separate live runs",
+  "artifact_directory": ".artifacts/host-persistent-three-tasks-implementation-20261029"
+}

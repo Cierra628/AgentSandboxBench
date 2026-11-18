@@ -6,16 +6,58 @@ import sys
 import tempfile
 import types
 import unittest
-from unittest.mock import patch
+from unittest.mock import MagicMock, patch
 sys.path.insert(0,str(Path(__file__).resolve().parents[1]/'scripts'))
 import external_guest_proxy as relay
 
 
 class RelayRuleTests(unittest.TestCase):
+    def test_owned_relay_copy_accepts_only_selected_private_pools(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            root=Path(tmp);out=self.setup_output(root);up=root/'upstream';(up/'scripts').mkdir(parents=True)
+            original="allowed = [ipaddress.ip_network('10.211.0.0/16'), ipaddress.ip_network('10.212.0.0/16'), ipaddress.ip_network('169.254.0.20/30')]\n"
+            source=up/'scripts/agentenv_workload_proxy.py';source.write_text(original)
+            child=MagicMock(pid=1);child.poll.return_value=None
+            sock=MagicMock();sock.__enter__.return_value.getsockname.return_value=('192.0.2.17',34567)
+            def opened(argv,**kw):
+                (out/'guest-proxy-ready.json').write_text(json.dumps(dict(pid=1,address='192.0.2.17',port=34567)))
+                return child
+            with patch.dict(relay.os.environ,{'ASB_ISOLATED_UNUSED_NETWORK_POOLS':'on'}),\
+                    patch.object(relay.subprocess,'check_output',side_effect=['[]','[{"dst":"10.211.0.1"}]']),\
+                    patch.object(relay.subprocess,'run'),patch.object(relay.socket,'socket',return_value=sock),\
+                    patch.object(relay.subprocess,'Popen',side_effect=opened):
+                proxy=relay.GuestProxy(out,up,proxy_url='http://127.0.0.1:17891')
+                proxy.start();proxy.stop()
+            copied=(out/'guest-proxy.py').read_text()
+            self.assertIn('10.213.0.0/16',copied);self.assertIn('10.214.0.0/16',copied)
+            self.assertNotIn('10.211.0.0/16',copied);self.assertEqual(source.read_text(),original)
+            self.assertEqual(json.loads((out/'guest-proxy-network.json').read_text())['pools'],['10.213.0.0/16','10.214.0.0/16'])
+
     def setup_output(self,root):
         out=root/'owned-relay';out.mkdir()
         (out/'guest-proxy-ready.json').write_text(json.dumps(dict(address='192.0.2.17',port=34567,pid=1)))
         return out
+
+    def test_explicit_pool_ignores_foreign_route_and_uses_same_pool_for_cleanup(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            out=self.setup_output(Path(tmp));present=False;commands=[]
+            def run(argv,**kw):
+                nonlocal present
+                commands.append(argv)
+                if '-C' in argv:return types.SimpleNamespace(returncode=0 if present else 1)
+                if '-I' in argv:present=True
+                if '-D' in argv:present=False
+                return types.SimpleNamespace(returncode=0)
+            def query(argv,**kw):
+                if argv[0]=='ip':return json.dumps([dict(dst='10.211.0.1',dev='veth-foreign'),dict(dst='10.213.0.1',dev='veth-owned')])
+                return '[1:60] -A INPUT -s 10.213.0.1/32 -m comment --comment asb-relay-owned-relay -j ACCEPT\n'
+            with patch.object(relay.subprocess,'run',side_effect=run),patch.object(relay.subprocess,'check_output',side_effect=query):
+                receipt=relay.allow_guest_relay(out,'guest',source_pool='10.213.0.0/16')
+                self.assertEqual(receipt['source'],'10.213.0.1')
+                relay.remove_guest_relay_rule(out)
+            self.assertFalse(present)
+            self.assertTrue(all('10.211.0.1/32' not in c for c in commands))
+            self.assertEqual(json.loads((out/'guest-proxy-rule.json').read_text())['status'],'REMOVED')
 
     def test_exact_rule_counters_and_cleanup(self):
         with tempfile.TemporaryDirectory() as tmp:

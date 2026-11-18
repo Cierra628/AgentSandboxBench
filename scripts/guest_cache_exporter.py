@@ -5,7 +5,6 @@ import mmap
 import os
 from pathlib import Path
 import struct
-import sys
 import time
 
 from kernel_cache_metadata import decode, decode_header
@@ -19,9 +18,23 @@ STOP = 1 << 63
 
 
 def main():
-    sid, directory = sys.argv[1], Path(sys.argv[2])
+    import argparse
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument('sandbox_id')
+    parser.add_argument('directory', type=Path)
+    parser.add_argument('--file-cache-path', type=Path,
+                        help='Explicit one-file query plus read-only DAMON sidecars; needs extended guest kernel')
+    args = parser.parse_args()
+    sid, directory = args.sandbox_id, args.directory
     assert directory.parent == Path('/dev/shm') and directory.name.startswith('asb-export-')
     directory.mkdir(exist_ok=False)
+    if args.file_cache_path is not None:
+        assert args.file_cache_path.is_absolute()
+        # Unsupported kernels fail before readiness, even if the target is not yet created.
+        assert Path('/proc/asb_filecache').is_file(), 'named-file kernel query unavailable'
+        from guest_file_cache_query import capture
+        sidecars = directory/'file-query'
+        sidecars.mkdir()
     memory = mmap.mmap(-1, PAGE + CAPACITY, flags=mmap.MAP_PRIVATE | mmap.MAP_ANONYMOUS)
     address = ctypes.addressof(ctypes.c_char.from_buffer(memory))
     libc = ctypes.CDLL(None, use_errno=True)
@@ -47,6 +60,9 @@ def main():
                          locked_anonymous_bytes=len(memory), capacity_bytes=CAPACITY,
                          iomem=Path('/proc/iomem').read_text(), kernel=os.uname().release,
                          pid=os.getpid(), boot_id=Path('/proc/sys/kernel/random/boot_id').read_text().strip())
+        if args.file_cache_path is not None:
+            bootstrap['file_cache_query'] = dict(version=1, path=str(args.file_cache_path),
+                endpoint='/proc/asb_filecache', sidecar_directory=str(sidecars))
         (directory/'bootstrap.json').write_text(json.dumps(bootstrap) + '\n')
         previous = count = cpu_sum = 0
         deadline = time.monotonic() + 900
@@ -60,6 +76,8 @@ def main():
                 struct.pack_into('<Q', memory, PUBLICATION + 8, count * 2 - 1)
                 cpu_start = time.process_time_ns()
                 started = time.monotonic_ns()
+                if args.file_cache_path is not None:
+                    capture(sidecars, count, args.file_cache_path, sid, bootstrap['boot_id'])
                 raw = Path('/proc/asb_pagecache').read_bytes()
                 decode_header(raw)
                 assert len(raw) <= CAPACITY, 'guest metadata exceeds export capacity'

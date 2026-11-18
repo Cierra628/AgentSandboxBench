@@ -1,0 +1,69 @@
+{
+  "date": "2026-10-31",
+  "status": "OFFLINE_IMPLEMENTATION_PASS",
+  "tasks": [
+    "sphinx-doc__sphinx-7590",
+    "pydata__xarray-6992"
+  ],
+  "runtime_files": [
+    "scripts/prettier_no_proxy.py",
+    "scripts/host_persistent_input.py",
+    "scripts/validate_isolated_agentenv.py",
+    "scripts/run_xarray6992.py"
+  ],
+  "runtime_scope": "Explicit local-no-proxy persistent full single task off control; old defaults remain unchanged",
+  "tests": {
+    "total": 104,
+    "new": 12,
+    "existing": 92,
+    "result": "PASS",
+    "entry": "PYTHONPATH=scripts:tests python3 -B -m unittest test_python_no_proxy_sampling_off test_prettier_no_proxy_sampling_off test_prettier_no_proxy test_sphinx_no_proxy test_xarray_no_proxy test_host_persistent_input test_host_persistent_tasks test_host_current_sampling_control test_host_current_tasks -v",
+    "log": ".artifacts/python-local-no-proxy-off-implementation-20261031/regressions.log"
+  },
+  "checks": {
+    "actual_configuration_native_cli": "PASS_ONLY_TWO_SAMPLING_FIELDS_CHANGED",
+    "native_to_leaf_dispatch": "PASS_POLICIES_AND_PERSISTENT_FLAG_PRESERVED",
+    "host_thread_off": "PASS_MOCKED_WORKFLOW",
+    "guest_sampler_off": "PASS_ACTUAL_CONSTRUCTOR_BRANCH",
+    "off_boundary_reads_and_phase": "ABSENT_IN_GENERATED_RUNNERS",
+    "before_guest_counters": null,
+    "running_memory": "NOT_MEASURED",
+    "common_input_query": "AFTER_ISOLATED_RUNTIME_CLEANUP_BEFORE_INPUT_RELEASE",
+    "query_timing": "PRESERVED",
+    "report": "PASS_REAL_WRITER_WITH_TOY_DATA_NULL_MEMORY_AND_ORIGINAL_FAILURES",
+    "failure_input_retention": "PASS_MOCKED",
+    "old_entry_points": "PASS_REGRESSIONS",
+    "wrong_policy_short_checkpoint_and_analysis": "REJECTED",
+    "task_command_and_timing_block": "UNCHANGED"
+  },
+  "initial_test_errors": "New tests lacked container in mocked dispatch and compiled an early return outside a function. Repaired test context/source selection only; initial log retained.",
+  "accepted_test_contract_change": "Python local off is now accepted; former rejection checks moved to positive full-route tests plus short/conflicting-on rejection checks. Continuous non-light local mode remains rejected.",
+  "syntax": "PASS",
+  "help_exit_codes": {
+    "run_host_file_workflow.py": 0,
+    "validate_isolated_agentenv.py": 0,
+    "run_xarray6992.py": 0,
+    "host_persistent_input.py": 0
+  },
+  "live_validation": "NOT_RUN",
+  "network": "NOT_USED",
+  "archive_restore": "NOT_RUN",
+  "next_stage": {
+    "task": "sphinx7590",
+    "order": [
+      "off",
+      "on",
+      "on",
+      "off"
+    ],
+    "runs": 4,
+    "actions": 140,
+    "guest_gib": 4,
+    "vcpu": 2,
+    "default_reclaim": true,
+    "preparation_disk_strictly_above_gib": 56,
+    "preparation_memavailable_strictly_above_gib": 64,
+    "runtime_allocation_disk_strictly_above_gib": 34,
+    "authorization": "separate live stage; Xarray scheduled separately"
+  }
+}

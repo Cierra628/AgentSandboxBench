@@ -1,0 +1,94 @@
+{
+  "date": "2026-10-28",
+  "status": "OFFLINE_VALIDATED_LIVE_NOT_RUN",
+  "scope": "Ordinary complete single-task lightweight host-current control; no service or sandbox launch",
+  "config": "configs/platform-prettier6604-host-current-off.json",
+  "config_change": {
+    "monitor_mode": "off"
+  },
+  "retained": [
+    "fresh measurement cgroup before input preparation",
+    "MemoryAccounting=yes",
+    "IOAccounting=yes",
+    "preparation and original task checks",
+    "tool and controller timing",
+    "default reclaim and sync policy",
+    "disk resource guard",
+    "final writable-file and volume audits",
+    "owned cleanup and failed-volume retention"
+  ],
+  "disabled": [
+    "guest periodic meminfo",
+    "guest boundary memory and vmstat",
+    "host periodic counters",
+    "host before-guest memory baseline",
+    "PSS",
+    "final mincore inventory"
+  ],
+  "off_report": {
+    "guest_memory": "NOT_MEASURED",
+    "host_sampling": "NOT_REQUESTED",
+    "current_before_guest_bytes": null,
+    "current_peak_bytes": null,
+    "current_peak_increase_bytes": null,
+    "file_peak_bytes": null,
+    "memory_curve": null
+  },
+  "validation": {
+    "status": "PASS",
+    "test_count": 84,
+    "suites": {
+      "test_host_current_tasks": 7,
+      "test_host_current_sampling_control": 5,
+      "test_host_file_monitor": 15,
+      "test_platform_tasks": 14,
+      "test_host_tool_replay": 10,
+      "test_exp1_light": 5,
+      "test_light_task_metrics": 7,
+      "test_host_scaling": 12,
+      "test_host_file_matched_task": 9
+    },
+    "log": ".artifacts/host-current-off-offline-20261028/regression-tests.log",
+    "actual_offline_cli": [
+      {
+        "profile": "prettier6604",
+        "status": "VALIDATED",
+        "log": ".artifacts/host-current-off-offline-20261028/platform-prettier6604-host-current-off-check.json"
+      },
+      {
+        "profile": "sphinx7590",
+        "status": "VALIDATED",
+        "log": ".artifacts/host-current-off-offline-20261028/sphinx7590-off-check.json"
+      },
+      {
+        "profile": "xarray6992",
+        "status": "VALIDATED",
+        "log": ".artifacts/host-current-off-offline-20261028/xarray6992-off-check.json"
+      }
+    ],
+    "source_snapshot": ".artifacts/host-current-off-offline-20261028/after",
+    "diff": ".artifacts/host-current-off-offline-20261028/changes.diff"
+  },
+  "live_validation": {
+    "status": "NOT_RUN",
+    "new_services": 0,
+    "new_guests": 0,
+    "real_task_actions": 0,
+    "end_to_end_sampling_overhead": null,
+    "scope": "Local temporary-file/process tests are not sandbox or task runs"
+  },
+  "next_proposed": {
+    "task": "prettier__prettier-6604",
+    "order": [
+      "off",
+      "on"
+    ],
+    "runs": 2,
+    "guests": 2,
+    "actions_per_run": 29,
+    "volume_gib": 8,
+    "minimum_start_free_gib_exclusive": 34,
+    "automatic_launch": false,
+    "scope": "One pair only; preserve all original checks and report separate timing windows"
+  }
+}

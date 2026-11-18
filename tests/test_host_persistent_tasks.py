@@ -192,7 +192,7 @@ class PersistentTaskWorkflowTests(unittest.TestCase):
             if failure=='proxy-proof':outer['local_no_proxy']['guest_check']='FAIL'
             write(storage/'result.json',outer)
         scripts=base/'scripts';scripts.mkdir()
-        for name in ('platform_tasks.py','use_platform.py','use-platform.sh','host_file_monitor.py','report_host_file.py',
+        for name in ('platform_tasks.py','use_platform.py','use-platform.sh','host_file_monitor.py','experiment_memory.py','report_host_file.py',
                      'run_host_file_workflow.py','run-host-file-monitor.sh','host_persistent_input.py'):(scripts/name).write_text('# toy\n')
         if short or local:(scripts/'prettier_no_proxy.py').write_text('# toy\n')
         class Collector:

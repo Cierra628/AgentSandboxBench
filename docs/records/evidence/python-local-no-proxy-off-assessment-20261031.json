@@ -1,0 +1,235 @@
+{
+  "date": "2026-10-31",
+  "status": "OFFLINE_ASSESSMENT_COMPLETE",
+  "tasks": [
+    {
+      "task": "sphinx7590",
+      "task_id": "sphinx-doc__sphinx-7590",
+      "status": "OFFLINE_ASSESSMENT_COMPLETE",
+      "configuration_difference": {
+        "monitor_mode": "off"
+      },
+      "current_rejections": {
+        "local_config": "local-no-proxy requires a persistent complete light current-only task or Prettier sampling-off control",
+        "persistent_config": "persistent input requires a complete sampled current-only task or local Prettier sampling-off control, with default reclaim",
+        "actual_persistent_commands": "persistent input requires a complete sampled current-only task or local Prettier sampling-off control, with default reclaim",
+        "native_persistent_option": "persistent cache requires a sampled current pair/full task or local Prettier sampling-off control, default reclaim and no RAM seed",
+        "native_local_guard": "local-no-proxy requires persistent light current-only input or full Prettier sampling-off control",
+        "outer_entry": "local-no-proxy requires a persistent complete light current-only task or Prettier sampling-off control",
+        "leaf_local_guard": "local-no-proxy requires complete persistent light Sphinx pipeline-v2 or approved Xarray replay"
+      },
+      "proposed_native_delta": {
+        "light_monitor": [
+          true,
+          false
+        ],
+        "python_monitor_mode": [
+          "continuous",
+          "off"
+        ]
+      },
+      "proposed_native_arguments": "Derived from existing nonpersistent off command by replacing only seed flag; NOT an accepted persistent-off invocation",
+      "persistent_sampling_flag_remains": true,
+      "existing_off_runtime_constructor": "Not called",
+      "boundary_rows_in_saved_on": {
+        "guest-memory.tsv": 80,
+        "guest-vmstat.tsv": 80
+      },
+      "generated_off_runner": "No memory/vmstat reads, per-step monitor or guest sampling marker; not executed",
+      "timed_command_block": "UNCHANGED",
+      "selected_runtime_and_verifier_nodes_match_saved_source": true,
+      "replay_policy": "sphinx-pipeline-v2",
+      "correctness": {
+        "original_actions": 35,
+        "diagnostic_status": "PASS",
+        "strict_replay_status": "FAIL",
+        "pipeline_policy_version": 2,
+        "original_final_tests_passed": 25,
+        "independent_cases_passed": 7,
+        "official": {
+          "status": "FAIL",
+          "exit_code": 1,
+          "passed": 24,
+          "failed": 1,
+          "skipped": 0,
+          "failed_tests": [
+            "tests/test_domain_cpp.py::test_expressions"
+          ],
+          "skipped_tests": [],
+          "F2P_passed": 0,
+          "F2P_total": 1,
+          "P2P_passed": 24,
+          "P2P_total": 24,
+          "scope": "SWE-bench selected C++ tests and test patch; direct image pytest, not full official Docker harness"
+        },
+        "write_boundary": "PASS",
+        "readonly_root": "PASS",
+        "fixed_volume": "PASS",
+        "cleanup": "PASS"
+      },
+      "source_result": "results/sphinx-local-no-proxy-20261031/summary.json",
+      "input_file_count": 116,
+      "runtime_gib": 8,
+      "preparation_disk_strictly_above_gib": 56,
+      "source_gib": 20,
+      "input_budget_gib": 10
+    },
+    {
+      "task": "xarray6992",
+      "task_id": "pydata__xarray-6992",
+      "status": "OFFLINE_ASSESSMENT_COMPLETE",
+      "configuration_difference": {
+        "monitor_mode": "off"
+      },
+      "current_rejections": {
+        "local_config": "local-no-proxy requires a persistent complete light current-only task or Prettier sampling-off control",
+        "persistent_config": "persistent input requires a complete sampled current-only task or local Prettier sampling-off control, with default reclaim",
+        "actual_persistent_commands": "persistent input requires a complete sampled current-only task or local Prettier sampling-off control, with default reclaim",
+        "native_persistent_option": "persistent cache requires a sampled current pair/full task or local Prettier sampling-off control, default reclaim and no RAM seed",
+        "native_local_guard": "local-no-proxy requires persistent light current-only input or full Prettier sampling-off control",
+        "outer_entry": "local-no-proxy requires a persistent complete light current-only task or Prettier sampling-off control",
+        "leaf_local_guard": "local-no-proxy requires complete persistent light Sphinx pipeline-v2 or approved Xarray replay"
+      },
+      "proposed_native_delta": {
+        "light_monitor": [
+          true,
+          false
+        ],
+        "python_monitor_mode": [
+          "continuous",
+          "off"
+        ]
+      },
+      "proposed_native_arguments": "Derived from existing nonpersistent off command by replacing only seed flag; NOT an accepted persistent-off invocation",
+      "persistent_sampling_flag_remains": true,
+      "existing_off_runtime_constructor": "Not called",
+      "boundary_rows_in_saved_on": {
+        "guest-memory.tsv": 80,
+        "guest-vmstat.tsv": 80
+      },
+      "generated_off_runner": "No memory/vmstat reads, per-step monitor or guest sampling marker; not executed",
+      "timed_command_block": "UNCHANGED",
+      "selected_runtime_and_verifier_nodes_match_saved_source": true,
+      "replay_policy": "xarray-approved-sigpipe",
+      "correctness": {
+        "original_actions": 35,
+        "diagnostic_status": "PASS",
+        "strict_replay_status": "FAIL",
+        "replay_policy": "xarray-approved-sigpipe",
+        "observed_exit_codes_status": "PASS",
+        "exit_differences": [],
+        "original_last_two_test_calls": [
+          {
+            "passed": 3,
+            "failed": 1
+          },
+          {
+            "passed": 129,
+            "failed": 1
+          }
+        ],
+        "negative_control": "PASS",
+        "final_invariant": "PASS",
+        "official": {
+          "status": "FAIL",
+          "exit_code": 1,
+          "passed": 945,
+          "failed": 12,
+          "skipped": 0,
+          "failed_tests": [
+            "xarray/tests/test_dataarray.py::TestDataArray::test_reset_index",
+            "xarray/tests/test_dataset.py::TestDataset::test_reset_index",
+            "xarray/tests/test_dataset.py::TestDataset::test_reset_index_drop_dims",
+            "xarray/tests/test_dataset.py::TestDataset::test_reset_index_drop_convert[foo-False-dropped0-converted0-renamed0]",
+            "xarray/tests/test_dataset.py::TestDataset::test_reset_index_drop_convert[foo-True-dropped1-converted1-renamed1]",
+            "xarray/tests/test_dataset.py::TestDataset::test_reset_index_drop_convert[x-False-dropped2-converted2-renamed2]",
+            "xarray/tests/test_dataset.py::TestDataset::test_reset_index_drop_convert[x-True-dropped3-converted3-renamed3]",
+            "xarray/tests/test_dataset.py::TestDataset::test_reset_index_drop_convert[arg4-False-dropped4-converted4-renamed4]",
+            "xarray/tests/test_dataset.py::TestDataset::test_reset_index_drop_convert[arg5-True-dropped5-converted5-renamed5]",
+            "xarray/tests/test_dataset.py::TestDataset::test_reset_index_drop_convert[arg6-False-dropped6-converted6-renamed6]",
+            "xarray/tests/test_dataset.py::TestDataset::test_reset_index_drop_convert[arg7-True-dropped7-converted7-renamed7]",
+            "xarray/tests/test_groupby.py::test_groupby_drops_nans"
+          ],
+          "skipped_tests": [],
+          "F2P_passed": 0,
+          "F2P_total": 12,
+          "P2P_passed": 945,
+          "P2P_total": 945,
+          "scope": "SWE-bench test patch and exact F2P/P2P case selection; direct image pytest, not full official Docker harness"
+        },
+        "write_boundary": "PASS",
+        "readonly_root": "PASS",
+        "fixed_volume": "PASS",
+        "cleanup": "PASS"
+      },
+      "source_result": "results/xarray-local-no-proxy-20261031/summary.json",
+      "input_file_count": 116,
+      "runtime_gib": 8,
+      "preparation_disk_strictly_above_gib": 62,
+      "source_gib": 24,
+      "input_budget_gib": 12
+    }
+  ],
+  "minimal_runtime_files": [
+    "scripts/prettier_no_proxy.py",
+    "scripts/host_persistent_input.py",
+    "scripts/validate_isolated_agentenv.py",
+    "scripts/run_xarray6992.py"
+  ],
+  "unchanged_reusable": [
+    "scripts/run_host_file_workflow.py",
+    "scripts/platform_tasks.py",
+    "scripts/report_task_overview.py",
+    "scripts/sandbox_runtime_monitor.py",
+    "scripts/task_metrics_prefix.py"
+  ],
+  "available_disk_bytes": 66880987136,
+  "scope": "Source, small saved metadata and generated runner text only; no implementation/runtime/service/network/archive/mincore/deletion",
+  "source_locations": {
+    "scripts/prettier_no_proxy.py": {
+      "require_mode": [
+        106,
+        118
+      ]
+    },
+    "scripts/host_persistent_input.py": {
+      "single_config": [
+        43,
+        53
+      ],
+      "native_option": [
+        74,
+        87
+      ],
+      "observe_input": [
+        221,
+        241
+      ]
+    },
+    "scripts/validate_isolated_agentenv.py": {
+      "ordinary_current_only": [
+        114,
+        133
+      ]
+    },
+    "scripts/run_xarray6992.py": {
+      "run": [
+        23,
+        480
+      ]
+    },
+    "scripts/platform_tasks.py": {
+      "run": [
+        442,
+        587
+      ]
+    },
+    "scripts/report_task_overview.py": {
+      "write_tool_report": [
+        64,
+        94
+      ]
+    }
+  },
+  "generated_off_phase_markers": "ABSENT_USING_ACTUAL_GUEST_ROOT"
+}

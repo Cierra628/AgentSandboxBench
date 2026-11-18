@@ -1,0 +1,101 @@
+{
+  "status": "BLOCKED",
+  "scope": "focused online task execution awaits usable model API; previous platform acceptance and frozen results retained",
+  "task_id": "prettier__prettier-6604",
+  "task_config": "configs/online-task-prettier6604-focused.json",
+  "model": "zai-org/GLM-5.3-Flash",
+  "budget": {
+    "model_responses": 20,
+    "shell_calls": 30,
+    "online_seconds": 480
+  },
+  "changed": "execution plan plus remaining request/tool counts; model, tool schema, token limit, task image and resources unchanged",
+  "local_tests": {
+    "status": "PASS",
+    "count": 11
+  },
+  "config_check": "PASS",
+  "real_attempts": [
+    {
+      "workflow": ".artifacts/platform-tasks/20261012T110825Z-1101138",
+      "storage_run": ".artifacts/storage-isolated-service/20261012T110946Z-1102369",
+      "status": "FAIL",
+      "first_failure": "model HTTP 503; service code 50508; System is too busy now",
+      "successful_task_responses": 0,
+      "tool_calls": 0,
+      "new_trajectory": "NOT_CREATED",
+      "new_patch": "NOT_CREATED",
+      "task_evaluation": "NOT_RUN",
+      "request_sha256": "01dbc3c0d15b5acc235f772baf035c113f06f43a334ee9aea0f42589277e668b",
+      "cleanup": {
+        "owned_container_removed": true,
+        "mount_and_loop_removed": true,
+        "failed_fixture_retained": true,
+        "original_firecracker_identities_unchanged": true,
+        "original_source_firecracker_identities_unchanged": true,
+        "original_service_unchanged": true
+      },
+      "backup_compressed_bytes": 123811429,
+      "backup_sha256": "a3816b3c674ee4dd2f5f7e131a06d77635645ca86bee5c67f35846a61ba094ab",
+      "backup_decompression_hash_status": "PASS",
+      "source_volume_removed": true
+    },
+    {
+      "workflow": ".artifacts/platform-tasks/20261012T111359Z-1106800",
+      "storage_run": ".artifacts/storage-isolated-service/20261012T111518Z-1107710",
+      "status": "FAIL",
+      "first_failure": "model HTTP 503; service code 50508; System is too busy now",
+      "successful_task_responses": 0,
+      "tool_calls": 0,
+      "new_trajectory": "NOT_CREATED",
+      "new_patch": "NOT_CREATED",
+      "task_evaluation": "NOT_RUN",
+      "request_sha256": "01dbc3c0d15b5acc235f772baf035c113f06f43a334ee9aea0f42589277e668b",
+      "cleanup": {
+        "owned_container_removed": true,
+        "mount_and_loop_removed": true,
+        "failed_fixture_retained": true,
+        "original_firecracker_identities_unchanged": true,
+        "original_source_firecracker_identities_unchanged": true,
+        "original_service_unchanged": true
+      },
+      "backup_compressed_bytes": 123108429,
+      "backup_sha256": "f5bb91255004082e1f73cc7ea7706c8ac280ef66f2b769af8f2986df68f52b11",
+      "backup_decompression_hash_status": "PASS",
+      "source_volume_removed": true
+    }
+  ],
+  "short_diagnostic": {
+    "http_response": "RECEIVED",
+    "elapsed_ns": 1461000641,
+    "usage": {
+      "prompt_tokens": 16,
+      "completion_tokens": 32,
+      "total_tokens": 48,
+      "completion_tokens_details": {
+        "reasoning_tokens": 0
+      },
+      "prompt_tokens_details": {
+        "cached_tokens": 0
+      },
+      "prompt_cache_hit_tokens": 0,
+      "prompt_cache_miss_tokens": 16
+    },
+    "finish_reason": "length",
+    "assistant_final_content_empty": true,
+    "scope": "transport response only; truncated reasoning, not completed model output or tools validation"
+  },
+  "request_structure_check": {
+    "status": "PASS",
+    "unchanged_fields": [
+      "model",
+      "tools",
+      "max_tokens"
+    ],
+    "changed": "system budget guidance and user execution plan only",
+    "scope": "offline request structure; does not prove API availability or exclude provider limits"
+  },
+  "limitation": "503 cause inside the provider is unknown; short response does not demonstrate full tool request recovery; no new trajectory metrics or repair outcome inferred",
+  "next_step": "when API is available, run focused task once, freeze/replay; physical repair boundaries only if a source change is produced",
+  "host_available_after_cleanup_gib": 49.521915435791016
+}

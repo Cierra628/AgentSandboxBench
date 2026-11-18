@@ -1,0 +1,28 @@
+{
+  "status": "LIVE_NETWORK_FAILED_OFFLINE_NFT_FIX_READY",
+  "task_calls_executed": 0,
+  "guest_sampler_started": false,
+  "rule_added_and_removed": true,
+  "rule_packets_before_head": 0,
+  "rule_packets_after_head": 0,
+  "rule_backend_in_failed_attempt": "legacy",
+  "host_default_iptables": "iptables v1.8.10 (legacy)",
+  "host_nft_iptables": "iptables v1.8.10 (nf_tables)",
+  "private_service_iptables_link": "/usr/sbin/iptables-nft",
+  "fix": "Rule add/check/delete and counter snapshots now explicitly use iptables-nft / iptables-nft-save, matching the fixed private-service image.",
+  "tests": {
+    "new_rule_tests": 5,
+    "cython_tests": 11,
+    "old_external_tests": 13,
+    "total": 29
+  },
+  "cleanup": "PASS: guest/service/relay/address/rule/loop cleaned; no active Docker or Firecracker; both firewall backends checked for absent owned rules",
+  "failed_volume": ".artifacts/storage-isolated-service/20261030T091812Z-2649167/volume.ext4",
+  "failed_volume_size_bytes": 34359738368,
+  "failed_volume_no_mount_loop_user": true,
+  "available_bytes": 33392398336,
+  "source_returned_stopped": true,
+  "deletion": "New failed volume retained; awaiting separate deletion authorization",
+  "workflow": ".artifacts/host-external-workload/20261030T091811Z-2649156",
+  "storage": ".artifacts/storage-isolated-service/20261030T091812Z-2649167"
+}

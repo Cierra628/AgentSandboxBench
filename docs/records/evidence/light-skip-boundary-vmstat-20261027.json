@@ -1,0 +1,66 @@
+{
+  "status": "PASS_OFFLINE_IMPLEMENTATION",
+  "date": "2026-10-27",
+  "option": "light_skip_boundary_vmstat",
+  "default": false,
+  "scope": "Sampled ordinary seven-guest create-all-before-setup light GRPO only",
+  "local_tests": {
+    "passed": 46,
+    "failed": 0,
+    "log": ".artifacts/light-skip-boundary-vmstat-20261027/tests.log"
+  },
+  "local_synthetic_fixture": {
+    "actions": 2,
+    "expected_exit_codes": [
+      0,
+      1
+    ],
+    "default_vmstat_reads": 6,
+    "candidate_vmstat_reads": 0,
+    "candidate_vmstat_rows": 0,
+    "boundary_memory_rows": 6,
+    "peak_unchanged": true
+  },
+  "compatibility": {
+    "status": "PASS_OFFLINE_COMPATIBILITY",
+    "default_runner": "BYTE_IDENTICAL",
+    "periodic_collector_and_lifecycle": "AST_UNCHANGED",
+    "nested_controller_and_cleanup": "AST_UNCHANGED",
+    "saved_statistics": [
+      {
+        "source": "docs/records/evidence/grpo-light-repeats-20261026.json",
+        "pairs": 3,
+        "actions": 1134,
+        "samples": 5767,
+        "status": "PASS"
+      },
+      {
+        "source": ".artifacts/grpo-light-ten-20261026/summary.json",
+        "pairs": 10,
+        "actions": 3780,
+        "samples": 22497,
+        "status": "PASS"
+      },
+      {
+        "source": "docs/records/evidence/grpo-create-setup-repeats-20261026.json",
+        "pairs": 3,
+        "actions": 1134,
+        "samples": 5625,
+        "status": "PASS"
+      }
+    ],
+    "new_guests": 0,
+    "new_actions": 0
+  },
+  "cli_help_entries": 3,
+  "new_live_guests": 0,
+  "new_live_actions": 0,
+  "live_validation": "NOT_RUN",
+  "next": {
+    "scope": "One off-on pair: sampling disabled versus candidate sampling",
+    "guests": 14,
+    "actions": 378,
+    "volume_gib": 16,
+    "minimum_free_gib_exclusive": 42
+  }
+}

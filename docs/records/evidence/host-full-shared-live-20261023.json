@@ -1,0 +1,216 @@
+{
+  "status": "PASS_FULL_SHARED_LIVE_PAIR",
+  "runs": [
+    {
+      "schedule": "grpo",
+      "workflow": ".artifacts/platform-tasks/20261022T170658Z-431791",
+      "storage": ".artifacts/storage-isolated-service/20261022T170816Z-432474",
+      "report": ".artifacts/platform-tasks/report-20261022T170658Z-431791",
+      "actual_actions": 189,
+      "logical_actions": 189,
+      "objects": [
+        {
+          "category": "shared_readonly_backing",
+          "object_key": [
+            "block",
+            66304
+          ],
+          "users": [
+            "backbone",
+            "early_1",
+            "early_2",
+            "early_3",
+            "late_1",
+            "late_2",
+            "late_3"
+          ],
+          "checkpoint_steps": [],
+          "origin": "ACTIVE_BACKING",
+          "mapping_length": 68719476736,
+          "resident_bytes": 13074432,
+          "query_ns": 1596605344
+        }
+      ],
+      "excluded_devices": 35,
+      "excluded_status": "NOT_REQUESTED",
+      "excluded_resident_bytes": null,
+      "phase_labels": [
+        "before-guests",
+        "roots-ready",
+        "paths-finished"
+      ],
+      "timings": {
+        "tool_ns": 61163322990,
+        "paths_ns": 24126605973,
+        "query_ns": 1615340896,
+        "metadata_ns": 228576230,
+        "metadata_thread_cpu_ns": 208640790,
+        "query_thread_cpu_ns": 1607258279,
+        "rollout_ns": 31015320150,
+        "after_paths_metadata_ns": 119626434,
+        "checks_and_bookkeeping_after_query_ns": 5153746847
+      },
+      "host_samples": 1397,
+      "guest_sessions": 7,
+      "guest_samples": 2103,
+      "host_max_sample_gap_ns": 100444063,
+      "pss": "NOT_REQUESTED",
+      "baseline_file_dirty_bytes": 921600,
+      "original_official_per_guest": {
+        "passed": 0,
+        "failed": 2,
+        "status": "FAIL_PRESERVED"
+      },
+      "cleanup": "PASS"
+    },
+    {
+      "schedule": "bpo",
+      "workflow": ".artifacts/platform-tasks/20261022T170921Z-435044",
+      "storage": ".artifacts/storage-isolated-service/20261022T171040Z-435758",
+      "report": ".artifacts/platform-tasks/report-20261022T170921Z-435044",
+      "actual_actions": 84,
+      "logical_actions": 189,
+      "objects": [
+        {
+          "category": "shared_readonly_backing",
+          "object_key": [
+            "block",
+            66304
+          ],
+          "users": [
+            "backbone",
+            "early_1",
+            "early_2",
+            "early_3",
+            "late_1",
+            "late_2",
+            "late_3"
+          ],
+          "checkpoint_steps": [],
+          "origin": "ACTIVE_BACKING",
+          "mapping_length": 68719476736,
+          "resident_bytes": 13144064,
+          "query_ns": 1545637347
+        },
+        {
+          "category": "snapshot_memory_device",
+          "object_key": [
+            "block",
+            66309
+          ],
+          "users": [
+            "early_1",
+            "early_2",
+            "early_3"
+          ],
+          "checkpoint_steps": [
+            11
+          ],
+          "origin": "ACTIVE_BACKING",
+          "mapping_length": 4294967296,
+          "resident_bytes": 457457664,
+          "query_ns": 141778743
+        },
+        {
+          "category": "snapshot_memory_device",
+          "object_key": [
+            "block",
+            66313
+          ],
+          "users": [
+            "late_1",
+            "late_2",
+            "late_3"
+          ],
+          "checkpoint_steps": [
+            24
+          ],
+          "origin": "ACTIVE_BACKING",
+          "mapping_length": 4294967296,
+          "resident_bytes": 606748672,
+          "query_ns": 108673020
+        },
+        {
+          "category": "snapshot_memory_layer",
+          "object_key": [
+            "regular",
+            1795,
+            1573114
+          ],
+          "users": [
+            "early_1",
+            "early_2",
+            "early_3"
+          ],
+          "checkpoint_steps": [
+            11
+          ],
+          "origin": "CREATED_THIS_ROLLOUT",
+          "mapping_length": 576561152,
+          "resident_bytes": 576561152,
+          "query_ns": 23780279
+        },
+        {
+          "category": "snapshot_memory_layer",
+          "object_key": [
+            "regular",
+            1795,
+            1573137
+          ],
+          "users": [
+            "late_1",
+            "late_2",
+            "late_3"
+          ],
+          "checkpoint_steps": [
+            24
+          ],
+          "origin": "CREATED_THIS_ROLLOUT",
+          "mapping_length": 680542208,
+          "resident_bytes": 680542208,
+          "query_ns": 26459450
+        }
+      ],
+      "excluded_devices": 35,
+      "excluded_status": "NOT_REQUESTED",
+      "excluded_resident_bytes": null,
+      "phase_labels": [
+        "before-guests",
+        "root-ready",
+        "before-checkpoint-11",
+        "after-checkpoint-11",
+        "before-checkpoint-24",
+        "after-checkpoint-24",
+        "early-restores-ready",
+        "all-restores-ready",
+        "paths-finished"
+      ],
+      "timings": {
+        "tool_ns": 48824774876,
+        "paths_ns": 42920842304,
+        "query_ns": 1883613464,
+        "metadata_ns": 307200902,
+        "metadata_thread_cpu_ns": 278836124,
+        "query_thread_cpu_ns": 1872132062,
+        "rollout_ns": 50976343338,
+        "after_paths_metadata_ns": 133489904,
+        "checks_and_bookkeeping_after_query_ns": 6038397666
+      },
+      "host_samples": 1625,
+      "guest_sessions": 9,
+      "guest_samples": 1910,
+      "host_max_sample_gap_ns": 100135058,
+      "pss": "NOT_REQUESTED",
+      "baseline_file_dirty_bytes": 937984,
+      "original_official_per_guest": {
+        "passed": 0,
+        "failed": 2,
+        "status": "FAIL_PRESERVED"
+      },
+      "cleanup": "PASS"
+    }
+  ],
+  "total_original_actions": 273,
+  "source_returned_to_stopped": true,
+  "scope": "One complete run per schedule with new shared-file profile. Global resident cache of selected active backing identities; different executed actions and snapshot usage. No measured no-sharing baseline, per-page guest Cached attribution, complete rootfs lower coverage or whole RAM union. Categories not added; query and original tool time separate."
+}

@@ -300,9 +300,11 @@ def reuse_capacity_checkpoint(source,out,container,config_home,service_url,recov
 def run(args):
     monitor_mode=monitor_options(args);monitoring=monitor_mode!='off'
     schedule_smoke=False
-    if getattr(args,'schedule_smoke_metrics',False):
+    if getattr(args,'schedule_smoke_metrics',False) or getattr(args,'schedule_expanded_files',False) or getattr(args,'schedule_cache_layers',False) or getattr(args,'schedule_block_cache_method',None) is not None or getattr(args,'schedule_split_ram_cache',False) or getattr(args,'schedule_memory_backing_links',False):
         from schedule_smoke_metrics import options as smoke_options
         schedule_smoke=smoke_options(args)
+    from light_prettier_rollout import options as light_rollout_options
+    light_rollout=light_rollout_options(args);rollout_sampler=None
     local_no_proxy=os.environ.get('ASB_LOCAL_NO_PROXY')=='on'
     if local_no_proxy and (getattr(args,'schedule','grpo')!='grpo' or getattr(args,'role',None)):
         raise ValueError('local-no-proxy GRPO requires all seven cold guests')
@@ -407,6 +409,7 @@ def run(args):
                XDG_CONFIG_HOME=str(args.config_home),HOST_MONITOR_LIGHT='1')
     from sandbox_runtime_monitor import RuntimeMonitor, boundary_runner
     lock = threading.Lock();counter=0;events=[];controller=None;monitor=None;physical=None;success=False
+    experiment_sampler=None
     shared_files=None;full_rootfs=None
     scope='one corrected sampled branch' if args.role else 'GRPO: seven independent roots; concurrent full paths; no snapshots'
     if schedule=='bpo':scope='BPO early restore smoke: one parent prefix and one resumed branch' if args.role else 'BPO: one backbone, two full-VM snapshots, six resumed suffixes'
@@ -614,6 +617,7 @@ def run(args):
                     if full_rootfs and full_rootfs.cold:full_rootfs.cold.mark('segment-end',role=role,segment=segment)
 
             async def allocate(self,role,*,template=None,parent=''):
+                if rollout_sampler:await asyncio.to_thread(rollout_sampler.before_create,role,restored=bool(template))
                 begin=time.monotonic_ns()
                 if template:
                     sid=await asyncio.to_thread(cli,'restore-'+role,'start',template,'--detach','--timeout','1800',timeout=150)
@@ -626,6 +630,7 @@ def run(args):
                 if schedule=='tvcache':self.by_role[role]=sid
                 self.record('sandbox-ids.tsv',f'{role}\t{sid}\t{parent}\t{template or "root"}')
                 self.record('events.tsv',f'{time.time_ns()}\tstart\troot\t{parent}\t{sid}\t{template or ""}\t{time.monotonic_ns()-begin}')
+                if rollout_sampler:await asyncio.to_thread(rollout_sampler.register,role,sid)
                 return sid
 
             async def start(self,role,*,template=None,parent=''):
@@ -681,7 +686,10 @@ def run(args):
                 if shared_files:await asyncio.to_thread(shared_files.phase,'before-checkpoint-'+str(step),{})
                 if full_rootfs:await asyncio.to_thread(full_rootfs.phase,'before-checkpoint-'+str(step),{'backbone':sid})
                 await asyncio.to_thread(runtime.stop,sid,'checkpoint')
-                try:template=await super().capture_agentenv_template(sid,point)
+                if rollout_sampler:await asyncio.to_thread(rollout_sampler.saving,'backbone')
+                try:
+                    template=await super().capture_agentenv_template(sid,point)
+                    if rollout_sampler:await asyncio.to_thread(rollout_sampler.saved,'backbone')
                 finally:await asyncio.to_thread(runtime.start,sid,'backbone','after-checkpoint')
                 assert re.fullmatch(r'[a-fA-F0-9-]{36}',template)
                 self.checkpoints[template]=dict(parent=sid,step=step,boundary=boundary,process=proc)
@@ -925,8 +933,14 @@ def run(args):
         (out/'expected-official-audit.json').write_text(json.dumps(expected_official,indent=2)+'\n')
         code=out/'code';code.mkdir()
         if schedule_smoke:
-            for name in ('schedule_smoke_metrics.py','host_file_monitor.py','host_rootfs_layers.py','host_prefix_compare.py','prettier_no_proxy.py'):
+            for name in ('schedule_smoke_metrics.py','host_file_monitor.py','experiment_memory.py','host_rootfs_layers.py','host_prefix_compare.py','prettier_no_proxy.py'):
                 shutil.copy2(ROOT/'scripts'/name,code/name)
+            if getattr(args,'schedule_cache_layers',False):
+                for name in ('host_schedule_cache_layers.py','host_deleted_backing.py','isolated_storage.py','host_memory_backing_links.py'):
+                    shutil.copy2(ROOT/'scripts'/name,code/name)
+            if getattr(args,'schedule_expanded_files',False):
+                for name in ('host_schedule_files.py','host_special_metadata.py'):
+                    shutil.copy2(ROOT/'scripts'/name,code/name)
         for p in [Path(__file__),ROOT/'scripts/prepare_prettier6604_rollouts.py',ROOT/'scripts/prettier6604_inputs.py',
                   ROOT/'scripts/agentenv_cold_start.py',ROOT/'scripts/prettier6604_check.cjs',
                   ROOT/'scripts/exp1_official_task.py',ROOT/'scripts/audit_prettier6604_official.py',
@@ -940,10 +954,12 @@ def run(args):
         if merge_boundary_meminfo:shutil.copy2(ROOT/'scripts/prototype_boundary_memory.py',code/'prototype_boundary_memory.py')
         (out/'source-sha256.json').write_text(json.dumps({p.name:sha(p) for p in code.iterdir()},indent=2)+'\n')
         if full_rootfs_mode:
-            for name in ('host_full_rootfs_control.py','host_private_files.py','host_rootfs_layers.py','host_file_monitor.py','host_sandbox_monitor.py','host_rollout_shared.py','host_prefix_compare.py'):
+            for name in ('host_full_rootfs_control.py','host_private_files.py','host_rootfs_layers.py','host_file_monitor.py','experiment_memory.py','host_sandbox_monitor.py','host_rollout_shared.py','host_prefix_compare.py'):
                 shutil.copy2(ROOT/'scripts'/name,code/name)
             if full_rootfs_cold_read:
                 for name in ('host_grpo_cold_read.py','host_cold_file_read.py'):shutil.copy2(ROOT/'scripts'/name,code/name)
+        legacy_host_scope=('Explicit VMM child-cgroup check: legacy host/memory-samples.tsv covers service only; authoritative parent/child counters are in outer vmm-cgroup-samples/memory.jsonl'
+                           if os.environ.get('ASB_VMM_CHILD_CGROUP_CHECK') else 'one temporary service cgroup; includes all VMMs and image cache; host phases may overlap')
         (out/'effective-config.json').write_text(json.dumps(dict(cfg,paths=rollouts,selected_roles=roles,scope=result['scope'],
                schedule=schedule,executed_paths=executed,final_roles=final_roles,
                **({'light_skip_boundary_vmstat':True} if skip_boundary_vmstat else {}),
@@ -955,13 +971,29 @@ def run(args):
                cache_target_mib=cache_target,
                damon_before_checkpoint=damon_before_checkpoint,
                variant='role-specific inspect manifests from original sampling',sandbox_ttl_seconds=1800,
-               host_scope='one temporary service cgroup; includes all VMMs and image cache; host phases may overlap',
+               host_scope='experiment_slice_cgroup' if schedule_smoke else legacy_host_scope,
+               legacy_host_scope=legacy_host_scope,
                guest_scope='continuous per actual VM ID after monitor setup; explicit snapshot gaps; logical memory, not physical deduplication'),indent=2)+'\n')
         if monitoring and not (host_restore or light_monitor):
             with (out/'host-monitor.log').open('x') as log:
                 monitor=subprocess.Popen(['bash',ROOT/'IncrementalDAX_moti/motivation/experiments/lib/host-memory-monitor.sh',
                     out/'host/memory-samples.tsv',controller.phase_file,'0.1',args.container],env=env,
                     stdout=log,stderr=subprocess.STDOUT,start_new_session=True)
+        if schedule_smoke and monitoring:
+            from experiment_memory import HOST_SCOPE, GroupSampler, resolve_scope
+            from host_sandbox_monitor import Binding
+            binding=Binding(args.container,out)
+            context=resolve_scope(binding.private_service_cgroup)
+            result.update(host_scope=HOST_SCOPE, legacy_host_scope='private_service_cgroup',
+                          legacy_cgroup=str(binding.private_service_cgroup), experiment_memory_context=context)
+            if context['status']=='AVAILABLE':
+                if os.environ.get('ASB_VMM_CHILD_CGROUP_CHECK'):
+                    # The outer sampler already starts before guests and now
+                    # writes the same canonical fields; do not sample it twice.
+                    result['experiment_memory_external_series']=os.environ.get('ASB_EXPERIMENT_MEMORY_SERIES',
+                        str(out.parents[2]/'vmm-cgroup-samples/memory.jsonl'))
+                else:
+                    experiment_sampler=GroupSampler(Path(context['parent']),out/'experiment-memory')
         if shared_cache:
             sources=['shared_task_cache.py','task_physical_cache.py','agentenv_whole_cache.py','measure_file_physical.py',
                      'guest_whole_cache_probe.py','guest_cache_marker.py','trenvx_whole_cache.py','paused_agentenv_boundary.py',
@@ -972,6 +1004,11 @@ def run(args):
             (out/'physical-source-sha256.json').write_text(json.dumps({p.name:sha(p) for p in physical_code.iterdir()},indent=2)+'\n')
             from task_physical_cache import TaskPhysicalCache
             physical=TaskPhysicalCache(out,args.container,cli)
+        if light_rollout:
+            from light_prettier_rollout import LightRollout
+            rollout_sampler=LightRollout(args.container,out,roles)
+            for name in ('light_prettier_rollout.py','light_memory_round.py','run_guest_light_memory.py','host_sandbox_monitor.py'):
+                shutil.copy2(ROOT/'scripts'/name,code/name)
         stage='frozen-paths';controller.phase(stage)
         if shared_files:shared_files.phase('before-guests',{})
         if full_rootfs:full_rootfs.before()
@@ -981,8 +1018,16 @@ def run(args):
             full_rootfs.cold.start()
         by_role=asyncio.run(getattr(controller,'do_'+schedule)())
         if schedule_smoke:
-            from schedule_smoke_metrics import observe
-            result['schedule_smoke_metrics']=observe(args.container,out,by_role,time.monotonic_ns())
+            result['original_paths_end_monotonic_ns']=time.monotonic_ns()
+            if monitoring:
+                from schedule_smoke_metrics import observe
+                result['schedule_smoke_metrics']=observe(args.container,out,by_role,result['original_paths_end_monotonic_ns'],
+                    **({'expanded':True} if getattr(args,'schedule_expanded_files',False) else {}),
+                    **({'cache_layers':True} if getattr(args,'schedule_cache_layers',False) else {}),
+                    **({'block_cache_method':args.schedule_block_cache_method} if getattr(args,'schedule_block_cache_method',None) is not None else {}),
+                    **({'split_ram':True} if getattr(args,'schedule_split_ram_cache',False) else {}),
+                    **({'memory_backing_links':True} if getattr(args,'schedule_memory_backing_links',False) else {}))
+            else:result['schedule_smoke_metrics']=dict(status='NOT_REQUESTED',reason='Explicit sampling-off control')
         if full_rootfs:
             try:result['host_full_rootfs_control']=full_rootfs.after(by_role,time.monotonic_ns())
             except Exception:
@@ -1040,7 +1085,7 @@ def run(args):
             from host_full_rootfs_control import validate_observation
             validate_observation(full_rootfs.state,full_rootfs_residency)
         success=True
-        if schedule_smoke and result['schedule_smoke_metrics']['status']!='OBSERVED':
+        if schedule_smoke and monitoring and result['schedule_smoke_metrics']['status']!='OBSERVED':
             success=False;result.update(error=result['schedule_smoke_metrics']['error'],failed_stage='schedule-smoke-metrics')
         if shared_files and shared_files.state['status']!='OBSERVED':
             success=False;result.update(error=shared_files.state['error'],failed_stage='host-shared-files')
@@ -1051,6 +1096,9 @@ def run(args):
     finally:
         for sig in (signal.SIGTERM,signal.SIGINT):signal.signal(sig,signal.SIG_IGN)
         cleanup={}
+        if rollout_sampler:
+            try:result['light_rollout_sampling']=rollout_sampler.stop()
+            except Exception as error:cleanup['light_rollout_error']=repr(error);success=False
         cold_reaped=True
         if full_rootfs and full_rootfs.cold:
             try:full_rootfs.cold.stop()
@@ -1114,6 +1162,9 @@ def run(args):
                 try:monitor.wait(timeout=5)
                 except subprocess.TimeoutExpired:os.killpg(monitor.pid,signal.SIGKILL);monitor.wait(timeout=5)
                 cleanup['monitor_stopped']=True
+        if experiment_sampler is not None:
+            try:result['experiment_memory_collector']=experiment_sampler.stop()
+            except Exception as error:cleanup.setdefault('errors',[]).append(repr(error));success=False
         controller_end=time.monotonic_ns()
         if create_before_setup:
             result['controller_end_monotonic_ns']=controller_end
@@ -1135,6 +1186,13 @@ if __name__=='__main__':
     parser.add_argument('--expected-official-audit',type=Path,required=True)
     parser.add_argument('--role',choices=['early_1','early_2','early_3','late_1','late_2','late_3'])
     parser.add_argument('--schedule',choices=['grpo','bpo','tvcache'],default='grpo')
+    parser.add_argument('--schedule-sampling-control',action='store_true',help='Explicit GRPO on/off pair with the same local-only backend')
+    parser.add_argument('--schedule-block-cache-method',choices=('mincore','cachestat','compare'),help='Explicit block cache method; default mincore; compare queries both per pinned object; requires cache layers')
+    parser.add_argument('--schedule-memory-backing-links',action='store_true',help='Opt-in saved memory config and lower identity/query links; requires cache layers')
+    parser.add_argument('--schedule-split-ram-cache',action='store_true',help='Extra preplanned RAM cachestat; requires schedule cache layers and explicit cachestat')
+    parser.add_argument('--schedule-cache-layers',action='store_true',help='Opt-in block/RAM, deleted TMPFS, private run/tmp and outer loop caches; requires expanded schedule files')
+    parser.add_argument('--schedule-expanded-files',action='store_true',help='Opt-in endpoint regular-file inventory with explicit unknowns; requires schedule smoke metrics')
+    parser.add_argument('--light-rollout',action='store_true',help='Explicit BPO child-cgroup timestamped PSS rounds; original checks retained')
     parser.add_argument('--schedule-smoke-metrics',action='store_true',help='Explicit full-profile seven-role smoke: local-only creation, VMM PSS and 19 initial lower P1')
     parser.add_argument('--host-trace-dual',action='store_true',help='Only two matched restores; external targeted cache tracer')
     parser.add_argument('--host-independent-phase',choices=('capture','single','dual'))

@@ -1,0 +1,268 @@
+{
+  "status": "PASS_GRPO_LIGHT_PAIR",
+  "actual_actions": 378,
+  "sample_count": 1954,
+  "comparison": {
+    "tool_sum": {
+      "off_ns": 59048087921,
+      "on_ns": 61132941909,
+      "change_percent": 3.5307730722615727
+    },
+    "frozen_tools_and_downloads_span": {
+      "off_ns": 17450965459,
+      "on_ns": 20315291805,
+      "change_percent": 16.41356951126609
+    },
+    "cold_request_span": {
+      "off_ns": 2807670239,
+      "on_ns": 2672334594,
+      "change_percent": -4.820211544793174
+    },
+    "monitor_control_call_sum": {
+      "off_ns": 0,
+      "on_ns": 3573290508,
+      "change_percent": null
+    },
+    "monitor_control_union": {
+      "off_ns": 0,
+      "on_ns": 870005608,
+      "change_percent": null
+    },
+    "cleanup": {
+      "off_ns": 251956665,
+      "on_ns": 485417457,
+      "change_percent": 92.65910548546117
+    },
+    "controller": {
+      "off_ns": 28189962728,
+      "on_ns": 31059413552,
+      "change_percent": 10.178980553067163
+    },
+    "rollout": {
+      "off_ns": 27735408230,
+      "on_ns": 30367035092,
+      "change_percent": 9.488329287158281
+    }
+  },
+  "scope": "One off then on guest-only seven-guest GRPO pair; no host/PSS/physical queries; signed observed differences, no repeat statistics",
+  "runs": [
+    {
+      "mode": "off",
+      "actual_actions": 189,
+      "official": {
+        "backbone": {
+          "passed": 0,
+          "failed": 2
+        },
+        "early_1": {
+          "passed": 0,
+          "failed": 2
+        },
+        "early_2": {
+          "passed": 0,
+          "failed": 2
+        },
+        "early_3": {
+          "passed": 0,
+          "failed": 2
+        },
+        "late_1": {
+          "passed": 0,
+          "failed": 2
+        },
+        "late_2": {
+          "passed": 0,
+          "failed": 2
+        },
+        "late_3": {
+          "passed": 0,
+          "failed": 2
+        }
+      },
+      "sessions": [],
+      "timings_ns": {
+        "tool_sum": 59048087921,
+        "frozen_tools_and_downloads_span": 17450965459,
+        "cold_request_span": 2807670239,
+        "monitor_control_call_sum": 0,
+        "monitor_control_union": 0,
+        "cleanup": 251956665,
+        "controller": 28189962728,
+        "rollout": 27735408230
+      },
+      "minimum_free_disk_gib": 114.8895378112793,
+      "workflow": ".artifacts/platform-tasks/20261025T150229Z-1063587",
+      "storage": ".artifacts/storage-isolated-service/20261025T150346Z-1064368",
+      "raw": ".artifacts/storage-isolated-service/20261025T150346Z-1064368/prettier6604",
+      "report": ".artifacts/platform-tasks/report-20261025T150229Z-1063587",
+      "controller_phases_ns": {
+        "create_and_prepare": 4942676961,
+        "execution_and_download": 17451863438,
+        "post_path_checks": 5340867831,
+        "cleanup": 251956665,
+        "other": 202597833
+      },
+      "role_tool_ns": {
+        "backbone": 11663395004,
+        "early_1": 2427211945,
+        "early_2": 2863381951,
+        "early_3": 3820979207,
+        "late_1": 15538642453,
+        "late_2": 9395972973,
+        "late_3": 13338504388
+      },
+      "collector_cpu_seconds": null
+    },
+    {
+      "mode": "on",
+      "actual_actions": 189,
+      "official": {
+        "backbone": {
+          "passed": 0,
+          "failed": 2
+        },
+        "early_1": {
+          "passed": 0,
+          "failed": 2
+        },
+        "early_2": {
+          "passed": 0,
+          "failed": 2
+        },
+        "early_3": {
+          "passed": 0,
+          "failed": 2
+        },
+        "late_1": {
+          "passed": 0,
+          "failed": 2
+        },
+        "late_2": {
+          "passed": 0,
+          "failed": 2
+        },
+        "late_3": {
+          "passed": 0,
+          "failed": 2
+        }
+      },
+      "sessions": [
+        {
+          "role": "late_3",
+          "samples": 281,
+          "cpu_seconds": 0.202422,
+          "peak_rss_mib": 16.671875,
+          "max_gap_seconds": 0.104374679
+        },
+        {
+          "role": "backbone",
+          "samples": 280,
+          "cpu_seconds": 0.20771699999999998,
+          "peak_rss_mib": 16.234375,
+          "max_gap_seconds": 0.105647905
+        },
+        {
+          "role": "early_3",
+          "samples": 280,
+          "cpu_seconds": 0.20473899999999998,
+          "peak_rss_mib": 16.71875,
+          "max_gap_seconds": 0.102494547
+        },
+        {
+          "role": "late_1",
+          "samples": 279,
+          "cpu_seconds": 0.22667900000000002,
+          "peak_rss_mib": 16.17578125,
+          "max_gap_seconds": 0.104242122
+        },
+        {
+          "role": "early_2",
+          "samples": 279,
+          "cpu_seconds": 0.192578,
+          "peak_rss_mib": 16.6796875,
+          "max_gap_seconds": 0.102998585
+        },
+        {
+          "role": "late_2",
+          "samples": 278,
+          "cpu_seconds": 0.204791,
+          "peak_rss_mib": 16.65625,
+          "max_gap_seconds": 0.10422896
+        },
+        {
+          "role": "early_1",
+          "samples": 277,
+          "cpu_seconds": 0.20193299999999997,
+          "peak_rss_mib": 16.73828125,
+          "max_gap_seconds": 0.103515779
+        }
+      ],
+      "timings_ns": {
+        "tool_sum": 61132941909,
+        "frozen_tools_and_downloads_span": 20315291805,
+        "cold_request_span": 2672334594,
+        "monitor_control_call_sum": 3573290508,
+        "monitor_control_union": 870005608,
+        "cleanup": 485417457,
+        "controller": 31059413552,
+        "rollout": 30367035092
+      },
+      "minimum_free_disk_gib": 114.88493728637695,
+      "workflow": ".artifacts/platform-tasks/20261025T150438Z-1066600",
+      "storage": ".artifacts/storage-isolated-service/20261025T150554Z-1067360",
+      "raw": ".artifacts/storage-isolated-service/20261025T150554Z-1067360/prettier6604",
+      "report": ".artifacts/platform-tasks/report-20261025T150438Z-1066600",
+      "controller_phases_ns": {
+        "create_and_prepare": 4944253889,
+        "execution_and_download": 20315804068,
+        "post_path_checks": 5106977135,
+        "cleanup": 485417457,
+        "other": 206961003
+      },
+      "role_tool_ns": {
+        "backbone": 13238604212,
+        "early_1": 2147060204,
+        "early_2": 2141713177,
+        "early_3": 4311437220,
+        "late_1": 17598591479,
+        "late_2": 7776619288,
+        "late_3": 13918916329
+      },
+      "collector_cpu_seconds": 1.440859,
+      "collector_one_core_cpu_percent": {
+        "late_3": 0.7191658866473004,
+        "backbone": 0.7425322900811173,
+        "early_3": 0.7311806264118461,
+        "late_1": 0.8105555160864707,
+        "early_2": 0.6904838366954239,
+        "late_2": 0.7379086950475096,
+        "early_1": 0.7280951016174267
+      }
+    }
+  ],
+  "phase_difference_ns": {
+    "create_and_prepare": 1576928,
+    "execution_and_download": 2863940630,
+    "post_path_checks": -233890696,
+    "cleanup": 233460792,
+    "other": 4363170
+  },
+  "code_and_scope": {
+    "source_snapshot_matches": true,
+    "paths_patches_official_equal": true,
+    "host_queries": false,
+    "pss": false
+  },
+  "cleanup": {
+    "source_stopped": true,
+    "firecracker_processes": 0,
+    "owned_success_volumes_removed": 2,
+    "mounts_empty": 2,
+    "owned_loops": 0,
+    "minimum_free_disk_gib": 114.88493728637695,
+    "free_disk_gib": 130.8762550354004
+  },
+  "repeats": 1,
+  "standard_deviation": null,
+  "definition": "(on/off-1)*100; call sums/unions may overlap other work and must not be added to controller; one fixed-order pair"
+}

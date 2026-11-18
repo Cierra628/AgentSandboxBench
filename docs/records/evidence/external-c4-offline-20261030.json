@@ -1,0 +1,466 @@
+{
+  "status": "OFFLINE_REVIEW_COMPLETE",
+  "date": "2026-10-30",
+  "repository": "https://github.com/RyanShen30/AgentSandboxWorkloadResults",
+  "revision": "cbe767b2aa23ceb59875b1cb0a7a6141c749312a",
+  "run": "results/agentenv/reshard-c4-data/runs/reshard-c4-data-20261025T054616Z-971984",
+  "recommended_task": "reshard-c4-data",
+  "source_image": "docker.io/alexgshaw/reshard-c4-data@sha256:92d209e704785e17ad6b3f740e813dd72bc7ac33982ce435d197ab9d890eac2a",
+  "source_platform": [
+    "linux",
+    "amd64"
+  ],
+  "image_compressed_bytes": 1432498021,
+  "image_layers": 9,
+  "actions": 36,
+  "tool_counts": {
+    "bash": 27,
+    "write": 9
+  },
+  "payloads": [
+    {
+      "step": 4,
+      "path": "/probe/input/004.payload",
+      "bytes": 173,
+      "syntax": "toml PASS"
+    },
+    {
+      "step": 6,
+      "path": "/probe/input/006.payload",
+      "bytes": 8486,
+      "syntax": "python PASS"
+    },
+    {
+      "step": 7,
+      "path": "/probe/input/007.payload",
+      "bytes": 7171,
+      "syntax": "python PASS"
+    },
+    {
+      "step": 8,
+      "path": "/probe/input/008.payload",
+      "bytes": 8343,
+      "syntax": "python PASS"
+    },
+    {
+      "step": 9,
+      "path": "/probe/input/009.payload",
+      "bytes": 8557,
+      "syntax": "python PASS"
+    },
+    {
+      "step": 10,
+      "path": "/probe/input/010.payload",
+      "bytes": 7305,
+      "syntax": "python PASS"
+    },
+    {
+      "step": 17,
+      "path": "/probe/input/017.payload",
+      "bytes": 8831,
+      "syntax": "python PASS"
+    },
+    {
+      "step": 19,
+      "path": "/probe/input/019.payload",
+      "bytes": 9173,
+      "syntax": "python PASS"
+    },
+    {
+      "step": 23,
+      "path": "/probe/input/023.payload",
+      "bytes": 9716,
+      "syntax": "python PASS"
+    }
+  ],
+  "expected_nonzero_exits": {
+    "3": 2,
+    "11": 1,
+    "12": 1,
+    "16": 1,
+    "18": 1
+  },
+  "reference_basis": "Saved steps.csv from selected AgentENV run; not source_exit_code metadata",
+  "shell_mode": "Independent /bin/bash per step; each starts in /app; umask 077; no implicit pipefail",
+  "async_barriers": [],
+  "source_initial_app_file_count": 9898,
+  "source_initial_app_logical_bytes": 817461269,
+  "source_guest_regular_logical_initial_bytes": 2741188925,
+  "source_guest_regular_logical_boundary_peak_bytes": 4534148842,
+  "source_guest_regular_logical_boundary_peak_after_step": 34,
+  "source_tmp_logical_boundary_peak_bytes": 1792866622,
+  "source_tmp_logical_boundary_peak_after_step": 34,
+  "source_tool_seconds": 39.582329663,
+  "source_guest_cached_minus_shmem_peak_bytes": 2957873152,
+  "source_volume_capacity_bytes": 34359738368,
+  "validation": {
+    "original_postrun": {
+      "exit_code": 0,
+      "status": "PASS",
+      "command": "test -s /app/compress.py && test -s /app/decompress.py && python3 -m py_compile /app/compress.py /app/decompress.py",
+      "scope": "local functional/artifact check; not the official benchmark hidden verifier"
+    },
+    "required_stdout_evidence": {
+      "33": [
+        "CONSTRAINT VIOLATIONS: NONE",
+        "FINAL VERDICT: BYTE-EXACT ROUNDTRIP ON c4_sample"
+      ],
+      "34": [
+        "9898 files, structure + content"
+      ]
+    },
+    "source_report_full_roundtrip": true,
+    "outputs_removed_at_step": 35,
+    "official_hidden_verifier": "NOT_AVAILABLE_IN_PUBLISHED_REPLAY"
+  },
+  "present_adapter_gate": {
+    "status": "REJECTED_AS_EXPECTED",
+    "reason": "this first external adapter is the pinned 28-call Django task"
+  },
+  "changes_needed": [
+    "Explicitly admit only pinned C4 36-call task, retaining the existing Django path.",
+    "Upload 36 unchanged scripts plus 9 payloads; preserve /probe/input payload paths.",
+    "C4 runs separate Bash per step from /app with umask 077, instead of Django persistent source shell.",
+    "Use C4 image/input metadata preconditions; no Django git/Conda baseline.",
+    "Validate C4 33/34 output evidence plus expected nonzero exits and original postrun syntax check, even though outputs are deleted at 35.",
+    "Use actual action count/task label in host wrapper, plotting and native validation; reuse 32 GiB boundary/cleanup, light samplers and clock checks."
+  ],
+  "current_budget": {
+    "ready": true,
+    "available_bytes": 67876757504,
+    "required_available_bytes": 62277025792,
+    "capacity_bytes": 34359738368,
+    "host_reserve_bytes": 21474836480,
+    "host_margin_bytes": 6442450944
+  },
+  "current_mem_available_bytes": 514568413184,
+  "feasibility": "Recommended next workload; existing 32 GiB fixture and >58 GiB preallocation guard fit the current resource snapshot. Prior 32 GiB source run supports an initial budget, not a measured local allocation forecast.",
+  "unknowns": [
+    "Remote fixed image availability and actual on-host cold conversion are not checked during this offline stage.",
+    "Saved regular-file logical sizes and compressed image bytes are not peak physical disk allocation; within-step transients and overwritten/deleted lower layers are not fully described.",
+    "Public full stdout logs are absent; the original source checks are visible and success is reported, but this host must collect and validate its own outputs."
+  ],
+  "measurements_planned": [
+    "host memory.current + file/anon/kernel every 0.1s",
+    "guest meminfo every 0.1s",
+    "36 tool timings plus cold-create/controller timings",
+    "sampler CPU, samples and gaps"
+  ],
+  "excluded": [
+    "freezing",
+    "guest-root residency scans",
+    "PSS",
+    "periodic mincore",
+    "extra input data pre-reading",
+    "reclaim changes",
+    "multi-sandbox sharing claims"
+  ],
+  "checks": [
+    {
+      "step": 1,
+      "tool": "bash",
+      "expected_exit_code": 0,
+      "shell_syntax": "PASS",
+      "script_matches_published_command": true,
+      "script_bytes": 74
+    },
+    {
+      "step": 2,
+      "tool": "bash",
+      "expected_exit_code": 0,
+      "shell_syntax": "PASS",
+      "script_matches_published_command": true,
+      "script_bytes": 210
+    },
+    {
+      "step": 3,
+      "tool": "bash",
+      "expected_exit_code": 2,
+      "shell_syntax": "PASS",
+      "script_matches_published_command": true,
+      "script_bytes": 146
+    },
+    {
+      "step": 4,
+      "tool": "write",
+      "expected_exit_code": 0,
+      "shell_syntax": "PASS",
+      "script_matches_published_command": true,
+      "script_bytes": 68,
+      "required_payload": "004.payload"
+    },
+    {
+      "step": 5,
+      "tool": "bash",
+      "expected_exit_code": 0,
+      "shell_syntax": "PASS",
+      "script_matches_published_command": true,
+      "script_bytes": 88
+    },
+    {
+      "step": 6,
+      "tool": "write",
+      "expected_exit_code": 0,
+      "shell_syntax": "PASS",
+      "script_matches_published_command": true,
+      "script_bytes": 94,
+      "required_payload": "006.payload"
+    },
+    {
+      "step": 7,
+      "tool": "write",
+      "expected_exit_code": 0,
+      "shell_syntax": "PASS",
+      "script_matches_published_command": true,
+      "script_bytes": 98,
+      "required_payload": "007.payload"
+    },
+    {
+      "step": 8,
+      "tool": "write",
+      "expected_exit_code": 0,
+      "shell_syntax": "PASS",
+      "script_matches_published_command": true,
+      "script_bytes": 65,
+      "required_payload": "008.payload"
+    },
+    {
+      "step": 9,
+      "tool": "write",
+      "expected_exit_code": 0,
+      "shell_syntax": "PASS",
+      "script_matches_published_command": true,
+      "script_bytes": 65,
+      "required_payload": "009.payload"
+    },
+    {
+      "step": 10,
+      "tool": "write",
+      "expected_exit_code": 0,
+      "shell_syntax": "PASS",
+      "script_matches_published_command": true,
+      "script_bytes": 67,
+      "required_payload": "010.payload"
+    },
+    {
+      "step": 11,
+      "tool": "bash",
+      "expected_exit_code": 1,
+      "shell_syntax": "PASS",
+      "script_matches_published_command": true,
+      "script_bytes": 319
+    },
+    {
+      "step": 12,
+      "tool": "bash",
+      "expected_exit_code": 1,
+      "shell_syntax": "PASS",
+      "script_matches_published_command": true,
+      "script_bytes": 338
+    },
+    {
+      "step": 13,
+      "tool": "bash",
+      "expected_exit_code": 0,
+      "shell_syntax": "PASS",
+      "script_matches_published_command": true,
+      "script_bytes": 188
+    },
+    {
+      "step": 14,
+      "tool": "bash",
+      "expected_exit_code": 0,
+      "shell_syntax": "PASS",
+      "script_matches_published_command": true,
+      "script_bytes": 189
+    },
+    {
+      "step": 15,
+      "tool": "bash",
+      "expected_exit_code": 0,
+      "shell_syntax": "PASS",
+      "script_matches_published_command": true,
+      "script_bytes": 167
+    },
+    {
+      "step": 16,
+      "tool": "bash",
+      "expected_exit_code": 1,
+      "shell_syntax": "PASS",
+      "script_matches_published_command": true,
+      "script_bytes": 410
+    },
+    {
+      "step": 17,
+      "tool": "write",
+      "expected_exit_code": 0,
+      "shell_syntax": "PASS",
+      "script_matches_published_command": true,
+      "script_bytes": 65,
+      "required_payload": "017.payload"
+    },
+    {
+      "step": 18,
+      "tool": "bash",
+      "expected_exit_code": 1,
+      "shell_syntax": "PASS",
+      "script_matches_published_command": true,
+      "script_bytes": 409
+    },
+    {
+      "step": 19,
+      "tool": "write",
+      "expected_exit_code": 0,
+      "shell_syntax": "PASS",
+      "script_matches_published_command": true,
+      "script_bytes": 65,
+      "required_payload": "019.payload"
+    },
+    {
+      "step": 20,
+      "tool": "bash",
+      "expected_exit_code": 0,
+      "shell_syntax": "PASS",
+      "script_matches_published_command": true,
+      "script_bytes": 491
+    },
+    {
+      "step": 21,
+      "tool": "bash",
+      "expected_exit_code": 0,
+      "shell_syntax": "PASS",
+      "script_matches_published_command": true,
+      "script_bytes": 799
+    },
+    {
+      "step": 22,
+      "tool": "bash",
+      "expected_exit_code": 0,
+      "shell_syntax": "PASS",
+      "script_matches_published_command": true,
+      "script_bytes": 354
+    },
+    {
+      "step": 23,
+      "tool": "write",
+      "expected_exit_code": 0,
+      "shell_syntax": "PASS",
+      "script_matches_published_command": true,
+      "script_bytes": 65,
+      "required_payload": "023.payload"
+    },
+    {
+      "step": 24,
+      "tool": "bash",
+      "expected_exit_code": 0,
+      "shell_syntax": "PASS",
+      "script_matches_published_command": true,
+      "script_bytes": 719
+    },
+    {
+      "step": 25,
+      "tool": "bash",
+      "expected_exit_code": 0,
+      "shell_syntax": "PASS",
+      "script_matches_published_command": true,
+      "script_bytes": 655
+    },
+    {
+      "step": 26,
+      "tool": "bash",
+      "expected_exit_code": 0,
+      "shell_syntax": "PASS",
+      "script_matches_published_command": true,
+      "script_bytes": 518
+    },
+    {
+      "step": 27,
+      "tool": "bash",
+      "expected_exit_code": 0,
+      "shell_syntax": "PASS",
+      "script_matches_published_command": true,
+      "script_bytes": 508
+    },
+    {
+      "step": 28,
+      "tool": "bash",
+      "expected_exit_code": 0,
+      "shell_syntax": "PASS",
+      "script_matches_published_command": true,
+      "script_bytes": 803
+    },
+    {
+      "step": 29,
+      "tool": "bash",
+      "expected_exit_code": 0,
+      "shell_syntax": "PASS",
+      "script_matches_published_command": true,
+      "script_bytes": 235
+    },
+    {
+      "step": 30,
+      "tool": "bash",
+      "expected_exit_code": 0,
+      "shell_syntax": "PASS",
+      "script_matches_published_command": true,
+      "script_bytes": 334
+    },
+    {
+      "step": 31,
+      "tool": "bash",
+      "expected_exit_code": 0,
+      "shell_syntax": "PASS",
+      "script_matches_published_command": true,
+      "script_bytes": 352
+    },
+    {
+      "step": 32,
+      "tool": "bash",
+      "expected_exit_code": 0,
+      "shell_syntax": "PASS",
+      "script_matches_published_command": true,
+      "script_bytes": 363
+    },
+    {
+      "step": 33,
+      "tool": "bash",
+      "expected_exit_code": 0,
+      "shell_syntax": "PASS",
+      "script_matches_published_command": true,
+      "script_bytes": 1000
+    },
+    {
+      "step": 34,
+      "tool": "bash",
+      "expected_exit_code": 0,
+      "shell_syntax": "PASS",
+      "script_matches_published_command": true,
+      "script_bytes": 302
+    },
+    {
+      "step": 35,
+      "tool": "bash",
+      "expected_exit_code": 0,
+      "shell_syntax": "PASS",
+      "script_matches_published_command": true,
+      "script_bytes": 466
+    },
+    {
+      "step": 36,
+      "tool": "bash",
+      "expected_exit_code": 0,
+      "shell_syntax": "PASS",
+      "script_matches_published_command": true,
+      "script_bytes": 106
+    }
+  ],
+  "operations": {
+    "services_started": false,
+    "guests_started": false,
+    "network_requests": false,
+    "task_commands_executed": false,
+    "data_pages_read_for_measurement": false,
+    "runtime_code_modified": false
+  },
+  "local_evidence": ".artifacts/external-c4-offline-20261030"
+}

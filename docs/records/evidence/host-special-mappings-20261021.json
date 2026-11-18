@@ -1,0 +1,407 @@
+{
+  "status": "PASS_OFFLINE_CLASSIFICATION",
+  "date": "2026-10-21",
+  "scope": "Saved metadata and local kernel source only; no live memory queries, services or workload reads.",
+  "kernel_source": "/home/yxli/linux-6.19.9-ioctl",
+  "kernel_config": "/boot/config-6.19.9+",
+  "verified_config": [
+    "CONFIG_MEMCG=y",
+    "CONFIG_X86_64=y",
+    "CONFIG_ARCH_HAS_PTE_SPECIAL=y"
+  ],
+  "groups": [
+    {
+      "sandboxes": 1,
+      "input": ".artifacts/storage-isolated-service/20261021T065433Z-3968552",
+      "unresolved_metadata_keys": 12,
+      "families": {
+        "io_uring": {
+          "metadata_keys": 9,
+          "saved_mapping_lines": 23,
+          "owner_processes": 2,
+          "owner_process_types": {
+            "uvm-ublk-daemon": 1,
+            "firecracker": 1
+          },
+          "resident_bytes": null,
+          "byte_status": "NOT_MEASURED_BY_MAPPING"
+        },
+        "kvm_vcpu": {
+          "metadata_keys": 1,
+          "saved_mapping_lines": 4,
+          "owner_processes": 1,
+          "owner_process_types": {
+            "firecracker": 1
+          },
+          "resident_bytes": null,
+          "byte_status": "NOT_MEASURED_BY_MAPPING"
+        },
+        "deleted_memfd": {
+          "metadata_keys": 1,
+          "saved_mapping_lines": 2,
+          "owner_processes": 1,
+          "owner_process_types": {
+            "firecracker": 1
+          },
+          "resident_bytes": null,
+          "byte_status": "NOT_MEASURED_BY_MAPPING"
+        },
+        "deleted_dev_zero": {
+          "metadata_keys": 1,
+          "saved_mapping_lines": 1,
+          "owner_processes": 1,
+          "owner_process_types": {
+            "firecracker": 1
+          },
+          "resident_bytes": null,
+          "byte_status": "NOT_MEASURED_BY_MAPPING"
+        }
+      },
+      "aggregate_pss_bytes": {
+        "before_pss": {
+          "pss": 524385280,
+          "pss_anon": 259846144,
+          "pss_file": 264535040,
+          "pss_shmem": 4096
+        },
+        "after_pss": {
+          "pss": 522103808,
+          "pss_anon": 264257536,
+          "pss_file": 257842176,
+          "pss_shmem": 4096
+        }
+      },
+      "ublkc": {
+        "character_device_keys": 3,
+        "saved_mapping_lines": 3,
+        "resident_bytes": null,
+        "allocation_bytes": null,
+        "status": "COVERAGE_GAP"
+      },
+      "ublkb": {
+        "block_device_keys": 1,
+        "saved_mapping_lines": 12,
+        "owner_processes": 1,
+        "already_in_target_mincore": true
+      },
+      "mapped_coverage": "INCOMPLETE"
+    },
+    {
+      "sandboxes": 2,
+      "input": ".artifacts/storage-isolated-service/20261021T065615Z-3970703",
+      "unresolved_metadata_keys": 20,
+      "families": {
+        "io_uring": {
+          "metadata_keys": 15,
+          "saved_mapping_lines": 40,
+          "owner_processes": 3,
+          "owner_process_types": {
+            "uvm-ublk-daemon": 1,
+            "firecracker": 2
+          },
+          "resident_bytes": null,
+          "byte_status": "NOT_MEASURED_BY_MAPPING"
+        },
+        "kvm_vcpu": {
+          "metadata_keys": 1,
+          "saved_mapping_lines": 8,
+          "owner_processes": 2,
+          "owner_process_types": {
+            "firecracker": 2
+          },
+          "resident_bytes": null,
+          "byte_status": "NOT_MEASURED_BY_MAPPING"
+        },
+        "deleted_memfd": {
+          "metadata_keys": 2,
+          "saved_mapping_lines": 4,
+          "owner_processes": 2,
+          "owner_process_types": {
+            "firecracker": 2
+          },
+          "resident_bytes": null,
+          "byte_status": "NOT_MEASURED_BY_MAPPING"
+        },
+        "deleted_dev_zero": {
+          "metadata_keys": 2,
+          "saved_mapping_lines": 2,
+          "owner_processes": 2,
+          "owner_process_types": {
+            "firecracker": 2
+          },
+          "resident_bytes": null,
+          "byte_status": "NOT_MEASURED_BY_MAPPING"
+        }
+      },
+      "aggregate_pss_bytes": {
+        "before_pss": {
+          "pss": 693183488,
+          "pss_anon": 402399232,
+          "pss_file": 290776064,
+          "pss_shmem": 8192
+        },
+        "after_pss": {
+          "pss": 697902080,
+          "pss_anon": 414797824,
+          "pss_file": 283096064,
+          "pss_shmem": 8192
+        }
+      },
+      "ublkc": {
+        "character_device_keys": 4,
+        "saved_mapping_lines": 4,
+        "resident_bytes": null,
+        "allocation_bytes": null,
+        "status": "COVERAGE_GAP"
+      },
+      "ublkb": {
+        "block_device_keys": 1,
+        "saved_mapping_lines": 14,
+        "owner_processes": 2,
+        "already_in_target_mincore": true
+      },
+      "mapped_coverage": "INCOMPLETE"
+    }
+  ],
+  "source_evidence": [
+    {
+      "id": "pss_classes",
+      "path": "fs/proc/task_mmu.c",
+      "start": 886,
+      "end": 898,
+      "excerpt": "static void smaps_page_accumulate(struct mem_size_stats *mss,\n\t\tstruct folio *folio, unsigned long size, unsigned long pss,\n\t\tbool dirty, bool locked, bool private)\n{\n\tmss->pss += pss;\n\n\tif (folio_test_anon(folio))\n\t\tmss->pss_anon += pss;\n\telse if (folio_test_swapbacked(folio))\n\t\tmss->pss_shmem += pss;\n\telse\n\t\tmss->pss_file += pss;\n"
+    },
+    {
+      "id": "pss_mapcount",
+      "path": "fs/proc/task_mmu.c",
+      "start": 975,
+      "end": 989,
+      "excerpt": "\t */\n\tfor (i = 0; i < nr; i++, page++) {\n\t\tunsigned long pss = PAGE_SIZE << PSS_SHIFT;\n\n\t\tif (IS_ENABLED(CONFIG_PAGE_MAPCOUNT)) {\n\t\t\tmapcount = folio_precise_page_mapcount(folio, page);\n\t\t\texclusive = mapcount < 2;\n\t\t}\n\n\t\tif (mapcount >= 2)\n\t\t\tpss /= mapcount;\n\t\tsmaps_page_accumulate(mss, folio, PAGE_SIZE, pss,\n\t\t\t\tdirty, locked, exclusive);\n\t}\n}"
+    },
+    {
+      "id": "pss_normal_page",
+      "path": "fs/proc/task_mmu.c",
+      "start": 1018,
+      "end": 1066,
+      "excerpt": "static void smaps_pte_entry(pte_t *pte, unsigned long addr,\n\t\tstruct mm_walk *walk)\n{\n\tstruct mem_size_stats *mss = walk->private;\n\tstruct vm_area_struct *vma = walk->vma;\n\tbool locked = !!(vma->vm_flags & VM_LOCKED);\n\tstruct page *page = NULL;\n\tbool present = false, young = false, dirty = false;\n\tpte_t ptent = ptep_get(pte);\n\n\tif (pte_present(ptent)) {\n\t\tpage = vm_normal_page(vma, addr, ptent);\n\t\tyoung = pte_young(ptent);\n\t\tdirty = pte_dirty(ptent);\n\t\tpresent = true;\n\t} else if (pte_none(ptent)) {\n\t\tsmaps_pte_hole_lookup(addr, walk);\n\t} else {\n\t\tconst softleaf_t entry = softleaf_from_pte(ptent);\n\n\t\tif (softleaf_is_swap(entry)) {\n\t\t\tint mapcount;\n\n\t\t\tmss->swap += PAGE_SIZE;\n\t\t\tmapcount = swp_swapcount(entry);\n\t\t\tif (mapcount >= 2) {\n\t\t\t\tu64 pss_delta = (u64)PAGE_SIZE << PSS_SHIFT;\n\n\t\t\t\tdo_div(pss_delta, mapcount);\n\t\t\t\tmss->swap_pss += pss_delta;\n\t\t\t} else {\n\t\t\t\tmss->swap_pss += (u64)PAGE_SIZE << PSS_SHIFT;\n\t\t\t}\n\t\t} else if (softleaf_has_pfn(entry)) {\n\t\t\tif (softleaf_is_device_private(entry))\n\t\t\t\tpresent = true;\n\t\t\tpage = softleaf_to_page(entry);\n\t\t}\n\t}\n\n\tif (!page)\n\t\treturn;\n\n\tsmaps_account(mss, page, false, young, dirty, locked, present);\n}\n\n#ifdef CONFIG_TRANSPARENT_HUGEPAGE\nstatic void smaps_pmd_entry(pmd_t *pmd, unsigned long addr,\n\t\tstruct mm_walk *walk)"
+    },
+    {
+      "id": "hugetlb_separate",
+      "path": "fs/proc/task_mmu.c",
+      "start": 1230,
+      "end": 1266,
+      "excerpt": "\n#ifdef CONFIG_HUGETLB_PAGE\nstatic int smaps_hugetlb_range(pte_t *pte, unsigned long hmask,\n\t\t\t\t unsigned long addr, unsigned long end,\n\t\t\t\t struct mm_walk *walk)\n{\n\tstruct mem_size_stats *mss = walk->private;\n\tstruct vm_area_struct *vma = walk->vma;\n\tstruct folio *folio = NULL;\n\tbool present = false;\n\tspinlock_t *ptl;\n\tpte_t ptent;\n\n\tptl = huge_pte_lock(hstate_vma(vma), walk->mm, pte);\n\tptent = huge_ptep_get(walk->mm, addr, pte);\n\tif (pte_present(ptent)) {\n\t\tfolio = page_folio(pte_page(ptent));\n\t\tpresent = true;\n\t} else {\n\t\tconst softleaf_t entry = softleaf_from_pte(ptent);\n\n\t\tif (softleaf_has_pfn(entry))\n\t\t\tfolio = softleaf_to_folio(entry);\n\t}\n\n\tif (folio) {\n\t\t/* We treat non-present entries as \"maybe shared\". */\n\t\tif (!present || folio_maybe_mapped_shared(folio) ||\n\t\t    hugetlb_pmd_shared(pte))\n\t\t\tmss->shared_hugetlb += huge_page_size(hstate_vma(vma));\n\t\telse\n\t\t\tmss->private_hugetlb += huge_page_size(hstate_vma(vma));\n\t}\n\tspin_unlock(ptl);\n\treturn 0;\n}\n#else"
+    },
+    {
+      "id": "rollup_classes_only",
+      "path": "fs/proc/task_mmu.c",
+      "start": 1328,
+      "end": 1349,
+      "excerpt": "\n/* Show the contents common for smaps and smaps_rollup */\nstatic void __show_smap(struct seq_file *m, const struct mem_size_stats *mss,\n\tbool rollup_mode)\n{\n\tSEQ_PUT_DEC(\"Rss:            \", mss->resident);\n\tSEQ_PUT_DEC(\" kB\\nPss:            \", mss->pss >> PSS_SHIFT);\n\tSEQ_PUT_DEC(\" kB\\nPss_Dirty:      \", mss->pss_dirty >> PSS_SHIFT);\n\tif (rollup_mode) {\n\t\t/*\n\t\t * These are meaningful only for smaps_rollup, otherwise two of\n\t\t * them are zero, and the other one is the same as Pss.\n\t\t */\n\t\tSEQ_PUT_DEC(\" kB\\nPss_Anon:       \",\n\t\t\tmss->pss_anon >> PSS_SHIFT);\n\t\tSEQ_PUT_DEC(\" kB\\nPss_File:       \",\n\t\t\tmss->pss_file >> PSS_SHIFT);\n\t\tSEQ_PUT_DEC(\" kB\\nPss_Shmem:      \",\n\t\t\tmss->pss_shmem >> PSS_SHIFT);\n\t}\n\tSEQ_PUT_DEC(\" kB\\nShared_Clean:   \", mss->shared_clean);\n\tSEQ_PUT_DEC(\" kB\\nShared_Dirty:   \", mss->shared_dirty);"
+    },
+    {
+      "id": "ring_accounted",
+      "path": "io_uring/memmap.c",
+      "start": 152,
+      "end": 176,
+      "excerpt": "static int io_region_allocate_pages(struct io_mapped_region *mr,\n\t\t\t\t    struct io_uring_region_desc *reg,\n\t\t\t\t    unsigned long mmap_offset)\n{\n\tgfp_t gfp = GFP_KERNEL_ACCOUNT | __GFP_ZERO | __GFP_NOWARN;\n\tsize_t size = io_region_size(mr);\n\tunsigned long nr_allocated;\n\tstruct page **pages;\n\n\tpages = kvmalloc_array(mr->nr_pages, sizeof(*pages), gfp);\n\tif (!pages)\n\t\treturn -ENOMEM;\n\n\tif (io_mem_alloc_compound(pages, mr->nr_pages, size, gfp)) {\n\t\tmr->flags |= IO_REGION_F_SINGLE_REF;\n\t\tgoto done;\n\t}\n\n\tnr_allocated = alloc_pages_bulk_node(gfp, NUMA_NO_NODE,\n\t\t\t\t\t     mr->nr_pages, pages);\n\tif (nr_allocated != mr->nr_pages) {\n\t\tif (nr_allocated)\n\t\t\trelease_pages(pages, nr_allocated);\n\t\tkvfree(pages);\n\t\treturn -ENOMEM;"
+    },
+    {
+      "id": "ring_kernel_backed",
+      "path": "io_uring/memmap.c",
+      "start": 258,
+      "end": 269,
+      "excerpt": "static void *io_region_validate_mmap(struct io_ring_ctx *ctx,\n\t\t\t\t     struct io_mapped_region *mr)\n{\n\tlockdep_assert_held(&ctx->mmap_lock);\n\n\tif (!io_region_is_set(mr))\n\t\treturn ERR_PTR(-EINVAL);\n\tif (mr->flags & IO_REGION_F_USER_PROVIDED)\n\t\treturn ERR_PTR(-EINVAL);\n\n\treturn io_region_get_ptr(mr);\n}"
+    },
+    {
+      "id": "ring_normal_mapping",
+      "path": "io_uring/memmap.c",
+      "start": 284,
+      "end": 292,
+      "excerpt": "static int io_region_mmap(struct io_ring_ctx *ctx,\n\t\t\t  struct io_mapped_region *mr,\n\t\t\t  struct vm_area_struct *vma,\n\t\t\t  unsigned max_pages)\n{\n\tunsigned long nr_pages = min(mr->nr_pages, max_pages);\n\n\tvm_flags_set(vma, VM_DONTEXPAND);\n\treturn vm_insert_pages(vma, vma->vm_start, mr->pages, &nr_pages);"
+    },
+    {
+      "id": "insert_normal_pte",
+      "path": "mm/memory.c",
+      "start": 2274,
+      "end": 2310,
+      "excerpt": "static int insert_page_into_pte_locked(struct vm_area_struct *vma, pte_t *pte,\n\t\t\t\tunsigned long addr, struct page *page,\n\t\t\t\tpgprot_t prot, bool mkwrite)\n{\n\tstruct folio *folio = page_folio(page);\n\tpte_t pteval = ptep_get(pte);\n\n\tif (!pte_none(pteval)) {\n\t\tif (!mkwrite)\n\t\t\treturn -EBUSY;\n\n\t\t/* see insert_pfn(). */\n\t\tif (pte_pfn(pteval) != page_to_pfn(page)) {\n\t\t\tWARN_ON_ONCE(!is_zero_pfn(pte_pfn(pteval)));\n\t\t\treturn -EFAULT;\n\t\t}\n\t\tpteval = maybe_mkwrite(pteval, vma);\n\t\tpteval = pte_mkyoung(pteval);\n\t\tif (ptep_set_access_flags(vma, addr, pte, pteval, 1))\n\t\t\tupdate_mmu_cache(vma, addr, pte);\n\t\treturn 0;\n\t}\n\n\t/* Ok, finally just insert the thing.. */\n\tpteval = mk_pte(page, prot);\n\tif (unlikely(is_zero_folio(folio))) {\n\t\tpteval = pte_mkspecial(pteval);\n\t} else {\n\t\tfolio_get(folio);\n\t\tpteval = mk_pte(page, prot);\n\t\tif (mkwrite) {\n\t\t\tpteval = pte_mkyoung(pteval);\n\t\t\tpteval = maybe_mkwrite(pte_mkdirty(pteval), vma);\n\t\t}\n\t\tinc_mm_counter(vma->vm_mm, mm_counter_file(folio));\n\t\tfolio_add_file_rmap_pte(folio, page, vma);\n\t}"
+    },
+    {
+      "id": "vcpu_fault",
+      "path": "virt/kvm/kvm_main.c",
+      "start": 4067,
+      "end": 4093,
+      "excerpt": "}\n\nstatic vm_fault_t kvm_vcpu_fault(struct vm_fault *vmf)\n{\n\tstruct kvm_vcpu *vcpu = vmf->vma->vm_file->private_data;\n\tstruct page *page;\n\n\tif (vmf->pgoff == 0)\n\t\tpage = virt_to_page(vcpu->run);\n#ifdef CONFIG_X86\n\telse if (vmf->pgoff == KVM_PIO_PAGE_OFFSET)\n\t\tpage = virt_to_page(vcpu->arch.pio_data);\n#endif\n#ifdef CONFIG_KVM_MMIO\n\telse if (vmf->pgoff == KVM_COALESCED_MMIO_PAGE_OFFSET)\n\t\tpage = virt_to_page(vcpu->kvm->coalesced_mmio_ring);\n#endif\n\telse if (kvm_page_in_dirty_ring(vcpu->kvm, vmf->pgoff))\n\t\tpage = kvm_dirty_ring_get_page(\n\t\t    &vcpu->dirty_ring,\n\t\t    vmf->pgoff - KVM_DIRTY_LOG_PAGE_OFFSET);\n\telse\n\t\treturn kvm_arch_vcpu_fault(vcpu, vmf);\n\tget_page(page);\n\tvmf->page = page;\n\treturn 0;\n}"
+    },
+    {
+      "id": "vcpu_inode",
+      "path": "virt/kvm/kvm_main.c",
+      "start": 4128,
+      "end": 4138,
+      "excerpt": "\n/*\n * Allocates an inode for the vcpu.\n */\nstatic int create_vcpu_fd(struct kvm_vcpu *vcpu)\n{\n\tchar name[8 + 1 + ITOA_MAX_LEN + 1];\n\n\tsnprintf(name, sizeof(name), \"kvm-vcpu:%d\", vcpu->vcpu_id);\n\treturn anon_inode_getfd(name, &kvm_vcpu_fops, vcpu, O_RDWR | O_CLOEXEC);\n}"
+    },
+    {
+      "id": "vcpu_accounted",
+      "path": "virt/kvm/kvm_main.c",
+      "start": 4207,
+      "end": 4219,
+      "excerpt": "\tvcpu = kmem_cache_zalloc(kvm_vcpu_cache, GFP_KERNEL_ACCOUNT);\n\tif (!vcpu) {\n\t\tr = -ENOMEM;\n\t\tgoto vcpu_decrement;\n\t}\n\n\tBUILD_BUG_ON(sizeof(struct kvm_run) > PAGE_SIZE);\n\tpage = alloc_page(GFP_KERNEL_ACCOUNT | __GFP_ZERO);\n\tif (!page) {\n\t\tr = -ENOMEM;\n\t\tgoto vcpu_free;\n\t}\n\tvcpu->run = page_address(page);"
+    },
+    {
+      "id": "pio_accounted",
+      "path": "arch/x86/kvm/x86.c",
+      "start": 12723,
+      "end": 12726,
+      "excerpt": "\tpage = alloc_page(GFP_KERNEL_ACCOUNT | __GFP_ZERO);\n\tif (!page)\n\t\tgoto fail_free_lapic;\n\tvcpu->arch.pio_data = page_address(page);"
+    },
+    {
+      "id": "singleton_inode",
+      "path": "fs/anon_inodes.c",
+      "start": 135,
+      "end": 175,
+      "excerpt": "\t\t\t\t\t const struct file_operations *fops,\n\t\t\t\t\t void *priv, int flags,\n\t\t\t\t\t const struct inode *context_inode,\n\t\t\t\t\t bool make_inode)\n{\n\tstruct inode *inode;\n\tstruct file *file;\n\n\tif (fops->owner && !try_module_get(fops->owner))\n\t\treturn ERR_PTR(-ENOENT);\n\n\tif (make_inode) {\n\t\tinode =\tanon_inode_make_secure_inode(anon_inode_mnt->mnt_sb,\n\t\t\t\t\t\t     name, context_inode);\n\t\tif (IS_ERR(inode)) {\n\t\t\tfile = ERR_CAST(inode);\n\t\t\tgoto err;\n\t\t}\n\t} else {\n\t\tinode =\tanon_inode_inode;\n\t\tif (IS_ERR(inode)) {\n\t\t\tfile = ERR_PTR(-ENODEV);\n\t\t\tgoto err;\n\t\t}\n\t\t/*\n\t\t * We know the anon_inode inode count is always\n\t\t * greater than zero, so ihold() is safe.\n\t\t */\n\t\tihold(inode);\n\t}\n\n\tfile = alloc_file_pseudo(inode, anon_inode_mnt, name,\n\t\t\t\t flags & (O_ACCMODE | O_NONBLOCK), fops);\n\tif (IS_ERR(file))\n\t\tgoto err_iput;\n\n\tfile->f_mapping = inode->i_mapping;\n\n\tfile->private_data = priv;\n\n\treturn file;"
+    },
+    {
+      "id": "memfd_branch",
+      "path": "mm/memfd.c",
+      "start": 458,
+      "end": 473,
+      "excerpt": "\nstruct file *memfd_alloc_file(const char *name, unsigned int flags)\n{\n\tunsigned int *file_seals;\n\tstruct file *file;\n\tstruct inode *inode;\n\tint err = 0;\n\n\tif (flags & MFD_HUGETLB) {\n\t\tfile = hugetlb_file_setup(name, 0, VM_NORESERVE,\n\t\t\t\t\tHUGETLB_ANONHUGE_INODE,\n\t\t\t\t\t(flags >> MFD_HUGE_SHIFT) &\n\t\t\t\t\tMFD_HUGE_MASK);\n\t} else {\n\t\tfile = shmem_file_setup(name, 0, VM_NORESERVE);\n\t}"
+    },
+    {
+      "id": "zero_shared_branch",
+      "path": "drivers/char/mem.c",
+      "start": 519,
+      "end": 527,
+      "excerpt": "{\n#ifndef CONFIG_MMU\n\treturn -ENOSYS;\n#endif\n\tif (desc->vm_flags & VM_SHARED)\n\t\treturn shmem_zero_setup_desc(desc);\n\n\tdesc->action.success_hook = mmap_zero_private_success;\n\treturn 0;"
+    },
+    {
+      "id": "zero_shmem",
+      "path": "mm/shmem.c",
+      "start": 5923,
+      "end": 5954,
+      "excerpt": "static struct file *__shmem_zero_setup(unsigned long start, unsigned long end, vm_flags_t vm_flags)\n{\n\tloff_t size = end - start;\n\n\t/*\n\t * Cloning a new file under mmap_lock leads to a lock ordering conflict\n\t * between XFS directory reading and selinux: since this file is only\n\t * accessible to the user through its mapping, use S_PRIVATE flag to\n\t * bypass file security, in the same way as shmem_kernel_file_setup().\n\t */\n\treturn shmem_kernel_file_setup(\"dev/zero\", size, vm_flags);\n}\n\n/**\n * shmem_zero_setup - setup a shared anonymous mapping\n * @vma: the vma to be mmapped is prepared by do_mmap\n * Returns: 0 on success, or error\n */\nint shmem_zero_setup(struct vm_area_struct *vma)\n{\n\tstruct file *file = __shmem_zero_setup(vma->vm_start, vma->vm_end, vma->vm_flags);\n\n\tif (IS_ERR(file))\n\t\treturn PTR_ERR(file);\n\n\tif (vma->vm_file)\n\t\tfput(vma->vm_file);\n\tvma->vm_file = file;\n\tvma->vm_ops = &shmem_anon_vm_ops;\n\n\treturn 0;\n}"
+    },
+    {
+      "id": "shmem_charge",
+      "path": "mm/shmem.c",
+      "start": 1965,
+      "end": 1970,
+      "excerpt": "allocated:\n\t__folio_set_locked(folio);\n\t__folio_set_swapbacked(folio);\n\n\tgfp &= GFP_RECLAIM_MASK;\n\terror = mem_cgroup_charge(folio, fault_mm, gfp);"
+    },
+    {
+      "id": "shmem_is_file_subset",
+      "path": "mm/shmem.c",
+      "start": 870,
+      "end": 875,
+      "excerpt": "static void shmem_update_stats(struct folio *folio, int nr_pages)\n{\n\tif (folio_test_pmd_mappable(folio))\n\t\tlruvec_stat_mod_folio(folio, NR_SHMEM_THPS, nr_pages);\n\tlruvec_stat_mod_folio(folio, NR_FILE_PAGES, nr_pages);\n\tlruvec_stat_mod_folio(folio, NR_SHMEM, nr_pages);"
+    },
+    {
+      "id": "ublkc_size",
+      "path": "drivers/block/ublk_drv.c",
+      "start": 799,
+      "end": 806,
+      "excerpt": "static inline int __ublk_queue_cmd_buf_size(int depth)\n{\n\treturn round_up(depth * sizeof(struct ublksrv_io_desc), PAGE_SIZE);\n}\n\nstatic inline int ublk_queue_cmd_buf_size(struct ublk_device *ub)\n{\n\treturn __ublk_queue_cmd_buf_size(ub->dev_info.queue_depth);"
+    },
+    {
+      "id": "ublkc_mapping",
+      "path": "drivers/block/ublk_drv.c",
+      "start": 1775,
+      "end": 1810,
+      "excerpt": "/* map pre-allocated per-queue cmd buffer to ublksrv daemon */\nstatic int ublk_ch_mmap(struct file *filp, struct vm_area_struct *vma)\n{\n\tstruct ublk_device *ub = filp->private_data;\n\tsize_t sz = vma->vm_end - vma->vm_start;\n\tunsigned max_sz = ublk_max_cmd_buf_size();\n\tunsigned long pfn, end, phys_off = vma->vm_pgoff << PAGE_SHIFT;\n\tint q_id, ret = 0;\n\n\tspin_lock(&ub->lock);\n\tif (!ub->mm)\n\t\tub->mm = current->mm;\n\tif (current->mm != ub->mm)\n\t\tret = -EINVAL;\n\tspin_unlock(&ub->lock);\n\n\tif (ret)\n\t\treturn ret;\n\n\tif (vma->vm_flags & VM_WRITE)\n\t\treturn -EPERM;\n\n\tend = UBLKSRV_CMD_BUF_OFFSET + ub->dev_info.nr_hw_queues * max_sz;\n\tif (phys_off < UBLKSRV_CMD_BUF_OFFSET || phys_off >= end)\n\t\treturn -EINVAL;\n\n\tq_id = (phys_off - UBLKSRV_CMD_BUF_OFFSET) / max_sz;\n\tpr_devel(\"%s: qid %d, pid %d, addr %lx pg_off %lx sz %lu\\n\",\n\t\t\t__func__, q_id, current->pid, vma->vm_start,\n\t\t\tphys_off, (unsigned long)sz);\n\n\tif (sz != ublk_queue_cmd_buf_size(ub))\n\t\treturn -EINVAL;\n\n\tpfn = virt_to_phys(ublk_queue_cmd_buf(ub, q_id)) >> PAGE_SHIFT;\n\treturn remap_pfn_range(vma, vma->vm_start, pfn, sz, vma->vm_page_prot);"
+    },
+    {
+      "id": "ublkc_allocation",
+      "path": "drivers/block/ublk_drv.c",
+      "start": 2705,
+      "end": 2738,
+      "excerpt": "static int ublk_init_queue(struct ublk_device *ub, int q_id)\n{\n\tint depth = ub->dev_info.queue_depth;\n\tgfp_t gfp_flags = GFP_KERNEL | __GFP_ZERO;\n\tstruct ublk_queue *ubq;\n\tstruct page *page;\n\tint numa_node;\n\tint size;\n\n\t/* Determine NUMA node based on queue's CPU affinity */\n\tnuma_node = ublk_get_queue_numa_node(ub, q_id);\n\n\t/* Allocate queue structure on local NUMA node */\n\tubq = kvzalloc_node(struct_size(ubq, ios, depth), GFP_KERNEL,\n\t\t\t    numa_node);\n\tif (!ubq)\n\t\treturn -ENOMEM;\n\n\tspin_lock_init(&ubq->cancel_lock);\n\tubq->flags = ub->dev_info.flags;\n\tubq->q_id = q_id;\n\tubq->q_depth = depth;\n\tsize = ublk_queue_cmd_buf_size(ub);\n\n\t/* Allocate I/O command buffer on local NUMA node */\n\tpage = alloc_pages_node(numa_node, gfp_flags, get_order(size));\n\tif (!page) {\n\t\tkvfree(ubq);\n\t\treturn -ENOMEM;\n\t}\n\tubq->io_cmd_buf = page_address(page);\n\n\tub->queues[q_id] = ubq;\n\tubq->dev = ub;"
+    },
+    {
+      "id": "pfn_special",
+      "path": "mm/memory.c",
+      "start": 2808,
+      "end": 2828,
+      "excerpt": "static int remap_pte_range(struct mm_struct *mm, pmd_t *pmd,\n\t\t\tunsigned long addr, unsigned long end,\n\t\t\tunsigned long pfn, pgprot_t prot)\n{\n\tpte_t *pte, *mapped_pte;\n\tspinlock_t *ptl;\n\tint err = 0;\n\n\tmapped_pte = pte = pte_alloc_map_lock(mm, pmd, addr, &ptl);\n\tif (!pte)\n\t\treturn -ENOMEM;\n\tarch_enter_lazy_mmu_mode();\n\tdo {\n\t\tBUG_ON(!pte_none(ptep_get(pte)));\n\t\tif (!pfn_modify_allowed(pfn, prot)) {\n\t\t\terr = -EACCES;\n\t\t\tbreak;\n\t\t}\n\t\tset_pte_at(mm, addr, pte, pte_mkspecial(pfn_pte(pfn, prot)));\n\t\tpfn++;\n\t} while (pte++, addr += PAGE_SIZE, addr != end);"
+    },
+    {
+      "id": "pfn_flags",
+      "path": "mm/memory.c",
+      "start": 3060,
+      "end": 3076,
+      "excerpt": "\nstatic int remap_pfn_range_prepare_vma(struct vm_area_struct *vma, unsigned long addr,\n\t\tunsigned long pfn, unsigned long size)\n{\n\tunsigned long end = addr + PAGE_ALIGN(size);\n\tint err;\n\n\terr = get_remap_pgoff(vma->vm_flags, addr, end,\n\t\t\t      vma->vm_start, vma->vm_end,\n\t\t\t      pfn, &vma->vm_pgoff);\n\tif (err)\n\t\treturn err;\n\n\tvm_flags_set(vma, VM_REMAP_FLAGS);\n\treturn 0;\n}\n"
+    },
+    {
+      "id": "pfn_not_normal",
+      "path": "mm/memory.c",
+      "start": 682,
+      "end": 706,
+      "excerpt": " */\nstatic inline struct page *__vm_normal_page(struct vm_area_struct *vma,\n\t\tunsigned long addr, unsigned long pfn, bool special,\n\t\tunsigned long long entry, enum pgtable_level level)\n{\n\tif (IS_ENABLED(CONFIG_ARCH_HAS_PTE_SPECIAL)) {\n\t\tif (unlikely(special)) {\n#ifdef CONFIG_FIND_NORMAL_PAGE\n\t\t\tif (vma->vm_ops && vma->vm_ops->find_normal_page)\n\t\t\t\treturn vma->vm_ops->find_normal_page(vma, addr);\n#endif /* CONFIG_FIND_NORMAL_PAGE */\n\t\t\tif (vma->vm_flags & (VM_PFNMAP | VM_MIXEDMAP))\n\t\t\t\treturn NULL;\n\t\t\tif (is_zero_pfn(pfn) || is_huge_zero_pfn(pfn))\n\t\t\t\treturn NULL;\n\n\t\t\tprint_bad_page_map(vma, addr, entry, NULL, level);\n\t\t\treturn NULL;\n\t\t}\n\t\t/*\n\t\t * With CONFIG_ARCH_HAS_PTE_SPECIAL, any special page table\n\t\t * mappings (incl. shared zero folios) are marked accordingly.\n\t\t */\n\t} else {\n\t\tif (unlikely(vma->vm_flags & (VM_PFNMAP | VM_MIXEDMAP))) {"
+    },
+    {
+      "id": "pfn_flag_definition",
+      "path": "include/linux/mm.h",
+      "start": 560,
+      "end": 563,
+      "excerpt": " */\n#define VM_REMAP_FLAGS (VM_IO | VM_PFNMAP | VM_DONTEXPAND | VM_DONTDUMP)\n\n/* This mask prevents VMA from being scanned with khugepaged */"
+    },
+    {
+      "id": "allocation_account_flag",
+      "path": "include/linux/gfp_types.h",
+      "start": 369,
+      "end": 374,
+      "excerpt": " * in page fault path, while the non-light is used by khugepaged.\n */\n#define GFP_ATOMIC\t(__GFP_HIGH|__GFP_KSWAPD_RECLAIM)\n#define GFP_KERNEL\t(__GFP_RECLAIM | __GFP_IO | __GFP_FS)\n#define GFP_KERNEL_ACCOUNT (GFP_KERNEL | __GFP_ACCOUNT)\n#define GFP_NOWAIT\t(__GFP_KSWAPD_RECLAIM | __GFP_NOWARN)"
+    },
+    {
+      "id": "page_charge_condition",
+      "path": "mm/page_alloc.c",
+      "start": 5275,
+      "end": 5282,
+      "excerpt": "out:\n\tif (memcg_kmem_online() && (gfp & __GFP_ACCOUNT) && page &&\n\t    unlikely(__memcg_kmem_charge_page(page, gfp, order) != 0)) {\n\t\tfree_frozen_pages(page, order);\n\t\tpage = NULL;\n\t}\n\n\ttrace_mm_page_alloc(page, order, alloc_gfp, ac.migratetype);"
+    },
+    {
+      "id": "kernel_stat",
+      "path": "mm/memcontrol.c",
+      "start": 1332,
+      "end": 1346,
+      "excerpt": "\tunsigned int idx;\n};\n\nstatic const struct memory_stat memory_stats[] = {\n\t{ \"anon\",\t\t\tNR_ANON_MAPPED\t\t\t},\n\t{ \"file\",\t\t\tNR_FILE_PAGES\t\t\t},\n\t{ \"kernel\",\t\t\tMEMCG_KMEM\t\t\t},\n\t{ \"kernel_stack\",\t\tNR_KERNEL_STACK_KB\t\t},\n\t{ \"pagetables\",\t\t\tNR_PAGETABLE\t\t\t},\n\t{ \"sec_pagetables\",\t\tNR_SECONDARY_PAGETABLE\t\t},\n\t{ \"percpu\",\t\t\tMEMCG_PERCPU_B\t\t\t},\n\t{ \"sock\",\t\t\tMEMCG_SOCK\t\t\t},\n\t{ \"vmalloc\",\t\t\tMEMCG_VMALLOC\t\t\t},\n\t{ \"shmem\",\t\t\tNR_SHMEM\t\t\t},\n#ifdef CONFIG_ZSWAP"
+    },
+    {
+      "id": "kernel_charge",
+      "path": "mm/memcontrol.c",
+      "start": 2770,
+      "end": 2785,
+      "excerpt": "static inline void account_kmem_nmi_safe(struct mem_cgroup *memcg, int val)\n{\n\tif (likely(!in_nmi())) {\n\t\tmod_memcg_state(memcg, MEMCG_KMEM, val);\n\t} else {\n\t\t/* preemption is disabled in_nmi(). */\n\t\tcss_rstat_updated(&memcg->css, smp_processor_id());\n\t\tatomic_add(val, &memcg->kmem_stat);\n\t}\n}\n#else\nstatic inline void account_kmem_nmi_safe(struct mem_cgroup *memcg, int val)\n{\n\tmod_memcg_state(memcg, MEMCG_KMEM, val);\n}\n#endif"
+    },
+    {
+      "id": "ublk_info",
+      "path": "include/uapi/linux/ublk_cmd.h",
+      "start": 344,
+      "end": 350,
+      "excerpt": "\nstruct ublksrv_ctrl_dev_info {\n\t__u16\tnr_hw_queues;\n\t__u16\tqueue_depth;\n\t__u16\tstate;\n\t__u16\tpad0;\n"
+    },
+    {
+      "id": "ublk_descriptor",
+      "path": "include/uapi/linux/ublk_cmd.h",
+      "start": 419,
+      "end": 433,
+      "excerpt": "struct ublksrv_io_desc {\n\t/* op: bit 0-7, flags: bit 8-31 */\n\t__u32\t\top_flags;\n\n\tunion {\n\t\t__u32\t\tnr_sectors;\n\t\t__u32\t\tnr_zones; /* for UBLK_IO_OP_REPORT_ZONES */\n\t};\n\n\t/* start sector for this io */\n\t__u64\t\tstart_sector;\n\n\t/* buffer address in ublksrv daemon vm space, from ublk driver */\n\t__u64\t\taddr;\n};"
+    }
+  ],
+  "conclusions": {
+    "pss_file_is_not_pagecache_only": true,
+    "kernel_pss_overlap": "io_uring mapped regions; KVM run/PIO normal resident pages",
+    "deleted_backing": "shmem/hugetlb/private-COW must be distinguished; no per-object bytes assigned",
+    "concrete_gap": "ublkc queue command buffers: PFNMAP skipped by PSS, allocation lacks __GFP_ACCOUNT",
+    "total_physical_bytes": null,
+    "whole_physical_saving": "NOT_MEASURED",
+    "guest_cached_host_physical_subset": "NOT_MEASURED",
+    "previous_accounting": "SHORTFALL_REQUIRES_RESOLUTION"
+  },
+  "minimum_next_collection": [
+    "per-VMA range/offset/permissions/identity and targeted smaps incl VmFlags/hugetlb fields",
+    "deleted backing descriptor identity, size, filesystem type when available; failures remain unknown",
+    "ublk actual queue count/depth and mapped queue offsets; source-defined command allocation reported separately"
+  ]
+}

@@ -1,0 +1,84 @@
+{
+  "status": "PASS_OFFLINE_INTEGRATION",
+  "check_only_exit_code": 0,
+  "live_command_executed": false,
+  "saved_default_and_skip_variants_identical": 4,
+  "candidate_syntax": "PASS",
+  "scope": "Local current seven-guest light GRPO with skipped boundary vmstat only",
+  "candidate_config": "configs/platform-prettier6604-grpo-host-current-merged-meminfo.json",
+  "metadata": {
+    "status": "MERGED_WITH_ACTION_TIMERS",
+    "helper_file": "prototype_boundary_memory.py",
+    "boundary_rows": 448,
+    "action_timer_reads": 378,
+    "segment_edge_reads": 70,
+    "date_awk_calls_removed": 756,
+    "count_scope": "Source-derived calls versus separate boundary meminfo; not measured CPU or seconds"
+  },
+  "new_live_guests": 0,
+  "new_live_actions": 0,
+  "guest_performance": "NOT_MEASURED",
+  "result": "docs/records/GRPO_BOUNDARY_MEMINFO_INTEGRATION.md",
+  "candidate_live_status": "NOT_RUN",
+  "tests": {
+    "new_integration": 12,
+    "prototype": 7,
+    "legacy_vmstat": 10,
+    "legacy_local_grpo": 9,
+    "persistent_input": 15,
+    "persistent_tasks": 16,
+    "platform": 14,
+    "total_unique": 83
+  },
+  "old_driver_rechecked_after_new_mode": true,
+  "saved_complete_audits": [
+    {
+      "index": 1,
+      "boundary_vmstat_mode": "keep",
+      "actions": 189,
+      "status": "PASS",
+      "original_official_outcome": "0 passed / 2 failed per guest"
+    },
+    {
+      "index": 2,
+      "boundary_vmstat_mode": "skip",
+      "actions": 189,
+      "status": "PASS",
+      "original_official_outcome": "0 passed / 2 failed per guest"
+    }
+  ],
+  "legacy_reports_identical": [
+    {
+      "comparison": "sampling",
+      "identical_files": [
+        "summary.json",
+        "runs.tsv",
+        "pairs.tsv",
+        "REPORT.md"
+      ]
+    },
+    {
+      "comparison": "boundary-vmstat",
+      "identical_files": [
+        "summary.json",
+        "runs.tsv",
+        "pairs.tsv",
+        "REPORT.md"
+      ]
+    }
+  ],
+  "comparison": "boundary-meminfo",
+  "ordered_variants": [
+    "separate",
+    "merged",
+    "merged",
+    "separate"
+  ],
+  "all_sampled": true,
+  "all_boundary_vmstat_skipped": true,
+  "synthetic_layout": "SYNTHETIC_LAYOUT/report; layout and fields only, not experimental data",
+  "network_requests": 0,
+  "residency_queries": 0,
+  "volume_cleanup": 0,
+  "artifacts": ".artifacts/grpo-meminfo-integration-20261101"
+}

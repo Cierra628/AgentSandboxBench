@@ -16,13 +16,13 @@ def available(path):
     return st.f_bavail*st.f_frsize
 
 
-def capacity_budget(free, capacity):
+def capacity_budget(free, capacity, *, margin=HOST_MARGIN):
     if capacity <= 0 or capacity % GIB:
         raise ValueError('capacity must be a positive whole GiB')
-    required = capacity+HOST_RESERVE+HOST_MARGIN
+    required = capacity+HOST_RESERVE+margin
     return dict(ready=free > required, available_bytes=free,
                 required_available_bytes=required, capacity_bytes=capacity,
-                host_reserve_bytes=HOST_RESERVE, host_margin_bytes=HOST_MARGIN)
+                host_reserve_bytes=HOST_RESERVE, host_margin_bytes=margin)
 
 
 def rootfs_network_pools(route_json):

@@ -1,0 +1,311 @@
+{
+  "status": "PASS",
+  "task_id": "build-cython-ext",
+  "runs": 4,
+  "pairs": [
+    {
+      "pair": 1,
+      "order": [
+        "off",
+        "on"
+      ],
+      "comparability": {
+        "status": "MATCH_RECORDED_FIELDS",
+        "changed_fields": []
+      },
+      "timings": {
+        "tool_sum": {
+          "on": 182.052734457,
+          "off": 181.816505849,
+          "change_percent": 0.12992693204443295
+        },
+        "tool_span": {
+          "on": 182.174414216,
+          "off": 181.942045619,
+          "change_percent": 0.12771572189893554
+        },
+        "replay_cli": {
+          "on": 182.2291086,
+          "off": 181.998170436,
+          "change_percent": 0.12689037667068526
+        },
+        "cold_create": {
+          "on": 123.006762903,
+          "off": 39.543931655,
+          "change_percent": 211.0635633709093
+        },
+        "controller": {
+          "on": 310.640051725,
+          "off": 230.955756069,
+          "change_percent": 34.50197432281949
+        }
+      }
+    },
+    {
+      "pair": 2,
+      "order": [
+        "on",
+        "off"
+      ],
+      "comparability": {
+        "status": "MATCH_RECORDED_FIELDS",
+        "changed_fields": []
+      },
+      "timings": {
+        "tool_sum": {
+          "on": 179.198785322,
+          "off": 211.089444569,
+          "change_percent": -15.107652261871262
+        },
+        "tool_span": {
+          "on": 179.321417336,
+          "off": 211.216265217,
+          "change_percent": -15.10056427152131
+        },
+        "replay_cli": {
+          "on": 179.378657475,
+          "off": 211.278975388,
+          "change_percent": -15.09867124943083
+        },
+        "cold_create": {
+          "on": 41.085559697,
+          "off": 43.29878804,
+          "change_percent": -5.111524925259769
+        },
+        "controller": {
+          "on": 229.944657565,
+          "off": 258.618710084,
+          "change_percent": -11.087385173983188
+        }
+      }
+    }
+  ],
+  "summary": {
+    "tool_sum": {
+      "on_mean_seconds": 180.6257598895,
+      "off_mean_seconds": 196.452975209,
+      "paired_change_median_percent": -7.488862664913414,
+      "paired_change_range_percent": [
+        -15.107652261871262,
+        0.12992693204443295
+      ]
+    },
+    "tool_span": {
+      "on_mean_seconds": 180.747915776,
+      "off_mean_seconds": 196.579155418,
+      "paired_change_median_percent": -7.4864242748111876,
+      "paired_change_range_percent": [
+        -15.10056427152131,
+        0.12771572189893554
+      ]
+    },
+    "replay_cli": {
+      "on_mean_seconds": 180.8038830375,
+      "off_mean_seconds": 196.638572912,
+      "paired_change_median_percent": -7.485890436380072,
+      "paired_change_range_percent": [
+        -15.09867124943083,
+        0.12689037667068526
+      ]
+    },
+    "cold_create": {
+      "on_mean_seconds": 82.0461613,
+      "off_mean_seconds": 41.4213598475,
+      "paired_change_median_percent": 102.97601922282476,
+      "paired_change_range_percent": [
+        -5.111524925259769,
+        211.0635633709093
+      ]
+    },
+    "controller": {
+      "on_mean_seconds": 270.292354645,
+      "off_mean_seconds": 244.7872330765,
+      "paired_change_median_percent": 11.707294574418153,
+      "paired_change_range_percent": [
+        -11.087385173983188,
+        34.50197432281949
+      ]
+    }
+  },
+  "definition": "Per pair: (on / off - 1) * 100; signed values retained. Both memory samplers change together; clocks, checks, cgroup accounting and disk guards retained.",
+  "scope": "Two fresh-service pairs only; no population confidence bound, host/guest slowdown decomposition or sharing savings.",
+  "comparable_pairs": 2,
+  "date": "2026-10-30",
+  "source_revision": "cbe767b2aa23ceb59875b1cb0a7a6141c749312a",
+  "run_details": [
+    {
+      "index": 1,
+      "pair": 1,
+      "mode": "off",
+      "actions": 83,
+      "timings_seconds": {
+        "tool_sum": 181.816505849,
+        "tool_span": 181.942045619,
+        "replay_cli": 181.998170436,
+        "cold_create": 39.543931655,
+        "controller": 230.955756069,
+        "monitor_blocking": null,
+        "managed_collector_request": null
+      },
+      "sampling_cost": null,
+      "memory": "NOT_MEASURED",
+      "minimum_available_gib": 29.869388580322266,
+      "cleanup": "PASS",
+      "source_identity": {
+        "source_commit": "441c807dbec2ee32e1da572e24e58d52a4eb7afa",
+        "gcc": "(Debian 12.2.0-14+deb12u1) 12.2.0",
+        "Cython": "3.3.0 | sympy 1.14.0 | pytest 9.2.0",
+        "vispy": "0.17.0",
+        "networkx": "3.7",
+        "peewee": "4.5.3",
+        "appdirs": "1.4.4",
+        "requests": "2.34.2",
+        "tqdm": "4.70.1",
+        "matplotlib": "3.11.2",
+        "planarity": "1.0.0",
+        "setuptools": "84.2.1"
+      },
+      "network_preflight_seconds": 8.098118735
+    },
+    {
+      "index": 2,
+      "pair": 1,
+      "mode": "on",
+      "actions": 83,
+      "timings_seconds": {
+        "tool_sum": 182.052734457,
+        "tool_span": 182.174414216,
+        "replay_cli": 182.2291086,
+        "cold_create": 123.006762903,
+        "controller": 310.640051725,
+        "monitor_blocking": 0.380221495,
+        "managed_collector_request": 182.517499336
+      },
+      "sampling_cost": {
+        "host_samples": 3142,
+        "guest_samples": 1815,
+        "host_cpu_seconds": 0.934915145,
+        "guest_cpu_seconds": 0.9184749999999999,
+        "host_single_core_cpu_percent": 0.2974652911731343,
+        "guest_single_core_cpu_percent": 0.503730837512763,
+        "host_counter_read_seconds": 0.730449072,
+        "host_max_gap_seconds": 0.100136409,
+        "guest_max_gap_seconds": 0.11229141
+      },
+      "memory": {
+        "host_current_peak_mib": 4692.61328125,
+        "guest_used_peak_mib": 784.6953125,
+        "guest_cached_peak_mib": 234.21484375
+      },
+      "minimum_available_gib": 29.817169189453125,
+      "cleanup": "PASS",
+      "source_identity": {
+        "source_commit": "441c807dbec2ee32e1da572e24e58d52a4eb7afa",
+        "gcc": "(Debian 12.2.0-14+deb12u1) 12.2.0",
+        "Cython": "3.3.0 | sympy 1.14.0 | pytest 9.2.0",
+        "vispy": "0.17.0",
+        "networkx": "3.7",
+        "peewee": "4.5.3",
+        "appdirs": "1.4.4",
+        "requests": "2.34.2",
+        "tqdm": "4.70.1",
+        "matplotlib": "3.11.2",
+        "planarity": "1.0.0",
+        "setuptools": "84.2.1"
+      },
+      "network_preflight_seconds": 3.612290405
+    },
+    {
+      "index": 3,
+      "pair": 2,
+      "mode": "on",
+      "actions": 83,
+      "timings_seconds": {
+        "tool_sum": 179.198785322,
+        "tool_span": 179.321417336,
+        "replay_cli": 179.378657475,
+        "cold_create": 41.085559697,
+        "controller": 229.944657565,
+        "monitor_blocking": 0.351209187,
+        "managed_collector_request": 179.645735548
+      },
+      "sampling_cost": {
+        "host_samples": 2322,
+        "guest_samples": 1786,
+        "host_cpu_seconds": 0.683246752,
+        "guest_cpu_seconds": 0.92703,
+        "host_single_core_cpu_percent": 0.29415782039238225,
+        "guest_single_core_cpu_percent": 0.5165121102134541,
+        "host_counter_read_seconds": 0.529058398,
+        "host_max_gap_seconds": 0.100116854,
+        "guest_max_gap_seconds": 0.124438483
+      },
+      "memory": {
+        "host_current_peak_mib": 4740.76171875,
+        "guest_used_peak_mib": 731.3359375,
+        "guest_cached_peak_mib": 292.84375
+      },
+      "minimum_available_gib": 29.85968780517578,
+      "cleanup": "PASS",
+      "source_identity": {
+        "source_commit": "441c807dbec2ee32e1da572e24e58d52a4eb7afa",
+        "gcc": "(Debian 12.2.0-14+deb12u1) 12.2.0",
+        "Cython": "3.3.0 | sympy 1.14.0 | pytest 9.2.0",
+        "vispy": "0.17.0",
+        "networkx": "3.7",
+        "peewee": "4.5.3",
+        "appdirs": "1.4.4",
+        "requests": "2.34.2",
+        "tqdm": "4.70.1",
+        "matplotlib": "3.11.2",
+        "planarity": "1.0.0",
+        "setuptools": "84.2.1"
+      },
+      "network_preflight_seconds": 7.767060483
+    },
+    {
+      "index": 4,
+      "pair": 2,
+      "mode": "off",
+      "actions": 83,
+      "timings_seconds": {
+        "tool_sum": 211.089444569,
+        "tool_span": 211.216265217,
+        "replay_cli": 211.278975388,
+        "cold_create": 43.29878804,
+        "controller": 258.618710084,
+        "monitor_blocking": null,
+        "managed_collector_request": null
+      },
+      "sampling_cost": null,
+      "memory": "NOT_MEASURED",
+      "minimum_available_gib": 29.857933044433594,
+      "cleanup": "PASS",
+      "source_identity": {
+        "source_commit": "441c807dbec2ee32e1da572e24e58d52a4eb7afa",
+        "gcc": "(Debian 12.2.0-14+deb12u1) 12.2.0",
+        "Cython": "3.3.0 | sympy 1.14.0 | pytest 9.2.0",
+        "vispy": "0.17.0",
+        "networkx": "3.7",
+        "peewee": "4.5.3",
+        "appdirs": "1.4.4",
+        "requests": "2.34.2",
+        "tqdm": "4.70.1",
+        "matplotlib": "3.11.2",
+        "planarity": "1.0.0",
+        "setuptools": "84.2.1"
+      },
+      "network_preflight_seconds": 2.607503315
+    }
+  ],
+  "raw_result_directory": ".artifacts/external-cython-sampling-controls-20261030T173523Z",
+  "public_result_directory": "results/external-cython-sampling-controls-20261031",
+  "scope_notes": [
+    "Both host and guest memory sampling change together; clocks, original validation, cgroup accounting and disk guards remain.",
+    "Four independent fresh services and guests; original task and validation retained, default reclaim, no cache reset, extra pre-read, freeze, PSS or mincore.",
+    "Host memory is whole measurement-group accounting, including preparation, service and control; not task-only memory or sharing savings.",
+    "Off runs have no measured memory or sampler CPU, represented by NOT_MEASURED / null, not zero.",
+    "Two pairs give the observed changes and range, not a population confidence bound; cold creation includes image retrieval and conversion.",
+    "Cython retains original network/install/build operations. Only pairs matching recorded source/version fields enter summary; drift gives null changes, not replacement runs. Unrecorded dependencies and history-repository changes remain uncertain."
+  ]
+}

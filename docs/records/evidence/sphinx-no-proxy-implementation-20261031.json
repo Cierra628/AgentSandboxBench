@@ -1,0 +1,97 @@
+{
+  "date": "2026-10-31",
+  "stage": "Sphinx local-no-proxy offline implementation",
+  "status": "PASS",
+  "scope": "Offline source changes, toy-file/mocked regressions, exact local Shell dispatch and fixed manifest export only",
+  "task_id": "sphinx-doc__sphinx-7590",
+  "mode": "--persistent-input --local-no-proxy",
+  "code_files": [
+    "scripts/prettier_no_proxy.py",
+    "scripts/agentenv_cold_start.py",
+    "scripts/run_host_file_workflow.py",
+    "scripts/platform_tasks.py",
+    "scripts/validate_isolated_agentenv.py",
+    "scripts/run_xarray6992.py",
+    "tests/test_prettier_no_proxy.py",
+    "tests/test_host_persistent_tasks.py",
+    "tests/test_sphinx_no_proxy.py"
+  ],
+  "tests": [
+    {
+      "log": ".artifacts/sphinx-local-no-proxy-implementation-20261031/sphinx-tests.log",
+      "count": 11,
+      "seconds": 0.105,
+      "status": "PASS"
+    },
+    {
+      "log": ".artifacts/sphinx-local-no-proxy-implementation-20261031/prettier-tests.log",
+      "count": 17,
+      "seconds": 0.092,
+      "status": "PASS"
+    },
+    {
+      "log": ".artifacts/sphinx-local-no-proxy-implementation-20261031/persistent-tests-final.log",
+      "count": 31,
+      "seconds": 0.195,
+      "status": "PASS"
+    },
+    {
+      "log": ".artifacts/sphinx-local-no-proxy-implementation-20261031/sphinx-policy-tests.log",
+      "count": 14,
+      "seconds": 0.028,
+      "status": "PASS"
+    },
+    {
+      "log": ".artifacts/sphinx-local-no-proxy-implementation-20261031/xarray-policy-tests.log",
+      "count": 9,
+      "seconds": 0.048,
+      "status": "PASS"
+    }
+  ],
+  "test_total": 82,
+  "static_validation": {
+    "status": "PASS",
+    "syntax_files": 9,
+    "help_entries": 2,
+    "task_id": "sphinx-doc__sphinx-7590",
+    "manifest_bytes": 3045,
+    "manifest_pin": "sha256:577ebfcce825e4c9621e066dc1c8375443be94bbc6de30b9368e422b8f123731",
+    "layer_count": 13,
+    "raw_config_exported": false,
+    "docker_invoked": false,
+    "network_invoked": false,
+    "real_cache_validation": "NOT_RUN",
+    "real_binary_version_validation": "NOT_RUN",
+    "service_started": false,
+    "guest_started": false
+  },
+  "accepted_requests": [
+    "exact version",
+    "exact pinned Sphinx manifest get --format raw-body"
+  ],
+  "rejected_requests_exit_code": 78,
+  "raw_config_required": false,
+  "original_regctl_fallback": false,
+  "preserved": [
+    "Prettier default API and verified mode",
+    "old entry behavior when option disabled",
+    "Sphinx original 35 actions and frozen environment",
+    "sphinx-pipeline-v2 exact exit policy",
+    "seven independent UDL checks",
+    "official 25-test selection",
+    "strict replay FAIL and official failure separated",
+    "cleanup and persistent input query/release ordering"
+  ],
+  "real_cache_and_regctl_real": "NOT_VERIFIED; require normal future restore/import",
+  "real_service_and_guest": "NOT_RUN",
+  "performance": "NOT_MEASURED",
+  "network_requests": "NOT_SENT",
+  "deletion": "NOT_PERFORMED",
+  "disk": {
+    "available_bytes": 60046184448,
+    "available_gib": 55.922,
+    "required_gib_strictly_above": 56,
+    "ready": false
+  },
+  "next_step": "After authorization and resources: one original Sphinx 35-action complete run, no extra creation-only or four-run control"
+}

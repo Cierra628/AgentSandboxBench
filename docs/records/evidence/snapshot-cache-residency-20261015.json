@@ -1,0 +1,988 @@
+{
+  "status": "PASS",
+  "date": "2026-10-15",
+  "backend": "AgentENV",
+  "cpu": 2,
+  "memory_mib": 4096,
+  "page_size": 4096,
+  "guest_kernel": "6.1.175-asb-cache-v3",
+  "host_kernel": "6.19.9+",
+  "vm_pause": false,
+  "method": "KVM slots -> current private file VMA offset; mincore/filemap_get_entry PFN queries without contents read; VMM/backend PFN union; old COW versions separate",
+  "scope": "Direct File-backend page cache and current VMM mappings; lower OverlayBD encoded layers/provider buffers are not attributed.",
+  "existing_evidence": "Earlier three-task single paths and step-24 continuity retained; their old missing backend measurements cannot be reconstructed.",
+  "verification": {
+    "status": "PASS",
+    "reports": {
+      "calibration": {
+        "status": "PASS",
+        "matching_report_files": 3,
+        "unchanged_raw_files": 98,
+        "report_sha256": {
+          "cache.svg": "b57d53b175ee23ffb6b78952f6dc36a12638f0ebd18ff818622358c4d290c787",
+          "summary.json": "ee7fb650f2e681e96f3c5281babf3a44736eca1c9235648b2520d16c3b3375d1",
+          "cache.png": "74474d0c726990fca3d55f72ce8a5393f7daf990a41f8fe62e783a44afc403d8"
+        }
+      },
+      "prettier": {
+        "status": "PASS",
+        "matching_report_files": 13,
+        "unchanged_raw_files": 148,
+        "report_sha256": {
+          "performance-01a13e8e-3f00-7930-a743-731303e0b51a.svg": "1c8a0d2dca0f2452c7842c8f27785f1c54914f85cb36ac14cab6e0c1e52e54ec",
+          "guest-01a13e8e-029a-7a31-8fe4-a3873dd91d37.svg": "d1c05d168963c0bfe4c632f1280b391bf02406b14048d03bff1122db09f9b04d",
+          "result.json": "4623bf8fc7b133714395f06a48606db13f80efa72c41e6c1346880a4966033b4",
+          "memory.svg": "93cb6499770c140272253f4210ba3cd290a0bafa670f8734ee7f606de3381658",
+          "memory.png": "5ab8772df93ae644934d1163a15bf085f2d091e6d02c1f5fca04d57cbcb080a8",
+          "guest-01a13e8e-3f00-7930-a743-731303e0b51a.svg": "4876d720cf5bdf7197f01f67a3c9283662b196f05e98507f8d792da2e4659329",
+          "summary.json": "65fdb93273f69114b083d009cce62d18436ce7de0c0e3842ee272cd625e0912b",
+          "runtime-metrics.json": "dc719f013728cc487d6e54d85f2932260a45f4576fa7397f3b234ac32a22b130",
+          "performance-01a13e8e-029a-7a31-8fe4-a3873dd91d37.svg": "b7a10549b953e5f52b0ccb03ff491076b97868b0138d16d50474ce976ee73f97",
+          "input-sha256.json": "f1e4399aaddd3dfa8d4d89a68a2c533a31a46dd09ed33155df363de314a124fe",
+          "live-cache/cache.svg": "4d152b508c09457cb25697f1a4a39e11e7459b6d580070baa6904f869d32e7bb",
+          "live-cache/summary.json": "523ee25e820486426fc983b33c69aaea61a3a619019ec925b2461ef6b6d145ae",
+          "live-cache/cache.png": "881e56bda00083c5cb6d3a3ab4270370aae3cf2dc90b47202f01a011f6d530cf"
+        },
+        "unchanged_task_files": 448
+      }
+    },
+    "unit_tests": {
+      "snapshot": 4,
+      "live": 15,
+      "storage": 25
+    },
+    "failed_calibration_preserved": true,
+    "failed_volume_backup_verified": true
+  },
+  "source_sha256": {
+    "snapshot_cache_residency.py": "7a9a27d0735eaa038de341a45403bd64226b880e16f6907a84c23717536dc1bb",
+    "live_task_cache.py": "74a03f6b271fbeafbfed37b8419cb24df2233cb06b2de1698f007bad0d1a04bc",
+    "run_snapshot_cache_calibration.py": "74c9a42edf63d5e2087bf66b8a955632140172bdd3cceace6957be6a11ef7ff2",
+    "guest_snapshot_cache_fixture.py": "6d81cb0f78acd97d9b1e063a41d6432aba3e053f8747636f0733184495a181ba",
+    "report_live_task_cache.py": "3d00e8559c3495a1c49fa30333afd9d62d81f556eae5ed5043da1f76bdf207b6",
+    "audit_snapshot_cache.py": "b5d73b939e989e341a017fe23b8b6f01c04a02b7f9b124a0e9349a6b34d6ff9b"
+  },
+  "calibration": {
+    "task_id": "snapshot-cache-calibration",
+    "action_count": 0,
+    "task_checks": {
+      "file_contents": "PASS",
+      "process_continuity": "PASS",
+      "guest_page_identity_recorded": "PASS",
+      "checkpoint_restore": "PASS"
+    },
+    "official_task_status": "NOT_APPLICABLE",
+    "timing": {
+      "guest_action_sum_ns": null,
+      "frozen_replay_elapsed_ns": null,
+      "controller_elapsed_ns": null,
+      "stages_ns": {
+        "live-cache-upload": 47673428,
+        "live-cache-start": 49687279,
+        "live-cache-ready": 156212443,
+        "live-cache-bootstrap": 42033406,
+        "live-cache-done": 49604873,
+        "live-cache-result": 36531611,
+        "checkpoint": 2636662907,
+        "restore": 154555150,
+        "restore-ready": 42365071
+      }
+    },
+    "sample_count": 13,
+    "session_metrics": {
+      "parent": {
+        "samples": 3,
+        "first_sample_ns": 1792050601165627093,
+        "last_sample_ns": 1792050603165856691,
+        "guest_cached_range_bytes": [
+          105725952,
+          125538304
+        ],
+        "host_confirmed_range_bytes": [
+          104136704,
+          125538304
+        ],
+        "unconfirmed_guest_capacity_max_bytes": 1671168,
+        "mapping_absent_capacity_max_bytes": 0
+      },
+      "restored": {
+        "samples": 10,
+        "first_sample_ns": 1792050609055675496,
+        "last_sample_ns": 1792050618056466873,
+        "guest_cached_range_bytes": [
+          19890176,
+          129851392
+        ],
+        "host_confirmed_range_bytes": [
+          19095552,
+          83632128
+        ],
+        "unconfirmed_guest_capacity_max_bytes": 53620736,
+        "mapping_absent_capacity_max_bytes": 79380480
+      }
+    },
+    "host_pair_elapsed_mean_ns": 226412774.76923078,
+    "host_pair_elapsed_max_ns": 384868190,
+    "metadata_counters": {
+      "duplicate_adds": 0,
+      "missing_removes": 0,
+      "out_of_range": 0,
+      "moved_pages": 0,
+      "stale_records": 0,
+      "bitmap_lock_ns": 48480
+    },
+    "run": ".artifacts/storage-isolated-service/20261015T074940Z-1918184",
+    "sample_interval_seconds": 1.0,
+    "host_thread_cpu_ns": 2603639428,
+    "guest_publication_cpu_ns": 41639248,
+    "sampling_gap": {
+      "start_ns": 1792050603505948050,
+      "reason": "native checkpoint; no collector pause",
+      "end_ns": 1792050609055855878
+    },
+    "measurements": [
+      {
+        "point": 0,
+        "timestamp_ns": 1792050601165627093,
+        "guest_cached_bytes": 105725952,
+        "host_confirmed_cache_bytes": 104136704,
+        "host_residency_unconfirmed_guest_capacity_bytes": 1671168,
+        "host_elapsed_ns": 83489630,
+        "host_thread_cpu_ns": 52934971
+      },
+      {
+        "point": 1,
+        "timestamp_ns": 1792050602165733629,
+        "guest_cached_bytes": 125538304,
+        "host_confirmed_cache_bytes": 125538304,
+        "host_residency_unconfirmed_guest_capacity_bytes": 0,
+        "host_elapsed_ns": 107189793,
+        "host_thread_cpu_ns": 81757462
+      },
+      {
+        "point": 2,
+        "timestamp_ns": 1792050603165856691,
+        "guest_cached_bytes": 125538304,
+        "host_confirmed_cache_bytes": 125538304,
+        "host_residency_unconfirmed_guest_capacity_bytes": 0,
+        "host_elapsed_ns": 109318611,
+        "host_thread_cpu_ns": 84020073
+      },
+      {
+        "point": 0,
+        "timestamp_ns": 1792050609055675496,
+        "guest_cached_bytes": 129818624,
+        "host_confirmed_cache_bytes": 48128000,
+        "host_current_union_bytes": 76226560,
+        "host_vmm_confirmed_bytes": 48128000,
+        "host_snapshot_current_bytes": 70746112,
+        "host_vmm_snapshot_intersection_bytes": 42647552,
+        "snapshot_old_version_bytes": 5480448,
+        "snapshot_without_vmm_pte_pages": 6860,
+        "backend_query_unconfirmed_pages": 12617,
+        "backend_file_pfn_mismatch_pages": 0,
+        "host_current_unconfirmed_guest_capacity_bytes": 53620736,
+        "host_residency_unconfirmed_guest_capacity_bytes": 53620736,
+        "host_elapsed_ns": 328567887,
+        "host_thread_cpu_ns": 298262552
+      },
+      {
+        "point": 1,
+        "timestamp_ns": 1792050610055774912,
+        "guest_cached_bytes": 129847296,
+        "host_confirmed_cache_bytes": 50745344,
+        "host_current_union_bytes": 80199680,
+        "host_vmm_confirmed_bytes": 50745344,
+        "host_snapshot_current_bytes": 74440704,
+        "host_vmm_snapshot_intersection_bytes": 44986368,
+        "snapshot_old_version_bytes": 5758976,
+        "snapshot_without_vmm_pte_pages": 7191,
+        "backend_query_unconfirmed_pages": 12121,
+        "backend_file_pfn_mismatch_pages": 0,
+        "host_current_unconfirmed_guest_capacity_bytes": 49651712,
+        "host_residency_unconfirmed_guest_capacity_bytes": 49651712,
+        "host_elapsed_ns": 321218295,
+        "host_thread_cpu_ns": 295574404
+      },
+      {
+        "point": 2,
+        "timestamp_ns": 1792050611055867570,
+        "guest_cached_bytes": 129851392,
+        "host_confirmed_cache_bytes": 50749440,
+        "host_current_union_bytes": 80326656,
+        "host_vmm_confirmed_bytes": 50749440,
+        "host_snapshot_current_bytes": 74563584,
+        "host_vmm_snapshot_intersection_bytes": 44986368,
+        "snapshot_old_version_bytes": 5763072,
+        "snapshot_without_vmm_pte_pages": 7221,
+        "backend_query_unconfirmed_pages": 12091,
+        "backend_file_pfn_mismatch_pages": 0,
+        "host_current_unconfirmed_guest_capacity_bytes": 49524736,
+        "host_residency_unconfirmed_guest_capacity_bytes": 49524736,
+        "host_elapsed_ns": 384868190,
+        "host_thread_cpu_ns": 343807030
+      },
+      {
+        "point": 3,
+        "timestamp_ns": 1792050612055944161,
+        "guest_cached_bytes": 92491776,
+        "host_confirmed_cache_bytes": 38535168,
+        "host_current_union_bytes": 56594432,
+        "host_vmm_confirmed_bytes": 38535168,
+        "host_snapshot_current_bytes": 51322880,
+        "host_vmm_snapshot_intersection_bytes": 33263616,
+        "snapshot_old_version_bytes": 5271552,
+        "snapshot_without_vmm_pte_pages": 4409,
+        "backend_query_unconfirmed_pages": 8764,
+        "backend_file_pfn_mismatch_pages": 0,
+        "host_current_unconfirmed_guest_capacity_bytes": 35897344,
+        "host_residency_unconfirmed_guest_capacity_bytes": 35897344,
+        "host_elapsed_ns": 298668276,
+        "host_thread_cpu_ns": 266802907
+      },
+      {
+        "point": 4,
+        "timestamp_ns": 1792050613056015941,
+        "guest_cached_bytes": 94883840,
+        "host_confirmed_cache_bytes": 45117440,
+        "host_current_union_bytes": 83537920,
+        "host_vmm_confirmed_bytes": 45117440,
+        "host_snapshot_current_bytes": 75825152,
+        "host_vmm_snapshot_intersection_bytes": 37404672,
+        "snapshot_old_version_bytes": 7712768,
+        "snapshot_without_vmm_pte_pages": 9380,
+        "backend_query_unconfirmed_pages": 2770,
+        "backend_file_pfn_mismatch_pages": 0,
+        "host_current_unconfirmed_guest_capacity_bytes": 11345920,
+        "host_residency_unconfirmed_guest_capacity_bytes": 11345920,
+        "host_elapsed_ns": 329499012,
+        "host_thread_cpu_ns": 293686195
+      },
+      {
+        "point": 5,
+        "timestamp_ns": 1792050614056091700,
+        "guest_cached_bytes": 94883840,
+        "host_confirmed_cache_bytes": 45924352,
+        "host_current_union_bytes": 83632128,
+        "host_vmm_confirmed_bytes": 45924352,
+        "host_snapshot_current_bytes": 75911168,
+        "host_vmm_snapshot_intersection_bytes": 38203392,
+        "snapshot_old_version_bytes": 7720960,
+        "snapshot_without_vmm_pte_pages": 9206,
+        "backend_query_unconfirmed_pages": 2747,
+        "backend_file_pfn_mismatch_pages": 0,
+        "host_current_unconfirmed_guest_capacity_bytes": 11251712,
+        "host_residency_unconfirmed_guest_capacity_bytes": 11251712,
+        "host_elapsed_ns": 244320738,
+        "host_thread_cpu_ns": 228788274
+      },
+      {
+        "point": 6,
+        "timestamp_ns": 1792050615056163791,
+        "guest_cached_bytes": 19890176,
+        "host_confirmed_cache_bytes": 18714624,
+        "host_current_union_bytes": 19095552,
+        "host_vmm_confirmed_bytes": 18714624,
+        "host_snapshot_current_bytes": 13770752,
+        "host_vmm_snapshot_intersection_bytes": 13389824,
+        "snapshot_old_version_bytes": 5324800,
+        "snapshot_without_vmm_pte_pages": 93,
+        "backend_query_unconfirmed_pages": 194,
+        "backend_file_pfn_mismatch_pages": 0,
+        "host_current_unconfirmed_guest_capacity_bytes": 794624,
+        "host_residency_unconfirmed_guest_capacity_bytes": 794624,
+        "host_elapsed_ns": 151503186,
+        "host_thread_cpu_ns": 126168634
+      },
+      {
+        "point": 7,
+        "timestamp_ns": 1792050616056274678,
+        "guest_cached_bytes": 32874496,
+        "host_confirmed_cache_bytes": 31707136,
+        "host_current_union_bytes": 32104448,
+        "host_vmm_confirmed_bytes": 31707136,
+        "host_snapshot_current_bytes": 13791232,
+        "host_vmm_snapshot_intersection_bytes": 13393920,
+        "snapshot_old_version_bytes": 18313216,
+        "snapshot_without_vmm_pte_pages": 97,
+        "backend_query_unconfirmed_pages": 189,
+        "backend_file_pfn_mismatch_pages": 0,
+        "host_current_unconfirmed_guest_capacity_bytes": 774144,
+        "host_residency_unconfirmed_guest_capacity_bytes": 774144,
+        "host_elapsed_ns": 209912266,
+        "host_thread_cpu_ns": 184461561
+      },
+      {
+        "point": 8,
+        "timestamp_ns": 1792050617056349138,
+        "guest_cached_bytes": 32968704,
+        "host_confirmed_cache_bytes": 31797248,
+        "host_current_union_bytes": 32194560,
+        "host_vmm_confirmed_bytes": 31797248,
+        "host_snapshot_current_bytes": 13791232,
+        "host_vmm_snapshot_intersection_bytes": 13393920,
+        "snapshot_old_version_bytes": 18403328,
+        "snapshot_without_vmm_pte_pages": 97,
+        "backend_query_unconfirmed_pages": 189,
+        "backend_file_pfn_mismatch_pages": 0,
+        "host_current_unconfirmed_guest_capacity_bytes": 790528,
+        "host_residency_unconfirmed_guest_capacity_bytes": 790528,
+        "host_elapsed_ns": 172447905,
+        "host_thread_cpu_ns": 152107029
+      },
+      {
+        "point": 9,
+        "timestamp_ns": 1792050618056466873,
+        "guest_cached_bytes": 44511232,
+        "host_confirmed_cache_bytes": 43388928,
+        "host_current_union_bytes": 43888640,
+        "host_vmm_confirmed_bytes": 43388928,
+        "host_snapshot_current_bytes": 13852672,
+        "host_vmm_snapshot_intersection_bytes": 13352960,
+        "snapshot_old_version_bytes": 30035968,
+        "snapshot_without_vmm_pte_pages": 122,
+        "backend_query_unconfirmed_pages": 152,
+        "backend_file_pfn_mismatch_pages": 0,
+        "host_current_unconfirmed_guest_capacity_bytes": 622592,
+        "host_residency_unconfirmed_guest_capacity_bytes": 622592,
+        "host_elapsed_ns": 202362283,
+        "host_thread_cpu_ns": 181884265
+      }
+    ],
+    "cleanup": {
+      "owned_container_removed": true,
+      "mount_and_loop_removed": true,
+      "successful_fixture_removed": true,
+      "original_firecracker_identities_unchanged": true,
+      "original_service_unchanged": true
+    },
+    "observed_volume_used_peak_bytes": 5558898688,
+    "observed_host_available_min_bytes": 28744327168,
+    "host_available_after_cleanup_bytes": 54480867328,
+    "fixture_phases": [
+      {
+        "name": "waiting",
+        "known_present_guest_ptes": 4096,
+        "observations": [
+          {
+            "point": 1,
+            "stable_known_guest_pages": 4096,
+            "vmm_physical_bytes": 40960,
+            "current_backend_bytes": 53248,
+            "intersection_bytes": 40960,
+            "current_union_bytes": 53248,
+            "old_backend_bytes": 0,
+            "backed_without_vmm_pte_pages": 3,
+            "written_private_anonymous_pages": 0
+          },
+          {
+            "point": 2,
+            "stable_known_guest_pages": 4096,
+            "vmm_physical_bytes": 40960,
+            "current_backend_bytes": 53248,
+            "intersection_bytes": 40960,
+            "current_union_bytes": 53248,
+            "old_backend_bytes": 0,
+            "backed_without_vmm_pte_pages": 3,
+            "written_private_anonymous_pages": 0
+          },
+          {
+            "point": 3,
+            "stable_known_guest_pages": 2949,
+            "vmm_physical_bytes": 94208,
+            "current_backend_bytes": 114688,
+            "intersection_bytes": 94208,
+            "current_union_bytes": 114688,
+            "old_backend_bytes": 0,
+            "backed_without_vmm_pte_pages": 5,
+            "written_private_anonymous_pages": 0
+          }
+        ]
+      },
+      {
+        "name": "read-done",
+        "known_present_guest_ptes": 3992,
+        "observations": [
+          {
+            "point": 4,
+            "stable_known_guest_pages": 3992,
+            "vmm_physical_bytes": 4366336,
+            "current_backend_bytes": 11485184,
+            "intersection_bytes": 4153344,
+            "current_union_bytes": 11698176,
+            "old_backend_bytes": 212992,
+            "backed_without_vmm_pte_pages": 1790,
+            "written_private_anonymous_pages": 0
+          },
+          {
+            "point": 5,
+            "stable_known_guest_pages": 3992,
+            "vmm_physical_bytes": 4366336,
+            "current_backend_bytes": 11485184,
+            "intersection_bytes": 4153344,
+            "current_union_bytes": 11698176,
+            "old_backend_bytes": 212992,
+            "backed_without_vmm_pte_pages": 1790,
+            "written_private_anonymous_pages": 0
+          },
+          {
+            "point": 6,
+            "stable_known_guest_pages": 1017,
+            "vmm_physical_bytes": 4165632,
+            "current_backend_bytes": 3952640,
+            "intersection_bytes": 3952640,
+            "current_union_bytes": 4165632,
+            "old_backend_bytes": 212992,
+            "backed_without_vmm_pte_pages": 0,
+            "written_private_anonymous_pages": 0
+          }
+        ]
+      },
+      {
+        "name": "write-done",
+        "known_present_guest_ptes": 2041,
+        "observations": [
+          {
+            "point": 7,
+            "stable_known_guest_pages": 2041,
+            "vmm_physical_bytes": 8359936,
+            "current_backend_bytes": 3952640,
+            "intersection_bytes": 3952640,
+            "current_union_bytes": 8359936,
+            "old_backend_bytes": 4407296,
+            "backed_without_vmm_pte_pages": 0,
+            "written_private_anonymous_pages": 1024
+          },
+          {
+            "point": 8,
+            "stable_known_guest_pages": 2041,
+            "vmm_physical_bytes": 8359936,
+            "current_backend_bytes": 3952640,
+            "intersection_bytes": 3952640,
+            "current_union_bytes": 8359936,
+            "old_backend_bytes": 4407296,
+            "backed_without_vmm_pte_pages": 0,
+            "written_private_anonymous_pages": 1024
+          },
+          {
+            "point": 9,
+            "stable_known_guest_pages": 2040,
+            "vmm_physical_bytes": 8355840,
+            "current_backend_bytes": 3952640,
+            "intersection_bytes": 3952640,
+            "current_union_bytes": 8355840,
+            "old_backend_bytes": 4403200,
+            "backed_without_vmm_pte_pages": 0,
+            "written_private_anonymous_pages": 1024
+          }
+        ]
+      }
+    ]
+  },
+  "prettier": {
+    "task_id": "prettier__prettier-6604",
+    "action_count": 29,
+    "task_checks": {
+      "smoke_and_unfixed_oracle": "PASS",
+      "checkpoint_interface": "PASS",
+      "restored_progress_and_files": "PASS",
+      "process_continuity": "PASS",
+      "frozen_order_hashes_exit_codes_patch_and_key_outputs": "PASS",
+      "independent_properties": "PASS",
+      "official_task_tests": "FAIL",
+      "official_outcome_matches_full_replay": "PASS"
+    },
+    "official_task_status": "FAIL",
+    "timing": {
+      "guest_action_sum_ns": 13709472516,
+      "frozen_replay_elapsed_ns": 23881814841,
+      "controller_elapsed_ns": 46735215691,
+      "stages_ns": {
+        "cold-start": 12925584084,
+        "live-cache-upload": 49197149,
+        "live-cache-start": 55552598,
+        "live-cache-ready": 249499183,
+        "live-cache-bootstrap": 44010672,
+        "segment-read_repo": 1051973061,
+        "segment-read_typescript": 754052287,
+        "segment-core_patch": 1688932491,
+        "segment-core_verify": 4272299800,
+        "live-cache-done": 38490226,
+        "live-cache-result": 31587351,
+        "checkpoint": 2738101430,
+        "delete-original": 149975157,
+        "restore": 163158423,
+        "restore-ready": 76656113,
+        "segment-backbone_finish": 8368094708,
+        "official-task-tests": 3535051910
+      }
+    },
+    "sample_count": 26,
+    "session_metrics": {
+      "parent": {
+        "samples": 11,
+        "first_sample_ns": 1792050858012171116,
+        "last_sample_ns": 1792050868013351713,
+        "guest_cached_range_bytes": [
+          101359616,
+          209207296
+        ],
+        "host_confirmed_range_bytes": [
+          95662080,
+          209268736
+        ],
+        "unconfirmed_guest_capacity_max_bytes": 5615616,
+        "mapping_absent_capacity_max_bytes": 0
+      },
+      "restored": {
+        "samples": 15,
+        "first_sample_ns": 1792050874793659678,
+        "last_sample_ns": 1792050888795068685,
+        "guest_cached_range_bytes": [
+          44867584,
+          164892672
+        ],
+        "host_confirmed_range_bytes": [
+          36843520,
+          161693696
+        ],
+        "unconfirmed_guest_capacity_max_bytes": 26238976,
+        "mapping_absent_capacity_max_bytes": 19095552
+      }
+    },
+    "host_pair_elapsed_mean_ns": 308179986.2307692,
+    "host_pair_elapsed_max_ns": 618304891,
+    "metadata_counters": {
+      "duplicate_adds": 0,
+      "missing_removes": 0,
+      "out_of_range": 0,
+      "moved_pages": 0,
+      "stale_records": 63,
+      "bitmap_lock_ns": 53843
+    },
+    "run": ".artifacts/storage-isolated-service/20261015T075346Z-1921832",
+    "sample_interval_seconds": 1.0,
+    "host_thread_cpu_ns": 7167069425,
+    "guest_publication_cpu_ns": 111911553,
+    "sampling_gap": {
+      "start_ns": 1792050868568627049,
+      "reason": "checkpoint, parent removal, restore and sampler setup",
+      "end_ns": 1792050874793852990
+    },
+    "measurements": [
+      {
+        "point": 0,
+        "timestamp_ns": 1792050858012171116,
+        "guest_cached_bytes": 101359616,
+        "host_confirmed_cache_bytes": 95662080,
+        "host_residency_unconfirmed_guest_capacity_bytes": 5615616,
+        "host_elapsed_ns": 75431949,
+        "host_thread_cpu_ns": 50097856
+      },
+      {
+        "point": 1,
+        "timestamp_ns": 1792050859012310113,
+        "guest_cached_bytes": 138182656,
+        "host_confirmed_cache_bytes": 133787648,
+        "host_residency_unconfirmed_guest_capacity_bytes": 4521984,
+        "host_elapsed_ns": 146323438,
+        "host_thread_cpu_ns": 105907620
+      },
+      {
+        "point": 2,
+        "timestamp_ns": 1792050860012418232,
+        "guest_cached_bytes": 193839104,
+        "host_confirmed_cache_bytes": 193806336,
+        "host_residency_unconfirmed_guest_capacity_bytes": 49152,
+        "host_elapsed_ns": 144543125,
+        "host_thread_cpu_ns": 108951105
+      },
+      {
+        "point": 3,
+        "timestamp_ns": 1792050861012534870,
+        "guest_cached_bytes": 194904064,
+        "host_confirmed_cache_bytes": 194961408,
+        "host_residency_unconfirmed_guest_capacity_bytes": 36864,
+        "host_elapsed_ns": 131486107,
+        "host_thread_cpu_ns": 85986989
+      },
+      {
+        "point": 4,
+        "timestamp_ns": 1792050862012655720,
+        "guest_cached_bytes": 195538944,
+        "host_confirmed_cache_bytes": 195543040,
+        "host_residency_unconfirmed_guest_capacity_bytes": 8192,
+        "host_elapsed_ns": 118339077,
+        "host_thread_cpu_ns": 82924195
+      },
+      {
+        "point": 5,
+        "timestamp_ns": 1792050863012766395,
+        "guest_cached_bytes": 195719168,
+        "host_confirmed_cache_bytes": 195731456,
+        "host_residency_unconfirmed_guest_capacity_bytes": 4096,
+        "host_elapsed_ns": 110392687,
+        "host_thread_cpu_ns": 85115353
+      },
+      {
+        "point": 6,
+        "timestamp_ns": 1792050864012888942,
+        "guest_cached_bytes": 195796992,
+        "host_confirmed_cache_bytes": 195805184,
+        "host_residency_unconfirmed_guest_capacity_bytes": 20480,
+        "host_elapsed_ns": 125003651,
+        "host_thread_cpu_ns": 84586816
+      },
+      {
+        "point": 7,
+        "timestamp_ns": 1792050865013023228,
+        "guest_cached_bytes": 195874816,
+        "host_confirmed_cache_bytes": 195874816,
+        "host_residency_unconfirmed_guest_capacity_bytes": 4096,
+        "host_elapsed_ns": 120814246,
+        "host_thread_cpu_ns": 85319893
+      },
+      {
+        "point": 8,
+        "timestamp_ns": 1792050866013134157,
+        "guest_cached_bytes": 203436032,
+        "host_confirmed_cache_bytes": 202797056,
+        "host_residency_unconfirmed_guest_capacity_bytes": 737280,
+        "host_elapsed_ns": 128472650,
+        "host_thread_cpu_ns": 88057155
+      },
+      {
+        "point": 9,
+        "timestamp_ns": 1792050867013247421,
+        "guest_cached_bytes": 206524416,
+        "host_confirmed_cache_bytes": 205910016,
+        "host_residency_unconfirmed_guest_capacity_bytes": 679936,
+        "host_elapsed_ns": 116372290,
+        "host_thread_cpu_ns": 85932686
+      },
+      {
+        "point": 10,
+        "timestamp_ns": 1792050868013351713,
+        "guest_cached_bytes": 209207296,
+        "host_confirmed_cache_bytes": 209268736,
+        "host_residency_unconfirmed_guest_capacity_bytes": 20480,
+        "host_elapsed_ns": 118937157,
+        "host_thread_cpu_ns": 88626127
+      },
+      {
+        "point": 0,
+        "timestamp_ns": 1792050874793659678,
+        "guest_cached_bytes": 44867584,
+        "host_confirmed_cache_bytes": 25690112,
+        "host_current_union_bytes": 36843520,
+        "host_vmm_confirmed_bytes": 25690112,
+        "host_snapshot_current_bytes": 31633408,
+        "host_vmm_snapshot_intersection_bytes": 20480000,
+        "snapshot_old_version_bytes": 5210112,
+        "snapshot_without_vmm_pte_pages": 2723,
+        "backend_query_unconfirmed_pages": 8289,
+        "backend_file_pfn_mismatch_pages": 0,
+        "host_current_unconfirmed_guest_capacity_bytes": 8359936,
+        "host_residency_unconfirmed_guest_capacity_bytes": 8359936,
+        "host_elapsed_ns": 322276230,
+        "host_thread_cpu_ns": 283081710
+      },
+      {
+        "point": 1,
+        "timestamp_ns": 1792050875793760892,
+        "guest_cached_bytes": 54497280,
+        "host_confirmed_cache_bytes": 37109760,
+        "host_current_union_bytes": 52256768,
+        "host_vmm_confirmed_bytes": 37109760,
+        "host_snapshot_current_bytes": 36950016,
+        "host_vmm_snapshot_intersection_bytes": 21803008,
+        "snapshot_old_version_bytes": 15306752,
+        "snapshot_without_vmm_pte_pages": 3698,
+        "backend_query_unconfirmed_pages": 486,
+        "backend_file_pfn_mismatch_pages": 0,
+        "host_current_unconfirmed_guest_capacity_bytes": 2359296,
+        "host_residency_unconfirmed_guest_capacity_bytes": 2359296,
+        "host_elapsed_ns": 367119510,
+        "host_thread_cpu_ns": 325762711
+      },
+      {
+        "point": 2,
+        "timestamp_ns": 1792050876793893027,
+        "guest_cached_bytes": 97718272,
+        "host_confirmed_cache_bytes": 78290944,
+        "host_current_union_bytes": 91230208,
+        "host_vmm_confirmed_bytes": 78290944,
+        "host_snapshot_current_bytes": 37089280,
+        "host_vmm_snapshot_intersection_bytes": 24150016,
+        "snapshot_old_version_bytes": 54140928,
+        "snapshot_without_vmm_pte_pages": 3159,
+        "backend_query_unconfirmed_pages": 463,
+        "backend_file_pfn_mismatch_pages": 0,
+        "host_current_unconfirmed_guest_capacity_bytes": 6574080,
+        "host_residency_unconfirmed_guest_capacity_bytes": 6574080,
+        "host_elapsed_ns": 448284484,
+        "host_thread_cpu_ns": 410562001
+      },
+      {
+        "point": 3,
+        "timestamp_ns": 1792050877793980537,
+        "guest_cached_bytes": 100069376,
+        "host_confirmed_cache_bytes": 85241856,
+        "host_current_union_bytes": 98070528,
+        "host_vmm_confirmed_bytes": 85241856,
+        "host_snapshot_current_bytes": 36974592,
+        "host_vmm_snapshot_intersection_bytes": 24145920,
+        "snapshot_old_version_bytes": 61095936,
+        "snapshot_without_vmm_pte_pages": 3132,
+        "backend_query_unconfirmed_pages": 407,
+        "backend_file_pfn_mismatch_pages": 0,
+        "host_current_unconfirmed_guest_capacity_bytes": 2002944,
+        "host_residency_unconfirmed_guest_capacity_bytes": 2002944,
+        "host_elapsed_ns": 293676756,
+        "host_thread_cpu_ns": 276321575
+      },
+      {
+        "point": 4,
+        "timestamp_ns": 1792050878794083241,
+        "guest_cached_bytes": 112275456,
+        "host_confirmed_cache_bytes": 96505856,
+        "host_current_union_bytes": 109334528,
+        "host_vmm_confirmed_bytes": 96505856,
+        "host_snapshot_current_bytes": 36974592,
+        "host_vmm_snapshot_intersection_bytes": 24145920,
+        "snapshot_old_version_bytes": 72359936,
+        "snapshot_without_vmm_pte_pages": 3132,
+        "backend_query_unconfirmed_pages": 407,
+        "backend_file_pfn_mismatch_pages": 0,
+        "host_current_unconfirmed_guest_capacity_bytes": 2940928,
+        "host_residency_unconfirmed_guest_capacity_bytes": 2940928,
+        "host_elapsed_ns": 490924926,
+        "host_thread_cpu_ns": 448106730
+      },
+      {
+        "point": 5,
+        "timestamp_ns": 1792050879794155853,
+        "guest_cached_bytes": 110641152,
+        "host_confirmed_cache_bytes": 93843456,
+        "host_current_union_bytes": 106622976,
+        "host_vmm_confirmed_bytes": 93843456,
+        "host_snapshot_current_bytes": 36966400,
+        "host_vmm_snapshot_intersection_bytes": 24186880,
+        "snapshot_old_version_bytes": 69656576,
+        "snapshot_without_vmm_pte_pages": 3120,
+        "backend_query_unconfirmed_pages": 407,
+        "backend_file_pfn_mismatch_pages": 0,
+        "host_current_unconfirmed_guest_capacity_bytes": 4050944,
+        "host_residency_unconfirmed_guest_capacity_bytes": 4050944,
+        "host_elapsed_ns": 454427064,
+        "host_thread_cpu_ns": 417248147
+      },
+      {
+        "point": 6,
+        "timestamp_ns": 1792050880794229580,
+        "guest_cached_bytes": 111583232,
+        "host_confirmed_cache_bytes": 97189888,
+        "host_current_union_bytes": 109969408,
+        "host_vmm_confirmed_bytes": 97189888,
+        "host_snapshot_current_bytes": 36966400,
+        "host_vmm_snapshot_intersection_bytes": 24186880,
+        "snapshot_old_version_bytes": 73003008,
+        "snapshot_without_vmm_pte_pages": 3120,
+        "backend_query_unconfirmed_pages": 407,
+        "backend_file_pfn_mismatch_pages": 0,
+        "host_current_unconfirmed_guest_capacity_bytes": 1675264,
+        "host_residency_unconfirmed_guest_capacity_bytes": 1675264,
+        "host_elapsed_ns": 345380074,
+        "host_thread_cpu_ns": 328417610
+      },
+      {
+        "point": 7,
+        "timestamp_ns": 1792050881794302198,
+        "guest_cached_bytes": 112041984,
+        "host_confirmed_cache_bytes": 97558528,
+        "host_current_union_bytes": 110338048,
+        "host_vmm_confirmed_bytes": 97558528,
+        "host_snapshot_current_bytes": 36966400,
+        "host_vmm_snapshot_intersection_bytes": 24186880,
+        "snapshot_old_version_bytes": 73371648,
+        "snapshot_without_vmm_pte_pages": 3120,
+        "backend_query_unconfirmed_pages": 407,
+        "backend_file_pfn_mismatch_pages": 0,
+        "host_current_unconfirmed_guest_capacity_bytes": 1708032,
+        "host_residency_unconfirmed_guest_capacity_bytes": 1708032,
+        "host_elapsed_ns": 472539340,
+        "host_thread_cpu_ns": 434312746
+      },
+      {
+        "point": 8,
+        "timestamp_ns": 1792050882794375971,
+        "guest_cached_bytes": 112271360,
+        "host_confirmed_cache_bytes": 97828864,
+        "host_current_union_bytes": 110608384,
+        "host_vmm_confirmed_bytes": 97828864,
+        "host_snapshot_current_bytes": 36966400,
+        "host_vmm_snapshot_intersection_bytes": 24186880,
+        "snapshot_old_version_bytes": 73506816,
+        "snapshot_without_vmm_pte_pages": 3120,
+        "backend_query_unconfirmed_pages": 440,
+        "backend_file_pfn_mismatch_pages": 0,
+        "host_current_unconfirmed_guest_capacity_bytes": 1716224,
+        "host_residency_unconfirmed_guest_capacity_bytes": 1716224,
+        "host_elapsed_ns": 435558483,
+        "host_thread_cpu_ns": 402668525
+      },
+      {
+        "point": 9,
+        "timestamp_ns": 1792050883794487845,
+        "guest_cached_bytes": 111837184,
+        "host_confirmed_cache_bytes": 97353728,
+        "host_current_union_bytes": 110133248,
+        "host_vmm_confirmed_bytes": 97353728,
+        "host_snapshot_current_bytes": 36966400,
+        "host_vmm_snapshot_intersection_bytes": 24186880,
+        "snapshot_old_version_bytes": 72892416,
+        "snapshot_without_vmm_pte_pages": 3120,
+        "backend_query_unconfirmed_pages": 474,
+        "backend_file_pfn_mismatch_pages": 0,
+        "host_current_unconfirmed_guest_capacity_bytes": 1720320,
+        "host_residency_unconfirmed_guest_capacity_bytes": 1720320,
+        "host_elapsed_ns": 417674476,
+        "host_thread_cpu_ns": 395074139
+      },
+      {
+        "point": 10,
+        "timestamp_ns": 1792050884794598710,
+        "guest_cached_bytes": 113156096,
+        "host_confirmed_cache_bytes": 98295808,
+        "host_current_union_bytes": 111005696,
+        "host_vmm_confirmed_bytes": 98295808,
+        "host_snapshot_current_bytes": 36966400,
+        "host_vmm_snapshot_intersection_bytes": 24256512,
+        "snapshot_old_version_bytes": 73564160,
+        "snapshot_without_vmm_pte_pages": 3103,
+        "backend_query_unconfirmed_pages": 523,
+        "backend_file_pfn_mismatch_pages": 0,
+        "host_current_unconfirmed_guest_capacity_bytes": 2150400,
+        "host_residency_unconfirmed_guest_capacity_bytes": 2150400,
+        "host_elapsed_ns": 477440295,
+        "host_thread_cpu_ns": 435670267
+      },
+      {
+        "point": 11,
+        "timestamp_ns": 1792050885794665308,
+        "guest_cached_bytes": 125755392,
+        "host_confirmed_cache_bytes": 85975040,
+        "host_current_union_bytes": 98639872,
+        "host_vmm_confirmed_bytes": 85975040,
+        "host_snapshot_current_bytes": 36962304,
+        "host_vmm_snapshot_intersection_bytes": 24297472,
+        "snapshot_old_version_bytes": 61255680,
+        "snapshot_without_vmm_pte_pages": 3092,
+        "backend_query_unconfirmed_pages": 523,
+        "backend_file_pfn_mismatch_pages": 0,
+        "host_current_unconfirmed_guest_capacity_bytes": 26238976,
+        "host_residency_unconfirmed_guest_capacity_bytes": 26238976,
+        "host_elapsed_ns": 492504351,
+        "host_thread_cpu_ns": 459629421
+      },
+      {
+        "point": 12,
+        "timestamp_ns": 1792050886794731297,
+        "guest_cached_bytes": 151785472,
+        "host_confirmed_cache_bytes": 135446528,
+        "host_current_union_bytes": 148111360,
+        "host_vmm_confirmed_bytes": 135446528,
+        "host_snapshot_current_bytes": 36962304,
+        "host_vmm_snapshot_intersection_bytes": 24297472,
+        "snapshot_old_version_bytes": 108212224,
+        "snapshot_without_vmm_pte_pages": 3092,
+        "backend_query_unconfirmed_pages": 1124,
+        "backend_file_pfn_mismatch_pages": 0,
+        "host_current_unconfirmed_guest_capacity_bytes": 3674112,
+        "host_residency_unconfirmed_guest_capacity_bytes": 3674112,
+        "host_elapsed_ns": 618304891,
+        "host_thread_cpu_ns": 579252745
+      },
+      {
+        "point": 13,
+        "timestamp_ns": 1792050887794811397,
+        "guest_cached_bytes": 158076928,
+        "host_confirmed_cache_bytes": 143192064,
+        "host_current_union_bytes": 155856896,
+        "host_vmm_confirmed_bytes": 143192064,
+        "host_snapshot_current_bytes": 36962304,
+        "host_vmm_snapshot_intersection_bytes": 24297472,
+        "snapshot_old_version_bytes": 115744768,
+        "snapshot_without_vmm_pte_pages": 3092,
+        "backend_query_unconfirmed_pages": 1176,
+        "backend_file_pfn_mismatch_pages": 0,
+        "host_current_unconfirmed_guest_capacity_bytes": 2306048,
+        "host_residency_unconfirmed_guest_capacity_bytes": 2306048,
+        "host_elapsed_ns": 461777633,
+        "host_thread_cpu_ns": 434338491
+      },
+      {
+        "point": 14,
+        "timestamp_ns": 1792050888795068685,
+        "guest_cached_bytes": 164892672,
+        "host_confirmed_cache_bytes": 149028864,
+        "host_current_union_bytes": 161693696,
+        "host_vmm_confirmed_bytes": 149028864,
+        "host_snapshot_current_bytes": 36962304,
+        "host_vmm_snapshot_intersection_bytes": 24297472,
+        "snapshot_old_version_bytes": 120324096,
+        "snapshot_without_vmm_pte_pages": 3092,
+        "backend_query_unconfirmed_pages": 1483,
+        "backend_file_pfn_mismatch_pages": 0,
+        "host_current_unconfirmed_guest_capacity_bytes": 3198976,
+        "host_residency_unconfirmed_guest_capacity_bytes": 3198976,
+        "host_elapsed_ns": 578674752,
+        "host_thread_cpu_ns": 543415385
+      }
+    ],
+    "cleanup": {
+      "owned_container_removed": true,
+      "mount_and_loop_removed": true,
+      "successful_fixture_removed": true,
+      "original_firecracker_identities_unchanged": true,
+      "original_service_unchanged": true
+    },
+    "observed_volume_used_peak_bytes": 6888689664,
+    "observed_host_available_min_bytes": 28707516416,
+    "host_available_after_cleanup_bytes": 54403751936,
+    "query": {
+      "tracer_cpu_ns": 480000000,
+      "returncode": 0,
+      "requested_pages": 821990,
+      "missing_kernel_results": 0,
+      "queries": 30,
+      "event_transport": "none; synchronous BPF maps; missing results stay unknown"
+    }
+  },
+  "closeout": {
+    "status": "PASS",
+    "runs": [
+      {
+        "run": "20261015T074602Z-1914805",
+        "status": "FAIL",
+        "owned_resources_absent": true,
+        "original_resources_unchanged": true
+      },
+      {
+        "run": "20261015T074940Z-1918184",
+        "status": "PASS",
+        "owned_resources_absent": true,
+        "original_resources_unchanged": true
+      },
+      {
+        "run": "20261015T075346Z-1921832",
+        "status": "PASS",
+        "owned_resources_absent": true,
+        "original_resources_unchanged": true
+      }
+    ],
+    "prettier_ram_cache_released": true,
+    "failed_backup_retained": true,
+    "host_available_bytes": 54395383808
+  }
+}

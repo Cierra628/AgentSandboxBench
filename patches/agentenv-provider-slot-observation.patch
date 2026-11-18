@@ -1,0 +1,312 @@
+diff --git a/storage/ublk-daemon/src/main.rs b/storage/ublk-daemon/src/main.rs
+index a1cf2bb..44c4725 100644
+--- a/storage/ublk-daemon/src/main.rs
++++ b/storage/ublk-daemon/src/main.rs
+@@ -328,6 +328,10 @@ fn main() -> Result<()> {
+             load_pool_config(daemon_config.as_ref(), cli.enable_pool, &pool_overrides)
+                 .context("load warm pool config")?
+         {
++            anyhow::ensure!(
++                std::env::var_os("AENV_PROVIDER_OBSERVE_DIR").is_none(),
++                "slot observation requires a non-pooled private device"
++            );
+             let features = server.detect_ublk_features().await?;
+             let update_size_supported = features & ublk_caps::UBLK_F_UPDATE_SIZE != 0;
+             pool_config.startup_prewarm = startup_prewarm.unwrap_or(update_size_supported);
+diff --git a/storage/ublk/src/dev.rs b/storage/ublk/src/dev.rs
+index 59ab2af..75f4d4b 100644
+--- a/storage/ublk/src/dev.rs
++++ b/storage/ublk/src/dev.rs
+@@ -143,6 +143,22 @@ impl UVMUblkQueue {
+             }
+             None => None,
+         };
++        let mut observation = match (&buf, tgt.observation_image()) {
++            (IOBuffer::User(user), Some(image)) => {
++                crate::slot_observation::SlotObservation::create(
++                    &image,
++                    &self.dev_info,
++                    self.queue_id,
++                    tag,
++                    user.subslice(0, 0).as_ptr() as u64,
++                    user.len() as u64,
++                )?
++            }
++            _ => None,
++        };
++        let shift = observation.as_ref().map_or(0, |_| {
++            tgt.ublk_dev_params(&self.dev_info).basic.logical_bs_shift
++        });
+         // FIXME: should we handle EINTR?
+         let res = self.prep_slot(tag, &buf).context("prep_slot")?.await;
+         if res < 0 {
+@@ -163,6 +179,9 @@ impl UVMUblkQueue {
+                 .io_desc(tag)
+                 .ok_or_else(|| anyhow!("cannot get io_dsec at {tag}"))?;
+             // TODO: update auto buffer's size according to io_desc
++            if let Some(observation) = observation.as_mut() {
++                observation.begin(io_desc.start_sector << shift);
++            }
+             let res = tgt
+                 .handle_io_request(
+                     self.queue_id,
+@@ -173,6 +192,15 @@ impl UVMUblkQueue {
+                     &self.ring,
+                 )
+                 .await;
++            if let Some(observation) = observation.as_mut() {
++                observation.complete(
++                    io_desc.op_flags & 0xff == ublk_sys::UBLK_IO_OP_READ,
++                    (io_desc.nr_sectors as u64) << shift,
++                    res,
++                );
++                // The kernel can fill this buffer for the next WRITE during fetch.
++                observation.before_fetch();
++            }
+             let res = self
+                 .submit_and_fetch_for_slot(tag, &buf, res)
+                 .context("submit and fetch from ring")?
+@@ -415,6 +443,10 @@ impl<T: UVMUblkTarget> UVMUblkDev<T> {
+ #[async_trait(?Send)]
+ pub trait UVMUblkTarget: Send + Sync + 'static {
+     const DEV_NAME: &str;
++    /// Diagnostic image identity, used only by explicitly enabled slot observation.
++    fn observation_image(&self) -> Option<PathBuf> {
++        None
++    }
+     /// Init the target. For example, the target might register fd on to the io_ring.
+     async fn init(&self, qid: u16, io_ring: &AsyncIoRing) -> Result<()>;
+ 
+diff --git a/storage/ublk/src/impls/overlaybd_target.rs b/storage/ublk/src/impls/overlaybd_target.rs
+index 41d85fa..b23502c 100644
+--- a/storage/ublk/src/impls/overlaybd_target.rs
++++ b/storage/ublk/src/impls/overlaybd_target.rs
+@@ -333,6 +333,11 @@ fn anyhow_to_ublk_errno(err: &anyhow::Error) -> i32 {
+ impl UVMUblkTarget for OverlaybdTarget {
+     const DEV_NAME: &str = "overlaybd";
+ 
++    fn observation_image(&self) -> Option<PathBuf> {
++        std::env::var_os("AENV_PROVIDER_OBSERVE_DIR")?;
++        Some(self.state.load().image_config_path.clone())
++    }
++
+     async fn init(&self, _qid: u16, _io_ring: &AsyncIoRing) -> Result<()> {
+         Ok(())
+     }
+diff --git a/storage/ublk/src/lib.rs b/storage/ublk/src/lib.rs
+index 038d6f9..233d0cd 100644
+--- a/storage/ublk/src/lib.rs
++++ b/storage/ublk/src/lib.rs
+@@ -14,6 +14,7 @@ mod dev;
+ pub mod impls;
+ mod io_buffer;
+ mod queue;
++mod slot_observation;
+ pub mod ublk_caps;
+ 
+ pub use ctrl::{
+diff --git a/storage/ublk/src/slot_observation.rs b/storage/ublk/src/slot_observation.rs
+new file mode 100644
+index 0000000..f5bdbed
+--- /dev/null
++++ b/storage/ublk/src/slot_observation.rs
+@@ -0,0 +1,199 @@
++//! Opt-in diagnostic metadata only; never reads or pins payload memory.
++use anyhow::{Context, Result};
++use std::fs::OpenOptions;
++use std::os::fd::AsRawFd;
++use std::path::Path;
++use std::ptr::NonNull;
++use std::sync::atomic::{AtomicU64, Ordering::SeqCst};
++
++pub(crate) const MAGIC: u64 = 0x31544f4c53425341;
++const WORDS: usize = 8;
++
++// [magic, generation, address, capacity, logical_offset, valid_len, state, reads]
++// States: 1 allocated, 2 filling, 3 complete read, 4 before kernel fetch,
++// 5 released, 6 failed/partial/non-read. Each mutation changes generation.
++pub struct SlotObservation {
++    row: NonNull<[AtomicU64; WORDS]>,
++}
++
++impl SlotObservation {
++    pub(crate) fn create(
++        image: &Path,
++        info: &ublk_sys::ublksrv_ctrl_dev_info,
++        qid: u16,
++        tag: u16,
++        address: u64,
++        capacity: u64,
++    ) -> Result<Option<Self>> {
++        let Some(dir) = std::env::var_os("AENV_PROVIDER_OBSERVE_DIR") else {
++            return Ok(None);
++        };
++        if !image.ends_with("memory/image.json") {
++            return Ok(None);
++        }
++        let dir = Path::new(&dir);
++        std::fs::create_dir_all(dir)?;
++        let stem = format!("{}-{}-{qid}-{tag}", std::process::id(), info.dev_id);
++        let path = dir.join(&stem).with_extension("bin");
++        let file = OpenOptions::new()
++            .write(true)
++            .read(true)
++            .create_new(true)
++            .open(path)?;
++        file.set_len(4096)?;
++        // SAFETY: the file has one full writable page; the mapping lives until Drop.
++        let ptr = unsafe {
++            libc::mmap(
++                std::ptr::null_mut(),
++                4096,
++                libc::PROT_READ | libc::PROT_WRITE,
++                libc::MAP_SHARED,
++                file.as_raw_fd(),
++                0,
++            )
++        };
++        anyhow::ensure!(
++            ptr != libc::MAP_FAILED,
++            "map slot metadata: {}",
++            std::io::Error::last_os_error()
++        );
++        let mut this = Self {
++            row: NonNull::new(ptr.cast()).context("null metadata mapping")?,
++        };
++        this.words()[0].store(MAGIC, SeqCst);
++        this.words()[2].store(address, SeqCst);
++        this.words()[3].store(capacity, SeqCst);
++        this.update(0, 0, 1);
++        let identity = serde_json::json!({"schema":1, "pid":std::process::id(),
++            "image_config":image, "dev_id":info.dev_id, "queue":qid, "slot":tag,
++            "nr_queues":info.nr_hw_queues, "queue_depth":info.queue_depth,
++            "max_io_buf_bytes":info.max_io_buf_bytes,
++            "process_stat":std::fs::read_to_string("/proc/self/stat")?});
++        std::fs::write(
++            dir.join(stem).with_extension("json"),
++            serde_json::to_vec(&identity)?,
++        )?;
++        Ok(Some(this))
++    }
++
++    fn words(&self) -> &[AtomicU64; WORDS] {
++        // SAFETY: mmap is aligned, initialized to zeros, and owned by this slot task.
++        unsafe { self.row.as_ref() }
++    }
++
++    fn update(&mut self, offset: u64, len: u64, state: u64) {
++        let w = self.words();
++        w[1].fetch_add(1, SeqCst);
++        w[4].store(offset, SeqCst);
++        w[5].store(len, SeqCst);
++        w[6].store(state, SeqCst);
++        w[1].fetch_add(1, SeqCst);
++    }
++
++    pub(crate) fn begin(&mut self, offset: u64) {
++        self.update(offset, 0, 2);
++    }
++
++    pub(crate) fn complete(&mut self, read: bool, len: u64, result: i32) {
++        let offset = self.words()[4].load(SeqCst);
++        let valid = read
++            && len > 0
++            && len <= self.words()[3].load(SeqCst)
++            && result >= 0
++            && result as u64 == len;
++        if valid {
++            self.words()[7].fetch_add(1, SeqCst);
++        }
++        self.update(
++            offset,
++            if valid { len } else { 0 },
++            if valid { 3 } else { 6 },
++        );
++    }
++
++    pub(crate) fn before_fetch(&mut self) {
++        self.update(0, 0, 4);
++    }
++}
++
++impl Drop for SlotObservation {
++    fn drop(&mut self) {
++        self.update(0, 0, 5);
++        // SAFETY: this mapping was created with exactly this length.
++        unsafe {
++            libc::munmap(self.row.as_ptr().cast(), 4096);
++        }
++    }
++}
++
++#[cfg(test)]
++mod tests {
++    use super::*;
++
++    #[test]
++    fn release_is_visible_before_unmapping() {
++        let file = tempfile::tempfile().unwrap();
++        file.set_len(4096).unwrap();
++        let map = || unsafe {
++            libc::mmap(
++                std::ptr::null_mut(),
++                4096,
++                libc::PROT_READ | libc::PROT_WRITE,
++                libc::MAP_SHARED,
++                file.as_raw_fd(),
++                0,
++            )
++        };
++        let writer = map();
++        let reader = map();
++        assert_ne!(writer, libc::MAP_FAILED);
++        assert_ne!(reader, libc::MAP_FAILED);
++        let mut slot = SlotObservation {
++            row: NonNull::new(writer.cast()).unwrap(),
++        };
++        slot.words()[3].store(4096, SeqCst);
++        slot.begin(0);
++        slot.complete(true, 4096, 4096);
++        drop(slot);
++        let words = unsafe { &*reader.cast::<[AtomicU64; WORDS]>() };
++        assert_eq!(words[5].load(SeqCst), 0);
++        assert_eq!(words[6].load(SeqCst), 5);
++        assert_eq!(words[1].load(SeqCst) % 2, 0);
++        unsafe {
++            libc::munmap(reader, 4096);
++        }
++    }
++
++    #[test]
++    fn reuse_failure_and_kernel_overwrite_invalidate() {
++        let mut words: [AtomicU64; WORDS] = std::array::from_fn(|_| AtomicU64::new(0));
++        words[3].store(8192, SeqCst);
++        // The test uses stack memory and must not run the mmap-specific Drop.
++        let mut slot = std::mem::ManuallyDrop::new(SlotObservation {
++            row: NonNull::from(&mut words),
++        });
++        slot.begin(4096);
++        slot.complete(true, 4096, 4096);
++        assert_eq!(words[5].load(SeqCst), 4096);
++        assert_eq!(words[6].load(SeqCst), 3);
++        let generation = words[1].load(SeqCst);
++        slot.before_fetch();
++        assert_eq!(words[5].load(SeqCst), 0);
++        assert_eq!(words[6].load(SeqCst), 4);
++        assert!(words[1].load(SeqCst) > generation);
++        for (read, len, result) in [
++            (true, 4096, 512),
++            (true, 4096, -5),
++            (false, 4096, 4096),
++            (true, 16384, 16384),
++            (true, 0, 0),
++        ] {
++            slot.begin(8192);
++            slot.complete(read, len, result);
++            assert_eq!(words[5].load(SeqCst), 0);
++            assert_eq!(words[6].load(SeqCst), 6);
++        }
++        assert_eq!(words[7].load(SeqCst), 1);
++        assert_eq!(words[1].load(SeqCst) % 2, 0);
++    }
++}

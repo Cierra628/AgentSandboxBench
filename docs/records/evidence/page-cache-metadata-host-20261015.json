@@ -1,0 +1,103 @@
+{
+  "date": "2026-10-15",
+  "status": "PASS",
+  "scope": "host owned 8 MiB regular file only; not AgentENV guest",
+  "guest_collection_status": "NOT_IMPLEMENTED",
+  "vm_pause": false,
+  "global_drop_caches": false,
+  "page_size": 4096,
+  "observations": [
+    {
+      "label": "empty",
+      "timestamp_ns": 1792030608744661778,
+      "metadata_bytes": 0,
+      "mincore_bytes": 0
+    },
+    {
+      "label": "read",
+      "timestamp_ns": 1792030608839426776,
+      "metadata_bytes": 8388608,
+      "mincore_bytes": 8388608
+    },
+    {
+      "label": "release",
+      "timestamp_ns": 1792030608892726414,
+      "metadata_bytes": 0,
+      "mincore_bytes": 0
+    }
+  ],
+  "added_bytes": 8388608,
+  "deleted_bytes": 8388608,
+  "observed_peak_bytes": 8388608,
+  "event_count": 688,
+  "observed_folio_orders": {
+    "0": 256,
+    "2": 64,
+    "4": 16,
+    "6": 4,
+    "8": 4
+  },
+  "read_point_unique_physical_pages": 2048,
+  "read_point_unique_file_indices": 2048,
+  "event_timestamp_inversions": 0,
+  "cleanup": {
+    "fixture_removed": true,
+    "tracer_stopped": true
+  },
+  "limitations": [
+    "Known empty file at attachment; no existing-cache bootstrap.",
+    "No forced migration, folio split, checkpoint or restore calibration.",
+    "Per-event export overhead is not a production monitoring overhead measurement.",
+    "No guest-to-host PFN mapping or cross-VM deduplication in this check."
+  ],
+  "guest_capability": {
+    "guest_kernel_sha256": "cd7c5a06a2026a2d8a0cddf60b41a5d76a6ac025e54439eb3ee5c9e57a60c67b",
+    "guest_kernel_bytes": 44480952,
+    "embedded_config_found": false,
+    "symbols": {
+      "register_kprobe": false,
+      "register_kretprobe": false,
+      "tracefs_create_file": false,
+      "tracepoint_probe_register": false,
+      "bpf_prog_load": true,
+      "init_module": false,
+      "page_ext_init": false,
+      "__tracepoint_mm_filemap_add_to_page_cache": false,
+      "__tracepoint_mm_filemap_delete_from_page_cache": false,
+      "filemap_add_folio": true,
+      "filemap_remove_folio": true
+    },
+    "historical_guest_probe": "docs/records/evidence/guest-tracefs-capability-20260930.json",
+    "interpretation": "binary inspection plus historical runtime evidence; no new guest started and build options not inferred"
+  },
+  "primary_sources": {
+    "filemap-events": {
+      "url": "https://raw.githubusercontent.com/gregkh/linux/v6.1.175/include/trace/events/filemap.h",
+      "sha256": "3d98ef47ccd8f35a3b45f8e57d47c79fe7d77a598102b6dc87dcaf4945363cad"
+    },
+    "filemap": {
+      "url": "https://raw.githubusercontent.com/gregkh/linux/v6.1.175/mm/filemap.c",
+      "sha256": "407c2d968063e64f48c7a2a837b36d882c15571f1f1fea57766c3fa8393ebf31"
+    },
+    "migrate": {
+      "url": "https://raw.githubusercontent.com/gregkh/linux/v6.1.175/mm/migrate.c",
+      "sha256": "82d77fe32aa8d90eae6a1f14ba6fe1c37c7b382d379258097f62f401551e4363"
+    }
+  },
+  "raw_dir": ".artifacts/page-cache-metadata-20261015-host",
+  "command": "python3 -B scripts/probe_page_cache_metadata.py --output .artifacts/<new-directory>",
+  "tests": {
+    "command": "python3 -B -m unittest discover -s tests -p test_page_cache_metadata.py",
+    "passed": 4
+  },
+  "sha256": {
+    "scripts/probe_page_cache_metadata.py": "408f78fe5caaf173e6d6435130850cc21d9b18ed3597599e96f1af0f864b69b2",
+    "tests/test_page_cache_metadata.py": "4d1049360a1fdda5474e92246ae78c9be8981eee1671174077ef7ba93aa5c873",
+    ".artifacts/page-cache-metadata-20261015-host/result.json": "807bf20717184276488ac7a13525d79cba55a13c812f4196e1549d1675b341d7",
+    ".artifacts/page-cache-metadata-20261015-host/events.tsv": "a43ffd29da62c7d6fd58cf00aa7410d5824543cea2831de339669ca5b3f78c74",
+    ".artifacts/page-cache-metadata-20261015-host/curve.tsv": "3164a1aaecf62efc22502f091f2fb5934f939ea8a70a315fcffdb91b1afb8fce",
+    ".artifacts/page-cache-metadata-20261015-host/read-metadata.json": "17fd8450ddd5a808771e394dbae0d63f21cab34a325494dd5cfd0a88d92c602f",
+    ".artifacts/page-cache-metadata-20261015-host/guest-capability.json": "b00c87a921ce310010e368a219913b59fabe1a557a4ad1885ca794cdfbe35eb6",
+    "docs/records/evidence/page-cache-metadata-host-20261015.svg": "fa31b9edabab7a9c047d949d7141223b86d7d2d20aa846429491cc92c2613985"
+  }
+}

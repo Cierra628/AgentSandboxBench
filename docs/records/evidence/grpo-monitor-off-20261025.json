@@ -1,0 +1,51 @@
+{
+  "status": "PASS_OFFLINE_GRPO_MONITOR_OFF",
+  "live_actions": 0,
+  "live_sandboxes": 0,
+  "new_off_timing": null,
+  "configs": {
+    "on": "configs/platform-prettier6604-grpo-light.json",
+    "off": "configs/platform-prettier6604-grpo-off.json"
+  },
+  "scope": "Guest-only seven-guest full GRPO; both without host/PSS/physical queries; .1s on versus no memory sampling off",
+  "paths_equal": true,
+  "per_role_actions": {
+    "backbone": 29,
+    "early_1": 21,
+    "early_2": 21,
+    "early_3": 21,
+    "late_1": 32,
+    "late_2": 32,
+    "late_3": 33
+  },
+  "offline_distinct_tests_passed": 58,
+  "checked_configs": [
+    "grpo-light",
+    "grpo-off",
+    "grpo",
+    "bpo"
+  ],
+  "fixture": {
+    "status": "PASS_OFFLINE_REPORT_FIXTURE",
+    "derived_from": ".artifacts/storage-isolated-service/20261025T141633Z-1050414/prettier6604",
+    "fixture": ".artifacts/grpo-monitor-off-20261025/offline-off-fixture-v2",
+    "actions_checked": 189,
+    "roles_checked": 7,
+    "original_official_per_instance": {
+      "passed": 0,
+      "failed": 2
+    },
+    "off_memory": "NOT_MEASURED",
+    "changed_exit_rejected": true,
+    "changed_final_patch_rejected": true,
+    "sampler_control_call_rejected": true,
+    "original_on_audit": "PASS",
+    "live_actions": 0,
+    "scope": "Fixture removes samples from saved on logs and changes runner; no off execution or off timing measured"
+  },
+  "preserved_functions": [
+    "do_grpo",
+    "execution_paths"
+  ],
+  "planned_next_actions": 378
+}

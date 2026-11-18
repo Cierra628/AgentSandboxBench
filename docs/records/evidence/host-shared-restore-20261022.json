@@ -1,0 +1,235 @@
+{
+  "status": "PASS_SHARED_FILE_RESTORE_ACCEPTANCE",
+  "mode": "restore",
+  "new_actions": 70,
+  "new_prefix_actions": 0,
+  "new_snapshots": 0,
+  "workflow": ".artifacts/host-scaling/20261022T143050Z-378112",
+  "storage": ".artifacts/storage-isolated-service/20261022T143209Z-378938",
+  "original_prefix_storage_status": "FAIL_PRESERVED_WITH_VERIFIED_EXPORT_RECOVERY",
+  "original_official_per_guest": {
+    "passed": 0,
+    "failed": 2,
+    "status": "FAIL_PRESERVED"
+  },
+  "fixed_checkpoints": 9,
+  "stages": [
+    {
+      "sandboxes": 1,
+      "objects": {
+        "snapshot_memory_device": {
+          "count": 1,
+          "resident_bytes": 428195840,
+          "query_ns": 183755645,
+          "identities": [
+            [
+              "block",
+              66306
+            ]
+          ],
+          "mapping_lengths": [
+            4294967296
+          ]
+        },
+        "shared_readonly_backing": {
+          "count": 1,
+          "resident_bytes": 344064,
+          "query_ns": 1568497444,
+          "identities": [
+            [
+              "block",
+              66304
+            ]
+          ],
+          "mapping_lengths": [
+            68719476736
+          ]
+        },
+        "other_owned_backing": {
+          "count": 1,
+          "resident_bytes": 0,
+          "query_ns": 1561792085,
+          "identities": [
+            [
+              "block",
+              66305
+            ]
+          ],
+          "mapping_lengths": [
+            68719476736
+          ]
+        },
+        "snapshot_memory_layer": {
+          "count": 1,
+          "resident_bytes": 582438912,
+          "query_ns": 16463638,
+          "identities": [
+            [
+              "regular",
+              1795,
+              1048783
+            ]
+          ],
+          "mapping_lengths": [
+            582438912
+          ]
+        }
+      },
+      "query_ns": 3342921945,
+      "thread_cpu_ns": 3338406326,
+      "per_category_query_ns": {
+        "snapshot_memory_device": 183755645,
+        "shared_readonly_backing": 1568497444,
+        "other_owned_backing": 1561792085,
+        "snapshot_memory_layer": 16463638
+      }
+    },
+    {
+      "sandboxes": 7,
+      "objects": {
+        "snapshot_memory_device": {
+          "count": 1,
+          "resident_bytes": 454332416,
+          "query_ns": 140747124,
+          "identities": [
+            [
+              "block",
+              66306
+            ]
+          ],
+          "mapping_lengths": [
+            4294967296
+          ]
+        },
+        "shared_readonly_backing": {
+          "count": 1,
+          "resident_bytes": 10579968,
+          "query_ns": 1558258284,
+          "identities": [
+            [
+              "block",
+              66304
+            ]
+          ],
+          "mapping_lengths": [
+            68719476736
+          ]
+        },
+        "other_owned_backing": {
+          "count": 7,
+          "resident_bytes": 0,
+          "query_ns": 10666620551,
+          "identities": [
+            [
+              "block",
+              66305
+            ],
+            [
+              "block",
+              66307
+            ],
+            [
+              "block",
+              66308
+            ],
+            [
+              "block",
+              66309
+            ],
+            [
+              "block",
+              66312
+            ],
+            [
+              "block",
+              66310
+            ],
+            [
+              "block",
+              66311
+            ]
+          ],
+          "mapping_lengths": [
+            68719476736,
+            68719476736,
+            68719476736,
+            68719476736,
+            68719476736,
+            68719476736,
+            68719476736
+          ]
+        },
+        "snapshot_memory_layer": {
+          "count": 1,
+          "resident_bytes": 582438912,
+          "query_ns": 16660569,
+          "identities": [
+            [
+              "regular",
+              1795,
+              1048783
+            ]
+          ],
+          "mapping_lengths": [
+            582438912
+          ]
+        }
+      },
+      "query_ns": 12453601872,
+      "thread_cpu_ns": 12424149757,
+      "per_category_query_ns": {
+        "snapshot_memory_device": 140747124,
+        "shared_readonly_backing": 1558258284,
+        "other_owned_backing": 10666620551,
+        "snapshot_memory_layer": 16660569
+      }
+    }
+  ],
+  "shared_file_references": [
+    {
+      "category": "shared_readonly_backing",
+      "single_bytes": 344064,
+      "multiple_bytes": 10579968,
+      "reference_bytes": 2408448,
+      "reduction_bytes": -8171520,
+      "reduction_fraction": -3.392857142857143
+    },
+    {
+      "category": "snapshot_memory_device",
+      "single_bytes": 428195840,
+      "multiple_bytes": 454332416,
+      "reference_bytes": 2997370880,
+      "reduction_bytes": 2543038464,
+      "reduction_fraction": 0.8484230233130176
+    }
+  ],
+  "common_import_layer": {
+    "category": "snapshot_memory_layer",
+    "single_bytes": 582438912,
+    "multiple_bytes": 582438912,
+    "reference_reduction_bytes": null,
+    "reason": "Common imported snapshot layer before guest creation; no per-object pre-guest residency baseline. Do not multiply public preparation by N."
+  },
+  "private_device_query_ns": 12228412636,
+  "query_total_ns": 15796523817,
+  "private_query_fraction": 0.7741204823076298,
+  "timing": {
+    "tool_ns": 13086649663,
+    "task_elapsed_ns": 18787742918,
+    "N1_query_ns": 3342921945,
+    "N7_query_ns": 12453601872
+  },
+  "file_stage_delta_bytes": [
+    432324608,
+    450154496,
+    469737472,
+    503197696
+  ],
+  "baseline_dirty_bytes": 770048,
+  "host_samples": 1981,
+  "host_max_sample_gap_ns": 100125474,
+  "guest_samples": 2395,
+  "pss": "NOT_REQUESTED",
+  "source_returned_to_stopped": true,
+  "scope": "Selected file/device cache residency only. Categories separate, no whole host or exact guest Cached physical attribution. One sequence, no repeated average or observed no-sharing backend."
+}

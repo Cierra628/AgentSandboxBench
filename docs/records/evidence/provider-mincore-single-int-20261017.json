@@ -1,0 +1,59 @@
+{
+  "status": "PASS",
+  "date": "2026-10-17",
+  "scope": "One batch-only residency.update expression; no constructor, default scalar query, mincore ranges, tokens, BPF, output statistics, timing or physical admission changes.",
+  "implemented_expression": "residency.update((offset, vector[offset-start]) for offset in map(int, run))",
+  "source_checks": {
+    "status": "PASS",
+    "runtime_edit": "Exactly one residency.update expression in the batch branch.",
+    "runtime_single_line_only": true,
+    "measured_candidate_ast_equal": true,
+    "old_capture_projection_bodies_equal": true,
+    "default_query_and_constructor_unchanged": true,
+    "query_statistics_and_timing_unchanged": true,
+    "batch_lookup_and_result_restore_unchanged": true,
+    "physical_admission_and_outer_collector_unchanged": true,
+    "offline_profiler_unchanged": true,
+    "performance_retimed": false,
+    "live_interfaces_called": false
+  },
+  "regression": {
+    "status": "PASS",
+    "tests": 40,
+    "modules": [
+      "test_snapshot_mincore_gap",
+      "test_snapshot_query_timing",
+      "test_snapshot_bpf_batch",
+      "test_saved_mincore_residency"
+    ],
+    "log": ".artifacts/provider-mincore-single-int-20261017/regression.log",
+    "new_test": "Actual query dictionary: full bytes, Python int keys/values, requested order, high offsets, gap filtering and exact output/statistics.",
+    "newly_covered_starts": [
+      0,
+      1099511627776,
+      9223372036854775816
+    ]
+  },
+  "offline_profiler_contract": "Unchanged entry point uses the original captured query. Unit fixture now represents that old expression independently of runtime.",
+  "reused_offline_measurement": {
+    "evidence": "provider-mincore-residency-20261017.json",
+    "four_query_means": {
+      "current": {
+        "cpu_ns": 13075122.6,
+        "elapsed_ns": 13081912.4
+      },
+      "candidate": {
+        "cpu_ns": 11407856.3,
+        "elapsed_ns": 11423451.6
+      }
+    },
+    "cpu_saved_ns_per_four_queries": 1667266.2999999989,
+    "cpu_reduced_percent": 12.751439133733237,
+    "input": "Saved offsets and explicitly synthetic residency bytes; dictionary substep only."
+  },
+  "new_performance_measurements": 0,
+  "new_live_runs": 0,
+  "live_mincore_or_bpf_calls": 0,
+  "physical_metrics": "Previous live measurements and unknown rules retained; no new physical measurement.",
+  "next_question": "One existing 3-before/10-after private short restore only: verify queries, contents, restored original guest process, physical PFN union, provider categories and cleanup; record actual CPU and controller memory. No CPU-improvement threshold, extra rounds or full tasks. Require >50 GiB free before 24 GiB volume."
+}

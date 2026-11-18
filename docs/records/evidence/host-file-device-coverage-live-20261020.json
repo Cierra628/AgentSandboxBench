@@ -1,0 +1,113 @@
+{
+  "status": "PARTIAL_EVIDENCE_COUNT_MISMATCH",
+  "workflow": ".artifacts/host-file-traced-dual-task/20261020T130615Z-3771920",
+  "storage": ".artifacts/storage-isolated-service/20261020T130733Z-3778174",
+  "original_workflow_status": "FAIL",
+  "task_status": "PASS",
+  "actual_actions": 31,
+  "logical_actions": 42,
+  "suffix_actions": 20,
+  "original_official_result": {
+    "passed": 0,
+    "failed": 2,
+    "per_instance": true
+  },
+  "trace": {
+    "status": "FAIL",
+    "expected_event_counts": {
+      "4": 193,
+      "3": 348,
+      "2": 103033,
+      "1": 232913
+    },
+    "observed_event_counts": {
+      "1": 232912,
+      "2": 103033,
+      "3": 348,
+      "4": 193
+    },
+    "missing_add_events": 1,
+    "aggregate_keys": 1295,
+    "duplicate_printed_keys": 0,
+    "reported_lost_events": 0,
+    "error": "({1: 232912, 2: 103033, 3: 348, 4: 193}, {4: 193, 3: 348, 2: 103033, 1: 232913})",
+    "production_device_coverage": "NOT_REACHED_AFTER_INTEGRITY_FAILURE"
+  },
+  "task_duration_ns": 3223650274,
+  "task_host_samples": 33,
+  "complete_task_pss_count": 3,
+  "task_counter_delta_ranges_bytes": {
+    "file": [
+      907821056,
+      1372073984
+    ],
+    "anon": [
+      122040320,
+      374632448
+    ],
+    "current": [
+      1057132544,
+      1783660544
+    ],
+    "shmem": [
+      8192,
+      8192
+    ]
+  },
+  "device_diagnostic": {
+    "rdev": 271581186,
+    "resident_bytes": 458907648,
+    "initial_bytes": 0,
+    "query_start_ns": 14271928125964168,
+    "query_end_ns": 14271928238306691,
+    "event_delta_lower_bytes": 458907648,
+    "event_delta_upper_bytes": 458907648,
+    "unknown_owner_add_bytes": 0,
+    "unknown_owner_del_bytes": 0,
+    "ownership_status": "RECORDED_OWNERS_KNOWN",
+    "meaning": "Event deltas exclude initial cache. Boundary bins are bounds, not interpolated events; unknown-owner bytes are event totals, not current residency.",
+    "query_lower_bytes": 458907648,
+    "query_upper_bytes": 458907648,
+    "unexplained_resident_bytes": 0,
+    "event_excess_bytes": 0,
+    "status": "MATCHES_QUERY_BOUNDS",
+    "accepted_measurement": false,
+    "baseline_basis": "Saved initial device inventory excludes target; first recorded probe event precedes restore; executed entry starts task only after READY. Exact ready_ns was not saved because stop validation failed.",
+    "recorded_net_bytes_by_owner": {
+      "root-group": 0,
+      "private-service": 457838592,
+      "udev-service": 1069056
+    },
+    "scope": "Diagnostic bytes from a capture with one inconsistent ADD count; not a complete accepted lifecycle. Same-sized udev amount in this new run does not recover old 261 page identities."
+  },
+  "endpoint_vmm_pss_bytes": {
+    "pss": 592179200,
+    "pss_anon": 364089344,
+    "pss_file": 228081664
+  },
+  "final_inventory": {
+    "files": 187,
+    "roots": 11,
+    "resident_bytes": 28955865088,
+    "cgroup_file_bytes": 28954611712,
+    "net_shortfall_bytes": 1253376,
+    "accounting": "SHORTFALL_REQUIRES_RESOLUTION"
+  },
+  "possible_counter_mechanism": {
+    "status": "COMPILED_CODE_RISK_CONFIRMED_RUN_CAUSE_NOT_PROVEN",
+    "evidence": "bpftrace 0.20.2 count/sum first lookup miss inserts using BPF_NOEXIST without retry on EEXIST. Concurrent first insertions can lose an update. Missing file/time/event size not identifiable from saved maps."
+  },
+  "cleanup": {
+    "host_file_residency_captured": true,
+    "owned_container_removed": true,
+    "mount_and_loop_removed": true,
+    "failed_fixture_retained": true,
+    "original_firecracker_identities_unchanged": true,
+    "original_service_unchanged": true
+  },
+  "disk_min_available_bytes": 33517236224,
+  "whole_host_physical_savings": "NOT_MEASURED",
+  "guest_cache_physical_attribution": "NOT_MEASURED",
+  "monitoring_slowdown": "NOT_MEASURED",
+  "corrected_candidate": "NOT_IMPLEMENTED_NO_ADDITIONAL_RUN"
+}

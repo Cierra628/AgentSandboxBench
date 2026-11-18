@@ -1,0 +1,947 @@
+{
+  "status": "PASS_STARTUP_SAMPLING_THREE_PAIRS",
+  "actual_actions": 0,
+  "created_guests": 42,
+  "runs": [
+    {
+      "status": "PASS",
+      "mode": "off",
+      "storage": ".artifacts/storage-isolated-service/20261026T100212Z-1382663",
+      "actual_actions": 0,
+      "created_guests": 7,
+      "cold_span_ns": 4163610080,
+      "cold_dispatch_span_ns": 3617581,
+      "controller_elapsed_ns": 4927201642,
+      "sample_count": 0,
+      "upload_command_before_last_cold_return_ns": null,
+      "collector_ready_before_last_cold_return_ns": null,
+      "event_wall_minus_monotonic_offset_range_ns": 916,
+      "requests": [
+        {
+          "role": "backbone",
+          "start_monotonic_ns": 14779183439074427,
+          "duration_ns": 4077388247,
+          "phases_ns": {
+            "before_create_log": 3264069630,
+            "create_to_launch_log": 800467000,
+            "launch_to_client_return": 12851617
+          },
+          "server_log_lines": {
+            "create": 27,
+            "launch": 42
+          }
+        },
+        {
+          "role": "early_1",
+          "start_monotonic_ns": 14779183439562012,
+          "duration_ns": 4140817496,
+          "phases_ns": {
+            "before_create_log": 3067444968,
+            "create_to_launch_log": 1063886000,
+            "launch_to_client_return": 9486528
+          },
+          "server_log_lines": {
+            "create": 19,
+            "launch": 45
+          }
+        },
+        {
+          "role": "early_2",
+          "start_monotonic_ns": 14779183439841761,
+          "duration_ns": 4013536471,
+          "phases_ns": {
+            "before_create_log": 3161694293,
+            "create_to_launch_log": 839183000,
+            "launch_to_client_return": 12659178
+          },
+          "server_log_lines": {
+            "create": 26,
+            "launch": 41
+          }
+        },
+        {
+          "role": "early_3",
+          "start_monotonic_ns": 14779183440174974,
+          "duration_ns": 4080670623,
+          "phases_ns": {
+            "before_create_log": 3157063357,
+            "create_to_launch_log": 912320000,
+            "launch_to_client_return": 11287266
+          },
+          "server_log_lines": {
+            "create": 25,
+            "launch": 43
+          }
+        },
+        {
+          "role": "late_1",
+          "start_monotonic_ns": 14779183440869452,
+          "duration_ns": 3958834114,
+          "phases_ns": {
+            "before_create_log": 3017355279,
+            "create_to_launch_log": 929964000,
+            "launch_to_client_return": 11514835
+          },
+          "server_log_lines": {
+            "create": 17,
+            "launch": 40
+          }
+        },
+        {
+          "role": "late_2",
+          "start_monotonic_ns": 14779183441922459,
+          "duration_ns": 4134174359,
+          "phases_ns": {
+            "before_create_log": 3152127024,
+            "create_to_launch_log": 972090000,
+            "launch_to_client_return": 9957335
+          },
+          "server_log_lines": {
+            "create": 23,
+            "launch": 44
+          }
+        },
+        {
+          "role": "late_3",
+          "start_monotonic_ns": 14779183442692008,
+          "duration_ns": 4159992499,
+          "phases_ns": {
+            "before_create_log": 3153387339,
+            "create_to_launch_log": 997187000,
+            "launch_to_client_return": 9418160
+          },
+          "server_log_lines": {
+            "create": 24,
+            "launch": 46
+          }
+        }
+      ],
+      "source_matches": {
+        "cold_start_sampling.py": true,
+        "agentenv_cold_start.py": true,
+        "sandbox_runtime_monitor.py": true,
+        "guest_memory_collector.py": true
+      },
+      "minimum_free_bytes": 116119142400,
+      "available_after_cleanup_bytes": 133299318784,
+      "checks": {
+        "parallel_seven": "PASS",
+        "no_task_work_during_creation": "PASS",
+        "sampler_profile": "PASS",
+        "identities": "PASS",
+        "cleanup": "PASS"
+      },
+      "pair": 1,
+      "collector_cpu_seconds": null,
+      "session_sample_counts": null,
+      "setup_after_last_cold_return_ns": 2713254
+    },
+    {
+      "status": "PASS",
+      "mode": "on",
+      "storage": ".artifacts/storage-isolated-service/20261026T100359Z-1384548",
+      "actual_actions": 0,
+      "created_guests": 7,
+      "cold_span_ns": 3137893316,
+      "cold_dispatch_span_ns": 4524586,
+      "controller_elapsed_ns": 5194481590,
+      "sample_count": 126,
+      "upload_command_before_last_cold_return_ns": 264997013,
+      "collector_ready_before_last_cold_return_ns": 78759337,
+      "event_wall_minus_monotonic_offset_range_ns": 1722,
+      "requests": [
+        {
+          "role": "backbone",
+          "start_monotonic_ns": 14779290092156334,
+          "duration_ns": 2871742376,
+          "phases_ns": {
+            "before_create_log": 2103455877,
+            "create_to_launch_log": 758330000,
+            "launch_to_client_return": 9956499
+          },
+          "server_log_lines": {
+            "create": 19,
+            "launch": 40
+          }
+        },
+        {
+          "role": "early_1",
+          "start_monotonic_ns": 14779290092693611,
+          "duration_ns": 2890064611,
+          "phases_ns": {
+            "before_create_log": 2057316893,
+            "create_to_launch_log": 821347000,
+            "launch_to_client_return": 11400718
+          },
+          "server_log_lines": {
+            "create": 17,
+            "launch": 41
+          }
+        },
+        {
+          "role": "early_2",
+          "start_monotonic_ns": 14779290093309035,
+          "duration_ns": 3072506329,
+          "phases_ns": {
+            "before_create_log": 2104644031,
+            "create_to_launch_log": 958089000,
+            "launch_to_client_return": 9773298
+          },
+          "server_log_lines": {
+            "create": 20,
+            "launch": 44
+          }
+        },
+        {
+          "role": "early_3",
+          "start_monotonic_ns": 14779290094446349,
+          "duration_ns": 3135603301,
+          "phases_ns": {
+            "before_create_log": 2184663585,
+            "create_to_launch_log": 939942000,
+            "launch_to_client_return": 10997716
+          },
+          "server_log_lines": {
+            "create": 27,
+            "launch": 46
+          }
+        },
+        {
+          "role": "late_1",
+          "start_monotonic_ns": 14779290095115710,
+          "duration_ns": 2930163675,
+          "phases_ns": {
+            "before_create_log": 2120288031,
+            "create_to_launch_log": 798289000,
+            "launch_to_client_return": 11586644
+          },
+          "server_log_lines": {
+            "create": 23,
+            "launch": 42
+          }
+        },
+        {
+          "role": "late_2",
+          "start_monotonic_ns": 14779290095930141,
+          "duration_ns": 2990418268,
+          "phases_ns": {
+            "before_create_log": 2105887580,
+            "create_to_launch_log": 873298000,
+            "launch_to_client_return": 11232688
+          },
+          "server_log_lines": {
+            "create": 22,
+            "launch": 43
+          }
+        },
+        {
+          "role": "late_3",
+          "start_monotonic_ns": 14779290096680920,
+          "duration_ns": 3124639423,
+          "phases_ns": {
+            "before_create_log": 2103214284,
+            "create_to_launch_log": 1011678000,
+            "launch_to_client_return": 9747139
+          },
+          "server_log_lines": {
+            "create": 21,
+            "launch": 45
+          }
+        }
+      ],
+      "source_matches": {
+        "cold_start_sampling.py": true,
+        "agentenv_cold_start.py": true,
+        "sandbox_runtime_monitor.py": true,
+        "guest_memory_collector.py": true
+      },
+      "minimum_free_bytes": 116117712896,
+      "available_after_cleanup_bytes": 133297168384,
+      "checks": {
+        "parallel_seven": "PASS",
+        "no_task_work_during_creation": "PASS",
+        "sampler_profile": "PASS",
+        "identities": "PASS",
+        "cleanup": "PASS"
+      },
+      "pair": 1,
+      "collector_cpu_seconds": 0.564453,
+      "session_sample_counts": [
+        20,
+        19,
+        19,
+        18,
+        17,
+        17,
+        16
+      ],
+      "setup_after_last_cold_return_ns": 236438060
+    },
+    {
+      "status": "PASS",
+      "mode": "on",
+      "storage": ".artifacts/storage-isolated-service/20261026T100544Z-1386711",
+      "actual_actions": 0,
+      "created_guests": 7,
+      "cold_span_ns": 43234734761,
+      "cold_dispatch_span_ns": 3733275,
+      "controller_elapsed_ns": 45442648432,
+      "sample_count": 2142,
+      "upload_command_before_last_cold_return_ns": 38481488505,
+      "collector_ready_before_last_cold_return_ns": 38287166808,
+      "event_wall_minus_monotonic_offset_range_ns": 1567,
+      "requests": [
+        {
+          "role": "backbone",
+          "start_monotonic_ns": 14779394512659285,
+          "duration_ns": 11647412780,
+          "phases_ns": {
+            "before_create_log": 10966422253,
+            "create_to_launch_log": 668988000,
+            "launch_to_client_return": 12002527
+          },
+          "server_log_lines": {
+            "create": 35,
+            "launch": 38
+          }
+        },
+        {
+          "role": "early_1",
+          "start_monotonic_ns": 14779394513109307,
+          "duration_ns": 43234284739,
+          "phases_ns": {
+            "before_create_log": 42570436719,
+            "create_to_launch_log": 653969000,
+            "launch_to_client_return": 9879020
+          },
+          "server_log_lines": {
+            "create": 43,
+            "launch": 46
+          }
+        },
+        {
+          "role": "early_2",
+          "start_monotonic_ns": 14779394513681156,
+          "duration_ns": 7222057579,
+          "phases_ns": {
+            "before_create_log": 6426100816,
+            "create_to_launch_log": 784551000,
+            "launch_to_client_return": 11405763
+          },
+          "server_log_lines": {
+            "create": 27,
+            "launch": 33
+          }
+        },
+        {
+          "role": "early_3",
+          "start_monotonic_ns": 14779394514704800,
+          "duration_ns": 7352158830,
+          "phases_ns": {
+            "before_create_log": 6524032924,
+            "create_to_launch_log": 818283000,
+            "launch_to_client_return": 9842906
+          },
+          "server_log_lines": {
+            "create": 30,
+            "launch": 34
+          }
+        },
+        {
+          "role": "late_1",
+          "start_monotonic_ns": 14779394515194230,
+          "duration_ns": 4749428856,
+          "phases_ns": {
+            "before_create_log": 3929448946,
+            "create_to_launch_log": 810173000,
+            "launch_to_client_return": 9806910
+          },
+          "server_log_lines": {
+            "create": 17,
+            "launch": 25
+          }
+        },
+        {
+          "role": "late_2",
+          "start_monotonic_ns": 14779394515748393,
+          "duration_ns": 5110277881,
+          "phases_ns": {
+            "before_create_log": 4298962321,
+            "create_to_launch_log": 799950000,
+            "launch_to_client_return": 11365560
+          },
+          "server_log_lines": {
+            "create": 22,
+            "launch": 26
+          }
+        },
+        {
+          "role": "late_3",
+          "start_monotonic_ns": 14779394516392560,
+          "duration_ns": 20638957361,
+          "phases_ns": {
+            "before_create_log": 19929740630,
+            "create_to_launch_log": 697649000,
+            "launch_to_client_return": 11567731
+          },
+          "server_log_lines": {
+            "create": 39,
+            "launch": 42
+          }
+        }
+      ],
+      "source_matches": {
+        "cold_start_sampling.py": true,
+        "agentenv_cold_start.py": true,
+        "sandbox_runtime_monitor.py": true,
+        "guest_memory_collector.py": true
+      },
+      "minimum_free_bytes": 116115709952,
+      "available_after_cleanup_bytes": 116114296832,
+      "checks": {
+        "parallel_seven": "PASS",
+        "no_task_work_during_creation": "PASS",
+        "sampler_profile": "PASS",
+        "identities": "PASS",
+        "cleanup": "PASS"
+      },
+      "pair": 2,
+      "collector_cpu_seconds": 1.370761,
+      "session_sample_counts": [
+        401,
+        397,
+        376,
+        375,
+        332,
+        243,
+        18
+      ],
+      "setup_after_last_cold_return_ns": 202738248
+    },
+    {
+      "status": "PASS",
+      "mode": "off",
+      "storage": ".artifacts/storage-isolated-service/20261026T100807Z-1389627",
+      "actual_actions": 0,
+      "created_guests": 7,
+      "cold_span_ns": 10330459737,
+      "cold_dispatch_span_ns": 3606704,
+      "controller_elapsed_ns": 10966625325,
+      "sample_count": 0,
+      "upload_command_before_last_cold_return_ns": null,
+      "collector_ready_before_last_cold_return_ns": null,
+      "event_wall_minus_monotonic_offset_range_ns": 1130,
+      "requests": [
+        {
+          "role": "backbone",
+          "start_monotonic_ns": 14779538641471057,
+          "duration_ns": 5974834274,
+          "phases_ns": {
+            "before_create_log": 5311494677,
+            "create_to_launch_log": 653580000,
+            "launch_to_client_return": 9759597
+          },
+          "server_log_lines": {
+            "create": 33,
+            "launch": 42
+          }
+        },
+        {
+          "role": "early_1",
+          "start_monotonic_ns": 14779538641844071,
+          "duration_ns": 10330086723,
+          "phases_ns": {
+            "before_create_log": 9715661890,
+            "create_to_launch_log": 604509000,
+            "launch_to_client_return": 9915833
+          },
+          "server_log_lines": {
+            "create": 43,
+            "launch": 46
+          }
+        },
+        {
+          "role": "early_2",
+          "start_monotonic_ns": 14779538642526361,
+          "duration_ns": 5960390224,
+          "phases_ns": {
+            "before_create_log": 5293591730,
+            "create_to_launch_log": 656802000,
+            "launch_to_client_return": 9996494
+          },
+          "server_log_lines": {
+            "create": 32,
+            "launch": 41
+          }
+        },
+        {
+          "role": "early_3",
+          "start_monotonic_ns": 14779538643329301,
+          "duration_ns": 5786547282,
+          "phases_ns": {
+            "before_create_log": 5064968210,
+            "create_to_launch_log": 711840000,
+            "launch_to_client_return": 9739072
+          },
+          "server_log_lines": {
+            "create": 29,
+            "launch": 39
+          }
+        },
+        {
+          "role": "late_1",
+          "start_monotonic_ns": 14779538643973398,
+          "duration_ns": 5788371754,
+          "phases_ns": {
+            "before_create_log": 4998612719,
+            "create_to_launch_log": 780199000,
+            "launch_to_client_return": 9560035
+          },
+          "server_log_lines": {
+            "create": 26,
+            "launch": 40
+          }
+        },
+        {
+          "role": "late_2",
+          "start_monotonic_ns": 14779538644659302,
+          "duration_ns": 4971028628,
+          "phases_ns": {
+            "before_create_log": 4080781920,
+            "create_to_launch_log": 880476000,
+            "launch_to_client_return": 9770708
+          },
+          "server_log_lines": {
+            "create": 17,
+            "launch": 25
+          }
+        },
+        {
+          "role": "late_3",
+          "start_monotonic_ns": 14779538645077761,
+          "duration_ns": 5452390889,
+          "phases_ns": {
+            "before_create_log": 4596732743,
+            "create_to_launch_log": 844581000,
+            "launch_to_client_return": 11077146
+          },
+          "server_log_lines": {
+            "create": 22,
+            "launch": 38
+          }
+        }
+      ],
+      "source_matches": {
+        "cold_start_sampling.py": true,
+        "agentenv_cold_start.py": true,
+        "sandbox_runtime_monitor.py": true,
+        "guest_memory_collector.py": true
+      },
+      "minimum_free_bytes": 116113334272,
+      "available_after_cleanup_bytes": 133293400064,
+      "checks": {
+        "parallel_seven": "PASS",
+        "no_task_work_during_creation": "PASS",
+        "sampler_profile": "PASS",
+        "identities": "PASS",
+        "cleanup": "PASS"
+      },
+      "pair": 2,
+      "collector_cpu_seconds": null,
+      "session_sample_counts": null,
+      "setup_after_last_cold_return_ns": 2496175
+    },
+    {
+      "status": "PASS",
+      "mode": "off",
+      "storage": ".artifacts/storage-isolated-service/20261026T101006Z-1391470",
+      "actual_actions": 0,
+      "created_guests": 7,
+      "cold_span_ns": 3278088504,
+      "cold_dispatch_span_ns": 3992669,
+      "controller_elapsed_ns": 3980455451,
+      "sample_count": 0,
+      "upload_command_before_last_cold_return_ns": null,
+      "collector_ready_before_last_cold_return_ns": null,
+      "event_wall_minus_monotonic_offset_range_ns": 1118,
+      "requests": [
+        {
+          "role": "backbone",
+          "start_monotonic_ns": 14779657323229945,
+          "duration_ns": 3189226634,
+          "phases_ns": {
+            "before_create_log": 2077858334,
+            "create_to_launch_log": 1101003000,
+            "launch_to_client_return": 10365300
+          },
+          "server_log_lines": {
+            "create": 18,
+            "launch": 49
+          }
+        },
+        {
+          "role": "early_1",
+          "start_monotonic_ns": 14779657323616439,
+          "duration_ns": 3232500408,
+          "phases_ns": {
+            "before_create_log": 2249333491,
+            "create_to_launch_log": 973321000,
+            "launch_to_client_return": 9845917
+          },
+          "server_log_lines": {
+            "create": 31,
+            "launch": 51
+          }
+        },
+        {
+          "role": "early_2",
+          "start_monotonic_ns": 14779657324205847,
+          "duration_ns": 3187716891,
+          "phases_ns": {
+            "before_create_log": 2075122705,
+            "create_to_launch_log": 1100856000,
+            "launch_to_client_return": 11738186
+          },
+          "server_log_lines": {
+            "create": 17,
+            "launch": 48
+          }
+        },
+        {
+          "role": "early_3",
+          "start_monotonic_ns": 14779657325570063,
+          "duration_ns": 3078243380,
+          "phases_ns": {
+            "before_create_log": 2085306158,
+            "create_to_launch_log": 982528000,
+            "launch_to_client_return": 10409222
+          },
+          "server_log_lines": {
+            "create": 20,
+            "launch": 46
+          }
+        },
+        {
+          "role": "late_1",
+          "start_monotonic_ns": 14779657326304495,
+          "duration_ns": 3078079725,
+          "phases_ns": {
+            "before_create_log": 2076734702,
+            "create_to_launch_log": 991090000,
+            "launch_to_client_return": 10255023
+          },
+          "server_log_lines": {
+            "create": 19,
+            "launch": 47
+          }
+        },
+        {
+          "role": "late_2",
+          "start_monotonic_ns": 14779657326697456,
+          "duration_ns": 3230798594,
+          "phases_ns": {
+            "before_create_log": 2250524331,
+            "create_to_launch_log": 965482000,
+            "launch_to_client_return": 14792263
+          },
+          "server_log_lines": {
+            "create": 33,
+            "launch": 50
+          }
+        },
+        {
+          "role": "late_3",
+          "start_monotonic_ns": 14779657327222614,
+          "duration_ns": 3274095835,
+          "phases_ns": {
+            "before_create_log": 2247911607,
+            "create_to_launch_log": 1016814000,
+            "launch_to_client_return": 9370228
+          },
+          "server_log_lines": {
+            "create": 32,
+            "launch": 52
+          }
+        }
+      ],
+      "source_matches": {
+        "cold_start_sampling.py": true,
+        "agentenv_cold_start.py": true,
+        "sandbox_runtime_monitor.py": true,
+        "guest_memory_collector.py": true
+      },
+      "minimum_free_bytes": 116112171008,
+      "available_after_cleanup_bytes": 133291532288,
+      "checks": {
+        "parallel_seven": "PASS",
+        "no_task_work_during_creation": "PASS",
+        "sampler_profile": "PASS",
+        "identities": "PASS",
+        "cleanup": "PASS"
+      },
+      "pair": 3,
+      "collector_cpu_seconds": null,
+      "session_sample_counts": null,
+      "setup_after_last_cold_return_ns": 2416212
+    },
+    {
+      "status": "PASS",
+      "mode": "on",
+      "storage": ".artifacts/storage-isolated-service/20261026T101151Z-1393276",
+      "actual_actions": 0,
+      "created_guests": 7,
+      "cold_span_ns": 7764197405,
+      "cold_dispatch_span_ns": 3381649,
+      "controller_elapsed_ns": 9725290966,
+      "sample_count": 269,
+      "upload_command_before_last_cold_return_ns": 4302750630,
+      "collector_ready_before_last_cold_return_ns": 4130707370,
+      "event_wall_minus_monotonic_offset_range_ns": 1262,
+      "requests": [
+        {
+          "role": "backbone",
+          "start_monotonic_ns": 14779762197169867,
+          "duration_ns": 4451273430,
+          "phases_ns": {
+            "before_create_log": 3519574998,
+            "create_to_launch_log": 919244000,
+            "launch_to_client_return": 12454432
+          },
+          "server_log_lines": {
+            "create": 29,
+            "launch": 40
+          }
+        },
+        {
+          "role": "early_1",
+          "start_monotonic_ns": 14779762197537372,
+          "duration_ns": 4713132834,
+          "phases_ns": {
+            "before_create_log": 3962831688,
+            "create_to_launch_log": 739196000,
+            "launch_to_client_return": 11105146
+          },
+          "server_log_lines": {
+            "create": 34,
+            "launch": 41
+          }
+        },
+        {
+          "role": "early_2",
+          "start_monotonic_ns": 14779762197959377,
+          "duration_ns": 7763407895,
+          "phases_ns": {
+            "before_create_log": 7083099686,
+            "create_to_launch_log": 669369000,
+            "launch_to_client_return": 10939209
+          },
+          "server_log_lines": {
+            "create": 43,
+            "launch": 46
+          }
+        },
+        {
+          "role": "early_3",
+          "start_monotonic_ns": 14779762198618053,
+          "duration_ns": 3748443879,
+          "phases_ns": {
+            "before_create_log": 2730011108,
+            "create_to_launch_log": 1006951000,
+            "launch_to_client_return": 11481771
+          },
+          "server_log_lines": {
+            "create": 17,
+            "launch": 32
+          }
+        },
+        {
+          "role": "late_1",
+          "start_monotonic_ns": 14779762199395401,
+          "duration_ns": 3458143936,
+          "phases_ns": {
+            "before_create_log": 2866084861,
+            "create_to_launch_log": 580018000,
+            "launch_to_client_return": 12041075
+          },
+          "server_log_lines": {
+            "create": 22,
+            "launch": 28
+          }
+        },
+        {
+          "role": "late_2",
+          "start_monotonic_ns": 14779762199607010,
+          "duration_ns": 4833546809,
+          "phases_ns": {
+            "before_create_log": 3983141192,
+            "create_to_launch_log": 840913000,
+            "launch_to_client_return": 9492617
+          },
+          "server_log_lines": {
+            "create": 35,
+            "launch": 42
+          }
+        },
+        {
+          "role": "late_3",
+          "start_monotonic_ns": 14779762200551516,
+          "duration_ns": 3791814102,
+          "phases_ns": {
+            "before_create_log": 2905746689,
+            "create_to_launch_log": 874366000,
+            "launch_to_client_return": 11701413
+          },
+          "server_log_lines": {
+            "create": 23,
+            "launch": 33
+          }
+        }
+      ],
+      "source_matches": {
+        "cold_start_sampling.py": true,
+        "agentenv_cold_start.py": true,
+        "sandbox_runtime_monitor.py": true,
+        "guest_memory_collector.py": true
+      },
+      "minimum_free_bytes": 116110131200,
+      "available_after_cleanup_bytes": 133289689088,
+      "checks": {
+        "parallel_seven": "PASS",
+        "no_task_work_during_creation": "PASS",
+        "sampler_profile": "PASS",
+        "identities": "PASS",
+        "cleanup": "PASS"
+      },
+      "pair": 3,
+      "collector_cpu_seconds": 0.6505299999999999,
+      "session_sample_counts": [
+        50,
+        46,
+        46,
+        39,
+        36,
+        35,
+        17
+      ],
+      "setup_after_last_cold_return_ns": 209408615
+    }
+  ],
+  "pairs": [
+    {
+      "pair": 1,
+      "order": [
+        "off",
+        "on"
+      ],
+      "off_ns": 4163610080,
+      "on_ns": 3137893316,
+      "difference_ns": -1025716764,
+      "change_percent": -24.635274300229383
+    },
+    {
+      "pair": 2,
+      "order": [
+        "on",
+        "off"
+      ],
+      "off_ns": 10330459737,
+      "on_ns": 43234734761,
+      "difference_ns": 32904275024,
+      "change_percent": 318.5170443687873
+    },
+    {
+      "pair": 3,
+      "order": [
+        "off",
+        "on"
+      ],
+      "off_ns": 3278088504,
+      "on_ns": 7764197405,
+      "difference_ns": 4486108901,
+      "change_percent": 136.8513661399302
+    }
+  ],
+  "difference_ns": {
+    "mean": 12121555720.333334,
+    "median": 4486108901,
+    "minimum": -1025716764,
+    "maximum": 32904275024
+  },
+  "change_percent": {
+    "mean": 143.57771206949604,
+    "median": 136.8513661399302,
+    "minimum": -24.635274300229383,
+    "maximum": 318.5170443687873
+  },
+  "scope": "Startup-only immediate sampler deployment/operation interference, not full task slowdown; signed paired changes, no subtraction from previous full-GRPO results",
+  "sample_count": 2537,
+  "functional_status": "PASS",
+  "causal_startup_overhead": "UNRESOLVED_PRE_CREATE_WAIT",
+  "source_returned_to_stopped": true,
+  "post_run_offline_checks": {
+    "startup_only_command_inventory": "PASS",
+    "sample_rows_and_profile": "PASS",
+    "six_volumes_removed": "PASS",
+    "six_seed_resources_released": "PASS"
+  },
+  "minimum_free_gib": 108.135986328125,
+  "critical_request_comparisons": [
+    {
+      "pair": 1,
+      "role": "early_3",
+      "on_phases_ns": {
+        "before_create_log": 2184663585,
+        "create_to_launch_log": 939942000,
+        "launch_to_client_return": 10997716
+      },
+      "same_role_off_phases_ns": {
+        "before_create_log": 3157063357,
+        "create_to_launch_log": 912320000,
+        "launch_to_client_return": 11287266
+      },
+      "difference_phases_ns": {
+        "before_create_log": -972399772,
+        "create_to_launch_log": 27622000,
+        "launch_to_client_return": -289550
+      }
+    },
+    {
+      "pair": 2,
+      "role": "early_1",
+      "on_phases_ns": {
+        "before_create_log": 42570436719,
+        "create_to_launch_log": 653969000,
+        "launch_to_client_return": 9879020
+      },
+      "same_role_off_phases_ns": {
+        "before_create_log": 9715661890,
+        "create_to_launch_log": 604509000,
+        "launch_to_client_return": 9915833
+      },
+      "difference_phases_ns": {
+        "before_create_log": 32854774829,
+        "create_to_launch_log": 49460000,
+        "launch_to_client_return": -36813
+      }
+    },
+    {
+      "pair": 3,
+      "role": "early_2",
+      "on_phases_ns": {
+        "before_create_log": 7083099686,
+        "create_to_launch_log": 669369000,
+        "launch_to_client_return": 10939209
+      },
+      "same_role_off_phases_ns": {
+        "before_create_log": 2075122705,
+        "create_to_launch_log": 1100856000,
+        "launch_to_client_return": 11738186
+      },
+      "difference_phases_ns": {
+        "before_create_log": 5007976981,
+        "create_to_launch_log": -431487000,
+        "launch_to_client_return": -798977
+      }
+    }
+  ]
+}

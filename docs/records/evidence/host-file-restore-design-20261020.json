@@ -1,0 +1,146 @@
+{
+  "status": "PASS",
+  "date": "2026-10-20",
+  "scope": "Offline saved metadata and source checks only; no new sandbox or measurements",
+  "raw": ".artifacts/storage-isolated-service/20261017T105741Z-2450246/prettier6604",
+  "observed_action_counts": {
+    "backbone": 11,
+    "early_1": 10,
+    "early_2": 10
+  },
+  "same_memory_device": {
+    "device": 6,
+    "inode": 28564,
+    "rdev": 66359
+  },
+  "memory_device_path": "/dev/ublkb105",
+  "mapping_bytes": 4294967296,
+  "mapping_permissions": "rw-p",
+  "page_size": 4096,
+  "same_raw_layer": {
+    "device": 1802,
+    "inode": 917756,
+    "size_bytes": 594051072
+  },
+  "guest_kernel": "6.1.175-asb-cache-v3 (old diagnostic run)",
+  "restored_boundaries_and_process_continuity": "PASS",
+  "cleanup": "PASS",
+  "distinct_suffix_patches": true,
+  "current_source": {
+    "AgentENV/src/sandbox/firecracker/sandbox.rs": [
+      {
+        "text": ".get_or_create_shared_mem(",
+        "lines": [
+          2176
+        ]
+      },
+      {
+        "text": ".load_snapshot_file(",
+        "lines": [
+          2207
+        ]
+      }
+    ],
+    "AgentENV/src/sandbox/firecracker/instance.rs": [
+      {
+        "text": "pub async fn load_snapshot_file(",
+        "lines": [
+          523
+        ]
+      },
+      {
+        "text": "memory_backend::BackendType::File",
+        "lines": [
+          534
+        ]
+      }
+    ],
+    "AgentENV/src/sandbox/ublk/device.rs": [
+      {
+        "text": "std::fs::canonicalize(image_config)",
+        "lines": [
+          613
+        ]
+      },
+      {
+        "text": "if let Some(strong) = weak",
+        "lines": [
+          638
+        ]
+      },
+      {
+        "text": "impl Drop for SharedReadOnlyDeviceInner",
+        "lines": [
+          749
+        ]
+      }
+    ],
+    "scripts/run_prettier6604_grpo.py": [
+      {
+        "text": "async def do_bpo(self):",
+        "lines": [
+          446
+        ]
+      },
+      {
+        "text": "'delete-parent','delete',root",
+        "lines": [
+          465
+        ]
+      },
+      {
+        "text": "('early_1','child-a'),('early_2','child-b')",
+        "lines": [
+          470
+        ]
+      },
+      {
+        "text": "assert not root_count or shared_cache",
+        "lines": [
+          200
+        ]
+      }
+    ],
+    "scripts/shared_task_cache.py": [
+      {
+        "text": "context['pause'].pause()",
+        "lines": [
+          120
+        ]
+      }
+    ],
+    "scripts/platform_tasks.py": [
+      {
+        "text": "host_file_monitor supports complete ordinary tasks or GRPO without fine physical analysis",
+        "lines": [
+          117
+        ]
+      }
+    ],
+    "scripts/host_file_monitor.py": [
+      {
+        "text": "residency input must be a regular backing file",
+        "lines": [
+          78
+        ]
+      }
+    ]
+  },
+  "future_scope": {
+    "common_prefix_actions": 11,
+    "checkpoint_count": 1,
+    "restored_guests": [
+      1,
+      2
+    ],
+    "observed_seconds_per_group": 5,
+    "suffix_actions": 0,
+    "percentage_output": false
+  },
+  "open_items": [
+    "ordinary-kernel lightweight restore path",
+    "live block-device mincore",
+    "snapshot file inventory",
+    "phase-specific baselines and report"
+  ]
+}

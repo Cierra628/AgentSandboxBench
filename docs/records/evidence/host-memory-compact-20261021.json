@@ -1,0 +1,598 @@
+{
+  "status": "PASS_COMPACT_MEMORY_PAIR",
+  "workflow": ".artifacts/host-file-independent-pair/20261021T065316Z-3967748",
+  "source_prefix": ".artifacts/storage-isolated-service/20261021T031738Z-3920554",
+  "reused_prefix_actions": 11,
+  "new_actual_actions": 30,
+  "total_experiment_actions": 41,
+  "original_prefix_platform_failure": "FAIL_PRESERVED",
+  "guest_interval_seconds": 0.1,
+  "host_interval_seconds": 0.1,
+  "pss_interval_seconds": 1,
+  "groups": [
+    {
+      "sandboxes": 1,
+      "storage": ".artifacts/storage-isolated-service/20261021T065433Z-3968552",
+      "actual_actions": 10,
+      "reused_prefix_actions": 11,
+      "snapshot_id": "01a15c77-4be9-78c1-a0e6-5af6d502a0ab",
+      "baseline": {
+        "current": 40963530752,
+        "file": 40089309184,
+        "anon": 105668608,
+        "shmem": 7604273152,
+        "kernel": 745467904,
+        "file_mapped": 339968,
+        "file_dirty": 950272,
+        "file_writeback": 0
+      },
+      "post_task_before_scan": {
+        "current": 41562644480,
+        "file": 40523100160,
+        "anon": 259842048,
+        "shmem": 7604277248,
+        "kernel": 753651712,
+        "file_mapped": 217231360,
+        "file_dirty": 6828032,
+        "file_writeback": 0
+      },
+      "delta_bytes": {
+        "file": 433790976,
+        "anon": 154173440,
+        "current": 599113728,
+        "kernel": 8183808,
+        "shmem": 4096
+      },
+      "import_sync": {
+        "status": "PASS",
+        "start_monotonic_ns": 14335962122509573,
+        "end_monotonic_ns": 14335978701948813,
+        "scope": "owned filesystem after import, before service and guest creation"
+      },
+      "import_sync_command_ns": 16579224423,
+      "baseline_to_suffix_ns": 1171078451,
+      "pre_suffix_sample_lag_ns": 27903858,
+      "pre_suffix_file_delta_bytes": 319926272,
+      "pre_suffix_dirty_bytes": 6017024,
+      "last_task_sample_lag_ns": 60301177,
+      "suffix_sample_file_increase_bytes": 113606656,
+      "max_writeback_during_restore_and_suffix_bytes": 0,
+      "task_wall_ns": 2734593875,
+      "tool_ns": 1926542140,
+      "guest": [
+        {
+          "role": "N1-a",
+          "tool_ns": 1926542140,
+          "guest_samples": 209,
+          "cached_peak_bytes": 195792896
+        }
+      ],
+      "task_host_samples": 27,
+      "complete_task_pss": 3,
+      "memory_device_bytes": 429268992,
+      "vmm_anon_pss_before_bytes": 130277376,
+      "vmm_anon_pss_after_bytes": 133316608,
+      "other_anon_pss_before_bytes": 129568768,
+      "all_anon_pss_before_bytes": 259846144,
+      "ordinary_before_files": 192,
+      "ordinary_after_files": 205,
+      "ordinary_before_bytes": 41920589824,
+      "ordinary_after_bytes": 41921957888,
+      "ordinary_categories_before": {
+        "readonly_commits": {
+          "files": 31,
+          "resident_bytes": 7178346496
+        },
+        "private_image_cache": {
+          "files": 93,
+          "resident_bytes": 7178936320
+        },
+        "private_loop_backing": {
+          "files": 1,
+          "resident_bytes": 11596288000
+        },
+        "input_ram_image": {
+          "files": 1,
+          "resident_bytes": 7604273152
+        },
+        "snapshot_store": {
+          "files": 25,
+          "resident_bytes": 6153531392
+        },
+        "snapshot_local_cache": {
+          "files": 0,
+          "resident_bytes": 0
+        },
+        "readonly_deps": {
+          "files": 12,
+          "resident_bytes": 189087744
+        },
+        "private_deps": {
+          "files": 12,
+          "resident_bytes": 189087744
+        },
+        "private_logs": {
+          "files": 2,
+          "resident_bytes": 8192
+        },
+        "private_records": {
+          "files": 7,
+          "resident_bytes": 53248
+        },
+        "private_templates": {
+          "files": 7,
+          "resident_bytes": 49152
+        },
+        "source_archive": {
+          "files": 1,
+          "resident_bytes": 1830928384
+        }
+      },
+      "ordinary_categories_after": {
+        "readonly_commits": {
+          "files": 31,
+          "resident_bytes": 7178346496
+        },
+        "private_image_cache": {
+          "files": 101,
+          "resident_bytes": 7179014144
+        },
+        "private_loop_backing": {
+          "files": 1,
+          "resident_bytes": 11597541376
+        },
+        "input_ram_image": {
+          "files": 1,
+          "resident_bytes": 7604273152
+        },
+        "snapshot_store": {
+          "files": 25,
+          "resident_bytes": 6153531392
+        },
+        "snapshot_local_cache": {
+          "files": 2,
+          "resident_bytes": 16384
+        },
+        "readonly_deps": {
+          "files": 12,
+          "resident_bytes": 189087744
+        },
+        "private_deps": {
+          "files": 12,
+          "resident_bytes": 189087744
+        },
+        "private_logs": {
+          "files": 5,
+          "resident_bytes": 24576
+        },
+        "private_records": {
+          "files": 7,
+          "resident_bytes": 53248
+        },
+        "private_templates": {
+          "files": 7,
+          "resident_bytes": 53248
+        },
+        "source_archive": {
+          "files": 1,
+          "resident_bytes": 1830928384
+        }
+      },
+      "raw_layer_bytes_already_in_ordinary": 582438912,
+      "final_files": 201,
+      "final_mincore_bytes": 41927344128,
+      "final_accounting": "SHORTFALL_REQUIRES_RESOLUTION",
+      "final_net_shortfall_bytes": 1832747008,
+      "final_archive_resident_bytes": 1830928384,
+      "final_loop_resident_bytes": 11602948096,
+      "final_counter_file_before_bytes": 40094597120,
+      "final_counter_file_after_bytes": 40094597120,
+      "final_sync_status": "PASS",
+      "disk_min_available_bytes": 33328398336,
+      "cleanup": {
+        "host_file_residency_captured": true,
+        "owned_container_removed": true,
+        "mount_and_loop_removed": true,
+        "successful_fixture_removed": true,
+        "original_firecracker_identities_unchanged": true,
+        "original_service_unchanged": true
+      }
+    },
+    {
+      "sandboxes": 2,
+      "storage": ".artifacts/storage-isolated-service/20261021T065615Z-3970703",
+      "actual_actions": 20,
+      "reused_prefix_actions": 11,
+      "snapshot_id": "01a15c77-4be9-78c1-a0e6-5af6d502a0ab",
+      "baseline": {
+        "current": 40972533760,
+        "file": 40095510528,
+        "anon": 106213376,
+        "shmem": 7604273152,
+        "kernel": 746377216,
+        "file_mapped": 339968,
+        "file_dirty": 942080,
+        "file_writeback": 0
+      },
+      "post_task_before_scan": {
+        "current": 41735831552,
+        "file": 40546152448,
+        "anon": 405860352,
+        "shmem": 7604281344,
+        "kernel": 761442304,
+        "file_mapped": 243052544,
+        "file_dirty": 11829248,
+        "file_writeback": 0
+      },
+      "delta_bytes": {
+        "file": 450641920,
+        "anon": 299646976,
+        "current": 763297792,
+        "kernel": 15065088,
+        "shmem": 8192
+      },
+      "import_sync": {
+        "status": "PASS",
+        "start_monotonic_ns": 14336063777829659,
+        "end_monotonic_ns": 14336071917792586,
+        "scope": "owned filesystem after import, before service and guest creation"
+      },
+      "import_sync_command_ns": 8139736759,
+      "baseline_to_suffix_ns": 2354850304,
+      "pre_suffix_sample_lag_ns": 51145052,
+      "pre_suffix_file_delta_bytes": 345186304,
+      "pre_suffix_dirty_bytes": 10792960,
+      "last_task_sample_lag_ns": 24610463,
+      "suffix_sample_file_increase_bytes": 105455616,
+      "max_writeback_during_restore_and_suffix_bytes": 0,
+      "task_wall_ns": 2875818435,
+      "tool_ns": 3682266109,
+      "guest": [
+        {
+          "role": "N2-a",
+          "tool_ns": 1697969769,
+          "guest_samples": 244,
+          "cached_peak_bytes": 195665920
+        },
+        {
+          "role": "N2-b",
+          "tool_ns": 1984296340,
+          "guest_samples": 228,
+          "cached_peak_bytes": 195661824
+        }
+      ],
+      "task_host_samples": 29,
+      "complete_task_pss": 3,
+      "memory_device_bytes": 440463360,
+      "vmm_anon_pss_before_bytes": 262176768,
+      "vmm_anon_pss_after_bytes": 263753728,
+      "other_anon_pss_before_bytes": 140222464,
+      "all_anon_pss_before_bytes": 402399232,
+      "ordinary_before_files": 192,
+      "ordinary_after_files": 208,
+      "ordinary_before_bytes": 41920528384,
+      "ordinary_after_bytes": 41922383872,
+      "ordinary_categories_before": {
+        "readonly_commits": {
+          "files": 31,
+          "resident_bytes": 7178346496
+        },
+        "private_image_cache": {
+          "files": 93,
+          "resident_bytes": 7178936320
+        },
+        "private_loop_backing": {
+          "files": 1,
+          "resident_bytes": 11596226560
+        },
+        "input_ram_image": {
+          "files": 1,
+          "resident_bytes": 7604273152
+        },
+        "snapshot_store": {
+          "files": 25,
+          "resident_bytes": 6153531392
+        },
+        "snapshot_local_cache": {
+          "files": 0,
+          "resident_bytes": 0
+        },
+        "readonly_deps": {
+          "files": 12,
+          "resident_bytes": 189087744
+        },
+        "private_deps": {
+          "files": 12,
+          "resident_bytes": 189087744
+        },
+        "private_logs": {
+          "files": 2,
+          "resident_bytes": 8192
+        },
+        "private_records": {
+          "files": 7,
+          "resident_bytes": 53248
+        },
+        "private_templates": {
+          "files": 7,
+          "resident_bytes": 49152
+        },
+        "source_archive": {
+          "files": 1,
+          "resident_bytes": 1830928384
+        }
+      },
+      "ordinary_categories_after": {
+        "readonly_commits": {
+          "files": 31,
+          "resident_bytes": 7178346496
+        },
+        "private_image_cache": {
+          "files": 101,
+          "resident_bytes": 7179014144
+        },
+        "private_loop_backing": {
+          "files": 1,
+          "resident_bytes": 11597950976
+        },
+        "input_ram_image": {
+          "files": 1,
+          "resident_bytes": 7604273152
+        },
+        "snapshot_store": {
+          "files": 25,
+          "resident_bytes": 6153531392
+        },
+        "snapshot_local_cache": {
+          "files": 2,
+          "resident_bytes": 16384
+        },
+        "readonly_deps": {
+          "files": 12,
+          "resident_bytes": 189087744
+        },
+        "private_deps": {
+          "files": 12,
+          "resident_bytes": 189087744
+        },
+        "private_logs": {
+          "files": 8,
+          "resident_bytes": 40960
+        },
+        "private_records": {
+          "files": 7,
+          "resident_bytes": 53248
+        },
+        "private_templates": {
+          "files": 7,
+          "resident_bytes": 53248
+        },
+        "source_archive": {
+          "files": 1,
+          "resident_bytes": 1830928384
+        }
+      },
+      "raw_layer_bytes_already_in_ordinary": 582438912,
+      "final_files": 204,
+      "final_mincore_bytes": 41929199616,
+      "final_accounting": "SHORTFALL_REQUIRES_RESOLUTION",
+      "final_net_shortfall_bytes": 1823641600,
+      "final_archive_resident_bytes": 1830928384,
+      "final_loop_resident_bytes": 11604783104,
+      "final_counter_file_before_bytes": 40102596608,
+      "final_counter_file_after_bytes": 40105558016,
+      "final_sync_status": "PASS",
+      "disk_min_available_bytes": 33322422272,
+      "cleanup": {
+        "host_file_residency_captured": true,
+        "owned_container_removed": true,
+        "mount_and_loop_removed": true,
+        "successful_fixture_removed": true,
+        "original_firecracker_identities_unchanged": true,
+        "original_service_unchanged": true
+      }
+    }
+  ],
+  "separate_services_and_writable_volumes": true,
+  "same_original_snapshot": true,
+  "device_linear_reference": {
+    "single_bytes": 429268992,
+    "multiple_bytes": 440463360,
+    "sandboxes": 2,
+    "linear_reference_bytes": 858537984,
+    "reduction_vs_linear_reference": 0.4869611266960554,
+    "meaning": "Extrapolation from one sandbox, not a measured no-sharing control; common overhead and cache state affect the ratio."
+  },
+  "baseline_file_difference_bytes": 6201344,
+  "old_shared_volume_baseline_file_difference_bytes": 1016561664,
+  "host_samples": 2752,
+  "pss_samples": 276,
+  "partial_pss_samples": 1,
+  "final_scan_order_fix": "PASS_LIVE_BOTH_GROUPS",
+  "whole_host_physical_savings": "NOT_MEASURED",
+  "guest_cache_host_physical_subset": "NOT_MEASURED",
+  "source_archive_accounting": "Archive was produced before this new slice; global residency is included in mincore, not assumed charged to this group.",
+  "scope": "Explicit detail option; existing ordinary task and light collection remain unchanged. Same saved checkpoint, independent writable services, 30 new suffix actions. Main cache and mapped backings between PSS observations; other devices queried afterwards. Whole physical union not measured.",
+  "comparison_previous_sync_pair": {
+    "previous_evidence": "docs/records/evidence/host-import-sync-20261021.json",
+    "previous_baseline_file_difference_bytes": 3543040,
+    "current_baseline_file_difference_bytes": 6201344,
+    "groups": [
+      {
+        "sandboxes": 1,
+        "previous_dirty_bytes": 950272,
+        "current_dirty_bytes": 950272,
+        "previous_pre_suffix_file_delta_bytes": 319283200,
+        "current_pre_suffix_file_delta_bytes": 319926272,
+        "previous_suffix_sample_file_increase_bytes": 112771072,
+        "current_suffix_sample_file_increase_bytes": 113606656
+      },
+      {
+        "sandboxes": 2,
+        "previous_dirty_bytes": 942080,
+        "current_dirty_bytes": 942080,
+        "previous_pre_suffix_file_delta_bytes": 343015424,
+        "current_pre_suffix_file_delta_bytes": 345186304,
+        "previous_suffix_sample_file_increase_bytes": 108265472,
+        "current_suffix_sample_file_increase_bytes": 105455616
+      }
+    ]
+  },
+  "memory_detail": [
+    {
+      "sandboxes": 1,
+      "core_window_ns": 2062095407,
+      "previous_full_observation_window_ns": 5167391417,
+      "all_device_and_core_queries_ns": 5168020459,
+      "target_to_ordinary_gap_ns": 5989251,
+      "ordinary_scan_ns": 1860285414,
+      "mapped_scan_ns": 9220306,
+      "mapped_identity_keys": 52,
+      "ordinary_overlap_keys": 1,
+      "special_mapping_keys": 4,
+      "additional_regular_files": 35,
+      "additional_global_cache_bytes": 162586624,
+      "additional_backing_names": [
+        "/home/yyxie/agentenv_experiment/runtime/bin/aenv",
+        "/server",
+        "/usr/bin/python3.12",
+        "/usr/bin/timeout",
+        "/usr/lib/locale/locale-archive",
+        "/usr/lib/python3.12/lib-dynload/_asyncio.cpython-312-x86_64-linux-gnu.so",
+        "/usr/lib/python3.12/lib-dynload/_bz2.cpython-312-x86_64-linux-gnu.so",
+        "/usr/lib/python3.12/lib-dynload/_contextvars.cpython-312-x86_64-linux-gnu.so",
+        "/usr/lib/python3.12/lib-dynload/_ctypes.cpython-312-x86_64-linux-gnu.so",
+        "/usr/lib/python3.12/lib-dynload/_hashlib.cpython-312-x86_64-linux-gnu.so",
+        "/usr/lib/python3.12/lib-dynload/_json.cpython-312-x86_64-linux-gnu.so",
+        "/usr/lib/python3.12/lib-dynload/_lzma.cpython-312-x86_64-linux-gnu.so",
+        "/usr/lib/python3.12/lib-dynload/_queue.cpython-312-x86_64-linux-gnu.so",
+        "/usr/lib/python3.12/lib-dynload/_ssl.cpython-312-x86_64-linux-gnu.so",
+        "/usr/lib/python3.12/lib-dynload/resource.cpython-312-x86_64-linux-gnu.so",
+        "/usr/lib/x86_64-linux-gnu/gconv/gconv-modules.cache",
+        "/usr/lib/x86_64-linux-gnu/ld-linux-x86-64.so.2",
+        "/usr/lib/x86_64-linux-gnu/libbz2.so.1.0.4",
+        "/usr/lib/x86_64-linux-gnu/libc.so.6",
+        "/usr/lib/x86_64-linux-gnu/libcrypto.so.3",
+        "/usr/lib/x86_64-linux-gnu/libexpat.so.1.9.1",
+        "/usr/lib/x86_64-linux-gnu/libffi.so.8.1.4",
+        "/usr/lib/x86_64-linux-gnu/libgcc_s.so.1",
+        "/usr/lib/x86_64-linux-gnu/liblzma.so.5.4.5",
+        "/usr/lib/x86_64-linux-gnu/libm.so.6",
+        "/usr/lib/x86_64-linux-gnu/libssl.so.3",
+        "/usr/lib/x86_64-linux-gnu/libstdc++.so.6.0.33",
+        "/usr/lib/x86_64-linux-gnu/libz.so.1.3",
+        "/usr/local/bin/uvm-ublk-daemon"
+      ],
+      "unresolved_identity_keys": 12,
+      "unresolved_names": {
+        "anon_inode:[io_uring]": 9,
+        "anon_inode:kvm-vcpu:1": 1,
+        "/memfd:iov_deque (deleted)": 1,
+        "/dev/zero (deleted)": 1
+      },
+      "unknown_count_scope": "Keys grouped by device/inode, not unique anonymous memory objects or bytes; anon_inode keys can be shared by unrelated mappings.",
+      "mapped_coverage": "INCOMPLETE",
+      "before_anon_pss": {
+        "all": 259846144,
+        "vmm": 130277376
+      },
+      "after_anon_pss": {
+        "all": 264257536,
+        "vmm": 134328320
+      },
+      "observed_anon_pss_span_bytes": 9670656,
+      "periodic_counter_samples": 21,
+      "counter_observed_spans_bytes": {
+        "file": 3584000,
+        "anon": 9826304,
+        "current": 13172736
+      },
+      "core_cache_observation_sum_bytes": 42513813504,
+      "core_sum_scope": "Sequential distinct cache-object observations, not sandbox-exclusive or simultaneous; excludes later secondary block devices and unresolved mappings.",
+      "all_queries_status": "OBSERVED",
+      "whole_physical_total": "NOT_MEASURED"
+    },
+    {
+      "sandboxes": 2,
+      "core_window_ns": 2082607770,
+      "previous_full_observation_window_ns": 6821278627,
+      "all_device_and_core_queries_ns": 6774212601,
+      "target_to_ordinary_gap_ns": 10423481,
+      "ordinary_scan_ns": 1855162817,
+      "mapped_scan_ns": 10555084,
+      "mapped_identity_keys": 61,
+      "ordinary_overlap_keys": 1,
+      "special_mapping_keys": 5,
+      "additional_regular_files": 35,
+      "additional_global_cache_bytes": 162586624,
+      "additional_backing_names": [
+        "/home/yyxie/agentenv_experiment/runtime/bin/aenv",
+        "/server",
+        "/usr/bin/python3.12",
+        "/usr/bin/timeout",
+        "/usr/lib/locale/locale-archive",
+        "/usr/lib/python3.12/lib-dynload/_asyncio.cpython-312-x86_64-linux-gnu.so",
+        "/usr/lib/python3.12/lib-dynload/_bz2.cpython-312-x86_64-linux-gnu.so",
+        "/usr/lib/python3.12/lib-dynload/_contextvars.cpython-312-x86_64-linux-gnu.so",
+        "/usr/lib/python3.12/lib-dynload/_ctypes.cpython-312-x86_64-linux-gnu.so",
+        "/usr/lib/python3.12/lib-dynload/_hashlib.cpython-312-x86_64-linux-gnu.so",
+        "/usr/lib/python3.12/lib-dynload/_json.cpython-312-x86_64-linux-gnu.so",
+        "/usr/lib/python3.12/lib-dynload/_lzma.cpython-312-x86_64-linux-gnu.so",
+        "/usr/lib/python3.12/lib-dynload/_queue.cpython-312-x86_64-linux-gnu.so",
+        "/usr/lib/python3.12/lib-dynload/_ssl.cpython-312-x86_64-linux-gnu.so",
+        "/usr/lib/python3.12/lib-dynload/resource.cpython-312-x86_64-linux-gnu.so",
+        "/usr/lib/x86_64-linux-gnu/gconv/gconv-modules.cache",
+        "/usr/lib/x86_64-linux-gnu/ld-linux-x86-64.so.2",
+        "/usr/lib/x86_64-linux-gnu/libbz2.so.1.0.4",
+        "/usr/lib/x86_64-linux-gnu/libc.so.6",
+        "/usr/lib/x86_64-linux-gnu/libcrypto.so.3",
+        "/usr/lib/x86_64-linux-gnu/libexpat.so.1.9.1",
+        "/usr/lib/x86_64-linux-gnu/libffi.so.8.1.4",
+        "/usr/lib/x86_64-linux-gnu/libgcc_s.so.1",
+        "/usr/lib/x86_64-linux-gnu/liblzma.so.5.4.5",
+        "/usr/lib/x86_64-linux-gnu/libm.so.6",
+        "/usr/lib/x86_64-linux-gnu/libssl.so.3",
+        "/usr/lib/x86_64-linux-gnu/libstdc++.so.6.0.33",
+        "/usr/lib/x86_64-linux-gnu/libz.so.1.3",
+        "/usr/local/bin/uvm-ublk-daemon"
+      ],
+      "unresolved_identity_keys": 20,
+      "unresolved_names": {
+        "anon_inode:[io_uring]": 15,
+        "anon_inode:kvm-vcpu:1": 1,
+        "/memfd:iov_deque (deleted)": 2,
+        "/dev/zero (deleted)": 2
+      },
+      "unknown_count_scope": "Keys grouped by device/inode, not unique anonymous memory objects or bytes; anon_inode keys can be shared by unrelated mappings.",
+      "mapped_coverage": "INCOMPLETE",
+      "before_anon_pss": {
+        "all": 402399232,
+        "vmm": 262176768
+      },
+      "after_anon_pss": {
+        "all": 414797824,
+        "vmm": 274563072
+      },
+      "observed_anon_pss_span_bytes": 12398592,
+      "periodic_counter_samples": 21,
+      "counter_observed_spans_bytes": {
+        "file": 1675264,
+        "anon": 10317824,
+        "current": 13086720
+      },
+      "core_cache_observation_sum_bytes": 42525433856,
+      "core_sum_scope": "Sequential distinct cache-object observations, not sandbox-exclusive or simultaneous; excludes later secondary block devices and unresolved mappings.",
+      "all_queries_status": "OBSERVED",
+      "whole_physical_total": "NOT_MEASURED"
+    }
+  ],
+  "backup": {
+    "status": "PASS",
+    "directory": ".artifacts/light-measurement-backup-20261021T064910Z",
+    "archive_bytes": 13948077,
+    "files": 1222,
+    "source_bytes": 53510504,
+    "verified_inventory": true,
+    "verified_selected_contents": true
+  }
+}

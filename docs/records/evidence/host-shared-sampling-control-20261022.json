@@ -1,0 +1,231 @@
+{
+  "status": "PASS_OFF_CONTROL_COMPARISON",
+  "on_runs": 5,
+  "off_runs": 1,
+  "new_actions": 77,
+  "on_workflows": [
+    ".artifacts/host-scaling/20261022T134950Z-348255",
+    ".artifacts/host-scaling/20261022T135213Z-351410",
+    ".artifacts/host-scaling/20261022T135440Z-354727",
+    ".artifacts/host-scaling/20261022T135704Z-359171",
+    ".artifacts/host-scaling/20261022T135937Z-362742"
+  ],
+  "off_workflow": ".artifacts/host-scaling/20261022T142206Z-370761",
+  "off_storage": ".artifacts/storage-isolated-service/20261022T142324Z-371568",
+  "timings": {
+    "tool_ns": {
+      "on_n": 5,
+      "off_n": 1,
+      "on_values_ns": [
+        5475685892,
+        5779751558,
+        5876073671,
+        6095506642,
+        6050859262
+      ],
+      "on_mean_ns": 5855575405,
+      "on_sd_ns": 248086809.43543229,
+      "on_min_ns": 5475685892,
+      "on_max_ns": 6095506642,
+      "off_ns": 5744708583,
+      "on_mean_minus_off_ns": 110866822,
+      "on_mean_relative_to_off": 0.019298946221237765,
+      "last_on_relative_to_off": 0.05329263870859783,
+      "off_within_observed_on_range": true,
+      "interpretation": "Observed time contrast, denominator is the single off run; timing effects are not causally separated from run-to-run variation."
+    },
+    "task_elapsed_ns": {
+      "on_n": 5,
+      "off_n": 1,
+      "on_values_ns": [
+        31008238398,
+        36687924816,
+        34357240981,
+        41841719048,
+        30170848603
+      ],
+      "on_mean_ns": 34813194369.2,
+      "on_sd_ns": 4721009718.709448,
+      "on_min_ns": 30170848603,
+      "on_max_ns": 41841719048,
+      "off_ns": 30460249318,
+      "on_mean_minus_off_ns": 4352945051.199997,
+      "on_mean_relative_to_off": 0.14290575910118022,
+      "last_on_relative_to_off": -0.009500930605613371,
+      "off_within_observed_on_range": true,
+      "interpretation": "Observed time contrast, denominator is the single off run; timing effects are not causally separated from run-to-run variation."
+    },
+    "intermediate_query_ns": {
+      "on_n": 5,
+      "off_n": 1,
+      "on_values_ns": [
+        1888929349,
+        1870500742,
+        1858079863,
+        1872917541,
+        1900272847
+      ],
+      "on_mean_ns": 1878140068.4,
+      "on_sd_ns": 16540211.647692354,
+      "on_min_ns": 1858079863,
+      "on_max_ns": 1900272847,
+      "off_ns": 1885346082,
+      "on_mean_minus_off_ns": -7206013.599999905,
+      "on_mean_relative_to_off": -0.0038221171533428335,
+      "last_on_relative_to_off": 0.007917254631661838,
+      "off_within_observed_on_range": true,
+      "interpretation": "Observed time contrast, denominator is the single off run; timing effects are not causally separated from run-to-run variation."
+    },
+    "endpoint_residency_query_ns": {
+      "on_n": 5,
+      "off_n": 1,
+      "on_values_ns": [
+        1901511672,
+        1887027898,
+        1852332560,
+        1913354924,
+        1873261209
+      ],
+      "on_mean_ns": 1885497652.6,
+      "on_sd_ns": 23898075.01308218,
+      "on_min_ns": 1852332560,
+      "on_max_ns": 1913354924,
+      "off_ns": 1943995345,
+      "on_mean_minus_off_ns": -58497692.400000095,
+      "on_mean_relative_to_off": -0.030091477611022828,
+      "last_on_relative_to_off": -0.036385959555885666,
+      "off_within_observed_on_range": false,
+      "interpretation": "Observed time contrast, denominator is the single off run; timing effects are not causally separated from run-to-run variation."
+    },
+    "file_residency_query_total_ns": {
+      "on_n": 5,
+      "off_n": 1,
+      "on_values_ns": [
+        3790441021,
+        3757528640,
+        3710412423,
+        3786272465,
+        3773534056
+      ],
+      "on_mean_ns": 3763637721,
+      "on_sd_ns": 32399611.07452189,
+      "on_min_ns": 3710412423,
+      "on_max_ns": 3790441021,
+      "off_ns": 3829341427,
+      "on_mean_minus_off_ns": -65703706,
+      "on_mean_relative_to_off": -0.01715796495364319,
+      "last_on_relative_to_off": -0.01457362109487345,
+      "off_within_observed_on_range": false,
+      "interpretation": "Observed time contrast, denominator is the single off run; timing effects are not causally separated from run-to-run variation."
+    }
+  },
+  "off_shared_file_reference": {
+    "category": "shared_readonly_backing",
+    "object_count": 1,
+    "single_bytes": 13021184,
+    "multiple_bytes": 13111296,
+    "reference_bytes": 91148288,
+    "reduction_bytes": 78036992,
+    "reduction_fraction": 0.8561542263964409
+  },
+  "on_shared_file_reference": {
+    "category": "shared_readonly_backing",
+    "single_bytes": {
+      "n": 5,
+      "mean": 13085900.8,
+      "sd": 40486.21991739905,
+      "values": [
+        13107200,
+        13029376,
+        13135872,
+        13066240,
+        13090816
+      ]
+    },
+    "multiple_bytes": {
+      "n": 5,
+      "mean": 13160448,
+      "sd": 31595.005174869017,
+      "values": [
+        13131776,
+        13160448,
+        13144064,
+        13213696,
+        13152256
+      ]
+    },
+    "reference_bytes": {
+      "n": 5,
+      "mean": 91601305.6,
+      "sd": 283403.53942179336,
+      "values": [
+        91750400,
+        91205632,
+        91951104,
+        91463680,
+        91635712
+      ]
+    },
+    "reduction_bytes": {
+      "n": 5,
+      "mean": 78440857.6,
+      "sd": 300206.34388500184,
+      "values": [
+        78618624,
+        78045184,
+        78807040,
+        78249984,
+        78483456
+      ]
+    },
+    "reduction_fraction": {
+      "n": 5,
+      "mean": 0.8563275143254993,
+      "sd": 0.0006836859111020621,
+      "values": [
+        0.856875,
+        0.8557057529078906,
+        0.8570537663147579,
+        0.8555306762203314,
+        0.8564723761845163
+      ]
+    }
+  },
+  "off_guest_samples": 1152,
+  "off_host_periodic_samples": null,
+  "off_host_periodic_status": "NOT_REQUESTED",
+  "fixed_checkpoints": 9,
+  "object_queries": 2,
+  "prepared_input_bytes": [
+    7178346496,
+    7178346496
+  ],
+  "off_baseline_dirty_bytes": 847872,
+  "off_file_stage_delta_bytes": [
+    14323712,
+    24576000,
+    36524032,
+    63021056
+  ],
+  "off_query_thread_cpu_ns": [
+    1858045107,
+    1903523188
+  ],
+  "on_collector_cpu_ns": {
+    "n": 5,
+    "mean": 471691962.2,
+    "sd": 20041985.95021529,
+    "values": [
+      441261976,
+      462080116,
+      479050406,
+      487805057,
+      488262256
+    ]
+  },
+  "source_returned_to_stopped": true,
+  "measured_switch": "Only host periodic 0.1-second cgroup sampler. Guest sampling, fixed checkpoints and both object queries stay on.",
+  "noncomparable_outer_workflow": "On runs include a post-service ordinary-file inventory, off skips it. Excluded from original task interval; do not infer sampling overhead from outer workflow wall time.",
+  "causal_slowdown": "NOT_IDENTIFIED_FROM_FIVE_ON_AND_ONE_OFF",
+  "scope": "Same unchanged source and effective config, default reclaim. Fixed cumulative schedule. Five earlier on runs versus one later off run; no alternating repeats and no whole-monitoring-off claim."
+}

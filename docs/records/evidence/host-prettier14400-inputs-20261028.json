@@ -1,0 +1,70 @@
+{
+  "status": "INPUTS_VALIDATED_ADAPTER_REQUIRED",
+  "task_id": "prettier__prettier-14400",
+  "base_commit": "6905b39ec7bc6ed38732e26ceced5b57677e2600",
+  "image": "ghcr.io/timesler/swe-polybench.eval.x86_64.prettier__prettier-14400@sha256:e625c9b9776870e2cc87172e886bbc90cfc3d6ce1521492f113a46b3f6dfcf44",
+  "trajectory": "IncrementalDAX_moti/motivation/experiments/exp1-single-app-smoke/workloads/prettier-14400",
+  "official_task": ".artifacts/v1-closeout-inputs/official-task",
+  "cpu": 2,
+  "memory_mib": 4096,
+  "cwd": "/testbed",
+  "checkpoint_after_step": null,
+  "action_count": 26,
+  "session_semantics": "one bash per frozen action",
+  "action_timeout_seconds": 60,
+  "expected_failures": {
+    "008": 127,
+    "016": 127
+  },
+  "expected_patch_sha256": "f1cc23ac4f5ac1cff87eb7f8c54f8176c1a47cec37fa4cb6907b9dd8ad199af2",
+  "manifest_sha256": "6ea843b464f5f7ec3c081c539386593027ede2335c5309b945a9462feddceaa7",
+  "key_outputs_024": [
+    "    document.addEventListener(\"DOMContentLoaded\", () => {",
+    "      const node = document.getElementById(\"lastStroke\");"
+  ],
+  "official": {
+    "command": ". /usr/local/nvm/nvm.sh && nvm use 20.16.0 && npm pkg set scripts.lint=\"echo noop\" && yarn test tests/format/html/svg/svg.html tests/config/utils/check-parsers.js tests/format/html/svg/embeded/__snapshots__/jsfmt.spec.js.snap tests/format/html/svg/embeded/svg.svg tests/format/html/svg/embeded/jsfmt.spec.js tests/format/html/svg/embeded/svg.html tests/format/html/svg/__snapshots__/jsfmt.spec.js.snap --json",
+    "F2P": [
+      "/testbed/tests/format/html/svg/embeded/jsfmt.spec.js->format"
+    ],
+    "P2P": [],
+    "expected_passed_assertions": 4,
+    "expected_failed_assertions": 0
+  },
+  "functional_reference": ".artifacts/agentenv-whole-cache/20261007T033805Z-3397540",
+  "proposed_measurement": {
+    "guest_interval_seconds": 0.1,
+    "host_interval_seconds": 0.1,
+    "host_primary": "memory.current",
+    "host_components": [
+      "anon",
+      "file",
+      "kernel"
+    ],
+    "pss": false,
+    "mincore": false,
+    "reclaim": "AgentENV defaults; no project cache drop, DAMON changes, pre-read or page locking"
+  },
+  "remaining_implementation": [
+    "Explicit light option in isolated Exp1 controller and launcher; preserve old behavior",
+    "Disable old sampler when RuntimeMonitor is selected; retain all task correctness checks",
+    "Monotonic tool timing without changing action files; adapt report from the Exp1 steps layout",
+    "Fresh cgroup before preparation, private service creation evidence, current baseline, costs and final writable-file audit"
+  ],
+  "execution_status": "NOT_RUN",
+  "new_sandboxes": 0,
+  "new_model_requests": 0,
+  "warning": "legacy-full-replay-inputs.json validates the old full-replay contract; it does not enable light/current sampling. Existing new-task v2 and frozen-CSV entries do not support this task.",
+  "validation": {
+    "status": "PASS_INPUT_SELECTION",
+    "task_id": "prettier__prettier-14400",
+    "input_status": "INPUTS_VALIDATED_ADAPTER_REQUIRED",
+    "new_runtime_execution": "NOT_RUN",
+    "validation": "Existing frozen-input checker and one saved successful functional reference; syntax and local output/link checks",
+    "new_services": 0,
+    "new_sandboxes": 0,
+    "new_model_requests": 0,
+    "old_trajectory_unchanged": true,
+    "legacy_mode_not_labelled_light": true
+  }
+}

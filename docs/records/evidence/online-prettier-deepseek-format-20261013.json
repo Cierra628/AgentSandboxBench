@@ -1,0 +1,403 @@
+{
+  "status": "PASS",
+  "scope": "actual online capture frozen; original replay failed at dynamic listing times; corrected frozen replay complete; model task FAIL unchanged",
+  "task_id": "prettier__prettier-6604",
+  "model": "deepseek-ai/DeepSeek-V4-Pro",
+  "task_config": "configs/online-task-prettier6604-focused.json",
+  "model_config": "configs/online-agent-deepseek-prettier.json",
+  "changed_fields": [
+    "system tool-format explanation",
+    "run_shell description",
+    "command description"
+  ],
+  "unchanged_limits": {
+    "max_model_calls": 20,
+    "max_tool_calls": 30,
+    "max_completion_tokens": 8192,
+    "request_timeout_seconds": 135,
+    "max_run_seconds": 480
+  },
+  "attempted_requests": 8,
+  "successful_responses": 7,
+  "tool_calls": 7,
+  "total_model_tokens_reported": 49184,
+  "model_completion": "FAIL",
+  "model_error": "timed out",
+  "source_repair_produced": false,
+  "source_changed_files": [],
+  "final_changed_files": [
+    "Dockerfile",
+    "package.json"
+  ],
+  "task_outcome": "FAIL",
+  "source_image": "ghcr.io/timesler/swe-polybench.eval.x86_64.prettier__prettier-6604@sha256:8159d38fcbd6d5f09402d93d3e15cf2a891058ddd835a224f1d6b3357a87cc94",
+  "cpu": 2,
+  "memory_mib": 4096,
+  "storage_capacity_gib": 16,
+  "request_timings": [
+    {
+      "number": 1,
+      "timeout_seconds": 135,
+      "started_unix_ns": 1791867169626742388,
+      "status": "response_received",
+      "elapsed_ns": 5496100781
+    },
+    {
+      "number": 2,
+      "timeout_seconds": 135,
+      "started_unix_ns": 1791867175771449367,
+      "status": "response_received",
+      "elapsed_ns": 3500298844
+    },
+    {
+      "number": 3,
+      "timeout_seconds": 135,
+      "started_unix_ns": 1791867179780339493,
+      "status": "response_received",
+      "elapsed_ns": 3697109091
+    },
+    {
+      "number": 4,
+      "timeout_seconds": 135,
+      "started_unix_ns": 1791867184142407544,
+      "status": "response_received",
+      "elapsed_ns": 34080410410
+    },
+    {
+      "number": 5,
+      "timeout_seconds": 135,
+      "started_unix_ns": 1791867219877557746,
+      "status": "response_received",
+      "elapsed_ns": 5830597547
+    },
+    {
+      "number": 6,
+      "timeout_seconds": 135,
+      "started_unix_ns": 1791867227531359068,
+      "status": "response_received",
+      "elapsed_ns": 5151116066
+    },
+    {
+      "number": 7,
+      "timeout_seconds": 135,
+      "started_unix_ns": 1791867234954156478,
+      "status": "response_received",
+      "elapsed_ns": 6286586395
+    },
+    {
+      "number": 8,
+      "timeout_seconds": 135,
+      "started_unix_ns": 1791867243358592328,
+      "status": "request_failed",
+      "error_type": "TimeoutError",
+      "error": "timed out",
+      "elapsed_ns": 135101798913
+    }
+  ],
+  "malformed_shell_argument_steps": [],
+  "expected_failures": {
+    "004": 1,
+    "005": 1
+  },
+  "workflow_original": ".artifacts/platform-tasks/20261013T045118Z-1287205",
+  "workflow_replay": ".artifacts/platform-tasks/20261013T050001Z-1296364",
+  "raw_capture": ".artifacts/storage-isolated-service/20261013T045237Z-1288423/prettier6604",
+  "raw_replay": ".artifacts/storage-isolated-service/20261013T050119Z-1297536/prettier6604",
+  "report_capture": ".artifacts/platform-tasks/report-deepseek-format-capture-failed-20261013",
+  "report_replay": ".artifacts/platform-tasks/report-20261013T050001Z-1296364",
+  "recomputed_replay_report": ".artifacts/platform-tasks/report-online-prettier-deepseek-format-recomputed-20261013",
+  "replay": {
+    "status": "PASS",
+    "action_count": 7,
+    "expected_failures": {
+      "004": 1,
+      "005": 1
+    },
+    "captured_manifest_sha256": "ab059e5339d98b19afefaef76da8f250eca2dfc0a714f2cdddbb373c5003e558",
+    "final_state": {
+      "/testbed/src/language-js/needs-parens.js": "1eaab9df29e1d3dce64cca198974d9f1ca764736cbb5cb8683c104397a6d1f08",
+      "repository": {
+        "head": "affa24ce764bd14ac087abeef0603012f5c635d6",
+        "status": " M package.json\n?? Dockerfile\n",
+        "patch_b64": "ZGlmZiAtLWdpdCBhL3BhY2thZ2UuanNvbiBiL3BhY2thZ2UuanNvbgppbmRleCA5ZWU2YjYzYi4uNmVjM2RmNjQgMTAwNjQ0Ci0tLSBhL3BhY2thZ2UuanNvbgorKysgYi9wYWNrYWdlLmpzb24KQEAgLTEyNCw3ICsxMjQsNyBAQAogICAgICJwZXJmLXJlcGVhdCI6ICJ5YXJuICYmIHlhcm4gYnVpbGQgJiYgY3Jvc3MtZW52IE5PREVfRU5WPXByb2R1Y3Rpb24gbm9kZSAuL2Rpc3QvYmluLXByZXR0aWVyLmpzIC0tZGVidWctcmVwZWF0ICR7UEVSRl9SRVBFQVQ6LTEwMDB9IC0tbG9nbGV2ZWwgZGVidWcgJHtQRVJGX0ZJTEU6LS4vaW5kZXguanN9ID4gL2Rldi9udWxsIiwKICAgICAicGVyZi1yZXBlYXQtaW5zcGVjdCI6ICJ5YXJuICYmIHlhcm4gYnVpbGQgJiYgY3Jvc3MtZW52IE5PREVfRU5WPXByb2R1Y3Rpb24gbm9kZSAtLWluc3BlY3QtYnJrIC4vZGlzdC9iaW4tcHJldHRpZXIuanMgLS1kZWJ1Zy1yZXBlYXQgJHtQRVJGX1JFUEVBVDotMTAwMH0gLS1sb2dsZXZlbCBkZWJ1ZyAke1BFUkZfRklMRTotLi9pbmRleC5qc30gPiAvZGV2L251bGwiLAogICAgICJwZXJmLWJlbmNobWFyayI6ICJ5YXJuICYmIHlhcm4gYnVpbGQgJiYgY3Jvc3MtZW52IE5PREVfRU5WPXByb2R1Y3Rpb24gbm9kZSAuL2Rpc3QvYmluLXByZXR0aWVyLmpzIC0tZGVidWctYmVuY2htYXJrIC0tbG9nbGV2ZWwgZGVidWcgJHtQRVJGX0ZJTEU6LS4vaW5kZXguanN9ID4gL2Rldi9udWxsIiwKLSAgICAibGludCI6ICJjcm9zcy1lbnYgRUZGX05PX0xJTktfUlVMRVM9dHJ1ZSBlc2xpbnQgLiAtLWZvcm1hdCBmcmllbmRseSIsCisgICAgImxpbnQiOiAiZWNobyBub29wIiwKICAgICAibGludC1kb2NzIjogInByZXR0eWxpbnQgey4sZG9jcyx3ZWJzaXRlLHdlYnNpdGUvYmxvZ30vKi5tZCIsCiAgICAgImxpbnQtZGlzdCI6ICJlc2xpbnQgLS1uby1lc2xpbnRyYyAtLW5vLWlnbm9yZSAtLWVudj1icm93c2VyIFwiZGlzdC8hKGJpbi1wcmV0dGllcnxpbmRleHx0aGlyZC1wYXJ0eSkuanNcIiIsCiAgICAgImJ1aWxkIjogIm5vZGUgLS1tYXgtb2xkLXNwYWNlLXNpemU9MzA3MiAuL3NjcmlwdHMvYnVpbGQvYnVpbGQuanMiLAo=",
+        "changed_files": {
+          "Dockerfile": {
+            "sha256": "0b9cd4b0be4230f73a872660bb56e8a08518802c986f787ffdb6d3b058d618bb",
+            "mode": 436
+          },
+          "package.json": {
+            "sha256": "4e8a4fe91d327fe783bb8fb246e645176f1afe91d104bc84e0105ca4b57a9571",
+            "mode": 436
+          }
+        }
+      }
+    },
+    "output_policy": "prettier-runtime-v1",
+    "captured_output_policy": "jest-timing-v1",
+    "strict_output_status": "FAIL",
+    "dynamic_output_differences": [
+      "001/stdout",
+      "006/stderr",
+      "007/stderr"
+    ],
+    "scope": "order, command hashes, stdout/stderr, exit codes, cwd/env and selected final files; fresh shells, no persistent PTY or model calls"
+  },
+  "independent_tests": {
+    "status": "FAIL",
+    "exit_code": 1,
+    "passed": [],
+    "failed": [
+      "/testbed/tests/typescript_intersection/jsfmt.spec.js->intersection-parens.ts",
+      "/testbed/tests/typescript_intersection/jsfmt.spec.js->intersection-parens.ts"
+    ],
+    "summary": {
+      "numTotalTests": 2,
+      "numFailedTests": 2,
+      "numFailedTestSuites": 1,
+      "numPendingTests": 0,
+      "wasInterrupted": false
+    },
+    "snapshot": {
+      "added": 0,
+      "updated": 0,
+      "filesRemoved": 0,
+      "failure": true,
+      "unmatched": 2,
+      "matched": 0
+    }
+  },
+  "memory_capture_and_partial_replay": [
+    {
+      "sandbox_id": "01a1339b-1c24-72d3-9194-4ce31955fdd8",
+      "role": "capture",
+      "sample_count": 2136,
+      "observed_nonfree_peak_bytes": 464343040,
+      "components_at_peak_bytes": {
+        "Cached": 123871232,
+        "AnonPages": 230760448,
+        "Buffers": 38313984,
+        "Shmem": 1085440,
+        "Slab": 45875200
+      },
+      "components_at_peak_percent": {
+        "Cached": 26.67666387332951,
+        "AnonPages": 49.69611432099855,
+        "Buffers": 8.251223922727473,
+        "Shmem": 0.2337582146165042,
+        "Slab": 9.879592466810744
+      },
+      "cached_min_bytes": 3211264,
+      "cached_observed_peak_bytes": 153681920,
+      "slab_status": "MEASURED",
+      "sessions": [
+        {
+          "stop_reason": "capture-complete",
+          "status": "PASS",
+          "error": null,
+          "pid": 363,
+          "start_ticks": "91",
+          "boot_id": "8bc2eee4-f351-40fb-b406-d19a6d8eb13d",
+          "sandbox_id": "01a1339b-1c24-72d3-9194-4ce31955fdd8",
+          "role": "capture",
+          "session_id": "d2d04442-840c-43f4-aba1-ff1fd5a03341",
+          "samples": 2136,
+          "interval_seconds": 0.1,
+          "elapsed_ns": 218134577103,
+          "cpu_user_seconds": 3.498485,
+          "cpu_system_seconds": 1.084789,
+          "maxrss_kib": 17188,
+          "scope": "guest logical counters; collector maxrss is not private memory; no physical deduplication",
+          "performance_version": 1,
+          "clock_ticks": 100,
+          "performance_scope": "guest-wide CPU (guest ticks not double counted), per-device diskstats (512-byte sectors); includes sampler and other guest work"
+        }
+      ]
+    },
+    {
+      "sandbox_id": "01a1339e-7f1f-7eb2-9d8f-91f0884cf13c",
+      "role": "replay",
+      "sample_count": 16,
+      "observed_nonfree_peak_bytes": 306606080,
+      "components_at_peak_bytes": {
+        "Cached": 149319680,
+        "AnonPages": 71999488,
+        "Buffers": 20320256,
+        "Shmem": 1097728,
+        "Slab": 35008512
+      },
+      "components_at_peak_percent": {
+        "Cached": 48.700821588404246,
+        "AnonPages": 23.48273328434974,
+        "Buffers": 6.62747979426892,
+        "Shmem": 0.35802551599759536,
+        "Slab": 11.41807494489346
+      },
+      "cached_min_bytes": 43782144,
+      "cached_observed_peak_bytes": 149319680,
+      "slab_status": "MEASURED",
+      "sessions": [
+        {
+          "stop_reason": "cleanup",
+          "status": "PASS",
+          "error": null,
+          "pid": 363,
+          "start_ticks": "91",
+          "boot_id": "6333d34d-25b2-4136-8b56-ea29fa40e74a",
+          "sandbox_id": "01a1339e-7f1f-7eb2-9d8f-91f0884cf13c",
+          "role": "replay",
+          "session_id": "16a12c10-c73e-426f-81c7-865de3d1ea03",
+          "samples": 16,
+          "interval_seconds": 0.1,
+          "elapsed_ns": 1493365811,
+          "cpu_user_seconds": 0.049381999999999995,
+          "cpu_system_seconds": 0.043108,
+          "maxrss_kib": 16876,
+          "scope": "guest logical counters; collector maxrss is not private memory; no physical deduplication",
+          "performance_version": 1,
+          "clock_ticks": 100,
+          "performance_scope": "guest-wide CPU (guest ticks not double counted), per-device diskstats (512-byte sectors); includes sampler and other guest work"
+        }
+      ]
+    }
+  ],
+  "memory_complete_replay": [
+    {
+      "sandbox_id": "01a133a3-171a-7861-a1e4-ecf9407f329f",
+      "role": "replay",
+      "sample_count": 139,
+      "observed_nonfree_peak_bytes": 455303168,
+      "components_at_peak_bytes": {
+        "Cached": 121044992,
+        "AnonPages": 220180480,
+        "Buffers": 35266560,
+        "Shmem": 1089536,
+        "Slab": 46043136
+      },
+      "components_at_peak_percent": {
+        "Cached": 26.585580884866587,
+        "AnonPages": 48.35909246298062,
+        "Buffers": 7.745731301390813,
+        "Shmem": 0.23929901581532592,
+        "Slab": 10.11263246909804
+      },
+      "cached_min_bytes": 43032576,
+      "cached_observed_peak_bytes": 208101376,
+      "slab_status": "MEASURED",
+      "sessions": [
+        {
+          "stop_reason": "replay-complete",
+          "status": "PASS",
+          "error": null,
+          "pid": 361,
+          "start_ticks": "76",
+          "boot_id": "47c3ca48-6efe-4a68-81be-423445e9db5c",
+          "sandbox_id": "01a133a3-171a-7861-a1e4-ecf9407f329f",
+          "role": "replay",
+          "session_id": "199dbc7c-c8cc-4943-a95e-bc5d3be21787",
+          "samples": 139,
+          "interval_seconds": 0.1,
+          "elapsed_ns": 14025019535,
+          "cpu_user_seconds": 0.250345,
+          "cpu_system_seconds": 0.112116,
+          "maxrss_kib": 16900,
+          "scope": "guest logical counters; collector maxrss is not private memory; no physical deduplication",
+          "performance_version": 1,
+          "clock_ticks": 100,
+          "performance_scope": "guest-wide CPU (guest ticks not double counted), per-device diskstats (512-byte sectors); includes sampler and other guest work"
+        }
+      ]
+    }
+  ],
+  "physical_page_cache": "NOT_MEASURED; no source repair boundary; valid prior evidence reused",
+  "timing_seconds": {
+    "model_response_wait": 64.042219134,
+    "all_model_request_wait": 199.144018047,
+    "max_model_request_wait": 135.101798913,
+    "captured_guest_tools": 5.480843012,
+    "replayed_guest_tools": 5.374817661,
+    "original_controller_including_partial_replay": 226.788331067,
+    "complete_replay_controller": 17.671246026
+  },
+  "checks": {
+    "order_commands_exit_codes_final_files": "PASS",
+    "task_outcome_preserved": "PASS",
+    "identical_capture_report_files": 8,
+    "identical_replay_report_files": 8,
+    "capture_raw_files_unchanged": 271,
+    "replay_raw_files_unchanged": 176,
+    "model_tests_executed": 15,
+    "trajectory_tests_executed": 10
+  },
+  "original_failure": {
+    "status": "FAIL",
+    "failed_stage": "replay",
+    "error": "AssertionError('001: stdout differs')",
+    "completed_replay_steps": 1,
+    "known_command": "cd /testbed && pwd && ls -la",
+    "time_fields": [
+      "directory .. timestamp",
+      "directory .git timestamp"
+    ],
+    "fix": "only exact command stdout and these directory timestamps normalized; names, sizes, modes, owners, other rows, stderr, exit codes and final files remain compared",
+    "original_bytes_retained": true
+  },
+  "cleanup": {
+    "original": {
+      "owned_container_removed": true,
+      "mount_and_loop_removed": true,
+      "failed_fixture_retained": true,
+      "original_firecracker_identities_unchanged": true,
+      "original_source_firecracker_identities_unchanged": true,
+      "original_service_unchanged": true
+    },
+    "backup": {
+      "status": "PASS",
+      "source": "/home/yyxie/agentenv_experiment/.artifacts/storage-isolated-service/20261013T045237Z-1288423/volume.ext4",
+      "backup": "/home/yyxie/agentenv_experiment/.artifacts/storage-isolated-service/20261013T045237Z-1288423/volume.ext4.gz",
+      "source_sha256": "4ec62fc181da8e3adae521695652edd648519ae9ed4629630b1cb2d7f91e28be",
+      "backup_sha256": "0fb16e91b0509c60ef7b4772de91f60852b76fdb1747bd0c64ff200acc26cd1f",
+      "uncompressed_bytes": 17179869184,
+      "compressed_bytes": 124960151,
+      "source_retained": true,
+      "elapsed_ns": 22412098066,
+      "host_available_bytes": 36670332928
+    },
+    "source_volume_removed": true,
+    "authorization_receipt": ".artifacts/storage-isolated-service/20261013T045237Z-1288423/approved-volume-cleanup.json",
+    "replay_inner": {
+      "owned_vms_removed": true,
+      "collector_sessions_complete": true,
+      "service_sandbox_list_empty": true
+    },
+    "replay_outer": {
+      "owned_container_removed": true,
+      "mount_and_loop_removed": true,
+      "successful_fixture_removed": true,
+      "original_firecracker_identities_unchanged": true,
+      "original_source_firecracker_identities_unchanged": true,
+      "original_service_unchanged": true
+    },
+    "replay_volume_removed": true,
+    "host_min_available_gib": 34.1492805480957,
+    "host_after_available_gib": 50.147674560546875
+  },
+  "limitations": [
+    "only seven tools executed before API failure; no complete evaluation of the tool-format instruction effect",
+    "API waits include transport, provider waiting and generation; cannot separate them",
+    "original controller contains capture and one-step partial replay; separate controller includes complete seven-step replay, not model calls",
+    "no new physical scan or monitoring overhead comparison"
+  ],
+  "code_sha256": {
+    "capture": {
+      "model_tool_agent.py": "fa0874ddefd9e994ea3896bbc73578b6501ff91eb53ecdd3c7af9d927b87d25f",
+      "tool_trajectory.py": "4e2d7dd7747e9c292541297bdcc21f36f43d5d76e97242307d1184b5bc8c2441",
+      "run_tool_capture.py": "edf46007ef519efbc8d1aa8f234beace81e22773c323d6a32013abf7ad887566"
+    },
+    "complete_replay": {
+      "model_tool_agent.py": "fa0874ddefd9e994ea3896bbc73578b6501ff91eb53ecdd3c7af9d927b87d25f",
+      "tool_trajectory.py": "59af17ecc80cb78967b16a7e64d2c1ab288398451f2826b8ade3bf2909cdd946",
+      "run_tool_capture.py": "edf46007ef519efbc8d1aa8f234beace81e22773c323d6a32013abf7ad887566"
+    }
+  },
+  "host_final_available_gib": 50.14460372924805
+}

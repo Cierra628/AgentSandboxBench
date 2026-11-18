@@ -1,0 +1,121 @@
+{
+  "status": "PASS",
+  "source": ".artifacts/host-loop-accounting/20261020T074526Z-3447761",
+  "host_kernel": "6.19.9+",
+  "scope": "One 128 MiB IOAccounting=yes image, staged initialization only; no payload or sandbox.",
+  "page_size": 4096,
+  "payload_bytes": 0,
+  "stages": [
+    {
+      "stage": "initial-empty",
+      "start_monotonic_ns": 14252559532645512,
+      "end_monotonic_ns": 14252559533034176,
+      "resident_bytes": 0,
+      "inner_file_before_bytes": 0,
+      "inner_file_after_bytes": 0,
+      "outer_file_before_bytes": 0,
+      "outer_file_after_bytes": 0,
+      "signed_resident_minus_inner_file_bytes": 0,
+      "shortfall_bytes": 0,
+      "cpu_ns": 387629
+    },
+    {
+      "stage": "allocated",
+      "start_monotonic_ns": 14252559537079542,
+      "end_monotonic_ns": 14252559542199243,
+      "resident_bytes": 0,
+      "inner_file_before_bytes": 0,
+      "inner_file_after_bytes": 0,
+      "outer_file_before_bytes": 0,
+      "outer_file_after_bytes": 0,
+      "signed_resident_minus_inner_file_bytes": 0,
+      "shortfall_bytes": 0,
+      "cpu_ns": 5119642
+    },
+    {
+      "stage": "formatted",
+      "start_monotonic_ns": 14252559546079674,
+      "end_monotonic_ns": 14252559551120045,
+      "resident_bytes": 110592,
+      "inner_file_before_bytes": 0,
+      "inner_file_after_bytes": 0,
+      "outer_file_before_bytes": 0,
+      "outer_file_after_bytes": 0,
+      "signed_resident_minus_inner_file_bytes": 110592,
+      "shortfall_bytes": 110592,
+      "cpu_ns": 5040338
+    },
+    {
+      "stage": "attached",
+      "start_monotonic_ns": 14252559552952144,
+      "end_monotonic_ns": 14252559557916768,
+      "resident_bytes": 110592,
+      "inner_file_before_bytes": 0,
+      "inner_file_after_bytes": 0,
+      "outer_file_before_bytes": 0,
+      "outer_file_after_bytes": 0,
+      "signed_resident_minus_inner_file_bytes": 110592,
+      "shortfall_bytes": 110592,
+      "cpu_ns": 4964469
+    },
+    {
+      "stage": "mounted-synced",
+      "start_monotonic_ns": 14252559568891710,
+      "end_monotonic_ns": 14252559573988980,
+      "resident_bytes": 1331200,
+      "inner_file_before_bytes": 0,
+      "inner_file_after_bytes": 0,
+      "outer_file_before_bytes": 0,
+      "outer_file_after_bytes": 0,
+      "signed_resident_minus_inner_file_bytes": 1331200,
+      "shortfall_bytes": 1331200,
+      "cpu_ns": 5097158
+    },
+    {
+      "stage": "baseline",
+      "start_monotonic_ns": 14252561774487275,
+      "end_monotonic_ns": 14252561781958334,
+      "resident_bytes": 1331200,
+      "inner_file_before_bytes": 147456,
+      "inner_file_after_bytes": 147456,
+      "outer_file_before_bytes": 147456,
+      "outer_file_after_bytes": 147456,
+      "signed_resident_minus_inner_file_bytes": 1183744,
+      "shortfall_bytes": 1183744,
+      "cpu_ns": 7462797
+    }
+  ],
+  "first_detected_shortfall_stage": "formatted",
+  "control_before": {
+    "outer": {
+      "controllers": "cpuset cpu io memory hugetlb pids rdma misc dmem",
+      "subtree_control": "io memory pids",
+      "io_stat_exists": true
+    },
+    "inner": {
+      "controllers": "io memory pids",
+      "subtree_control": "io memory pids",
+      "io_stat_exists": true
+    },
+    "leaf": {
+      "controllers": "io memory pids",
+      "subtree_control": "",
+      "io_stat_exists": true
+    }
+  },
+  "snapshot_cpu_total_ns": 28072033,
+  "stage_query_span_ns": 2249312822,
+  "initial_available_bytes": 61908471808,
+  "final_available_bytes": 61908381696,
+  "available_before_cleanup_bytes": 61891444736,
+  "cleanup": {
+    "mount_removed": true,
+    "loop_removed": true,
+    "successful_image_removed": true
+  },
+  "unrelated_loops_unchanged": true,
+  "interpretation": "First observed shortfall precedes loop attachment; final page ownership and stat flushing remain unresolved.",
+  "old_residual_bytes": 1179648,
+  "new_residual_bytes": 1183744,
+  "savings_ratio": null
+}

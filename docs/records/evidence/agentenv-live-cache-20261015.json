@@ -1,0 +1,140 @@
+{
+  "status": "PASS",
+  "source": ".artifacts/agentenv-live-cache-20261015-consistent",
+  "scope": "one declared 1 MiB file in one running AgentENV guest",
+  "vm_pause": false,
+  "whole_guest_physical_cache": false,
+  "config": {
+    "image": "ghcr.io/timesler/swe-polybench.eval.x86_64.prettier__prettier-14400@sha256:e625c9b9776870e2cc87172e886bbc90cfc3d6ce1521492f113a46b3f6dfcf44",
+    "cpu": 2,
+    "guest_memory_mib": 4096,
+    "host_kernel": "6.19.9+",
+    "service_image": "sha256:db9eb044ae3d85f9b276b9d2e5dea28cb0be95263d217ea4989f095e1d828681",
+    "fixture_bytes": 1048576,
+    "fixture_mlock": true,
+    "metadata_locked_bytes": 4096,
+    "host_interval_seconds": 0.1
+  },
+  "guest_kernel": "6.1.175",
+  "sample_count": 102,
+  "skipped_publications": 0,
+  "phases": {
+    "empty": {
+      "samples": 21,
+      "guest_file_cache_bytes": [
+        0
+      ],
+      "host_confirmed_cache_bytes": [
+        0
+      ]
+    },
+    "half": {
+      "samples": 20,
+      "guest_file_cache_bytes": [
+        524288
+      ],
+      "host_confirmed_cache_bytes": [
+        524288
+      ]
+    },
+    "full": {
+      "samples": 20,
+      "guest_file_cache_bytes": [
+        1048576
+      ],
+      "host_confirmed_cache_bytes": [
+        1048576
+      ]
+    },
+    "reread": {
+      "samples": 20,
+      "guest_file_cache_bytes": [
+        1048576
+      ],
+      "host_confirmed_cache_bytes": [
+        1048576
+      ]
+    },
+    "released": {
+      "samples": 20,
+      "guest_file_cache_bytes": [
+        0
+      ],
+      "host_confirmed_cache_bytes": [
+        0
+      ]
+    },
+    "complete": {
+      "samples": 1,
+      "guest_file_cache_bytes": [
+        0
+      ],
+      "host_confirmed_cache_bytes": [
+        0
+      ]
+    }
+  },
+  "guest_heartbeat_first": 15,
+  "guest_heartbeat_last": 116,
+  "guest_cached_bytes_min": 7098368,
+  "guest_cached_bytes_max": 109277184,
+  "host_scan_mean_ns": 1547600.843137255,
+  "host_scan_max_ns": 3230590,
+  "host_interval_max_ns": 103749150,
+  "host_mapping_changed_pages": 0,
+  "host_nonresident_pages": 0,
+  "host_swapped_pages": 0,
+  "preexisting_vmm_count": 12,
+  "cleanup": {
+    "tracer_stopped": true,
+    "owned_sandbox_removed": true,
+    "preexisting_vmm_identities_unchanged": true,
+    "owned_vmm_gone": true
+  },
+  "observed_min_free_bytes": 48078737408,
+  "final_free_bytes": 48084017152,
+  "limitations": [
+    "Declared 1 MiB file only; whole-guest Cached is separately recorded.",
+    "Fixture populated ranges and 4 KiB metadata are mlocked; this is not normal-task overhead validation.",
+    "Metadata is sampled, not allocation-event complete; intervening reuse is not excluded by repeated reads.",
+    "No cross-VM sharing or full trajectory validation."
+  ],
+  "source_sha256": {
+    "probe_agentenv_live_cache.py": "7dbe434f64f49eb2268be7c6c3cc6902174f33e32fb0e9a7e7c78e4ec573c513",
+    "guest_live_cache_probe.py": "971e40d75688a68ae522c27c7d190a31953b139dbe61be0a3c24e9d5eb9418ba",
+    "live_cache_metadata.py": "00662916e80974e66a867d2dedefad78dc1792f8a43111e80dc6a2faf439d946",
+    "guest_named_file_probe.py": "57a40c3cab4bffce89463d1b939510378c136c84bd33705a2191e9bf8e71e25f",
+    "agentenv_whole_cache.py": "65320bb79ca84701ef26657b368c1ab4258d05558c3a03f6a37fa626a872bdbc",
+    "measure_file_physical.py": "610cd2766b4d11b166781d748987fae4808adab4713c342979dd9327ef583ef9",
+    "trenvx_whole_cache.py": "01f8b167f2c6282466f57bc4aca70a476075c163ba99fd4d36a79183a7da8dab"
+  },
+  "metric_definitions": {
+    "guest_file_cache": "mincore resident file pages exported as guest PFNs, bytes; declared file only",
+    "host_cache": "distinct confirmed resident host PFNs for those guest file pages, bytes",
+    "guest_cached": "whole guest /proc/meminfo Cached, KiB converted to bytes; broader than the fixture",
+    "scan_time": "host metadata reads plus two pagemap scans; excludes guest sampling CPU and task overhead"
+  },
+  "raw_sha256": {
+    "result.json": "8fcb22eb9960ae60ff2e19acb107331722174a1745d09583149e1e8bd05b77f7",
+    "samples.jsonl": "2c18e3e2c87c2991f24cb50f3818cbe6bc431a56a725f419a3e221e4d7f761bc",
+    "ram-attestation.json": "ad2101370e26ea7d14b90513eb65c2cab8678d9ee155ce7f0a6dcea8179e63e2",
+    "vmm-identity.json": "b3aae064d95fe114fa4efabf95fa1013a847f39846fcbc492e5910e67fed245e",
+    "bootstrap.json": "430a50ad43e01c16b8803396d7537f20c6eb83413c691edba473662aaa6f18ce"
+  },
+  "date": "2026-10-15",
+  "formal_run": "agentenv-live-cache-20261015-consistent",
+  "preliminary_run": ".artifacts/agentenv-live-cache-20261015-first",
+  "protocol_fix": "invalidate metadata before file-cache transitions and before sampling source PFNs",
+  "report_recomputed": true,
+  "report_files_identical": [
+    "summary.json",
+    "cache.svg",
+    "cache.png"
+  ],
+  "unit_tests": {
+    "command": "python3 -B -m unittest discover -s tests -p test_live_cache_metadata.py",
+    "passed": 5
+  },
+  "report_command": "python3 -B scripts/report_agentenv_live_cache.py .artifacts/agentenv-live-cache-20261015-consistent --output .artifacts/<new-report>",
+  "report_script_sha256": "0ad72794ce5b8335426403432b9413d13d0ece30b617382a8b6168bceaee9b67"
+}

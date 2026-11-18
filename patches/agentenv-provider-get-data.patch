@@ -1,0 +1,456 @@
+diff --git a/storage/ublk/src/ctrl.rs b/storage/ublk/src/ctrl.rs
+--- a/storage/ublk/src/ctrl.rs
++++ b/storage/ublk/src/ctrl.rs
+@@ -166,6 +166,16 @@
+         self
+     }
+ 
++    /// Notify the server before copying WRITE data into its buffer.
++    pub fn need_get_data(mut self, enabled: bool) -> Self {
++        if enabled {
++            self.ctrl_flags |= ublk_sys::UBLK_F_NEED_GET_DATA as u64;
++        } else {
++            self.ctrl_flags &= !(ublk_sys::UBLK_F_NEED_GET_DATA as u64);
++        }
++        self
++    }
++
+     /// Later when add device, we try to use exact the `id` as its device id.
+     pub fn dev_id(mut self, id: u32) -> Self {
+         self.dev_id = id;
+diff --git a/storage/ublk/src/queue.rs b/storage/ublk/src/queue.rs
+--- a/storage/ublk/src/queue.rs
++++ b/storage/ublk/src/queue.rs
+@@ -302,6 +302,23 @@
+         self.send_io_cmd(ublk_sys::UBLK_U_IO_COMMIT_AND_FETCH_REQ, io_cmd, sqe_addr)
+     }
+ 
++    pub fn get_data_for_slot(&self, tag: u16, buf: &IOBuffer) -> std::io::Result<RingFuture> {
++        let addr = match buf {
++            IOBuffer::User(buf) => buf.subslice(0, buf.len()).as_ptr() as u64,
++            IOBuffer::AutoReg(_) => unreachable!("GET_DATA requires a user buffer"),
++        };
++        self.send_io_cmd(
++            ublk_sys::UBLK_U_IO_NEED_GET_DATA,
++            ublk_sys::ublksrv_io_cmd {
++                q_id: self.queue_id,
++                tag,
++                result: 0,
++                addr,
++            },
++            None,
++        )
++    }
++
+     pub fn io_desc(&self, tag: u16) -> Option<ublk_sys::ublksrv_io_desc> {
+         self.io_desc.get(tag as usize).cloned()
+     }
+diff --git a/storage/ublk/src/dev.rs b/storage/ublk/src/dev.rs
+--- a/storage/ublk/src/dev.rs
++++ b/storage/ublk/src/dev.rs
+@@ -114,6 +114,27 @@
+ }
+ 
+ impl UVMUblkQueue {
++    async fn get_write_data(
++        &self,
++        tag: u16,
++        buf: &IOBuffer,
++        mut result: i32,
++        observation: &mut Option<crate::slot_observation::SlotObservation>,
++    ) -> Result<i32> {
++        while result == ublk_sys::UBLK_IO_RES_NEED_GET_DATA as i32 {
++            anyhow::ensure!(
++                self.dev_info.flags & ublk_sys::UBLK_F_NEED_GET_DATA as u64 != 0,
++                "unexpected GET_DATA notification"
++            );
++            if let Some(observation) = observation.as_mut() {
++                observation.before_get_data();
++            }
++            // send() queues immediately: invalidate before calling it, not after.
++            result = self.get_data_for_slot(tag, buf)?.await;
++        }
++        Ok(result)
++    }
++
+     /// The job for each slot within the queue.
+     /// - `tag`: a slot id within the the queue (corresponding to the depth).
+     async fn slot_task<T: UVMUblkTarget>(self: Rc<Self>, tag: u16, tgt: Arc<T>) -> Result<()> {
+@@ -161,6 +182,9 @@
+         });
+         // FIXME: should we handle EINTR?
+         let res = self.prep_slot(tag, &buf).context("prep_slot")?.await;
++        let res = self
++            .get_write_data(tag, &buf, res, &mut observation)
++            .await?;
+         if res < 0 {
+             tracing::debug!(
+                 tag,
+@@ -198,13 +222,16 @@
+                     (io_desc.nr_sectors as u64) << shift,
+                     res,
+                 );
+-                // The kernel can fill this buffer for the next WRITE during fetch.
++                // Without GET_DATA, the kernel can overwrite during the next fetch.
+                 observation.before_fetch();
+             }
+             let res = self
+                 .submit_and_fetch_for_slot(tag, &buf, res)
+                 .context("submit and fetch from ring")?
+                 .await;
++            let res = self
++                .get_write_data(tag, &buf, res, &mut observation)
++                .await?;
+             // FIXME: should we handle EINTR?
+             if res < 0 {
+                 tracing::debug!(
+diff --git a/storage/ublk/src/slot_observation.rs b/storage/ublk/src/slot_observation.rs
+--- a/storage/ublk/src/slot_observation.rs
++++ b/storage/ublk/src/slot_observation.rs
+@@ -10,10 +10,11 @@
+ const WORDS: usize = 8;
+ 
+ // [magic, generation, address, capacity, logical_offset, valid_len, state, reads]
+-// States: 1 allocated, 2 filling, 3 complete read, 4 before kernel fetch,
++// States: 1 allocated, 2 filling, 3 complete read, 4 before kernel overwrite,
+ // 5 released, 6 failed/partial/non-read. Each mutation changes generation.
+ pub struct SlotObservation {
+     row: NonNull<[AtomicU64; WORDS]>,
++    retain_during_fetch: bool,
+ }
+ 
+ impl SlotObservation {
+@@ -59,6 +60,7 @@
+         );
+         let mut this = Self {
+             row: NonNull::new(ptr.cast()).context("null metadata mapping")?,
++            retain_during_fetch: info.flags & ublk_sys::UBLK_F_NEED_GET_DATA as u64 != 0,
+         };
+         this.words()[0].store(MAGIC, SeqCst);
+         this.words()[2].store(address, SeqCst);
+@@ -68,6 +70,8 @@
+             "image_config":image, "dev_id":info.dev_id, "queue":qid, "slot":tag,
+             "nr_queues":info.nr_hw_queues, "queue_depth":info.queue_depth,
+             "max_io_buf_bytes":info.max_io_buf_bytes,
++            "negotiated_flags":info.flags,
++            "content_validity":if this.retain_during_fetch { "before_overwrite" } else { "before_fetch" },
+             "process_stat":std::fs::read_to_string("/proc/self/stat")?});
+         std::fs::write(
+             dir.join(stem).with_extension("json"),
+@@ -112,6 +116,12 @@
+     }
+ 
+     pub(crate) fn before_fetch(&mut self) {
++        if !self.retain_during_fetch {
++            self.before_get_data();
++        }
++    }
++
++    pub(crate) fn before_get_data(&mut self) {
+         self.update(0, 0, 4);
+     }
+ }
+@@ -150,6 +160,7 @@
+         assert_ne!(reader, libc::MAP_FAILED);
+         let mut slot = SlotObservation {
+             row: NonNull::new(writer.cast()).unwrap(),
++            retain_during_fetch: true,
+         };
+         slot.words()[3].store(4096, SeqCst);
+         slot.begin(0);
+@@ -165,12 +176,44 @@
+     }
+ 
+     #[test]
++    fn negotiated_get_data_retains_only_until_next_overwrite() {
++        let mut words: [AtomicU64; WORDS] = std::array::from_fn(|_| AtomicU64::new(0));
++        words[3].store(8192, SeqCst);
++        let mut slot = std::mem::ManuallyDrop::new(SlotObservation {
++            row: NonNull::from(&mut words),
++            retain_during_fetch: true,
++        });
++        slot.begin(4096);
++        slot.complete(true, 4096, 4096);
++        let generation = words[1].load(SeqCst);
++        slot.before_fetch();
++        assert_eq!(words[1].load(SeqCst), generation);
++        assert_eq!(words[6].load(SeqCst), 3);
++        // The caller must do this before sending GET_DATA, including on requeue.
++        for _ in 0..2 {
++            slot.before_get_data();
++            assert_eq!(words[5].load(SeqCst), 0);
++            assert_eq!(words[6].load(SeqCst), 4);
++        }
++        slot.begin(8192);
++        slot.complete(true, 4096, 4096);
++        slot.before_fetch();
++        slot.begin(12288);
++        assert_eq!(words[5].load(SeqCst), 0);
++        assert_eq!(words[6].load(SeqCst), 2);
++        slot.complete(true, 4096, -libc::EIO);
++        slot.before_fetch();
++        assert_eq!(words[6].load(SeqCst), 6);
++    }
++
++    #[test]
+     fn reuse_failure_and_kernel_overwrite_invalidate() {
+         let mut words: [AtomicU64; WORDS] = std::array::from_fn(|_| AtomicU64::new(0));
+         words[3].store(8192, SeqCst);
+         // The test uses stack memory and must not run the mmap-specific Drop.
+         let mut slot = std::mem::ManuallyDrop::new(SlotObservation {
+             row: NonNull::from(&mut words),
++            retain_during_fetch: false,
+         });
+         slot.begin(4096);
+         slot.complete(true, 4096, 4096);
+diff --git a/storage/ublk-daemon/src/server.rs b/storage/ublk-daemon/src/server.rs
+--- a/storage/ublk-daemon/src/server.rs
++++ b/storage/ublk-daemon/src/server.rs
+@@ -870,6 +870,12 @@
+ 
+     let ctrl = UVMUblkCtrlBuilder::new()
+         .name("overlaybd-blk")
++        .need_get_data(
++            std::env::var_os("AENV_PROVIDER_OBSERVE_DIR").is_some()
++                && std::env::var_os("AENV_PROVIDER_NEED_GET_DATA").as_deref()
++                    == Some(std::ffi::OsStr::new("1"))
++                && image_config.ends_with("memory/image.json"),
++        )
+         .build(ctrl_ring.clone())
+         .context("build ublk ctrl")?;
+ 
+diff --git a/storage/ublk/examples/provider_slot_protocol.rs b/storage/ublk/examples/provider_slot_protocol.rs
+--- /dev/null
++++ b/storage/ublk/examples/provider_slot_protocol.rs
+@@ -0,0 +1,231 @@
++//! Explicit real-device diagnostic. Creates and removes only its own tiny devices.
++use anyhow::{ensure, Context, Result};
++use async_trait::async_trait;
++use serde_json::json;
++use std::alloc::{alloc_zeroed, dealloc, Layout};
++use std::fs::{self, OpenOptions};
++use std::os::unix::fs::{FileExt, OpenOptionsExt};
++use std::path::{Path, PathBuf};
++use std::sync::{Arc, Mutex};
++use std::time::Instant;
++use storage_util::io_ring::{spawn_io_ring_worker, AsyncIoRing, IoRingHandle};
++use uvm_ublk::{delete_dev, IOBuffer, UVMUblkCtrlBuilder, UVMUblkDevBuilder, UVMUblkTarget};
++
++struct Target {
++    image: PathBuf,
++    bytes: Mutex<Vec<u8>>,
++}
++
++#[async_trait(?Send)]
++impl UVMUblkTarget for Target {
++    const DEV_NAME: &'static str = "provider-slot-protocol";
++    fn observation_image(&self) -> Option<PathBuf> {
++        Some(self.image.clone())
++    }
++    async fn init(&self, _: u16, _: &AsyncIoRing) -> Result<()> {
++        Ok(())
++    }
++    fn per_slot_extra_buf_len(&self) -> Option<usize> {
++        None
++    }
++    fn ublk_dev_params(&self, _: &ublk_sys::ublksrv_ctrl_dev_info) -> ublk_sys::ublk_params {
++        ublk_sys::ublk_params {
++            len: size_of::<ublk_sys::ublk_params>() as u32,
++            types: ublk_sys::UBLK_PARAM_TYPE_BASIC,
++            basic: ublk_sys::ublk_param_basic {
++                logical_bs_shift: 9,
++                physical_bs_shift: 12,
++                io_min_shift: 9,
++                max_sectors: 8,
++                dev_sectors: 256,
++                ..Default::default()
++            },
++            ..Default::default()
++        }
++    }
++    async fn handle_io_request(
++        self: &Arc<Self>,
++        _: u16,
++        _: u16,
++        desc: ublk_sys::ublksrv_io_desc,
++        buf: &mut IOBuffer,
++        _: Option<&mut IOBuffer>,
++        _: &AsyncIoRing,
++    ) -> i32 {
++        let offset = desc.start_sector as usize * 512;
++        let len = desc.nr_sectors as usize * 512;
++        if offset == 65536 {
++            return -libc::EIO;
++        }
++        let IOBuffer::User(buf) = buf else {
++            return -libc::EINVAL;
++        };
++        let mut bytes = self.bytes.lock().unwrap();
++        match desc.op_flags & 0xff {
++            ublk_sys::UBLK_IO_OP_READ => {
++                buf.subslice_mut(0, len)
++                    .copy_from_slice(&bytes[offset..offset + len]);
++                len as i32
++            }
++            ublk_sys::UBLK_IO_OP_WRITE => {
++                bytes[offset..offset + len].copy_from_slice(buf.subslice(0, len));
++                len as i32
++            }
++            ublk_sys::UBLK_IO_OP_FLUSH => 0,
++            _ => -libc::EOPNOTSUPP,
++        }
++    }
++}
++
++fn row(path: &Path) -> Result<Vec<u64>> {
++    let bytes = fs::read(path)?;
++    Ok(bytes[..64]
++        .as_chunks::<8>()
++        .0
++        .iter()
++        .map(|b| u64::from_le_bytes(*b))
++        .collect())
++}
++
++fn exercise(path: &Path, metadata: &Path, enabled: bool) -> Result<serde_json::Value> {
++    let file = OpenOptions::new()
++        .read(true)
++        .write(true)
++        .custom_flags(libc::O_DIRECT)
++        .open(path)?;
++    let layout = Layout::from_size_align(4096, 4096)?;
++    // SAFETY: the layout is valid; release the allocation after the closure.
++    let ptr = unsafe { alloc_zeroed(layout) };
++    ensure!(!ptr.is_null(), "allocate aligned diagnostic buffer");
++    let result = (|| -> Result<_> {
++        let buffer = unsafe { std::slice::from_raw_parts_mut(ptr, 4096) };
++        ensure!(file.read_at(buffer, 0)? == 4096 && buffer.iter().all(|b| *b == 0x11));
++        let first = row(metadata)?;
++        ensure!(
++            first[6] == if enabled { 3 } else { 4 },
++            "post-read state: {first:?}"
++        );
++        ensure!(file.read_at(buffer, 4096)? == 4096 && buffer.iter().all(|b| *b == 0x11));
++        let second = row(metadata)?;
++        ensure!(second[1] > first[1]);
++        if enabled {
++            ensure!(second[4] == 4096 && second[5] == 4096);
++        }
++        let mut timings = Vec::new();
++        for i in 0..32u8 {
++            buffer.fill(0x40 + i);
++            let started = Instant::now();
++            ensure!(file.write_at(buffer, 8192)? == 4096);
++            let write_ns = started.elapsed().as_nanos() as u64;
++            let after_write = row(metadata)?;
++            ensure!(after_write[5] == 0 && after_write[6] != 3);
++            buffer.fill(0);
++            let started = Instant::now();
++            ensure!(file.read_at(buffer, 8192)? == 4096);
++            let read_ns = started.elapsed().as_nanos() as u64;
++            ensure!(buffer.iter().all(|b| *b == 0x40 + i));
++            timings.push(json!({"write_ns":write_ns,"read_ns":read_ns}));
++        }
++        let error = file.read_at(buffer, 65536).unwrap_err();
++        ensure!(error.raw_os_error() == Some(libc::EIO));
++        let failed = row(metadata)?;
++        ensure!(failed[5] == 0 && failed[6] != 3);
++        ensure!(file.read_at(buffer, 4096)? == 4096 && buffer.iter().all(|b| *b == 0x11));
++        Ok(json!({"first_read_row":first,"second_read_row":second,
++            "failed_read_row":failed,"timings":timings,
++            "read_read":"PASS","read_write_read":"PASS","error_then_read":"PASS"}))
++    })();
++    unsafe { dealloc(ptr, layout) };
++    result
++}
++
++async fn check_mode(
++    out: &Path,
++    enabled: bool,
++    ring: IoRingHandle<io_uring::squeue::Entry128>,
++) -> Result<()> {
++    let name = if enabled { "get-data" } else { "default" };
++    let directory = out.join(name);
++    fs::create_dir(&directory)?;
++    let slots = directory.join("slots");
++    std::env::set_var("AENV_PROVIDER_OBSERVE_DIR", &slots);
++    let target = Target {
++        image: directory.join("memory/image.json"),
++        bytes: Mutex::new(vec![0x11; 128 * 1024]),
++    };
++    let ctrl = UVMUblkCtrlBuilder::new()
++        .name("provider-protocol-diagnostic")
++        .depth(1)
++        .max_io_buf_bytes(4096)
++        .need_get_data(enabled)
++        .build(ring.clone())?;
++    let mut dev = UVMUblkDevBuilder::new(ctrl)
++        .set_target(target)
++        .build()
++        .await?;
++    let id = dev.dev_id();
++    fs::write(
++        directory.join("owned-device.json"),
++        json!({"dev_id":id,"pid":std::process::id()}).to_string(),
++    )?;
++    let checked = async {
++        dev.start().await?;
++        ensure!((dev.ctrl.dev_info.flags & ublk_sys::UBLK_F_NEED_GET_DATA as u64 != 0) == enabled);
++        let metadata = slots.join(format!("{}-{id}-0-0.bin", std::process::id()));
++        let path = dev.device_path();
++        // Wait only for udev access before issuing the first diagnostic request.
++        for _ in 0..100 {
++            if OpenOptions::new()
++                .read(true)
++                .write(true)
++                .open(&path)
++                .is_ok()
++            {
++                break;
++            }
++            tokio::time::sleep(std::time::Duration::from_millis(10)).await;
++        }
++        let value = tokio::task::spawn_blocking(move || exercise(&path, &metadata, enabled))
++            .await
++            .context("diagnostic I/O worker")??;
++        fs::write(
++            directory.join("io.json"),
++            serde_json::to_vec_pretty(&value)?,
++        )?;
++        Ok::<_, anyhow::Error>(())
++    }
++    .await;
++    let stopped = dev.ctrl.stop_dev().await;
++    dev.wait_for_bg_tasks().await;
++    drop(dev);
++    let deleted = delete_dev(ring, id).await;
++    stopped?;
++    deleted?;
++    checked?;
++    let metadata = slots.join(format!("{}-{id}-0-0.bin", std::process::id()));
++    ensure!(row(&metadata)?[6] == 5, "release did not invalidate");
++    fs::write(directory.join("status"), "PASS\n")?;
++    Ok(())
++}
++
++#[tokio::main(flavor = "current_thread")]
++async fn main() -> Result<()> {
++    let out = PathBuf::from(
++        std::env::args()
++            .nth(1)
++            .context("provide a new result directory")?,
++    );
++    fs::create_dir(&out)?;
++    let (ring, worker) = spawn_io_ring_worker::<io_uring::squeue::Entry128>(0);
++    let result = async {
++        check_mode(&out, false, ring.clone()).await?;
++        check_mode(&out, true, ring.clone()).await
++    }
++    .await;
++    drop(ring);
++    worker.join().expect("control ring worker");
++    result?;
++    fs::write(out.join("status"), "PASS\n")?;
++    println!("status=PASS result_dir={}", out.display());
++    Ok(())
++}

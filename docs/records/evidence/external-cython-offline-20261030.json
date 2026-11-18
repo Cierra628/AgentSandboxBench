@@ -1,0 +1,979 @@
+{
+  "status": "OFFLINE_REVIEW_COMPLETE",
+  "date": "2026-10-30",
+  "task_id": "build-cython-ext",
+  "upstream_revision": "cbe767b2aa23ceb59875b1cb0a7a6141c749312a",
+  "run": "results/agentenv/build-cython-ext/runs/build-cython-ext-20261025T071113Z-985082",
+  "image": "docker.io/alexgshaw/build-cython-ext@sha256:3612a38fadb89a96f74a1a951fb0b0af734198fd160571eeaba6401593234594",
+  "image_platform": [
+    "linux",
+    "amd64"
+  ],
+  "compressed_image_layers": 7,
+  "compressed_image_bytes": 303214315,
+  "actions": 83,
+  "tool_counts": {
+    "bash": 61,
+    "read": 20,
+    "write": 2
+  },
+  "input_files": 105,
+  "helpers": [
+    {
+      "step": 3,
+      "file": "003-read.py",
+      "bytes": 118,
+      "kind": "read",
+      "syntax": "PASS"
+    },
+    {
+      "step": 4,
+      "file": "004-read.py",
+      "bytes": 118,
+      "kind": "read",
+      "syntax": "PASS"
+    },
+    {
+      "step": 6,
+      "file": "006-read.py",
+      "bytes": 143,
+      "kind": "read",
+      "syntax": "PASS"
+    },
+    {
+      "step": 7,
+      "file": "007-read.py",
+      "bytes": 146,
+      "kind": "read",
+      "syntax": "PASS"
+    },
+    {
+      "step": 8,
+      "file": "008-read.py",
+      "bytes": 134,
+      "kind": "read",
+      "syntax": "PASS"
+    },
+    {
+      "step": 9,
+      "file": "009-read.py",
+      "bytes": 139,
+      "kind": "read",
+      "syntax": "PASS"
+    },
+    {
+      "step": 12,
+      "file": "012-read.py",
+      "bytes": 128,
+      "kind": "read",
+      "syntax": "PASS"
+    },
+    {
+      "step": 13,
+      "file": "013-read.py",
+      "bytes": 134,
+      "kind": "read",
+      "syntax": "PASS"
+    },
+    {
+      "step": 14,
+      "file": "014-read.py",
+      "bytes": 205,
+      "kind": "read",
+      "syntax": "PASS"
+    },
+    {
+      "step": 15,
+      "file": "015-read.py",
+      "bytes": 199,
+      "kind": "read",
+      "syntax": "PASS"
+    },
+    {
+      "step": 23,
+      "file": "023-read.py",
+      "bytes": 206,
+      "kind": "read",
+      "syntax": "PASS"
+    },
+    {
+      "step": 29,
+      "file": "029-read.py",
+      "bytes": 205,
+      "kind": "read",
+      "syntax": "PASS"
+    },
+    {
+      "step": 30,
+      "file": "030-read.py",
+      "bytes": 206,
+      "kind": "read",
+      "syntax": "PASS"
+    },
+    {
+      "step": 31,
+      "file": "031.payload",
+      "bytes": 4050,
+      "kind": "write",
+      "syntax": "PASS"
+    },
+    {
+      "step": 39,
+      "file": "039-read.py",
+      "bytes": 217,
+      "kind": "read",
+      "syntax": "PASS"
+    },
+    {
+      "step": 40,
+      "file": "040-read.py",
+      "bytes": 207,
+      "kind": "read",
+      "syntax": "PASS"
+    },
+    {
+      "step": 42,
+      "file": "042-read.py",
+      "bytes": 220,
+      "kind": "read",
+      "syntax": "PASS"
+    },
+    {
+      "step": 51,
+      "file": "051-read.py",
+      "bytes": 205,
+      "kind": "read",
+      "syntax": "PASS"
+    },
+    {
+      "step": 53,
+      "file": "053.payload",
+      "bytes": 1100,
+      "kind": "write",
+      "syntax": "PASS"
+    },
+    {
+      "step": 56,
+      "file": "056-read.py",
+      "bytes": 223,
+      "kind": "read",
+      "syntax": "PASS"
+    },
+    {
+      "step": 66,
+      "file": "066-read.py",
+      "bytes": 205,
+      "kind": "read",
+      "syntax": "PASS"
+    },
+    {
+      "step": 71,
+      "file": "071-read.py",
+      "bytes": 222,
+      "kind": "read",
+      "syntax": "PASS"
+    }
+  ],
+  "expected_nonzero_exits": {
+    "41": 1,
+    "57": 1,
+    "68": 1,
+    "72": 1,
+    "78": 129
+  },
+  "async_barriers": [],
+  "shell_mode": "Independent /bin/bash per step from /app, umask 077, default pipelines without pipefail; original per-step budget 900 seconds",
+  "reference_validation": {
+    "exit_code": 0,
+    "status": "PASS",
+    "command": "cd /tmp && python3 - <<'PYCHECK'\nimport subprocess\nprint(\"source_repo_commit:\", subprocess.check_output([\"git\",\"-C\",\"/app/pyknotid\",\"rev-parse\",\"HEAD\"],text=True).strip())\nfrom pyknotid import cinvariants\nfrom pyknotid.spacecurves import chelpers,ccomplexity\nassert all(str(x.__file__).endswith('.so') for x in [cinvariants,chelpers,ccomplexity])\nprint('compiled extensions import successfully')\nPYCHECK",
+    "scope": "local functional/artifact check; not the official benchmark hidden verifier"
+  },
+  "source_semantics": {
+    "final_two_test_summaries_18_passed": true
+  },
+  "required_checks": [
+    "All 83 saved reference exits and valid timestamps; preserve nonzero 41/57/68/72/78.",
+    "Step 76 requires NumPy 2.3.0 and installed package; preserve its assertions.",
+    "Step 82 source-tree and site-packages contexts must each report 18 passed without failed/error summary; pipelines alone do not establish success.",
+    "Original postrun check imports cinvariants, chelpers and ccomplexity and requires all three __file__ values to end in .so; preserve git source commit output.",
+    "Retain original test_random_curves.py and test_catalogue.py exclusions, not a full hidden benchmark verifier."
+  ],
+  "dependencies": {
+    "git_clone_steps": [
+      1,
+      44
+    ],
+    "source_tag": "0.5.3",
+    "second_clone_branch": "unfixed default branch / subsequent master references",
+    "pip_install_steps": [
+      24,
+      25,
+      26,
+      35,
+      36,
+      55,
+      59,
+      60
+    ],
+    "unfixed_pip_requirements": true,
+    "guest_network": "NOT_VERIFIED; service proxy forwarding is not guest environment setup",
+    "git_http_version": "Original HTTP/1.1 transient environment setting; not global git configuration"
+  },
+  "timing": {
+    "source_tool_seconds": 175.914536189,
+    "source_mixed_pip_call_seconds": 148.128286348,
+    "source_longest_call_step": 26,
+    "source_longest_call_seconds": 71.465920754,
+    "current_replay_timeout_seconds": 240,
+    "proposed_new_task_replay_timeout_seconds": 900,
+    "proposed_controller_budget_seconds": 1800,
+    "outer_timeout_updates_required": true,
+    "existing_guest_collector_lifetime_seconds": 1800
+  },
+  "disk": {
+    "source_guest_regular_logical_initial_bytes": 808922564,
+    "source_guest_regular_logical_boundary_peak_bytes": 1146582318,
+    "source_peak_after_step": 82,
+    "proposed_fixture_gib": 32,
+    "current_budget": {
+      "ready": true,
+      "available_bytes": 67866509312,
+      "required_available_bytes": 62277025792,
+      "capacity_bytes": 34359738368,
+      "host_reserve_bytes": 21474836480,
+      "host_margin_bytes": 6442450944
+    },
+    "current_mem_available_bytes": 514592288768,
+    "physical_allocation_peak": "NOT_ESTIMATED_FROM_LOGICAL_BYTES"
+  },
+  "present_gate": {
+    "status": "REJECTED_AS_EXPECTED",
+    "reason": "only pinned Django 28-call and C4 36-call tasks are supported"
+  },
+  "recommendation": "Keep as third new task, first offline-adapt complete read/write inputs, guest networking/environment, task-specific checks and nested timeout budgets. No direct live run.",
+  "uncertainties": [
+    "Fixed remote image availability not checked offline.",
+    "Git references and unpinned pip resolutions may drift; do not silently preinstall/pin/rewrite original commands or relax results.",
+    "Original full stdout logs and a complete locked dependency inventory are not published; local versions and compiler output must be recorded during the real run."
+  ],
+  "operations": {
+    "services_started": false,
+    "guests_started": false,
+    "network_requests": false,
+    "task_commands_executed": false,
+    "dependencies_installed": false,
+    "runtime_code_modified": false
+  },
+  "steps": [
+    {
+      "step": 1,
+      "tool": "bash",
+      "expected_exit": 0,
+      "shell_syntax": "PASS",
+      "script_matches_published_command": true,
+      "helper": []
+    },
+    {
+      "step": 2,
+      "tool": "bash",
+      "expected_exit": 0,
+      "shell_syntax": "PASS",
+      "script_matches_published_command": true,
+      "helper": []
+    },
+    {
+      "step": 3,
+      "tool": "read",
+      "expected_exit": 0,
+      "shell_syntax": "PASS",
+      "script_matches_published_command": true,
+      "helper": [
+        "003-read.py"
+      ]
+    },
+    {
+      "step": 4,
+      "tool": "read",
+      "expected_exit": 0,
+      "shell_syntax": "PASS",
+      "script_matches_published_command": true,
+      "helper": [
+        "004-read.py"
+      ]
+    },
+    {
+      "step": 5,
+      "tool": "bash",
+      "expected_exit": 0,
+      "shell_syntax": "PASS",
+      "script_matches_published_command": true,
+      "helper": []
+    },
+    {
+      "step": 6,
+      "tool": "read",
+      "expected_exit": 0,
+      "shell_syntax": "PASS",
+      "script_matches_published_command": true,
+      "helper": [
+        "006-read.py"
+      ]
+    },
+    {
+      "step": 7,
+      "tool": "read",
+      "expected_exit": 0,
+      "shell_syntax": "PASS",
+      "script_matches_published_command": true,
+      "helper": [
+        "007-read.py"
+      ]
+    },
+    {
+      "step": 8,
+      "tool": "read",
+      "expected_exit": 0,
+      "shell_syntax": "PASS",
+      "script_matches_published_command": true,
+      "helper": [
+        "008-read.py"
+      ]
+    },
+    {
+      "step": 9,
+      "tool": "read",
+      "expected_exit": 0,
+      "shell_syntax": "PASS",
+      "script_matches_published_command": true,
+      "helper": [
+        "009-read.py"
+      ]
+    },
+    {
+      "step": 10,
+      "tool": "bash",
+      "expected_exit": 0,
+      "shell_syntax": "PASS",
+      "script_matches_published_command": true,
+      "helper": []
+    },
+    {
+      "step": 11,
+      "tool": "bash",
+      "expected_exit": 0,
+      "shell_syntax": "PASS",
+      "script_matches_published_command": true,
+      "helper": []
+    },
+    {
+      "step": 12,
+      "tool": "read",
+      "expected_exit": 0,
+      "shell_syntax": "PASS",
+      "script_matches_published_command": true,
+      "helper": [
+        "012-read.py"
+      ]
+    },
+    {
+      "step": 13,
+      "tool": "read",
+      "expected_exit": 0,
+      "shell_syntax": "PASS",
+      "script_matches_published_command": true,
+      "helper": [
+        "013-read.py"
+      ]
+    },
+    {
+      "step": 14,
+      "tool": "read",
+      "expected_exit": 0,
+      "shell_syntax": "PASS",
+      "script_matches_published_command": true,
+      "helper": [
+        "014-read.py"
+      ]
+    },
+    {
+      "step": 15,
+      "tool": "read",
+      "expected_exit": 0,
+      "shell_syntax": "PASS",
+      "script_matches_published_command": true,
+      "helper": [
+        "015-read.py"
+      ]
+    },
+    {
+      "step": 16,
+      "tool": "bash",
+      "expected_exit": 0,
+      "shell_syntax": "PASS",
+      "script_matches_published_command": true,
+      "helper": []
+    },
+    {
+      "step": 17,
+      "tool": "bash",
+      "expected_exit": 0,
+      "shell_syntax": "PASS",
+      "script_matches_published_command": true,
+      "helper": []
+    },
+    {
+      "step": 18,
+      "tool": "bash",
+      "expected_exit": 0,
+      "shell_syntax": "PASS",
+      "script_matches_published_command": true,
+      "helper": []
+    },
+    {
+      "step": 19,
+      "tool": "bash",
+      "expected_exit": 0,
+      "shell_syntax": "PASS",
+      "script_matches_published_command": true,
+      "helper": []
+    },
+    {
+      "step": 20,
+      "tool": "bash",
+      "expected_exit": 0,
+      "shell_syntax": "PASS",
+      "script_matches_published_command": true,
+      "helper": []
+    },
+    {
+      "step": 21,
+      "tool": "bash",
+      "expected_exit": 0,
+      "shell_syntax": "PASS",
+      "script_matches_published_command": true,
+      "helper": []
+    },
+    {
+      "step": 22,
+      "tool": "bash",
+      "expected_exit": 0,
+      "shell_syntax": "PASS",
+      "script_matches_published_command": true,
+      "helper": []
+    },
+    {
+      "step": 23,
+      "tool": "read",
+      "expected_exit": 0,
+      "shell_syntax": "PASS",
+      "script_matches_published_command": true,
+      "helper": [
+        "023-read.py"
+      ]
+    },
+    {
+      "step": 24,
+      "tool": "bash",
+      "expected_exit": 0,
+      "shell_syntax": "PASS",
+      "script_matches_published_command": true,
+      "helper": []
+    },
+    {
+      "step": 25,
+      "tool": "bash",
+      "expected_exit": 0,
+      "shell_syntax": "PASS",
+      "script_matches_published_command": true,
+      "helper": []
+    },
+    {
+      "step": 26,
+      "tool": "bash",
+      "expected_exit": 0,
+      "shell_syntax": "PASS",
+      "script_matches_published_command": true,
+      "helper": []
+    },
+    {
+      "step": 27,
+      "tool": "bash",
+      "expected_exit": 0,
+      "shell_syntax": "PASS",
+      "script_matches_published_command": true,
+      "helper": []
+    },
+    {
+      "step": 28,
+      "tool": "bash",
+      "expected_exit": 0,
+      "shell_syntax": "PASS",
+      "script_matches_published_command": true,
+      "helper": []
+    },
+    {
+      "step": 29,
+      "tool": "read",
+      "expected_exit": 0,
+      "shell_syntax": "PASS",
+      "script_matches_published_command": true,
+      "helper": [
+        "029-read.py"
+      ]
+    },
+    {
+      "step": 30,
+      "tool": "read",
+      "expected_exit": 0,
+      "shell_syntax": "PASS",
+      "script_matches_published_command": true,
+      "helper": [
+        "030-read.py"
+      ]
+    },
+    {
+      "step": 31,
+      "tool": "write",
+      "expected_exit": 0,
+      "shell_syntax": "PASS",
+      "script_matches_published_command": true,
+      "helper": [
+        "031.payload"
+      ]
+    },
+    {
+      "step": 32,
+      "tool": "bash",
+      "expected_exit": 0,
+      "shell_syntax": "PASS",
+      "script_matches_published_command": true,
+      "helper": []
+    },
+    {
+      "step": 33,
+      "tool": "bash",
+      "expected_exit": 0,
+      "shell_syntax": "PASS",
+      "script_matches_published_command": true,
+      "helper": []
+    },
+    {
+      "step": 34,
+      "tool": "bash",
+      "expected_exit": 0,
+      "shell_syntax": "PASS",
+      "script_matches_published_command": true,
+      "helper": []
+    },
+    {
+      "step": 35,
+      "tool": "bash",
+      "expected_exit": 0,
+      "shell_syntax": "PASS",
+      "script_matches_published_command": true,
+      "helper": []
+    },
+    {
+      "step": 36,
+      "tool": "bash",
+      "expected_exit": 0,
+      "shell_syntax": "PASS",
+      "script_matches_published_command": true,
+      "helper": []
+    },
+    {
+      "step": 37,
+      "tool": "bash",
+      "expected_exit": 0,
+      "shell_syntax": "PASS",
+      "script_matches_published_command": true,
+      "helper": []
+    },
+    {
+      "step": 38,
+      "tool": "bash",
+      "expected_exit": 0,
+      "shell_syntax": "PASS",
+      "script_matches_published_command": true,
+      "helper": []
+    },
+    {
+      "step": 39,
+      "tool": "read",
+      "expected_exit": 0,
+      "shell_syntax": "PASS",
+      "script_matches_published_command": true,
+      "helper": [
+        "039-read.py"
+      ]
+    },
+    {
+      "step": 40,
+      "tool": "read",
+      "expected_exit": 0,
+      "shell_syntax": "PASS",
+      "script_matches_published_command": true,
+      "helper": [
+        "040-read.py"
+      ]
+    },
+    {
+      "step": 41,
+      "tool": "bash",
+      "expected_exit": 1,
+      "shell_syntax": "PASS",
+      "script_matches_published_command": true,
+      "helper": []
+    },
+    {
+      "step": 42,
+      "tool": "read",
+      "expected_exit": 0,
+      "shell_syntax": "PASS",
+      "script_matches_published_command": true,
+      "helper": [
+        "042-read.py"
+      ]
+    },
+    {
+      "step": 43,
+      "tool": "bash",
+      "expected_exit": 0,
+      "shell_syntax": "PASS",
+      "script_matches_published_command": true,
+      "helper": []
+    },
+    {
+      "step": 44,
+      "tool": "bash",
+      "expected_exit": 0,
+      "shell_syntax": "PASS",
+      "script_matches_published_command": true,
+      "helper": []
+    },
+    {
+      "step": 45,
+      "tool": "bash",
+      "expected_exit": 0,
+      "shell_syntax": "PASS",
+      "script_matches_published_command": true,
+      "helper": []
+    },
+    {
+      "step": 46,
+      "tool": "bash",
+      "expected_exit": 0,
+      "shell_syntax": "PASS",
+      "script_matches_published_command": true,
+      "helper": []
+    },
+    {
+      "step": 47,
+      "tool": "bash",
+      "expected_exit": 0,
+      "shell_syntax": "PASS",
+      "script_matches_published_command": true,
+      "helper": []
+    },
+    {
+      "step": 48,
+      "tool": "bash",
+      "expected_exit": 0,
+      "shell_syntax": "PASS",
+      "script_matches_published_command": true,
+      "helper": []
+    },
+    {
+      "step": 49,
+      "tool": "bash",
+      "expected_exit": 0,
+      "shell_syntax": "PASS",
+      "script_matches_published_command": true,
+      "helper": []
+    },
+    {
+      "step": 50,
+      "tool": "bash",
+      "expected_exit": 0,
+      "shell_syntax": "PASS",
+      "script_matches_published_command": true,
+      "helper": []
+    },
+    {
+      "step": 51,
+      "tool": "read",
+      "expected_exit": 0,
+      "shell_syntax": "PASS",
+      "script_matches_published_command": true,
+      "helper": [
+        "051-read.py"
+      ]
+    },
+    {
+      "step": 52,
+      "tool": "bash",
+      "expected_exit": 0,
+      "shell_syntax": "PASS",
+      "script_matches_published_command": true,
+      "helper": []
+    },
+    {
+      "step": 53,
+      "tool": "write",
+      "expected_exit": 0,
+      "shell_syntax": "PASS",
+      "script_matches_published_command": true,
+      "helper": [
+        "053.payload"
+      ]
+    },
+    {
+      "step": 54,
+      "tool": "bash",
+      "expected_exit": 0,
+      "shell_syntax": "PASS",
+      "script_matches_published_command": true,
+      "helper": []
+    },
+    {
+      "step": 55,
+      "tool": "bash",
+      "expected_exit": 0,
+      "shell_syntax": "PASS",
+      "script_matches_published_command": true,
+      "helper": []
+    },
+    {
+      "step": 56,
+      "tool": "read",
+      "expected_exit": 0,
+      "shell_syntax": "PASS",
+      "script_matches_published_command": true,
+      "helper": [
+        "056-read.py"
+      ]
+    },
+    {
+      "step": 57,
+      "tool": "bash",
+      "expected_exit": 1,
+      "shell_syntax": "PASS",
+      "script_matches_published_command": true,
+      "helper": []
+    },
+    {
+      "step": 58,
+      "tool": "bash",
+      "expected_exit": 0,
+      "shell_syntax": "PASS",
+      "script_matches_published_command": true,
+      "helper": []
+    },
+    {
+      "step": 59,
+      "tool": "bash",
+      "expected_exit": 0,
+      "shell_syntax": "PASS",
+      "script_matches_published_command": true,
+      "helper": []
+    },
+    {
+      "step": 60,
+      "tool": "bash",
+      "expected_exit": 0,
+      "shell_syntax": "PASS",
+      "script_matches_published_command": true,
+      "helper": []
+    },
+    {
+      "step": 61,
+      "tool": "bash",
+      "expected_exit": 0,
+      "shell_syntax": "PASS",
+      "script_matches_published_command": true,
+      "helper": []
+    },
+    {
+      "step": 62,
+      "tool": "bash",
+      "expected_exit": 0,
+      "shell_syntax": "PASS",
+      "script_matches_published_command": true,
+      "helper": []
+    },
+    {
+      "step": 63,
+      "tool": "bash",
+      "expected_exit": 0,
+      "shell_syntax": "PASS",
+      "script_matches_published_command": true,
+      "helper": []
+    },
+    {
+      "step": 64,
+      "tool": "bash",
+      "expected_exit": 0,
+      "shell_syntax": "PASS",
+      "script_matches_published_command": true,
+      "helper": []
+    },
+    {
+      "step": 65,
+      "tool": "bash",
+      "expected_exit": 0,
+      "shell_syntax": "PASS",
+      "script_matches_published_command": true,
+      "helper": []
+    },
+    {
+      "step": 66,
+      "tool": "read",
+      "expected_exit": 0,
+      "shell_syntax": "PASS",
+      "script_matches_published_command": true,
+      "helper": [
+        "066-read.py"
+      ]
+    },
+    {
+      "step": 67,
+      "tool": "bash",
+      "expected_exit": 0,
+      "shell_syntax": "PASS",
+      "script_matches_published_command": true,
+      "helper": []
+    },
+    {
+      "step": 68,
+      "tool": "bash",
+      "expected_exit": 1,
+      "shell_syntax": "PASS",
+      "script_matches_published_command": true,
+      "helper": []
+    },
+    {
+      "step": 69,
+      "tool": "bash",
+      "expected_exit": 0,
+      "shell_syntax": "PASS",
+      "script_matches_published_command": true,
+      "helper": []
+    },
+    {
+      "step": 70,
+      "tool": "bash",
+      "expected_exit": 0,
+      "shell_syntax": "PASS",
+      "script_matches_published_command": true,
+      "helper": []
+    },
+    {
+      "step": 71,
+      "tool": "read",
+      "expected_exit": 0,
+      "shell_syntax": "PASS",
+      "script_matches_published_command": true,
+      "helper": [
+        "071-read.py"
+      ]
+    },
+    {
+      "step": 72,
+      "tool": "bash",
+      "expected_exit": 1,
+      "shell_syntax": "PASS",
+      "script_matches_published_command": true,
+      "helper": []
+    },
+    {
+      "step": 73,
+      "tool": "bash",
+      "expected_exit": 0,
+      "shell_syntax": "PASS",
+      "script_matches_published_command": true,
+      "helper": []
+    },
+    {
+      "step": 74,
+      "tool": "bash",
+      "expected_exit": 0,
+      "shell_syntax": "PASS",
+      "script_matches_published_command": true,
+      "helper": []
+    },
+    {
+      "step": 75,
+      "tool": "bash",
+      "expected_exit": 0,
+      "shell_syntax": "PASS",
+      "script_matches_published_command": true,
+      "helper": []
+    },
+    {
+      "step": 76,
+      "tool": "bash",
+      "expected_exit": 0,
+      "shell_syntax": "PASS",
+      "script_matches_published_command": true,
+      "helper": []
+    },
+    {
+      "step": 77,
+      "tool": "bash",
+      "expected_exit": 0,
+      "shell_syntax": "PASS",
+      "script_matches_published_command": true,
+      "helper": []
+    },
+    {
+      "step": 78,
+      "tool": "bash",
+      "expected_exit": 129,
+      "shell_syntax": "PASS",
+      "script_matches_published_command": true,
+      "helper": []
+    },
+    {
+      "step": 79,
+      "tool": "bash",
+      "expected_exit": 0,
+      "shell_syntax": "PASS",
+      "script_matches_published_command": true,
+      "helper": []
+    },
+    {
+      "step": 80,
+      "tool": "bash",
+      "expected_exit": 0,
+      "shell_syntax": "PASS",
+      "script_matches_published_command": true,
+      "helper": []
+    },
+    {
+      "step": 81,
+      "tool": "bash",
+      "expected_exit": 0,
+      "shell_syntax": "PASS",
+      "script_matches_published_command": true,
+      "helper": []
+    },
+    {
+      "step": 82,
+      "tool": "bash",
+      "expected_exit": 0,
+      "shell_syntax": "PASS",
+      "script_matches_published_command": true,
+      "helper": []
+    },
+    {
+      "step": 83,
+      "tool": "bash",
+      "expected_exit": 0,
+      "shell_syntax": "PASS",
+      "script_matches_published_command": true,
+      "helper": []
+    }
+  ],
+  "local_evidence": ".artifacts/external-cython-offline-20261030"
+}

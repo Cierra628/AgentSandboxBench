@@ -1,0 +1,133 @@
+{
+  "status": "PASS",
+  "scope": "Offline saved-metadata audit only; late inventory not live rootfs residency.",
+  "no_new_cache_or_payload_query": true,
+  "runs": [
+    {
+      "schedule": "GRPO",
+      "shared_source": ".artifacts/storage-isolated-service/20261022T170816Z-432474/prettier6604/host-shared-files.json",
+      "residency_source": ".artifacts/storage-isolated-service/20261022T170816Z-432474/host-file-residency.json",
+      "seed_source": ".artifacts/prettier6604/platform-cache-20261022T170658Z-431791/seed.json",
+      "copied_manifest_source": ".artifacts/storage-isolated-service/20261022T170816Z-432474/copied-input-hashes.json",
+      "drives": {
+        "rootfs": {
+          "count": 7,
+          "block_count": 7,
+          "unique_objects": 1
+        },
+        "user_rootfs": {
+          "count": 7,
+          "block_count": 7,
+          "unique_objects": 7
+        },
+        "agentenv_volume_slot_0": {
+          "count": 7,
+          "block_count": 0,
+          "unique_objects": 7
+        },
+        "agentenv_volume_slot_1": {
+          "count": 7,
+          "block_count": 0,
+          "unique_objects": 7
+        },
+        "agentenv_volume_slot_2": {
+          "count": 7,
+          "block_count": 0,
+          "unique_objects": 7
+        },
+        "agentenv_volume_slot_3": {
+          "count": 7,
+          "block_count": 0,
+          "unique_objects": 7
+        }
+      },
+      "excluded_unknown_count": 35,
+      "late_commit_inventory": [
+        {
+          "category": "preparation_source",
+          "count": 31,
+          "logical_bytes": 7178259456,
+          "resident_bytes": 7178346496
+        },
+        {
+          "category": "private_service_copy",
+          "count": 31,
+          "logical_bytes": 7178259456,
+          "resident_bytes": 7178346496
+        }
+      ],
+      "late_inventory_delay_after_live_query_seconds": 11.456646285,
+      "late_inventory_elapsed_seconds": 1.54237892,
+      "live_rootfs_lower_user_links": null,
+      "live_rootfs_lower_resident_bytes": null,
+      "missing": [
+        "per-guest live rootfs lower configuration and actual file identities",
+        "same-stage selected rootfs lower residency",
+        "BPO saved rootfs layer identities and actual user links"
+      ]
+    },
+    {
+      "schedule": "BPO",
+      "shared_source": ".artifacts/storage-isolated-service/20261022T171040Z-435758/prettier6604/host-shared-files.json",
+      "residency_source": ".artifacts/storage-isolated-service/20261022T171040Z-435758/host-file-residency.json",
+      "seed_source": ".artifacts/prettier6604/platform-cache-20261022T170921Z-435044/seed.json",
+      "copied_manifest_source": ".artifacts/storage-isolated-service/20261022T171040Z-435758/copied-input-hashes.json",
+      "drives": {
+        "rootfs": {
+          "count": 7,
+          "block_count": 7,
+          "unique_objects": 1
+        },
+        "user_rootfs": {
+          "count": 7,
+          "block_count": 7,
+          "unique_objects": 7
+        },
+        "agentenv_volume_slot_0": {
+          "count": 7,
+          "block_count": 0,
+          "unique_objects": 7
+        },
+        "agentenv_volume_slot_1": {
+          "count": 7,
+          "block_count": 0,
+          "unique_objects": 7
+        },
+        "agentenv_volume_slot_2": {
+          "count": 7,
+          "block_count": 0,
+          "unique_objects": 7
+        },
+        "agentenv_volume_slot_3": {
+          "count": 7,
+          "block_count": 0,
+          "unique_objects": 7
+        }
+      },
+      "excluded_unknown_count": 35,
+      "late_commit_inventory": [
+        {
+          "category": "preparation_source",
+          "count": 31,
+          "logical_bytes": 7178259456,
+          "resident_bytes": 7178346496
+        },
+        {
+          "category": "private_service_copy",
+          "count": 31,
+          "logical_bytes": 7178259456,
+          "resident_bytes": 7178346496
+        }
+      ],
+      "late_inventory_delay_after_live_query_seconds": 12.590678366,
+      "late_inventory_elapsed_seconds": 1.981938466,
+      "live_rootfs_lower_user_links": null,
+      "live_rootfs_lower_resident_bytes": null,
+      "missing": [
+        "per-guest live rootfs lower configuration and actual file identities",
+        "same-stage selected rootfs lower residency",
+        "BPO saved rootfs layer identities and actual user links"
+      ]
+    }
+  ]
+}

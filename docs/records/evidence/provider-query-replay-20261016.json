@@ -1,0 +1,353 @@
+{
+  "status": "PASS",
+  "date": "2026-10-16",
+  "source": ".artifacts/storage-isolated-service/20261016T133007Z-2338631/guest-cache/live-cache/restored",
+  "scope": "40 query preparations; post-filter result loop/statistics/output only where full logical inputs recover. No mincore, BPF calls or full-map filtering timed.",
+  "source_evidence": {
+    "kernel": "6.19.9+",
+    "kernel_source_commit": "7e4e3f1145e0c02604b9afb140594764057e2f56",
+    "mincore": "mm/mincore.c outputs 0/1; source clean, file predates the matched vmlinux from preceding review",
+    "invalidated_output_rows": 0,
+    "all_saved_requests_preparations_recoverable": 40,
+    "fully_confirmed_lower_queries": 20,
+    "fully_confirmed_backend_queries": 0,
+    "reference": "Captured query tail with only the batch-read assignment omitted; no runtime constructor or kernel calls"
+  },
+  "measurement": {
+    "timing_passes": 1,
+    "point_count": 10,
+    "preparation_queries": 40,
+    "result_queries": 20,
+    "means": {
+      "preparation": {
+        "offset_unique": {
+          "cpu_ns": 610966.8,
+          "elapsed_ns": 613768.2
+        },
+        "run_split": {
+          "cpu_ns": 4680033.5,
+          "elapsed_ns": 4685354
+        },
+        "vector_allocation": {
+          "cpu_ns": 1340962.1,
+          "elapsed_ns": 1342424.7
+        }
+      },
+      "available_result_costs": {
+        "scalar": {
+          "cpu_ns": 13827276.8,
+          "elapsed_ns": 13856845.9
+        },
+        "array": {
+          "cpu_ns": 8171374.4,
+          "elapsed_ns": 8178235.4
+        }
+      }
+    },
+    "points": [
+      {
+        "point": 0,
+        "preparation": {
+          "offset_unique": {
+            "cpu_ns": 1066694,
+            "elapsed_ns": 1071856
+          },
+          "run_split": {
+            "cpu_ns": 4598522,
+            "elapsed_ns": 4638118
+          },
+          "vector_allocation": {
+            "cpu_ns": 2054237,
+            "elapsed_ns": 2055861
+          }
+        },
+        "available_result_queries": 2,
+        "result_costs": {
+          "scalar": {
+            "cpu_ns": 21997420,
+            "elapsed_ns": 22037311
+          },
+          "array": {
+            "cpu_ns": 12934411,
+            "elapsed_ns": 12936195
+          }
+        }
+      },
+      {
+        "point": 1,
+        "preparation": {
+          "offset_unique": {
+            "cpu_ns": 944017,
+            "elapsed_ns": 946950
+          },
+          "run_split": {
+            "cpu_ns": 4185423,
+            "elapsed_ns": 4187039
+          },
+          "vector_allocation": {
+            "cpu_ns": 1632242,
+            "elapsed_ns": 1633680
+          }
+        },
+        "available_result_queries": 2,
+        "result_costs": {
+          "scalar": {
+            "cpu_ns": 21955917,
+            "elapsed_ns": 21957051
+          },
+          "array": {
+            "cpu_ns": 12958120,
+            "elapsed_ns": 12959316
+          }
+        }
+      },
+      {
+        "point": 2,
+        "preparation": {
+          "offset_unique": {
+            "cpu_ns": 927396,
+            "elapsed_ns": 930310
+          },
+          "run_split": {
+            "cpu_ns": 4160854,
+            "elapsed_ns": 4162525
+          },
+          "vector_allocation": {
+            "cpu_ns": 1008344,
+            "elapsed_ns": 1009807
+          }
+        },
+        "available_result_queries": 2,
+        "result_costs": {
+          "scalar": {
+            "cpu_ns": 22040458,
+            "elapsed_ns": 22184599
+          },
+          "array": {
+            "cpu_ns": 12836695,
+            "elapsed_ns": 12838537
+          }
+        }
+      },
+      {
+        "point": 3,
+        "preparation": {
+          "offset_unique": {
+            "cpu_ns": 910196,
+            "elapsed_ns": 913358
+          },
+          "run_split": {
+            "cpu_ns": 4180203,
+            "elapsed_ns": 4182134
+          },
+          "vector_allocation": {
+            "cpu_ns": 1549357,
+            "elapsed_ns": 1551365
+          }
+        },
+        "available_result_queries": 2,
+        "result_costs": {
+          "scalar": {
+            "cpu_ns": 21974614,
+            "elapsed_ns": 22079660
+          },
+          "array": {
+            "cpu_ns": 13041305,
+            "elapsed_ns": 13051811
+          }
+        }
+      },
+      {
+        "point": 4,
+        "preparation": {
+          "offset_unique": {
+            "cpu_ns": 259903,
+            "elapsed_ns": 262152
+          },
+          "run_split": {
+            "cpu_ns": 4062493,
+            "elapsed_ns": 4063783
+          },
+          "vector_allocation": {
+            "cpu_ns": 943461,
+            "elapsed_ns": 944819
+          }
+        },
+        "available_result_queries": 2,
+        "result_costs": {
+          "scalar": {
+            "cpu_ns": 5426011,
+            "elapsed_ns": 5426848
+          },
+          "array": {
+            "cpu_ns": 3289311,
+            "elapsed_ns": 3290339
+          }
+        }
+      },
+      {
+        "point": 5,
+        "preparation": {
+          "offset_unique": {
+            "cpu_ns": 323969,
+            "elapsed_ns": 326144
+          },
+          "run_split": {
+            "cpu_ns": 4916820,
+            "elapsed_ns": 4918175
+          },
+          "vector_allocation": {
+            "cpu_ns": 1143865,
+            "elapsed_ns": 1145210
+          }
+        },
+        "available_result_queries": 2,
+        "result_costs": {
+          "scalar": {
+            "cpu_ns": 7084207,
+            "elapsed_ns": 7085009
+          },
+          "array": {
+            "cpu_ns": 4286115,
+            "elapsed_ns": 4287050
+          }
+        }
+      },
+      {
+        "point": 6,
+        "preparation": {
+          "offset_unique": {
+            "cpu_ns": 281747,
+            "elapsed_ns": 283764
+          },
+          "run_split": {
+            "cpu_ns": 4422551,
+            "elapsed_ns": 4424101
+          },
+          "vector_allocation": {
+            "cpu_ns": 1228725,
+            "elapsed_ns": 1230056
+          }
+        },
+        "available_result_queries": 2,
+        "result_costs": {
+          "scalar": {
+            "cpu_ns": 5937402,
+            "elapsed_ns": 5938269
+          },
+          "array": {
+            "cpu_ns": 3572924,
+            "elapsed_ns": 3620379
+          }
+        }
+      },
+      {
+        "point": 7,
+        "preparation": {
+          "offset_unique": {
+            "cpu_ns": 464194,
+            "elapsed_ns": 466597
+          },
+          "run_split": {
+            "cpu_ns": 5451110,
+            "elapsed_ns": 5452434
+          },
+          "vector_allocation": {
+            "cpu_ns": 1314940,
+            "elapsed_ns": 1316242
+          }
+        },
+        "available_result_queries": 2,
+        "result_costs": {
+          "scalar": {
+            "cpu_ns": 10606543,
+            "elapsed_ns": 10607710
+          },
+          "array": {
+            "cpu_ns": 6258090,
+            "elapsed_ns": 6259297
+          }
+        }
+      },
+      {
+        "point": 8,
+        "preparation": {
+          "offset_unique": {
+            "cpu_ns": 462883,
+            "elapsed_ns": 465542
+          },
+          "run_split": {
+            "cpu_ns": 5420779,
+            "elapsed_ns": 5422254
+          },
+          "vector_allocation": {
+            "cpu_ns": 1256202,
+            "elapsed_ns": 1257525
+          }
+        },
+        "available_result_queries": 2,
+        "result_costs": {
+          "scalar": {
+            "cpu_ns": 10587722,
+            "elapsed_ns": 10588574
+          },
+          "array": {
+            "cpu_ns": 6192724,
+            "elapsed_ns": 6194047
+          }
+        }
+      },
+      {
+        "point": 9,
+        "preparation": {
+          "offset_unique": {
+            "cpu_ns": 468669,
+            "elapsed_ns": 471009
+          },
+          "run_split": {
+            "cpu_ns": 5401580,
+            "elapsed_ns": 5402977
+          },
+          "vector_allocation": {
+            "cpu_ns": 1278248,
+            "elapsed_ns": 1279682
+          }
+        },
+        "available_result_queries": 2,
+        "result_costs": {
+          "scalar": {
+            "cpu_ns": 10662474,
+            "elapsed_ns": 10663428
+          },
+          "array": {
+            "cpu_ns": 6344049,
+            "elapsed_ns": 6345383
+          }
+        }
+      }
+    ],
+    "preparation_mean_cpu_ns": 6631962.4,
+    "result_cpu_saved_mean_ns": 5655902.4,
+    "result_cpu_reduction_fraction": 0.40903950082202734,
+    "scope": "Fresh offline process; rebuilt logical mappings in canonical insertion order and SimpleNamespace context; only replay costs, not original online timing"
+  },
+  "unavailable": [
+    "per-page direct-backend mincore bytes and unconfirmed PFNs",
+    "original full HASH key/token/PFN payload and traversal order",
+    "kernel syscall subtimings"
+  ],
+  "reconstructed": "Fully confirmed requests give exact requested PFNs and residency=1; dictionary insertion canonicalized, not original HASH order.",
+  "missing_statistics": "Recomputed only for recoverable result queries; unavailable queries retain saved counts, not a reconstructed result.",
+  "verification": {
+    "tests_passed": 10,
+    "output_equal_queries": 20,
+    "all_statistics_equal_queries": 20,
+    "original_missing_kernel_results": 0,
+    "replayed_missing_kernel_results": 0,
+    "input_files_unchanged": 38,
+    "runtime_changed": false,
+    "live_operations": false
+  },
+  "recommendation": "Vectorize only post-filter result reconstruction in the existing default-off batch mode; keep scalar default, request order, missing semantics and admission rules. Integration is next proposed stage.",
+  "evidence_dir": ".artifacts/provider-query-replay-20261016"
+}

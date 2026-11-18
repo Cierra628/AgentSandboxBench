@@ -1,0 +1,69 @@
+{
+  "status": "PASS_OFFLINE_QUERY_TOGGLE_AUDIT",
+  "source_storage": ".artifacts/storage-isolated-service/20261025T141633Z-1050414",
+  "new_live_actions": 0,
+  "new_residency_queries": 0,
+  "implementation_changed": false,
+  "snapshot_matches": {
+    "host_full_rootfs_control.py": true,
+    "host_private_files.py": true,
+    "host_file_monitor.py": true
+  },
+  "existing_sampling_off": {
+    "rejected_before_config_or_services": true,
+    "exit_code": 2
+  },
+  "phases": {
+    "P0_metadata": {
+      "elapsed_ns": 473000,
+      "cpu_ns": 470919
+    },
+    "P0": {
+      "elapsed_ns": 68691874,
+      "cpu_ns": 68693201
+    },
+    "P1_metadata": {
+      "elapsed_ns": 90176281,
+      "cpu_ns": 85160532
+    },
+    "P1": {
+      "elapsed_ns": 75510316,
+      "cpu_ns": 74365783
+    },
+    "P1_postcheck": {
+      "elapsed_ns": 17740433,
+      "cpu_ns": 11134779
+    }
+  },
+  "main_query_total_ns": 144202190,
+  "controller_elapsed_ns": 34508393196,
+  "main_query_fraction_of_observed_controller_percent": 0.4178757010822371,
+  "metadata_and_postcheck_total_ns": 108389714,
+  "timing_scope": {
+    "P0_in_controller": true,
+    "P0_in_rollout": false,
+    "P1_in_controller": true,
+    "P1_in_rollout": true,
+    "P0_or_P1_in_original_action_window": false
+  },
+  "objects": {
+    "unique_files": 19,
+    "users_per_file": 7,
+    "schedule": "grpo",
+    "copy_mode": "shared"
+  },
+  "source_call_lines": {
+    "__init__": [],
+    "save": [],
+    "before": [
+      94
+    ],
+    "phase": [],
+    "after": [
+      146,
+      147
+    ],
+    "generated_objects": []
+  },
+  "interpretation": "Direct saved query cost, not an on/off whole-run effect; the new query-only switch is not implemented or live-validated"
+}

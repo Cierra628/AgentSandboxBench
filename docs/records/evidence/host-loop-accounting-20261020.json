@@ -1,0 +1,588 @@
+{
+  "status": "PASS",
+  "source": ".artifacts/host-loop-accounting/20261020T050139Z-3362298",
+  "host_kernel": "6.19.9+",
+  "groups": [
+    {
+      "io_accounting": "no",
+      "image_bytes": 134217728,
+      "payload_bytes": 67108864,
+      "controller_before": {
+        "outer": {
+          "path": "/sys/fs/cgroup/asblp20261020t0501393362298off.slice",
+          "controllers": "cpuset cpu io memory hugetlb pids rdma misc dmem",
+          "subtree_control": "memory pids",
+          "io_stat_exists": true,
+          "io_stat": ""
+        },
+        "inner": {
+          "path": "/sys/fs/cgroup/asblp20261020t0501393362298off.slice/asblp20261020t0501393362298off-trial.slice",
+          "controllers": "memory pids",
+          "subtree_control": "memory pids",
+          "io_stat_exists": false,
+          "io_stat": null
+        },
+        "leaf": {
+          "path": "/sys/fs/cgroup/asblp20261020t0501393362298off.slice/asblp20261020t0501393362298off-trial.slice/asblp20261020t0501393362298offworker.service",
+          "controllers": "memory pids",
+          "subtree_control": "",
+          "io_stat_exists": false,
+          "io_stat": null
+        }
+      },
+      "controller_after": {
+        "outer": {
+          "path": "/sys/fs/cgroup/asblp20261020t0501393362298off.slice",
+          "controllers": "cpuset cpu io memory hugetlb pids rdma misc dmem",
+          "subtree_control": "memory pids",
+          "io_stat_exists": true,
+          "io_stat": "7:9 rbytes=17408 wbytes=67112960 rios=5 wios=60 dbytes=0 dios=0\n8:0 rbytes=20480 wbytes=67301376 rios=2 wios=82 dbytes=0 dios=0 iflex.weight=100 iflex.rq_disp=2 iflex.wq_disp=81 iflex.rbytes=20480 iflex.wbytes=67301376 iflex.rgbytes=0 iflex.wgbytes=0 iflex.rebytes=20480 iflex.webytes=67301376 iflex.rqueued=0 iflex.wqueued=0 iflex.rinflight=0 iflex.winflight=0 iflex.rdefer=0 iflex.wdefer=0 iflex.rprotect=0 iflex.wprotect=0 iflex.rtlat_samples=0 iflex.rtlat_misses=0 iflex.rtlat_bad_windows=0 iflex.rtlat_violating=0 iflex.rbe_latdefer=0 iflex.wbe_latdefer=0\n252:0 rbytes=20480 wbytes=67301376 rios=2 wios=26 dbytes=0 dios=0\n"
+        },
+        "inner": {
+          "path": "/sys/fs/cgroup/asblp20261020t0501393362298off.slice/asblp20261020t0501393362298off-trial.slice",
+          "controllers": "memory pids",
+          "subtree_control": "memory pids",
+          "io_stat_exists": false,
+          "io_stat": null
+        },
+        "leaf": {
+          "path": "/sys/fs/cgroup/asblp20261020t0501393362298off.slice/asblp20261020t0501393362298off-trial.slice/asblp20261020t0501393362298offworker.service",
+          "controllers": "memory pids",
+          "subtree_control": "",
+          "io_stat_exists": false,
+          "io_stat": null
+        }
+      },
+      "delta": {
+        "inventory_growth_bytes": 134217728,
+        "inner_file_growth_bytes": 67153920,
+        "outer_file_growth_bytes": 134262784,
+        "signed_inventory_minus_inner_growth_bytes": 67063808,
+        "outer_only_file_growth_bytes": 67108864
+      },
+      "initialization_shortfall_bytes": 1159168,
+      "settled_shortfall_bytes": 68222976,
+      "baseline": {
+        "start_monotonic_ns": 14242734525076967,
+        "end_monotonic_ns": 14242734535407608,
+        "cpu_ns": 10318885,
+        "files": [
+          {
+            "path": "/home/yyxie/agentenv_experiment/.artifacts/host-loop-accounting/20261020T050139Z-3362298/io-off/volume.ext4",
+            "device": 64512,
+            "inode": 51259087,
+            "size": 134217728,
+            "mtime_ns": 1792472499454662151,
+            "pages": 32768,
+            "resident_pages": 317,
+            "resident_bytes": 1298432,
+            "stable": true,
+            "metadata_changed": false,
+            "block_device": false,
+            "rdev": 0,
+            "mapping_length": 134217728
+          }
+        ],
+        "resident_bytes": 1298432,
+        "inner_before": {
+          "current": 9400320,
+          "file": 139264,
+          "anon": 7954432,
+          "shmem": 0,
+          "kernel": 860160,
+          "file_mapped": 0,
+          "file_dirty": 12288,
+          "file_writeback": 0
+        },
+        "inner_after": {
+          "current": 9392128,
+          "file": 139264,
+          "anon": 7954432,
+          "shmem": 0,
+          "kernel": 860160,
+          "file_mapped": 0,
+          "file_dirty": 12288,
+          "file_writeback": 0
+        },
+        "outer_before": {
+          "current": 9920512,
+          "file": 139264,
+          "anon": 7954432,
+          "shmem": 0,
+          "kernel": 1163264,
+          "file_mapped": 0,
+          "file_dirty": 12288,
+          "file_writeback": 0
+        },
+        "outer_after": {
+          "current": 9912320,
+          "file": 139264,
+          "anon": 7954432,
+          "shmem": 0,
+          "kernel": 1163264,
+          "file_mapped": 0,
+          "file_dirty": 12288,
+          "file_writeback": 0
+        },
+        "shortfall_bytes": 1159168
+      },
+      "immediate": {
+        "start_monotonic_ns": 14242734683345987,
+        "end_monotonic_ns": 14242734703686361,
+        "cpu_ns": 20339872,
+        "files": [
+          {
+            "path": "/home/yyxie/agentenv_experiment/.artifacts/host-loop-accounting/20261020T050139Z-3362298/io-off/volume.ext4",
+            "device": 64512,
+            "inode": 51259087,
+            "size": 134217728,
+            "mtime_ns": 1792472501815635304,
+            "pages": 32768,
+            "resident_pages": 16701,
+            "resident_bytes": 68407296,
+            "stable": true,
+            "metadata_changed": false,
+            "block_device": false,
+            "rdev": 0,
+            "mapping_length": 134217728
+          },
+          {
+            "path": "/home/yyxie/agentenv_experiment/.artifacts/host-loop-accounting/20261020T050139Z-3362298/io-off/mount/synthetic.bin",
+            "device": 1801,
+            "inode": 12,
+            "size": 67108864,
+            "mtime_ns": 1792472501763635895,
+            "pages": 16384,
+            "resident_pages": 16384,
+            "resident_bytes": 67108864,
+            "stable": true,
+            "metadata_changed": false,
+            "block_device": false,
+            "rdev": 0,
+            "mapping_length": 67108864
+          }
+        ],
+        "resident_bytes": 135516160,
+        "inner_before": {
+          "current": 78753792,
+          "file": 67289088,
+          "anon": 8015872,
+          "shmem": 0,
+          "kernel": 2387968,
+          "file_mapped": 0,
+          "file_dirty": 16384,
+          "file_writeback": 0
+        },
+        "inner_after": {
+          "current": 78753792,
+          "file": 67289088,
+          "anon": 8015872,
+          "shmem": 0,
+          "kernel": 2387968,
+          "file_mapped": 0,
+          "file_dirty": 16384,
+          "file_writeback": 0
+        },
+        "outer_before": {
+          "current": 148480000,
+          "file": 134397952,
+          "anon": 8015872,
+          "shmem": 0,
+          "kernel": 4567040,
+          "file_mapped": 0,
+          "file_dirty": 16384,
+          "file_writeback": 0
+        },
+        "outer_after": {
+          "current": 148480000,
+          "file": 134397952,
+          "anon": 8015872,
+          "shmem": 0,
+          "kernel": 4567040,
+          "file_mapped": 0,
+          "file_dirty": 16384,
+          "file_writeback": 0
+        },
+        "shortfall_bytes": 68227072
+      },
+      "settled": {
+        "start_monotonic_ns": 14242736904466437,
+        "end_monotonic_ns": 14242736926889749,
+        "cpu_ns": 22408855,
+        "files": [
+          {
+            "path": "/home/yyxie/agentenv_experiment/.artifacts/host-loop-accounting/20261020T050139Z-3362298/io-off/volume.ext4",
+            "device": 64512,
+            "inode": 51259087,
+            "size": 134217728,
+            "mtime_ns": 1792472501815635304,
+            "pages": 32768,
+            "resident_pages": 16701,
+            "resident_bytes": 68407296,
+            "stable": true,
+            "metadata_changed": false,
+            "block_device": false,
+            "rdev": 0,
+            "mapping_length": 134217728
+          },
+          {
+            "path": "/home/yyxie/agentenv_experiment/.artifacts/host-loop-accounting/20261020T050139Z-3362298/io-off/mount/synthetic.bin",
+            "device": 1801,
+            "inode": 12,
+            "size": 67108864,
+            "mtime_ns": 1792472501763635895,
+            "pages": 16384,
+            "resident_pages": 16384,
+            "resident_bytes": 67108864,
+            "stable": true,
+            "metadata_changed": false,
+            "block_device": false,
+            "rdev": 0,
+            "mapping_length": 67108864
+          }
+        ],
+        "resident_bytes": 135516160,
+        "inner_before": {
+          "current": 78749696,
+          "file": 67293184,
+          "anon": 8024064,
+          "shmem": 0,
+          "kernel": 2326528,
+          "file_mapped": 0,
+          "file_dirty": 12288,
+          "file_writeback": 0
+        },
+        "inner_after": {
+          "current": 78749696,
+          "file": 67293184,
+          "anon": 8024064,
+          "shmem": 0,
+          "kernel": 2326528,
+          "file_mapped": 0,
+          "file_dirty": 12288,
+          "file_writeback": 0
+        },
+        "outer_before": {
+          "current": 148475904,
+          "file": 134402048,
+          "anon": 8024064,
+          "shmem": 0,
+          "kernel": 4505600,
+          "file_mapped": 0,
+          "file_dirty": 12288,
+          "file_writeback": 0
+        },
+        "outer_after": {
+          "current": 148475904,
+          "file": 134402048,
+          "anon": 8024064,
+          "shmem": 0,
+          "kernel": 4505600,
+          "file_mapped": 0,
+          "file_dirty": 12288,
+          "file_writeback": 0
+        },
+        "shortfall_bytes": 68222976
+      },
+      "cleanup": {
+        "mount_removed": true,
+        "loop_removed": true,
+        "successful_image_removed": true
+      }
+    },
+    {
+      "io_accounting": "yes",
+      "image_bytes": 134217728,
+      "payload_bytes": 67108864,
+      "controller_before": {
+        "outer": {
+          "path": "/sys/fs/cgroup/asblp20261020t0501393362298on.slice",
+          "controllers": "cpuset cpu io memory hugetlb pids rdma misc dmem",
+          "subtree_control": "io memory pids",
+          "io_stat_exists": true,
+          "io_stat": ""
+        },
+        "inner": {
+          "path": "/sys/fs/cgroup/asblp20261020t0501393362298on.slice/asblp20261020t0501393362298on-trial.slice",
+          "controllers": "io memory pids",
+          "subtree_control": "io memory pids",
+          "io_stat_exists": true,
+          "io_stat": ""
+        },
+        "leaf": {
+          "path": "/sys/fs/cgroup/asblp20261020t0501393362298on.slice/asblp20261020t0501393362298on-trial.slice/asblp20261020t0501393362298onworker.service",
+          "controllers": "io memory pids",
+          "subtree_control": "",
+          "io_stat_exists": true,
+          "io_stat": ""
+        }
+      },
+      "controller_after": {
+        "outer": {
+          "path": "/sys/fs/cgroup/asblp20261020t0501393362298on.slice",
+          "controllers": "cpuset cpu io memory hugetlb pids rdma misc dmem",
+          "subtree_control": "io memory pids",
+          "io_stat_exists": true,
+          "io_stat": "7:9 rbytes=17408 wbytes=67112960 rios=5 wios=60 dbytes=0 dios=0\n8:0 rbytes=0 wbytes=67301376 rios=0 wios=82 dbytes=0 dios=0 iflex.weight=100 iflex.rq_disp=0 iflex.wq_disp=0 iflex.rbytes=0 iflex.wbytes=0 iflex.rgbytes=0 iflex.wgbytes=0 iflex.rebytes=0 iflex.webytes=0 iflex.rqueued=0 iflex.wqueued=0 iflex.rinflight=0 iflex.winflight=0 iflex.rdefer=0 iflex.wdefer=0 iflex.rprotect=0 iflex.wprotect=0 iflex.rtlat_samples=0 iflex.rtlat_misses=0 iflex.rtlat_bad_windows=0 iflex.rtlat_violating=0 iflex.rbe_latdefer=0 iflex.wbe_latdefer=0\n252:0 rbytes=0 wbytes=67301376 rios=0 wios=26 dbytes=0 dios=0\n"
+        },
+        "inner": {
+          "path": "/sys/fs/cgroup/asblp20261020t0501393362298on.slice/asblp20261020t0501393362298on-trial.slice",
+          "controllers": "io memory pids",
+          "subtree_control": "io memory pids",
+          "io_stat_exists": true,
+          "io_stat": "7:9 rbytes=17408 wbytes=67112960 rios=5 wios=60 dbytes=0 dios=0\n8:0 rbytes=0 wbytes=67301376 rios=0 wios=82 dbytes=0 dios=0 iflex.weight=100 iflex.rq_disp=0 iflex.wq_disp=0 iflex.rbytes=0 iflex.wbytes=0 iflex.rgbytes=0 iflex.wgbytes=0 iflex.rebytes=0 iflex.webytes=0 iflex.rqueued=0 iflex.wqueued=0 iflex.rinflight=0 iflex.winflight=0 iflex.rdefer=0 iflex.wdefer=0 iflex.rprotect=0 iflex.wprotect=0 iflex.rtlat_samples=0 iflex.rtlat_misses=0 iflex.rtlat_bad_windows=0 iflex.rtlat_violating=0 iflex.rbe_latdefer=0 iflex.wbe_latdefer=0\n252:0 rbytes=0 wbytes=67301376 rios=0 wios=26 dbytes=0 dios=0\n"
+        },
+        "leaf": {
+          "path": "/sys/fs/cgroup/asblp20261020t0501393362298on.slice/asblp20261020t0501393362298on-trial.slice/asblp20261020t0501393362298onworker.service",
+          "controllers": "io memory pids",
+          "subtree_control": "",
+          "io_stat_exists": true,
+          "io_stat": "7:9 rbytes=17408 wbytes=67112960 rios=5 wios=60 dbytes=0 dios=0\n8:0 rbytes=0 wbytes=67301376 rios=0 wios=82 dbytes=0 dios=0 iflex.weight=100 iflex.rq_disp=0 iflex.wq_disp=81 iflex.rbytes=0 iflex.wbytes=67301376 iflex.rgbytes=0 iflex.wgbytes=0 iflex.rebytes=0 iflex.webytes=67301376 iflex.rqueued=0 iflex.wqueued=0 iflex.rinflight=0 iflex.winflight=0 iflex.rdefer=0 iflex.wdefer=0 iflex.rprotect=0 iflex.wprotect=0 iflex.rtlat_samples=0 iflex.rtlat_misses=0 iflex.rtlat_bad_windows=0 iflex.rtlat_violating=0 iflex.rbe_latdefer=0 iflex.wbe_latdefer=0\n252:0 rbytes=0 wbytes=67301376 rios=0 wios=26 dbytes=0 dios=0\n"
+        }
+      },
+      "delta": {
+        "inventory_growth_bytes": 134217728,
+        "inner_file_growth_bytes": 134234112,
+        "outer_file_growth_bytes": 134234112,
+        "signed_inventory_minus_inner_growth_bytes": -16384,
+        "outer_only_file_growth_bytes": 0
+      },
+      "initialization_shortfall_bytes": 1196032,
+      "settled_shortfall_bytes": 1179648,
+      "baseline": {
+        "start_monotonic_ns": 14242739368553817,
+        "end_monotonic_ns": 14242739378353271,
+        "cpu_ns": 9780417,
+        "files": [
+          {
+            "path": "/home/yyxie/agentenv_experiment/.artifacts/host-loop-accounting/20261020T050139Z-3362298/io-on/volume.ext4",
+            "device": 64512,
+            "inode": 51259100,
+            "size": 134217728,
+            "mtime_ns": 1792472504294607116,
+            "pages": 32768,
+            "resident_pages": 325,
+            "resident_bytes": 1331200,
+            "stable": true,
+            "metadata_changed": false,
+            "block_device": false,
+            "rdev": 0,
+            "mapping_length": 134217728
+          }
+        ],
+        "resident_bytes": 1331200,
+        "inner_before": {
+          "current": 9191424,
+          "file": 135168,
+          "anon": 7946240,
+          "shmem": 0,
+          "kernel": 483328,
+          "file_mapped": 0,
+          "file_dirty": 8192,
+          "file_writeback": 0
+        },
+        "inner_after": {
+          "current": 9453568,
+          "file": 135168,
+          "anon": 7950336,
+          "shmem": 0,
+          "kernel": 487424,
+          "file_mapped": 0,
+          "file_dirty": 8192,
+          "file_writeback": 0
+        },
+        "outer_before": {
+          "current": 9494528,
+          "file": 135168,
+          "anon": 7950336,
+          "shmem": 0,
+          "kernel": 790528,
+          "file_mapped": 0,
+          "file_dirty": 8192,
+          "file_writeback": 0
+        },
+        "outer_after": {
+          "current": 9756672,
+          "file": 135168,
+          "anon": 7950336,
+          "shmem": 0,
+          "kernel": 790528,
+          "file_mapped": 0,
+          "file_dirty": 8192,
+          "file_writeback": 0
+        },
+        "shortfall_bytes": 1196032
+      },
+      "immediate": {
+        "start_monotonic_ns": 14242739523272157,
+        "end_monotonic_ns": 14242739538205599,
+        "cpu_ns": 14839115,
+        "files": [
+          {
+            "path": "/home/yyxie/agentenv_experiment/.artifacts/host-loop-accounting/20261020T050139Z-3362298/io-on/volume.ext4",
+            "device": 64512,
+            "inode": 51259100,
+            "size": 134217728,
+            "mtime_ns": 1792472506655580268,
+            "pages": 32768,
+            "resident_pages": 16709,
+            "resident_bytes": 68440064,
+            "stable": true,
+            "metadata_changed": false,
+            "block_device": false,
+            "rdev": 0,
+            "mapping_length": 134217728
+          },
+          {
+            "path": "/home/yyxie/agentenv_experiment/.artifacts/host-loop-accounting/20261020T050139Z-3362298/io-on/mount/synthetic.bin",
+            "device": 1801,
+            "inode": 12,
+            "size": 67108864,
+            "mtime_ns": 1792472506603580859,
+            "pages": 16384,
+            "resident_pages": 16384,
+            "resident_bytes": 67108864,
+            "stable": true,
+            "metadata_changed": false,
+            "block_device": false,
+            "rdev": 0,
+            "mapping_length": 67108864
+          }
+        ],
+        "resident_bytes": 135548928,
+        "inner_before": {
+          "current": 147759104,
+          "file": 134369280,
+          "anon": 8003584,
+          "shmem": 0,
+          "kernel": 4292608,
+          "file_mapped": 0,
+          "file_dirty": 12288,
+          "file_writeback": 0
+        },
+        "inner_after": {
+          "current": 147759104,
+          "file": 134369280,
+          "anon": 8003584,
+          "shmem": 0,
+          "kernel": 4292608,
+          "file_mapped": 0,
+          "file_dirty": 12288,
+          "file_writeback": 0
+        },
+        "outer_before": {
+          "current": 148062208,
+          "file": 134369280,
+          "anon": 8003584,
+          "shmem": 0,
+          "kernel": 4595712,
+          "file_mapped": 0,
+          "file_dirty": 12288,
+          "file_writeback": 0
+        },
+        "outer_after": {
+          "current": 148062208,
+          "file": 134369280,
+          "anon": 8003584,
+          "shmem": 0,
+          "kernel": 4595712,
+          "file_mapped": 0,
+          "file_dirty": 12288,
+          "file_writeback": 0
+        },
+        "shortfall_bytes": 1179648
+      },
+      "settled": {
+        "start_monotonic_ns": 14242741738774135,
+        "end_monotonic_ns": 14242741761176606,
+        "cpu_ns": 22401677,
+        "files": [
+          {
+            "path": "/home/yyxie/agentenv_experiment/.artifacts/host-loop-accounting/20261020T050139Z-3362298/io-on/volume.ext4",
+            "device": 64512,
+            "inode": 51259100,
+            "size": 134217728,
+            "mtime_ns": 1792472506655580268,
+            "pages": 32768,
+            "resident_pages": 16709,
+            "resident_bytes": 68440064,
+            "stable": true,
+            "metadata_changed": false,
+            "block_device": false,
+            "rdev": 0,
+            "mapping_length": 134217728
+          },
+          {
+            "path": "/home/yyxie/agentenv_experiment/.artifacts/host-loop-accounting/20261020T050139Z-3362298/io-on/mount/synthetic.bin",
+            "device": 1801,
+            "inode": 12,
+            "size": 67108864,
+            "mtime_ns": 1792472506603580859,
+            "pages": 16384,
+            "resident_pages": 16384,
+            "resident_bytes": 67108864,
+            "stable": true,
+            "metadata_changed": false,
+            "block_device": false,
+            "rdev": 0,
+            "mapping_length": 67108864
+          }
+        ],
+        "resident_bytes": 135548928,
+        "inner_before": {
+          "current": 147755008,
+          "file": 134369280,
+          "anon": 8003584,
+          "shmem": 0,
+          "kernel": 4292608,
+          "file_mapped": 0,
+          "file_dirty": 12288,
+          "file_writeback": 0
+        },
+        "inner_after": {
+          "current": 147755008,
+          "file": 134369280,
+          "anon": 8003584,
+          "shmem": 0,
+          "kernel": 4292608,
+          "file_mapped": 0,
+          "file_dirty": 12288,
+          "file_writeback": 0
+        },
+        "outer_before": {
+          "current": 148058112,
+          "file": 134369280,
+          "anon": 8003584,
+          "shmem": 0,
+          "kernel": 4595712,
+          "file_mapped": 0,
+          "file_dirty": 12288,
+          "file_writeback": 0
+        },
+        "outer_after": {
+          "current": 148058112,
+          "file": 134369280,
+          "anon": 8003584,
+          "shmem": 0,
+          "kernel": 4595712,
+          "file_mapped": 0,
+          "file_dirty": 12288,
+          "file_writeback": 0
+        },
+        "shortfall_bytes": 1179648
+      },
+      "cleanup": {
+        "mount_removed": true,
+        "loop_removed": true,
+        "successful_image_removed": true
+      }
+    }
+  ],
+  "scientific_result": "NEW_WRITE_LOOP_CACHE_ACCOUNTING_CONDITION_CONFIRMED",
+  "whole_file_accounting": "INITIALIZATION_SHORTFALL_REMAINS",
+  "old_restore_accounting": "NOT_RETESTED",
+  "sandbox_starts": 0,
+  "unrelated_loop_inventory_unchanged": true,
+  "initial_available_bytes": 62297530368,
+  "final_available_bytes": 62297206784
+}

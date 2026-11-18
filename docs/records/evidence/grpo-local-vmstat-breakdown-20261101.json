@@ -1,0 +1,98 @@
+{
+  "status": "PASS",
+  "scope": "Offline decomposition of four completed both-sampled boundary-vmstat controls",
+  "result": "results/grpo-local-vmstat-breakdown-20261101/REPORT.md",
+  "source": ".artifacts/grpo-local-vmstat-controls-20261101/result.json",
+  "new_live_guests": 0,
+  "new_live_actions": 0,
+  "network_requests": 0,
+  "residency_queries": 0,
+  "runtime_settings_changed": false,
+  "exec_calls": 140,
+  "unique_exec_assignments": 140,
+  "downloads": 140,
+  "critical_roles": [
+    "late_1",
+    "late_1",
+    "late_1",
+    "late_1"
+  ],
+  "pairs": [
+    {
+      "pair": 1,
+      "order": [
+        "keep",
+        "skip"
+      ],
+      "critical_comparison": {
+        "keep_role": "late_1",
+        "skip_role": "late_1",
+        "components_ns": {
+          "command_ns": 1315968976,
+          "exec_minus_command_min_ns": -425745456,
+          "download_ns": -2204622,
+          "gap_min_ns": 3541529,
+          "start_offset_from_original_window_ns": 385144
+        },
+        "window_difference_ns": 891945571
+      },
+      "controller_phase_difference_ns": {
+        "initial_and_other": -1495282,
+        "cold_span": 52345464,
+        "after_cold_setup": 47628633,
+        "actions_and_downloads": 891945571,
+        "final_checks": 247473947,
+        "cleanup": -18460317
+      }
+    },
+    {
+      "pair": 2,
+      "order": [
+        "skip",
+        "keep"
+      ],
+      "critical_comparison": {
+        "keep_role": "late_1",
+        "skip_role": "late_1",
+        "components_ns": {
+          "command_ns": -195090060,
+          "exec_minus_command_min_ns": -180079347,
+          "download_ns": 22212413,
+          "gap_min_ns": 1138112,
+          "start_offset_from_original_window_ns": -34151
+        },
+        "window_difference_ns": -351853033
+      },
+      "controller_phase_difference_ns": {
+        "initial_and_other": -44183772,
+        "cold_span": -98225357,
+        "after_cold_setup": -37181789,
+        "actions_and_downloads": -351853033,
+        "final_checks": -215533451,
+        "cleanup": -4987694
+      }
+    }
+  ],
+  "exact_controller_and_critical_sums": true,
+  "table_rows": {
+    "controller-phases": 4,
+    "phase-pairs": 2,
+    "paths": 28,
+    "path-pairs": 14,
+    "critical-segments": 12,
+    "critical-commands": 64,
+    "management": 20
+  },
+  "links_checked": 9,
+  "subprocesses_allowed": false,
+  "tests": {
+    "new_tests": 8,
+    "path_regressions": 5,
+    "local_phase_regressions": 5,
+    "total": 18
+  },
+  "legacy_saved_summary_identical": true,
+  "default_behavior_unchanged": true,
+  "interpretation": "Critical-path exec-minus-command decreased in both pairs; first-pair command increase outweighed it. Individual boundary/API/scheduling costs remain inseparable.",
+  "artifacts": ".artifacts/grpo-local-vmstat-breakdown-20261101"
+}

@@ -15,7 +15,7 @@ TASKS = {'prettier__prettier-6604': 'prettier6604',
          'sphinx-doc__sphinx-7590': 'sphinx7590', 'pydata__xarray-6992': 'xarray6992'}
 FIELDS = {'version', 'task_id', 'backend', 'rollout', 'checkpoint_after_step', 'grpo_create_before_setup', 'light_skip_boundary_vmstat', 'light_merge_boundary_meminfo',
           'inputs', 'reference', 'output_root', 'cache_backup_directory', 'frozen_export',
-          'replay_policy', 'physical_cache_after_segments', 'shared_cache_measurement', 'root_count', 'experiment', 'cache_mode', 'live_cache_kernel', 'live_cache_lower', 'guest_cache_baseline', 'guest_cache_target_mib', 'light_monitor', 'monitor_mode', 'damon_observe', 'damon_disable', 'host_file_monitor', 'host_current_only', 'host_prefix_count', 'host_shared_files'}
+          'replay_policy', 'physical_cache_after_segments', 'shared_cache_measurement', 'root_count', 'experiment', 'cache_mode', 'live_cache_kernel', 'live_cache_lower', 'guest_cache_baseline', 'guest_cache_target_mib', 'light_monitor', 'monitor_mode', 'damon_observe', 'damon_disable', 'host_file_monitor', 'host_current_only', 'host_prefix_count', 'host_shared_files', 'task_endpoint_metrics'}
 
 
 def read(path):
@@ -29,7 +29,7 @@ def write(path, value):
 
 def configuration(path, backend=None, boundary=None, storage=None):
     cfg = read(path)
-    required = FIELDS - {'light_merge_boundary_meminfo', 'light_skip_boundary_vmstat', 'grpo_create_before_setup', 'cache_backup_directory', 'frozen_export', 'replay_policy', 'physical_cache_after_segments', 'shared_cache_measurement', 'root_count', 'experiment', 'cache_mode', 'live_cache_kernel', 'live_cache_lower', 'guest_cache_baseline', 'guest_cache_target_mib', 'light_monitor', 'monitor_mode', 'damon_observe', 'damon_disable', 'host_file_monitor', 'host_current_only', 'host_prefix_count', 'host_shared_files'}
+    required = FIELDS - {'light_merge_boundary_meminfo', 'light_skip_boundary_vmstat', 'grpo_create_before_setup', 'cache_backup_directory', 'frozen_export', 'replay_policy', 'physical_cache_after_segments', 'shared_cache_measurement', 'root_count', 'experiment', 'cache_mode', 'live_cache_kernel', 'live_cache_lower', 'guest_cache_baseline', 'guest_cache_target_mib', 'light_monitor', 'monitor_mode', 'damon_observe', 'damon_disable', 'host_file_monitor', 'host_current_only', 'host_prefix_count', 'host_shared_files', 'task_endpoint_metrics'}
     if not required <= cfg.keys() or cfg.keys() - FIELDS or cfg['version'] != 2:
         raise ValueError('unsupported task workflow config fields/version')
     is_trenvx_exp2=cfg.get('experiment')=='exp2' and cfg['backend']=='trenvx'
@@ -136,6 +136,9 @@ def configuration(path, backend=None, boundary=None, storage=None):
             (simple or current_grpo) and (cfg['light_monitor'] and mode=='continuous' or not cfg['light_monitor'] and mode=='off') and cfg.get('host_file_monitor') and
             not (cfg.get('damon_observe') or cfg.get('damon_disable')))):
         raise ValueError('host_current_only requires a complete light/monitor-off task or explicit local Prettier GRPO, with default reclaim')
+    if 'task_endpoint_metrics' in cfg and (type(cfg['task_endpoint_metrics']) is not bool or cfg['task_endpoint_metrics'] and not (
+            profile in ('sphinx7590','xarray6992') and simple and mode=='continuous' and cfg['light_monitor'] and cfg.get('host_current_only') and cfg.get('host_file_monitor'))):
+        raise ValueError('task_endpoint_metrics requires one complete light Python current-only task')
     if 'host_prefix_count' in cfg:
         if type(cfg['host_prefix_count']) is not int or cfg['host_prefix_count'] not in (1,7) or not (light_rollout and cfg['rollout']=='grpo' and cfg['light_monitor'] and cfg.get('host_file_monitor')):
             raise ValueError('host_prefix_count requires 1 or 7 ordinary light GRPO guests with host sampling')
@@ -262,6 +265,8 @@ def commands(cfg, cache, tool_capture=False, durable_phase=None, bundle=None, ag
         live += ['--host-file-monitor']
     if cfg.get('host_current_only'):
         live += ['--host-current-only']
+    if cfg.get('task_endpoint_metrics'):
+        check += ['--endpoint-metrics']; live += ['--task-endpoint-metrics']
     if cfg.get('host_shared_files'):
         check += ['--host-shared-files']; live += ['--host-shared-files']
     if cfg.get('host_prefix_count'):
@@ -326,7 +331,7 @@ def report(directory, output):
     cfg = read(directory/'effective-config.json'); child = Path(receipt['storage_result_dir'])
     outer = read(child/'result.json')
     required_cleanup=('mount_and_loop_removed','successful_fixture_removed','original_firecracker_identities_unchanged') if cfg['backend']=='trenvx' else ('owned_container_removed', 'mount_and_loop_removed', 'successful_fixture_removed', 'original_firecracker_identities_unchanged', 'original_service_unchanged')
-    if receipt.get('online_agent'):
+    if receipt.get('online_agent') or 'original_source_firecracker_identities_unchanged' in outer['cleanup']:
         required_cleanup=tuple('original_source_firecracker_identities_unchanged' if k=='original_firecracker_identities_unchanged' else k for k in required_cleanup)
     if outer['status'] != 'PASS' or not all(outer['cleanup'].get(k) for k in required_cleanup):
         raise ValueError('owned runtime or cleanup incomplete')
@@ -338,6 +343,9 @@ def report(directory, output):
         write(output/'result.json',dict(status='PASS',cleanup=outer['cleanup'],scope='Local-no-proxy short check only'))
         return output
     raw = child/('prettier6604' if cfg['task_id'] == 'prettier__prettier-6604' else 'python-backbone')
+    if cfg.get('task_endpoint_metrics'):
+        from external_task_metrics import validate_result
+        validate_result(read(raw/'result.json'))
     if cfg['backend']=='trenvx':
         owned=list((child/'raw').iterdir());assert len(owned)==1
         inner=read(owned[0]/'result.json')
@@ -378,6 +386,12 @@ def report(directory, output):
         from report_xarray6992 import report as python_report
         python_report(raw, output)
     summary = read(output/'summary.json')
+    if cfg.get('task_endpoint_metrics'):
+        task=read(raw/'result.json')
+        summary['endpoint_metrics']=task['endpoint_metrics']
+        summary['host_vmm_collector']=task['host_vmm_collector']
+        summary['task_window']={key:task[key] for key in ('schedule_start_monotonic_ns','schedule_end_monotonic_ns','schedule_elapsed_ns','actions_download_elapsed_ns','time_scope')}
+        (output/'summary.json').write_text(json.dumps(summary,indent=2)+'\n')
     if cfg.get('host_file_monitor'):
         if cfg.get('host_current_only') and cfg.get('monitor_mode')=='off':
             if (receipt['host_file_monitor']['status']!='NOT_REQUESTED' or
@@ -478,9 +492,12 @@ def run(cfg, tool_capture=False, agent_config=None, task_config=None, replay_sou
     code=out/'workflow-code';code.mkdir()
     sources=('platform_tasks.py', 'use_platform.py', 'use-platform.sh')
     if cfg.get('host_file_monitor'):
-        sources+=('host_file_monitor.py','report_host_file.py','run_host_file_workflow.py','run-host-file-monitor.sh')
+        sources+=('host_file_monitor.py','experiment_memory.py','report_host_file.py','run_host_file_workflow.py','run-host-file-monitor.sh')
     if persistent_seed:sources+=('host_persistent_input.py',)
     if local_no_proxy:sources+=('prettier_no_proxy.py',)
+    if cfg.get('task_endpoint_metrics'):
+        from external_task_metrics import SNAPSHOT_FILES
+        sources+=SNAPSHOT_FILES
     if cfg.get('host_prefix_count'):sources+=('host_prefix_compare.py',)
     if cfg.get('host_shared_files'):sources+=('host_rollout_shared.py','host_rootfs_layers.py','host_prefix_compare.py','run_host_file_restore.py','host_scaling.py')
     for name in sources:

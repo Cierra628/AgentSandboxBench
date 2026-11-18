@@ -1,0 +1,244 @@
+{
+  "status": "PASS_SHORT_PREFIX_COMPARISON",
+  "scope": "Fresh private services/volumes; same original prefix, 11 and 77 actual actions. Sequential N=1 then N=7, no cold-cache reset or no-sharing backend.",
+  "whole_physical_savings": "NOT_MEASURED",
+  "incremental_accounting_reference": {
+    "file": {
+      "status": "OBSERVED",
+      "reference_bytes": 101498880,
+      "reduction_bytes": 23412736,
+      "reduction_fraction": 0.23066989507667474,
+      "meaning": "Incremental accounting versus N times one guest; not measured no-sharing physical savings"
+    },
+    "current": {
+      "status": "OBSERVED",
+      "reference_bytes": 4192935936,
+      "reduction_bytes": 84807680,
+      "reduction_fraction": 0.020226323820464878,
+      "meaning": "Incremental accounting versus N times one guest; not measured no-sharing physical savings"
+    },
+    "anon": {
+      "status": "OBSERVED",
+      "reference_bytes": 4034637824,
+      "reduction_bytes": 63660032,
+      "reduction_fraction": 0.015778375848587694,
+      "meaning": "Incremental accounting versus N times one guest; not measured no-sharing physical savings"
+    },
+    "shmem": {
+      "status": "OBSERVED",
+      "reference_bytes": 57344,
+      "reduction_bytes": 0,
+      "reduction_fraction": 0.0,
+      "meaning": "Incremental accounting versus N times one guest; not measured no-sharing physical savings"
+    },
+    "kernel": {
+      "status": "OBSERVED",
+      "reference_bytes": 57344000,
+      "reduction_bytes": 4325376,
+      "reduction_fraction": 0.07542857142857143,
+      "meaning": "Incremental accounting versus N times one guest; not measured no-sharing physical savings"
+    }
+  },
+  "runs": [
+    {
+      "sandboxes": 1,
+      "workflow": "/home/yyxie/agentenv_experiment/.artifacts/platform-tasks/20261022T075228Z-190124",
+      "storage": "/home/yyxie/agentenv_experiment/.artifacts/storage-isolated-service/20261022T075345Z-190933",
+      "actual_actions": 11,
+      "tool_sum_ns": 765587101,
+      "guest_samples": 58,
+      "host_samples": 1187,
+      "elapsed_ns": 14734568853,
+      "host_collector": {
+        "status": "PASS",
+        "error": null,
+        "cgroup": "/sys/fs/cgroup/asbhost.slice/asbhost-20261022t075227190043.slice",
+        "samples": 1187,
+        "interval_seconds": 0.1,
+        "pss_interval_seconds": 1,
+        "thread_cpu_ns": 1026532745,
+        "counter_read_total_ns": 298538189,
+        "scope": "Fresh rollout slice: input preparation, controller, private service and all its descendants; host file includes shmem, not guest Cached."
+      },
+      "baseline": {
+        "current": 23987175424,
+        "file": 23579799552,
+        "anon": 103464960,
+        "shmem": 7604273152,
+        "kernel": 276680704,
+        "file_mapped": 339968,
+        "file_dirty": 4203266048,
+        "file_writeback": 0
+      },
+      "endpoint": {
+        "current": 24586166272,
+        "file": 23594299392,
+        "anon": 679841792,
+        "shmem": 7604281344,
+        "kernel": 284872704,
+        "file_mapped": 3276800,
+        "file_dirty": 4204888064,
+        "file_writeback": 0
+      },
+      "delta": {
+        "current": 598990848,
+        "file": 14499840,
+        "anon": 576376832,
+        "shmem": 8192,
+        "kernel": 8192000,
+        "file_mapped": 2936832,
+        "file_dirty": 1622016,
+        "file_writeback": 0
+      },
+      "baseline_monotonic_ns": 14425876544920096,
+      "endpoint_monotonic_ns": 14425891279488949,
+      "readonly_file_count_before": 31,
+      "readonly_resident_before_bytes": 7178346496,
+      "readonly_resident_after_bytes": 7178346496,
+      "source_input_backup": "/home/yyxie/agentenv_experiment/.artifacts/storage-isolated-service/20261008T102942Z-3642885/volume.ext4.gz",
+      "volume_capacity_bytes": 17179869184,
+      "minimum_host_free_bytes": 71251058688,
+      "cleanup": {
+        "host_file_residency_captured": true,
+        "owned_container_removed": true,
+        "mount_and_loop_removed": true,
+        "successful_fixture_removed": true,
+        "original_firecracker_identities_unchanged": true,
+        "original_service_unchanged": true
+      },
+      "official_task_status": "NOT_RUN_PREFIX_ONLY",
+      "endpoint_query_ns": 1852274057
+    },
+    {
+      "sandboxes": 7,
+      "workflow": "/home/yyxie/agentenv_experiment/.artifacts/platform-tasks/20261022T075429Z-192605",
+      "storage": "/home/yyxie/agentenv_experiment/.artifacts/storage-isolated-service/20261022T075546Z-193473",
+      "actual_actions": 77,
+      "tool_sum_ns": 6368022467,
+      "guest_samples": 700,
+      "host_samples": 1183,
+      "elapsed_ns": 11097695505,
+      "host_collector": {
+        "status": "PASS",
+        "error": null,
+        "cgroup": "/sys/fs/cgroup/asbhost.slice/asbhost-20261022t075428192525.slice",
+        "samples": 1183,
+        "interval_seconds": 0.1,
+        "pss_interval_seconds": 1,
+        "thread_cpu_ns": 1736483509,
+        "counter_read_total_ns": 312326692,
+        "scope": "Fresh rollout slice: input preparation, controller, private service and all its descendants; host file includes shmem, not guest Cached."
+      },
+      "baseline": {
+        "current": 23948591104,
+        "file": 23543820288,
+        "anon": 103440384,
+        "shmem": 7604273152,
+        "kernel": 275443712,
+        "file_mapped": 339968,
+        "file_dirty": 4239253504,
+        "file_writeback": 0
+      },
+      "endpoint": {
+        "current": 28056719360,
+        "file": 23621906432,
+        "anon": 4074418176,
+        "shmem": 7604330496,
+        "kernel": 328462336,
+        "file_mapped": 3964928,
+        "file_dirty": 4302761984,
+        "file_writeback": 0
+      },
+      "delta": {
+        "current": 4108128256,
+        "file": 78086144,
+        "anon": 3970977792,
+        "shmem": 57344,
+        "kernel": 53018624,
+        "file_mapped": 3624960,
+        "file_dirty": 63508480,
+        "file_writeback": 0
+      },
+      "baseline_monotonic_ns": 14425997320641517,
+      "endpoint_monotonic_ns": 14426008418337022,
+      "readonly_file_count_before": 31,
+      "readonly_resident_before_bytes": 7178346496,
+      "readonly_resident_after_bytes": 7178346496,
+      "source_input_backup": "/home/yyxie/agentenv_experiment/.artifacts/storage-isolated-service/20261008T102942Z-3642885/volume.ext4.gz",
+      "volume_capacity_bytes": 17179869184,
+      "minimum_host_free_bytes": 71246348288,
+      "cleanup": {
+        "host_file_residency_captured": true,
+        "owned_container_removed": true,
+        "mount_and_loop_removed": true,
+        "successful_fixture_removed": true,
+        "original_firecracker_identities_unchanged": true,
+        "original_service_unchanged": true
+      },
+      "official_task_status": "NOT_RUN_PREFIX_ONLY",
+      "endpoint_query_ns": 1874390645
+    }
+  ],
+  "shared_readonly_objects": [
+    {
+      "single": {
+        "users": [
+          "backbone"
+        ],
+        "start_monotonic_ns": 14425891579731813,
+        "end_monotonic_ns": 14425893131594071,
+        "initial_residency": "NOT_OBSERVED_BEFORE_DEVICE_CREATION",
+        "residency": {
+          "device": 6,
+          "inode": 32092,
+          "rdev": 66304,
+          "mapping_length": 68719476736,
+          "resident_bytes": 13115392,
+          "resident_pages": 3202,
+          "stable": true,
+          "block_device": true
+        }
+      },
+      "multiple": {
+        "users": [
+          "backbone",
+          "early_1",
+          "early_2",
+          "early_3",
+          "late_1",
+          "late_2",
+          "late_3"
+        ],
+        "start_monotonic_ns": 14426008731608949,
+        "end_monotonic_ns": 14426010292567014,
+        "initial_residency": "NOT_OBSERVED_BEFORE_DEVICE_CREATION",
+        "residency": {
+          "device": 6,
+          "inode": 32117,
+          "rdev": 66304,
+          "mapping_length": 68719476736,
+          "resident_bytes": 13103104,
+          "resident_pages": 3199,
+          "stable": true,
+          "block_device": true
+        }
+      },
+      "drive_id": "rootfs",
+      "endpoint_linear_reference": {
+        "status": "OBSERVED",
+        "reference_bytes": 91807744,
+        "reduction_bytes": 78704640,
+        "reduction_fraction": 0.8572767020612118,
+        "meaning": "Hypothetical N copies of the single-guest object cache; not measured no-sharing or whole-host physical savings"
+      },
+      "scope": "Same drive role/capacity; all actual VMMs share one object within each group. Endpoint cache observation, initial cache not queried; not whole physical memory"
+    }
+  ],
+  "first_attempt": {
+    "workflow": ".artifacts/platform-tasks/20261022T074640Z-184771",
+    "storage": ".artifacts/storage-isolated-service/20261022T074758Z-185533",
+    "status": "FAIL",
+    "reason": "Relative Firecracker drive path incorrectly resolved against root instead of cwd; endpoint device observation missing. Original 11 actions and failure retained; one corrected N1 observation followed by N7.",
+    "retained_volume_bytes": 17179869184
+  }
+}

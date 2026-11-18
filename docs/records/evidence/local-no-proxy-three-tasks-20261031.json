@@ -1,0 +1,299 @@
+{
+  "date": "2026-10-31",
+  "status": "PASS",
+  "task_count": 3,
+  "total_tool_rows": 99,
+  "total_host_rows": 2641,
+  "total_guest_rows": 1565,
+  "checks": [
+    {
+      "task_id": "prettier__prettier-6604",
+      "timing_boundaries": "PASS",
+      "baseline_and_after_marker_peak": "PASS",
+      "sampler_cpu_and_window": "PASS",
+      "query_phase_and_unique_files": "PASS",
+      "source_metadata": {
+        "workflow": ".artifacts/platform-tasks/20261031T062055Z-2847918",
+        "native": ".artifacts/storage-isolated-service/20261031T062113Z-2848125",
+        "report": ".artifacts/platform-tasks/report-20261031T062055Z-2847918"
+      }
+    },
+    {
+      "task_id": "sphinx-doc__sphinx-7590",
+      "timing_boundaries": "PASS",
+      "baseline_and_after_marker_peak": "PASS",
+      "sampler_cpu_and_window": "PASS",
+      "query_phase_and_unique_files": "PASS",
+      "source_metadata": {
+        "workflow": ".artifacts/platform-tasks/20261031T102855Z-2871843",
+        "native": ".artifacts/storage-isolated-service/20261031T102920Z-2872101",
+        "report": ".artifacts/platform-tasks/report-20261031T102855Z-2871843"
+      }
+    },
+    {
+      "task_id": "pydata__xarray-6992",
+      "timing_boundaries": "PASS",
+      "baseline_and_after_marker_peak": "PASS",
+      "sampler_cpu_and_window": "PASS",
+      "query_phase_and_unique_files": "PASS",
+      "source_metadata": {
+        "workflow": ".artifacts/platform-tasks/20261031T112336Z-2885271",
+        "native": ".artifacts/storage-isolated-service/20261031T112408Z-2885572",
+        "report": ".artifacts/platform-tasks/report-20261031T112336Z-2885271"
+      }
+    }
+  ],
+  "alternate_output_and_source_links": "PASS",
+  "public_summary_and_metric_reproduction": "PASS",
+  "results": "results/local-no-proxy-three-tasks-20261031",
+  "mode": "Offline existing JSON/TSV only; no services, network, new queries or workload",
+  "metrics_source": [
+    {
+      "metrics": {
+        "task_id": "prettier__prettier-6604",
+        "label": "Prettier #6604",
+        "actions": 29,
+        "source_summary": "results/prettier-local-no-proxy-20261031/summary.json",
+        "source_report": "results/prettier-local-no-proxy-20261031/REPORT.md",
+        "official_result": "1组／2项失败，原签名保持",
+        "tool_seconds": 11.465918096,
+        "frozen_replay_seconds": 13.6655011,
+        "task_controller_seconds": 41.939708615,
+        "grouped_workflow_seconds": 69.48404633,
+        "archive_preparation_seconds": 105.007325211,
+        "input_import_seconds": 17.819810533,
+        "guest_creation_seconds": 0.988345394,
+        "host_current_before_guest_mib": 7589.69140625,
+        "host_current_peak_mib": 8418.29296875,
+        "host_peak_increase_from_before_guest_mib": 828.6015625,
+        "host_file_peak_mib": 7369.12109375,
+        "guest_memory_peak_mib": 550.26953125,
+        "guest_cached_peak_mib": 246.99609375,
+        "host_samples": 681,
+        "guest_samples": 403,
+        "host_span_seconds": 68.001124517,
+        "guest_span_seconds": 40.339721414,
+        "host_cpu_seconds": 0.205842195,
+        "guest_cpu_seconds": 0.247501,
+        "host_cpu_percent": 0.3027041044718905,
+        "guest_cpu_percent": 0.6135416689171883,
+        "host_max_gap_ms": 100.14464500000001,
+        "guest_max_gap_ms": 103.48894600000058,
+        "guest_sampler_maxrss_kib": 16560,
+        "management_seconds": 0.441456328,
+        "input_files": 105,
+        "input_resident_mib": 7026.6953125,
+        "compared_group_file_mib": 7029.05078125,
+        "input_shortfall_mib": 0.0,
+        "query_seconds": 0.176667562,
+        "query_cpu_seconds": 0.176055711
+      },
+      "correctness": {
+        "original_actions": 29,
+        "expected_missing_rg_exit": 127,
+        "source_patch_and_independent_checks": "PASS",
+        "final_frozen_suites": 32,
+        "final_frozen_tests": 66,
+        "official_task_status": "FAIL",
+        "official_failure_matches_reference": true,
+        "write_boundary": "PASS",
+        "readonly_root": "PASS",
+        "fixed_volume": "PASS",
+        "cleanup": "PASS"
+      },
+      "source_fields": {
+        "tool_seconds": "timing_seconds/original_29_tool_sum",
+        "compared_group_file_mib": "final_input_residency/group_file_bytes (saved after-query reading)",
+        "guest_max_gap_ms": "max adjacent elapsed_seconds differences in published guest-memory.tsv, multiplied by 1000"
+      },
+      "curves": {
+        "guest": "results/prettier-local-no-proxy-20261031/guest.png",
+        "host": "results/prettier-local-no-proxy-20261031/host.png",
+        "host-increase": "results/prettier-local-no-proxy-20261031/host-increase.png"
+      }
+    },
+    {
+      "metrics": {
+        "task_id": "sphinx-doc__sphinx-7590",
+        "label": "Sphinx #7590",
+        "actions": 35,
+        "source_summary": "results/sphinx-local-no-proxy-20261031/summary.json",
+        "source_report": "results/sphinx-local-no-proxy-20261031/REPORT.md",
+        "official_result": "24通过／1失败／0跳过",
+        "tool_seconds": 19.428204469,
+        "frozen_replay_seconds": 22.776335482,
+        "task_controller_seconds": 31.920212131,
+        "grouped_workflow_seconds": 67.59306467,
+        "archive_preparation_seconds": 115.558367523,
+        "input_import_seconds": 23.837069685,
+        "guest_creation_seconds": 1.041151467,
+        "host_current_before_guest_mib": 9115.8984375,
+        "host_current_peak_mib": 9602.8515625,
+        "host_peak_increase_from_before_guest_mib": 486.953125,
+        "host_file_peak_mib": 8830.59765625,
+        "guest_memory_peak_mib": 291.83203125,
+        "guest_cached_peak_mib": 120.0390625,
+        "host_samples": 660,
+        "guest_samples": 300,
+        "host_span_seconds": 65.951583178,
+        "guest_span_seconds": 30.010772949,
+        "host_cpu_seconds": 0.199350633,
+        "guest_cpu_seconds": 0.23274899999999998,
+        "host_cpu_percent": 0.3022681539910311,
+        "guest_cpu_percent": 0.7755515007745094,
+        "host_max_gap_ms": 103.228465,
+        "guest_max_gap_ms": 103.61153599999895,
+        "guest_sampler_maxrss_kib": 17848,
+        "management_seconds": 0.53419071,
+        "input_files": 116,
+        "input_resident_mib": 8501.0078125,
+        "compared_group_file_mib": 8504.5234375,
+        "input_shortfall_mib": 0.0,
+        "query_seconds": 0.179669246,
+        "query_cpu_seconds": 0.178456991
+      },
+      "correctness": {
+        "original_actions": 35,
+        "diagnostic_status": "PASS",
+        "strict_replay_status": "FAIL",
+        "pipeline_policy_version": 2,
+        "original_final_tests_passed": 25,
+        "independent_cases_passed": 7,
+        "official": {
+          "status": "FAIL",
+          "exit_code": 1,
+          "passed": 24,
+          "failed": 1,
+          "skipped": 0,
+          "failed_tests": [
+            "tests/test_domain_cpp.py::test_expressions"
+          ],
+          "skipped_tests": [],
+          "F2P_passed": 0,
+          "F2P_total": 1,
+          "P2P_passed": 24,
+          "P2P_total": 24,
+          "scope": "SWE-bench selected C++ tests and test patch; direct image pytest, not full official Docker harness"
+        },
+        "write_boundary": "PASS",
+        "readonly_root": "PASS",
+        "fixed_volume": "PASS",
+        "cleanup": "PASS"
+      },
+      "source_fields": {
+        "tool_seconds": "timing_seconds/original_35_tool_sum",
+        "compared_group_file_mib": "max(final_input_residency/group_file_before_bytes, group_file_after_bytes)",
+        "guest_max_gap_ms": "max adjacent elapsed_seconds differences in published guest-memory.tsv, multiplied by 1000"
+      },
+      "curves": {
+        "guest": "results/sphinx-local-no-proxy-20261031/guest.png",
+        "host": "results/sphinx-local-no-proxy-20261031/host.png",
+        "host-increase": "results/sphinx-local-no-proxy-20261031/host-increase.png"
+      }
+    },
+    {
+      "metrics": {
+        "task_id": "pydata__xarray-6992",
+        "label": "Xarray #6992",
+        "actions": 35,
+        "source_summary": "results/xarray-local-no-proxy-20261031/summary.json",
+        "source_report": "results/xarray-local-no-proxy-20261031/REPORT.md",
+        "official_result": "945通过／12失败／0跳过",
+        "tool_seconds": 35.335200308,
+        "frozen_replay_seconds": 38.055729274,
+        "task_controller_seconds": 88.20761772,
+        "grouped_workflow_seconds": 131.685977257,
+        "archive_preparation_seconds": 151.288027909,
+        "input_import_seconds": 31.606651265,
+        "guest_creation_seconds": 0.854736108,
+        "host_current_before_guest_mib": 11059.578125,
+        "host_current_peak_mib": 12198.19140625,
+        "host_peak_increase_from_before_guest_mib": 1138.61328125,
+        "host_file_peak_mib": 10738.5390625,
+        "guest_memory_peak_mib": 718.69140625,
+        "guest_cached_peak_mib": 309.16796875,
+        "host_samples": 1300,
+        "guest_samples": 862,
+        "host_span_seconds": 129.994968876,
+        "guest_span_seconds": 86.421819349,
+        "host_cpu_seconds": 0.385679905,
+        "guest_cpu_seconds": 0.41321299999999994,
+        "host_cpu_percent": 0.29668833212144813,
+        "guest_cpu_percent": 0.47813503940632013,
+        "host_max_gap_ms": 100.119614,
+        "guest_max_gap_ms": 117.38303899999991,
+        "guest_sampler_maxrss_kib": 17444,
+        "management_seconds": 0.630319615,
+        "input_files": 116,
+        "input_resident_mib": 10388.640625,
+        "compared_group_file_mib": 10393.61328125,
+        "input_shortfall_mib": 0.0,
+        "query_seconds": 0.190878254,
+        "query_cpu_seconds": 0.189351775
+      },
+      "correctness": {
+        "original_actions": 35,
+        "diagnostic_status": "PASS",
+        "strict_replay_status": "FAIL",
+        "replay_policy": "xarray-approved-sigpipe",
+        "observed_exit_codes_status": "PASS",
+        "exit_differences": [],
+        "original_last_two_test_calls": [
+          {
+            "passed": 3,
+            "failed": 1
+          },
+          {
+            "passed": 129,
+            "failed": 1
+          }
+        ],
+        "negative_control": "PASS",
+        "final_invariant": "PASS",
+        "official": {
+          "status": "FAIL",
+          "exit_code": 1,
+          "passed": 945,
+          "failed": 12,
+          "skipped": 0,
+          "failed_tests": [
+            "xarray/tests/test_dataarray.py::TestDataArray::test_reset_index",
+            "xarray/tests/test_dataset.py::TestDataset::test_reset_index",
+            "xarray/tests/test_dataset.py::TestDataset::test_reset_index_drop_dims",
+            "xarray/tests/test_dataset.py::TestDataset::test_reset_index_drop_convert[foo-False-dropped0-converted0-renamed0]",
+            "xarray/tests/test_dataset.py::TestDataset::test_reset_index_drop_convert[foo-True-dropped1-converted1-renamed1]",
+            "xarray/tests/test_dataset.py::TestDataset::test_reset_index_drop_convert[x-False-dropped2-converted2-renamed2]",
+            "xarray/tests/test_dataset.py::TestDataset::test_reset_index_drop_convert[x-True-dropped3-converted3-renamed3]",
+            "xarray/tests/test_dataset.py::TestDataset::test_reset_index_drop_convert[arg4-False-dropped4-converted4-renamed4]",
+            "xarray/tests/test_dataset.py::TestDataset::test_reset_index_drop_convert[arg5-True-dropped5-converted5-renamed5]",
+            "xarray/tests/test_dataset.py::TestDataset::test_reset_index_drop_convert[arg6-False-dropped6-converted6-renamed6]",
+            "xarray/tests/test_dataset.py::TestDataset::test_reset_index_drop_convert[arg7-True-dropped7-converted7-renamed7]",
+            "xarray/tests/test_groupby.py::test_groupby_drops_nans"
+          ],
+          "skipped_tests": [],
+          "F2P_passed": 0,
+          "F2P_total": 12,
+          "P2P_passed": 945,
+          "P2P_total": 945,
+          "scope": "SWE-bench test patch and exact F2P/P2P case selection; direct image pytest, not full official Docker harness"
+        },
+        "write_boundary": "PASS",
+        "readonly_root": "PASS",
+        "fixed_volume": "PASS",
+        "cleanup": "PASS"
+      },
+      "source_fields": {
+        "tool_seconds": "timing_seconds/original_35_tool_sum",
+        "compared_group_file_mib": "max(final_input_residency/group_file_before_bytes, group_file_after_bytes)",
+        "guest_max_gap_ms": "max adjacent elapsed_seconds differences in published guest-memory.tsv, multiplied by 1000"
+      },
+      "curves": {
+        "guest": "results/xarray-local-no-proxy-20261031/guest.png",
+        "host": "results/xarray-local-no-proxy-20261031/host.png",
+        "host-increase": "results/xarray-local-no-proxy-20261031/host-increase.png"
+      }
+    }
+  ],
+  "slowdown": "NOT_MEASURED_THIS_BATCH",
+  "sharing_savings": "NOT_MEASURED_THIS_BATCH"
+}

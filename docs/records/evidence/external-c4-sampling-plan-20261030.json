@@ -1,0 +1,114 @@
+{
+  "status": "OFFLINE_PLAN_COMPLETE",
+  "runtime_scope": "NO_IMPLEMENTATION_NO_SERVICE_NO_GUEST_NO_NETWORK_NO_RESIDENCY_QUERY",
+  "task_id": "reshard-c4-data",
+  "source_revision": "cbe767b2aa23ceb59875b1cb0a7a6141c749312a",
+  "image": "docker.io/alexgshaw/reshard-c4-data@sha256:92d209e704785e17ad6b3f740e813dd72bc7ac33982ce435d197ab9d890eac2a",
+  "actions_per_run": 36,
+  "payloads": 9,
+  "source_inputs": 45,
+  "expected_nonzero_exits": {
+    "3": 2,
+    "11": 1,
+    "12": 1,
+    "16": 1,
+    "18": 1
+  },
+  "prior_result": {
+    "tool_sum_seconds": 45.754191669,
+    "cold_create_seconds": 315.144841048,
+    "controller_seconds": 362.64532131,
+    "host_single_core_cpu_percent": 0.34492721079443184,
+    "guest_single_core_cpu_percent": 0.739068862901583,
+    "sampling_off_control": false,
+    "monitor_blocking_calls": 4,
+    "monitor_blocking_call_seconds": 0.389925967,
+    "managed_collector_request_seconds": 46.15835054
+  },
+  "uv_dependency_check": "Original pyproject dependencies=[]; saved steps 5 and 29 each resolved only the local project, with no download output.",
+  "existing_entry": {
+    "host_periodic_sampling": "UNCONDITIONALLY_STARTED",
+    "outer_sampling_env": "HARDCODED_ON",
+    "guest_periodic_sampling": "UNCONDITIONALLY_STARTED",
+    "native_light_required": true,
+    "native_host_off_rejected": true,
+    "off_supported": false
+  },
+  "recommended_schedule": [
+    {
+      "pair": 1,
+      "mode": "off"
+    },
+    {
+      "pair": 1,
+      "mode": "on"
+    },
+    {
+      "pair": 2,
+      "mode": "on"
+    },
+    {
+      "pair": 2,
+      "mode": "off"
+    }
+  ],
+  "pairs": 2,
+  "runs": 4,
+  "total_actions": 144,
+  "guest_per_run": 1,
+  "cpu_per_guest": 2,
+  "guest_memory_mib": 8192,
+  "serial_new_private_service_per_run": true,
+  "resource_budget": {
+    "volume_gib": 32,
+    "min_available_strict_gib": 58,
+    "min_mem_available_strict_gib": 64,
+    "current": {
+      "disk": {
+        "ready": true,
+        "available_bytes": 67744206848,
+        "required_available_bytes": 62277025792,
+        "capacity_bytes": 34359738368,
+        "host_reserve_bytes": 21474836480,
+        "host_margin_bytes": 6442450944
+      },
+      "mem_available_bytes": 514618880000,
+      "load_average": [
+        0.0615234375,
+        0.2099609375,
+        0.2158203125
+      ]
+    }
+  },
+  "timeouts_seconds": {
+    "replay": 240,
+    "controller": 720,
+    "native": 1050,
+    "workflow": 1200
+  },
+  "comparison": {
+    "primary": "Per-pair guest tool duration sum; signed (on / off - 1) * 100",
+    "secondary": [
+      "Replay CLI elapsed",
+      "Cold creation",
+      "Controller elapsed"
+    ],
+    "summary": "Both pair changes, both-mode means, median and range of pair changes; no population confidence bound from two pairs",
+    "old_single_run": "Feasibility and budget evidence only; not an on control in a new pair"
+  },
+  "scope": "Both host and guest memory sampling on at .1 s versus both off; clocks, outputs, validation, cgroup accounting and disk guards remain in both modes. This does not isolate host-only from guest-only overhead.",
+  "next_stage": "Implement C4-only explicit off path and necessary mocked checks, preserving default-on behavior; live four-run schedule requires user confirmation.",
+  "code_references": {
+    "scripts/run_host_external_workload.py": [
+      "grouped",
+      "main"
+    ],
+    "scripts/run_external_workload.py": [
+      "run"
+    ],
+    "scripts/validate_isolated_agentenv.py": [
+      "ordinary_current_only",
+      "run"
+    ]
+  }
+}

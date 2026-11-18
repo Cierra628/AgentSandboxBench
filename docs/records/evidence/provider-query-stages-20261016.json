@@ -1,0 +1,56 @@
+{
+  "status": "PASS",
+  "date": "2026-10-17",
+  "implementation": "explicit existing batch mode only",
+  "new_tests": 10,
+  "related_tests_passed": 56,
+  "final_fixture_checks_passed": 2,
+  "regression_log": ".artifacts/provider-query-stages-20261016/regression.log",
+  "query_statistics_unchanged": true,
+  "default_query_adds_no_clock_reads": true,
+  "default_log_schema_unchanged": true,
+  "new_log_field": "query_costs",
+  "query_number_matches_original_statistics": true,
+  "stages": {
+    "prepare": "identity/tracer checks, token publication, unique offsets and split indices",
+    "mincore_scan": "split into runs, allocate residency vectors, mincore calls and build residency dictionary",
+    "batch_lookup": "one library call, including arguments, dispatch and kernel result copy",
+    "batch_filter": "returned-range views, current token/requested-offset filter and dictionary construction",
+    "result_restore": "array expansion and original query statistics"
+  },
+  "per_complete_query_clock_reads": {
+    "thread_time_ns": 11,
+    "monotonic_ns": 11
+  },
+  "internal_total": "From before identity check through result-stage record; final query_costs record assembly excluded.",
+  "unmeasured": "Internal total minus the five nonoverlapping stages; timing bookkeeping and batch setup/check gaps.",
+  "outer_timing": "Original full query call includes new record assembly; point and session timing boundaries unchanged.",
+  "failure_checks": [
+    "identity",
+    "tracer",
+    "token",
+    "mincore",
+    "batch",
+    "result_restore"
+  ],
+  "failed_queries_add_no_success_cost": true,
+  "scalar_fallback": false,
+  "source_checks": {
+    "SnapshotCache.query_calculations_unchanged": true,
+    "BatchEntries.read_calculations_unchanged": true,
+    "SnapshotCache.__init___calculations_unchanged": true,
+    "SnapshotCache._batch_result_unchanged": true,
+    "SnapshotCache.offsets_unchanged": true,
+    "SnapshotCache.ram_regions_unchanged": true,
+    "BatchEntries.__init___unchanged": true,
+    "account_unchanged": true,
+    "outer_sampler_and_point_timer_unchanged": true,
+    "owned_validator_only_initializes_new_cost_list": true
+  },
+  "live_runs": 0,
+  "real_bpf_calls": 0,
+  "performance_experiments": 0,
+  "prior_real_input_validation": "Reused 20-query validation because result helper body is unchanged; not repeated.",
+  "prior_live_evidence": "provider-result-array-live-20261016.json",
+  "next_plan": "One existing 3-before/10-after private restore: verify 40 internal records and costs, contents, guest process restoration, PFN union and cleanup; not run in this stage."
+}

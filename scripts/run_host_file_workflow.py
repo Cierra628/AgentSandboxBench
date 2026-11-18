@@ -117,6 +117,7 @@ def main():
              '--setenv=GIT_CONFIG_VALUE_0='+str(ROOT)]
     if os.environ.get('ASB_AGENTENV_SOURCE_SERVICE'):
         command+=['--setenv=ASB_AGENTENV_SOURCE_SERVICE='+os.environ['ASB_AGENTENV_SOURCE_SERVICE']]
+    if os.environ.get('ASB_ISOLATED_UNUSED_NETWORK_POOLS')=='on':command+=['--setenv=ASB_ISOLATED_UNUSED_NETWORK_POOLS=on']
     if args.local_no_proxy:
         command+=['--setenv=ASB_LOCAL_NO_PROXY=on',*['--setenv='+key+'=' for key in PROXY_KEYS]]
         if args.local_no_proxy_check:command+=['--setenv=ASB_LOCAL_NO_PROXY_CHECK=on']

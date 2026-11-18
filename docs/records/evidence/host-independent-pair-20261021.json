@@ -1,0 +1,402 @@
+{
+  "status": "PASS_RESUMED_INDEPENDENT_PAIR",
+  "workflow": ".artifacts/host-file-independent-pair/20261021T034211Z-3929367",
+  "source_prefix": ".artifacts/storage-isolated-service/20261021T031738Z-3920554",
+  "reused_prefix_actions": 11,
+  "new_actual_actions": 30,
+  "total_experiment_actions": 41,
+  "original_prefix_platform_failure": "FAIL_PRESERVED",
+  "guest_interval_seconds": 0.1,
+  "host_interval_seconds": 0.1,
+  "pss_interval_seconds": 1,
+  "groups": [
+    {
+      "sandboxes": 1,
+      "storage": ".artifacts/storage-isolated-service/20261021T034328Z-3930066",
+      "actual_actions": 10,
+      "reused_prefix_actions": 11,
+      "snapshot_id": "01a15c77-4be9-78c1-a0e6-5af6d502a0ab",
+      "baseline": {
+        "current": 34646622208,
+        "file": 33935843328,
+        "anon": 105185280,
+        "shmem": 7604273152,
+        "kernel": 576929792,
+        "file_mapped": 339968,
+        "file_dirty": 6154616832,
+        "file_writeback": 0
+      },
+      "post_task_before_scan": {
+        "current": 35240955904,
+        "file": 34369884160,
+        "anon": 263077888,
+        "shmem": 7604277248,
+        "kernel": 585351168,
+        "file_mapped": 216248320,
+        "file_dirty": 6160437248,
+        "file_writeback": 0
+      },
+      "delta_bytes": {
+        "file": 434040832,
+        "anon": 157892608,
+        "current": 594333696,
+        "kernel": 8421376,
+        "shmem": 4096
+      },
+      "baseline_to_suffix_ns": 1152556791,
+      "pre_suffix_sample_lag_ns": 64528769,
+      "pre_suffix_file_delta_bytes": 315326464,
+      "pre_suffix_dirty_bytes": 6159773696,
+      "last_task_sample_lag_ns": 6894431,
+      "suffix_sample_file_increase_bytes": 118714368,
+      "max_writeback_during_restore_and_suffix_bytes": 0,
+      "task_wall_ns": 2644542015,
+      "tool_ns": 1773994183,
+      "guest": [
+        {
+          "role": "N1-a",
+          "tool_ns": 1773994183,
+          "guest_samples": 138,
+          "cached_peak_bytes": 246435840
+        }
+      ],
+      "task_host_samples": 27,
+      "complete_task_pss": 3,
+      "memory_device_bytes": 429166592,
+      "vmm_anon_pss_before_bytes": 130347008,
+      "vmm_anon_pss_after_bytes": 130363392,
+      "other_anon_pss_before_bytes": 128937984,
+      "all_anon_pss_before_bytes": 259284992,
+      "ordinary_before_files": 192,
+      "ordinary_after_files": 205,
+      "ordinary_before_bytes": 35765932032,
+      "ordinary_after_bytes": 36883943424,
+      "ordinary_categories_before": {
+        "readonly_commits": {
+          "files": 31,
+          "resident_bytes": 7178346496
+        },
+        "private_image_cache": {
+          "files": 93,
+          "resident_bytes": 7178936320
+        },
+        "private_loop_backing": {
+          "files": 1,
+          "resident_bytes": 5441630208
+        },
+        "input_ram_image": {
+          "files": 1,
+          "resident_bytes": 7604273152
+        },
+        "snapshot_store": {
+          "files": 25,
+          "resident_bytes": 6153531392
+        },
+        "snapshot_local_cache": {
+          "files": 0,
+          "resident_bytes": 0
+        },
+        "readonly_deps": {
+          "files": 12,
+          "resident_bytes": 189087744
+        },
+        "private_deps": {
+          "files": 12,
+          "resident_bytes": 189087744
+        },
+        "private_logs": {
+          "files": 2,
+          "resident_bytes": 8192
+        },
+        "private_records": {
+          "files": 7,
+          "resident_bytes": 53248
+        },
+        "private_templates": {
+          "files": 7,
+          "resident_bytes": 49152
+        },
+        "source_archive": {
+          "files": 1,
+          "resident_bytes": 1830928384
+        }
+      },
+      "ordinary_categories_after": {
+        "readonly_commits": {
+          "files": 31,
+          "resident_bytes": 7178346496
+        },
+        "private_image_cache": {
+          "files": 101,
+          "resident_bytes": 7179014144
+        },
+        "private_loop_backing": {
+          "files": 1,
+          "resident_bytes": 6559526912
+        },
+        "input_ram_image": {
+          "files": 1,
+          "resident_bytes": 7604273152
+        },
+        "snapshot_store": {
+          "files": 25,
+          "resident_bytes": 6153531392
+        },
+        "snapshot_local_cache": {
+          "files": 2,
+          "resident_bytes": 16384
+        },
+        "readonly_deps": {
+          "files": 12,
+          "resident_bytes": 189087744
+        },
+        "private_deps": {
+          "files": 12,
+          "resident_bytes": 189087744
+        },
+        "private_logs": {
+          "files": 5,
+          "resident_bytes": 24576
+        },
+        "private_records": {
+          "files": 7,
+          "resident_bytes": 53248
+        },
+        "private_templates": {
+          "files": 7,
+          "resident_bytes": 53248
+        },
+        "source_archive": {
+          "files": 1,
+          "resident_bytes": 1830928384
+        }
+      },
+      "raw_layer_bytes_already_in_ordinary": 582438912,
+      "final_files": 201,
+      "final_mincore_bytes": 41925550080,
+      "final_accounting": "SHORTFALL_REQUIRES_RESOLUTION",
+      "final_net_shortfall_bytes": 1831038976,
+      "final_archive_resident_bytes": 1830928384,
+      "final_loop_resident_bytes": 11601154048,
+      "final_counter_file_before_bytes": 36660465664,
+      "final_counter_file_after_bytes": 40094511104,
+      "final_sync_status": "PASS",
+      "disk_min_available_bytes": 32322445312,
+      "cleanup": {
+        "host_file_residency_captured": true,
+        "owned_container_removed": true,
+        "mount_and_loop_removed": true,
+        "successful_fixture_removed": true,
+        "original_firecracker_identities_unchanged": true,
+        "original_service_unchanged": true
+      }
+    },
+    {
+      "sandboxes": 2,
+      "storage": ".artifacts/storage-isolated-service/20261021T034446Z-3931877",
+      "actual_actions": 20,
+      "reused_prefix_actions": 11,
+      "snapshot_id": "01a15c77-4be9-78c1-a0e6-5af6d502a0ab",
+      "baseline": {
+        "current": 35459985408,
+        "file": 34724388864,
+        "anon": 105209856,
+        "shmem": 7604273152,
+        "kernel": 599113728,
+        "file_mapped": 339968,
+        "file_dirty": 5369647104,
+        "file_writeback": 0
+      },
+      "post_task_before_scan": {
+        "current": 41256325120,
+        "file": 40059142144,
+        "anon": 421081088,
+        "shmem": 7604281344,
+        "kernel": 748212224,
+        "file_mapped": 248934400,
+        "file_dirty": 497975296,
+        "file_writeback": 0
+      },
+      "delta_bytes": {
+        "file": 5334753280,
+        "anon": 315871232,
+        "current": 5796339712,
+        "kernel": 149098496,
+        "shmem": 8192
+      },
+      "baseline_to_suffix_ns": 4262049276,
+      "pre_suffix_sample_lag_ns": 7668962,
+      "pre_suffix_file_delta_bytes": 5226561536,
+      "pre_suffix_dirty_bytes": 497438720,
+      "last_task_sample_lag_ns": 3842797,
+      "suffix_sample_file_increase_bytes": 108191744,
+      "max_writeback_during_restore_and_suffix_bytes": 60342272,
+      "task_wall_ns": 2197912582,
+      "tool_ns": 2940762733,
+      "guest": [
+        {
+          "role": "N2-a",
+          "tool_ns": 1493767557,
+          "guest_samples": 194,
+          "cached_peak_bytes": 195637248
+        },
+        {
+          "role": "N2-b",
+          "tool_ns": 1446995176,
+          "guest_samples": 160,
+          "cached_peak_bytes": 195657728
+        }
+      ],
+      "task_host_samples": 22,
+      "complete_task_pss": 2,
+      "memory_device_bytes": 442019840,
+      "vmm_anon_pss_before_bytes": 279150592,
+      "vmm_anon_pss_after_bytes": 268632064,
+      "other_anon_pss_before_bytes": 137998336,
+      "all_anon_pss_before_bytes": 417148928,
+      "ordinary_before_files": 192,
+      "ordinary_after_files": 208,
+      "ordinary_before_bytes": 36550909952,
+      "ordinary_after_bytes": 41436049408,
+      "ordinary_categories_before": {
+        "readonly_commits": {
+          "files": 31,
+          "resident_bytes": 7178346496
+        },
+        "private_image_cache": {
+          "files": 93,
+          "resident_bytes": 7178936320
+        },
+        "private_loop_backing": {
+          "files": 1,
+          "resident_bytes": 6226608128
+        },
+        "input_ram_image": {
+          "files": 1,
+          "resident_bytes": 7604273152
+        },
+        "snapshot_store": {
+          "files": 25,
+          "resident_bytes": 6153531392
+        },
+        "snapshot_local_cache": {
+          "files": 0,
+          "resident_bytes": 0
+        },
+        "readonly_deps": {
+          "files": 12,
+          "resident_bytes": 189087744
+        },
+        "private_deps": {
+          "files": 12,
+          "resident_bytes": 189087744
+        },
+        "private_logs": {
+          "files": 2,
+          "resident_bytes": 8192
+        },
+        "private_records": {
+          "files": 7,
+          "resident_bytes": 53248
+        },
+        "private_templates": {
+          "files": 7,
+          "resident_bytes": 49152
+        },
+        "source_archive": {
+          "files": 1,
+          "resident_bytes": 1830928384
+        }
+      },
+      "ordinary_categories_after": {
+        "readonly_commits": {
+          "files": 31,
+          "resident_bytes": 7178346496
+        },
+        "private_image_cache": {
+          "files": 101,
+          "resident_bytes": 7179018240
+        },
+        "private_loop_backing": {
+          "files": 1,
+          "resident_bytes": 11111612416
+        },
+        "input_ram_image": {
+          "files": 1,
+          "resident_bytes": 7604273152
+        },
+        "snapshot_store": {
+          "files": 25,
+          "resident_bytes": 6153531392
+        },
+        "snapshot_local_cache": {
+          "files": 2,
+          "resident_bytes": 16384
+        },
+        "readonly_deps": {
+          "files": 12,
+          "resident_bytes": 189087744
+        },
+        "private_deps": {
+          "files": 12,
+          "resident_bytes": 189087744
+        },
+        "private_logs": {
+          "files": 8,
+          "resident_bytes": 40960
+        },
+        "private_records": {
+          "files": 7,
+          "resident_bytes": 53248
+        },
+        "private_templates": {
+          "files": 7,
+          "resident_bytes": 53248
+        },
+        "source_archive": {
+          "files": 1,
+          "resident_bytes": 1830928384
+        }
+      },
+      "raw_layer_bytes_already_in_ordinary": 582438912,
+      "final_files": 204,
+      "final_mincore_bytes": 41927933952,
+      "final_accounting": "SHORTFALL_REQUIRES_RESOLUTION",
+      "final_net_shortfall_bytes": 1827700736,
+      "final_archive_resident_bytes": 1830928384,
+      "final_loop_resident_bytes": 11603517440,
+      "final_counter_file_before_bytes": 39611518976,
+      "final_counter_file_after_bytes": 40100233216,
+      "final_sync_status": "PASS",
+      "disk_min_available_bytes": 32317931520,
+      "cleanup": {
+        "host_file_residency_captured": true,
+        "owned_container_removed": true,
+        "mount_and_loop_removed": true,
+        "successful_fixture_removed": true,
+        "original_firecracker_identities_unchanged": true,
+        "original_service_unchanged": true
+      }
+    }
+  ],
+  "separate_services_and_writable_volumes": true,
+  "same_original_snapshot": true,
+  "device_linear_reference": {
+    "single_bytes": 429166592,
+    "multiple_bytes": 442019840,
+    "sandboxes": 2,
+    "linear_reference_bytes": 858333184,
+    "reduction_vs_linear_reference": 0.48502533953062216,
+    "meaning": "Extrapolation from one sandbox, not a measured no-sharing control; common overhead and cache state affect the ratio."
+  },
+  "baseline_file_difference_bytes": 788545536,
+  "old_shared_volume_baseline_file_difference_bytes": 1016561664,
+  "host_samples": 2393,
+  "pss_samples": 240,
+  "partial_pss_samples": 4,
+  "final_scan_order_fix": "PASS_LIVE_BOTH_GROUPS",
+  "whole_host_physical_savings": "NOT_MEASURED",
+  "guest_cache_host_physical_subset": "NOT_MEASURED",
+  "source_archive_accounting": "Archive was produced before this new slice; global residency is included in mincore, not assumed charged to this group.",
+  "scope": "One fixed-order single/dual pair, same imported snapshot but independent fresh writable volumes. Hypothetical device-only linear reference, not whole host physical savings."
+}

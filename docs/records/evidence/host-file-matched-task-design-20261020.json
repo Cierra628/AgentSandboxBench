@@ -1,0 +1,192 @@
+{
+  "status": "PASS",
+  "scope": "Offline design and metadata checks only; no live measurement or runner change.",
+  "source": ".artifacts/prettier6604/grpo-input-audit-20261008T120626Z",
+  "paths": {
+    "backbone": {
+      "segments": [
+        {
+          "segment": "read_repo",
+          "action_count": 5,
+          "expected_exit_codes": [
+            0,
+            127,
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "segment": "read_typescript",
+          "action_count": 6,
+          "expected_exit_codes": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "segment": "core_patch",
+          "action_count": 7,
+          "expected_exit_codes": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "segment": "core_verify",
+          "action_count": 6,
+          "expected_exit_codes": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "segment": "backbone_finish",
+          "action_count": 5,
+          "expected_exit_codes": [
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        }
+      ],
+      "full_action_count": 29,
+      "prefix_action_count": 11,
+      "suffix_action_count": 18
+    },
+    "early_1": {
+      "segments": [
+        {
+          "segment": "read_repo",
+          "action_count": 5,
+          "expected_exit_codes": [
+            0,
+            127,
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "segment": "read_typescript",
+          "action_count": 6,
+          "expected_exit_codes": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "segment": "early_1_inspect",
+          "action_count": 4,
+          "expected_exit_codes": [
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "segment": "early_1",
+          "action_count": 6,
+          "expected_exit_codes": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        }
+      ],
+      "full_action_count": 21,
+      "prefix_action_count": 11,
+      "suffix_action_count": 10
+    },
+    "early_2": {
+      "segments": [
+        {
+          "segment": "read_repo",
+          "action_count": 5,
+          "expected_exit_codes": [
+            0,
+            127,
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "segment": "read_typescript",
+          "action_count": 6,
+          "expected_exit_codes": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "segment": "early_2_inspect",
+          "action_count": 4,
+          "expected_exit_codes": [
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "segment": "early_2",
+          "action_count": 6,
+          "expected_exit_codes": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        }
+      ],
+      "full_action_count": 21,
+      "prefix_action_count": 11,
+      "suffix_action_count": 10
+    }
+  },
+  "early_1_vs_early_2_suffix_manifest_differences": [
+    true,
+    true
+  ],
+  "proposed_original_role": "early_1",
+  "proposed_instances": [
+    "N1-a",
+    "N2-a",
+    "N2-b"
+  ],
+  "proposed_actual_task_actions": 41,
+  "proposed_full_task_29_step_runs": 0,
+  "runtime_implemented": false,
+  "new_live_runs": 0,
+  "reproduction": ".artifacts/host-file-matched-task-design-20261020/check.py"
+}

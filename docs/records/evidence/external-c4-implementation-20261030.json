@@ -1,0 +1,70 @@
+{
+  "status": "OFFLINE_IMPLEMENTATION_PASS",
+  "date": "2026-10-30",
+  "task_id": "reshard-c4-data",
+  "upstream_revision": "cbe767b2aa23ceb59875b1cb0a7a6141c749312a",
+  "checks": {
+    "reshard-c4-data": {
+      "actions": 36,
+      "input_files": 45,
+      "payloads": 9,
+      "unchanged_published_input_text": true,
+      "shell_syntax": "PASS",
+      "expected_nonzero_exits": {
+        "3": 2,
+        "11": 1,
+        "12": 1,
+        "16": 1,
+        "18": 1
+      }
+    },
+    "django__django-16819": {
+      "actions": 28,
+      "input_files": 28,
+      "payloads": 0,
+      "unchanged_published_input_text": true,
+      "shell_syntax": "PASS",
+      "expected_nonzero_exits": {
+        "17": 1
+      }
+    }
+  },
+  "django_generated_runner_unchanged": true,
+  "django_config_unchanged": true,
+  "regression_tests": {
+    "external_workload": 13,
+    "isolated_storage": 27
+  },
+  "mock_controller_cases": [
+    "Django pass",
+    "C4 pass",
+    "C4 missing output evidence fails",
+    "C4 unexpected exit fails",
+    "C4 missing timing fails"
+  ],
+  "actual_runtime": "NOT_RUN",
+  "actual_task_curves": "NOT_COLLECTED",
+  "remote_manifest": "NOT_CHECKED_OFFLINE",
+  "shell_mode": "C4: separate /bin/bash per step from /app, umask 077; Django: unchanged persistent source shell",
+  "measurement": "Existing light profile, host memory.current and components plus guest meminfo at 0.1s; no PSS, freezing or periodic mincore",
+  "validation": "All 36 reference exits and timings, C4 step 33 constraints/content/structure evidence, step 34 9898-file evidence, original postrun syntax check",
+  "fixture_capacity_gib": 32,
+  "required_free_before_gib_strictly_greater_than": 58,
+  "required_mem_available_gib_strictly_greater_than": 64,
+  "code_changed": [
+    "scripts/external_workload.py",
+    "scripts/run_external_workload.py",
+    "scripts/run_host_external_workload.py",
+    "scripts/validate_isolated_agentenv.py"
+  ],
+  "new_config": "configs/external-c4-light.json",
+  "operations": {
+    "services_started": false,
+    "guests_started": false,
+    "network_requests": false,
+    "task_commands_executed": false,
+    "task_data_pre_read": false
+  },
+  "evidence_directory": ".artifacts/external-c4-implementation-20261030",
+  "next": "One fresh C4 guest and 36 original calls after remote manifest/platform and resource preflight; no live run in this implementation stage."
+}

@@ -1,0 +1,40 @@
+{
+  "status": "PASS",
+  "scope": "Offline source patch, regression, saved metadata and compilation only.",
+  "fresh_tests": {
+    "host_file": 52,
+    "legacy_loop": 3
+  },
+  "reused_tests": {
+    "isolated_storage": 27
+  },
+  "actual_kernel_compilation": "PASS_NO_ATTACH",
+  "compiled_cpu_key_stores": {
+    "events": 4,
+    "bytes": 2,
+    "records": 2,
+    "backing_stacks": 1
+  },
+  "initial_insert_model": "OLD_SHARED_KEY_LOSES_ONE_NEW_CPU_KEYS_KEEP_BOTH_SYNTHETIC_INTERLEAVING",
+  "legacy_success": {
+    "rows": 1166,
+    "event_counts": {
+      "1": 226452,
+      "2": 96209,
+      "3": 318,
+      "4": 172
+    },
+    "parsed_values_identical": true,
+    "cpu_not_invented": true
+  },
+  "legacy_one_count_failure": "STILL_FAIL_UNCHANGED",
+  "legacy_live_cause": "NOT_PROVEN_BY_THIS_OFFLINE_PATCH",
+  "new_format": 2,
+  "new_format_fixture": "SYNTHETIC_TWO_CPU_UNIT_TESTS_NOT_LIVE_DATA",
+  "cpu_validation": "Per CPU and event type first, then sum for existing consumers; mismatch cannot cancel across CPUs.",
+  "aggregate_file_bins": "Distinct original six-field file/bin/owner/operation keys; CPU entries reported separately.",
+  "new_live_capture": "NOT_RUN",
+  "new_online_experiments": 0,
+  "deleted_volumes": 0,
+  "whole_host_physical_savings": "NOT_MEASURED"
+}

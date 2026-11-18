@@ -1,10 +1,167 @@
 # 本机平台使用说明
 
+**内存采集先选入口：**[简明用法与指标范围](records/HOST_METRICS_GUIDE.md)区分日常host轻量采样和Prettier七角色终点分层查询，列出命令、实际统计组、成本及覆盖限制。
+
 **2026-11-05同步入口：** 同伴拉取代码后的离线检查、已支持任务、资源准备和实跑命令统一见[同伴使用说明](COLLABORATOR_GUIDE.md)。其中明确区分无PSS的轻量路径与开启PSS的三调度路径；本页此前记录按原版本和输入条件理解。
+
+当前普通任务记录工具时延、guest内存和page cache曲线，以AgentENV为后端；TrEnv-X入口保留供后期验证。三个普通单任务配置默认每0.1秒读一次meminfo，不启用CPU/I/O、host物理扫描或VMM采集。指标定义、命令及验证范围见[轻量指标说明](records/LIGHT_TASK_METRICS.md)；当前版本的直接成本、开关影响及冷启动解释统一见[采样开销说明](records/LIGHT_MONITOR_COST_SUMMARY.md)，[原三任务对照](records/LIGHT_MONITOR_CONTROLS.md)按旧版本保留。配置`"monitor_mode": "off"`关闭全部周期和工具边界采样，命令计时及任务检查保留；`"light_monitor": false`表示旧完整采样，不是关闭采样。
+
+此前精细测量仍可使用明确的诊断配置，含义、各版本覆盖、成本及未知量见[阶段验收说明](records/CACHE_MEASUREMENT_VALIDATION.md)。三任务完整单路径、Prettier第24步恢复及真实双分支已有证据；provider缓冲和2页策略已通过私有短恢复及[一次真实双分支](records/PROVIDER_REAL_PAIR.md)。下文`*-cache.json`、`*-shared-*.json`的物理分析仍是旧暂停方案，不能与不暂停方法混用。
+
+如需解释Cached升降，`platform-prettier6604-damon-observe.json`可显式增加默认DAMON状态和计数的只读采集，不改变回收策略，普通轻量模式不增加这些读取。[一轮实际观测](records/PRETTIER_DAMON_OBSERVATION.md)已确认默认回收与四段明显下降在时间上对应；实际内核不提供`skip_anon`，回收累计量按内存而非全部文件缓存报告。
+
+Prettier另有`platform-prettier6604-damon-disabled.json`，在任务准备/采样前关闭该guest的DAMON、等待回收线程退出，采集结束后恢复原启用状态。[一对实际对照](records/PRETTIER_DAMON_PAIR.md)已确认关闭窗口回收增量为0、原结果保持，显著的大幅Cached下降消失。此配置保留0.1秒内存及DAMON计数采集，不改变普通任务默认值，也不禁止其他正常回收。用法仍是统一`check/run/report`入口。
+
+## host总内存与文件缓存轻量采样
+
+只需要guest轻量曲线和host总记账时，普通三任务现有显式`platform-<任务>-host-current.json`配置（#6604、Sphinx7590、Xarray6992）；关闭PSS和最终mincore，旧`*-host-file.json`不变。[选项与检查](records/HOST_CURRENT_TASK_OPTION.md)及[#6604一轮](records/HOST_CURRENT_PRETTIER6604.md)、[Sphinx／Xarray各一轮真实采集](records/HOST_CURRENT_PYTHON_TASKS.md)均已完成，三任务新模式的数值表和曲线见后两份报告。调用为`bash scripts/run-host-file-monitor.sh configs/platform-prettier6604-host-current.json`；8 GiB卷启动前可用磁盘须严格超过34 GiB，源服务须已健康。
+
+同组并发短测使用`bash scripts/run-host-file-monitor.sh configs/platform-prettier6604-host-file.json --current-pair`：先1个再2个guest，各原11步、各观察5秒，current主曲线，无PSS／mincore；不改旧1／2／4／7入口。8 GiB卷同样要求启动前严格超过34 GiB可用。[首轮数据及补测整轮结果](records/HOST_CURRENT_PAIR.md)已有记录；补测的报告、末尾检查和清理全部通过，原失败卷经授权已删除，原记录保留。
+
+同组短测约14.5 GiB准备基线包含临时RAM整卷和已被校验读取的缓存；不是每个guest的独占成本。[基线拆分及部署统计范围](records/HOST_CURRENT_BASELINE_SCOPE.md)说明已确认的7252 MiB RAM容器、其余缓存和未覆盖对象。保留原current与同组增量，不直接扣除全部准备基线后当作真实部署内存。
+
+若要验证去掉RAM整卷的新准备方式，显式在上述`--current-pair`命令后加`--persistent-input`；仅新选项改为组外磁盘恢复、组内新普通文件导入，原入口不变。[离线实现和使用条件](records/HOST_PERSISTENT_INPUT_IMPLEMENTATION.md)已完成，真实新路径尚未运行。准备前要求严格>54 GiB可用磁盘；0.1秒采样不增加查询，只在两个任务窗口结束后新增一次去重输入文件mincore核对及成本记录。新旧current统计范围不同，不直接相减作为物理节省。
+
+10月22日前的部分逐页明细已无损压缩保存，近期轻量数据和图保持原位置；旧精细分析若缺少原`.bin`或大型页所有者表，先按[清理报告](records/STORAGE_CLEANUP_20261029.md)恢复对应单个文件。三任务必需输入备份均保留。
+
+新版完整采样开销的关闭对照使用`configs/platform-prettier6604-host-current-off.json`，仍通过同一`run-host-file-monitor.sh`入口创建统计组，内存／I/O记账、输入准备、原工具计时和全部任务／卷检查保持；关闭guest周期及边界采样、host周期采样与内存基线读取，不生成内存曲线。离线检查及[正反两对116动作实跑](records/HOST_CURRENT_SAMPLING_TWO_PAIRS.md)已完成；整轮差值随顺序反转，工具、回放及创建后窗口分列，保留全部实际值。用法见[关闭入口、计时和未测状态说明](records/HOST_CURRENT_SAMPLING_CONTROL.md)。这不同于旧`--matched-task --host-sampling off`仅关闭host新增采集，不要混算两类对照。
+
+Sphinx另有`configs/platform-sphinx7590-host-current-off.json`，同样只加`monitor_mode: off`，仍使用外层`run-host-file-monitor.sh`。其[首对70动作实跑](records/HOST_CURRENT_SPHINX_SAMPLING_PAIR.md)已完成，原结果、开关、报告和清理通过；本对工具增加64.49%，主要集中在一条环境枚举命令，等待来源仍需诊断，不直接沿用Prettier的耗时结论。
+
+Xarray对应`configs/platform-xarray6992-host-current-off.json`，同一外层入口使用方式不变；[关闭→开启各35步](records/HOST_CURRENT_XARRAY_SAMPLING_PAIR.md)已完成，回放+0.19%、控制程序整轮+0.55%，原945通过／12失败、诊断规则、开关和清理保持。当前三个标准任务均有新版guest＋host current开关结果，仍按各任务报告分别解释。
+
+查看各任务已有host总记账，先看[四项代码任务的统一清单](records/HOST_CURRENT_TASK_INVENTORY.md)：包含current基线／峰值／增量、曲线及实际采集开关。旧#6604缺精确基线，旧三任务带PSS／mincore，新#14400关闭；这些记录按各自配置展示，不合并为同条件开销结论。本机原始数据仍在时，可只读生成数值表：`bash scripts/report-host-current-tasks.sh --output .artifacts/host-current-tasks-new`。
+
+Prettier #14400另有已完成一轮完整验证的显式轻量入口，保留原26步、2 CPU／4 GiB及官方检查，guest／host每0.1秒采样，关闭PSS、mincore和旧重复监控，默认回收保持：[结果、图表及成本](records/HOST_PRETTIER14400_LIGHT.md)。它沿用旧Exp1的v1配置，不使用普通v2任务分派：
+
+```bash
+# 源服务须已健康；不自动启动或替换源服务。
+export ASB_AGENTENV_SOURCE_SERVICE=asb-source-rebuilt-20261018T160925Z-2726362
+bash scripts/run-host-file-monitor.sh \
+  configs/platform-prettier14400-host-current.json --exp1-light
+```
+
+此模式使用20 GiB卷，启动前磁盘可用须严格超过46 GiB，并依赖本机已验证的只读缓存备份。旧入口不加新选项时行为保持；成功卷清理，失败卷保留并另行申请删除。
+
+新增冻结工具任务可使用`run-host-file-monitor.sh ... --tool-replay configs/host-csv-light-replay.json`，只采guest meminfo和host current，不采PSS或mincore；[CSV实跑与限制](records/HOST_CSV_CURRENT_VALIDATION.md)给出完整命令、曲线、成本和原外层检查失败的离线修复。现有普通任务默认行为不变。
+
+**要查看多沙箱共用文件少占多少host缓存，先看[GRPO／BPO统一报告](records/HOST_COPY_CONTROL_SUMMARY.md)。** 该显式副本模式以真实19文件共用／133独立文件的mincore驻留差为主指标，关闭PSS；host file曲线仅作记账上下文。报告集中列出图、原始结果、阶段、成本和两种调度的实跑命令，不改变下面普通host入口的默认行为。
+
+只从保存JSON生成统一结果表、不启动沙箱或查询缓存：
+
+```bash
+bash scripts/report-host-copy-summary.sh --output .artifacts/host-copy-summary-new
+```
+
+输出目录必须不存在；生成`SUMMARY.md`和`summary.json`。已有对照各一对，均已完成，日常查看不需要重跑。
+
+显式配置`platform-prettier6604-host-file.json`、`platform-sphinx7590-host-file.json`或`platform-xarray6992-host-file.json`增加host采样，普通guest配置保持不变。使用前先看[当前指标、验收范围和运行选项](records/HOST_MEASUREMENT_ACCEPTANCE.md)。新host报告以`memory.current`为主曲线，表示整组总内存记账；`anon/file/kernel`解释组成，清理前mincore保留指定文件的全局驻留。基线、观测峰值、增量、未覆盖范围和无需驻留清单的离线命令见[current主指标方案](records/HOST_CURRENT_PRIMARY.md)。已有PSS采集选项不变，共享文件模式继续关闭PSS；host file与guest Cached不是同一层，不把这些量相加。
+
+```bash
+# 源服务需已确认健康；此入口不负责启动或替换源服务。
+export ASB_AGENTENV_SOURCE_SERVICE=asb-source-rebuilt-20261018T160925Z-2726362
+bash scripts/run-host-file-monitor.sh configs/platform-prettier6604-host-file.json
+```
+
+入口在准备输入前创建统计组，同时启用内存和I/O记账，新服务及新VMM从创建时就在组内。普通完整任务使用8 GiB卷（Prettier 29步，Sphinx／Xarray各35步），启动空间须超过34 GiB，另按入口预留未就绪输入。恢复选项使用24 GiB卷，须超过50 GiB；保留原资源保护和失败卷清理授权规则。
+
+下列选项互斥，已验证范围为Prettier：`--matched-task`为同一快照的单／双沙箱相同后缀，共41实际动作；`--trace-dual-task`为带专用探针的双沙箱31动作，只作来源和覆盖诊断；`--restore-pair`只观测空闲恢复，不执行后缀；`--short-pair`只做两个新guest的标记检查，没有共享快照。已有结果优先离线使用，不逐项重复校准。
+
+实验选项`--independent-matched-task`已完成同一快照、两组独立服务／可写卷的实跑；`--resume-prefix <原源结果目录>`可复用已验证归档，只新增30个后缀动作，不重复原11步。结果、起始缓存差异及记账缺口见[独立卷验证](records/HOST_INDEPENDENT_PAIR_VALIDATION.md)，已有前缀的调用见[继续方式](records/HOST_INDEPENDENT_PAIR.md#授权清理和已验证的继续方式)。不自动删除失败卷或启动源服务；重新执行仍须源服务健康和超过50 GiB可用磁盘。此选项不改变原普通或共享卷入口。独立恢复现于导入后、服务及guest创建前同步自有文件系统，结果写入`checkpoint_import_sync`；本轮准备同步约8.5秒，两组基线差降至3.379 MiB，详见[同步验证](records/HOST_IMPORT_SYNC_VALIDATION.md)。这是准备条件变化，旧未同步结果按原范围保留。
+
+I/O记账设置已经过[小loop对照](records/HOST_LOOP_ACCOUNTING.md)及[真实大卷恢复](records/HOST_FILE_IO_RESTORE.md)验证。[此前共享卷41动作对照](records/HOST_LIVE_FILE_INVENTORY.md)已补齐每组VMM删除前的普通文件清单，并验证目标设备mincore前后的PSS读取。单／双设备驻留422.707／425.227 MiB；普通文件、块设备和原始层按实际身份分别核对，原始层不重复加入。最终190文件仍有0.480469 MiB净不足，保持原检查状态；旧轮次差额不追溯改写。
+[历史相同后缀对照](records/HOST_FILE_MATCHED_TASK.md)提供指定设备相对线性参考的减少比例，不是整体host节省。三个普通任务均已完成host入口实跑；[Sphinx／Xarray结果与图表](records/HOST_PYTHON_TASKS.md)包含各自35步及157文件最终清单，未检出净不足但不证明记账完整。使用上面同一命令，将配置换为对应的`*-host-file.json`即可；共享恢复和设备归属检查仍仅覆盖Prettier。新增host采集已完成[一次开启／关闭对照](records/HOST_SAMPLING_CONTROL.md)：工具累计5.645／5.716秒，控制程序46.023／32.397秒，额外查询成本分开报告。只在`--matched-task`后加`--host-sampling off`关闭新增host采样，guest采样和记账条件保留；此时没有host物理量或曲线。普通入口默认开启，三任务guest采样开销仍按原报告理解。
+
+需要更完整的host明细时，在独立卷命令上增加`--host-memory-detail`：目标设备、普通文件、额外映射文件和PSS连续查询，其他大设备随后查询。该选项已完成一次30动作单／双验证；35个补查文件的全局驻留及特殊映射未知项见[结果与调用](records/HOST_MEMORY_COMPACT.md)。不加选项仍用原轻量方案，改进前成果已[备份](records/LIGHT_MEASUREMENT_BACKUP.md)。
+
+[特殊映射离线分类](records/HOST_SPECIAL_MAPPINGS.md)说明Pss_File还可包含映射内核页，不能当作纯page cache或再加kernel；ublkc命令缓冲也可能被PSS及统计组记账漏掉，随后已用下述真实补采单列本轮分配量。默认入口和历史数值保持。
+
+显式明细已补入逐映射信息、必要smaps、可访问已删除后备类型及ublk队列配置，完成[一次真实30后缀动作验证](records/HOST_SPECIAL_MAPPINGS.md#最新实跑回答了什么)：7次查询成功，命令缓冲按源码计算为12／16 KiB，原结果及清理保持。命令不变；仅此选项新增cc和liburing开发依赖，工作流程在启动服务前编译只查GET_DEV_INFO的程序。新增补采状态与原查询状态分列，已有映射PSS不当作整个后备容量。
+
+同一显式选项现已[接入已删除后备缓存查询](records/HOST_DELETED_BACKING_INTEGRATION.md)：每批一个默认4秒超时子进程，经map_files和cachestat查询，结果在`deleted_backing_cache`及报告独立一节列出，不加到file／PSS／kernel。跨进程和超时回收的小对象验证以及[真实原快照后30动作补采](records/HOST_DELETED_BACKING_LIVE.md)均已完成；真实两组缓存4／8 KiB，查询含启动45.080／47.184毫秒。原缺描述符状态与新缓存成功状态分列，旧数据不追补。独立小对象入口为`bash scripts/run-host-deleted-backing.sh --bounded`，无需重复已完成的验证。
+
+无需重新实验即可查看[最新内存分项及耗时](../.artifacts/host-file-independent-pair/20261021T110642Z-31195/MEMORY_DETAIL.md)，[此前汇总](../.artifacts/host-memory-report-20261021/latest/MEMORY_DETAIL.md)按原字段和未测范围保留。独立单／双沙箱流程自动生成`MEMORY_DETAIL.md`及扩展`summary.json`；离线另存使用`bash scripts/report-host-independent-pair.sh WORKFLOW --output NEW_DIRECTORY`，不调用服务或设备，只接受原数据目录外的新目录。新旧结果兼容，缺失字段不补零；完整调用示例见[离线报告说明](records/HOST_SPECIAL_MAPPINGS.md#直接查看或离线生成汇总报告)。
+
+使用已有单／双沙箱结果说明共享效果时，优先引用[同步后离线核算](records/HOST_PHYSICAL_BREAKDOWN.md)：指定设备相对线性参考少驻留394.730 MiB，总记账增量参考少395.398 MiB，后者不写作整体物理节省。公共准备只算一次，普通文件、设备和匿名PSS保留各自时间及范围。
+
+旧普通文件已有缓存的记账归属可用独立研究入口`bash scripts/query-host-existing-cache.sh FILE --group CGROUP --output NEW_DIRECTORY`查询。[一次自有文件及旧归档查询](records/HOST_EXISTING_CACHE_OWNER.md)已验证：当时归档1746.109375 MiB均在实验父组外，带探针查询414.661毫秒、含准备总5.267秒。现已[接入`--host-memory-detail`](records/HOST_EXISTING_CACHE_INTEGRATION.md)：原文件／设备观察之后，以本轮统计组为参考，默认30秒超时查询导入归档，结果在`existing_cache_owner`和报告独立一节列出。默认采样不变，旧记录为NOT_MEASURED／null；不读数据、不回填历史，也不把新增成本计入工具用时。40项离线检查、旧报告兼容和自有进程组超时通过；本轮没有接入后的沙箱实跑。
+
+## 改变文件缓存：起始状态和持续目标
+
+查看缓存变化对任务的影响，使用[缓存控制汇总](records/CACHE_CONTROL_SUMMARY.md)。Prettier已完成起始保留/清理四次和持续64/128 MiB目标对照，推荐同一实际快照、保存前停止后台回收的`--damon-before-checkpoint`选项；它是周期回收目标，不是硬上限。已有结果优先离线查阅，无需重复实跑；24 GiB卷的新执行仍要求启动前超过50 GiB可用磁盘及原资源保护规则。
+
+Sphinx和Xarray已完成[不主动回收基线](records/PYTHON_CACHE_BASELINES.md)及[各两档目标组](records/PYTHON_CACHE_TARGETS.md)。基线配置`platform-sphinx7590-cache-baseline.json`、`platform-xarray6992-cache-baseline.json`通过`guest_cache_baseline: true`显式启用；目标配置使用互斥的正整数`guest_cache_target_mib`。Sphinx已验证65/98 MiB，Xarray为167/251 MiB，均在自有guest关闭DAMON、任务后恢复原状态。
+
+两任务基线合并入口为`bash scripts/run-python-cache-baselines.sh`，四次目标组为`bash scripts/run-python-cache-targets.sh`，单项仍用统一入口和对应`platform-sphinx7590-cache-65.json`等配置。两类入口均使用已有8 GiB单路径预算和指定的reclaim诊断内核，旧配置及Prettier参数保持。已有结果优先离线报告，不重复实跑；这些目标仍是周期回收目标，不是硬上限。
+
+## 不暂停物理缓存采集的统一入口
+
+最新版真实双分支已有[关闭/开启各一次的耗时对照](records/PROVIDER_PAIR_TIMING.md)。独立入口的`--prettier6604-snapshot-cache-sampling off|on`只切换缓存发布、host物理采集及BPF，默认`on`；不关闭常规监控、guest内核成员表或provider观测记录。`off`仅用于真实双分支对照，物理量明确为未请求，不生成零占用曲线。统一任务配置的默认行为不变。
+
+版本2配置可增加`live_cache_kernel`，填入本机已构建的诊断guest ELF路径，即启用新常驻采集器。当前示例使用`.artifacts/agentenv-cache-kernel-20261015-v3/vmlinux.bin`；缺内核或输入时检查会明确失败，不改用旧内核。该统一选项支持三任务完整单路径和Prettier第24步checkpoint/restore，与统一配置的分支及旧暂停测量互斥；其他任务的新恢复采集尚未接入。真实双分支使用独立入口，默认保留[三层版本](records/PRETTIER_REAL_PAIR_CACHE.md)，[最新四来源版本](records/PROVIDER_REAL_PAIR.md)须显式提供provider二进制、GET_DATA和批量参数。原配置行为保持。
+
+```bash
+bash scripts/use-platform.sh check configs/platform-sphinx7590-live-cache.json --offline
+bash scripts/use-platform.sh run configs/platform-sphinx7590-live-cache.json
+bash scripts/use-platform.sh report .artifacts/platform-tasks/20261015T065544Z-1881793 --output .artifacts/<新的统一报告目录>
+```
+
+| 新配置 | 运行和报告证据 |
+| --- | --- |
+| `platform-prettier6604-live-cache.json` | 29步控制器成功数据复用；配置分发通过，统一报告两次11文件一致，未重复新入口实跑 |
+| `platform-sphinx7590-live-cache.json` | 统一入口真实35步及22个配对点通过；原诊断策略及24通过/1失败保持，12文件报告复算一致 |
+| `platform-xarray6992-live-cache.json` | 统一入口真实35步及65个配对点通过；原SIGPIPE诊断及945通过/12失败保持，12文件报告复算一致 |
+| `platform-prettier6604-checkpoint-live-cache.json` | 29步、第24步完整状态恢复及后5步通过；保存前11点、恢复后14点，两份修正报告13文件一致 |
+
+`run`返回独立运行目录，自动在旁边生成`report-<run_id>/`；其中保留原任务、内存/CPU/I/O、时延和清理报告，新增`live-cache/summary.json`、`cache.svg`及`cache.png`。根`summary.json`的`live_cache`提供采样数、两个观测峰值、未确认容量最大值及相对曲线路径。Python任务原来的`page_cache.physical_bytes=NOT_MEASURED`会改为新序列的方法和来源，避免与实际已测数据矛盾。物理页号只留本机raw，未确认容量不是已测host RAM。
+
+同样需要已核验的任务备份、root/BPF/pagemap权限、超过34 GiB磁盘空闲及64 GiB可用RAM；顺序使用8 GiB固定卷，成功后回收本次资源。新guest内核只复制到私有服务，不更改host内核或共享服务。Sphinx的`sphinx-pipeline-v2`和Xarray的SIGPIPE诊断规则明确保留，不能把诊断PASS改写成严格重放PASS。指标含义和最新数字见[实际结果](records/FILE_PHYSICAL_MEMORY.md#2026-10-15三任务完整单路径的不暂停缓存测量完成)。
+
+恢复配置使用24 GiB固定卷，要求超过50 GiB磁盘空闲，不能沿用单路径的34 GiB预算。调用同上，只需将配置换为`platform-prettier6604-checkpoint-live-cache.json`。采集保存前停止、恢复后重新关联host进程和RAM布局，报告分段绘制；正常checkpoint自身的暂停仍存在。
+
+文件恢复后端可能保留尚无VMM驻留页表项的缓存页。现行恢复路径已增加直接后端查询；`platform-prettier6604-checkpoint-layer-cache.json`再显式开启`live_cache_lower: true`，计入可归属的单个原始内存层。各来源按物理页号去重，旧版本及未知量另列。统一配置尚无provider及批量开关，不会自动启用最新增强；完整覆盖与版本见[阶段验收说明](records/CACHE_MEASUREMENT_VALIDATION.md#哪些范围已验证使用哪个版本)。
+
+早期仅VMM恢复数据仍按原范围解释：未映射不代表零host占用，未确认guest容量不能与物理量相加。该次首次自动报告已被离线修正，应使用`.artifacts/cache-restore-20261015/report-a`，详见[早期恢复说明](records/FILE_PHYSICAL_MEMORY.md#2026-10-15第24步恢复后的不暂停采样通过文件后端驻留需单列)。新运行取得的后端数据不用于追溯补算旧运行。
+
+以下独立入口及指定文件校准保留供诊断；正常完整任务优先使用上方统一配置入口，已有成功结果优先离线复算。
+
+指定文件的guest到host关联已有独立入口，使用原guest内核、不暂停。新建一个2 CPU/4096 MiB VM，在1 MiB校准文件上自动采集约11秒；临时锁住已填充文件页，释放前解锁，不代表正常任务开销或整guest覆盖。要求原项目API空闲、固定镜像已在服务中完整缓存、root/BPF权限及超过32 GiB可用空间；只删除本次VM。日常查看结果使用离线报告，不重复真实校准。
+
+```bash
+python3 -B scripts/probe_agentenv_live_cache.py --output .artifacts/<新的测量目录>
+python3 -B scripts/report_agentenv_live_cache.py .artifacts/agentenv-live-cache-20261015-consistent --output .artifacts/<新的报告目录>
+```
+
+报告上图对比同一文件的guest逻辑缓存与host驻留物理量，下图单独显示整guest Cached；两者范围不同。原始PFN留本机，报告输出目录必须是新的项目`.artifacts`子目录。已验证结果和全量采集的下一步见[当前测量记录](records/FILE_PHYSICAL_MEMORY.md#2026-10-15agentenv运行期间的guest缓存与host物理占用关联通过)。
+
+整guest诊断路径使用单独构建的Linux 6.1.175 guest内核，原host内核及共享服务不变。构建需要root、已有编译工具、8 GiB有界tmpfs及4个编译作业，不安装依赖。可复用已有源码资产；以下构建输出和报告输出都必须是新目录：
+
+```bash
+python3 -B scripts/build_agentenv_cache_kernel.py --output .artifacts/<新的构建目录> --assets .artifacts/agentenv-cache-kernel-20261015
+python3 -B scripts/validate_isolated_agentenv.py --automatic-window --guest-cache-metadata-probe --diagnostic-guest-kernel .artifacts/agentenv-cache-kernel-20261015-v3/vmlinux.bin
+python3 -B scripts/report_guest_cache_metadata.py .artifacts/storage-isolated-service/20261015T034459Z-1821447/guest-cache --output .artifacts/<新的报告目录>
+```
+
+第一条只构建；第二条示例明确使用已通过的v3内核，若验证新构建需改成其实际`vmlinux.bin`路径。短验证需完整本机原生镜像缓存和超过38 GiB主机可用空间，预分配12 GiB临时卷，顺序读取6组全guest元数据和host映射。它验证普通文件/tmpfs的包含及匿名页排除，不执行完整trajectory。成功后回收本次服务、VM和卷；失败保留现场，完整备份核验后按已授权规则回收源卷。报告展示guest Cached、host确认驻留量，以及未确认guest页容量；第三项不是已测得的host RAM。原始物理页号只留本机，代码仓库只放脱敏结果。已有结果直接离线复算，不重复启动短验证。
+
+完整Prettier #6604冻结任务现可使用常驻采集，不暂停VM；先准备只读RAM镜像缓存，再调用已有隔离控制器，保留原29步及任务检查：
+
+```bash
+python3 -B scripts/run_live_prettier_cache.py --output .artifacts/<新的任务目录> --kernel .artifacts/agentenv-cache-kernel-20261015-v3/vmlinux.bin
+python3 -B scripts/report_live_task_cache.py .artifacts/storage-isolated-service/20261015T040303Z-1830135/prettier6604 --output .artifacts/<新的报告目录>
+```
+
+使用已核验的Prettier备份、已有v3内核及本机服务依赖；需超过34 GiB磁盘空闲和64 GiB可用RAM，任务占用8 GiB固定卷，只读镜像临时展开到有界RAM。采集周期约1秒，独立匿名缓冲区容量16.008 MiB并锁定；这不是任务文件page cache。原始配对数据预算1 GiB，成功后回收本次VM、服务、卷和RAM缓存。结果目录的`report/`含两条缓存曲线、未确认容量、任务检查及阶段时延；原有100 ms轻量内存/CPU/I/O报告另保存在对应storage目录`report/`。
+
+对照同一个诊断内核下关闭新增采集，可在第一条命令加`--cache-sampling off`，仍保留原轻量监控及内核元数据表。该模式只运行任务与常规报告，不生成新的host物理缓存曲线。已完成优化版先关后开各一次的验证：完整重放用时变化+0.96%，只作单对观察，不当作统计稳定值；性能比较须说明顺序和重复次数。当前默认使用`array-accounting-batched-export-v2`采集器，内核仍是`6.1.175-asb-cache-v3`，二者版本不要混淆。host使用已安装的NumPy（现有绘图库依赖），guest不新增依赖。相同的1秒采样周期、匿名缓冲容量和原始格式保持；原逐页计数器仍用于独立复算。最新已完成数据可直接报告，不重跑任务：
+
+```bash
+python3 -B scripts/report_live_task_cache.py .artifacts/storage-isolated-service/20261015T050604Z-1849409/prettier6604 --output .artifacts/<新的报告目录>
+```
 
 2026-10-09起，用户已持续授权常规实验，不再逐次确认空闲窗口。隔离入口及统一入口可省略`--confirmed-window`和起止时间，默认创建20分钟运行时间范围；这是超时预算，不表示主机独占或其他人不写盘。旧示例的显式时间参数仍兼容；隔离验证脚本如显式设置运行时间而非人工窗口，可加`--automatic-window`。磁盘预算、20 GiB保护量、失败保留及只清理本次资源的规则继续执行。
 
-本入口用于已准备好的实验机，复用固定AgentENV镜像缓存、TrEnv-X模板、CLI和任务测试输入。可选择原服务上的共享盘模式，或容量固定的临时服务模式。当前支持Prettier #14400的26步冻结轨迹；它不是PPT中的Prettier #6604任务，已有冻结轨迹之外，新增工具接口支持实际调用采集、冻结和重放；在线模型接入及全新机器安装另行验证。
+本入口用于已准备好的实验机，复用固定AgentENV镜像缓存、TrEnv-X模板、CLI和任务测试输入。可选择原服务上的共享盘模式，或容量固定的临时服务模式。当前支持Prettier #14400的26步冻结轨迹；它不是PPT中的Prettier #6604任务。已有冻结轨迹之外，工具接口支持实际调用采集、冻结和重放，在线GLM shell接入也已通过，见下方在线采集；全新机器安装暂缓。
 
 Prettier #6604、Sphinx #7590和Xarray #6992现可通过下面的版本2配置接入同一个`use-platform`入口。默认不带配置仍为Exp1。平台重放结果与原模型任务测试结果分开报告；原模型修复不完整，不修改冻结动作或答案。
 
@@ -18,13 +175,33 @@ Prettier #6604、Sphinx #7590和Xarray #6992现可通过下面的版本2配置�
 | `platform-prettier6604.json` | AgentENV；单路径 | 不保存 | 原29步完整路径和持续指标已通过；版本2离线检查通过，同一入口的附带物理测量配置已完整运行 |
 | `platform-prettier6604-checkpoint.json` | AgentENV；单路径 | 第24步后，完整VM恢复 | 原恢复与续跑已有成功证据；版本2离线检查通过，未重复真实恢复 |
 | `platform-prettier6604-grpo.json` | AgentENV；七个新实例 | 不保存 | 原七实例189动作及持续指标通过；版本2离线检查通过 |
-| `platform-prettier6604-bpo.json`、`platform-prettier6604-tvcache.json` | AgentENV；原BPO、确定顺序前缀树 | 调度内两处保存和六个恢复分支 | 原调度功能通过；版本2离线检查通过。32 GiB卷要求大于58 GiB主机可用空间，当前可能受预算限制 |
+| `platform-prettier6604-bpo.json` | AgentENV；原BPO，七条路径 | 第11、24步后保存，六个恢复分支 | 2026-10-12统一入口84个实际动作、六次状态恢复及七沙箱CPU/I/O/PSS持续曲线通过，见[本轮证据](records/evidence/prettier6604-bpo-runtime-20261012.json) |
+| `platform-prettier6604-tvcache.json` | AgentENV；确定顺序前缀树 | 第11、24步后保存，六个恢复分支 | 2026-10-12统一入口17段/84实际动作、六恢复及七沙箱4607持续样本、CPU/I/O/PSS通过，见[本轮证据](records/evidence/prettier6604-tvcache-runtime-20261012.json)；32 GiB卷仍需大于58 GiB主机空闲 |
 | `platform-sphinx7590.json` | AgentENV；单路径 | 可另配29，但须使用strict策略及完整评测参考 | 原完整路径、恢复与曲线已有证据；此配置明确采用已批准的管道诊断版本2，不能报告严格重放通过 |
 | `platform-xarray6992.json` | AgentENV；单路径 | 可另配22，须提供完整评测参考 | 原完整诊断、恢复与曲线已有证据；明确采用已批准的SIGPIPE诊断规则，严格重放状态保留FAIL |
 | `platform-prettier6604-cache.json` | AgentENV；单路径、持续采样和精细分析 | 不保存；第5、24、29步后暂停测量 | 版本2真实29步、三点物理测量、自动报告和离线复算通过，见[证据](records/evidence/platform-task-entry-cache-20261011.json) |
 | `platform-prettier6604-shared-1.json`、`platform-prettier6604-shared-2.json`、`platform-prettier6604-shared-7.json` | AgentENV；1/2/7个GRPO新实例 | 不保存；相同前11步后全部暂停测量，再继续原后缀 | 三份离线检查通过；1/2/7实例完整任务、物理测量、持续曲线及清理通过，见[共享缓存记录](records/SHARED_TASK_CACHE.md) |
 
 新增`platform-sphinx7590-cache.json`和`platform-xarray6992-cache.json`均已完成新入口真实35步运行、持续曲线、物理测量、报告和清理。Sphinx在第13/29/35步后测量，Xarray在第13/22/35步后测量；Xarray后两点各有一页未知，保存已确认值及最多4 KiB缺口。两个任务均沿用已批准诊断规则，严格重放状态仍FAIL，模型测试原失败保持。详见[完整任务缓存报告](records/PYTHON_TASK_CACHE.md)。
+
+### Exp3三任务、两后端、三种调度的覆盖
+
+Prettier此前的[轻量GRPO／BPO实跑](records/LIGHT_ROLLOUT_PAIR.md)使用`platform-prettier6604-grpo-light-host.json`和`platform-prettier6604-bpo-light-host.json`显式选择guest 0.1秒meminfo、host 0.1秒计数和1秒全组PSS；这些旧配置仍保持原行为。该次GRPO任务后附加清单不完整与原FAIL保留，任务／曲线已单独交付；BPO实跑和附加清单通过。最新指定文件真实副本对照已完成，使用不同的显式入口、关闭PSS，见[统一结果及用法](records/HOST_COPY_CONTROL_SUMMARY.md)。另两个任务完整七路径仍缺失。
+
+下表只统计完整七路径调度，共18种组合；单路径、Exp1、Exp2和短恢复验证不代替这些组合。学长固定版本的通用controller和三任务冻结输入均在本机，每个任务七条路径、35个逻辑段；这是静态资产，不代表本机18组都运行成功。“未实现”指本平台适配，学长仓库中的实现另列。历史报告和本机原始结果分开使用。
+
+| 任务 | 后端 | GRPO | BPO | TVCache |
+| --- | --- | --- | --- | --- |
+| Prettier #6604 | AgentENV | 已验证通过：189动作、七实例及新增CPU/I/O/PSS；另有统一入口共享测量变体 | 已验证通过：统一入口84实际动作、六恢复及新增指标 | 已验证通过：统一入口确定树顺序、17段/84实际动作、六恢复及新增指标 |
+| Sphinx #7590 | AgentENV | 未实现：本平台七路径适配；学长代码已有 | 未实现：本平台七路径适配；学长代码已有 | 未实现：本平台七路径适配；学长代码已有 |
+| Xarray #6992 | AgentENV | 未实现：本平台七路径适配；学长代码已有 | 未实现：本平台七路径适配；学长代码已有 | 未实现：本平台七路径适配；学长代码已有 |
+| Prettier #6604 | TrEnv-X | 未实现：本平台Exp3适配；学长代码及本机原模板已有 | 未实现：本平台文件层封存/继承适配；学长代码已有 | 未实现：本平台文件层封存/继承适配；学长代码已有 |
+| Sphinx #7590 | TrEnv-X | 未实现：本平台Exp3适配，未找到本机任务模板 | 未实现：本平台Exp3适配，未找到本机任务模板 | 未实现：本平台Exp3适配，未找到本机任务模板 |
+| Xarray #6992 | TrEnv-X | 未实现：本平台Exp3适配，未找到本机任务模板 | 未实现：本平台Exp3适配，未找到本机任务模板 | 未实现：本平台Exp3适配，未找到本机任务模板 |
+
+Prettier GRPO原七实例扩展指标见[实际记录](records/evidence/runtime-managed-grpo-20261010.json)，BPO见[本轮证据](records/evidence/prettier6604-bpo-runtime-20261012.json)，TVCache见[本轮证据](records/evidence/prettier6604-tvcache-runtime-20261012.json)及[历史功能](records/evidence/prettier6604-tvcache-20261008.json)。当前按角色修正的inspect段使TVCache执行17段，与学长历史13段区分；三调度的输入与原模型失败保持。Sphinx/Xarray的单路径及恢复已完成，不在本表多路径列中计通过。TrEnv-X Exp2已保存完整VM内存；Exp3的BPO/TVCache须复用学长封存文件层、构建干净模板的流程，仅继承文件状态，不沿用Exp2的进程恢复结论。
+
+Prettier三调度新增指标范围已完成，下一项接入Sphinx/Xarray七路径。TrEnv-X从本机已有Prettier模板的GRPO开始；后续文件层封存和缺失模板另行准备。完整18组覆盖不是本机第一版平台交付的前置条件。首次每配置一次核对正确性与数据完整性，不自动增加统计轮数。
 
 这些调度沿用现有实验语义，不代表RL训练、自动熵选点或线上并发缓存系统。CPU和内存沿用各任务固定配置，目前2 CPU/4096 MiB；采样约100 ms，PSS约1秒。不通过版本2字段擅自改变原轨迹、测试和缓存策略。
 
@@ -49,6 +226,25 @@ bash scripts/use-platform.sh report .artifacts/platform-tasks/<run_id> \
 
 2026-10-11用户授权本轮七实例校准修复的同类清理自动执行：失败资源回收、完整卷备份解压SHA-256核验通过后，可删除失败源卷；本轮旧完整失败备份不作为输入时可回收，只保留最新一份。全部原始日志、配置、轨迹、代码版本和FAIL记录保留。其他归档按本轮用户“后续也可自动处理”的授权逐份核验；只回收已被后续证据取代且不是当前输入的旧失败镜像，保留日志、配置和原始结果。当前任务输入镜像继续保留。
 
+## Exp2：四轮保存与恢复
+
+`platform-exp2-preserve.json`和`platform-exp2-drop.json`为AgentENV，`platform-exp2-trenvx.json`为TrEnv-X原生内存snapshot及可写盘模板提升。三组均已实际通过，复用学长Exp2原32个shell动作与20 ms guest runner，2 CPU/4096 MiB；每轮8步，四轮都保存、删除原实例并恢复。`preserve`不主动清缓存，两组`drop`仅在guest保存前执行`sync; echo 3 > /proc/sys/vm/drop_caches`，也会影响可回收slab，宿主机缓存保持。
+
+```bash
+bash scripts/use-platform.sh check configs/platform-exp2-preserve.json --offline
+bash scripts/use-platform.sh run configs/platform-exp2-preserve.json
+bash scripts/use-platform.sh run configs/platform-exp2-drop.json
+bash scripts/use-platform.sh run configs/platform-exp2-trenvx.json
+```
+
+三条真实命令顺序运行，每次32 GiB固定容量卷，AgentENV要求主机大于58 GiB可用，TrEnv-X沿用大于60 GiB门槛；成功卷自动回收。输入冻结配置为`configs/exp2-prettier6604.json`，不使用Exp3的29步轨迹。TrEnv-X还需本机原`/var/lib/trenvx/templates/prettier-6604-exp2-ch-dax`模板及固定SDK/CH依赖，入口复制并核验文件哈希，不修改原模板；新机要准备这些资产。新增100 ms持续采样和恢复状态探针，原runner不改；其成本包含在本次生命周期中，不能直接与学长旧绝对耗时比较。每轮核对源码、三个`/tmp`案例、步骤进度和进程/匿名内存/打开文件，恢复后只运行下一轮；第四次恢复核对终态。原聚焦Jest与格式化oracle单列，不视作独立任务测试。报告入口沿用`use-platform report <本次运行目录> --output <新目录>`。
+
+三配置各一次、96动作和12次恢复已通过；1375份raw不变，三份17文件报告各两次复算一致，不追加统计轮数。实际状态、曲线及TrEnv-X较高的调用/SDK关闭成本见[Exp2复现记录](records/EXP2_REPRODUCTION.md)。TrEnv-X本实验恢复完整VM状态，Exp3仅文件层继承的语义保持。
+
+TrEnv-X入口现先关闭SDK工具连接、再删除VM，消除已验证的约15秒连接关闭等待；一次额外四轮复验通过，五次删除及关闭合计7.556秒，原动作与恢复语义不变。需要复现关闭顺序短对照时使用`bash scripts/validate-isolated-trenvx.sh --automatic-window --mode exp2 --diagnose-exp2-delete`，它先运行两个短工具实例，再完成同一个四轮控制器；普通统一入口不重复这两个诊断实例。报告使用系统`python3`，SDK专用环境没有绘图依赖；例如`python3 -B scripts/report_exp2.py <raw/replay目录> <新报告目录>`，不修改raw。
+
+TrEnv-X Exp2当前还默认合并首次采样代码上传，恢复后从完整快照继承并核对四份文件哈希；采集器在首个样本前创建目录和阶段标记，停止阶段用Python更新。五个会话的停止、进程回收和数据下载保留；其他任务入口沿用原控制方式。本次统一入口复验通过，监控控制55→26次、73.214→28.355秒，32步、四次恢复和448个100 ms持续样本完整。每次模式、代码继承及实际SHA-256写入raw的`runtime-monitor.json`，不需要新增配置参数。
+
 ## 部署检查、资源查询和结果保留
 
 统一入口增加以下操作。查询只读取原生AgentENV资源，模板、snapshot（保存的VM状态）与本地镜像归档分开；输出过滤访问令牌和自定义metadata。每个输出目录须是新的项目`.artifacts`子目录。
@@ -59,7 +255,7 @@ bash scripts/use-platform.sh resources --output .artifacts/platform-management/r
 bash scripts/use-platform.sh retain .artifacts/platform-tasks/<run_id> --reason '保留此参考运行'
 ```
 
-`deployment`核对固定源码和子模块版本、15份版本2配置的输入、KVM、ublk控制设备、页大小、host物理页读取权限、cgroup和采集工具；默认读取已准备服务的镜像身份，`--offline`不查询服务。它不安装依赖或重启服务。本机检查已通过；新机器仍需准备`configs/source-revisions.json`固定版本、`runtime/bin/aenv`、依赖、服务及报告列出的本地输入和镜像，凭据在新机自行配置，不复制到Git。配置中的任务路径可改成新准备目录，但输入哈希和原诊断语义保持。
+`deployment`核对固定源码和子模块版本、版本2配置的输入（现18份）、KVM、ublk控制设备、页大小、host物理页读取权限、cgroup和采集工具；默认读取已准备服务的镜像身份，`--offline`不查询服务。它不安装依赖或重启服务。本机15份历史配置检查已通过，新Exp2三份另通过离线和真实运行；新机器仍需准备`configs/source-revisions.json`固定版本、`runtime/bin/aenv`、依赖、服务及报告列出的本地输入和镜像，凭据在新机自行配置，不复制到Git。配置中的任务路径可改成新准备目录，但输入哈希和原诊断语义保持。
 
 `retain`给运行及关联的隔离结果目录写入`retention.json`。定向失败源卷清理入口会检查这些标记，保留现有结果和归档。此操作在实验完成后执行，不能恢复已回收的成功卷，也不会让原生checkpoint跨私有服务清理后继续存在。新增原生checkpoint离线保存/重新加载入口见下一节；本地结果标记与原生snapshot保存是两个操作。现有任务控制器的成功snapshot仍按各自清理规则回收。
 
@@ -98,6 +294,78 @@ bash scripts/use-platform.sh collect-demo
 此入口复用Sphinx的已准备镜像，顺序建立两个2 CPU/512 MiB新沙箱，在8 GiB隔离卷中运行。它执行4次新工具调用，保存命令、cwd、完整显式环境、会话语义、stdout/stderr、退出码及guest/控制器用时，冻结全部记录的SHA-256，再在相同镜像的新沙箱中重放并检查最终文件。第2步故意退出7，失败探索必须保持。这里是工具接口功能验证，没有执行Sphinx的35步任务或官方评测，也没有请求模型。
 
 实际成功证据为`.artifacts/platform-tasks/20261011T115548Z-690247`；两实例13/10个持续采样点、内存/CPU/I/O和host进程曲线、清理均通过。两次离线报告10份文件一致，175份raw未变。最终报告是`.artifacts/platform-tasks/report-tool-capture-recomputed-1`；离线补全工具计时和明确`official_task_status=NOT_RUN`，原自动报告与运行记录保留。详见[公开摘要](records/evidence/platform-tool-capture-20261011.json)及[内存曲线](records/evidence/tool-capture-memory-20261011.svg)。
+
+### 真实在线Agent采集
+
+```bash
+# 只检查输入和模型配置，不发送模型请求或启动沙箱。
+bash scripts/use-platform.sh collect-demo --agent-config configs/online-agent-glm.json --check-only
+
+# 模型生成命令、在AgentENV实际执行，冻结后在新沙箱重放并自动报告。
+bash scripts/use-platform.sh collect-demo --agent-config configs/online-agent-glm.json
+```
+
+在线模式沿用上述两个2 CPU/512 MiB沙箱和8 GiB固定卷，启动要求主机大于34 GiB可用。首个任务为CSV分类求和：模型编写并执行Python脚本，平台独立检查原输入及另一份输入的结果。模型循环位于host，只有run_shell命令通过现有capture接口进入guest；stdout/stderr及非零退出码返回模型，完整原文留存。每调用新建bash，文件持久，shell变量和当前目录不跨调用继承；工具cwd固定在本任务目录。
+
+配置含模型、API地址、凭据环境变量名/私有文件路径和次数/超时上限，不含密钥。默认模型为用户指定GLM，最多12次模型请求、12次工具调用、单次请求90秒、在线循环480秒；模型等待与guest工具用时分开，重放不请求模型。API密钥只在host调用中读取，不传给guest、不存入对话或请求记录。当前用户指定的HTTP接口不加密；HTTPS证书过期，不绕过证书校验。
+
+默认监控覆盖在线等待、工具执行和新实例重放，生成内存、CPU、I/O及host VMM RSS/PSS曲线。此配置不做暂停式物理页分析。轨迹先冻结，再独立检查任务；任务FAIL仍保留真实退出码和输出，并继续验证其重放，不把模型任务失败等同平台失败。复算仍使用`use-platform report <成功运行目录> --output <新目录>`；平台成功要求轨迹重放、任务检查结果保持和清理均通过，模型任务是否PASS另列。
+
+2026-10-12已实际通过：工作流`.artifacts/platform-tasks/20261012T092932Z-1042295`，4次模型请求/3次工具，独立任务检查和新VM严格重放PASS，173个guest样本及默认性能曲线；10文件报告独立复算一致。此前失败和动态目录列表原文保留，新提示明确不使用ls长表；未通过忽略stdout或放宽退出码获得PASS。详见[结果](records/evidence/online-agent-20261012.json)。
+
+### 在线任务配置和冻结轨迹测量
+
+任务配置与模型配置分开。`online-task-csv.json`保留已通过CSV任务；`online-task-prettier6604.json`选择固定研究任务、4 GiB内存、原问题说明、已知镜像初态、仓库状态和独立评测。模型预算位于`online-agent-glm-prettier.json`：20请求/30工具、模型请求90秒、单工具120秒、在线循环480秒。新任务输入只取problem_statement，不向模型发送参考补丁。工具环境和新bash会话语义保持明确。
+
+```bash
+# 离线核对配置，不调用模型或启动VM
+bash scripts/use-platform.sh collect-demo configs/platform-prettier6604.json \
+  --task-config configs/online-task-prettier6604.json \
+  --agent-config configs/online-agent-glm-prettier.json --check-only
+
+# 在线采集后自动冻结，再在新VM重放；需要本机已准备输入和私有API凭据
+bash scripts/use-platform.sh collect-demo configs/platform-prettier6604.json \
+  --task-config configs/online-task-prettier6604.json \
+  --agent-config configs/online-agent-glm-prettier.json
+
+# 本次已冻结轨迹的物理分析，不请求模型；12/30仅适用于这条30步轨迹
+bash scripts/use-platform.sh collect-demo configs/platform-prettier6604.json \
+  --task-config configs/online-task-prettier6604.json \
+  --replay-source .artifacts/storage-isolated-service/20261012T104130Z-1075868/prettier6604/captured \
+  --physical-after 12 30
+```
+
+Prettier在线/冻结分析均使用16 GiB固定卷，启动要求host大于42 GiB可用。`--replay-source`不能同时带`--agent-config`；重放核对相同镜像、资源及初始仓库状态。每步原命令、cwd/env、退出码和输出保留；完成工具前缀可在模型预算耗尽时冻结，结果明确记录模型未完成。仓库HEAD、完整diff、tracked/untracked修改及对应文件哈希在轨迹内，不代表任意进程、所有/tmp文件或持久PTY恢复。
+
+另有`configs/online-task-prettier6604-focused.json`改进调查/修改/测试的提示，并启用每轮剩余次数说明；替换上述`--task-config`即可，其他参数相同。本机11项相关测试通过。10月12日两次真实运行的首请求503记录保留；10月13日恢复后已完成14请求/18工具前缀的采集、完整冻结重放及默认曲线。模型第14次回复被4,096 token上限截断、没有源码修复，独立任务测试FAIL保持。见[本轮结果](records/evidence/online-prettier-focused-20261013.json)和[旧接口失败](records/evidence/online-prettier-focused-api-20261012.json)。
+
+`configs/online-agent-glm-prettier-8k.json`可作为单次输出预算变体替换`--agent-config`：8,192 tokens、单请求135秒，总次数20/30及在线480秒保持。该配置已实际运行一次，17步冻结重放和曲线通过；16号请求在总时间边界超时，源码未修改。它不是成功修复配置，也没有验证成功接收超过4,096 tokens的回复，见[本轮数据](records/evidence/online-prettier-8k-20261013.json)。不建议无新假设反复运行或继续加上限。
+
+用户现指定`deepseek-ai/DeepSeek-V4-Pro`，使用`--agent-config configs/online-agent-deepseek-prettier.json`替换模型配置，其他预算与上述8k组相同。已实际收到20次响应并冻结24工具，新VM完整重放及曲线通过；模型仍未修复，六次提交JSON形式的shell字符串失败，结果原样保留。见[DeepSeek记录](records/evidence/online-prettier-deepseek-20261013.json)。当前`prettier-runtime-v1`另外仅对完整命令`cd /testbed && ls -la`的stdout单列`..`和`.git`两处已核实目录时间，其他内容不放宽；原严格FAIL及旧失败工作流保留。
+
+模型system和工具说明现明确`command`为纯shell字符串，提供正确参数示例，不自动解包模型错误字符串。新一轮收到7响应、执行7工具，第8条API请求精确等待135.102秒后超时；七步冻结重放、曲线及报告复算通过，源码仍未修改。见[新记录](records/evidence/online-prettier-deepseek-format-20261013.json)。已核实目录时间规则还覆盖完整命令`cd /testbed && pwd && ls -la`，pwd内容和其他输出保持检查，原严格FAIL保留。当前不建议为等待接口而反复启动沙箱。
+
+在线请求现逐条保存`online/NNN-timing.json`，使用单调时钟记录完整HTTP响应等待（纳秒）、实际请求超时（秒）及响应/失败状态。`result.json`的`model_requests`包含失败请求，`model_wait_total_ns`为全部请求等待；原`model_calls`及`model_wait_sum_ns`仍只计成功解析的响应。旧结果缺少失败计时时保持原样，不用文件时间估算补写精确值。
+
+仅诊断接口时可使用下面的host命令，不启动沙箱，也不执行返回的工具。输出目录必须不存在；最多两份保存请求，默认额外请求一次短回复，`--skip-short`可只测保存请求。60秒是每次socket超时，外层`timeout`限制整个进程；被外层终止的批次没有完整最终汇总，应查看已保存的逐条记录。本机三请求已验证，见[结果](records/evidence/model-api-wait-20261013.json)，无需日常重复。
+
+```bash
+timeout --signal=TERM --kill-after=10s 210s python3 scripts/diagnose_model_api.py \
+  --config configs/online-agent-glm-prettier-8k.json \
+  --request <已有online目录>/001-request.json \
+  --request <已有online目录>/016-request.json \
+  --timeout 60 --output <新的本地结果目录>
+```
+
+| 在线任务 | 实际证据 | 任务结果与边界 |
+| --- | --- | --- |
+| CSV分类求和 | 真实4模型请求/3工具，严格新VM重放及两份CSV独立检查通过 | 模型任务通过；没有物理页扫描 |
+| Prettier #6604 | 真实20模型请求/30工具前缀，完整冻结重放、默认持续曲线与两个物理点通过 | 模型预算耗尽、未修复；任务测试0通过/2失败保持 |
+| Sphinx/Xarray在线任务 | 未接入任务配置 | 已有学长冻结轨迹证据，不能当作在线模型证据 |
+
+Prettier的`prettier-runtime-v1`输出规则仅单列标准Jest/Yarn时间和完整已知DEP0128警告的Node PID，测试名称/数量/结果、命令、退出码和文件保持核对；严格原文差异仍记录为FAIL。精细分析使用现有探针，保留三个12 KiB校准文件页，VM暂停成本单列，默认轻量曲线不断采集但不跨暂停插值。Cached和按host PFN去重的物理文件页分别显示；当前两点不用于宣称缓存控制带来的性能改善。
+
+本次完整重放工作流为`.artifacts/platform-tasks/20261012T105241Z-1086700`，最终复算报告为`.artifacts/platform-tasks/report-online-prettier-recomputed-1`。原自动报告的demo标签/NOT_RUN字段保留，离线复算已改为实际Prettier任务和官方FAIL；原raw没有修改。模型任务失败与重放通过分开显示。新轨迹先根据state-after及实际写操作选点，不能套用本次12/30或学长旧轨迹编号。详见[当前结果](records/evidence/online-prettier-20261012.json)。
 
 可复用接口在`scripts/tool_trajectory.py`：`begin`记录镜像/资源、初始文件哈希和会话语义，`capture`执行并记录实际工具请求，`freeze`封存，`replay`核对起点和续序调用。调用方提供现有CLI桥接函数`cli(label, *argv, timeout=...)`，格式与原控制器一致；先上传`guest_tool_capture.py`到`/workspace/asb-tool-capture.py`。示例控制器为`run_tool_capture.py`。接入在线Agent时，在其工具执行处调用`capture`；当前没有模型SDK连接、持久终端会话或其他工具类型的适配。原始环境和输出可能包含敏感内容，只留本机，不加入Git。
 
@@ -611,6 +879,8 @@ python3 -B scripts/report_task_metrics.py \
 
 
 慢命令短诊断入口为`bash scripts/validate-runtime-command.sh`，只运行Sphinx原前13个动作、6次原命令重复及4次pip版本检查对照。8 GiB固定卷要求超过34 GiB主机空间，镜像准备要求64 GiB RAM余量；失败卷保留。版本检查开关仅作用于诊断子进程，不修改正式冻结轨迹或默认采样环境。这是25毫秒进程观察与热缓存诊断，不是正式监控开销实验。
+
+针对目标首次调用，另有已离线验证的`bash scripts/validate-runtime-command.sh --env-command-timing whole`或`--env-command-timing split`：只保留前11步，随后原样或分项测目标一次，不先跑工具12／13或热缓存重复。[前缀、计时及验证说明](records/SPHINX_ENV_TIMING_OFFLINE.md)及[两guest实跑](records/SPHINX_ENV_TIMING_LIVE.md)已完成：原样1.567秒、拆分1.943秒，没有复现旧慢调用，到两组停止。新模式无内存采样或进程扫描，不改正式35步、默认回收及pip环境。原报告命令识别新结果并生成分项表，不授予完整任务PASS；旧无参数入口保持上述行为。
 
 find短诊断使用`bash scripts/validate-runtime-command.sh --find-diagnostic`，关闭性能采样，执行原前13步并严格核对输出和文件状态，随后8次原find/错误捕获，以及进程活动前3次、受控活动时8次、回收后3次对照。受控活动只在自有VM内，所有短时子进程有限等待回收；不改冻结命令或正式退出码规则。这是错误机制诊断，不是监控开销实验；原前缀若有退出码差异会明确记录，诊断完成的PASS不能授予完整轨迹PASS。
 

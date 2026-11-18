@@ -83,7 +83,7 @@ class ExternalWorkloadTests(unittest.TestCase):
             for task_id,count in [('django__django-16819',28),(C4,36)]:
                 result=dict(status='PASS',task_id=task_id,actions=count,strict_exit_match=True)
                 if task_id==C4:result['roundtrip_validation']='PASS'
-                cfg=dict(task_id=task_id,actions=count);ns={cfg_name:cfg,result_name:result,'C4':C4,'outer':{'status':'PASS'}}
+                cfg=dict(task_id=task_id,actions=count);ns={cfg_name:cfg,result_name:result,'C4':C4,'outer':{'status':'PASS'},'args':SimpleNamespace(external_guest_count=1),'guest_count':1}
                 exec(code,ns)
                 result['actions']=27
                 with self.assertRaises(AssertionError):exec(code,ns)
@@ -183,7 +183,7 @@ class ExternalWorkloadTests(unittest.TestCase):
         node=next(n for n in ast.walk(tree) if isinstance(n,ast.If) and isinstance(n.test,ast.Name) and n.test.id=='external_config' and
             any(isinstance(c,ast.Constant) and c.value=='HTTP_PROXY' for c in ast.walk(n)))
         for enabled in (False,True):
-            ns=dict(external_config=enabled,argv=[],os=SimpleNamespace(environ={'HTTP_PROXY':'private-value-not-for-argv'}))
+            ns=dict(args=SimpleNamespace(external_sampling_control=False),task_endpoint_metrics=False,cython_schedule=None,external_config=enabled,external_value=dict(task_id='django__django-16819'),argv=[],os=SimpleNamespace(environ={'HTTP_PROXY':'private-value-not-for-argv'}))
             exec(compile(ast.Module(body=[node],type_ignores=[]),'<actual proxy branch>','exec'),ns)
             if enabled:
                 self.assertIn('HTTP_PROXY',ns['argv']);self.assertNotIn('private-value-not-for-argv',str(ns['argv']))

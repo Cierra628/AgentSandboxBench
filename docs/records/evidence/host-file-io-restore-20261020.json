@@ -1,0 +1,280 @@
+{
+  "status": "PASS",
+  "scope": "One new IO-accounting short restore; comparison with prior recorded run, no matched timing effect or savings ratio.",
+  "new": {
+    "workflow": ".artifacts/host-file-restore/20261020T071902Z-3415405",
+    "storage_result": ".artifacts/storage-isolated-service/20261020T072019Z-3416420",
+    "functional_validation": "PASS",
+    "accounting_validation": "NO_SHORTFALL_DETECTED_NOT_PROOF_OF_COMPLETE_ACCOUNTING",
+    "actual_actions": 11,
+    "suffix_actions": 0,
+    "full_task_executions": 0,
+    "io_controller_state": {
+      "measurement_slice": {
+        "controllers": "cpuset cpu io memory hugetlb pids rdma misc dmem",
+        "subtree_control": "cpuset cpu io memory hugetlb pids rdma misc dmem",
+        "io_stat_exists": true
+      },
+      "private_service": {
+        "controllers": "cpuset cpu io memory hugetlb pids rdma misc dmem",
+        "subtree_control": "",
+        "io_stat_exists": true
+      }
+    },
+    "creation_file_baseline_bytes": 23568302080,
+    "phases": [
+      {
+        "sandboxes": 1,
+        "duration_ns": 5005262422,
+        "host_samples": 50,
+        "complete_vmm_pss_samples": 5,
+        "guest_samples": [
+          92
+        ],
+        "baseline": {
+          "current": 29016354816,
+          "file": 28456624128,
+          "anon": 111435776,
+          "shmem": 7604273152,
+          "kernel": 419069952,
+          "file_mapped": 348160,
+          "file_dirty": 517214208,
+          "file_writeback": 0
+        },
+        "file_delta_range_bytes": [
+          324227072,
+          334032896
+        ],
+        "vmm_pss_range_bytes": [
+          232644608,
+          244879360
+        ],
+        "memory_device_resident_bytes": 333131776,
+        "raw_memory_layer_resident_bytes": 578535424,
+        "other_device_resident_bytes": 13029376,
+        "live_residency_cpu_ns": 3271090140,
+        "live_shortfall_bytes": 0
+      },
+      {
+        "sandboxes": 2,
+        "duration_ns": 5005212459,
+        "host_samples": 50,
+        "complete_vmm_pss_samples": 5,
+        "guest_samples": [
+          124,
+          108
+        ],
+        "baseline": {
+          "current": 28997160960,
+          "file": 28457295872,
+          "anon": 99033088,
+          "shmem": 7604273152,
+          "kernel": 417673216,
+          "file_mapped": 348160,
+          "file_dirty": 516669440,
+          "file_writeback": 0
+        },
+        "file_delta_range_bytes": [
+          328687616,
+          339730432
+        ],
+        "vmm_pss_range_bytes": [
+          331055104,
+          351006720
+        ],
+        "memory_device_resident_bytes": 336273408,
+        "raw_memory_layer_resident_bytes": 578535424,
+        "other_device_resident_bytes": 13135872,
+        "live_residency_cpu_ns": 4792450328,
+        "live_shortfall_bytes": 0
+      }
+    ],
+    "final_inventory": {
+      "file_count": 138,
+      "page_size": 4096,
+      "resident_bytes": 28585512960,
+      "cgroup_file_before_bytes": 28961972224,
+      "cgroup_file_after_bytes": 28961976320,
+      "shortfall_bytes": 0,
+      "signed_resident_minus_file_bytes": -376463360,
+      "categories": {
+        "input-commits": {
+          "file_count": 31,
+          "resident_bytes": 7178346496
+        },
+        "private-image-cache": {
+          "file_count": 101,
+          "resident_bytes": 7179067392
+        },
+        "private-loop-image": {
+          "file_count": 1,
+          "resident_bytes": 6035787776
+        },
+        "input-ram-loop-image": {
+          "file_count": 1,
+          "resident_bytes": 7604273152
+        },
+        "snapshot-store-and-runtime": {
+          "file_count": 4,
+          "resident_bytes": 588038144
+        }
+      },
+      "cpu_ns": 1703932530
+    },
+    "collector": {
+      "status": "PASS",
+      "error": null,
+      "samples": 1332,
+      "interval_seconds": 0.1,
+      "pss_interval_seconds": 1,
+      "thread_cpu_ns": 1537541370,
+      "counter_read_total_ns": 378566412,
+      "scope": "Fresh rollout slice: input preparation, controller, private service and all its descendants; host file includes shmem, not guest Cached."
+    },
+    "host_max_gap_ns": 100438195,
+    "guest_samples_total": 375,
+    "cleanup": {
+      "host_file_residency_captured": true,
+      "owned_container_removed": true,
+      "mount_and_loop_removed": true,
+      "successful_fixture_removed": true,
+      "original_firecracker_identities_unchanged": true,
+      "original_service_unchanged": true
+    },
+    "observed_host_available_min_bytes": 34530816000,
+    "host_available_after_cleanup_bytes": 60295520256
+  },
+  "old": {
+    "workflow": ".artifacts/host-file-restore/20261020T035403Z-3340937",
+    "storage_result": ".artifacts/storage-isolated-service/20261020T035529Z-3341715",
+    "functional_validation": "PASS",
+    "accounting_validation": "SHORTFALL_REQUIRES_RESOLUTION",
+    "actual_actions": 11,
+    "suffix_actions": 0,
+    "full_task_executions": 0,
+    "io_controller_state": null,
+    "creation_file_baseline_bytes": 22347350016,
+    "phases": [
+      {
+        "sandboxes": 1,
+        "duration_ns": 5005286697,
+        "host_samples": 50,
+        "complete_vmm_pss_samples": 5,
+        "guest_samples": [
+          92
+        ],
+        "baseline": {
+          "current": 23937015808,
+          "file": 23516422144,
+          "anon": 117755904,
+          "shmem": 7604273152,
+          "kernel": 276910080,
+          "file_mapped": 348160,
+          "file_dirty": 1017278464,
+          "file_writeback": 0
+        },
+        "file_delta_range_bytes": [
+          314843136,
+          336855040
+        ],
+        "vmm_pss_range_bytes": [
+          223879168,
+          250445824
+        ],
+        "memory_device_resident_bytes": 342016000,
+        "raw_memory_layer_resident_bytes": 572051456,
+        "other_device_resident_bytes": 12996608,
+        "live_residency_cpu_ns": 3302218684,
+        "live_shortfall_bytes": 0
+      },
+      {
+        "sandboxes": 2,
+        "duration_ns": 5005297733,
+        "host_samples": 50,
+        "complete_vmm_pss_samples": 5,
+        "guest_samples": [
+          123,
+          108
+        ],
+        "baseline": {
+          "current": 23919550464,
+          "file": 23521755136,
+          "anon": 108212224,
+          "shmem": 7604273152,
+          "kernel": 276242432,
+          "file_mapped": 348160,
+          "file_dirty": 519770112,
+          "file_writeback": 0
+        },
+        "file_delta_range_bytes": [
+          331743232,
+          852926464
+        ],
+        "vmm_pss_range_bytes": [
+          318595072,
+          348336128
+        ],
+        "memory_device_resident_bytes": 337141760,
+        "raw_memory_layer_resident_bytes": 572051456,
+        "other_device_resident_bytes": 12996608,
+        "live_residency_cpu_ns": 4812222529,
+        "live_shortfall_bytes": 0
+      }
+    ],
+    "final_inventory": {
+      "file_count": 138,
+      "page_size": 4096,
+      "resident_bytes": 28563542016,
+      "cgroup_file_before_bytes": 24019730432,
+      "cgroup_file_after_bytes": 24019730432,
+      "shortfall_bytes": 4543811584,
+      "signed_resident_minus_file_bytes": 4543811584,
+      "categories": {
+        "input-commits": {
+          "file_count": 31,
+          "resident_bytes": 7178346496
+        },
+        "private-image-cache": {
+          "file_count": 101,
+          "resident_bytes": 7179059200
+        },
+        "private-loop-image": {
+          "file_count": 1,
+          "resident_bytes": 6024654848
+        },
+        "input-ram-loop-image": {
+          "file_count": 1,
+          "resident_bytes": 7604273152
+        },
+        "snapshot-store-and-runtime": {
+          "file_count": 4,
+          "resident_bytes": 577208320
+        }
+      },
+      "cpu_ns": 1738880795
+    },
+    "collector": {
+      "status": "PASS",
+      "error": null,
+      "samples": 1418,
+      "interval_seconds": 0.1,
+      "pss_interval_seconds": 1,
+      "thread_cpu_ns": 1592049277,
+      "counter_read_total_ns": 410331690,
+      "scope": "Fresh rollout slice: input preparation, controller, private service and all its descendants; host file includes shmem, not guest Cached."
+    },
+    "host_max_gap_ns": 100159191,
+    "guest_samples_total": 368,
+    "cleanup": {
+      "host_file_residency_captured": true,
+      "owned_container_removed": true,
+      "mount_and_loop_removed": true,
+      "successful_fixture_removed": true,
+      "original_firecracker_identities_unchanged": true,
+      "original_service_unchanged": true
+    },
+    "observed_host_available_min_bytes": 36526202880,
+    "host_available_after_cleanup_bytes": 62295031808
+  },
+  "shortfall_reduction_bytes": 4543811584
+}

@@ -1,0 +1,138 @@
+{
+  "status": "PASS",
+  "mode": "offline reuse; no new workload execution",
+  "measurement_date": "2026-10-15",
+  "review_date": "2026-10-19",
+  "host_scope": "Confirmed physical PFN union in VMM RAM mappings only; not all backing copies",
+  "guest_scope": "Whole guest ordinary file and shmem cache; not task-process-only",
+  "page_bytes": 4096,
+  "runs": {
+    "prettier": {
+      "title": "Prettier #6604",
+      "source": ".artifacts/storage-isolated-service/20261015T050604Z-1849409/prettier6604",
+      "original_evidence": "docs/records/evidence/live-prettier-cache-optimized-20261015.json",
+      "samples": 22,
+      "target_interval_seconds": 1.0,
+      "guest_cached_peak_bytes": 270163968,
+      "guest_membership_peak_bytes": 270168064,
+      "host_vmm_confirmed_peak_bytes": 270163968,
+      "unconfirmed_guest_capacity_max_bytes": 3526656,
+      "absent_mapping_pages_max": 0,
+      "swapped_mapping_pages_max": 0,
+      "host_thread_cpu_mean_ms": 87.28705395454546,
+      "host_pair_elapsed_mean_ms": 120.52004,
+      "guest_publication_cpu_mean_ms": 2.24021025,
+      "export_locked_anonymous_bytes": 16785408,
+      "timing": {
+        "guest_action_sum_ns": 12339658975,
+        "frozen_replay_elapsed_ns": 14599038915,
+        "controller_elapsed_ns": 26189863263,
+        "stages_ns": {
+          "cold-start": 3173599888,
+          "live-cache-upload": 48311583,
+          "live-cache-start": 85741921,
+          "live-cache-ready": 319416841,
+          "live-cache-bootstrap": 32950689,
+          "segment-read_repo": 1065297192,
+          "segment-read_typescript": 813667953,
+          "segment-core_patch": 1712841285,
+          "segment-core_verify": 3957959457,
+          "segment-backbone_finish": 7043802389,
+          "official-task-tests": 3484168580,
+          "live-cache-done": 43614034,
+          "live-cache-result": 30857403
+        }
+      },
+      "metadata_counters": {
+        "duplicate_adds": 0,
+        "missing_removes": 0,
+        "out_of_range": 0,
+        "moved_pages": 0,
+        "stale_records": 0,
+        "bitmap_lock_ns": 52443
+      }
+    },
+    "sphinx": {
+      "title": "Sphinx #7590",
+      "source": ".artifacts/storage-isolated-service/20261015T053138Z-1860659/python-backbone",
+      "original_evidence": "docs/records/evidence/sphinx-live-cache-unified-20261015.json",
+      "samples": 22,
+      "target_interval_seconds": 1.0,
+      "guest_cached_peak_bytes": 103653376,
+      "guest_membership_peak_bytes": 103673856,
+      "host_vmm_confirmed_peak_bytes": 103673856,
+      "unconfirmed_guest_capacity_max_bytes": 3387392,
+      "absent_mapping_pages_max": 0,
+      "swapped_mapping_pages_max": 0,
+      "host_thread_cpu_mean_ms": 55.54929131818182,
+      "host_pair_elapsed_mean_ms": 80.18721222727274,
+      "guest_publication_cpu_mean_ms": 1.3046489090909092,
+      "export_locked_anonymous_bytes": 16785408,
+      "timing": {
+        "guest_action_sum_ns": 10531556093,
+        "frozen_replay_elapsed_ns": 13650337137,
+        "controller_elapsed_ns": 26722474243,
+        "stages_ns": {
+          "cold-start": 3026098234,
+          "live-cache-upload": 48425185,
+          "live-cache-start": 340172769,
+          "live-cache-ready": 214724332,
+          "live-cache-bootstrap": 32798643,
+          "benchmark-pytest": 4200935008,
+          "live-cache-done": 248991796,
+          "live-cache-result": 32829722
+        }
+      },
+      "metadata_counters": {
+        "duplicate_adds": 0,
+        "missing_removes": 0,
+        "out_of_range": 0,
+        "moved_pages": 0,
+        "stale_records": 0,
+        "bitmap_lock_ns": 54710
+      }
+    },
+    "xarray": {
+      "title": "Xarray #6992",
+      "source": ".artifacts/storage-isolated-service/20261015T065740Z-1883035/python-backbone",
+      "original_evidence": "docs/records/evidence/xarray-live-cache-unified-20261015.json",
+      "samples": 65,
+      "target_interval_seconds": 1.0,
+      "guest_cached_peak_bytes": 350490624,
+      "guest_membership_peak_bytes": 350502912,
+      "host_vmm_confirmed_peak_bytes": 350498816,
+      "unconfirmed_guest_capacity_max_bytes": 18640896,
+      "absent_mapping_pages_max": 0,
+      "swapped_mapping_pages_max": 0,
+      "host_thread_cpu_mean_ms": 94.11544958461538,
+      "host_pair_elapsed_mean_ms": 127.73630498461539,
+      "guest_publication_cpu_mean_ms": 3.120399915384615,
+      "export_locked_anonymous_bytes": 16785408,
+      "timing": {
+        "guest_action_sum_ns": 33406730112,
+        "frozen_replay_elapsed_ns": 36318769224,
+        "controller_elapsed_ns": 70834680623,
+        "stages_ns": {
+          "cold-start": 4048083595,
+          "live-cache-upload": 47965961,
+          "live-cache-start": 379802121,
+          "live-cache-ready": 214000622,
+          "live-cache-bootstrap": 31231102,
+          "benchmark-pytest": 22241477970,
+          "live-cache-done": 324105019,
+          "live-cache-result": 34923686
+        }
+      },
+      "metadata_counters": {
+        "duplicate_adds": 0,
+        "missing_removes": 0,
+        "out_of_range": 0,
+        "moved_pages": 0,
+        "stale_records": 0,
+        "bitmap_lock_ns": 57928
+      }
+    }
+  },
+  "total_samples": 109,
+  "verification": "All 109 points recounted from before/after membership and three host pagemap observations using existing scalar implementation; saved values match. No digest recomputation."
+}

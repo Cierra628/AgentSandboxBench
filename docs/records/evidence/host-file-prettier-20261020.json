@@ -1,0 +1,158 @@
+{
+  "status": "PASS",
+  "scope": "Host file implementation and one full Prettier run; offline report repair completed; no N-sandbox sharing estimate",
+  "workflow": "/home/yyxie/agentenv_experiment/.artifacts/platform-tasks/20261020T030036Z-3306828",
+  "storage": "/home/yyxie/agentenv_experiment/.artifacts/storage-isolated-service/20261020T030201Z-3307600",
+  "host_report": "/home/yyxie/agentenv_experiment/.artifacts/host-file-implementation-20261020/report",
+  "original_workflow_status": "FAIL at report generation; original result and failed report preserved",
+  "offline_report_recovery": "PASS",
+  "task_executions": 1,
+  "action_count": 29,
+  "guest_sample_count": 193,
+  "host": {
+    "status": "PASS",
+    "scope": "Host cgroup file accounting, including shmem and workflow preparation/controller/service; not guest Cached or exact guest-cache physical residency.",
+    "primary_metric": "memory.stat:file",
+    "context_metric": "memory.current",
+    "samples": 1175,
+    "pss_samples": 118,
+    "partial_pss_samples": 0,
+    "file_initial_bytes": 94208,
+    "file_final_bytes": 14975057920,
+    "file_peak_bytes": 15193862144,
+    "current_peak_bytes": 16235433984,
+    "creation_baseline": {
+      "synchronous_counters": null,
+      "preceding_sample": {
+        "monotonic_ns": 14235561012032806,
+        "elapsed_ns": 91674072293,
+        "read_duration_ns": 686866,
+        "current": 15338610688,
+        "file": 15168454656,
+        "anon": 69914624,
+        "shmem": 7604273152,
+        "kernel": 79245312,
+        "file_mapped": 339968,
+        "file_dirty": 119980032,
+        "file_writeback": 0
+      },
+      "following_sample": {
+        "monotonic_ns": 14235561112137647,
+        "elapsed_ns": 91774177134,
+        "read_duration_ns": 810990,
+        "current": 15336030208,
+        "file": 15168462848,
+        "anon": 65650688,
+        "shmem": 7604273152,
+        "kernel": 77611008,
+        "file_mapped": 339968,
+        "file_dirty": 119988224,
+        "file_writeback": 0
+      },
+      "preceding_gap_ns": 57777537,
+      "following_gap_ns": 42327304,
+      "interpretation": "Exact creation-time counter exists only in synchronous_counters. Bracketing samples retain their own times; not an interpolated baseline."
+    },
+    "file_before_guest_bytes": null,
+    "shmem_peak_bytes": 7604281344,
+    "file_excluding_shmem_peak_bytes": 7589580800,
+    "file_peak_after_service_ready_bytes": 15193862144,
+    "pss_observed_peak_bytes": 983512064,
+    "maximum_sampling_gap_ns": 100128301,
+    "creation": {
+      "cgroup": "/sys/fs/cgroup/asbhost.slice/asbhost-20261020t0300363306753.slice",
+      "docker_cgroup": "/asbhost.slice/asbhost-20261020t0300363306753.slice/docker-6b9559086f0d263fedd3ea7d06e5bd242d2f5bb0ef76302191b9469d3ab56e4b.scope",
+      "verified_before_guest_creation_ns": 14235561069810343,
+      "preexisting_firecrackers": 0,
+      "firecracker_pool": false,
+      "startup_prewarm": false,
+      "block_pool": false,
+      "scope": "Fresh workflow slice covers cache preparation and new Docker service; no pooled guest process reused"
+    },
+    "collector": {
+      "status": "PASS",
+      "error": null,
+      "cgroup": "/sys/fs/cgroup/asbhost.slice/asbhost-20261020t0300363306753.slice",
+      "samples": 1175,
+      "interval_seconds": 0.1,
+      "pss_interval_seconds": 1,
+      "thread_cpu_ns": 1264169381,
+      "counter_read_total_ns": 335025230,
+      "scope": "Fresh rollout slice: input preparation, controller, private service and all its descendants; host file includes shmem, not guest Cached."
+    },
+    "mincore": {
+      "status": "OBSERVED",
+      "resident_bytes": 7179034624,
+      "cgroup_before": {
+        "current": 15364685824,
+        "file": 15183192064,
+        "anon": 74604544,
+        "shmem": 7604273152,
+        "kernel": 81809408,
+        "file_mapped": 348160,
+        "file_dirty": 2338816,
+        "file_writeback": 0
+      },
+      "cgroup_after": {
+        "current": 15362191360,
+        "file": 15183192064,
+        "anon": 74604544,
+        "shmem": 7604273152,
+        "kernel": 81809408,
+        "file_mapped": 348160,
+        "file_dirty": 2338816,
+        "file_writeback": 0
+      },
+      "minimum_unaccounted_or_timing_bytes": 0,
+      "file_residency_lower_bound_bytes": 15183192064,
+      "accounting": "NO_SHORTFALL_DETECTED_NOT_PROOF_OF_COMPLETE_ACCOUNTING",
+      "scope": "Retained regular input/private image-cache files, deduplicated by device+inode; excludes removed files and ublk device cache. Not guest cache attribution.",
+      "cpu_ns": 239083901,
+      "start_monotonic_ns": 14235585906605814,
+      "end_monotonic_ns": 14235586146286065
+    },
+    "accounting_completeness": "NOT_PROVEN_BY_AGGREGATES",
+    "pss_interpretation": "Independent mapped-memory check. Total PSS is compared with current as context; file PSS is mapped file memory, not all cached file memory. Differences may be legitimate, including unmapped cache, kernel memory, outside sharers and process exits.",
+    "curve_caption": "Guest Cached and host file are different layers. Guest cache in private anonymous guest RAM contributes to host anon; file-backed guest RAM may contribute to host file regardless of the guest page type. No equality expected.",
+    "comparison": "No measured no-sharing baseline. N*A is a separately labelled single-sandbox extrapolation; use the same workload phase, initial cache and concurrency conditions and report common preparation overhead."
+  },
+  "guest_tool_seconds": 11.249753556,
+  "replay_seconds": 13.121113424,
+  "controller_seconds": 22.932587156,
+  "official": {
+    "passed": 0,
+    "failed": 2
+  },
+  "minimum_available_disk_gib": 90.03814697265625,
+  "resource_cleanup": {
+    "host_file_residency_captured": true,
+    "owned_container_removed": true,
+    "mount_and_loop_removed": true,
+    "successful_fixture_removed": true,
+    "original_firecracker_identities_unchanged": true,
+    "original_service_unchanged": true
+  },
+  "source_returned_to_stopped": true,
+  "local_tests": {
+    "host": 10,
+    "platform": 14,
+    "isolation": 27
+  },
+  "not_measured": [
+    "N-sandbox runtime",
+    "saving ratio",
+    "host-sampling task slowdown",
+    "complete file-cache ownership"
+  ],
+  "inventory_version": "Live run checked 100 retained image-cache files. Explicit input/private loop images added afterward and covered by local regression only; no retrospective mincore of removed images.",
+  "failures": [
+    {
+      "attempt": 1,
+      "boundary": "Before cache/guest creation: systemd environment lacked workspace Git trust; fixed explicit per-unit trust, no global config change"
+    },
+    {
+      "attempt": 2,
+      "boundary": "Task, host sampling and cleanup PASS; report expected new synchronous baseline absent in executed collector; report repaired offline, keeps baseline null and bracketing samples"
+    }
+  ]
+}

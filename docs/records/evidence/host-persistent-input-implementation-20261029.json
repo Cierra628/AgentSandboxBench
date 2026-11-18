@@ -1,0 +1,101 @@
+{
+  "status": "PASS_OFFLINE_IMPLEMENTATION",
+  "new_guests": 0,
+  "new_task_actions": 0,
+  "real_archive_restore": "NOT_RUN",
+  "real_devices": "NOT_USED",
+  "real_residency_query": "NOT_RUN",
+  "command": "ASB_AGENTENV_SOURCE_SERVICE=asb-source-rebuilt-20261018T160925Z-2726362 bash scripts/run-host-file-monitor.sh configs/platform-prettier6604-host-file.json --current-pair --persistent-input",
+  "profile": "host-persistent-input-v1",
+  "code_paths": [
+    "scripts/host_persistent_input.py",
+    "scripts/run_host_file_workflow.py",
+    "scripts/run_host_scaling.py",
+    "scripts/validate_isolated_agentenv.py",
+    "scripts/run_prettier6604_grpo.py",
+    "scripts/host_current_pair.py"
+  ],
+  "test_paths": [
+    "tests/test_host_persistent_input.py",
+    "tests/test_host_current_pair.py"
+  ],
+  "checks": [
+    {
+      "suite": "new",
+      "tests": 14,
+      "status": "PASS",
+      "log": ".artifacts/host-persistent-input-implementation-offline-20261029/tests-new.log"
+    },
+    {
+      "suite": "pair",
+      "tests": 7,
+      "status": "PASS",
+      "log": ".artifacts/host-persistent-input-implementation-offline-20261029/tests-pair.log"
+    },
+    {
+      "suite": "scaling",
+      "tests": 12,
+      "status": "PASS",
+      "log": ".artifacts/host-persistent-input-implementation-offline-20261029/tests-scaling.log"
+    },
+    {
+      "suite": "storage",
+      "tests": 27,
+      "status": "PASS",
+      "log": ".artifacts/host-persistent-input-implementation-offline-20261029/tests-storage.log"
+    },
+    {
+      "suite": "grpo",
+      "tests": 9,
+      "status": "PASS",
+      "log": ".artifacts/host-persistent-input-implementation-offline-20261029/tests-grpo.log"
+    },
+    {
+      "suite": "sampling-control",
+      "tests": 5,
+      "status": "PASS",
+      "log": ".artifacts/host-persistent-input-implementation-offline-20261029/tests-sampling-control.log"
+    }
+  ],
+  "tests_total": 74,
+  "check_only": [
+    {
+      "label": "old",
+      "exit_code": 0,
+      "status": "VALIDATED_ARGUMENTS_AND_FROZEN_TASK_INPUTS",
+      "actual_seed_validated": false
+    },
+    {
+      "label": "persistent",
+      "exit_code": 0,
+      "status": "VALIDATED_ARGUMENTS_AND_FROZEN_TASK_INPUTS",
+      "actual_seed_validated": false
+    },
+    {
+      "label": "invalid",
+      "exit_code": 1,
+      "status": "REJECTED",
+      "actual_seed_validated": false
+    }
+  ],
+  "tested_cases": [
+    "fresh target only; outside restore, inside import, scratch release before runtime",
+    "toy verified restore retains preallocation; owned files and dirs fsynced",
+    "import/native/report/query failures retain evidence and stop the collector",
+    "interrupted loop attach cleanup uses only exact owned backing path",
+    "preexisting target and outer directory never reused or cleaned",
+    "old 1/2/4/7, current pair and monitor-off arguments unchanged",
+    "post-window mincore deduplicates by device+inode; CPU/wall time and shortfall recorded; errors remain unknown"
+  ],
+  "budgets": {
+    "prepare_required_available_bytes": 57982058496,
+    "run_initial_required_available_bytes": 45097156608,
+    "writable_allocation_required_available_bytes": 36507222016,
+    "available_bytes": 41319587840,
+    "ready": false,
+    "strictly_more_bytes_needed": 16662470656
+  },
+  "measurement_scope": "Only new flag: group includes fresh plain-file import, controller, private service and guests; backup restore outside group and source scratch removed before baseline. Raw current not normalized or retroactively corrected.",
+  "first_live_acceptance": "NOT_RUN: original two guests / 22 actions / two 5 s windows plus one post-window input residency check, existing output checks and owned cleanup. No physical saving or new overhead result yet.",
+  "next": "Select cleanup candidates read-only for user confirmation; do not delete unrelated artifacts or run before resource conditions and authorization are satisfied."
+}

@@ -1,0 +1,74 @@
+{
+  "status": "PASS_OFFLINE_ASSESSMENT",
+  "source": ".artifacts/grpo-local-vmstat-controls-20261101/result.json",
+  "result": "docs/records/GRPO_BOUNDARY_MEMINFO_OFFLINE.md",
+  "data": "docs/records/evidence/grpo-boundary-meminfo-roles-20261101.tsv",
+  "runs": 4,
+  "guest_records": 28,
+  "boundary_rows": 1792,
+  "phase_counts_per_run": {
+    "baseline": 35,
+    "before": 189,
+    "after": 189,
+    "complete": 35
+  },
+  "boundary_counter": "MemTotal-MemFree",
+  "light_curve_counter": "MemTotal-MemAvailable; periodic session records only",
+  "source_snapshots": [
+    {
+      "index": 1,
+      "sampler_source_matches_current": true,
+      "runner_source_matches_current": true
+    },
+    {
+      "index": 2,
+      "sampler_source_matches_current": true,
+      "runner_source_matches_current": true
+    },
+    {
+      "index": 3,
+      "sampler_source_matches_current": true,
+      "runner_source_matches_current": true
+    },
+    {
+      "index": 4,
+      "sampler_source_matches_current": true,
+      "runner_source_matches_current": true
+    }
+  ],
+  "ablation_affected_roles": {
+    "without_baseline": 1,
+    "without_before": 11,
+    "without_after": 6,
+    "without_complete": 3,
+    "without_segment_edges": 4
+  },
+  "ablation_maximum_peak_loss_bytes": {
+    "without_baseline": 70324224,
+    "without_before": 133963776,
+    "without_after": 1019904,
+    "without_complete": 46145536,
+    "without_segment_edges": 70324224
+  },
+  "boundary_exceeds_periodic_roles": 1,
+  "maximum_boundary_minus_periodic_nonfree_peak_bytes": 63553536,
+  "comparison_scope": "Common MemTotal-MemFree counter within each guest boundary wall-time span; no interpolation or cross-guest alignment",
+  "candidate": {
+    "status": "DESIGN_ONLY_NOT_IMPLEMENTED",
+    "scope": "Explicit skip-boundary-vmstat candidate only; defaults unchanged",
+    "reads_retained_per_run": 448,
+    "before_after_reads_reusing_existing_timers": 378,
+    "segment_edge_reads_unchanged": 70,
+    "potential_external_date_calls_removed": 378,
+    "potential_external_awk_calls_removed": 378,
+    "potential_external_calls_removed_total": 756,
+    "new_python_processes": 0,
+    "performance": "NOT_MEASURED"
+  },
+  "tests": 6,
+  "subprocesses_allowed": false,
+  "new_live_guests": 0,
+  "new_live_actions": 0,
+  "runtime_settings_changed": false,
+  "artifacts": ".artifacts/grpo-boundary-meminfo-offline-20261101"
+}

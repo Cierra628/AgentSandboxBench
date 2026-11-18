@@ -1,0 +1,3444 @@
+{
+  "status": "PASS_GRPO_PATH_COST_OFFLINE",
+  "pairs": [
+    {
+      "pair": 1,
+      "order": [
+        "off",
+        "on"
+      ],
+      "runs": [
+        {
+          "mode": "off",
+          "raw": ".artifacts/storage-isolated-service/20261026T143416Z-1556966/prettier6604",
+          "window_ns": 16573966289,
+          "critical_role": "late_1",
+          "critical_path_assignment": "UNIQUE",
+          "exec_calls": 35,
+          "unique_exec_assignments": 35,
+          "bounded_exec_assignments": 0,
+          "command_sum_ns": 57763962863,
+          "exec_sum_ns": 66184288749,
+          "download_sum_ns": 1785843919,
+          "boundary_memory_rows": 0,
+          "boundary_vmstat_rows": 0,
+          "paths": [
+            {
+              "role": "backbone",
+              "steps": 29,
+              "segment_count": 5,
+              "path_window_ns": 14167726052,
+              "start_offset_from_original_window_ns": -914505,
+              "finish_offset_ns": 14166811547,
+              "last_to_batch_end_ns": 2407154742,
+              "command_ns": 12558838023,
+              "exec_min_ns": 13890207810,
+              "exec_max_ns": 13890207810,
+              "exec_minus_command_min_ns": 1331369787,
+              "exec_minus_command_max_ns": 1331369787,
+              "download_ns": 259133613,
+              "gap_min_ns": 18384629,
+              "gap_max_ns": 18384629,
+              "exec_assignment": "UNIQUE",
+              "boundary_memory_rows": 0,
+              "boundary_vmstat_rows": 0,
+              "segments": [
+                {
+                  "segment": "read_repo",
+                  "command_ns": 594934724,
+                  "exec_min_ns": 826846135,
+                  "exec_max_ns": 826846135,
+                  "download_ns": 55139033,
+                  "possible_exec_event_indices": [
+                    37
+                  ],
+                  "download_event_index": 50
+                },
+                {
+                  "segment": "read_typescript",
+                  "command_ns": 260062088,
+                  "exec_min_ns": 580514617,
+                  "exec_max_ns": 580514617,
+                  "download_ns": 53440403,
+                  "possible_exec_event_indices": [
+                    51
+                  ],
+                  "download_event_index": 64
+                },
+                {
+                  "segment": "core_patch",
+                  "command_ns": 1032314352,
+                  "exec_min_ns": 1348816650,
+                  "exec_max_ns": 1348816650,
+                  "download_ns": 49018828,
+                  "possible_exec_event_indices": [
+                    66
+                  ],
+                  "download_event_index": 81
+                },
+                {
+                  "segment": "core_verify",
+                  "command_ns": 3386024229,
+                  "exec_min_ns": 3603736171,
+                  "exec_max_ns": 3603736171,
+                  "download_ns": 51278837,
+                  "possible_exec_event_indices": [
+                    83
+                  ],
+                  "download_event_index": 93
+                },
+                {
+                  "segment": "backbone_finish",
+                  "command_ns": 7285502630,
+                  "exec_min_ns": 7530294237,
+                  "exec_max_ns": 7530294237,
+                  "download_ns": 50256512,
+                  "possible_exec_event_indices": [
+                    95
+                  ],
+                  "download_event_index": 104
+                }
+              ]
+            },
+            {
+              "role": "early_1",
+              "steps": 21,
+              "segment_count": 4,
+              "path_window_ns": 3923813097,
+              "start_offset_from_original_window_ns": -169663,
+              "finish_offset_ns": 3923643434,
+              "last_to_batch_end_ns": 12650322855,
+              "command_ns": 2560812798,
+              "exec_min_ns": 3689825083,
+              "exec_max_ns": 3689825083,
+              "exec_minus_command_min_ns": 1129012285,
+              "exec_minus_command_max_ns": 1129012285,
+              "download_ns": 218459816,
+              "gap_min_ns": 15528198,
+              "gap_max_ns": 15528198,
+              "exec_assignment": "UNIQUE",
+              "boundary_memory_rows": 0,
+              "boundary_vmstat_rows": 0,
+              "segments": [
+                {
+                  "segment": "read_repo",
+                  "command_ns": 755545860,
+                  "exec_min_ns": 1067193332,
+                  "exec_max_ns": 1067193332,
+                  "download_ns": 57791273,
+                  "possible_exec_event_indices": [
+                    38
+                  ],
+                  "download_event_index": 56
+                },
+                {
+                  "segment": "read_typescript",
+                  "command_ns": 248075057,
+                  "exec_min_ns": 568717310,
+                  "exec_max_ns": 568717310,
+                  "download_ns": 51935321,
+                  "possible_exec_event_indices": [
+                    57
+                  ],
+                  "download_event_index": 70
+                },
+                {
+                  "segment": "early_1_inspect",
+                  "command_ns": 885763625,
+                  "exec_min_ns": 1075530430,
+                  "exec_max_ns": 1075530430,
+                  "download_ns": 49156514,
+                  "possible_exec_event_indices": [
+                    71
+                  ],
+                  "download_event_index": 80
+                },
+                {
+                  "segment": "early_1",
+                  "command_ns": 671428256,
+                  "exec_min_ns": 978384011,
+                  "exec_max_ns": 978384011,
+                  "download_ns": 59576708,
+                  "possible_exec_event_indices": [
+                    82
+                  ],
+                  "download_event_index": 87
+                }
+              ]
+            },
+            {
+              "role": "early_2",
+              "steps": 21,
+              "segment_count": 4,
+              "path_window_ns": 3917178290,
+              "start_offset_from_original_window_ns": 971116,
+              "finish_offset_ns": 3918149406,
+              "last_to_batch_end_ns": 12655816883,
+              "command_ns": 2683496977,
+              "exec_min_ns": 3687839667,
+              "exec_max_ns": 3687839667,
+              "exec_minus_command_min_ns": 1004342690,
+              "exec_minus_command_max_ns": 1004342690,
+              "download_ns": 212813636,
+              "gap_min_ns": 16524987,
+              "gap_max_ns": 16524987,
+              "exec_assignment": "UNIQUE",
+              "boundary_memory_rows": 0,
+              "boundary_vmstat_rows": 0,
+              "segments": [
+                {
+                  "segment": "read_repo",
+                  "command_ns": 627288249,
+                  "exec_min_ns": 920748130,
+                  "exec_max_ns": 920748130,
+                  "download_ns": 57589553,
+                  "possible_exec_event_indices": [
+                    39
+                  ],
+                  "download_event_index": 52
+                },
+                {
+                  "segment": "read_typescript",
+                  "command_ns": 218190242,
+                  "exec_min_ns": 519193790,
+                  "exec_max_ns": 519193790,
+                  "download_ns": 55013054,
+                  "possible_exec_event_indices": [
+                    53
+                  ],
+                  "download_event_index": 65
+                },
+                {
+                  "segment": "early_2_inspect",
+                  "command_ns": 582626167,
+                  "exec_min_ns": 762490201,
+                  "exec_max_ns": 762490201,
+                  "download_ns": 49456814,
+                  "possible_exec_event_indices": [
+                    67
+                  ],
+                  "download_event_index": 74
+                },
+                {
+                  "segment": "early_2",
+                  "command_ns": 1255392319,
+                  "exec_min_ns": 1485407546,
+                  "exec_max_ns": 1485407546,
+                  "download_ns": 50754215,
+                  "possible_exec_event_indices": [
+                    75
+                  ],
+                  "download_event_index": 88
+                }
+              ]
+            },
+            {
+              "role": "early_3",
+              "steps": 21,
+              "segment_count": 4,
+              "path_window_ns": 3679757729,
+              "start_offset_from_original_window_ns": 2281785,
+              "finish_offset_ns": 3682039514,
+              "last_to_batch_end_ns": 12891926775,
+              "command_ns": 2719126815,
+              "exec_min_ns": 3463711855,
+              "exec_max_ns": 3463711855,
+              "exec_minus_command_min_ns": 744585040,
+              "exec_minus_command_max_ns": 744585040,
+              "download_ns": 202518677,
+              "gap_min_ns": 13527197,
+              "gap_max_ns": 13527197,
+              "exec_assignment": "UNIQUE",
+              "boundary_memory_rows": 0,
+              "boundary_vmstat_rows": 0,
+              "segments": [
+                {
+                  "segment": "read_repo",
+                  "command_ns": 474590982,
+                  "exec_min_ns": 695379725,
+                  "exec_max_ns": 695379725,
+                  "download_ns": 51210051,
+                  "possible_exec_event_indices": [
+                    40
+                  ],
+                  "download_event_index": 46
+                },
+                {
+                  "segment": "read_typescript",
+                  "command_ns": 158699244,
+                  "exec_min_ns": 397993254,
+                  "exec_max_ns": 397993254,
+                  "download_ns": 58902770,
+                  "possible_exec_event_indices": [
+                    47
+                  ],
+                  "download_event_index": 58
+                },
+                {
+                  "segment": "early_3_inspect",
+                  "command_ns": 851983617,
+                  "exec_min_ns": 991713283,
+                  "exec_max_ns": 991713283,
+                  "download_ns": 44955883,
+                  "possible_exec_event_indices": [
+                    60
+                  ],
+                  "download_event_index": 72
+                },
+                {
+                  "segment": "early_3",
+                  "command_ns": 1233852972,
+                  "exec_min_ns": 1378625593,
+                  "exec_max_ns": 1378625593,
+                  "download_ns": 47449973,
+                  "possible_exec_event_indices": [
+                    73
+                  ],
+                  "download_event_index": 86
+                }
+              ]
+            },
+            {
+              "role": "late_1",
+              "steps": 32,
+              "segment_count": 6,
+              "path_window_ns": 16570579941,
+              "start_offset_from_original_window_ns": 3386348,
+              "finish_offset_ns": 16573966289,
+              "last_to_batch_end_ns": 0,
+              "command_ns": 14979565298,
+              "exec_min_ns": 16261034460,
+              "exec_max_ns": 16261034460,
+              "exec_minus_command_min_ns": 1281469162,
+              "exec_minus_command_max_ns": 1281469162,
+              "download_ns": 286077558,
+              "gap_min_ns": 23467923,
+              "gap_max_ns": 23467923,
+              "exec_assignment": "UNIQUE",
+              "boundary_memory_rows": 0,
+              "boundary_vmstat_rows": 0,
+              "segments": [
+                {
+                  "segment": "read_repo",
+                  "command_ns": 575059268,
+                  "exec_min_ns": 756104186,
+                  "exec_max_ns": 756104186,
+                  "download_ns": 50971740,
+                  "possible_exec_event_indices": [
+                    41
+                  ],
+                  "download_event_index": 48
+                },
+                {
+                  "segment": "read_typescript",
+                  "command_ns": 218261328,
+                  "exec_min_ns": 499464215,
+                  "exec_max_ns": 499464215,
+                  "download_ns": 54410876,
+                  "possible_exec_event_indices": [
+                    49
+                  ],
+                  "download_event_index": 62
+                },
+                {
+                  "segment": "core_patch",
+                  "command_ns": 1025027900,
+                  "exec_min_ns": 1305833532,
+                  "exec_max_ns": 1305833532,
+                  "download_ns": 38001124,
+                  "possible_exec_event_indices": [
+                    63
+                  ],
+                  "download_event_index": 78
+                },
+                {
+                  "segment": "core_verify",
+                  "command_ns": 3008314656,
+                  "exec_min_ns": 3189857414,
+                  "exec_max_ns": 3189857414,
+                  "download_ns": 50816973,
+                  "possible_exec_event_indices": [
+                    79
+                  ],
+                  "download_event_index": 89
+                },
+                {
+                  "segment": "late_1_inspect",
+                  "command_ns": 2859264912,
+                  "exec_min_ns": 3036962016,
+                  "exec_max_ns": 3036962016,
+                  "download_ns": 45675053,
+                  "possible_exec_event_indices": [
+                    90
+                  ],
+                  "download_event_index": 101
+                },
+                {
+                  "segment": "late_1",
+                  "command_ns": 7293637234,
+                  "exec_min_ns": 7472813097,
+                  "exec_max_ns": 7472813097,
+                  "download_ns": 46201792,
+                  "possible_exec_event_indices": [
+                    102
+                  ],
+                  "download_event_index": 106
+                }
+              ]
+            },
+            {
+              "role": "late_2",
+              "steps": 32,
+              "segment_count": 6,
+              "path_window_ns": 10862212665,
+              "start_offset_from_original_window_ns": 4205378,
+              "finish_offset_ns": 10866418043,
+              "last_to_batch_end_ns": 5707548246,
+              "command_ns": 9092333204,
+              "exec_min_ns": 10538007031,
+              "exec_max_ns": 10538007031,
+              "exec_minus_command_min_ns": 1445673827,
+              "exec_minus_command_max_ns": 1445673827,
+              "download_ns": 301543970,
+              "gap_min_ns": 22661664,
+              "gap_max_ns": 22661664,
+              "exec_assignment": "UNIQUE",
+              "boundary_memory_rows": 0,
+              "boundary_vmstat_rows": 0,
+              "segments": [
+                {
+                  "segment": "read_repo",
+                  "command_ns": 713397647,
+                  "exec_min_ns": 981121479,
+                  "exec_max_ns": 981121479,
+                  "download_ns": 55342480,
+                  "possible_exec_event_indices": [
+                    42
+                  ],
+                  "download_event_index": 54
+                },
+                {
+                  "segment": "read_typescript",
+                  "command_ns": 237342478,
+                  "exec_min_ns": 533966139,
+                  "exec_max_ns": 533966139,
+                  "download_ns": 53796193,
+                  "possible_exec_event_indices": [
+                    55
+                  ],
+                  "download_event_index": 68
+                },
+                {
+                  "segment": "core_patch",
+                  "command_ns": 1074377797,
+                  "exec_min_ns": 1312992327,
+                  "exec_max_ns": 1312992327,
+                  "download_ns": 50622399,
+                  "possible_exec_event_indices": [
+                    69
+                  ],
+                  "download_event_index": 84
+                },
+                {
+                  "segment": "core_verify",
+                  "command_ns": 3345206084,
+                  "exec_min_ns": 3577614368,
+                  "exec_max_ns": 3577614368,
+                  "download_ns": 47999875,
+                  "possible_exec_event_indices": [
+                    85
+                  ],
+                  "download_event_index": 94
+                },
+                {
+                  "segment": "late_2_inspect",
+                  "command_ns": 1983332014,
+                  "exec_min_ns": 2196570285,
+                  "exec_max_ns": 2196570285,
+                  "download_ns": 49007735,
+                  "possible_exec_event_indices": [
+                    96
+                  ],
+                  "download_event_index": 99
+                },
+                {
+                  "segment": "late_2",
+                  "command_ns": 1738677184,
+                  "exec_min_ns": 1935742433,
+                  "exec_max_ns": 1935742433,
+                  "download_ns": 44775288,
+                  "possible_exec_event_indices": [
+                    100
+                  ],
+                  "download_event_index": 103
+                }
+              ]
+            },
+            {
+              "role": "late_3",
+              "steps": 33,
+              "segment_count": 6,
+              "path_window_ns": 14991678681,
+              "start_offset_from_original_window_ns": 4632336,
+              "finish_offset_ns": 14996311017,
+              "last_to_batch_end_ns": 1577655272,
+              "command_ns": 13169789748,
+              "exec_min_ns": 14653662843,
+              "exec_max_ns": 14653662843,
+              "exec_minus_command_min_ns": 1483873095,
+              "exec_minus_command_max_ns": 1483873095,
+              "download_ns": 305296649,
+              "gap_min_ns": 32719189,
+              "gap_max_ns": 32719189,
+              "exec_assignment": "UNIQUE",
+              "boundary_memory_rows": 0,
+              "boundary_vmstat_rows": 0,
+              "segments": [
+                {
+                  "segment": "read_repo",
+                  "command_ns": 396281561,
+                  "exec_min_ns": 573273401,
+                  "exec_max_ns": 573273401,
+                  "download_ns": 47889182,
+                  "possible_exec_event_indices": [
+                    43
+                  ],
+                  "download_event_index": 44
+                },
+                {
+                  "segment": "read_typescript",
+                  "command_ns": 251322807,
+                  "exec_min_ns": 541188708,
+                  "exec_max_ns": 541188708,
+                  "download_ns": 53877944,
+                  "possible_exec_event_indices": [
+                    45
+                  ],
+                  "download_event_index": 59
+                },
+                {
+                  "segment": "core_patch",
+                  "command_ns": 958430525,
+                  "exec_min_ns": 1254146509,
+                  "exec_max_ns": 1254146509,
+                  "download_ns": 55961187,
+                  "possible_exec_event_indices": [
+                    61
+                  ],
+                  "download_event_index": 76
+                },
+                {
+                  "segment": "core_verify",
+                  "command_ns": 3513457336,
+                  "exec_min_ns": 3738675737,
+                  "exec_max_ns": 3738675737,
+                  "download_ns": 45387397,
+                  "possible_exec_event_indices": [
+                    77
+                  ],
+                  "download_event_index": 91
+                },
+                {
+                  "segment": "late_3_inspect",
+                  "command_ns": 1083509614,
+                  "exec_min_ns": 1304807645,
+                  "exec_max_ns": 1304807645,
+                  "download_ns": 51820423,
+                  "possible_exec_event_indices": [
+                    92
+                  ],
+                  "download_event_index": 97
+                },
+                {
+                  "segment": "late_3",
+                  "command_ns": 6966787905,
+                  "exec_min_ns": 7241570843,
+                  "exec_max_ns": 7241570843,
+                  "download_ns": 50360516,
+                  "possible_exec_event_indices": [
+                    98
+                  ],
+                  "download_event_index": 105
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "mode": "on",
+          "raw": ".artifacts/storage-isolated-service/20261026T143630Z-1559559/prettier6604",
+          "window_ns": 18150502148,
+          "critical_role": "late_1",
+          "critical_path_assignment": "UNIQUE",
+          "exec_calls": 35,
+          "unique_exec_assignments": 35,
+          "bounded_exec_assignments": 0,
+          "command_sum_ns": 60183224658,
+          "exec_sum_ns": 73519317049,
+          "download_sum_ns": 1756982263,
+          "boundary_memory_rows": 448,
+          "boundary_vmstat_rows": 448,
+          "paths": [
+            {
+              "role": "backbone",
+              "steps": 29,
+              "segment_count": 5,
+              "path_window_ns": 15088331932,
+              "start_offset_from_original_window_ns": -941972,
+              "finish_offset_ns": 15087389960,
+              "last_to_batch_end_ns": 3063112188,
+              "command_ns": 12677468005,
+              "exec_min_ns": 14823994472,
+              "exec_max_ns": 14823994472,
+              "exec_minus_command_min_ns": 2146526467,
+              "exec_minus_command_max_ns": 2146526467,
+              "download_ns": 243225307,
+              "gap_min_ns": 21112153,
+              "gap_max_ns": 21112153,
+              "exec_assignment": "UNIQUE",
+              "boundary_memory_rows": 68,
+              "boundary_vmstat_rows": 68,
+              "segments": [
+                {
+                  "segment": "read_repo",
+                  "command_ns": 742326800,
+                  "exec_min_ns": 1092612266,
+                  "exec_max_ns": 1092612266,
+                  "download_ns": 49085320,
+                  "possible_exec_event_indices": [
+                    58
+                  ],
+                  "download_event_index": 72
+                },
+                {
+                  "segment": "read_typescript",
+                  "command_ns": 215585221,
+                  "exec_min_ns": 600478576,
+                  "exec_max_ns": 600478576,
+                  "download_ns": 53851879,
+                  "possible_exec_event_indices": [
+                    76
+                  ],
+                  "download_event_index": 84
+                },
+                {
+                  "segment": "core_patch",
+                  "command_ns": 1381249551,
+                  "exec_min_ns": 1841109870,
+                  "exec_max_ns": 1841109870,
+                  "download_ns": 44860053,
+                  "possible_exec_event_indices": [
+                    87
+                  ],
+                  "download_event_index": 105
+                },
+                {
+                  "segment": "core_verify",
+                  "command_ns": 3320121551,
+                  "exec_min_ns": 3721450644,
+                  "exec_max_ns": 3721450644,
+                  "download_ns": 47426143,
+                  "possible_exec_event_indices": [
+                    106
+                  ],
+                  "download_event_index": 112
+                },
+                {
+                  "segment": "backbone_finish",
+                  "command_ns": 7018184882,
+                  "exec_min_ns": 7568343116,
+                  "exec_max_ns": 7568343116,
+                  "download_ns": 48001912,
+                  "possible_exec_event_indices": [
+                    113
+                  ],
+                  "download_event_index": 125
+                }
+              ]
+            },
+            {
+              "role": "early_1",
+              "steps": 21,
+              "segment_count": 4,
+              "path_window_ns": 4406470968,
+              "start_offset_from_original_window_ns": -139262,
+              "finish_offset_ns": 4406331706,
+              "last_to_batch_end_ns": 13744170442,
+              "command_ns": 2678459122,
+              "exec_min_ns": 4187549726,
+              "exec_max_ns": 4187549726,
+              "exec_minus_command_min_ns": 1509090604,
+              "exec_minus_command_max_ns": 1509090604,
+              "download_ns": 205308263,
+              "gap_min_ns": 13612979,
+              "gap_max_ns": 13612979,
+              "exec_assignment": "UNIQUE",
+              "boundary_memory_rows": 50,
+              "boundary_vmstat_rows": 50,
+              "segments": [
+                {
+                  "segment": "read_repo",
+                  "command_ns": 704358160,
+                  "exec_min_ns": 1095901547,
+                  "exec_max_ns": 1095901547,
+                  "download_ns": 55184839,
+                  "possible_exec_event_indices": [
+                    59
+                  ],
+                  "download_event_index": 73
+                },
+                {
+                  "segment": "read_typescript",
+                  "command_ns": 220825462,
+                  "exec_min_ns": 631822134,
+                  "exec_max_ns": 631822134,
+                  "download_ns": 48542938,
+                  "possible_exec_event_indices": [
+                    77
+                  ],
+                  "download_event_index": 86
+                },
+                {
+                  "segment": "early_1_inspect",
+                  "command_ns": 1096829846,
+                  "exec_min_ns": 1364855890,
+                  "exec_max_ns": 1364855890,
+                  "download_ns": 49286055,
+                  "possible_exec_event_indices": [
+                    89
+                  ],
+                  "download_event_index": 99
+                },
+                {
+                  "segment": "early_1",
+                  "command_ns": 656445654,
+                  "exec_min_ns": 1094970155,
+                  "exec_max_ns": 1094970155,
+                  "download_ns": 52294431,
+                  "possible_exec_event_indices": [
+                    101
+                  ],
+                  "download_event_index": 107
+                }
+              ]
+            },
+            {
+              "role": "early_2",
+              "steps": 21,
+              "segment_count": 4,
+              "path_window_ns": 4785090017,
+              "start_offset_from_original_window_ns": 770228,
+              "finish_offset_ns": 4785860245,
+              "last_to_batch_end_ns": 13364641903,
+              "command_ns": 2989916155,
+              "exec_min_ns": 4559831252,
+              "exec_max_ns": 4559831252,
+              "exec_minus_command_min_ns": 1569915097,
+              "exec_minus_command_max_ns": 1569915097,
+              "download_ns": 211274212,
+              "gap_min_ns": 13984553,
+              "gap_max_ns": 13984553,
+              "exec_assignment": "UNIQUE",
+              "boundary_memory_rows": 50,
+              "boundary_vmstat_rows": 50,
+              "segments": [
+                {
+                  "segment": "read_repo",
+                  "command_ns": 749977759,
+                  "exec_min_ns": 1133955184,
+                  "exec_max_ns": 1133955184,
+                  "download_ns": 58540481,
+                  "possible_exec_event_indices": [
+                    60
+                  ],
+                  "download_event_index": 75
+                },
+                {
+                  "segment": "read_typescript",
+                  "command_ns": 252724227,
+                  "exec_min_ns": 748714782,
+                  "exec_max_ns": 748714782,
+                  "download_ns": 52081430,
+                  "possible_exec_event_indices": [
+                    78
+                  ],
+                  "download_event_index": 91
+                },
+                {
+                  "segment": "early_2_inspect",
+                  "command_ns": 650188204,
+                  "exec_min_ns": 908895884,
+                  "exec_max_ns": 908895884,
+                  "download_ns": 46041807,
+                  "possible_exec_event_indices": [
+                    92
+                  ],
+                  "download_event_index": 95
+                },
+                {
+                  "segment": "early_2",
+                  "command_ns": 1337025965,
+                  "exec_min_ns": 1768265402,
+                  "exec_max_ns": 1768265402,
+                  "download_ns": 54610494,
+                  "possible_exec_event_indices": [
+                    96
+                  ],
+                  "download_event_index": 108
+                }
+              ]
+            },
+            {
+              "role": "early_3",
+              "steps": 21,
+              "segment_count": 4,
+              "path_window_ns": 4895027024,
+              "start_offset_from_original_window_ns": 1853651,
+              "finish_offset_ns": 4896880675,
+              "last_to_batch_end_ns": 13253621473,
+              "command_ns": 3447050232,
+              "exec_min_ns": 4672165306,
+              "exec_max_ns": 4672165306,
+              "exec_minus_command_min_ns": 1225115074,
+              "exec_minus_command_max_ns": 1225115074,
+              "download_ns": 196841917,
+              "gap_min_ns": 26019801,
+              "gap_max_ns": 26019801,
+              "exec_assignment": "UNIQUE",
+              "boundary_memory_rows": 50,
+              "boundary_vmstat_rows": 50,
+              "segments": [
+                {
+                  "segment": "read_repo",
+                  "command_ns": 553251573,
+                  "exec_min_ns": 904465267,
+                  "exec_max_ns": 904465267,
+                  "download_ns": 48462989,
+                  "possible_exec_event_indices": [
+                    61
+                  ],
+                  "download_event_index": 67
+                },
+                {
+                  "segment": "read_typescript",
+                  "command_ns": 149166991,
+                  "exec_min_ns": 453510063,
+                  "exec_max_ns": 453510063,
+                  "download_ns": 47282215,
+                  "possible_exec_event_indices": [
+                    68
+                  ],
+                  "download_event_index": 79
+                },
+                {
+                  "segment": "early_3_inspect",
+                  "command_ns": 1090498583,
+                  "exec_min_ns": 1314344756,
+                  "exec_max_ns": 1314344756,
+                  "download_ns": 48794655,
+                  "possible_exec_event_indices": [
+                    80
+                  ],
+                  "download_event_index": 93
+                },
+                {
+                  "segment": "early_3",
+                  "command_ns": 1654133085,
+                  "exec_min_ns": 1999845220,
+                  "exec_max_ns": 1999845220,
+                  "download_ns": 52302058,
+                  "possible_exec_event_indices": [
+                    94
+                  ],
+                  "download_event_index": 109
+                }
+              ]
+            },
+            {
+              "role": "late_1",
+              "steps": 32,
+              "segment_count": 6,
+              "path_window_ns": 18147572165,
+              "start_offset_from_original_window_ns": 2929983,
+              "finish_offset_ns": 18150502148,
+              "last_to_batch_end_ns": 0,
+              "command_ns": 15503742121,
+              "exec_min_ns": 17831828896,
+              "exec_max_ns": 17831828896,
+              "exec_minus_command_min_ns": 2328086775,
+              "exec_minus_command_max_ns": 2328086775,
+              "download_ns": 288630770,
+              "gap_min_ns": 27112499,
+              "gap_max_ns": 27112499,
+              "exec_assignment": "UNIQUE",
+              "boundary_memory_rows": 76,
+              "boundary_vmstat_rows": 76,
+              "segments": [
+                {
+                  "segment": "read_repo",
+                  "command_ns": 635669876,
+                  "exec_min_ns": 980475938,
+                  "exec_max_ns": 980475938,
+                  "download_ns": 49111767,
+                  "possible_exec_event_indices": [
+                    62
+                  ],
+                  "download_event_index": 69
+                },
+                {
+                  "segment": "read_typescript",
+                  "command_ns": 223459845,
+                  "exec_min_ns": 665575239,
+                  "exec_max_ns": 665575239,
+                  "download_ns": 51925019,
+                  "possible_exec_event_indices": [
+                    70
+                  ],
+                  "download_event_index": 83
+                },
+                {
+                  "segment": "core_patch",
+                  "command_ns": 1356542379,
+                  "exec_min_ns": 1821523700,
+                  "exec_max_ns": 1821523700,
+                  "download_ns": 54442045,
+                  "possible_exec_event_indices": [
+                    85
+                  ],
+                  "download_event_index": 103
+                },
+                {
+                  "segment": "core_verify",
+                  "command_ns": 3468314391,
+                  "exec_min_ns": 3937030556,
+                  "exec_max_ns": 3937030556,
+                  "download_ns": 44047231,
+                  "possible_exec_event_indices": [
+                    104
+                  ],
+                  "download_event_index": 116
+                },
+                {
+                  "segment": "late_1_inspect",
+                  "command_ns": 2598166083,
+                  "exec_min_ns": 2822055263,
+                  "exec_max_ns": 2822055263,
+                  "download_ns": 42854244,
+                  "possible_exec_event_indices": [
+                    117
+                  ],
+                  "download_event_index": 122
+                },
+                {
+                  "segment": "late_1",
+                  "command_ns": 7221589547,
+                  "exec_min_ns": 7605168200,
+                  "exec_max_ns": 7605168200,
+                  "download_ns": 46250464,
+                  "possible_exec_event_indices": [
+                    123
+                  ],
+                  "download_event_index": 127
+                }
+              ]
+            },
+            {
+              "role": "late_2",
+              "steps": 32,
+              "segment_count": 6,
+              "path_window_ns": 11957313572,
+              "start_offset_from_original_window_ns": 3968840,
+              "finish_offset_ns": 11961282412,
+              "last_to_batch_end_ns": 6189219736,
+              "command_ns": 9305473381,
+              "exec_min_ns": 11603217950,
+              "exec_max_ns": 11603217950,
+              "exec_minus_command_min_ns": 2297744569,
+              "exec_minus_command_max_ns": 2297744569,
+              "download_ns": 314463867,
+              "gap_min_ns": 39631755,
+              "gap_max_ns": 39631755,
+              "exec_assignment": "UNIQUE",
+              "boundary_memory_rows": 76,
+              "boundary_vmstat_rows": 76,
+              "segments": [
+                {
+                  "segment": "read_repo",
+                  "command_ns": 476449066,
+                  "exec_min_ns": 783202343,
+                  "exec_max_ns": 783202343,
+                  "download_ns": 55876181,
+                  "possible_exec_event_indices": [
+                    63
+                  ],
+                  "download_event_index": 65
+                },
+                {
+                  "segment": "read_typescript",
+                  "command_ns": 176030395,
+                  "exec_min_ns": 690407064,
+                  "exec_max_ns": 690407064,
+                  "download_ns": 50675417,
+                  "possible_exec_event_indices": [
+                    66
+                  ],
+                  "download_event_index": 81
+                },
+                {
+                  "segment": "core_patch",
+                  "command_ns": 1222709265,
+                  "exec_min_ns": 1631059789,
+                  "exec_max_ns": 1631059789,
+                  "download_ns": 54697818,
+                  "possible_exec_event_indices": [
+                    82
+                  ],
+                  "download_event_index": 100
+                },
+                {
+                  "segment": "core_verify",
+                  "command_ns": 3768157631,
+                  "exec_min_ns": 4217632494,
+                  "exec_max_ns": 4217632494,
+                  "download_ns": 54690288,
+                  "possible_exec_event_indices": [
+                    102
+                  ],
+                  "download_event_index": 114
+                },
+                {
+                  "segment": "late_2_inspect",
+                  "command_ns": 2045035357,
+                  "exec_min_ns": 2336155839,
+                  "exec_max_ns": 2336155839,
+                  "download_ns": 46832136,
+                  "possible_exec_event_indices": [
+                    115
+                  ],
+                  "download_event_index": 120
+                },
+                {
+                  "segment": "late_2",
+                  "command_ns": 1617091667,
+                  "exec_min_ns": 1944760421,
+                  "exec_max_ns": 1944760421,
+                  "download_ns": 51692027,
+                  "possible_exec_event_indices": [
+                    121
+                  ],
+                  "download_event_index": 124
+                }
+              ]
+            },
+            {
+              "role": "late_3",
+              "steps": 33,
+              "segment_count": 6,
+              "path_window_ns": 16167318610,
+              "start_offset_from_original_window_ns": 5120824,
+              "finish_offset_ns": 16172439434,
+              "last_to_batch_end_ns": 1978062714,
+              "command_ns": 13581115642,
+              "exec_min_ns": 15840729447,
+              "exec_max_ns": 15840729447,
+              "exec_minus_command_min_ns": 2259613805,
+              "exec_minus_command_max_ns": 2259613805,
+              "download_ns": 297237927,
+              "gap_min_ns": 29351236,
+              "gap_max_ns": 29351236,
+              "exec_assignment": "UNIQUE",
+              "boundary_memory_rows": 78,
+              "boundary_vmstat_rows": 78,
+              "segments": [
+                {
+                  "segment": "read_repo",
+                  "command_ns": 643604584,
+                  "exec_min_ns": 1063693839,
+                  "exec_max_ns": 1063693839,
+                  "download_ns": 59556307,
+                  "possible_exec_event_indices": [
+                    64
+                  ],
+                  "download_event_index": 71
+                },
+                {
+                  "segment": "read_typescript",
+                  "command_ns": 233672401,
+                  "exec_min_ns": 698534837,
+                  "exec_max_ns": 698534837,
+                  "download_ns": 52630819,
+                  "possible_exec_event_indices": [
+                    74
+                  ],
+                  "download_event_index": 88
+                },
+                {
+                  "segment": "core_patch",
+                  "command_ns": 818768702,
+                  "exec_min_ns": 1081985012,
+                  "exec_max_ns": 1081985012,
+                  "download_ns": 45866479,
+                  "possible_exec_event_indices": [
+                    90
+                  ],
+                  "download_event_index": 97
+                },
+                {
+                  "segment": "core_verify",
+                  "command_ns": 3275448559,
+                  "exec_min_ns": 3578886201,
+                  "exec_max_ns": 3578886201,
+                  "download_ns": 45883344,
+                  "possible_exec_event_indices": [
+                    98
+                  ],
+                  "download_event_index": 110
+                },
+                {
+                  "segment": "late_3_inspect",
+                  "command_ns": 1113027972,
+                  "exec_min_ns": 1420384796,
+                  "exec_max_ns": 1420384796,
+                  "download_ns": 44359066,
+                  "possible_exec_event_indices": [
+                    111
+                  ],
+                  "download_event_index": 118
+                },
+                {
+                  "segment": "late_3",
+                  "command_ns": 7496593424,
+                  "exec_min_ns": 7997244762,
+                  "exec_max_ns": 7997244762,
+                  "download_ns": 48941912,
+                  "possible_exec_event_indices": [
+                    119
+                  ],
+                  "download_event_index": 126
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      "critical_comparison": {
+        "off_role": "late_1",
+        "on_role": "late_1",
+        "window_difference_ns": 1576535859,
+        "components_ns": {
+          "command_ns": 524176823,
+          "exec_minus_command_min_ns": 1046617613,
+          "download_ns": 2553212,
+          "gap_min_ns": 3644576,
+          "start_offset_from_original_window_ns": -456365
+        }
+      }
+    },
+    {
+      "pair": 2,
+      "order": [
+        "on",
+        "off"
+      ],
+      "runs": [
+        {
+          "mode": "on",
+          "raw": ".artifacts/storage-isolated-service/20261026T145218Z-1564452/prettier6604",
+          "window_ns": 19817604986,
+          "critical_role": "late_1",
+          "critical_path_assignment": "UNIQUE",
+          "exec_calls": 35,
+          "unique_exec_assignments": 35,
+          "bounded_exec_assignments": 0,
+          "command_sum_ns": 59437150606,
+          "exec_sum_ns": 72294005021,
+          "download_sum_ns": 1761424688,
+          "boundary_memory_rows": 448,
+          "boundary_vmstat_rows": 448,
+          "paths": [
+            {
+              "role": "backbone",
+              "steps": 29,
+              "segment_count": 5,
+              "path_window_ns": 13208766604,
+              "start_offset_from_original_window_ns": -940819,
+              "finish_offset_ns": 13207825785,
+              "last_to_batch_end_ns": 6609779201,
+              "command_ns": 11227786954,
+              "exec_min_ns": 12938024179,
+              "exec_max_ns": 12938024179,
+              "exec_minus_command_min_ns": 1710237225,
+              "exec_minus_command_max_ns": 1710237225,
+              "download_ns": 248515563,
+              "gap_min_ns": 22226862,
+              "gap_max_ns": 22226862,
+              "exec_assignment": "UNIQUE",
+              "boundary_memory_rows": 68,
+              "boundary_vmstat_rows": 68,
+              "segments": [
+                {
+                  "segment": "read_repo",
+                  "command_ns": 641337207,
+                  "exec_min_ns": 1018826135,
+                  "exec_max_ns": 1018826135,
+                  "download_ns": 46448221,
+                  "possible_exec_event_indices": [
+                    58
+                  ],
+                  "download_event_index": 71
+                },
+                {
+                  "segment": "read_typescript",
+                  "command_ns": 107336207,
+                  "exec_min_ns": 317704977,
+                  "exec_max_ns": 317704977,
+                  "download_ns": 44801459,
+                  "possible_exec_event_indices": [
+                    73
+                  ],
+                  "download_event_index": 79
+                },
+                {
+                  "segment": "core_patch",
+                  "command_ns": 1008526026,
+                  "exec_min_ns": 1390801162,
+                  "exec_max_ns": 1390801162,
+                  "download_ns": 55224101,
+                  "possible_exec_event_indices": [
+                    80
+                  ],
+                  "download_event_index": 95
+                },
+                {
+                  "segment": "core_verify",
+                  "command_ns": 3431394105,
+                  "exec_min_ns": 3784553972,
+                  "exec_max_ns": 3784553972,
+                  "download_ns": 51821112,
+                  "possible_exec_event_indices": [
+                    96
+                  ],
+                  "download_event_index": 110
+                },
+                {
+                  "segment": "backbone_finish",
+                  "command_ns": 6039193409,
+                  "exec_min_ns": 6426137933,
+                  "exec_max_ns": 6426137933,
+                  "download_ns": 50220670,
+                  "possible_exec_event_indices": [
+                    111
+                  ],
+                  "download_event_index": 125
+                }
+              ]
+            },
+            {
+              "role": "early_1",
+              "steps": 21,
+              "segment_count": 4,
+              "path_window_ns": 4176946463,
+              "start_offset_from_original_window_ns": -162678,
+              "finish_offset_ns": 4176783785,
+              "last_to_batch_end_ns": 15640821201,
+              "command_ns": 2336980208,
+              "exec_min_ns": 3973106313,
+              "exec_max_ns": 3973106313,
+              "exec_minus_command_min_ns": 1636126105,
+              "exec_minus_command_max_ns": 1636126105,
+              "download_ns": 190589800,
+              "gap_min_ns": 13250350,
+              "gap_max_ns": 13250350,
+              "exec_assignment": "UNIQUE",
+              "boundary_memory_rows": 50,
+              "boundary_vmstat_rows": 50,
+              "segments": [
+                {
+                  "segment": "read_repo",
+                  "command_ns": 636544014,
+                  "exec_min_ns": 1136160714,
+                  "exec_max_ns": 1136160714,
+                  "download_ns": 56460687,
+                  "possible_exec_event_indices": [
+                    59
+                  ],
+                  "download_event_index": 76
+                },
+                {
+                  "segment": "read_typescript",
+                  "command_ns": 230887976,
+                  "exec_min_ns": 708750960,
+                  "exec_max_ns": 708750960,
+                  "download_ns": 50086470,
+                  "possible_exec_event_indices": [
+                    78
+                  ],
+                  "download_event_index": 91
+                },
+                {
+                  "segment": "early_1_inspect",
+                  "command_ns": 845758389,
+                  "exec_min_ns": 1110453602,
+                  "exec_max_ns": 1110453602,
+                  "download_ns": 31120331,
+                  "possible_exec_event_indices": [
+                    92
+                  ],
+                  "download_event_index": 97
+                },
+                {
+                  "segment": "early_1",
+                  "command_ns": 623789829,
+                  "exec_min_ns": 1017741037,
+                  "exec_max_ns": 1017741037,
+                  "download_ns": 52922312,
+                  "possible_exec_event_indices": [
+                    98
+                  ],
+                  "download_event_index": 108
+                }
+              ]
+            },
+            {
+              "role": "early_2",
+              "steps": 21,
+              "segment_count": 4,
+              "path_window_ns": 4029155763,
+              "start_offset_from_original_window_ns": 860021,
+              "finish_offset_ns": 4030015784,
+              "last_to_batch_end_ns": 15787589202,
+              "command_ns": 2403193336,
+              "exec_min_ns": 3795616486,
+              "exec_max_ns": 3795616486,
+              "exec_minus_command_min_ns": 1392423150,
+              "exec_minus_command_max_ns": 1392423150,
+              "download_ns": 205753470,
+              "gap_min_ns": 27785807,
+              "gap_max_ns": 27785807,
+              "exec_assignment": "UNIQUE",
+              "boundary_memory_rows": 50,
+              "boundary_vmstat_rows": 50,
+              "segments": [
+                {
+                  "segment": "read_repo",
+                  "command_ns": 556130931,
+                  "exec_min_ns": 865515423,
+                  "exec_max_ns": 865515423,
+                  "download_ns": 48157090,
+                  "possible_exec_event_indices": [
+                    60
+                  ],
+                  "download_event_index": 65
+                },
+                {
+                  "segment": "read_typescript",
+                  "command_ns": 252330081,
+                  "exec_min_ns": 712260511,
+                  "exec_max_ns": 712260511,
+                  "download_ns": 58798745,
+                  "possible_exec_event_indices": [
+                    66
+                  ],
+                  "download_event_index": 81
+                },
+                {
+                  "segment": "early_2_inspect",
+                  "command_ns": 472570043,
+                  "exec_min_ns": 705382649,
+                  "exec_max_ns": 705382649,
+                  "download_ns": 48745905,
+                  "possible_exec_event_indices": [
+                    82
+                  ],
+                  "download_event_index": 93
+                },
+                {
+                  "segment": "early_2",
+                  "command_ns": 1122162281,
+                  "exec_min_ns": 1512457903,
+                  "exec_max_ns": 1512457903,
+                  "download_ns": 50051730,
+                  "possible_exec_event_indices": [
+                    94
+                  ],
+                  "download_event_index": 107
+                }
+              ]
+            },
+            {
+              "role": "early_3",
+              "steps": 21,
+              "segment_count": 4,
+              "path_window_ns": 5483232886,
+              "start_offset_from_original_window_ns": 1978427,
+              "finish_offset_ns": 5485211313,
+              "last_to_batch_end_ns": 14332393673,
+              "command_ns": 3871194537,
+              "exec_min_ns": 5237654188,
+              "exec_max_ns": 5237654188,
+              "exec_minus_command_min_ns": 1366459651,
+              "exec_minus_command_max_ns": 1366459651,
+              "download_ns": 202083069,
+              "gap_min_ns": 43495629,
+              "gap_max_ns": 43495629,
+              "exec_assignment": "UNIQUE",
+              "boundary_memory_rows": 50,
+              "boundary_vmstat_rows": 50,
+              "segments": [
+                {
+                  "segment": "read_repo",
+                  "command_ns": 616530050,
+                  "exec_min_ns": 922883246,
+                  "exec_max_ns": 922883246,
+                  "download_ns": 56486337,
+                  "possible_exec_event_indices": [
+                    61
+                  ],
+                  "download_event_index": 67
+                },
+                {
+                  "segment": "read_typescript",
+                  "command_ns": 271747120,
+                  "exec_min_ns": 788462073,
+                  "exec_max_ns": 788462073,
+                  "download_ns": 46665454,
+                  "possible_exec_event_indices": [
+                    69
+                  ],
+                  "download_event_index": 87
+                },
+                {
+                  "segment": "early_3_inspect",
+                  "command_ns": 1106964800,
+                  "exec_min_ns": 1350458234,
+                  "exec_max_ns": 1350458234,
+                  "download_ns": 47201863,
+                  "possible_exec_event_indices": [
+                    90
+                  ],
+                  "download_event_index": 101
+                },
+                {
+                  "segment": "early_3",
+                  "command_ns": 1875952567,
+                  "exec_min_ns": 2175850635,
+                  "exec_max_ns": 2175850635,
+                  "download_ns": 51729415,
+                  "possible_exec_event_indices": [
+                    103
+                  ],
+                  "download_event_index": 109
+                }
+              ]
+            },
+            {
+              "role": "late_1",
+              "steps": 32,
+              "segment_count": 6,
+              "path_window_ns": 19814758058,
+              "start_offset_from_original_window_ns": 2846928,
+              "finish_offset_ns": 19817604986,
+              "last_to_batch_end_ns": 0,
+              "command_ns": 17129834033,
+              "exec_min_ns": 19485046475,
+              "exec_max_ns": 19485046475,
+              "exec_minus_command_min_ns": 2355212442,
+              "exec_minus_command_max_ns": 2355212442,
+              "download_ns": 296612332,
+              "gap_min_ns": 33099251,
+              "gap_max_ns": 33099251,
+              "exec_assignment": "UNIQUE",
+              "boundary_memory_rows": 76,
+              "boundary_vmstat_rows": 76,
+              "segments": [
+                {
+                  "segment": "read_repo",
+                  "command_ns": 587859773,
+                  "exec_min_ns": 1007179411,
+                  "exec_max_ns": 1007179411,
+                  "download_ns": 61542598,
+                  "possible_exec_event_indices": [
+                    62
+                  ],
+                  "download_event_index": 70
+                },
+                {
+                  "segment": "read_typescript",
+                  "command_ns": 252124091,
+                  "exec_min_ns": 710432672,
+                  "exec_max_ns": 710432672,
+                  "download_ns": 50244547,
+                  "possible_exec_event_indices": [
+                    74
+                  ],
+                  "download_event_index": 85
+                },
+                {
+                  "segment": "core_patch",
+                  "command_ns": 913693602,
+                  "exec_min_ns": 1280448707,
+                  "exec_max_ns": 1280448707,
+                  "download_ns": 46222392,
+                  "possible_exec_event_indices": [
+                    88
+                  ],
+                  "download_event_index": 99
+                },
+                {
+                  "segment": "core_verify",
+                  "command_ns": 3296128570,
+                  "exec_min_ns": 3645689664,
+                  "exec_max_ns": 3645689664,
+                  "download_ns": 40902007,
+                  "possible_exec_event_indices": [
+                    100
+                  ],
+                  "download_event_index": 112
+                },
+                {
+                  "segment": "late_1_inspect",
+                  "command_ns": 3513227993,
+                  "exec_min_ns": 3811487340,
+                  "exec_max_ns": 3811487340,
+                  "download_ns": 47705057,
+                  "possible_exec_event_indices": [
+                    113
+                  ],
+                  "download_event_index": 122
+                },
+                {
+                  "segment": "late_1",
+                  "command_ns": 8566800004,
+                  "exec_min_ns": 9029808681,
+                  "exec_max_ns": 9029808681,
+                  "download_ns": 49995731,
+                  "possible_exec_event_indices": [
+                    123
+                  ],
+                  "download_event_index": 127
+                }
+              ]
+            },
+            {
+              "role": "late_2",
+              "steps": 32,
+              "segment_count": 6,
+              "path_window_ns": 10870804976,
+              "start_offset_from_original_window_ns": 3797127,
+              "finish_offset_ns": 10874602103,
+              "last_to_batch_end_ns": 8943002883,
+              "command_ns": 8606179844,
+              "exec_min_ns": 10512510725,
+              "exec_max_ns": 10512510725,
+              "exec_minus_command_min_ns": 1906330881,
+              "exec_minus_command_max_ns": 1906330881,
+              "download_ns": 304812180,
+              "gap_min_ns": 53482071,
+              "gap_max_ns": 53482071,
+              "exec_assignment": "UNIQUE",
+              "boundary_memory_rows": 76,
+              "boundary_vmstat_rows": 76,
+              "segments": [
+                {
+                  "segment": "read_repo",
+                  "command_ns": 749607582,
+                  "exec_min_ns": 1094124743,
+                  "exec_max_ns": 1094124743,
+                  "download_ns": 56340454,
+                  "possible_exec_event_indices": [
+                    63
+                  ],
+                  "download_event_index": 75
+                },
+                {
+                  "segment": "read_typescript",
+                  "command_ns": 194685547,
+                  "exec_min_ns": 581047210,
+                  "exec_max_ns": 581047210,
+                  "download_ns": 54025101,
+                  "possible_exec_event_indices": [
+                    77
+                  ],
+                  "download_event_index": 83
+                },
+                {
+                  "segment": "core_patch",
+                  "command_ns": 1042105830,
+                  "exec_min_ns": 1441082656,
+                  "exec_max_ns": 1441082656,
+                  "download_ns": 46670918,
+                  "possible_exec_event_indices": [
+                    86
+                  ],
+                  "download_event_index": 102
+                },
+                {
+                  "segment": "core_verify",
+                  "command_ns": 3280317235,
+                  "exec_min_ns": 3580099974,
+                  "exec_max_ns": 3580099974,
+                  "download_ns": 50731546,
+                  "possible_exec_event_indices": [
+                    104
+                  ],
+                  "download_event_index": 114
+                },
+                {
+                  "segment": "late_2_inspect",
+                  "command_ns": 1775552620,
+                  "exec_min_ns": 2022215852,
+                  "exec_max_ns": 2022215852,
+                  "download_ns": 47559654,
+                  "possible_exec_event_indices": [
+                    115
+                  ],
+                  "download_event_index": 118
+                },
+                {
+                  "segment": "late_2",
+                  "command_ns": 1563911030,
+                  "exec_min_ns": 1793940290,
+                  "exec_max_ns": 1793940290,
+                  "download_ns": 49484507,
+                  "possible_exec_event_indices": [
+                    119
+                  ],
+                  "download_event_index": 124
+                }
+              ]
+            },
+            {
+              "role": "late_3",
+              "steps": 33,
+              "segment_count": 6,
+              "path_window_ns": 16722713667,
+              "start_offset_from_original_window_ns": 4805374,
+              "finish_offset_ns": 16727519041,
+              "last_to_batch_end_ns": 3090085945,
+              "command_ns": 13861981694,
+              "exec_min_ns": 16352046655,
+              "exec_max_ns": 16352046655,
+              "exec_minus_command_min_ns": 2490064961,
+              "exec_minus_command_max_ns": 2490064961,
+              "download_ns": 313058274,
+              "gap_min_ns": 57608738,
+              "gap_max_ns": 57608738,
+              "exec_assignment": "UNIQUE",
+              "boundary_memory_rows": 78,
+              "boundary_vmstat_rows": 78,
+              "segments": [
+                {
+                  "segment": "read_repo",
+                  "command_ns": 617169610,
+                  "exec_min_ns": 956006589,
+                  "exec_max_ns": 956006589,
+                  "download_ns": 58483218,
+                  "possible_exec_event_indices": [
+                    64
+                  ],
+                  "download_event_index": 68
+                },
+                {
+                  "segment": "read_typescript",
+                  "command_ns": 243653848,
+                  "exec_min_ns": 731947807,
+                  "exec_max_ns": 731947807,
+                  "download_ns": 55920714,
+                  "possible_exec_event_indices": [
+                    72
+                  ],
+                  "download_event_index": 84
+                },
+                {
+                  "segment": "core_patch",
+                  "command_ns": 1314339097,
+                  "exec_min_ns": 1921876123,
+                  "exec_max_ns": 1921876123,
+                  "download_ns": 43342882,
+                  "possible_exec_event_indices": [
+                    89
+                  ],
+                  "download_event_index": 105
+                },
+                {
+                  "segment": "core_verify",
+                  "command_ns": 3709955701,
+                  "exec_min_ns": 4096103749,
+                  "exec_max_ns": 4096103749,
+                  "download_ns": 50334578,
+                  "possible_exec_event_indices": [
+                    106
+                  ],
+                  "download_event_index": 116
+                },
+                {
+                  "segment": "late_3_inspect",
+                  "command_ns": 1344655562,
+                  "exec_min_ns": 1648178155,
+                  "exec_max_ns": 1648178155,
+                  "download_ns": 54643282,
+                  "possible_exec_event_indices": [
+                    117
+                  ],
+                  "download_event_index": 120
+                },
+                {
+                  "segment": "late_3",
+                  "command_ns": 6632207876,
+                  "exec_min_ns": 6997934232,
+                  "exec_max_ns": 6997934232,
+                  "download_ns": 50333600,
+                  "possible_exec_event_indices": [
+                    121
+                  ],
+                  "download_event_index": 126
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "mode": "off",
+          "raw": ".artifacts/storage-isolated-service/20261026T145434Z-1567016/prettier6604",
+          "window_ns": 18255907781,
+          "critical_role": "late_1",
+          "critical_path_assignment": "UNIQUE",
+          "exec_calls": 35,
+          "unique_exec_assignments": 35,
+          "bounded_exec_assignments": 0,
+          "command_sum_ns": 61413018855,
+          "exec_sum_ns": 70663934847,
+          "download_sum_ns": 1776804609,
+          "boundary_memory_rows": 0,
+          "boundary_vmstat_rows": 0,
+          "paths": [
+            {
+              "role": "backbone",
+              "steps": 29,
+              "segment_count": 5,
+              "path_window_ns": 14563852561,
+              "start_offset_from_original_window_ns": -621080,
+              "finish_offset_ns": 14563231481,
+              "last_to_batch_end_ns": 3692676300,
+              "command_ns": 12689009376,
+              "exec_min_ns": 14277525963,
+              "exec_max_ns": 14277525963,
+              "exec_minus_command_min_ns": 1588516587,
+              "exec_minus_command_max_ns": 1588516587,
+              "download_ns": 268015740,
+              "gap_min_ns": 18310858,
+              "gap_max_ns": 18310858,
+              "exec_assignment": "UNIQUE",
+              "boundary_memory_rows": 0,
+              "boundary_vmstat_rows": 0,
+              "segments": [
+                {
+                  "segment": "read_repo",
+                  "command_ns": 797244417,
+                  "exec_min_ns": 1077101669,
+                  "exec_max_ns": 1077101669,
+                  "download_ns": 60734876,
+                  "possible_exec_event_indices": [
+                    37
+                  ],
+                  "download_event_index": 57
+                },
+                {
+                  "segment": "read_typescript",
+                  "command_ns": 226283650,
+                  "exec_min_ns": 514696200,
+                  "exec_max_ns": 514696200,
+                  "download_ns": 49752780,
+                  "possible_exec_event_indices": [
+                    59
+                  ],
+                  "download_event_index": 71
+                },
+                {
+                  "segment": "core_patch",
+                  "command_ns": 1103687979,
+                  "exec_min_ns": 1407037835,
+                  "exec_max_ns": 1407037835,
+                  "download_ns": 51549687,
+                  "possible_exec_event_indices": [
+                    73
+                  ],
+                  "download_event_index": 84
+                },
+                {
+                  "segment": "core_verify",
+                  "command_ns": 3408752926,
+                  "exec_min_ns": 3838318032,
+                  "exec_max_ns": 3838318032,
+                  "download_ns": 51509730,
+                  "possible_exec_event_indices": [
+                    85
+                  ],
+                  "download_event_index": 93
+                },
+                {
+                  "segment": "backbone_finish",
+                  "command_ns": 7153040404,
+                  "exec_min_ns": 7440372227,
+                  "exec_max_ns": 7440372227,
+                  "download_ns": 54468667,
+                  "possible_exec_event_indices": [
+                    94
+                  ],
+                  "download_event_index": 104
+                }
+              ]
+            },
+            {
+              "role": "early_1",
+              "steps": 21,
+              "segment_count": 4,
+              "path_window_ns": 3978445234,
+              "start_offset_from_original_window_ns": -113197,
+              "finish_offset_ns": 3978332037,
+              "last_to_batch_end_ns": 14277575744,
+              "command_ns": 2698500438,
+              "exec_min_ns": 3720694971,
+              "exec_max_ns": 3720694971,
+              "exec_minus_command_min_ns": 1022194533,
+              "exec_minus_command_max_ns": 1022194533,
+              "download_ns": 222729840,
+              "gap_min_ns": 35020423,
+              "gap_max_ns": 35020423,
+              "exec_assignment": "UNIQUE",
+              "boundary_memory_rows": 0,
+              "boundary_vmstat_rows": 0,
+              "segments": [
+                {
+                  "segment": "read_repo",
+                  "command_ns": 647687859,
+                  "exec_min_ns": 897925046,
+                  "exec_max_ns": 897925046,
+                  "download_ns": 66554904,
+                  "possible_exec_event_indices": [
+                    38
+                  ],
+                  "download_event_index": 48
+                },
+                {
+                  "segment": "read_typescript",
+                  "command_ns": 225089481,
+                  "exec_min_ns": 509488924,
+                  "exec_max_ns": 509488924,
+                  "download_ns": 53723279,
+                  "possible_exec_event_indices": [
+                    53
+                  ],
+                  "download_event_index": 63
+                },
+                {
+                  "segment": "early_1_inspect",
+                  "command_ns": 1186645341,
+                  "exec_min_ns": 1407917728,
+                  "exec_max_ns": 1407917728,
+                  "download_ns": 56110432,
+                  "possible_exec_event_indices": [
+                    66
+                  ],
+                  "download_event_index": 78
+                },
+                {
+                  "segment": "early_1",
+                  "command_ns": 639077757,
+                  "exec_min_ns": 905363273,
+                  "exec_max_ns": 905363273,
+                  "download_ns": 46341225,
+                  "possible_exec_event_indices": [
+                    82
+                  ],
+                  "download_event_index": 87
+                }
+              ]
+            },
+            {
+              "role": "early_2",
+              "steps": 21,
+              "segment_count": 4,
+              "path_window_ns": 3338913170,
+              "start_offset_from_original_window_ns": 729160,
+              "finish_offset_ns": 3339642330,
+              "last_to_batch_end_ns": 14916265451,
+              "command_ns": 2346169542,
+              "exec_min_ns": 3110695361,
+              "exec_max_ns": 3110695361,
+              "exec_minus_command_min_ns": 764525819,
+              "exec_minus_command_max_ns": 764525819,
+              "download_ns": 195377743,
+              "gap_min_ns": 32840066,
+              "gap_max_ns": 32840066,
+              "exec_assignment": "UNIQUE",
+              "boundary_memory_rows": 0,
+              "boundary_vmstat_rows": 0,
+              "segments": [
+                {
+                  "segment": "read_repo",
+                  "command_ns": 440404022,
+                  "exec_min_ns": 629639033,
+                  "exec_max_ns": 629639033,
+                  "download_ns": 51055276,
+                  "possible_exec_event_indices": [
+                    39
+                  ],
+                  "download_event_index": 44
+                },
+                {
+                  "segment": "read_typescript",
+                  "command_ns": 145844339,
+                  "exec_min_ns": 348286594,
+                  "exec_max_ns": 348286594,
+                  "download_ns": 47474082,
+                  "possible_exec_event_indices": [
+                    45
+                  ],
+                  "download_event_index": 56
+                },
+                {
+                  "segment": "early_2_inspect",
+                  "command_ns": 406536340,
+                  "exec_min_ns": 566608547,
+                  "exec_max_ns": 566608547,
+                  "download_ns": 44861051,
+                  "possible_exec_event_indices": [
+                    58
+                  ],
+                  "download_event_index": 70
+                },
+                {
+                  "segment": "early_2",
+                  "command_ns": 1353384841,
+                  "exec_min_ns": 1566161187,
+                  "exec_max_ns": 1566161187,
+                  "download_ns": 51987334,
+                  "possible_exec_event_indices": [
+                    72
+                  ],
+                  "download_event_index": 86
+                }
+              ]
+            },
+            {
+              "role": "early_3",
+              "steps": 21,
+              "segment_count": 4,
+              "path_window_ns": 5093273948,
+              "start_offset_from_original_window_ns": 1460156,
+              "finish_offset_ns": 5094734104,
+              "last_to_batch_end_ns": 13161173677,
+              "command_ns": 3791896225,
+              "exec_min_ns": 4843706310,
+              "exec_max_ns": 4843706310,
+              "exec_minus_command_min_ns": 1051810085,
+              "exec_minus_command_max_ns": 1051810085,
+              "download_ns": 197671653,
+              "gap_min_ns": 51895985,
+              "gap_max_ns": 51895985,
+              "exec_assignment": "UNIQUE",
+              "boundary_memory_rows": 0,
+              "boundary_vmstat_rows": 0,
+              "segments": [
+                {
+                  "segment": "read_repo",
+                  "command_ns": 562328617,
+                  "exec_min_ns": 887119324,
+                  "exec_max_ns": 887119324,
+                  "download_ns": 51985395,
+                  "possible_exec_event_indices": [
+                    40
+                  ],
+                  "download_event_index": 47
+                },
+                {
+                  "segment": "read_typescript",
+                  "command_ns": 217969575,
+                  "exec_min_ns": 485340298,
+                  "exec_max_ns": 485340298,
+                  "download_ns": 49435443,
+                  "possible_exec_event_indices": [
+                    51
+                  ],
+                  "download_event_index": 62
+                },
+                {
+                  "segment": "early_3_inspect",
+                  "command_ns": 1194088990,
+                  "exec_min_ns": 1400184603,
+                  "exec_max_ns": 1400184603,
+                  "download_ns": 49563434,
+                  "possible_exec_event_indices": [
+                    64
+                  ],
+                  "download_event_index": 76
+                },
+                {
+                  "segment": "early_3",
+                  "command_ns": 1817509043,
+                  "exec_min_ns": 2071062085,
+                  "exec_max_ns": 2071062085,
+                  "download_ns": 46687381,
+                  "possible_exec_event_indices": [
+                    79
+                  ],
+                  "download_event_index": 88
+                }
+              ]
+            },
+            {
+              "role": "late_1",
+              "steps": 32,
+              "segment_count": 6,
+              "path_window_ns": 18253475321,
+              "start_offset_from_original_window_ns": 2432460,
+              "finish_offset_ns": 18255907781,
+              "last_to_batch_end_ns": 0,
+              "command_ns": 15933071959,
+              "exec_min_ns": 17925649022,
+              "exec_max_ns": 17925649022,
+              "exec_minus_command_min_ns": 1992577063,
+              "exec_minus_command_max_ns": 1992577063,
+              "download_ns": 302623317,
+              "gap_min_ns": 25202982,
+              "gap_max_ns": 25202982,
+              "exec_assignment": "UNIQUE",
+              "boundary_memory_rows": 0,
+              "boundary_vmstat_rows": 0,
+              "segments": [
+                {
+                  "segment": "read_repo",
+                  "command_ns": 679249022,
+                  "exec_min_ns": 925586862,
+                  "exec_max_ns": 925586862,
+                  "download_ns": 54649326,
+                  "possible_exec_event_indices": [
+                    41
+                  ],
+                  "download_event_index": 50
+                },
+                {
+                  "segment": "read_typescript",
+                  "command_ns": 239860280,
+                  "exec_min_ns": 552849735,
+                  "exec_max_ns": 552849735,
+                  "download_ns": 54373444,
+                  "possible_exec_event_indices": [
+                    54
+                  ],
+                  "download_event_index": 67
+                },
+                {
+                  "segment": "core_patch",
+                  "command_ns": 1070691722,
+                  "exec_min_ns": 1377499571,
+                  "exec_max_ns": 1377499571,
+                  "download_ns": 47461859,
+                  "possible_exec_event_indices": [
+                    69
+                  ],
+                  "download_event_index": 80
+                },
+                {
+                  "segment": "core_verify",
+                  "command_ns": 3819815295,
+                  "exec_min_ns": 4284463548,
+                  "exec_max_ns": 4284463548,
+                  "download_ns": 47719910,
+                  "possible_exec_event_indices": [
+                    83
+                  ],
+                  "download_event_index": 95
+                },
+                {
+                  "segment": "late_1_inspect",
+                  "command_ns": 2909179737,
+                  "exec_min_ns": 3145278334,
+                  "exec_max_ns": 3145278334,
+                  "download_ns": 46363953,
+                  "possible_exec_event_indices": [
+                    96
+                  ],
+                  "download_event_index": 101
+                },
+                {
+                  "segment": "late_1",
+                  "command_ns": 7214275903,
+                  "exec_min_ns": 7639970972,
+                  "exec_max_ns": 7639970972,
+                  "download_ns": 52054825,
+                  "possible_exec_event_indices": [
+                    103
+                  ],
+                  "download_event_index": 106
+                }
+              ]
+            },
+            {
+              "role": "late_2",
+              "steps": 32,
+              "segment_count": 6,
+              "path_window_ns": 10576429263,
+              "start_offset_from_original_window_ns": 3128122,
+              "finish_offset_ns": 10579557385,
+              "last_to_batch_end_ns": 7676350396,
+              "command_ns": 8977347891,
+              "exec_min_ns": 10259523043,
+              "exec_max_ns": 10259523043,
+              "exec_minus_command_min_ns": 1282175152,
+              "exec_minus_command_max_ns": 1282175152,
+              "download_ns": 294822006,
+              "gap_min_ns": 22084214,
+              "gap_max_ns": 22084214,
+              "exec_assignment": "UNIQUE",
+              "boundary_memory_rows": 0,
+              "boundary_vmstat_rows": 0,
+              "segments": [
+                {
+                  "segment": "read_repo",
+                  "command_ns": 604126378,
+                  "exec_min_ns": 846594919,
+                  "exec_max_ns": 846594919,
+                  "download_ns": 50023927,
+                  "possible_exec_event_indices": [
+                    42
+                  ],
+                  "download_event_index": 46
+                },
+                {
+                  "segment": "read_typescript",
+                  "command_ns": 130260472,
+                  "exec_min_ns": 319354975,
+                  "exec_max_ns": 319354975,
+                  "download_ns": 49347420,
+                  "possible_exec_event_indices": [
+                    49
+                  ],
+                  "download_event_index": 60
+                },
+                {
+                  "segment": "core_patch",
+                  "command_ns": 867964479,
+                  "exec_min_ns": 1044162055,
+                  "exec_max_ns": 1044162055,
+                  "download_ns": 45304351,
+                  "possible_exec_event_indices": [
+                    61
+                  ],
+                  "download_event_index": 74
+                },
+                {
+                  "segment": "core_verify",
+                  "command_ns": 3721623098,
+                  "exec_min_ns": 3977168591,
+                  "exec_max_ns": 3977168591,
+                  "download_ns": 51828282,
+                  "possible_exec_event_indices": [
+                    75
+                  ],
+                  "download_event_index": 89
+                },
+                {
+                  "segment": "late_2_inspect",
+                  "command_ns": 2075247036,
+                  "exec_min_ns": 2266440723,
+                  "exec_max_ns": 2266440723,
+                  "download_ns": 49859553,
+                  "possible_exec_event_indices": [
+                    90
+                  ],
+                  "download_event_index": 99
+                },
+                {
+                  "segment": "late_2",
+                  "command_ns": 1578126428,
+                  "exec_min_ns": 1805801780,
+                  "exec_max_ns": 1805801780,
+                  "download_ns": 48458473,
+                  "possible_exec_event_indices": [
+                    100
+                  ],
+                  "download_event_index": 102
+                }
+              ]
+            },
+            {
+              "role": "late_3",
+              "steps": 33,
+              "segment_count": 6,
+              "path_window_ns": 16873382467,
+              "start_offset_from_original_window_ns": 4632780,
+              "finish_offset_ns": 16878015247,
+              "last_to_batch_end_ns": 1377892534,
+              "command_ns": 14977023424,
+              "exec_min_ns": 16526140177,
+              "exec_max_ns": 16526140177,
+              "exec_minus_command_min_ns": 1549116753,
+              "exec_minus_command_max_ns": 1549116753,
+              "download_ns": 295564310,
+              "gap_min_ns": 51677980,
+              "gap_max_ns": 51677980,
+              "exec_assignment": "UNIQUE",
+              "boundary_memory_rows": 0,
+              "boundary_vmstat_rows": 0,
+              "segments": [
+                {
+                  "segment": "read_repo",
+                  "command_ns": 657247834,
+                  "exec_min_ns": 941927170,
+                  "exec_max_ns": 941927170,
+                  "download_ns": 60738968,
+                  "possible_exec_event_indices": [
+                    43
+                  ],
+                  "download_event_index": 52
+                },
+                {
+                  "segment": "read_typescript",
+                  "command_ns": 228492940,
+                  "exec_min_ns": 511548476,
+                  "exec_max_ns": 511548476,
+                  "download_ns": 49953001,
+                  "possible_exec_event_indices": [
+                    55
+                  ],
+                  "download_event_index": 65
+                },
+                {
+                  "segment": "core_patch",
+                  "command_ns": 1085204247,
+                  "exec_min_ns": 1347339807,
+                  "exec_max_ns": 1347339807,
+                  "download_ns": 47993938,
+                  "possible_exec_event_indices": [
+                    68
+                  ],
+                  "download_event_index": 77
+                },
+                {
+                  "segment": "core_verify",
+                  "command_ns": 3690285965,
+                  "exec_min_ns": 3929552599,
+                  "exec_max_ns": 3929552599,
+                  "download_ns": 57650444,
+                  "possible_exec_event_indices": [
+                    81
+                  ],
+                  "download_event_index": 91
+                },
+                {
+                  "segment": "late_3_inspect",
+                  "command_ns": 1093532318,
+                  "exec_min_ns": 1317857332,
+                  "exec_max_ns": 1317857332,
+                  "download_ns": 44925552,
+                  "possible_exec_event_indices": [
+                    92
+                  ],
+                  "download_event_index": 97
+                },
+                {
+                  "segment": "late_3",
+                  "command_ns": 8222260120,
+                  "exec_min_ns": 8477914793,
+                  "exec_max_ns": 8477914793,
+                  "download_ns": 34302407,
+                  "possible_exec_event_indices": [
+                    98
+                  ],
+                  "download_event_index": 105
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      "critical_comparison": {
+        "off_role": "late_1",
+        "on_role": "late_1",
+        "window_difference_ns": 1561697205,
+        "components_ns": {
+          "command_ns": 1196762074,
+          "exec_minus_command_min_ns": 362635379,
+          "download_ns": -6010985,
+          "gap_min_ns": 7896269,
+          "start_offset_from_original_window_ns": 414468
+        }
+      }
+    },
+    {
+      "pair": 3,
+      "order": [
+        "off",
+        "on"
+      ],
+      "runs": [
+        {
+          "mode": "off",
+          "raw": ".artifacts/storage-isolated-service/20261026T145647Z-1570528/prettier6604",
+          "window_ns": 17177738977,
+          "critical_role": "late_1",
+          "critical_path_assignment": "UNIQUE",
+          "exec_calls": 35,
+          "unique_exec_assignments": 35,
+          "bounded_exec_assignments": 0,
+          "command_sum_ns": 58303734381,
+          "exec_sum_ns": 66986553272,
+          "download_sum_ns": 1779218342,
+          "boundary_memory_rows": 0,
+          "boundary_vmstat_rows": 0,
+          "paths": [
+            {
+              "role": "backbone",
+              "steps": 29,
+              "segment_count": 5,
+              "path_window_ns": 14581734845,
+              "start_offset_from_original_window_ns": -932964,
+              "finish_offset_ns": 14580801881,
+              "last_to_batch_end_ns": 2596937096,
+              "command_ns": 12805323262,
+              "exec_min_ns": 14303242547,
+              "exec_max_ns": 14303242547,
+              "exec_minus_command_min_ns": 1497919285,
+              "exec_minus_command_max_ns": 1497919285,
+              "download_ns": 257250368,
+              "gap_min_ns": 21241930,
+              "gap_max_ns": 21241930,
+              "exec_assignment": "UNIQUE",
+              "boundary_memory_rows": 0,
+              "boundary_vmstat_rows": 0,
+              "segments": [
+                {
+                  "segment": "read_repo",
+                  "command_ns": 652104963,
+                  "exec_min_ns": 908893185,
+                  "exec_max_ns": 908893185,
+                  "download_ns": 57416461,
+                  "possible_exec_event_indices": [
+                    37
+                  ],
+                  "download_event_index": 49
+                },
+                {
+                  "segment": "read_typescript",
+                  "command_ns": 202804010,
+                  "exec_min_ns": 449762756,
+                  "exec_max_ns": 449762756,
+                  "download_ns": 49298099,
+                  "possible_exec_event_indices": [
+                    53
+                  ],
+                  "download_event_index": 62
+                },
+                {
+                  "segment": "core_patch",
+                  "command_ns": 1145612800,
+                  "exec_min_ns": 1438382020,
+                  "exec_max_ns": 1438382020,
+                  "download_ns": 53944540,
+                  "possible_exec_event_indices": [
+                    65
+                  ],
+                  "download_event_index": 82
+                },
+                {
+                  "segment": "core_verify",
+                  "command_ns": 4001376957,
+                  "exec_min_ns": 4296030250,
+                  "exec_max_ns": 4296030250,
+                  "download_ns": 50176049,
+                  "possible_exec_event_indices": [
+                    83
+                  ],
+                  "download_event_index": 95
+                },
+                {
+                  "segment": "backbone_finish",
+                  "command_ns": 6803424532,
+                  "exec_min_ns": 7210174336,
+                  "exec_max_ns": 7210174336,
+                  "download_ns": 46415219,
+                  "possible_exec_event_indices": [
+                    96
+                  ],
+                  "download_event_index": 105
+                }
+              ]
+            },
+            {
+              "role": "early_1",
+              "steps": 21,
+              "segment_count": 4,
+              "path_window_ns": 3648709307,
+              "start_offset_from_original_window_ns": -170800,
+              "finish_offset_ns": 3648538507,
+              "last_to_batch_end_ns": 13529200470,
+              "command_ns": 2503236743,
+              "exec_min_ns": 3433923775,
+              "exec_max_ns": 3433923775,
+              "exec_minus_command_min_ns": 930687032,
+              "exec_minus_command_max_ns": 930687032,
+              "download_ns": 200658539,
+              "gap_min_ns": 14126993,
+              "gap_max_ns": 14126993,
+              "exec_assignment": "UNIQUE",
+              "boundary_memory_rows": 0,
+              "boundary_vmstat_rows": 0,
+              "segments": [
+                {
+                  "segment": "read_repo",
+                  "command_ns": 628192998,
+                  "exec_min_ns": 840585579,
+                  "exec_max_ns": 840585579,
+                  "download_ns": 53890403,
+                  "possible_exec_event_indices": [
+                    38
+                  ],
+                  "download_event_index": 46
+                },
+                {
+                  "segment": "read_typescript",
+                  "command_ns": 240906428,
+                  "exec_min_ns": 557800234,
+                  "exec_max_ns": 557800234,
+                  "download_ns": 53163328,
+                  "possible_exec_event_indices": [
+                    48
+                  ],
+                  "download_event_index": 64
+                },
+                {
+                  "segment": "early_1_inspect",
+                  "command_ns": 892625717,
+                  "exec_min_ns": 1052059805,
+                  "exec_max_ns": 1052059805,
+                  "download_ns": 38000645,
+                  "possible_exec_event_indices": [
+                    68
+                  ],
+                  "download_event_index": 75
+                },
+                {
+                  "segment": "early_1",
+                  "command_ns": 741511600,
+                  "exec_min_ns": 983478157,
+                  "exec_max_ns": 983478157,
+                  "download_ns": 55604163,
+                  "possible_exec_event_indices": [
+                    77
+                  ],
+                  "download_event_index": 86
+                }
+              ]
+            },
+            {
+              "role": "early_2",
+              "steps": 21,
+              "segment_count": 4,
+              "path_window_ns": 3864689791,
+              "start_offset_from_original_window_ns": 925702,
+              "finish_offset_ns": 3865615493,
+              "last_to_batch_end_ns": 13312123484,
+              "command_ns": 2712715667,
+              "exec_min_ns": 3649991528,
+              "exec_max_ns": 3649991528,
+              "exec_minus_command_min_ns": 937275861,
+              "exec_minus_command_max_ns": 937275861,
+              "download_ns": 200384116,
+              "gap_min_ns": 14314147,
+              "gap_max_ns": 14314147,
+              "exec_assignment": "UNIQUE",
+              "boundary_memory_rows": 0,
+              "boundary_vmstat_rows": 0,
+              "segments": [
+                {
+                  "segment": "read_repo",
+                  "command_ns": 672596562,
+                  "exec_min_ns": 955872228,
+                  "exec_max_ns": 955872228,
+                  "download_ns": 59513197,
+                  "possible_exec_event_indices": [
+                    39
+                  ],
+                  "download_event_index": 51
+                },
+                {
+                  "segment": "read_typescript",
+                  "command_ns": 211204685,
+                  "exec_min_ns": 464653836,
+                  "exec_max_ns": 464653836,
+                  "download_ns": 48694999,
+                  "possible_exec_event_indices": [
+                    54
+                  ],
+                  "download_event_index": 66
+                },
+                {
+                  "segment": "early_2_inspect",
+                  "command_ns": 440302994,
+                  "exec_min_ns": 585151912,
+                  "exec_max_ns": 585151912,
+                  "download_ns": 37160166,
+                  "possible_exec_event_indices": [
+                    69
+                  ],
+                  "download_event_index": 72
+                },
+                {
+                  "segment": "early_2",
+                  "command_ns": 1388611426,
+                  "exec_min_ns": 1644313552,
+                  "exec_max_ns": 1644313552,
+                  "download_ns": 55015754,
+                  "possible_exec_event_indices": [
+                    73
+                  ],
+                  "download_event_index": 87
+                }
+              ]
+            },
+            {
+              "role": "early_3",
+              "steps": 21,
+              "segment_count": 4,
+              "path_window_ns": 5220474330,
+              "start_offset_from_original_window_ns": 2265527,
+              "finish_offset_ns": 5222739857,
+              "last_to_batch_end_ns": 11954999120,
+              "command_ns": 3939798256,
+              "exec_min_ns": 5018290155,
+              "exec_max_ns": 5018290155,
+              "exec_minus_command_min_ns": 1078491899,
+              "exec_minus_command_max_ns": 1078491899,
+              "download_ns": 190020623,
+              "gap_min_ns": 12163552,
+              "gap_max_ns": 12163552,
+              "exec_assignment": "UNIQUE",
+              "boundary_memory_rows": 0,
+              "boundary_vmstat_rows": 0,
+              "segments": [
+                {
+                  "segment": "read_repo",
+                  "command_ns": 738139846,
+                  "exec_min_ns": 1027390310,
+                  "exec_max_ns": 1027390310,
+                  "download_ns": 48965673,
+                  "possible_exec_event_indices": [
+                    40
+                  ],
+                  "download_event_index": 56
+                },
+                {
+                  "segment": "read_typescript",
+                  "command_ns": 228098991,
+                  "exec_min_ns": 512222105,
+                  "exec_max_ns": 512222105,
+                  "download_ns": 45617903,
+                  "possible_exec_event_indices": [
+                    57
+                  ],
+                  "download_event_index": 70
+                },
+                {
+                  "segment": "early_3_inspect",
+                  "command_ns": 1215237135,
+                  "exec_min_ns": 1438900133,
+                  "exec_max_ns": 1438900133,
+                  "download_ns": 45284600,
+                  "possible_exec_event_indices": [
+                    71
+                  ],
+                  "download_event_index": 84
+                },
+                {
+                  "segment": "early_3",
+                  "command_ns": 1758322284,
+                  "exec_min_ns": 2039777607,
+                  "exec_max_ns": 2039777607,
+                  "download_ns": 50152447,
+                  "possible_exec_event_indices": [
+                    85
+                  ],
+                  "download_event_index": 88
+                }
+              ]
+            },
+            {
+              "role": "late_1",
+              "steps": 32,
+              "segment_count": 6,
+              "path_window_ns": 17174265057,
+              "start_offset_from_original_window_ns": 3473920,
+              "finish_offset_ns": 17177738977,
+              "last_to_batch_end_ns": 0,
+              "command_ns": 15397400019,
+              "exec_min_ns": 16846514876,
+              "exec_max_ns": 16846514876,
+              "exec_minus_command_min_ns": 1449114857,
+              "exec_minus_command_max_ns": 1449114857,
+              "download_ns": 300569897,
+              "gap_min_ns": 27180284,
+              "gap_max_ns": 27180284,
+              "exec_assignment": "UNIQUE",
+              "boundary_memory_rows": 0,
+              "boundary_vmstat_rows": 0,
+              "segments": [
+                {
+                  "segment": "read_repo",
+                  "command_ns": 399536288,
+                  "exec_min_ns": 600914660,
+                  "exec_max_ns": 600914660,
+                  "download_ns": 53209895,
+                  "possible_exec_event_indices": [
+                    41
+                  ],
+                  "download_event_index": 44
+                },
+                {
+                  "segment": "read_typescript",
+                  "command_ns": 203811187,
+                  "exec_min_ns": 479727175,
+                  "exec_max_ns": 479727175,
+                  "download_ns": 44408713,
+                  "possible_exec_event_indices": [
+                    45
+                  ],
+                  "download_event_index": 58
+                },
+                {
+                  "segment": "core_patch",
+                  "command_ns": 1294615926,
+                  "exec_min_ns": 1551319667,
+                  "exec_max_ns": 1551319667,
+                  "download_ns": 51075864,
+                  "possible_exec_event_indices": [
+                    59
+                  ],
+                  "download_event_index": 80
+                },
+                {
+                  "segment": "core_verify",
+                  "command_ns": 2989010538,
+                  "exec_min_ns": 3274635023,
+                  "exec_max_ns": 3274635023,
+                  "download_ns": 52894945,
+                  "possible_exec_event_indices": [
+                    81
+                  ],
+                  "download_event_index": 89
+                },
+                {
+                  "segment": "late_1_inspect",
+                  "command_ns": 2854970204,
+                  "exec_min_ns": 3072733005,
+                  "exec_max_ns": 3072733005,
+                  "download_ns": 49566416,
+                  "possible_exec_event_indices": [
+                    90
+                  ],
+                  "download_event_index": 101
+                },
+                {
+                  "segment": "late_1",
+                  "command_ns": 7655455876,
+                  "exec_min_ns": 7867185346,
+                  "exec_max_ns": 7867185346,
+                  "download_ns": 49414064,
+                  "possible_exec_event_indices": [
+                    102
+                  ],
+                  "download_event_index": 106
+                }
+              ]
+            },
+            {
+              "role": "late_2",
+              "steps": 32,
+              "segment_count": 6,
+              "path_window_ns": 10333814755,
+              "start_offset_from_original_window_ns": 4687962,
+              "finish_offset_ns": 10338502717,
+              "last_to_batch_end_ns": 6839236260,
+              "command_ns": 8615323245,
+              "exec_min_ns": 10002825501,
+              "exec_max_ns": 10002825501,
+              "exec_minus_command_min_ns": 1387502256,
+              "exec_minus_command_max_ns": 1387502256,
+              "download_ns": 306907181,
+              "gap_min_ns": 24082073,
+              "gap_max_ns": 24082073,
+              "exec_assignment": "UNIQUE",
+              "boundary_memory_rows": 0,
+              "boundary_vmstat_rows": 0,
+              "segments": [
+                {
+                  "segment": "read_repo",
+                  "command_ns": 686250973,
+                  "exec_min_ns": 958045735,
+                  "exec_max_ns": 958045735,
+                  "download_ns": 56647552,
+                  "possible_exec_event_indices": [
+                    42
+                  ],
+                  "download_event_index": 52
+                },
+                {
+                  "segment": "read_typescript",
+                  "command_ns": 179284319,
+                  "exec_min_ns": 423159578,
+                  "exec_max_ns": 423159578,
+                  "download_ns": 55860369,
+                  "possible_exec_event_indices": [
+                    55
+                  ],
+                  "download_event_index": 63
+                },
+                {
+                  "segment": "core_patch",
+                  "command_ns": 876677055,
+                  "exec_min_ns": 1048018939,
+                  "exec_max_ns": 1048018939,
+                  "download_ns": 46240747,
+                  "possible_exec_event_indices": [
+                    67
+                  ],
+                  "download_event_index": 74
+                },
+                {
+                  "segment": "core_verify",
+                  "command_ns": 3350792119,
+                  "exec_min_ns": 3657646204,
+                  "exec_max_ns": 3657646204,
+                  "download_ns": 50363900,
+                  "possible_exec_event_indices": [
+                    76
+                  ],
+                  "download_event_index": 93
+                },
+                {
+                  "segment": "late_2_inspect",
+                  "command_ns": 1797236277,
+                  "exec_min_ns": 1958072249,
+                  "exec_max_ns": 1958072249,
+                  "download_ns": 47202109,
+                  "possible_exec_event_indices": [
+                    94
+                  ],
+                  "download_event_index": 99
+                },
+                {
+                  "segment": "late_2",
+                  "command_ns": 1725082502,
+                  "exec_min_ns": 1957882796,
+                  "exec_max_ns": 1957882796,
+                  "download_ns": 50592504,
+                  "possible_exec_event_indices": [
+                    100
+                  ],
+                  "download_event_index": 103
+                }
+              ]
+            },
+            {
+              "role": "late_3",
+              "steps": 33,
+              "segment_count": 6,
+              "path_window_ns": 14079528524,
+              "start_offset_from_original_window_ns": 5710968,
+              "finish_offset_ns": 14085239492,
+              "last_to_batch_end_ns": 3092499485,
+              "command_ns": 12329937189,
+              "exec_min_ns": 13731764890,
+              "exec_max_ns": 13731764890,
+              "exec_minus_command_min_ns": 1401827701,
+              "exec_minus_command_max_ns": 1401827701,
+              "download_ns": 323427618,
+              "gap_min_ns": 24336016,
+              "gap_max_ns": 24336016,
+              "exec_assignment": "UNIQUE",
+              "boundary_memory_rows": 0,
+              "boundary_vmstat_rows": 0,
+              "segments": [
+                {
+                  "segment": "read_repo",
+                  "command_ns": 566840557,
+                  "exec_min_ns": 849840005,
+                  "exec_max_ns": 849840005,
+                  "download_ns": 59011160,
+                  "possible_exec_event_indices": [
+                    43
+                  ],
+                  "download_event_index": 47
+                },
+                {
+                  "segment": "read_typescript",
+                  "command_ns": 173287343,
+                  "exec_min_ns": 410537301,
+                  "exec_max_ns": 410537301,
+                  "download_ns": 55790738,
+                  "possible_exec_event_indices": [
+                    50
+                  ],
+                  "download_event_index": 60
+                },
+                {
+                  "segment": "core_patch",
+                  "command_ns": 1025002695,
+                  "exec_min_ns": 1297387070,
+                  "exec_max_ns": 1297387070,
+                  "download_ns": 46757993,
+                  "possible_exec_event_indices": [
+                    61
+                  ],
+                  "download_event_index": 78
+                },
+                {
+                  "segment": "core_verify",
+                  "command_ns": 3181446763,
+                  "exec_min_ns": 3452733404,
+                  "exec_max_ns": 3452733404,
+                  "download_ns": 53240292,
+                  "possible_exec_event_indices": [
+                    79
+                  ],
+                  "download_event_index": 91
+                },
+                {
+                  "segment": "late_3_inspect",
+                  "command_ns": 974431790,
+                  "exec_min_ns": 1130622606,
+                  "exec_max_ns": 1130622606,
+                  "download_ns": 62894759,
+                  "possible_exec_event_indices": [
+                    92
+                  ],
+                  "download_event_index": 97
+                },
+                {
+                  "segment": "late_3",
+                  "command_ns": 6408928041,
+                  "exec_min_ns": 6590644504,
+                  "exec_max_ns": 6590644504,
+                  "download_ns": 45732676,
+                  "possible_exec_event_indices": [
+                    98
+                  ],
+                  "download_event_index": 104
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "mode": "on",
+          "raw": ".artifacts/storage-isolated-service/20261026T145854Z-1573034/prettier6604",
+          "window_ns": 18115383327,
+          "critical_role": "late_1",
+          "critical_path_assignment": "UNIQUE",
+          "exec_calls": 35,
+          "unique_exec_assignments": 33,
+          "bounded_exec_assignments": 2,
+          "command_sum_ns": 61178161569,
+          "exec_sum_ns": 74159255789,
+          "download_sum_ns": 1794866184,
+          "boundary_memory_rows": 448,
+          "boundary_vmstat_rows": 448,
+          "paths": [
+            {
+              "role": "backbone",
+              "steps": 29,
+              "segment_count": 5,
+              "path_window_ns": 14879446619,
+              "start_offset_from_original_window_ns": -822219,
+              "finish_offset_ns": 14878624400,
+              "last_to_batch_end_ns": 3236758927,
+              "command_ns": 12542853027,
+              "exec_min_ns": 14585638500,
+              "exec_max_ns": 14585638500,
+              "exec_minus_command_min_ns": 2042785473,
+              "exec_minus_command_max_ns": 2042785473,
+              "download_ns": 244960088,
+              "gap_min_ns": 48848031,
+              "gap_max_ns": 48848031,
+              "exec_assignment": "UNIQUE",
+              "boundary_memory_rows": 68,
+              "boundary_vmstat_rows": 68,
+              "segments": [
+                {
+                  "segment": "read_repo",
+                  "command_ns": 750094278,
+                  "exec_min_ns": 1182681519,
+                  "exec_max_ns": 1182681519,
+                  "download_ns": 40700942,
+                  "possible_exec_event_indices": [
+                    58
+                  ],
+                  "download_event_index": 74
+                },
+                {
+                  "segment": "read_typescript",
+                  "command_ns": 133767839,
+                  "exec_min_ns": 378759390,
+                  "exec_max_ns": 378759390,
+                  "download_ns": 44583528,
+                  "possible_exec_event_indices": [
+                    77
+                  ],
+                  "download_event_index": 79
+                },
+                {
+                  "segment": "core_patch",
+                  "command_ns": 1122467834,
+                  "exec_min_ns": 1537515107,
+                  "exec_max_ns": 1537515107,
+                  "download_ns": 48452139,
+                  "possible_exec_event_indices": [
+                    81
+                  ],
+                  "download_event_index": 97
+                },
+                {
+                  "segment": "core_verify",
+                  "command_ns": 3601027300,
+                  "exec_min_ns": 4027889125,
+                  "exec_max_ns": 4027889125,
+                  "download_ns": 57201472,
+                  "possible_exec_event_indices": [
+                    99
+                  ],
+                  "download_event_index": 110
+                },
+                {
+                  "segment": "backbone_finish",
+                  "command_ns": 6935495776,
+                  "exec_min_ns": 7458793359,
+                  "exec_max_ns": 7458793359,
+                  "download_ns": 54022007,
+                  "possible_exec_event_indices": [
+                    111
+                  ],
+                  "download_event_index": 125
+                }
+              ]
+            },
+            {
+              "role": "early_1",
+              "steps": 21,
+              "segment_count": 4,
+              "path_window_ns": 3700849943,
+              "start_offset_from_original_window_ns": -147610,
+              "finish_offset_ns": 3700702333,
+              "last_to_batch_end_ns": 14414680994,
+              "command_ns": 2217420242,
+              "exec_min_ns": 3452003006,
+              "exec_max_ns": 3453078146,
+              "exec_minus_command_min_ns": 1234582764,
+              "exec_minus_command_max_ns": 1235657904,
+              "download_ns": 196309955,
+              "gap_min_ns": 51461842,
+              "gap_max_ns": 52536982,
+              "exec_assignment": "BOUNDED",
+              "boundary_memory_rows": 50,
+              "boundary_vmstat_rows": 50,
+              "segments": [
+                {
+                  "segment": "read_repo",
+                  "command_ns": 761570526,
+                  "exec_min_ns": 1163880639,
+                  "exec_max_ns": 1164955779,
+                  "download_ns": 50224587,
+                  "possible_exec_event_indices": [
+                    59,
+                    60
+                  ],
+                  "download_event_index": 70
+                },
+                {
+                  "segment": "read_typescript",
+                  "command_ns": 142108796,
+                  "exec_min_ns": 476541404,
+                  "exec_max_ns": 476541404,
+                  "download_ns": 48676241,
+                  "possible_exec_event_indices": [
+                    76
+                  ],
+                  "download_event_index": 85
+                },
+                {
+                  "segment": "early_1_inspect",
+                  "command_ns": 719476852,
+                  "exec_min_ns": 922401647,
+                  "exec_max_ns": 922401647,
+                  "download_ns": 45211869,
+                  "possible_exec_event_indices": [
+                    88
+                  ],
+                  "download_event_index": 93
+                },
+                {
+                  "segment": "early_1",
+                  "command_ns": 594264068,
+                  "exec_min_ns": 889179316,
+                  "exec_max_ns": 889179316,
+                  "download_ns": 52197258,
+                  "possible_exec_event_indices": [
+                    95
+                  ],
+                  "download_event_index": 107
+                }
+              ]
+            },
+            {
+              "role": "early_2",
+              "steps": 21,
+              "segment_count": 4,
+              "path_window_ns": 4291254143,
+              "start_offset_from_original_window_ns": 767439,
+              "finish_offset_ns": 4292021582,
+              "last_to_batch_end_ns": 13823361745,
+              "command_ns": 2701888647,
+              "exec_min_ns": 4060160837,
+              "exec_max_ns": 4061235977,
+              "exec_minus_command_min_ns": 1358272190,
+              "exec_minus_command_max_ns": 1359347330,
+              "download_ns": 215515473,
+              "gap_min_ns": 14502693,
+              "gap_max_ns": 15577833,
+              "exec_assignment": "BOUNDED",
+              "boundary_memory_rows": 50,
+              "boundary_vmstat_rows": 50,
+              "segments": [
+                {
+                  "segment": "read_repo",
+                  "command_ns": 782034439,
+                  "exec_min_ns": 1163880639,
+                  "exec_max_ns": 1164955779,
+                  "download_ns": 60721460,
+                  "possible_exec_event_indices": [
+                    59,
+                    60
+                  ],
+                  "download_event_index": 71
+                },
+                {
+                  "segment": "read_typescript",
+                  "command_ns": 239477083,
+                  "exec_min_ns": 635878200,
+                  "exec_max_ns": 635878200,
+                  "download_ns": 48834185,
+                  "possible_exec_event_indices": [
+                    78
+                  ],
+                  "download_event_index": 90
+                },
+                {
+                  "segment": "early_2_inspect",
+                  "command_ns": 535652411,
+                  "exec_min_ns": 807358490,
+                  "exec_max_ns": 807358490,
+                  "download_ns": 52810921,
+                  "possible_exec_event_indices": [
+                    92
+                  ],
+                  "download_event_index": 94
+                },
+                {
+                  "segment": "early_2",
+                  "command_ns": 1144724714,
+                  "exec_min_ns": 1453043508,
+                  "exec_max_ns": 1453043508,
+                  "download_ns": 53148907,
+                  "possible_exec_event_indices": [
+                    96
+                  ],
+                  "download_event_index": 108
+                }
+              ]
+            },
+            {
+              "role": "early_3",
+              "steps": 21,
+              "segment_count": 4,
+              "path_window_ns": 5643017112,
+              "start_offset_from_original_window_ns": 1881316,
+              "finish_offset_ns": 5644898428,
+              "last_to_batch_end_ns": 12470484899,
+              "command_ns": 3977639780,
+              "exec_min_ns": 5432526626,
+              "exec_max_ns": 5432526626,
+              "exec_minus_command_min_ns": 1454886846,
+              "exec_minus_command_max_ns": 1454886846,
+              "download_ns": 199109906,
+              "gap_min_ns": 11380580,
+              "gap_max_ns": 11380580,
+              "exec_assignment": "UNIQUE",
+              "boundary_memory_rows": 50,
+              "boundary_vmstat_rows": 50,
+              "segments": [
+                {
+                  "segment": "read_repo",
+                  "command_ns": 699745031,
+                  "exec_min_ns": 1138701586,
+                  "exec_max_ns": 1138701586,
+                  "download_ns": 48854002,
+                  "possible_exec_event_indices": [
+                    61
+                  ],
+                  "download_event_index": 69
+                },
+                {
+                  "segment": "read_typescript",
+                  "command_ns": 135700718,
+                  "exec_min_ns": 426018419,
+                  "exec_max_ns": 426018419,
+                  "download_ns": 46486300,
+                  "possible_exec_event_indices": [
+                    75
+                  ],
+                  "download_event_index": 80
+                },
+                {
+                  "segment": "early_3_inspect",
+                  "command_ns": 1268295143,
+                  "exec_min_ns": 1556103485,
+                  "exec_max_ns": 1556103485,
+                  "download_ns": 51455859,
+                  "possible_exec_event_indices": [
+                    83
+                  ],
+                  "download_event_index": 98
+                },
+                {
+                  "segment": "early_3",
+                  "command_ns": 1873898888,
+                  "exec_min_ns": 2311703136,
+                  "exec_max_ns": 2311703136,
+                  "download_ns": 52313745,
+                  "possible_exec_event_indices": [
+                    100
+                  ],
+                  "download_event_index": 109
+                }
+              ]
+            },
+            {
+              "role": "late_1",
+              "steps": 32,
+              "segment_count": 6,
+              "path_window_ns": 18112394461,
+              "start_offset_from_original_window_ns": 2988866,
+              "finish_offset_ns": 18115383327,
+              "last_to_batch_end_ns": 0,
+              "command_ns": 15515238247,
+              "exec_min_ns": 17765811480,
+              "exec_max_ns": 17765811480,
+              "exec_minus_command_min_ns": 2250573233,
+              "exec_minus_command_max_ns": 2250573233,
+              "download_ns": 322143697,
+              "gap_min_ns": 24439284,
+              "gap_max_ns": 24439284,
+              "exec_assignment": "UNIQUE",
+              "boundary_memory_rows": 76,
+              "boundary_vmstat_rows": 76,
+              "segments": [
+                {
+                  "segment": "read_repo",
+                  "command_ns": 706076819,
+                  "exec_min_ns": 1107147827,
+                  "exec_max_ns": 1107147827,
+                  "download_ns": 59835551,
+                  "possible_exec_event_indices": [
+                    62
+                  ],
+                  "download_event_index": 68
+                },
+                {
+                  "segment": "read_typescript",
+                  "command_ns": 227394191,
+                  "exec_min_ns": 669429155,
+                  "exec_max_ns": 669429155,
+                  "download_ns": 53390327,
+                  "possible_exec_event_indices": [
+                    73
+                  ],
+                  "download_event_index": 89
+                },
+                {
+                  "segment": "core_patch",
+                  "command_ns": 1205739604,
+                  "exec_min_ns": 1652077665,
+                  "exec_max_ns": 1652077665,
+                  "download_ns": 49342068,
+                  "possible_exec_event_indices": [
+                    91
+                  ],
+                  "download_event_index": 104
+                },
+                {
+                  "segment": "core_verify",
+                  "command_ns": 3848801566,
+                  "exec_min_ns": 4268144676,
+                  "exec_max_ns": 4268144676,
+                  "download_ns": 61812527,
+                  "possible_exec_event_indices": [
+                    106
+                  ],
+                  "download_event_index": 116
+                },
+                {
+                  "segment": "late_1_inspect",
+                  "command_ns": 2735952238,
+                  "exec_min_ns": 2984792915,
+                  "exec_max_ns": 2984792915,
+                  "download_ns": 46931547,
+                  "possible_exec_event_indices": [
+                    117
+                  ],
+                  "download_event_index": 122
+                },
+                {
+                  "segment": "late_1",
+                  "command_ns": 6791273829,
+                  "exec_min_ns": 7084219242,
+                  "exec_max_ns": 7084219242,
+                  "download_ns": 50831677,
+                  "possible_exec_event_indices": [
+                    123
+                  ],
+                  "download_event_index": 127
+                }
+              ]
+            },
+            {
+              "role": "late_2",
+              "steps": 32,
+              "segment_count": 6,
+              "path_window_ns": 12083190812,
+              "start_offset_from_original_window_ns": 3823690,
+              "finish_offset_ns": 12087014502,
+              "last_to_batch_end_ns": 6028368825,
+              "command_ns": 9295606865,
+              "exec_min_ns": 11753946065,
+              "exec_max_ns": 11753946065,
+              "exec_minus_command_min_ns": 2458339200,
+              "exec_minus_command_max_ns": 2458339200,
+              "download_ns": 301460859,
+              "gap_min_ns": 27783888,
+              "gap_max_ns": 27783888,
+              "exec_assignment": "UNIQUE",
+              "boundary_memory_rows": 76,
+              "boundary_vmstat_rows": 76,
+              "segments": [
+                {
+                  "segment": "read_repo",
+                  "command_ns": 651095713,
+                  "exec_min_ns": 978683531,
+                  "exec_max_ns": 978683531,
+                  "download_ns": 48365397,
+                  "possible_exec_event_indices": [
+                    63
+                  ],
+                  "download_event_index": 65
+                },
+                {
+                  "segment": "read_typescript",
+                  "command_ns": 220357159,
+                  "exec_min_ns": 615632169,
+                  "exec_max_ns": 615632169,
+                  "download_ns": 55798788,
+                  "possible_exec_event_indices": [
+                    66
+                  ],
+                  "download_event_index": 82
+                },
+                {
+                  "segment": "core_patch",
+                  "command_ns": 1173400019,
+                  "exec_min_ns": 1594589949,
+                  "exec_max_ns": 1594589949,
+                  "download_ns": 50049493,
+                  "possible_exec_event_indices": [
+                    86
+                  ],
+                  "download_event_index": 101
+                },
+                {
+                  "segment": "core_verify",
+                  "command_ns": 3486917994,
+                  "exec_min_ns": 4027635245,
+                  "exec_max_ns": 4027635245,
+                  "download_ns": 48879061,
+                  "possible_exec_event_indices": [
+                    102
+                  ],
+                  "download_event_index": 112
+                },
+                {
+                  "segment": "late_2_inspect",
+                  "command_ns": 1980815962,
+                  "exec_min_ns": 2269832009,
+                  "exec_max_ns": 2269832009,
+                  "download_ns": 48864504,
+                  "possible_exec_event_indices": [
+                    113
+                  ],
+                  "download_event_index": 120
+                },
+                {
+                  "segment": "late_2",
+                  "command_ns": 1783020018,
+                  "exec_min_ns": 2267573162,
+                  "exec_max_ns": 2267573162,
+                  "download_ns": 49503616,
+                  "possible_exec_event_indices": [
+                    121
+                  ],
+                  "download_event_index": 124
+                }
+              ]
+            },
+            {
+              "role": "late_3",
+              "steps": 33,
+              "segment_count": 6,
+              "path_window_ns": 17453374483,
+              "start_offset_from_original_window_ns": 4739708,
+              "finish_offset_ns": 17458114191,
+              "last_to_batch_end_ns": 657269136,
+              "command_ns": 14927514761,
+              "exec_min_ns": 17108094135,
+              "exec_max_ns": 17108094135,
+              "exec_minus_command_min_ns": 2180579374,
+              "exec_minus_command_max_ns": 2180579374,
+              "download_ns": 315366206,
+              "gap_min_ns": 29914142,
+              "gap_max_ns": 29914142,
+              "exec_assignment": "UNIQUE",
+              "boundary_memory_rows": 78,
+              "boundary_vmstat_rows": 78,
+              "segments": [
+                {
+                  "segment": "read_repo",
+                  "command_ns": 691399430,
+                  "exec_min_ns": 1101807506,
+                  "exec_max_ns": 1101807506,
+                  "download_ns": 58412428,
+                  "possible_exec_event_indices": [
+                    64
+                  ],
+                  "download_event_index": 67
+                },
+                {
+                  "segment": "read_typescript",
+                  "command_ns": 175595297,
+                  "exec_min_ns": 515314198,
+                  "exec_max_ns": 515314198,
+                  "download_ns": 54067137,
+                  "possible_exec_event_indices": [
+                    72
+                  ],
+                  "download_event_index": 84
+                },
+                {
+                  "segment": "core_patch",
+                  "command_ns": 1356550633,
+                  "exec_min_ns": 1785188773,
+                  "exec_max_ns": 1785188773,
+                  "download_ns": 51592739,
+                  "possible_exec_event_indices": [
+                    87
+                  ],
+                  "download_event_index": 103
+                },
+                {
+                  "segment": "core_verify",
+                  "command_ns": 3820134086,
+                  "exec_min_ns": 4221862670,
+                  "exec_max_ns": 4221862670,
+                  "download_ns": 52237823,
+                  "possible_exec_event_indices": [
+                    105
+                  ],
+                  "download_event_index": 114
+                },
+                {
+                  "segment": "late_3_inspect",
+                  "command_ns": 1001764941,
+                  "exec_min_ns": 1266797842,
+                  "exec_max_ns": 1266797842,
+                  "download_ns": 47411013,
+                  "possible_exec_event_indices": [
+                    115
+                  ],
+                  "download_event_index": 118
+                },
+                {
+                  "segment": "late_3",
+                  "command_ns": 7882070374,
+                  "exec_min_ns": 8217123146,
+                  "exec_max_ns": 8217123146,
+                  "download_ns": 51645066,
+                  "possible_exec_event_indices": [
+                    119
+                  ],
+                  "download_event_index": 126
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      "critical_comparison": {
+        "off_role": "late_1",
+        "on_role": "late_1",
+        "window_difference_ns": 937644350,
+        "components_ns": {
+          "command_ns": 117838228,
+          "exec_minus_command_min_ns": 801458376,
+          "download_ns": 21573800,
+          "gap_min_ns": -2741000,
+          "start_offset_from_original_window_ns": -485054
+        }
+      }
+    }
+  ],
+  "exec_calls": 210,
+  "unique_exec_assignments": 208,
+  "bounded_exec_assignments": 2,
+  "definitions": {
+    "exec": "Whole host aenv exec command; includes guest runner and commands, not pure API overhead",
+    "exec_minus_command": "Exec duration minus saved guest command durations; includes boundary sampling, runner setup, API/client and scheduling",
+    "download": "Whole host aenv download command, including packaging, transport, extraction and CLI work",
+    "gap": "Path marker to final download minus serial exec/download; includes controller work and dispatch/recording delays",
+    "matching": "One-to-one causal assignment: prior download end <= exec start; exec end <= own download start; no nearest-time rule",
+    "bounds": "Per-path min/max sums enclose every feasible matching; dependent path bounds must not be summed",
+    "clock": "Host event monotonic clock for windows; guest duration sums only, no host/guest absolute-clock subtraction"
+  },
+  "new_live_guests": 0,
+  "new_live_actions": 0,
+  "analysis_date": "2026-10-27",
+  "source_evidence": {
+    "status": "PASS_SOURCE_MODEL",
+    "actual_controller_matches_current_all_six": true,
+    "runner_same_within_each_mode": true,
+    "boundary_cpu_scope": "RUSAGE_SELF: lifecycle collector only, excludes guest runner date/awk children",
+    "vmstat_removal_candidate": {
+      "reads_per_enabled_run": 448,
+      "date_invocations": 448,
+      "awk_invocations": 448,
+      "external_program_invocations": 896,
+      "critical_path_reads": 76,
+      "critical_path_external_program_invocations": 152
+    },
+    "candidate_implementation": "NOT_CHANGED"
+  },
+  "verification": {
+    "unit_tests_passed": 5,
+    "new_live_guests": 0,
+    "new_live_actions": 0
+  },
+  "files": {
+    "paired_paths_seconds": "results/sampling-overhead/grpo-path-cost-20261027/path-pairs.tsv"
+  }
+}

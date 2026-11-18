@@ -21,11 +21,12 @@ def upstream_port(environment):
 
 
 class GuestProxy:
-    def __init__(self,output,upstream):
+    def __init__(self,output,upstream,proxy_url=None):
         self.output=Path(output);self.upstream=Path(upstream);self.process=None;self.address=None
+        self.proxy_url=proxy_url
 
     def start(self):
-        port=upstream_port(os.environ)
+        port=upstream_port(dict(HTTP_PROXY=self.proxy_url) if self.proxy_url else os.environ)
         rows=json.loads(subprocess.check_output(['ip','-j','-4','addr','show'],text=True,timeout=10))
         routes=json.loads(subprocess.check_output(['ip','-j','-4','route','show','table','all'],text=True,timeout=10))
         used=[ipaddress.ip_network(a['local']+'/'+str(a['prefixlen']),strict=False) for row in rows for a in row['addr_info'] if a['family']=='inet']
@@ -40,6 +41,17 @@ class GuestProxy:
             sock.bind((str(address),0));listen_port=sock.getsockname()[1]
         script=self.output/'guest-proxy.py'
         shutil.copy2(self.upstream/'scripts/agentenv_workload_proxy.py',script)
+        if os.environ.get('ASB_ISOLATED_UNUSED_NETWORK_POOLS')=='on':
+            # Adapt only the owned copy, retaining the original relay implementation.
+            from isolated_storage import rootfs_network_pools
+            pools=rootfs_network_pools(json.dumps(routes))
+            text=script.read_text()
+            for old,new in zip(('10.211.0.0/16','10.212.0.0/16'),pools):
+                literal="ipaddress.ip_network('"+old+"')"
+                if text.count(literal)!=1:raise ValueError('upstream relay source-pool declaration changed')
+                text=text.replace(literal,"ipaddress.ip_network('"+new+"')")
+            script.write_text(text)
+            (self.output/'guest-proxy-network.json').write_text(json.dumps(dict(pools=pools,scope='Owned relay copy only; original upstream unchanged'))+'\n')
         ready=self.output/'guest-proxy-ready.json'
         with (self.output/'guest-proxy.log').open('x') as log:
             self.process=subprocess.Popen([sys.executable,'-B',str(script),'--address',str(address),
@@ -83,7 +95,10 @@ def relay_rule(output, receipt):
     output=Path(output);ready=json.loads((output/'guest-proxy-ready.json').read_text())
     if receipt.get('backend')!='nft':raise ValueError('relay rule must use the private service nft backend')
     source=ipaddress.IPv4Address(receipt['source'])
-    if source not in ipaddress.ip_network('10.211.0.0/16'):
+    source_pool=receipt.get('source_pool','10.211.0.0/16')
+    if source_pool not in ('10.211.0.0/16','10.213.0.0/16','10.215.0.0/16'):
+        raise ValueError('unknown private experiment pool')
+    if source not in ipaddress.ip_network(source_pool):
         raise ValueError('relay source outside the private experiment pool')
     interface=receipt['interface']
     if not re.fullmatch(r'veth-[A-Za-z0-9_-]{1,10}',interface):raise ValueError('unexpected guest route interface')
@@ -100,17 +115,19 @@ def rule_present(rule):
     return result.returncode==0
 
 
-def allow_guest_relay(output, sandbox):
+def allow_guest_relay(output, sandbox, *, source_pool='10.211.0.0/16'):
     """Install the approved single-guest exception; the outer relay owns its cleanup."""
     output=Path(output);path=output/'guest-proxy-rule.json'
     if path.exists():raise ValueError('relay rule receipt already exists')
+    if source_pool not in ('10.211.0.0/16','10.213.0.0/16','10.215.0.0/16'):
+        raise ValueError('unknown private experiment pool')
     rows=json.loads(subprocess.check_output(['ip','-j','-4','route','show'],text=True,timeout=10))
     candidates=[r for r in rows if r.get('dst') not in (None,'default')
-        and ipaddress.ip_network(r['dst'],strict=False).subnet_of(ipaddress.ip_network('10.211.0.0/16'))]
+        and ipaddress.ip_network(r['dst'],strict=False).subnet_of(ipaddress.ip_network(source_pool))]
     if len(candidates)!=1 or ipaddress.ip_network(candidates[0]['dst']).prefixlen!=32:
         raise ValueError('expected exactly one actual guest route in the private experiment pool')
     ready=json.loads((output/'guest-proxy-ready.json').read_text())
-    receipt=dict(status='PLANNED',backend='nft',sandbox_id=sandbox,source=str(ipaddress.ip_network(candidates[0]['dst']).network_address),
+    receipt=dict(status='PLANNED',backend='nft',sandbox_id=sandbox,source_pool=source_pool,source=str(ipaddress.ip_network(candidates[0]['dst']).network_address),
         interface=candidates[0]['dev'],destination=ready['address'],port=ready['port'])
     rule=relay_rule(output,receipt)
     if rule_present(rule):raise ValueError('refusing to adopt an existing relay rule')
@@ -125,8 +142,10 @@ def allow_guest_relay(output, sandbox):
 def capture_relay_counters(output, stage):
     output=Path(output);receipt=json.loads((output/'guest-proxy-rule.json').read_text())
     text=subprocess.check_output(['iptables-nft-save','-c','-t','filter'],text=True,timeout=10)
+    network=ipaddress.ip_network(receipt.get('source_pool','10.211.0.0/16'))
+    prefix='.'.join(str(network.network_address).split('.')[:2])+'.'
     lines=[line for line in text.splitlines() if '-A INPUT ' in line and
-        ('asb-relay-'+output.name in line or re.search(r'-s 10\.211\.',line))]
+        ('asb-relay-'+output.name in line or re.search(r'-s '+re.escape(prefix),line))]
     own=[line for line in lines if 'asb-relay-'+output.name in line]
     packets=int(re.match(r'\[(\d+):',own[0]).group(1)) if len(own)==1 else None
     snapshot=dict(monotonic_ns=time.monotonic_ns(),backend='nft',source=receipt['source'],rules=lines,allowed_packets=packets)
@@ -162,10 +181,24 @@ def environment_script(proxy):
         'export PAGER=cat MANPAGER=cat LESS=-R PIP_PROGRESS_BAR=off TQDM_DISABLE=1',''])
 
 
+def direct_environment_script():
+    """Same original task environment, with explicit empty proxy variables."""
+    return '\n'.join(['export HTTP_PROXY= HTTPS_PROXY= ALL_PROXY= http_proxy= https_proxy= all_proxy=',
+        'export NO_PROXY=127.0.0.1,localhost no_proxy=127.0.0.1,localhost',
+        'export GIT_CONFIG_COUNT=1 GIT_CONFIG_KEY_0=http.version GIT_CONFIG_VALUE_0=HTTP/1.1',
+        'export OMP_NUM_THREADS=2 OPENBLAS_NUM_THREADS=2 MKL_NUM_THREADS=2 TOKENIZERS_PARALLELISM=false',
+        'export PAGER=cat MANPAGER=cat LESS=-R PIP_PROGRESS_BAR=off TQDM_DISABLE=1',''])
+
+
 NETWORK_CHECK='''source /probe/input/guest-env.sh && python3 - <<'PYNET'
+import sys
 import urllib.request
 for url in ('https://github.com/SPOCKnots/pyknotid', 'https://pypi.org/simple/pip/'):
-    with urllib.request.urlopen(urllib.request.Request(url, method='HEAD'), timeout=20) as response:
-        assert 200 <= response.status < 400
+    try:
+        with urllib.request.urlopen(urllib.request.Request(url, method='HEAD'), timeout=20) as response:
+            assert 200 <= response.status < 400
+    except Exception:
+        print('guest-network-failed url='+url, file=sys.stderr, flush=True)
+        raise
 print('guest-network-ready')
 PYNET'''

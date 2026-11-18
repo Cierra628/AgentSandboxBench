@@ -1,0 +1,218 @@
+{
+  "status": "PASS",
+  "date": "2026-10-16",
+  "implementation": {
+    "runtime": "SnapshotCache._batch_result",
+    "mode": "existing explicit batch mode",
+    "default_batch_lookup": false,
+    "candidate_body_matches_previous_offline_candidate": true,
+    "scalar_default_preserved": true,
+    "mincore_and_batch_read_unchanged": true,
+    "original_statistics_preserved": true
+  },
+  "verification": {
+    "tests_passed": 74,
+    "comparison_queries": 20,
+    "queries": [
+      {
+        "point": 0,
+        "side": 0,
+        "requested_rows": 23079,
+        "output_equal": true,
+        "all_statistics_equal": true,
+        "missing_kernel_results": 0
+      },
+      {
+        "point": 0,
+        "side": 1,
+        "requested_rows": 23079,
+        "output_equal": true,
+        "all_statistics_equal": true,
+        "missing_kernel_results": 0
+      },
+      {
+        "point": 1,
+        "side": 0,
+        "requested_rows": 23155,
+        "output_equal": true,
+        "all_statistics_equal": true,
+        "missing_kernel_results": 0
+      },
+      {
+        "point": 1,
+        "side": 1,
+        "requested_rows": 23155,
+        "output_equal": true,
+        "all_statistics_equal": true,
+        "missing_kernel_results": 0
+      },
+      {
+        "point": 2,
+        "side": 0,
+        "requested_rows": 23155,
+        "output_equal": true,
+        "all_statistics_equal": true,
+        "missing_kernel_results": 0
+      },
+      {
+        "point": 2,
+        "side": 1,
+        "requested_rows": 23155,
+        "output_equal": true,
+        "all_statistics_equal": true,
+        "missing_kernel_results": 0
+      },
+      {
+        "point": 3,
+        "side": 0,
+        "requested_rows": 23156,
+        "output_equal": true,
+        "all_statistics_equal": true,
+        "missing_kernel_results": 0
+      },
+      {
+        "point": 3,
+        "side": 1,
+        "requested_rows": 23156,
+        "output_equal": true,
+        "all_statistics_equal": true,
+        "missing_kernel_results": 0
+      },
+      {
+        "point": 4,
+        "side": 0,
+        "requested_rows": 5452,
+        "output_equal": true,
+        "all_statistics_equal": true,
+        "missing_kernel_results": 0
+      },
+      {
+        "point": 4,
+        "side": 1,
+        "requested_rows": 5452,
+        "output_equal": true,
+        "all_statistics_equal": true,
+        "missing_kernel_results": 0
+      },
+      {
+        "point": 5,
+        "side": 0,
+        "requested_rows": 7318,
+        "output_equal": true,
+        "all_statistics_equal": true,
+        "missing_kernel_results": 0
+      },
+      {
+        "point": 5,
+        "side": 1,
+        "requested_rows": 7318,
+        "output_equal": true,
+        "all_statistics_equal": true,
+        "missing_kernel_results": 0
+      },
+      {
+        "point": 6,
+        "side": 0,
+        "requested_rows": 6108,
+        "output_equal": true,
+        "all_statistics_equal": true,
+        "missing_kernel_results": 0
+      },
+      {
+        "point": 6,
+        "side": 1,
+        "requested_rows": 6108,
+        "output_equal": true,
+        "all_statistics_equal": true,
+        "missing_kernel_results": 0
+      },
+      {
+        "point": 7,
+        "side": 0,
+        "requested_rows": 10998,
+        "output_equal": true,
+        "all_statistics_equal": true,
+        "missing_kernel_results": 0
+      },
+      {
+        "point": 7,
+        "side": 1,
+        "requested_rows": 10998,
+        "output_equal": true,
+        "all_statistics_equal": true,
+        "missing_kernel_results": 0
+      },
+      {
+        "point": 8,
+        "side": 0,
+        "requested_rows": 10998,
+        "output_equal": true,
+        "all_statistics_equal": true,
+        "missing_kernel_results": 0
+      },
+      {
+        "point": 8,
+        "side": 1,
+        "requested_rows": 10998,
+        "output_equal": true,
+        "all_statistics_equal": true,
+        "missing_kernel_results": 0
+      },
+      {
+        "point": 9,
+        "side": 0,
+        "requested_rows": 11158,
+        "output_equal": true,
+        "all_statistics_equal": true,
+        "missing_kernel_results": 0
+      },
+      {
+        "point": 9,
+        "side": 1,
+        "requested_rows": 11158,
+        "output_equal": true,
+        "all_statistics_equal": true,
+        "missing_kernel_results": 0
+      }
+    ],
+    "missing_kernel_results": 0,
+    "input_files_unchanged": 13,
+    "scope_checks": {
+      "status": "PASS",
+      "unchanged": [
+        "BatchEntries",
+        "constructors",
+        "offsets",
+        "ram_regions",
+        "close",
+        "account",
+        "identity/token/mincore preparation",
+        "live sampler and timer scope"
+      ],
+      "previous_query_fixture_matches": true,
+      "output_helper": "tested AST-identical to offline candidate",
+      "live_calls": false,
+      "timing_runs": 0
+    },
+    "timing_runs": 0,
+    "live_operations": false
+  },
+  "prior_performance": {
+    "source": "provider-query-replay-20261016.json",
+    "scope": "offline lower-layer result tail, two queries per point",
+    "scalar_mean_cpu_ns": 13827276.8,
+    "array_mean_cpu_ns": 8171374.4,
+    "remeasured": false
+  },
+  "unchanged_online_measurements": {
+    "point_mean_cpu_ns": 263929485.7,
+    "query_mean_cpu_ns": 189925177.0,
+    "source": "provider-bpf-batch-live-20261016.json",
+    "array_integration_live_test": "NOT_RUN"
+  },
+  "limits": [
+    "No reconstructed real partial-backend inputs; mixed/missing semantics covered synthetically",
+    "Online cost and transient-memory changes not measured this stage"
+  ],
+  "evidence_dir": ".artifacts/provider-result-array-20261016"
+}

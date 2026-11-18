@@ -1,0 +1,862 @@
+{
+  "status": "PASS_OFFLINE_CURRENT_SAMPLING_SUMMARY",
+  "date": "2026-10-28",
+  "live_runs": 0,
+  "accepted_pairs": 4,
+  "historical_guests": 8,
+  "historical_task_actions": 256,
+  "new_guests": 0,
+  "new_task_actions": 0,
+  "guest_samples": 1314,
+  "host_samples": 5287,
+  "interval_seconds": 0.1,
+  "pss": "NOT_REQUESTED",
+  "mincore": "NOT_REQUESTED",
+  "default_reclaim_unchanged": true,
+  "pairs": [
+    {
+      "name": "prettier_off_on",
+      "label": "Prettier：先关后开",
+      "task": "prettier__prettier-6604",
+      "source": "docs/records/evidence/host-current-sampling-pair-20261028.json",
+      "order": [
+        "off",
+        "on"
+      ],
+      "guests": 2,
+      "actions": 58,
+      "comparison": {
+        "tools_seconds": {
+          "off": 11.477090744,
+          "on": 11.00554064,
+          "difference_seconds": -0.4715501040000003,
+          "change_percent": -4.108620507740756
+        },
+        "frozen_replay_seconds": {
+          "off": 13.014031962,
+          "on": 12.975344792,
+          "difference_seconds": -0.0386871700000011,
+          "change_percent": -0.29727274462645337
+        },
+        "controller_seconds": {
+          "off": 27.194720685,
+          "on": 22.12534613,
+          "difference_seconds": -5.069374555,
+          "change_percent": -18.641024534575024
+        },
+        "cold_start_seconds": {
+          "off": 8.433950934,
+          "on": 2.545743724,
+          "difference_seconds": -5.888207210000001,
+          "change_percent": -69.81552603374442
+        },
+        "controller_after_cold_start_seconds": {
+          "off": 18.760769750999998,
+          "on": 19.579602406,
+          "difference_seconds": 0.8188326550000014,
+          "change_percent": 4.3646005247538255
+        },
+        "outer_entry_seconds": {
+          "off": 113.620129555,
+          "on": 109.512822987,
+          "difference_seconds": -4.1073065679999985,
+          "change_percent": -3.6149462107520125
+        },
+        "seed_preparation_seconds": {
+          "off": 75.644581448,
+          "on": 76.145405219,
+          "difference_seconds": 0.5008237710000003,
+          "change_percent": 0.6620748788785047
+        },
+        "native_task_command_seconds": {
+          "off": 27.323027117,
+          "on": 22.253956867,
+          "difference_seconds": -5.069070249999999,
+          "change_percent": -18.5523742603399
+        },
+        "native_report_seconds": {
+          "off": 0,
+          "on": 0.652532728,
+          "difference_seconds": 0.652532728,
+          "change_percent": null
+        }
+      },
+      "original_tests": {
+        "passed": 0,
+        "failed": 2
+      },
+      "runs": [
+        {
+          "mode": "off",
+          "workflow": ".artifacts/platform-tasks/20261028T114738Z-2229402",
+          "storage": ".artifacts/storage-isolated-service/20261028T114856Z-2230187",
+          "report": ".artifacts/platform-tasks/report-20261028T114738Z-2229402",
+          "guest_samples": null,
+          "host_samples": null,
+          "guest_collector_cpu_seconds": null,
+          "guest_used_peak_mib": null,
+          "guest_cached_peak_mib": null
+        },
+        {
+          "mode": "on",
+          "workflow": ".artifacts/platform-tasks/20261028T114932Z-2231742",
+          "storage": ".artifacts/storage-isolated-service/20261028T115050Z-2232513",
+          "report": ".artifacts/platform-tasks/report-20261028T114932Z-2231742",
+          "guest_samples": 191,
+          "host_samples": 1073,
+          "guest_collector_cpu_seconds": 0.154689,
+          "guest_used_peak_mib": 576.38671875,
+          "guest_cached_peak_mib": 255.7265625
+        }
+      ],
+      "historical_checker_status": "FAIL",
+      "checker_repair": {
+        "original_status": "FAIL",
+        "kind": "checker error after both native workflows passed",
+        "cause": "task_metrics_prefix.py is archived only for monitor-off; the extra launch checker incorrectly required it for on",
+        "offline_status": "PASS",
+        "task_rerun": false,
+        "original_log": ".artifacts/host-current-sampling-pair-20261028/failure.txt"
+      },
+      "approved_pipeline_exit_differences": []
+    },
+    {
+      "name": "prettier_on_off",
+      "label": "Prettier：先开后关",
+      "task": "prettier__prettier-6604",
+      "source": "docs/records/evidence/host-current-sampling-reverse-20261028.json",
+      "order": [
+        "on",
+        "off"
+      ],
+      "guests": 2,
+      "actions": 58,
+      "comparison": {
+        "tools_seconds": {
+          "off": 12.056245354,
+          "on": 11.099117656,
+          "difference_seconds": -0.957127697999999,
+          "change_percent": -7.938853846255256
+        },
+        "frozen_replay_seconds": {
+          "off": 13.756671335,
+          "on": 13.239599587,
+          "difference_seconds": -0.5170717479999993,
+          "change_percent": -3.7586981284088328
+        },
+        "controller_seconds": {
+          "off": 24.477734819,
+          "on": 25.994824059,
+          "difference_seconds": 1.5170892400000007,
+          "change_percent": 6.197833464648905
+        },
+        "cold_start_seconds": {
+          "off": 3.583075908,
+          "on": 5.287651074,
+          "difference_seconds": 1.7045751660000001,
+          "change_percent": 47.57295713981844
+        },
+        "controller_after_cold_start_seconds": {
+          "off": 20.894658910999997,
+          "on": 20.707172985,
+          "difference_seconds": -0.18748592599999725,
+          "change_percent": -0.8972911536799244
+        },
+        "outer_entry_seconds": {
+          "off": 109.912679648,
+          "on": 114.28529455,
+          "difference_seconds": 4.372614902000009,
+          "change_percent": 3.978262486187667
+        },
+        "seed_preparation_seconds": {
+          "off": 74.679300074,
+          "on": 76.213804927,
+          "difference_seconds": 1.5345048530000014,
+          "change_percent": 2.0547927624916973
+        },
+        "native_task_command_seconds": {
+          "off": 24.606504888,
+          "on": 26.103969987,
+          "difference_seconds": 1.4974650989999994,
+          "change_percent": 6.085647294550456
+        },
+        "native_report_seconds": {
+          "off": 0,
+          "on": 0.655914492,
+          "difference_seconds": 0.655914492,
+          "change_percent": null
+        }
+      },
+      "original_tests": {
+        "passed": 0,
+        "failed": 2
+      },
+      "runs": [
+        {
+          "mode": "off",
+          "workflow": ".artifacts/platform-tasks/20261028T130417Z-2244244",
+          "storage": ".artifacts/storage-isolated-service/20261028T130533Z-2245020",
+          "report": ".artifacts/platform-tasks/report-20261028T130417Z-2244244",
+          "guest_samples": null,
+          "host_samples": null,
+          "guest_collector_cpu_seconds": null,
+          "guest_used_peak_mib": null,
+          "guest_cached_peak_mib": null
+        },
+        {
+          "mode": "on",
+          "workflow": ".artifacts/platform-tasks/20261028T130223Z-2241966",
+          "storage": ".artifacts/storage-isolated-service/20261028T130341Z-2242685",
+          "report": ".artifacts/platform-tasks/report-20261028T130223Z-2241966",
+          "guest_samples": 202,
+          "host_samples": 1121,
+          "guest_collector_cpu_seconds": 0.16605999999999999,
+          "guest_used_peak_mib": 537.52734375,
+          "guest_cached_peak_mib": 233.6796875
+        }
+      ],
+      "historical_checker_status": "PASS",
+      "checker_repair": null,
+      "approved_pipeline_exit_differences": []
+    },
+    {
+      "name": "sphinx_off_on",
+      "label": "Sphinx：先关后开",
+      "task": "sphinx-doc__sphinx-7590",
+      "source": "docs/records/evidence/host-current-sphinx-sampling-pair-20261028.json",
+      "order": [
+        "off",
+        "on"
+      ],
+      "guests": 2,
+      "actions": 70,
+      "comparison": {
+        "tools_seconds": {
+          "off": 9.68310764,
+          "on": 15.927871364,
+          "difference_seconds": 6.244763724,
+          "change_percent": 64.49131783068766
+        },
+        "frozen_replay_seconds": {
+          "off": 12.027112038,
+          "on": 19.235485302,
+          "difference_seconds": 7.2083732640000004,
+          "change_percent": 59.93436530087142
+        },
+        "controller_seconds": {
+          "off": 32.09362383,
+          "on": 29.632300195,
+          "difference_seconds": -2.4613236349999994,
+          "change_percent": -7.669198243357112
+        },
+        "cold_start_seconds": {
+          "off": 12.746373638,
+          "on": 2.605642478,
+          "difference_seconds": -10.14073116,
+          "change_percent": -79.55777421876326
+        },
+        "controller_after_cold_start_seconds": {
+          "off": 19.347250191999997,
+          "on": 27.026657717,
+          "difference_seconds": 7.679407525000002,
+          "change_percent": 39.69250125361692
+        },
+        "outer_entry_seconds": {
+          "off": 124.035688013,
+          "on": 130.243401559,
+          "difference_seconds": 6.207713546000008,
+          "change_percent": 5.0047801930597435
+        },
+        "seed_preparation_seconds": {
+          "off": 79.482923421,
+          "on": 86.648283109,
+          "difference_seconds": 7.165359688000009,
+          "change_percent": 9.014967466718593
+        },
+        "native_task_command_seconds": {
+          "off": 32.245929786,
+          "on": 29.783228852,
+          "difference_seconds": -2.4627009339999972,
+          "change_percent": -7.637245848836438
+        },
+        "native_report_seconds": {
+          "off": 0,
+          "on": 0.661311114,
+          "difference_seconds": 0.661311114,
+          "change_percent": null
+        }
+      },
+      "original_tests": {
+        "passed": 24,
+        "failed": 1,
+        "skipped": 0
+      },
+      "runs": [
+        {
+          "mode": "off",
+          "workflow": ".artifacts/platform-tasks/20261028T132510Z-2250666",
+          "storage": ".artifacts/storage-isolated-service/20261028T132632Z-2251439",
+          "report": ".artifacts/platform-tasks/report-20261028T132510Z-2250666",
+          "guest_samples": null,
+          "host_samples": null,
+          "guest_collector_cpu_seconds": null,
+          "guest_used_peak_mib": null,
+          "guest_cached_peak_mib": null
+        },
+        {
+          "mode": "on",
+          "workflow": ".artifacts/platform-tasks/20261028T132714Z-2252999",
+          "storage": ".artifacts/storage-isolated-service/20261028T132843Z-2253499",
+          "report": ".artifacts/platform-tasks/report-20261028T132714Z-2252999",
+          "guest_samples": 265,
+          "host_samples": 1279,
+          "guest_collector_cpu_seconds": 0.236259,
+          "guest_used_peak_mib": 284.92578125,
+          "guest_cached_peak_mib": 119.10546875
+        }
+      ],
+      "historical_checker_status": "PASS",
+      "checker_repair": {
+        "original_status": "FAIL",
+        "cause": "Prettier-specific exact exit equality was incorrectly reused for Sphinx diagnostic replay",
+        "final_status": "PASS",
+        "original_policy": "sphinx-pipeline-v2",
+        "original_policy_unchanged": true,
+        "raw_exits_preserved": true,
+        "task_rerun": false,
+        "original_log": ".artifacts/host-current-sphinx-pair-20261028/analysis-initial-checker-failure.log"
+      },
+      "approved_pipeline_exit_differences": [
+        {
+          "segment": "read_repo",
+          "step": "001",
+          "off_exit": 0,
+          "on_exit": 141,
+          "policy": "existing sphinx-pipeline-v2"
+        }
+      ]
+    },
+    {
+      "name": "xarray_off_on",
+      "label": "Xarray：先关后开",
+      "task": "pydata__xarray-6992",
+      "source": "docs/records/evidence/host-current-xarray-sampling-pair-20261028.json",
+      "order": [
+        "off",
+        "on"
+      ],
+      "guests": 2,
+      "actions": 70,
+      "comparison": {
+        "tools_seconds": {
+          "off": 34.331499703,
+          "on": 33.996784234,
+          "difference_seconds": -0.3347154689999954,
+          "change_percent": -0.9749514932222647
+        },
+        "frozen_replay_seconds": {
+          "off": 36.663341408,
+          "on": 36.732606635,
+          "difference_seconds": 0.06926522700000248,
+          "change_percent": 0.1889222976956706
+        },
+        "controller_seconds": {
+          "off": 68.721350612,
+          "on": 69.100127291,
+          "difference_seconds": 0.378776679000012,
+          "change_percent": 0.5511775825515652
+        },
+        "cold_start_seconds": {
+          "off": 3.515278191,
+          "on": 2.650751269,
+          "difference_seconds": -0.864526922,
+          "change_percent": -24.593414092045606
+        },
+        "controller_after_cold_start_seconds": {
+          "off": 65.20607242099999,
+          "on": 66.44937602200001,
+          "difference_seconds": 1.2433036010000222,
+          "change_percent": 1.9067297796632854
+        },
+        "outer_entry_seconds": {
+          "off": 181.461267042,
+          "on": 184.010720509,
+          "difference_seconds": 2.5494534670000064,
+          "change_percent": 1.404957382122718
+        },
+        "seed_preparation_seconds": {
+          "off": 98.740832315,
+          "on": 99.287225871,
+          "difference_seconds": 0.5463935559999982,
+          "change_percent": 0.5533613027049578
+        },
+        "native_task_command_seconds": {
+          "off": 68.871997256,
+          "on": 69.248114558,
+          "difference_seconds": 0.37611730199999727,
+          "change_percent": 0.5461106356505985
+        },
+        "native_report_seconds": {
+          "off": 0,
+          "on": 0.678867044,
+          "difference_seconds": 0.678867044,
+          "change_percent": null
+        }
+      },
+      "original_tests": {
+        "passed": 945,
+        "failed": 12,
+        "skipped": 0
+      },
+      "runs": [
+        {
+          "mode": "off",
+          "workflow": ".artifacts/platform-tasks/20261028T153440Z-2289211",
+          "storage": ".artifacts/storage-isolated-service/20261028T153621Z-2290175",
+          "report": ".artifacts/platform-tasks/report-20261028T153440Z-2289211",
+          "guest_samples": null,
+          "host_samples": null,
+          "guest_collector_cpu_seconds": null,
+          "guest_used_peak_mib": null,
+          "guest_cached_peak_mib": null
+        },
+        {
+          "mode": "on",
+          "workflow": ".artifacts/platform-tasks/20261028T153741Z-2292076",
+          "storage": ".artifacts/storage-isolated-service/20261028T153923Z-2292974",
+          "report": ".artifacts/platform-tasks/report-20261028T153741Z-2292076",
+          "guest_samples": 656,
+          "host_samples": 1814,
+          "guest_collector_cpu_seconds": 0.39097499999999996,
+          "guest_used_peak_mib": 772.90625,
+          "guest_cached_peak_mib": 314.03125
+        }
+      ],
+      "historical_checker_status": "PASS",
+      "checker_repair": null,
+      "approved_pipeline_exit_differences": [
+        {
+          "segment": "trace_index_state",
+          "step": "002",
+          "off_exit": 0,
+          "on_exit": 141,
+          "policy": "existing xarray-approved-sigpipe"
+        }
+      ]
+    }
+  ],
+  "memory": [
+    {
+      "name": "prettier_off_on",
+      "label": "Prettier：先关后开",
+      "guest_used_peak_mib": 576.38671875,
+      "guest_cached_peak_mib": 255.7265625,
+      "baseline_mib": 14641.37890625,
+      "peak_mib": 15511.24609375,
+      "after_marker_peak_increase_mib": 869.8671875
+    },
+    {
+      "name": "prettier_on_off",
+      "label": "Prettier：先开后关",
+      "guest_used_peak_mib": 537.52734375,
+      "guest_cached_peak_mib": 233.6796875,
+      "baseline_mib": 14645.1171875,
+      "peak_mib": 15477.890625,
+      "after_marker_peak_increase_mib": 832.7734375
+    },
+    {
+      "name": "sphinx_off_on",
+      "label": "Sphinx：先关后开",
+      "guest_used_peak_mib": 284.92578125,
+      "guest_cached_peak_mib": 119.10546875,
+      "baseline_mib": 17577.515625,
+      "peak_mib": 18166.375,
+      "after_marker_peak_increase_mib": 588.859375
+    },
+    {
+      "name": "xarray_off_on",
+      "label": "Xarray：先关后开",
+      "guest_used_peak_mib": 772.90625,
+      "guest_cached_peak_mib": 314.03125,
+      "baseline_mib": 21405.0234375,
+      "peak_mib": 22674.73046875,
+      "after_marker_peak_increase_mib": 1269.70703125
+    }
+  ],
+  "collector_cost": [
+    {
+      "name": "prettier_off_on",
+      "label": "Prettier：先关后开",
+      "guest_samples": 191,
+      "host_samples": 1073,
+      "guest_cpu_seconds": 0.154689,
+      "guest_collector_elapsed_seconds": 19.028423825,
+      "guest_cpu_one_core_percent": 0.8129364860833396,
+      "guest_collector_maxrss_kib": 17108,
+      "host_thread_cpu_seconds": 0.381258225,
+      "host_counter_read_seconds": 0.304974394,
+      "host_window_seconds": 107.225845619,
+      "host_cpu_one_core_percent": 0.3555656034224295,
+      "monitor_control_calls": 5,
+      "monitor_control_seconds": 0.45539841
+    },
+    {
+      "name": "prettier_on_off",
+      "label": "Prettier：先开后关",
+      "guest_samples": 202,
+      "host_samples": 1121,
+      "guest_cpu_seconds": 0.16605999999999999,
+      "guest_collector_elapsed_seconds": 20.182963191,
+      "guest_cpu_one_core_percent": 0.8227731400414463,
+      "guest_collector_maxrss_kib": 17112,
+      "host_thread_cpu_seconds": 0.352636481,
+      "host_counter_read_seconds": 0.282040058,
+      "host_window_seconds": 112.033863428,
+      "host_cpu_one_core_percent": 0.31475883291896506,
+      "monitor_control_calls": 5,
+      "monitor_control_seconds": 0.455142183
+    },
+    {
+      "name": "sphinx_off_on",
+      "label": "Sphinx：先关后开",
+      "guest_samples": 265,
+      "host_samples": 1279,
+      "guest_cpu_seconds": 0.236259,
+      "guest_collector_elapsed_seconds": 26.501298382,
+      "guest_cpu_one_core_percent": 0.8914997167099932,
+      "guest_collector_maxrss_kib": 17648,
+      "host_thread_cpu_seconds": 0.426866035,
+      "host_counter_read_seconds": 0.339832074,
+      "host_window_seconds": 127.854349724,
+      "host_cpu_one_core_percent": 0.33386899696528,
+      "monitor_control_calls": 5,
+      "monitor_control_seconds": 0.548475199
+    },
+    {
+      "name": "xarray_off_on",
+      "label": "Xarray：先关后开",
+      "guest_samples": 656,
+      "host_samples": 1814,
+      "guest_cpu_seconds": 0.39097499999999996,
+      "guest_collector_elapsed_seconds": 65.846709343,
+      "guest_cpu_one_core_percent": 0.5937654347514688,
+      "guest_collector_maxrss_kib": 17696,
+      "host_thread_cpu_seconds": 0.581365797,
+      "host_counter_read_seconds": 0.459380982,
+      "host_window_seconds": 181.423178985,
+      "host_cpu_one_core_percent": 0.32044736524436446,
+      "monitor_control_calls": 5,
+      "monitor_control_seconds": 0.730074982
+    }
+  ],
+  "timing": [
+    {
+      "name": "prettier_off_on",
+      "label": "Prettier：先关后开",
+      "actual_order": "off -> on",
+      "metric": "tools_seconds",
+      "off_seconds": 11.477090744,
+      "on_seconds": 11.00554064,
+      "difference_seconds": -0.4715501040000003,
+      "change_percent": -4.108620507740756
+    },
+    {
+      "name": "prettier_off_on",
+      "label": "Prettier：先关后开",
+      "actual_order": "off -> on",
+      "metric": "frozen_replay_seconds",
+      "off_seconds": 13.014031962,
+      "on_seconds": 12.975344792,
+      "difference_seconds": -0.0386871700000011,
+      "change_percent": -0.29727274462645337
+    },
+    {
+      "name": "prettier_off_on",
+      "label": "Prettier：先关后开",
+      "actual_order": "off -> on",
+      "metric": "controller_seconds",
+      "off_seconds": 27.194720685,
+      "on_seconds": 22.12534613,
+      "difference_seconds": -5.069374555,
+      "change_percent": -18.641024534575024
+    },
+    {
+      "name": "prettier_off_on",
+      "label": "Prettier：先关后开",
+      "actual_order": "off -> on",
+      "metric": "cold_start_seconds",
+      "off_seconds": 8.433950934,
+      "on_seconds": 2.545743724,
+      "difference_seconds": -5.888207210000001,
+      "change_percent": -69.81552603374442
+    },
+    {
+      "name": "prettier_off_on",
+      "label": "Prettier：先关后开",
+      "actual_order": "off -> on",
+      "metric": "controller_after_cold_start_seconds",
+      "off_seconds": 18.760769750999998,
+      "on_seconds": 19.579602406,
+      "difference_seconds": 0.8188326550000014,
+      "change_percent": 4.3646005247538255
+    },
+    {
+      "name": "prettier_off_on",
+      "label": "Prettier：先关后开",
+      "actual_order": "off -> on",
+      "metric": "outer_entry_seconds",
+      "off_seconds": 113.620129555,
+      "on_seconds": 109.512822987,
+      "difference_seconds": -4.1073065679999985,
+      "change_percent": -3.6149462107520125
+    },
+    {
+      "name": "prettier_on_off",
+      "label": "Prettier：先开后关",
+      "actual_order": "on -> off",
+      "metric": "tools_seconds",
+      "off_seconds": 12.056245354,
+      "on_seconds": 11.099117656,
+      "difference_seconds": -0.957127697999999,
+      "change_percent": -7.938853846255256
+    },
+    {
+      "name": "prettier_on_off",
+      "label": "Prettier：先开后关",
+      "actual_order": "on -> off",
+      "metric": "frozen_replay_seconds",
+      "off_seconds": 13.756671335,
+      "on_seconds": 13.239599587,
+      "difference_seconds": -0.5170717479999993,
+      "change_percent": -3.7586981284088328
+    },
+    {
+      "name": "prettier_on_off",
+      "label": "Prettier：先开后关",
+      "actual_order": "on -> off",
+      "metric": "controller_seconds",
+      "off_seconds": 24.477734819,
+      "on_seconds": 25.994824059,
+      "difference_seconds": 1.5170892400000007,
+      "change_percent": 6.197833464648905
+    },
+    {
+      "name": "prettier_on_off",
+      "label": "Prettier：先开后关",
+      "actual_order": "on -> off",
+      "metric": "cold_start_seconds",
+      "off_seconds": 3.583075908,
+      "on_seconds": 5.287651074,
+      "difference_seconds": 1.7045751660000001,
+      "change_percent": 47.57295713981844
+    },
+    {
+      "name": "prettier_on_off",
+      "label": "Prettier：先开后关",
+      "actual_order": "on -> off",
+      "metric": "controller_after_cold_start_seconds",
+      "off_seconds": 20.894658910999997,
+      "on_seconds": 20.707172985,
+      "difference_seconds": -0.18748592599999725,
+      "change_percent": -0.8972911536799244
+    },
+    {
+      "name": "prettier_on_off",
+      "label": "Prettier：先开后关",
+      "actual_order": "on -> off",
+      "metric": "outer_entry_seconds",
+      "off_seconds": 109.912679648,
+      "on_seconds": 114.28529455,
+      "difference_seconds": 4.372614902000009,
+      "change_percent": 3.978262486187667
+    },
+    {
+      "name": "sphinx_off_on",
+      "label": "Sphinx：先关后开",
+      "actual_order": "off -> on",
+      "metric": "tools_seconds",
+      "off_seconds": 9.68310764,
+      "on_seconds": 15.927871364,
+      "difference_seconds": 6.244763724,
+      "change_percent": 64.49131783068766
+    },
+    {
+      "name": "sphinx_off_on",
+      "label": "Sphinx：先关后开",
+      "actual_order": "off -> on",
+      "metric": "frozen_replay_seconds",
+      "off_seconds": 12.027112038,
+      "on_seconds": 19.235485302,
+      "difference_seconds": 7.2083732640000004,
+      "change_percent": 59.93436530087142
+    },
+    {
+      "name": "sphinx_off_on",
+      "label": "Sphinx：先关后开",
+      "actual_order": "off -> on",
+      "metric": "controller_seconds",
+      "off_seconds": 32.09362383,
+      "on_seconds": 29.632300195,
+      "difference_seconds": -2.4613236349999994,
+      "change_percent": -7.669198243357112
+    },
+    {
+      "name": "sphinx_off_on",
+      "label": "Sphinx：先关后开",
+      "actual_order": "off -> on",
+      "metric": "cold_start_seconds",
+      "off_seconds": 12.746373638,
+      "on_seconds": 2.605642478,
+      "difference_seconds": -10.14073116,
+      "change_percent": -79.55777421876326
+    },
+    {
+      "name": "sphinx_off_on",
+      "label": "Sphinx：先关后开",
+      "actual_order": "off -> on",
+      "metric": "controller_after_cold_start_seconds",
+      "off_seconds": 19.347250191999997,
+      "on_seconds": 27.026657717,
+      "difference_seconds": 7.679407525000002,
+      "change_percent": 39.69250125361692
+    },
+    {
+      "name": "sphinx_off_on",
+      "label": "Sphinx：先关后开",
+      "actual_order": "off -> on",
+      "metric": "outer_entry_seconds",
+      "off_seconds": 124.035688013,
+      "on_seconds": 130.243401559,
+      "difference_seconds": 6.207713546000008,
+      "change_percent": 5.0047801930597435
+    },
+    {
+      "name": "xarray_off_on",
+      "label": "Xarray：先关后开",
+      "actual_order": "off -> on",
+      "metric": "tools_seconds",
+      "off_seconds": 34.331499703,
+      "on_seconds": 33.996784234,
+      "difference_seconds": -0.3347154689999954,
+      "change_percent": -0.9749514932222647
+    },
+    {
+      "name": "xarray_off_on",
+      "label": "Xarray：先关后开",
+      "actual_order": "off -> on",
+      "metric": "frozen_replay_seconds",
+      "off_seconds": 36.663341408,
+      "on_seconds": 36.732606635,
+      "difference_seconds": 0.06926522700000248,
+      "change_percent": 0.1889222976956706
+    },
+    {
+      "name": "xarray_off_on",
+      "label": "Xarray：先关后开",
+      "actual_order": "off -> on",
+      "metric": "controller_seconds",
+      "off_seconds": 68.721350612,
+      "on_seconds": 69.100127291,
+      "difference_seconds": 0.378776679000012,
+      "change_percent": 0.5511775825515652
+    },
+    {
+      "name": "xarray_off_on",
+      "label": "Xarray：先关后开",
+      "actual_order": "off -> on",
+      "metric": "cold_start_seconds",
+      "off_seconds": 3.515278191,
+      "on_seconds": 2.650751269,
+      "difference_seconds": -0.864526922,
+      "change_percent": -24.593414092045606
+    },
+    {
+      "name": "xarray_off_on",
+      "label": "Xarray：先关后开",
+      "actual_order": "off -> on",
+      "metric": "controller_after_cold_start_seconds",
+      "off_seconds": 65.20607242099999,
+      "on_seconds": 66.44937602200001,
+      "difference_seconds": 1.2433036010000222,
+      "change_percent": 1.9067297796632854
+    },
+    {
+      "name": "xarray_off_on",
+      "label": "Xarray：先关后开",
+      "actual_order": "off -> on",
+      "metric": "outer_entry_seconds",
+      "off_seconds": 181.461267042,
+      "on_seconds": 184.010720509,
+      "difference_seconds": 2.5494534670000064,
+      "change_percent": 1.404957382122718
+    }
+  ],
+  "verification": {
+    "original_files": "Saved results, events, tools.tsv, guest meminfo and cgroup counters; no workload files or live service",
+    "runs": [
+      {
+        "pair": "prettier_off_on",
+        "mode": "off",
+        "tool_rows": 29,
+        "timing_matches_original": true
+      },
+      {
+        "pair": "prettier_off_on",
+        "mode": "on",
+        "tool_rows": 29,
+        "timing_matches_original": true
+      },
+      {
+        "pair": "prettier_on_off",
+        "mode": "off",
+        "tool_rows": 29,
+        "timing_matches_original": true
+      },
+      {
+        "pair": "prettier_on_off",
+        "mode": "on",
+        "tool_rows": 29,
+        "timing_matches_original": true
+      },
+      {
+        "pair": "sphinx_off_on",
+        "mode": "off",
+        "tool_rows": 35,
+        "timing_matches_original": true
+      },
+      {
+        "pair": "sphinx_off_on",
+        "mode": "on",
+        "tool_rows": 35,
+        "timing_matches_original": true
+      },
+      {
+        "pair": "xarray_off_on",
+        "mode": "off",
+        "tool_rows": 35,
+        "timing_matches_original": true
+      },
+      {
+        "pair": "xarray_off_on",
+        "mode": "on",
+        "tool_rows": 35,
+        "timing_matches_original": true
+      }
+    ]
+  },
+  "decision": {
+    "functional_measurement": "ready for per-task guest and host group curves",
+    "performance": "low collector CPU observed; fixed control latency and Sphinx outlier retained; no universal slowdown estimate",
+    "more_live_runs_now": false,
+    "reason": "Four accepted pairs cover current task paths; repeating full tasks does not isolate the unobserved Sphinx wait",
+    "next_condition": "If the slow Sphinx call recurs, investigate the first occurrence with bounded subcommand timing; no extra hot-cache repeats"
+  },
+  "interpretation": [
+    "Current covers charged experiment group including preparation; not all host physical memory or guest-exclusive RAM",
+    "Only on groups measured memory; off memory stays null",
+    "Guest CPU percentage uses receipt elapsed time; host CPU percentage uses first-to-last sample span as an estimate; both use one core, not task slowdown or all-host CPU percent",
+    "Guest collector CPU excludes tool-boundary commands; host thread CPU excludes outer control and report generation",
+    "Do not average different tasks or combine collector CPU, blocking controls and counter reads into wall time",
+    "Historical checker failures and approved pipeline exits retained; successful tasks not rerun"
+  ]
+}

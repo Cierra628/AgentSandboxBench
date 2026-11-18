@@ -1,0 +1,135 @@
+{
+  "date": "2026-10-31",
+  "status": "PASS",
+  "task_id": "prettier__prettier-6604",
+  "mode": "single; persistent input; local-no-proxy; light 0.1 seconds; default reclaim",
+  "correctness": {
+    "original_actions": 29,
+    "expected_missing_rg_exit": 127,
+    "source_patch_and_independent_checks": "PASS",
+    "final_frozen_suites": 32,
+    "final_frozen_tests": 66,
+    "official_task_status": "FAIL",
+    "official_failure_matches_reference": true,
+    "write_boundary": "PASS",
+    "readonly_root": "PASS",
+    "fixed_volume": "PASS",
+    "cleanup": "PASS"
+  },
+  "timing_seconds": {
+    "original_29_tool_sum": 11.465918096,
+    "frozen_replay": 13.6655011,
+    "task_controller": 41.939708615,
+    "grouped_workflow": 69.48404633,
+    "archive_preparation": 105.007325211,
+    "input_import": 17.819810533,
+    "guest_creation": 0.988345394,
+    "official_tests": 23.687598023
+  },
+  "memory_bytes": {
+    "host_current_before_guest": 7958368256,
+    "host_current_peak": 8827219968,
+    "host_peak_increase_from_before_guest": 868851712,
+    "host_file_peak": 7727083520,
+    "guest_memory_peak": 576999424,
+    "guest_cached_peak": 258994176
+  },
+  "sampling": {
+    "host_samples": 681,
+    "guest_samples": 403,
+    "interval_seconds": 0.1,
+    "host_sample_window_seconds": 68.001124517,
+    "host_direct_thread_cpu_seconds": 0.205842195,
+    "host_single_cpu_percent": 0.30270410447189045,
+    "host_maximum_sample_gap_seconds": 0.100144645,
+    "guest_collector_elapsed_seconds": 40.339721414,
+    "guest_direct_process_cpu_seconds": 0.247501,
+    "guest_single_cpu_percent": 0.6135416689171883,
+    "guest_collector_maxrss_kib": 16560,
+    "blocking_management_calls": 5,
+    "blocking_management_total_seconds": 0.441456328,
+    "blocking_management_events": [
+      {
+        "stage": "monitor-upload-bundle",
+        "seconds": 0.03676076
+      },
+      {
+        "stage": "monitor-ready",
+        "seconds": 0.151556074
+      },
+      {
+        "stage": "monitor-phase",
+        "seconds": 0.036179606
+      },
+      {
+        "stage": "monitor-finish",
+        "seconds": 0.177347618
+      },
+      {
+        "stage": "monitor-download",
+        "seconds": 0.03961227
+      }
+    ],
+    "pss": "NOT_REQUESTED",
+    "slowdown_control": "NOT_RUN_THIS_ROUND"
+  },
+  "final_input_residency": {
+    "status": "PASS",
+    "files": 105,
+    "resident_bytes": 7368024064,
+    "group_file_bytes": 7370493952,
+    "shortfall_bytes": 0,
+    "query_elapsed_seconds": 0.176667562,
+    "query_thread_cpu_seconds": 0.176055711,
+    "ownership": "NOT_QUERIED",
+    "scope": "Imported input files only; sequential, not atomic; fresh-inode provenance plus residency cross-check, not whole-host coverage."
+  },
+  "proxy": {
+    "guest_check": "PASS",
+    "outer_proxy_removed": true,
+    "private_service_proxy_explicitly_empty": true,
+    "registry_commands": [
+      "version",
+      "manifest"
+    ],
+    "image_download_log_entries": 0,
+    "network_policy": "allowInternetAccess=false; default DNS exception retained",
+    "dns_observation": "Current service log falls back to 8.8.8.8; saved namespace rules from the preceding short check reused; no external traffic probe"
+  },
+  "cleanup": {
+    "approved_deletions": [
+      ".artifacts/storage-isolated-service/20261031T052137Z-2837626/volume.ext4",
+      ".artifacts/prettier6604/host-persistent-asbhost-20261031t0507402831084/input"
+    ],
+    "successful_runtime_volume_removed": true,
+    "new_input_released": true,
+    "temporary_source_removed": true,
+    "source_service_stopped": true,
+    "running_containers": 0,
+    "firecrackers": 0,
+    "retained_previous_input": ".artifacts/prettier6604/host-persistent-asbhost-20261031t0519132836213/input",
+    "disk_available_after_bytes": 60064722944
+  },
+  "scopes": {
+    "host": "memory.current of measurement group: imported inputs, controller, private service and guest; excludes outside charges",
+    "guest_memory": "MemTotal - MemAvailable",
+    "guest_cache": "Cached including Shmem",
+    "baseline_increase": "Includes guest and subsequent service/control work; not guest alone",
+    "collector_cpu": "Direct sampler CPU, not task slowdown. Background collector lifetime is not a blocking management cost."
+  },
+  "raw_paths": {
+    "workflow": ".artifacts/platform-tasks/20261031T062055Z-2847918",
+    "native": ".artifacts/storage-isolated-service/20261031T062113Z-2848125",
+    "report": ".artifacts/platform-tasks/report-20261031T062055Z-2847918"
+  },
+  "driver_directory": ".artifacts/prettier-local-no-proxy-full-20261031",
+  "files": {
+    "guest_curve": "guest.png",
+    "host_curve": "host.png",
+    "host_increase_curve": "host-increase.png",
+    "tools": "tools.tsv",
+    "guest_samples": "guest-memory.tsv",
+    "host_samples": "host-memory.tsv"
+  },
+  "result_directory": "results/prettier-local-no-proxy-20261031"
+}

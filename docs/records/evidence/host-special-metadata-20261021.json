@@ -1,0 +1,102 @@
+{
+  "status": "PASS_OFFLINE_IMPLEMENTATION",
+  "scope": "Explicit host memory detail only; no sandbox, workload payload, device command or live io_uring query executed.",
+  "changed_code": [
+    "scripts/host_mapped_backing.py",
+    "scripts/host_special_metadata.py",
+    "scripts/host_ublk_info.c",
+    "scripts/run_host_file_restore.py",
+    "scripts/run_host_independent_pair.py",
+    "tests/test_host_special_metadata.py"
+  ],
+  "tests": {
+    "existing_related": 48,
+    "new_special_metadata": 9,
+    "total_distinct": 57,
+    "helper_build": "PASS",
+    "helper_abi": "PASS_24_BYTE_DESCRIPTOR_32_BYTE_CONTROL",
+    "device_calls": "MOCKED",
+    "live_validation": "NOT_RUN"
+  },
+  "synthetic_queue_example": {
+    "label": "SYNTHETIC_FIXTURE_NOT_EXPERIMENT",
+    "queues": 2,
+    "depth": 400,
+    "descriptor_bytes": 24,
+    "page_bytes": 4096,
+    "mapping_bytes_per_queue": 12288,
+    "allocation_bytes_per_queue": 16384,
+    "total_allocation_bytes": 32768,
+    "duplicate_mapping_adds_bytes": 0
+  },
+  "query_contract": {
+    "command": "UBLK_U_CMD_GET_DEV_INFO",
+    "char_open": "O_PATH",
+    "control_open": "O_RDWR",
+    "wait_timeout_seconds": 2,
+    "process_timeout_seconds": 4,
+    "old_light_default": "UNCHANGED",
+    "build_only_on_explicit_detail": true,
+    "build_timing_field": "metadata_query_build.duration_ns (preparation, before periodic sampling)"
+  },
+  "statuses": {
+    "original_queries": "PRESERVED_SEPARATELY",
+    "new_metadata": "OBSERVED_OR_INCOMPLETE",
+    "command_bytes": "SOURCE_CALCULATED_OR_NULL",
+    "whole_physical_saving": "NOT_MEASURED",
+    "previous_file_accounting": "SHORTFALL_REQUIRES_RESOLUTION"
+  },
+  "artifact_dir": ".artifacts/host-special-metadata-20261021",
+  "source_evidence": [
+    {
+      "name": "ublkc_exclusive_open",
+      "path": "drivers/block/ublk_drv.c",
+      "start": 1541,
+      "end": 1550,
+      "excerpt": "static int ublk_ch_open(struct inode *inode, struct file *filp)\n{\n\tstruct ublk_device *ub = container_of(inode->i_cdev,\n\t\t\tstruct ublk_device, cdev);\n\n\tif (test_and_set_bit(UB_STATE_OPEN, &ub->state))\n\t\treturn -EBUSY;\n\tfilp->private_data = ub;\n\tub->ublksrv_tgid = current->tgid;\n\treturn 0;"
+    },
+    {
+      "name": "opath_empty_fops",
+      "path": "fs/open.c",
+      "start": 913,
+      "end": 919,
+      "excerpt": "\tif (unlikely(f->f_flags & O_PATH)) {\n\t\tf->f_mode = FMODE_PATH | FMODE_OPENED;\n\t\tfile_set_fsnotify_mode(f, FMODE_NONOTIFY);\n\t\tf->f_op = &empty_fops;\n\t\treturn 0;\n\t}\n"
+    },
+    {
+      "name": "read_info",
+      "path": "drivers/block/ublk_drv.c",
+      "start": 3328,
+      "end": 3360,
+      "excerpt": "static int ublk_ctrl_get_dev_info(struct ublk_device *ub,\n\t\tconst struct ublksrv_ctrl_cmd *header)\n{\n\tstruct task_struct *p;\n\tstruct pid *pid;\n\tstruct ublksrv_ctrl_dev_info dev_info;\n\tpid_t init_ublksrv_tgid = ub->dev_info.ublksrv_pid;\n\tvoid __user *argp = (void __user *)(unsigned long)header->addr;\n\n\tif (header->len < sizeof(struct ublksrv_ctrl_dev_info) || !header->addr)\n\t\treturn -EINVAL;\n\n\tmemcpy(&dev_info, &ub->dev_info, sizeof(dev_info));\n\tdev_info.ublksrv_pid = -1;\n\n\tif (init_ublksrv_tgid > 0) {\n\t\trcu_read_lock();\n\t\tpid = find_pid_ns(init_ublksrv_tgid, &init_pid_ns);\n\t\tp = pid_task(pid, PIDTYPE_TGID);\n\t\tif (p) {\n\t\t\tint vnr = task_tgid_vnr(p);\n\n\t\t\tif (vnr)\n\t\t\t\tdev_info.ublksrv_pid = vnr;\n\t\t}\n\t\trcu_read_unlock();\n\t}\n\n\tif (copy_to_user(argp, &dev_info, sizeof(dev_info)))\n\t\treturn -EFAULT;\n\n\treturn 0;\n}"
+    },
+    {
+      "name": "info_is_read_only",
+      "path": "drivers/block/ublk_drv.c",
+      "start": 3768,
+      "end": 3784,
+      "excerpt": "\nstatic bool ublk_ctrl_uring_cmd_may_sleep(u32 cmd_op)\n{\n\tswitch (_IOC_NR(cmd_op)) {\n\tcase UBLK_CMD_GET_QUEUE_AFFINITY:\n\tcase UBLK_CMD_GET_DEV_INFO:\n\tcase UBLK_CMD_GET_DEV_INFO2:\n\tcase _IOC_NR(UBLK_U_CMD_GET_FEATURES):\n\t\treturn false;\n\tdefault:\n\t\treturn true;\n\t}\n}\n\nstatic int ublk_ctrl_uring_cmd(struct io_uring_cmd *cmd,\n\t\tunsigned int issue_flags)\n{"
+    },
+    {
+      "name": "control_operations",
+      "path": "drivers/block/ublk_drv.c",
+      "start": 3882,
+      "end": 3887,
+      "excerpt": "static const struct file_operations ublk_ctl_fops = {\n\t.open\t\t= nonseekable_open,\n\t.uring_cmd      = ublk_ctrl_uring_cmd,\n\t.owner\t\t= THIS_MODULE,\n\t.llseek\t\t= noop_llseek,\n};"
+    },
+    {
+      "name": "queue_stride",
+      "path": "drivers/block/ublk_drv.c",
+      "start": 797,
+      "end": 813,
+      "excerpt": "}\n\nstatic inline int __ublk_queue_cmd_buf_size(int depth)\n{\n\treturn round_up(depth * sizeof(struct ublksrv_io_desc), PAGE_SIZE);\n}\n\nstatic inline int ublk_queue_cmd_buf_size(struct ublk_device *ub)\n{\n\treturn __ublk_queue_cmd_buf_size(ub->dev_info.queue_depth);\n}\n\nstatic int ublk_max_cmd_buf_size(void)\n{\n\treturn __ublk_queue_cmd_buf_size(UBLK_MAX_QUEUE_DEPTH);\n}\n"
+    },
+    {
+      "name": "queue_allocation",
+      "path": "drivers/block/ublk_drv.c",
+      "start": 2705,
+      "end": 2738,
+      "excerpt": "static int ublk_init_queue(struct ublk_device *ub, int q_id)\n{\n\tint depth = ub->dev_info.queue_depth;\n\tgfp_t gfp_flags = GFP_KERNEL | __GFP_ZERO;\n\tstruct ublk_queue *ubq;\n\tstruct page *page;\n\tint numa_node;\n\tint size;\n\n\t/* Determine NUMA node based on queue's CPU affinity */\n\tnuma_node = ublk_get_queue_numa_node(ub, q_id);\n\n\t/* Allocate queue structure on local NUMA node */\n\tubq = kvzalloc_node(struct_size(ubq, ios, depth), GFP_KERNEL,\n\t\t\t    numa_node);\n\tif (!ubq)\n\t\treturn -ENOMEM;\n\n\tspin_lock_init(&ubq->cancel_lock);\n\tubq->flags = ub->dev_info.flags;\n\tubq->q_id = q_id;\n\tubq->q_depth = depth;\n\tsize = ublk_queue_cmd_buf_size(ub);\n\n\t/* Allocate I/O command buffer on local NUMA node */\n\tpage = alloc_pages_node(numa_node, gfp_flags, get_order(size));\n\tif (!page) {\n\t\tkvfree(ubq);\n\t\treturn -ENOMEM;\n\t}\n\tubq->io_cmd_buf = page_address(page);\n\n\tub->queues[q_id] = ubq;\n\tubq->dev = ub;"
+    }
+  ],
+  "next_experiment": "One existing independent N=1/N=2 detail run, reusing the step11 snapshot, 30 suffix actions; verify new fields, original results, query cost and cleanup separately. Not started."
+}

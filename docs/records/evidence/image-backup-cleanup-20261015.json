@@ -1,0 +1,87 @@
+{
+  "status": "PASS",
+  "before_available_bytes": 53633650688,
+  "after_available_bytes": 69484347392,
+  "removed_bytes": 15851159823,
+  "released_allocated_bytes": 15851192320,
+  "evidence_unchanged_files": 977,
+  "date": "2026-10-15",
+  "authorization": "用户明确要求优先清理无用镜像备份",
+  "removed": [
+    {
+      "path": ".artifacts/v1-clean-trenvx-20261001/.artifacts/trenvx-service-smoke/20261001T064353Z-2887513/data.tar.gz",
+      "bytes": 3157997609,
+      "sha256": "b58b178ea1c278567df44eb8d744b8414b508cb12ed24fbac2c1bab1ad6d2b45",
+      "reason": "旧独立目录运行的workspace路径检查失败，后续verified运行通过；原FAIL及重放证据保留"
+    },
+    {
+      "path": ".artifacts/storage-isolated-trenvx/20261008T045201Z-3548772/preserved-failure-image/data.tar.gz",
+      "bytes": 3157797065,
+      "sha256": "38ad502a4d38ebf23f51dcc9279e444089b8c08d3dc4c16174dea3d159f4f7b1",
+      "reason": "早期TrEnv-X隔离失败的临时服务镜像，不属于当前输入或checkpoint；FAIL和raw保留"
+    },
+    {
+      "path": ".artifacts/checkpoint-image-diagnostic/20261008T061239Z-3582812/failure-image.tar.gz",
+      "bytes": 3157982885,
+      "sha256": "6559740fb109f418c2ccb3b378e8d74bfd26142ee742d948b59405743273961c",
+      "reason": "已结束journal诊断的完整临时服务归档；实际所需源镜像、journal前后副本及诊断结果仍保留"
+    },
+    {
+      "path": ".artifacts/storage-isolated-service/20261015T074602Z-1914805/volume.ext4.gz",
+      "bytes": 2006478252,
+      "sha256": "6920c0b1331f4f73d8131fbe26cb71d41f7e5180c0952b4c58dee3d62f30dbdd",
+      "reason": "File/匿名映射变化与回收处理已修复，后续短校准与真实任务通过；原FAIL及raw保留"
+    },
+    {
+      "path": ".artifacts/storage-isolated-service/20261015T082334Z-1939758/volume.ext4.gz",
+      "bytes": 1981696729,
+      "sha256": "dfb23c37345679c4c94b23bbe32982c7d378e93db511f9a46df8d24d6b1a1a37",
+      "reason": "双VMM候选关联失败已修复，合成双guest及真实双分支验证通过；原FAIL及raw保留"
+    },
+    {
+      "path": ".artifacts/storage-isolated-service/20261015T141220Z-1994798/volume.ext4.gz",
+      "bytes": 2389207283,
+      "sha256": "d44a83a40103c805415e7232d9800f51cb5a7ee0b85157a214cb61ec9b319bfa",
+      "reason": "进程计数空读已修复，后续真实双分支通过；原FAIL及raw保留"
+    }
+  ],
+  "kept": [
+    {
+      "path": ".artifacts/storage-isolated-service/20261008T102942Z-3642885/volume.ext4.gz",
+      "bytes": 2245185148,
+      "sha256": "502b8bb6ac5244223034e1f961f64986f9eb41ab9b420e2bca26dd407335fe29",
+      "reason": "Prettier规范输入，prepare_prettier6604_cache.py默认源"
+    },
+    {
+      "path": ".artifacts/storage-isolated-service/20261008T165515Z-3834076/volume.ext4.gz",
+      "bytes": 3644879815,
+      "sha256": "95f51006d3233887335c89f0cd5314dfd65cc836fc11bd59f8bc35b24e1d3ee2",
+      "reason": "Xarray平台配置引用的规范输入"
+    },
+    {
+      "path": ".artifacts/storage-isolated-service/20261009T050703Z-3934019/volume.ext4.gz",
+      "bytes": 2862171516,
+      "sha256": "d8a4632358c88b7f0852f14794cf35f5eccc34481544d29b7326d6eaea80a8b9",
+      "reason": "Sphinx平台配置引用的规范输入"
+    },
+    {
+      "path": ".artifacts/storage-isolated-service/20261011T123631Z-703748/volume.ext4.gz",
+      "bytes": 1082820591,
+      "sha256": "be7fd585bbe85c9c71978976c03039ec4081f28ef02b19b3b543385b0c2fc322",
+      "reason": "有retain标记的checkpoint参考备份"
+    },
+    {
+      "path": ".artifacts/storage-isolated-service/20261011T123631Z-703748/checkpoint-bundle/repository.tar.gz",
+      "bytes": 1013719341,
+      "sha256": "7dd6ad75cf29ab1e97c38321a4a906da3e6dd8b36ba5e8d681fdc6c08aa99b98",
+      "reason": "有retain标记的原生checkpoint bundle"
+    }
+  ],
+  "scope": "Only six reviewed obsolete image archives removed; original FAIL records, task/diagnostic evidence, canonical input backups and retained checkpoint unchanged.",
+  "report_verification": {
+    "status": "PASS",
+    "pair_report_identical_files": 4,
+    "single_report_identical_files": 3
+  },
+  "available_bytes_at_closeout": 69482643456
+}

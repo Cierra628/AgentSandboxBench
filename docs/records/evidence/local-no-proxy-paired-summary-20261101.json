@@ -1,0 +1,49 @@
+{
+  "date": "2026-11-01",
+  "status": "PASS",
+  "scope": "Offline normalization of saved paired batches; no runtime, network, residency query or deletion",
+  "runs": 12,
+  "pairs": 6,
+  "actions": 396,
+  "host_points": 5224,
+  "guest_points": 3082,
+  "source_json_tsv_files": 30,
+  "reused_image_files": 21,
+  "sources": [
+    {
+      "task_id": "prettier__prettier-6604",
+      "summary": "results/prettier-local-no-proxy-sampling-controls-20261031/summary.json",
+      "report": "results/prettier-local-no-proxy-sampling-controls-20261031/REPORT.md"
+    },
+    {
+      "task_id": "sphinx-doc__sphinx-7590",
+      "summary": "results/sphinx-local-no-proxy-sampling-controls-20261031/summary.json",
+      "report": "results/sphinx-local-no-proxy-sampling-controls-20261031/REPORT.md"
+    },
+    {
+      "task_id": "pydata__xarray-6992",
+      "summary": "results/xarray-local-no-proxy-sampling-controls-20261101/summary.json",
+      "report": "results/xarray-local-no-proxy-sampling-controls-20261101/REPORT.md"
+    }
+  ],
+  "verified": [
+    "Per-command durations sum to saved tool timing",
+    "Each of nine per-run timing fields agrees with original metrics.tsv",
+    "All six pairs recalculated with sign retained",
+    "On point counts, observed memory/cache peaks, host file/current peaks and sampling gaps match published TSV",
+    "CPU percentages and five synchronous management-event durations recalculated",
+    "Off quantities remain unmeasured, not zero",
+    "Original Python strict/diagnostic/exit-match states kept",
+    "Alternate output directory yields same JSON and TSV with usable relative report links",
+    "Existing output is rejected without overwrite"
+  ],
+  "baseline_increment": "From original runs[].host_memory.current_peak_increase_bytes; retains after-creation window, not redefined from arbitrary full-workflow peak",
+  "input_comparison": "Original compared group file value, max of before/after query; shortfall recomputed; ownership NOT_QUERIED",
+  "cpu_scope": "Direct host thread and guest process only; excludes runner shell boundary reads and phase writes; percentages use separate windows",
+  "output": "results/local-no-proxy-paired-summary-20261101",
+  "reproduce": "bash scripts/summarize-local-no-proxy-pairs.sh --output NEW_DIRECTORY",
+  "report_link_checks": 58,
+  "cross_task_slowdown": "NOT_COMBINED",
+  "sharing_savings": "NOT_MEASURED",
+  "live_work": "NOT_RUN"
+}

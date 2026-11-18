@@ -1,0 +1,144 @@
+{
+  "status": "OFFLINE_DESIGN_CONFIRMED",
+  "implemented": false,
+  "live_validated": false,
+  "new_guests": 0,
+  "new_task_actions": 0,
+  "new_residency_queries": 0,
+  "payload_reads": 0,
+  "source_service": {
+    "name": "asb-source-rebuilt-20261018T160925Z-2726362",
+    "running": false,
+    "source_env": ".artifacts/source-service-rebuilt-20261018T160925Z-2726362/env",
+    "required_regular_paths": 105,
+    "missing_paths": 93,
+    "type_or_size_mismatches": 1,
+    "content_integrity": "NOT_READ_NOT_VERIFIED",
+    "parts": {
+      "deps": {
+        "required_regular_paths": 12,
+        "logical_size_bytes": 189056180,
+        "counts": {
+          "MISSING": 0,
+          "TYPE_OR_SIZE_MISMATCH": 1,
+          "SIZE_MATCH_CONTENT_NOT_VERIFIED": 11
+        }
+      },
+      "image-cache/configs": {
+        "required_regular_paths": 10,
+        "logical_size_bytes": 16380,
+        "counts": {
+          "MISSING": 10,
+          "TYPE_OR_SIZE_MISMATCH": 0,
+          "SIZE_MATCH_CONTENT_NOT_VERIFIED": 0
+        }
+      },
+      "image-cache/indexes": {
+        "required_regular_paths": 31,
+        "logical_size_bytes": 13780,
+        "counts": {
+          "MISSING": 31,
+          "TYPE_OR_SIZE_MISMATCH": 0,
+          "SIZE_MATCH_CONTENT_NOT_VERIFIED": 0
+        }
+      },
+      "image-cache/commits": {
+        "required_regular_paths": 31,
+        "logical_size_bytes": 7178259456,
+        "counts": {
+          "MISSING": 31,
+          "TYPE_OR_SIZE_MISMATCH": 0,
+          "SIZE_MATCH_CONTENT_NOT_VERIFIED": 0
+        }
+      },
+      "image-cache/remote-blocks": {
+        "required_regular_paths": 21,
+        "logical_size_bytes": 357288,
+        "counts": {
+          "MISSING": 21,
+          "TYPE_OR_SIZE_MISMATCH": 0,
+          "SIZE_MATCH_CONTENT_NOT_VERIFIED": 0
+        }
+      },
+      "image-cache/convert-blocks": {
+        "required_regular_paths": 0,
+        "logical_size_bytes": 0,
+        "counts": {
+          "MISSING": 0,
+          "TYPE_OR_SIZE_MISMATCH": 0,
+          "SIZE_MATCH_CONTENT_NOT_VERIFIED": 0
+        }
+      }
+    }
+  },
+  "backup": {
+    "path": ".artifacts/storage-isolated-service/20261008T102942Z-3642885/volume.ext4.gz",
+    "logical_restored_bytes": 21474836480,
+    "archive_bytes": 2245185148,
+    "saved_full_integrity_receipt": "PASS",
+    "current_check": "metadata only; no new hash or payload read",
+    "raw_image_exists": false
+  },
+  "recommended_input": {
+    "policy": "Fresh plain files imported inside the new live measurement group; no reuse of preexisting target inodes",
+    "parts": [
+      "deps",
+      "image-cache/configs",
+      "image-cache/indexes",
+      "image-cache/commits",
+      "image-cache/remote-blocks",
+      "image-cache/convert-blocks"
+    ],
+    "regular_file_paths": 105,
+    "logical_bytes": 7367703084,
+    "selected_file_budget_bytes": 8589934592,
+    "required_order": [
+      "Outside measurement group: restore verified archive to owned 20 GiB disk scratch image and mount read-only",
+      "Create fresh measurement group; import verified selected files into fresh plain host directory inside that group",
+      "fsync owned destination files and directories; close, unmount, detach and remove successful scratch source before sandbox writable volume allocation",
+      "Create original 8 GiB writable volume, private service and two guests; read-only bind imported commits; retain original dependencies and default reclaim",
+      "Record the prepared baseline, N=1/N=2 original 11 actions and five-second windows; preserve standard cleanup and failed evidence"
+    ],
+    "integrity": "Keep existing explicit backup and per-file content verification in preparation. All file reads are preparation cost and warm the cache; do not claim cold cache or keep pages resident.",
+    "ownership": "New inode + first page creation by a process already born in the measured group; keep group alive through import and service. Old input inodes are not accepted by this new mode.",
+    "sync_scope": "fsync individual owned plain files/dirs, never sync -f the shared host filesystem; sync -f remains only for the original owned writable filesystem"
+  },
+  "disk_budget": {
+    "available_bytes": 41325588480,
+    "available_gib": 38.48745346069336,
+    "prepare_peak_new_bytes": 30064771072,
+    "run_peak_new_bytes": 17179869184,
+    "host_reserve_bytes": 21474836480,
+    "host_margin_bytes": 6442450944,
+    "prepare_required_available_bytes": 57982058496,
+    "run_required_available_bytes": 45097156608,
+    "prepare_ready": false,
+    "run_ready": false,
+    "strictly_more_bytes_needed": 16656470016,
+    "assumption": "Fully reserved 20 GiB scratch + <=8 GiB plain cache during import; scratch removed before 8 GiB writable volume, so no 20+8+8 overlap. Existing archive is already on disk, not copied again."
+  },
+  "scope": {
+    "main": "Raw cgroup current plus same-preparation increments",
+    "input_cache": "Fresh imported selected files; inode-deduplicated metadata inventory",
+    "outside": "Old source archive is preparation-only and is read outside the measured group; scratch file and inner filesystem removed before baseline. Shared executable/Docker/global costs remain separate unknowns.",
+    "old_file_reuse": "Not included in new-mode completeness claims. If later enabled, query per-file actual inside/outside/unknown ownership; mincore alone cannot allocate charge; never add all resident bytes to current."
+  },
+  "first_validation": {
+    "scope": "One two-guest 22-action short sequence, no suffix or full task; no PSS or periodic mincore",
+    "required": [
+      "New input inodes, recorded creator group and group-before-file-before-service ordering",
+      "No tmpfs seed, no scratch source mapping or mount before baseline; read-only commits source is the new plain directory",
+      "N=1 and N=2 common five-second windows; default reclaim and unchanged task outputs/exit codes",
+      "One selected-file mincore cross-check after both task windows, deduplicated by device+inode; record query cost and counters before/after. It supplements, not replaces, fresh-file provenance",
+      "Original automatic reports, writable-file boundary, read-only root, fixed 8 GiB writable allocation and all owned cleanup"
+    ]
+  },
+  "next_stage": "Offline implementation only, with fake metadata and mocked lifecycle tests; real preparation needs new authorization and >54 GiB free.",
+  "sources": [
+    ".artifacts/prettier6604/host-scaling-cache-20261029T032742Z-2339983/seed.json",
+    ".artifacts/storage-isolated-service/20261008T102942Z-3642885/volume-backup.json",
+    "scripts/validate_isolated_agentenv.py:429-444,703-720,764-787,926-927",
+    "scripts/isolated_storage.py:10-25",
+    "scripts/host_existing_cache_owner.py:query,summarize"
+  ]
+}

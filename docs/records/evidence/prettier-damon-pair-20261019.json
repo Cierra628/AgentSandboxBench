@@ -1,0 +1,128 @@
+{
+  "status": "PASS",
+  "task_executions": 2,
+  "tool_count": 58,
+  "order": [
+    "default enabled",
+    "disabled during task"
+  ],
+  "sample_count": 412,
+  "runs": {
+    "observe": {
+      "workflow": "/home/yyxie/agentenv_experiment/.artifacts/platform-tasks/20261019T094754Z-3179339",
+      "raw": "/home/yyxie/agentenv_experiment/.artifacts/storage-isolated-service/20261019T094911Z-3180035/prettier6604",
+      "standard_report": "/home/yyxie/agentenv_experiment/.artifacts/platform-tasks/report-20261019T094754Z-3179339",
+      "diagnostic_report": "/home/yyxie/agentenv_experiment/.artifacts/prettier-damon-pair-20261019/reports/observe",
+      "original_tests": {
+        "passed": 0,
+        "failed": 2
+      },
+      "samples": 216,
+      "tool_seconds": 12.809294024,
+      "frozen_replay_seconds": 15.263882419,
+      "controller_seconds": 25.314597612,
+      "memory_peak_mib": 560.953125,
+      "cached_first_mib": 48.484375,
+      "cached_last_mib": 131.37890625,
+      "cached_peak_mib": 190.2578125,
+      "largest_adjacent_cached_drop_mib": 75.6953125,
+      "intervals_with_cached_drop_at_least_1mib": 9,
+      "enabled_states": [
+        "Y"
+      ],
+      "kdamond_pids": [
+        65
+      ],
+      "reclaimed_in_window_mib": 273.625,
+      "tried_in_window_mib": 39248.69140625,
+      "max_sampling_gap_seconds": 0.10751993,
+      "minimum_host_available_gib": 96.27935409545898
+    },
+    "disabled": {
+      "workflow": "/home/yyxie/agentenv_experiment/.artifacts/platform-tasks/20261019T094946Z-3181575",
+      "raw": "/home/yyxie/agentenv_experiment/.artifacts/storage-isolated-service/20261019T095105Z-3182264/prettier6604",
+      "standard_report": "/home/yyxie/agentenv_experiment/.artifacts/platform-tasks/report-20261019T094946Z-3181575",
+      "diagnostic_report": "/home/yyxie/agentenv_experiment/.artifacts/prettier-damon-pair-20261019/reports/disabled",
+      "original_tests": {
+        "passed": 0,
+        "failed": 2
+      },
+      "samples": 196,
+      "tool_seconds": 11.788629293,
+      "frozen_replay_seconds": 13.891576576,
+      "controller_seconds": 24.613940026,
+      "memory_peak_mib": 565.59765625,
+      "cached_first_mib": 41.64453125,
+      "cached_last_mib": 256.03515625,
+      "cached_peak_mib": 256.03515625,
+      "largest_adjacent_cached_drop_mib": 0.07421875,
+      "intervals_with_cached_drop_at_least_1mib": 0,
+      "enabled_states": [
+        "N"
+      ],
+      "kdamond_pids": [
+        -1
+      ],
+      "reclaimed_in_window_mib": 0.0,
+      "tried_in_window_mib": 0.0,
+      "max_sampling_gap_seconds": 0.106612947,
+      "minimum_host_available_gib": 96.27679061889648
+    }
+  },
+  "changes": {
+    "tool_seconds": {
+      "disabled_minus_default_seconds": -1.020664731,
+      "disabled_vs_default_percent": -7.968157566589085
+    },
+    "frozen_replay_seconds": {
+      "disabled_minus_default_seconds": -1.3723058429999995,
+      "disabled_vs_default_percent": -8.990542545661883
+    },
+    "controller_seconds": {
+      "disabled_minus_default_seconds": -0.7006575859999984,
+      "disabled_vs_default_percent": -2.7678006055599447
+    }
+  },
+  "disabled_control": {
+    "prepared": {
+      "status": "PASS",
+      "action": "prepare",
+      "before": {
+        "enabled": "Y",
+        "kdamond_pid": "64",
+        "bytes_reclaim_tried_regions": "0",
+        "bytes_reclaimed_regions": "0",
+        "monotonic_ns": 651575711
+      },
+      "after": {
+        "enabled": "N",
+        "kdamond_pid": "-1",
+        "bytes_reclaim_tried_regions": "0",
+        "bytes_reclaimed_regions": "0",
+        "monotonic_ns": 651913790
+      }
+    },
+    "restored": {
+      "status": "PASS",
+      "action": "restore",
+      "original_enabled": "Y",
+      "before": {
+        "enabled": "N",
+        "kdamond_pid": "-1",
+        "bytes_reclaim_tried_regions": "0",
+        "bytes_reclaimed_regions": "0",
+        "monotonic_ns": 20873011266
+      },
+      "after": {
+        "enabled": "Y",
+        "kdamond_pid": "2058",
+        "bytes_reclaim_tried_regions": "0",
+        "bytes_reclaimed_regions": "0",
+        "monotonic_ns": 20923537177
+      }
+    }
+  },
+  "original_task_outcomes_preserved": true,
+  "source_returned_to_stopped": true,
+  "scope": "one sequential pair; same task actions and static DAMON settings; new guests, no initial cache normalization"
+}

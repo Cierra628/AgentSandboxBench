@@ -1,0 +1,75 @@
+{
+  "status": "PASS_OFFLINE",
+  "stage": "fixed Django disk OCI input implementation",
+  "tests": 88,
+  "new_tests": 13,
+  "related_existing_tests": 75,
+  "index": {
+    "digest": "sha256:6c46d22aaf692840f16209fe29b1d0c940bed043fce8047eb12169215222f044",
+    "bytes": 856
+  },
+  "platform_manifest": {
+    "digest": "sha256:63e2e4d9ac42c73b2504606f895d6030d735885e9c0bacc8a2add11c86166771",
+    "bytes": 2200
+  },
+  "layer_count": 10,
+  "layer_bytes": 1242117203,
+  "config_bytes": 4215,
+  "blob_bytes": 1242121418,
+  "plan": {
+    "status": "PASS_OFFLINE_PLAN",
+    "image": "docker.io/swebench/sweb.eval.x86_64.django_1776_django-16819@sha256:6c46d22aaf692840f16209fe29b1d0c940bed043fce8047eb12169215222f044",
+    "layer_count": 10,
+    "blob_bytes": 1242121418,
+    "budget": {
+      "ready": false,
+      "available_bytes": 33333952512,
+      "required_available_bytes": 64424509440,
+      "input_allowance_bytes": 2147483648,
+      "subsequent_volume_bytes": 34359738368
+    }
+  },
+  "transfer": {
+    "chunk_bytes": 8388608,
+    "workers": 3,
+    "range_attempts": 3,
+    "request_timeout_seconds": 30,
+    "default_download_timeout_seconds": 850,
+    "wrapper_timeout_seconds": 900,
+    "wrapper_kill_grace_seconds": 15
+  },
+  "resume": "Reuse fully size/digest-verified blobs; restart incomplete blobs; preserve previous attempt and cumulative known timing",
+  "integration": {
+    "flag": "--oci-input",
+    "native_flag": "--external-creation-oci-input",
+    "mount": "/asb-django-oci",
+    "read_only_bind": true,
+    "only_explicit_creation_controls": true,
+    "api_image_unchanged": true,
+    "legacy_entrypoints_unchanged": true
+  },
+  "checks": [
+    "Pinned index/platform size and digest relationship",
+    "Full blob/config/layout integrity and byte count",
+    "Mock bounded transfer, retry, deadline and recovery",
+    "Real shell two-level delegation with prior wrapper and binary intact",
+    "No remote fallback for unexpected Django index copy",
+    "CLI forwarding and native mode guard",
+    "Read-only mount identity",
+    "Two-stage disk thresholds",
+    "Existing Django/C4/Cython/storage and old OCI tests"
+  ],
+  "not_run": [
+    "Full image body download",
+    "Docker Hub range-body live validation",
+    "Native conversion from the new local input",
+    "Four measured host creation controls"
+  ],
+  "measured_creations_completed": 0,
+  "new_sandboxes": 0,
+  "network_requests": 0,
+  "deleted_files": [],
+  "failed_volume_retained": ".artifacts/storage-isolated-service/20261030T132618Z-2712183/volume.ext4",
+  "source_directory": ".artifacts/django-oci-offline-20261030",
+  "accounting_scope": "Download outside slice; later faults may charge inside. New comparison is for sampling impact, not full deployment memory saving."
+}

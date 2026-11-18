@@ -1,0 +1,814 @@
+{
+  "status": "PASS",
+  "date": "2026-10-18",
+  "order": [
+    "preserve",
+    "drop-clean",
+    "drop-clean",
+    "preserve"
+  ],
+  "live_runs": 4,
+  "task_actions": 124,
+  "configuration": {
+    "vcpu": 2,
+    "guest_memory_mib": 4096,
+    "page_size": 4096,
+    "volume_gib": 24,
+    "guest_kernel": "6.1.175-asb-cache-v3",
+    "sampling": "four sources, explicit provider GET_DATA, batch lookup and 2-page gap",
+    "control": "Both sync; only drop-clean writes 1 to owned guest drop_caches; no host drop or workload prefetch."
+  },
+  "runs": [
+    {
+      "run": 1,
+      "policy": "preserve",
+      "storage_run": "20261018T025633Z-2520270",
+      "task_status": "PASS",
+      "action_count": 31,
+      "roles": {
+        "early_1": {
+          "before_sync_guest_cache_bytes": 63029248,
+          "after_sync_guest_cache_bytes": 63029248,
+          "after_control_guest_cache_bytes": 63029248,
+          "task_start_guest_cache_bytes": 63119360,
+          "task_end_guest_cache_bytes": 113885184,
+          "tool_sum_ns": 2331361269,
+          "virtio_read_bytes": 63066112,
+          "guest_vmstat_delta": {
+            "pgfault": 121374,
+            "pgmajfault": 399,
+            "pgpgin": 61588,
+            "pgpgout": 308
+          },
+          "sync_ns": 65572161,
+          "control_ns": 821,
+          "after_control_to_start_ns": 97637673,
+          "post_control_rebound_bytes": 90112,
+          "physical_samples_total": 14,
+          "physical_samples_inside_endpoints": 3,
+          "queries": 56,
+          "physical_curve": [
+            {
+              "point": 2,
+              "guest_start_ns": 13468665804,
+              "guest_end_ns": 13753036125,
+              "guest_cache_bytes": 104148992,
+              "host_confirmed_current_bytes": 151916544,
+              "unknown_guest_capacity_bytes": 8044544
+            },
+            {
+              "point": 3,
+              "guest_start_ns": 14457748109,
+              "guest_end_ns": 14680245806,
+              "guest_cache_bytes": 108310528,
+              "host_confirmed_current_bytes": 163811328,
+              "unknown_guest_capacity_bytes": 438272
+            },
+            {
+              "point": 4,
+              "guest_start_ns": 15463805601,
+              "guest_end_ns": 15748973576,
+              "guest_cache_bytes": 112467968,
+              "host_confirmed_current_bytes": 168337408,
+              "unknown_guest_capacity_bytes": 106496
+            }
+          ],
+          "virtio_devices": [
+            "vda",
+            "vdb",
+            "vdc",
+            "vdd",
+            "vde",
+            "vdf"
+          ]
+        },
+        "early_2": {
+          "before_sync_guest_cache_bytes": 107728896,
+          "after_sync_guest_cache_bytes": 107728896,
+          "after_control_guest_cache_bytes": 107728896,
+          "task_start_guest_cache_bytes": 107749376,
+          "task_end_guest_cache_bytes": 148393984,
+          "tool_sum_ns": 2636925521,
+          "virtio_read_bytes": 55787520,
+          "guest_vmstat_delta": {
+            "pgfault": 128380,
+            "pgmajfault": 367,
+            "pgpgin": 54480,
+            "pgpgout": 996
+          },
+          "sync_ns": 62910739,
+          "control_ns": 792,
+          "after_control_to_start_ns": 117470256,
+          "post_control_rebound_bytes": 20480,
+          "physical_samples_total": 13,
+          "physical_samples_inside_endpoints": 3,
+          "queries": 52,
+          "physical_curve": [
+            {
+              "point": 1,
+              "guest_start_ns": 12227150923,
+              "guest_end_ns": 12504582468,
+              "guest_cache_bytes": 145829888,
+              "host_confirmed_current_bytes": 238841856,
+              "unknown_guest_capacity_bytes": 9437184
+            },
+            {
+              "point": 2,
+              "guest_start_ns": 13228403608,
+              "guest_end_ns": 13472945453,
+              "guest_cache_bytes": 144609280,
+              "host_confirmed_current_bytes": 245542912,
+              "unknown_guest_capacity_bytes": 3710976
+            },
+            {
+              "point": 3,
+              "guest_start_ns": 14237171178,
+              "guest_end_ns": 14559563308,
+              "guest_cache_bytes": 148127744,
+              "host_confirmed_current_bytes": 252620800,
+              "unknown_guest_capacity_bytes": 53248
+            }
+          ],
+          "virtio_devices": [
+            "vda",
+            "vdb",
+            "vdc",
+            "vdd",
+            "vde",
+            "vdf"
+          ]
+        }
+      },
+      "metrics": {
+        "task_tool_sum_ns": 5828713532,
+        "prefix_tool_sum_ns": 860426742,
+        "suffix_tool_sum_ns": 4968286790,
+        "early_1_tool_sum_ns": 2331361269,
+        "early_2_tool_sum_ns": 2636925521,
+        "branch_replay_elapsed_ns": 3677853058,
+        "branch_phase_with_checks_ns": 11990509203,
+        "restore_and_cache_ready_ns": 7546706108,
+        "controller_elapsed_ns": 35276572481,
+        "cold_start_cli_ns": 2901213402,
+        "checkpoint_cli_ns": 2849747365,
+        "restore_cli_sum_ns": 352676352,
+        "official_early_1_cli_ns": 7273407901,
+        "official_early_2_cli_ns": 7299620433,
+        "cache_sampler_stop_ns": 1880146771
+      },
+      "guest_cache_preparation_ns": 341387549,
+      "overlap_pairs": 11,
+      "start_available_bytes": 59348058112,
+      "minimum_available_bytes": 33576325120,
+      "after_cleanup_available_bytes": 59201212416
+    },
+    {
+      "run": 2,
+      "policy": "drop-clean",
+      "storage_run": "20261018T025922Z-2524884",
+      "task_status": "PASS",
+      "action_count": 31,
+      "roles": {
+        "early_1": {
+          "before_sync_guest_cache_bytes": 23117824,
+          "after_sync_guest_cache_bytes": 23248896,
+          "after_control_guest_cache_bytes": 16711680,
+          "task_start_guest_cache_bytes": 21270528,
+          "task_end_guest_cache_bytes": 69246976,
+          "tool_sum_ns": 2728482541,
+          "virtio_read_bytes": 83329024,
+          "guest_vmstat_delta": {
+            "pgfault": 125239,
+            "pgmajfault": 603,
+            "pgpgin": 81272,
+            "pgpgout": 348
+          },
+          "sync_ns": 77098910,
+          "control_ns": 35585011,
+          "after_control_to_start_ns": 153650900,
+          "post_control_rebound_bytes": 4558848,
+          "physical_samples_total": 16,
+          "physical_samples_inside_endpoints": 5,
+          "queries": 64,
+          "physical_curve": [
+            {
+              "point": 2,
+              "guest_start_ns": 14119047481,
+              "guest_end_ns": 14323646923,
+              "guest_cache_bytes": 47931392,
+              "host_confirmed_current_bytes": 33042432,
+              "unknown_guest_capacity_bytes": 20639744
+            },
+            {
+              "point": 3,
+              "guest_start_ns": 15108847427,
+              "guest_end_ns": 15312029036,
+              "guest_cache_bytes": 58048512,
+              "host_confirmed_current_bytes": 57163776,
+              "unknown_guest_capacity_bytes": 5500928
+            },
+            {
+              "point": 4,
+              "guest_start_ns": 16117567876,
+              "guest_end_ns": 16361524074,
+              "guest_cache_bytes": 66293760,
+              "host_confirmed_current_bytes": 70066176,
+              "unknown_guest_capacity_bytes": 872448
+            },
+            {
+              "point": 5,
+              "guest_start_ns": 17108076909,
+              "guest_end_ns": 17292128189,
+              "guest_cache_bytes": 66867200,
+              "host_confirmed_current_bytes": 68055040,
+              "unknown_guest_capacity_bytes": 3416064
+            },
+            {
+              "point": 6,
+              "guest_start_ns": 18102100859,
+              "guest_end_ns": 18288216299,
+              "guest_cache_bytes": 67956736,
+              "host_confirmed_current_bytes": 72552448,
+              "unknown_guest_capacity_bytes": 8192
+            }
+          ],
+          "virtio_devices": [
+            "vda",
+            "vdb",
+            "vdc",
+            "vdd",
+            "vde",
+            "vdf"
+          ]
+        },
+        "early_2": {
+          "before_sync_guest_cache_bytes": 43233280,
+          "after_sync_guest_cache_bytes": 17461248,
+          "after_control_guest_cache_bytes": 16257024,
+          "task_start_guest_cache_bytes": 23113728,
+          "task_end_guest_cache_bytes": 59826176,
+          "tool_sum_ns": 3273240317,
+          "virtio_read_bytes": 96247808,
+          "guest_vmstat_delta": {
+            "pgfault": 132146,
+            "pgmajfault": 637,
+            "pgpgin": 93868,
+            "pgpgout": 1036
+          },
+          "sync_ns": 96238563,
+          "control_ns": 28319636,
+          "after_control_to_start_ns": 251844635,
+          "post_control_rebound_bytes": 6856704,
+          "physical_samples_total": 14,
+          "physical_samples_inside_endpoints": 5,
+          "queries": 56,
+          "physical_curve": [
+            {
+              "point": 1,
+              "guest_start_ns": 13048787444,
+              "guest_end_ns": 13233122247,
+              "guest_cache_bytes": 58789888,
+              "host_confirmed_current_bytes": 64450560,
+              "unknown_guest_capacity_bytes": 9568256
+            },
+            {
+              "point": 2,
+              "guest_start_ns": 14039071961,
+              "guest_end_ns": 14224402205,
+              "guest_cache_bytes": 71045120,
+              "host_confirmed_current_bytes": 85397504,
+              "unknown_guest_capacity_bytes": 876544
+            },
+            {
+              "point": 3,
+              "guest_start_ns": 15054957379,
+              "guest_end_ns": 15300193890,
+              "guest_cache_bytes": 74760192,
+              "host_confirmed_current_bytes": 89268224,
+              "unknown_guest_capacity_bytes": 630784
+            },
+            {
+              "point": 4,
+              "guest_start_ns": 16046555812,
+              "guest_end_ns": 16250259912,
+              "guest_cache_bytes": 76709888,
+              "host_confirmed_current_bytes": 91803648,
+              "unknown_guest_capacity_bytes": 12288
+            },
+            {
+              "point": 5,
+              "guest_start_ns": 17040576081,
+              "guest_end_ns": 17184799483,
+              "guest_cache_bytes": 57790464,
+              "host_confirmed_current_bytes": 64503808,
+              "unknown_guest_capacity_bytes": 3706880
+            }
+          ],
+          "virtio_devices": [
+            "vda",
+            "vdb",
+            "vdc",
+            "vdd",
+            "vde",
+            "vdf"
+          ]
+        }
+      },
+      "metrics": {
+        "task_tool_sum_ns": 6991803702,
+        "prefix_tool_sum_ns": 990080844,
+        "suffix_tool_sum_ns": 6001722858,
+        "early_1_tool_sum_ns": 2728482541,
+        "early_2_tool_sum_ns": 3273240317,
+        "branch_replay_elapsed_ns": 4757241416,
+        "branch_phase_with_checks_ns": 13332408788,
+        "restore_and_cache_ready_ns": 7646666818,
+        "controller_elapsed_ns": 36714050581,
+        "cold_start_cli_ns": 2546966968,
+        "checkpoint_cli_ns": 2665401038,
+        "restore_cli_sum_ns": 333057434,
+        "official_early_1_cli_ns": 7377439721,
+        "official_early_2_cli_ns": 7589048487,
+        "cache_sampler_stop_ns": 1515712527
+      },
+      "guest_cache_preparation_ns": 585204423,
+      "overlap_pairs": 13,
+      "start_available_bytes": 59200143360,
+      "minimum_available_bytes": 32892104704,
+      "after_cleanup_available_bytes": 59105329152
+    },
+    {
+      "run": 3,
+      "policy": "drop-clean",
+      "storage_run": "20261018T030304Z-2529922",
+      "task_status": "PASS",
+      "action_count": 31,
+      "roles": {
+        "early_1": {
+          "before_sync_guest_cache_bytes": 43036672,
+          "after_sync_guest_cache_bytes": 43053056,
+          "after_control_guest_cache_bytes": 39911424,
+          "task_start_guest_cache_bytes": 42213376,
+          "task_end_guest_cache_bytes": 94420992,
+          "tool_sum_ns": 2650123724,
+          "virtio_read_bytes": 66985984,
+          "guest_vmstat_delta": {
+            "pgfault": 120994,
+            "pgmajfault": 424,
+            "pgpgin": 65416,
+            "pgpgout": 320
+          },
+          "sync_ns": 88759291,
+          "control_ns": 19522455,
+          "after_control_to_start_ns": 160396243,
+          "post_control_rebound_bytes": 2301952,
+          "physical_samples_total": 16,
+          "physical_samples_inside_endpoints": 4,
+          "queries": 64,
+          "physical_curve": [
+            {
+              "point": 2,
+              "guest_start_ns": 13846133605,
+              "guest_end_ns": 14074227127,
+              "guest_cache_bytes": 73883648,
+              "host_confirmed_current_bytes": 95059968,
+              "unknown_guest_capacity_bytes": 15409152
+            },
+            {
+              "point": 3,
+              "guest_start_ns": 14837902629,
+              "guest_end_ns": 15060985435,
+              "guest_cache_bytes": 89083904,
+              "host_confirmed_current_bytes": 125726720,
+              "unknown_guest_capacity_bytes": 20480
+            },
+            {
+              "point": 4,
+              "guest_start_ns": 15837966256,
+              "guest_end_ns": 16061303650,
+              "guest_cache_bytes": 94375936,
+              "host_confirmed_current_bytes": 130289664,
+              "unknown_guest_capacity_bytes": 667648
+            },
+            {
+              "point": 5,
+              "guest_start_ns": 16830609624,
+              "guest_end_ns": 17017973384,
+              "guest_cache_bytes": 92368896,
+              "host_confirmed_current_bytes": 128888832,
+              "unknown_guest_capacity_bytes": 135168
+            }
+          ],
+          "virtio_devices": [
+            "vda",
+            "vdb",
+            "vdc",
+            "vdd",
+            "vde",
+            "vdf"
+          ]
+        },
+        "early_2": {
+          "before_sync_guest_cache_bytes": 42561536,
+          "after_sync_guest_cache_bytes": 42573824,
+          "after_control_guest_cache_bytes": 39604224,
+          "task_start_guest_cache_bytes": 41865216,
+          "task_end_guest_cache_bytes": 93880320,
+          "tool_sum_ns": 2525239736,
+          "virtio_read_bytes": 62836736,
+          "guest_vmstat_delta": {
+            "pgfault": 129173,
+            "pgmajfault": 374,
+            "pgpgin": 61364,
+            "pgpgout": 1008
+          },
+          "sync_ns": 95461916,
+          "control_ns": 34085128,
+          "after_control_to_start_ns": 152718210,
+          "post_control_rebound_bytes": 2260992,
+          "physical_samples_total": 14,
+          "physical_samples_inside_endpoints": 4,
+          "queries": 56,
+          "physical_curve": [
+            {
+              "point": 1,
+              "guest_start_ns": 12707944042,
+              "guest_end_ns": 12914338380,
+              "guest_cache_bytes": 78159872,
+              "host_confirmed_current_bytes": 111448064,
+              "unknown_guest_capacity_bytes": 4796416
+            },
+            {
+              "point": 2,
+              "guest_start_ns": 13718506954,
+              "guest_end_ns": 13942027703,
+              "guest_cache_bytes": 91602944,
+              "host_confirmed_current_bytes": 129650688,
+              "unknown_guest_capacity_bytes": 12288
+            },
+            {
+              "point": 3,
+              "guest_start_ns": 14715167172,
+              "guest_end_ns": 14958606843,
+              "guest_cache_bytes": 93200384,
+              "host_confirmed_current_bytes": 131158016,
+              "unknown_guest_capacity_bytes": 102400
+            },
+            {
+              "point": 4,
+              "guest_start_ns": 15706607853,
+              "guest_end_ns": 15890770813,
+              "guest_cache_bytes": 93761536,
+              "host_confirmed_current_bytes": 130809856,
+              "unknown_guest_capacity_bytes": 1011712
+            }
+          ],
+          "virtio_devices": [
+            "vda",
+            "vdb",
+            "vdc",
+            "vdd",
+            "vde",
+            "vdf"
+          ]
+        }
+      },
+      "metrics": {
+        "task_tool_sum_ns": 6118693867,
+        "prefix_tool_sum_ns": 943330407,
+        "suffix_tool_sum_ns": 5175363460,
+        "early_1_tool_sum_ns": 2650123724,
+        "early_2_tool_sum_ns": 2525239736,
+        "branch_replay_elapsed_ns": 4022635926,
+        "branch_phase_with_checks_ns": 13220595128,
+        "restore_and_cache_ready_ns": 7794618443,
+        "controller_elapsed_ns": 36511012172,
+        "cold_start_cli_ns": 2207177682,
+        "checkpoint_cli_ns": 2558029136,
+        "restore_cli_sum_ns": 373066209,
+        "official_early_1_cli_ns": 8132435762,
+        "official_early_2_cli_ns": 7295763977,
+        "cache_sampler_stop_ns": 1816750891
+      },
+      "guest_cache_preparation_ns": 488187513,
+      "overlap_pairs": 13,
+      "start_available_bytes": 59103715328,
+      "minimum_available_bytes": 33332629504,
+      "after_cleanup_available_bytes": 58968928256
+    },
+    {
+      "run": 4,
+      "policy": "preserve",
+      "storage_run": "20261018T030549Z-2535299",
+      "task_status": "PASS",
+      "action_count": 31,
+      "roles": {
+        "early_1": {
+          "before_sync_guest_cache_bytes": 194695168,
+          "after_sync_guest_cache_bytes": 194699264,
+          "after_control_guest_cache_bytes": 194699264,
+          "task_start_guest_cache_bytes": 101101568,
+          "task_end_guest_cache_bytes": 97550336,
+          "tool_sum_ns": 2846542247,
+          "virtio_read_bytes": 63209472,
+          "guest_vmstat_delta": {
+            "pgfault": 121355,
+            "pgmajfault": 388,
+            "pgpgin": 61728,
+            "pgpgout": 320
+          },
+          "sync_ns": 58804408,
+          "control_ns": 626,
+          "after_control_to_start_ns": 158705995,
+          "post_control_rebound_bytes": -93597696,
+          "physical_samples_total": 14,
+          "physical_samples_inside_endpoints": 4,
+          "queries": 56,
+          "physical_curve": [
+            {
+              "point": 2,
+              "guest_start_ns": 14793390883,
+              "guest_end_ns": 15045743402,
+              "guest_cache_bytes": 80642048,
+              "host_confirmed_current_bytes": 109731840,
+              "unknown_guest_capacity_bytes": 7634944
+            },
+            {
+              "point": 3,
+              "guest_start_ns": 15791290438,
+              "guest_end_ns": 16075348014,
+              "guest_cache_bytes": 91860992,
+              "host_confirmed_current_bytes": 128229376,
+              "unknown_guest_capacity_bytes": 479232
+            },
+            {
+              "point": 4,
+              "guest_start_ns": 16790980497,
+              "guest_end_ns": 17054201056,
+              "guest_cache_bytes": 96456704,
+              "host_confirmed_current_bytes": 128888832,
+              "unknown_guest_capacity_bytes": 4386816
+            },
+            {
+              "point": 5,
+              "guest_start_ns": 17786896685,
+              "guest_end_ns": 18054195795,
+              "guest_cache_bytes": 97513472,
+              "host_confirmed_current_bytes": 134283264,
+              "unknown_guest_capacity_bytes": 94208
+            }
+          ],
+          "virtio_devices": [
+            "vda",
+            "vdb",
+            "vdc",
+            "vdd",
+            "vde",
+            "vdf"
+          ]
+        },
+        "early_2": {
+          "before_sync_guest_cache_bytes": 62017536,
+          "after_sync_guest_cache_bytes": 62017536,
+          "after_control_guest_cache_bytes": 62017536,
+          "task_start_guest_cache_bytes": 62038016,
+          "task_end_guest_cache_bytes": 110903296,
+          "tool_sum_ns": 2113411954,
+          "virtio_read_bytes": 64970752,
+          "guest_vmstat_delta": {
+            "pgfault": 128999,
+            "pgmajfault": 403,
+            "pgpgin": 63448,
+            "pgpgout": 1016
+          },
+          "sync_ns": 68816538,
+          "control_ns": 563,
+          "after_control_to_start_ns": 82376738,
+          "post_control_rebound_bytes": 20480,
+          "physical_samples_total": 13,
+          "physical_samples_inside_endpoints": 4,
+          "queries": 52,
+          "physical_curve": [
+            {
+              "point": 1,
+              "guest_start_ns": 13821544195,
+              "guest_end_ns": 14046922041,
+              "guest_cache_bytes": 107450368,
+              "host_confirmed_current_bytes": 154071040,
+              "unknown_guest_capacity_bytes": 8630272
+            },
+            {
+              "point": 2,
+              "guest_start_ns": 14810017184,
+              "guest_end_ns": 15052920166,
+              "guest_cache_bytes": 113274880,
+              "host_confirmed_current_bytes": 169189376,
+              "unknown_guest_capacity_bytes": 208896
+            },
+            {
+              "point": 3,
+              "guest_start_ns": 15816166069,
+              "guest_end_ns": 16041298245,
+              "guest_cache_bytes": 109256704,
+              "host_confirmed_current_bytes": 164429824,
+              "unknown_guest_capacity_bytes": 16384
+            },
+            {
+              "point": 4,
+              "guest_start_ns": 16805393846,
+              "guest_end_ns": 17029888495,
+              "guest_cache_bytes": 110891008,
+              "host_confirmed_current_bytes": 166051840,
+              "unknown_guest_capacity_bytes": 8192
+            }
+          ],
+          "virtio_devices": [
+            "vda",
+            "vdb",
+            "vdc",
+            "vdd",
+            "vde",
+            "vdf"
+          ]
+        }
+      },
+      "metrics": {
+        "task_tool_sum_ns": 5789460223,
+        "prefix_tool_sum_ns": 829506022,
+        "suffix_tool_sum_ns": 4959954201,
+        "early_1_tool_sum_ns": 2846542247,
+        "early_2_tool_sum_ns": 2113411954,
+        "branch_replay_elapsed_ns": 4022143762,
+        "branch_phase_with_checks_ns": 11917603787,
+        "restore_and_cache_ready_ns": 7546150318,
+        "controller_elapsed_ns": 35632426584,
+        "cold_start_cli_ns": 2506755256,
+        "checkpoint_cli_ns": 2522983400,
+        "restore_cli_sum_ns": 373104643,
+        "official_early_1_cli_ns": 6868010966,
+        "official_early_2_cli_ns": 6654969151,
+        "cache_sampler_stop_ns": 1679191893
+      },
+      "guest_cache_preparation_ns": 360560761,
+      "overlap_pairs": 11,
+      "start_available_bytes": 58971381760,
+      "minimum_available_bytes": 33200340992,
+      "after_cleanup_available_bytes": 58832666624
+    }
+  ],
+  "comparisons": [
+    {
+      "roles": {
+        "early_1": {
+          "task_start_guest_cache_bytes": {
+            "preserve": 63119360,
+            "drop_clean": 21270528,
+            "delta": -41848832,
+            "delta_percent": -66.30110317975341
+          },
+          "tool_sum_ns": {
+            "preserve": 2331361269,
+            "drop_clean": 2728482541,
+            "delta": 397121272,
+            "delta_percent": 17.033879617050463
+          },
+          "virtio_read_bytes": {
+            "preserve": 63066112,
+            "drop_clean": 83329024,
+            "delta": 20262912,
+            "delta_percent": 32.12963564330714
+          }
+        },
+        "early_2": {
+          "task_start_guest_cache_bytes": {
+            "preserve": 107749376,
+            "drop_clean": 23113728,
+            "delta": -84635648,
+            "delta_percent": -78.54862008667224
+          },
+          "tool_sum_ns": {
+            "preserve": 2636925521,
+            "drop_clean": 3273240317,
+            "delta": 636314796,
+            "delta_percent": 24.130935475139648
+          },
+          "virtio_read_bytes": {
+            "preserve": 55787520,
+            "drop_clean": 96247808,
+            "delta": 40460288,
+            "delta_percent": 72.52569750367107
+          }
+        }
+      },
+      "parallel_suffix_ns": {
+        "preserve": 3677853058,
+        "drop_clean": 4757241416,
+        "delta": 1079388358,
+        "delta_percent": 29.348327433912395
+      }
+    },
+    {
+      "roles": {
+        "early_1": {
+          "task_start_guest_cache_bytes": {
+            "preserve": 101101568,
+            "drop_clean": 42213376,
+            "delta": -58888192,
+            "delta_percent": -58.24656646274764
+          },
+          "tool_sum_ns": {
+            "preserve": 2846542247,
+            "drop_clean": 2650123724,
+            "delta": -196418523,
+            "delta_percent": -6.900249704953703
+          },
+          "virtio_read_bytes": {
+            "preserve": 63209472,
+            "drop_clean": 66985984,
+            "delta": 3776512,
+            "delta_percent": 5.97459823742872
+          }
+        },
+        "early_2": {
+          "task_start_guest_cache_bytes": {
+            "preserve": 62038016,
+            "drop_clean": 41865216,
+            "delta": -20172800,
+            "delta_percent": -32.51683612835072
+          },
+          "tool_sum_ns": {
+            "preserve": 2113411954,
+            "drop_clean": 2525239736,
+            "delta": 411827782,
+            "delta_percent": 19.486394085192156
+          },
+          "virtio_read_bytes": {
+            "preserve": 64970752,
+            "drop_clean": 62836736,
+            "delta": -2134016,
+            "delta_percent": -3.2845794981717313
+          }
+        }
+      },
+      "parallel_suffix_ns": {
+        "preserve": 4022143762,
+        "drop_clean": 4022635926,
+        "delta": 492164,
+        "delta_percent": 0.012236360237787045
+      }
+    }
+  ],
+  "aggregate": {
+    "preserve": {
+      "early_1": {
+        "task_start_guest_cache_bytes": 82110464,
+        "tool_sum_ns": 2588951758,
+        "virtio_read_bytes": 63137792
+      },
+      "early_2": {
+        "task_start_guest_cache_bytes": 84893696,
+        "tool_sum_ns": 2375168737.5,
+        "virtio_read_bytes": 60379136
+      }
+    },
+    "drop-clean": {
+      "early_1": {
+        "task_start_guest_cache_bytes": 31741952,
+        "tool_sum_ns": 2689303132.5,
+        "virtio_read_bytes": 75157504
+      },
+      "early_2": {
+        "task_start_guest_cache_bytes": 32489472,
+        "tool_sum_ns": 2899240026.5,
+        "virtio_read_bytes": 79542272
+      }
+    }
+  },
+  "scope": "Same 11-action prefix and two original 10-action suffixes; identical named branches compared across runs. Both conditions sync; only drop-clean writes guest drop_caches=1.",
+  "limitations": [
+    "Two runs per condition, reversed order; descriptive paired effects, not a stable population estimate.",
+    "Pre-intervention cache states already differ; background reclamation and refill are not independently isolated.",
+    "Guest device reads may be served by host caches; not host physical-disk reads.",
+    "Endpoint counters cover both-suffix wall window and include guest monitors and boundary probes.",
+    "Physical curves select guest metadata intervals inside the endpoint window; host reads can extend beyond that interval. Unknown capacity remains separate.",
+    "Full cache sampling is enabled equally but its workload-dependent cost is included.",
+    "One-shot initial state intervention; no continuous cache-capacity limit."
+  ],
+  "verification": {
+    "status": "PASS",
+    "related_offline_tests": 49,
+    "report_regression_tests": 3,
+    "successful_tasks_reused_after_checker_repair": 2,
+    "actual_live_runs": 4,
+    "task_reruns": 0,
+    "missing_query_results": 0,
+    "queries": 456,
+    "original_service_and_12_vmm_unchanged": true,
+    "owned_resources_released": true,
+    "input_metadata_files_unchanged": 48,
+    "same_kernel_provider_seed": true,
+    "same_actions_exits_patches_and_original_official_results": true,
+    "source_candidate_equal": true,
+    "four_independent_query_maps_per_run": true
+  }
+}

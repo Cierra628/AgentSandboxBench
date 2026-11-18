@@ -1,0 +1,148 @@
+{
+  "status": "PASS_FILTERED_RESTORE_VALIDATION",
+  "new_actions": 70,
+  "new_prefix_actions": 0,
+  "new_snapshots": 0,
+  "workflow": ".artifacts/host-scaling/20261022T161046Z-397110",
+  "storage": ".artifacts/storage-isolated-service/20261022T161203Z-398657",
+  "stages": [
+    {
+      "sandboxes": 1,
+      "queried_objects": 3,
+      "selected_block_devices": 2,
+      "excluded_devices": 1,
+      "excluded_status": "NOT_REQUESTED",
+      "excluded_resident_bytes": null,
+      "objects": [
+        {
+          "category": "snapshot_memory_device",
+          "object_key": [
+            "block",
+            66306
+          ],
+          "mapping_length": 4294967296,
+          "resident_bytes": 423362560,
+          "query_ns": 185048890
+        },
+        {
+          "category": "shared_readonly_backing",
+          "object_key": [
+            "block",
+            66304
+          ],
+          "mapping_length": 68719476736,
+          "resident_bytes": 348160,
+          "query_ns": 1573100530
+        },
+        {
+          "category": "snapshot_memory_layer",
+          "object_key": [
+            "regular",
+            1795,
+            1048783
+          ],
+          "mapping_length": 582438912,
+          "resident_bytes": 582438912,
+          "query_ns": 16994428
+        }
+      ],
+      "query_ns": 1787648095,
+      "query_thread_cpu_ns": 1783568594
+    },
+    {
+      "sandboxes": 7,
+      "queried_objects": 3,
+      "selected_block_devices": 2,
+      "excluded_devices": 7,
+      "excluded_status": "NOT_REQUESTED",
+      "excluded_resident_bytes": null,
+      "objects": [
+        {
+          "category": "snapshot_memory_device",
+          "object_key": [
+            "block",
+            66306
+          ],
+          "mapping_length": 4294967296,
+          "resident_bytes": 454082560,
+          "query_ns": 148738972
+        },
+        {
+          "category": "shared_readonly_backing",
+          "object_key": [
+            "block",
+            66304
+          ],
+          "mapping_length": 68719476736,
+          "resident_bytes": 10825728,
+          "query_ns": 1562354234
+        },
+        {
+          "category": "snapshot_memory_layer",
+          "object_key": [
+            "regular",
+            1795,
+            1048783
+          ],
+          "mapping_length": 582438912,
+          "resident_bytes": 582438912,
+          "query_ns": 17008807
+        }
+      ],
+      "query_ns": 1830274843,
+      "query_thread_cpu_ns": 1809743979
+    }
+  ],
+  "comparison": [
+    {
+      "sandboxes": 1,
+      "old_ns": 3342921945,
+      "new_ns": 1787648095,
+      "saved_ns": 1555273850,
+      "reduction_fraction": 0.465243842239936,
+      "old_objects": 4,
+      "new_objects": 3,
+      "old_query_thread_cpu_ns": 3338406326,
+      "new_query_thread_cpu_ns": 1783568594
+    },
+    {
+      "sandboxes": 7,
+      "old_ns": 12453601872,
+      "new_ns": 1830274843,
+      "saved_ns": 10623327029,
+      "reduction_fraction": 0.8530324911771036,
+      "old_objects": 10,
+      "new_objects": 3,
+      "old_query_thread_cpu_ns": 12424149757,
+      "new_query_thread_cpu_ns": 1809743979
+    }
+  ],
+  "query_total": {
+    "old_ns": 15796523817,
+    "new_ns": 3617922938,
+    "saved_ns": 12178600879,
+    "reduction_fraction": 0.7709671456889495
+  },
+  "timings": {
+    "tool_ns": 12584067680,
+    "task_elapsed_ns": 17123576825
+  },
+  "host_samples": 1822,
+  "guest_samples": 1300,
+  "host_max_sample_gap_ns": 100119281,
+  "baseline_dirty_bytes": 847872,
+  "file_stage_delta_bytes": [
+    427380736,
+    450023424,
+    468713472,
+    494010368
+  ],
+  "original_official_per_guest": {
+    "passed": 0,
+    "failed": 2,
+    "status": "FAIL_PRESERVED"
+  },
+  "source_returned_to_stopped": true,
+  "common_import_layer_reference": "NOT_MULTIPLIED",
+  "scope": "One filtered restore sequence versus one earlier full device query sequence. Same effective config and imported checkpoint, default reclaim. Object identities checked within each run, not equated across device lifetimes. Timing comparisons are query costs, not isolated task speedup or whole RAM savings."
+}

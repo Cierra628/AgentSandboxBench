@@ -1,4 +1,120 @@
 {
+  "status": "PASS_OFFLINE_SCOPE",
+  "live_control": "NOT_RUN",
+  "scope": "Saved cold-prefix metadata; no file payload reads, new cache queries or service operations.",
+  "rounds": 5,
+  "checkpoints": [
+    {
+      "round": 1,
+      "sandboxes": 1,
+      "objects": 19,
+      "all_pages_resident": true,
+      "all_users_confirmed": true,
+      "source": ".artifacts/host-sharing-reference-20261024/analysis.json",
+      "storage": ".artifacts/storage-isolated-service/20261024T052045Z-746827",
+      "payload_bytes": 5565854720,
+      "resident_bytes": 5565911040
+    },
+    {
+      "round": 1,
+      "sandboxes": 7,
+      "objects": 19,
+      "all_pages_resident": true,
+      "all_users_confirmed": true,
+      "source": ".artifacts/host-sharing-reference-20261024/analysis.json",
+      "storage": ".artifacts/storage-isolated-service/20261024T052045Z-746827",
+      "payload_bytes": 5565854720,
+      "resident_bytes": 5565911040
+    },
+    {
+      "round": 2,
+      "sandboxes": 1,
+      "objects": 19,
+      "all_pages_resident": true,
+      "all_users_confirmed": true,
+      "source": ".artifacts/host-sharing-reference-repeats-20261024/round-2/analysis.json",
+      "storage": ".artifacts/storage-isolated-service/20261024T055519Z-757177",
+      "payload_bytes": 5565854720,
+      "resident_bytes": 5565911040
+    },
+    {
+      "round": 2,
+      "sandboxes": 7,
+      "objects": 19,
+      "all_pages_resident": true,
+      "all_users_confirmed": true,
+      "source": ".artifacts/host-sharing-reference-repeats-20261024/round-2/analysis.json",
+      "storage": ".artifacts/storage-isolated-service/20261024T055519Z-757177",
+      "payload_bytes": 5565854720,
+      "resident_bytes": 5565911040
+    },
+    {
+      "round": 3,
+      "sandboxes": 1,
+      "objects": 19,
+      "all_pages_resident": true,
+      "all_users_confirmed": true,
+      "source": ".artifacts/host-sharing-reference-repeats-20261024/round-3/analysis.json",
+      "storage": ".artifacts/storage-isolated-service/20261024T060040Z-764052",
+      "payload_bytes": 5565854720,
+      "resident_bytes": 5565911040
+    },
+    {
+      "round": 3,
+      "sandboxes": 7,
+      "objects": 19,
+      "all_pages_resident": true,
+      "all_users_confirmed": true,
+      "source": ".artifacts/host-sharing-reference-repeats-20261024/round-3/analysis.json",
+      "storage": ".artifacts/storage-isolated-service/20261024T060040Z-764052",
+      "payload_bytes": 5565854720,
+      "resident_bytes": 5565911040
+    },
+    {
+      "round": 4,
+      "sandboxes": 1,
+      "objects": 19,
+      "all_pages_resident": true,
+      "all_users_confirmed": true,
+      "source": ".artifacts/host-sharing-reference-repeats-20261024/round-4/analysis.json",
+      "storage": ".artifacts/storage-isolated-service/20261024T060606Z-770974",
+      "payload_bytes": 5565854720,
+      "resident_bytes": 5565911040
+    },
+    {
+      "round": 4,
+      "sandboxes": 7,
+      "objects": 19,
+      "all_pages_resident": true,
+      "all_users_confirmed": true,
+      "source": ".artifacts/host-sharing-reference-repeats-20261024/round-4/analysis.json",
+      "storage": ".artifacts/storage-isolated-service/20261024T060606Z-770974",
+      "payload_bytes": 5565854720,
+      "resident_bytes": 5565911040
+    },
+    {
+      "round": 5,
+      "sandboxes": 1,
+      "objects": 19,
+      "all_pages_resident": true,
+      "all_users_confirmed": true,
+      "source": ".artifacts/host-sharing-reference-repeats-20261024/round-5/analysis.json",
+      "storage": ".artifacts/storage-isolated-service/20261024T061127Z-777910",
+      "payload_bytes": 5565854720,
+      "resident_bytes": 5565911040
+    },
+    {
+      "round": 5,
+      "sandboxes": 7,
+      "objects": 19,
+      "all_pages_resident": true,
+      "all_users_confirmed": true,
+      "source": ".artifacts/host-sharing-reference-repeats-20261024/round-5/analysis.json",
+      "storage": ".artifacts/storage-isolated-service/20261024T061127Z-777910",
+      "payload_bytes": 5565854720,
+      "resident_bytes": 5565911040
+    }
+  ],
   "ordered_rootfs_manifest": [
     {
       "index": 0,
@@ -171,5 +287,21 @@
       },
       "size": 67949568
     }
-  ]
+  ],
+  "proposed_control": {
+    "sandboxes_per_group": 2,
+    "services_per_group": 2,
+    "actions_per_guest": 11,
+    "actions_per_pair": 44,
+    "shared_unique_files": 19,
+    "private_unique_files": 38,
+    "single_set_payload_bytes": 5565854720,
+    "private_sets_payload_bytes": 11131709440,
+    "single_set_page_capacity_bytes": 5565911040,
+    "capacity_difference_if_both_fully_resident_bytes": 5565911040,
+    "caveat": "Capacity illustration only, not an observed private-copy result.",
+    "concurrent_volume_capacity_bytes": 34359738368,
+    "minimum_available_bytes_exclusive": 62277025792,
+    "outcome": "Direct private-minus-shared target residency, before guests and after equal prefixes; keep preparation and runtime changes separate."
+  }
 }

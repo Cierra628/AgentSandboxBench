@@ -1,0 +1,78 @@
+{
+  "status": "PASS_OFFLINE_IMPLEMENTATION",
+  "new_services": 0,
+  "new_sandboxes": 0,
+  "new_task_actions": 0,
+  "real_target_residency_queries": 0,
+  "real_target_cache_advice": 0,
+  "live_validation": "NOT_RUN",
+  "explicit_option": "--rootfs-cold-read",
+  "periodic_gap_after_query_seconds": 5,
+  "tests": [
+    {
+      "module": "test_host_grpo_cold_read",
+      "count": 14,
+      "status": "PASS",
+      "log": ".artifacts/host-grpo-cold-implementation-20261026/new-tests-final.log"
+    },
+    {
+      "module": "test_host_cold_file_read",
+      "count": 7,
+      "status": "PASS",
+      "log": ".artifacts/host-grpo-cold-implementation-20261026/host_cold_file_read-tests.log"
+    },
+    {
+      "module": "test_host_private_files",
+      "count": 14,
+      "status": "PASS",
+      "log": ".artifacts/host-grpo-cold-implementation-20261026/host_private_files-tests.log"
+    },
+    {
+      "module": "test_host_full_rootfs_control",
+      "count": 11,
+      "status": "PASS",
+      "log": ".artifacts/host-grpo-cold-implementation-20261026/host_full_rootfs_control-tests.log"
+    },
+    {
+      "module": "test_host_bpo_rootfs_control",
+      "count": 3,
+      "status": "PASS",
+      "log": ".artifacts/host-grpo-cold-implementation-20261026/host_bpo_rootfs_control-tests.log"
+    },
+    {
+      "module": "test_host_query_control",
+      "count": 8,
+      "status": "PASS",
+      "log": ".artifacts/host-grpo-cold-implementation-20261026/host_query_control-tests.log"
+    }
+  ],
+  "distinct_test_count": 57,
+  "unchanged_functions": {
+    "run_prettier6604_grpo.py:joined": true,
+    "run_prettier6604_grpo.py:execution_paths": true,
+    "run_prettier6604_grpo.py:start": true,
+    "run_prettier6604_grpo.py:verify_path": true,
+    "host_full_rootfs_control.py:prepare": true,
+    "host_full_rootfs_control.py:prepared_objects": true,
+    "validate_isolated_agentenv.py:prettier_capacity": true,
+    "do_grpo_after_removing_new_stage_mark": true
+  },
+  "scope": "Mocked cache advice/mincore/services, tiny temporary files, actual GRPO coroutine body with fake operations and controlled local threads; no live speed measurement",
+  "acceptance": {
+    "targets_and_unique_identities": "PASS_19_AND_133",
+    "zero_initial_residency": "PASS_MOCKED_NONZERO_REJECTED",
+    "seven_way_dispatch_during_inflight_query": "PASS_ACTUAL_METHOD_WITH_FAKE_GUESTS",
+    "serial_queries_and_end_based_gap": "PASS_CONTROLLED_THREAD",
+    "stopping_and_timeout_cleanup_guard": "PASS",
+    "live_p1_inventory_and_postcheck": "PASS_MOCKED_19_AND_133",
+    "cold_warm_comparison_rejected": "PASS",
+    "argument_chain_and_report": "PASS",
+    "old_defaults": "PASS_RELEVANT_REGRESSIONS"
+  },
+  "cost_definitions": {
+    "worker_cpu": "Full worker lifetime, overlaps periodic query and data write CPU",
+    "query_cpu": "P0, periodic, P1 query calling-thread CPU",
+    "write_cpu": "Separate data/event writes before final receipt",
+    "stop": "Wall and calling-thread CPU waiting for worker exit; not task slowdown"
+  }
+}

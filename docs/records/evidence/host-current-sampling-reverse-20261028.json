@@ -1,0 +1,249 @@
+{
+  "status": "PASS_ONE_COMPLETE_CURRENT_SAMPLING_PAIR",
+  "task": "prettier__prettier-6604",
+  "order": [
+    "on",
+    "off"
+  ],
+  "guests": 2,
+  "actions": 58,
+  "interval_seconds": 0.1,
+  "pss": "NOT_REQUESTED",
+  "mincore": "NOT_REQUESTED",
+  "default_reclaim_unchanged": true,
+  "same_patch_order_exits_and_official_outcome": true,
+  "source_restored_stopped": true,
+  "runs": [
+    {
+      "mode": "off",
+      "workflow": ".artifacts/platform-tasks/20261028T130417Z-2244244",
+      "storage": ".artifacts/storage-isolated-service/20261028T130533Z-2245020",
+      "report": ".artifacts/platform-tasks/report-20261028T130417Z-2244244",
+      "tools_seconds": 12.056245354,
+      "frozen_replay_seconds": 13.756671335,
+      "controller_seconds": 24.477734819,
+      "cold_start_seconds": 3.583075908,
+      "controller_after_cold_start_seconds": 20.894658910999997,
+      "outer_entry_seconds": 109.912679648,
+      "seed_preparation_seconds": 74.679300074,
+      "native_task_command_seconds": 24.606504888,
+      "native_report_seconds": 0,
+      "monitor_control_calls": [],
+      "monitor_control_seconds": 0.0,
+      "guest_samples": null,
+      "guest_collector_cpu_seconds": null,
+      "guest_maximum_gap_seconds": null,
+      "guest_used_peak_mib": null,
+      "guest_cached_peak_mib": null,
+      "guest_collector_receipt": null,
+      "host_samples": null,
+      "host_current": null,
+      "host_collector": null,
+      "original_tests": {
+        "passed": 0,
+        "failed": 2
+      },
+      "official_task_status": "FAIL",
+      "task_checks": {
+        "smoke_and_unfixed_oracle": "PASS",
+        "frozen_order_hashes_exit_codes_patch_and_key_outputs": "PASS",
+        "independent_properties": "PASS",
+        "official_task_tests": "FAIL",
+        "official_outcome_matches_full_replay": "PASS"
+      },
+      "cleanup": {
+        "owned_container_removed": true,
+        "mount_and_loop_removed": true,
+        "successful_fixture_removed": true,
+        "original_firecracker_identities_unchanged": true,
+        "original_service_unchanged": true
+      },
+      "io_accounting_checked": true,
+      "host_sampling": "off",
+      "host_creation_baseline_measured": false,
+      "available_before_bytes": 41542209536,
+      "available_after_bytes": 41538060288,
+      "native_min_available_bytes": 32948789248
+    },
+    {
+      "mode": "on",
+      "workflow": ".artifacts/platform-tasks/20261028T130223Z-2241966",
+      "storage": ".artifacts/storage-isolated-service/20261028T130341Z-2242685",
+      "report": ".artifacts/platform-tasks/report-20261028T130223Z-2241966",
+      "tools_seconds": 11.099117656,
+      "frozen_replay_seconds": 13.239599587,
+      "controller_seconds": 25.994824059,
+      "cold_start_seconds": 5.287651074,
+      "controller_after_cold_start_seconds": 20.707172985,
+      "outer_entry_seconds": 114.28529455,
+      "seed_preparation_seconds": 76.213804927,
+      "native_task_command_seconds": 26.103969987,
+      "native_report_seconds": 0.655914492,
+      "monitor_control_calls": [
+        {
+          "stage": "monitor-upload-bundle",
+          "duration_ns": 44969983
+        },
+        {
+          "stage": "monitor-ready",
+          "duration_ns": 163855021
+        },
+        {
+          "stage": "monitor-phase",
+          "duration_ns": 34855812
+        },
+        {
+          "stage": "monitor-finish",
+          "duration_ns": 172795072
+        },
+        {
+          "stage": "monitor-download",
+          "duration_ns": 38666295
+        }
+      ],
+      "monitor_control_seconds": 0.455142183,
+      "guest_samples": 202,
+      "guest_collector_cpu_seconds": 0.16605999999999999,
+      "guest_maximum_gap_seconds": 0.108363,
+      "guest_used_peak_mib": 537.52734375,
+      "guest_cached_peak_mib": 233.6796875,
+      "guest_collector_receipt": {
+        "status": "PASS",
+        "profile": "light",
+        "samples": 202,
+        "interval_seconds": 0.1,
+        "elapsed_ns": 20182963191,
+        "cpu_user_seconds": 0.11444599999999999,
+        "cpu_system_seconds": 0.051614,
+        "maxrss_kib": 17112
+      },
+      "host_samples": 1121,
+      "host_current": {
+        "metric": "memory.current",
+        "unit": "bytes",
+        "scope": "Measurement cgroup and descendants: preparation, controller, private service and all sandboxes.",
+        "window_start_monotonic_ns": 14962776020338174,
+        "window_end_monotonic_ns": 14962888054201602,
+        "initial_bytes": 44470272,
+        "final_bytes": 15073812480,
+        "observed_peak_bytes": 16229744640,
+        "time_weighted_mean_bytes": 9011941706.57395,
+        "mean_method": "Previous sample held until next sample; first-to-last sample only, including recorded gaps. Estimate, not a continuous integral.",
+        "before_guest_bytes": 15356518400,
+        "baseline_status": "OBSERVED_BEFORE_GUEST",
+        "after_service_ready_observed_peak_bytes": 16229744640,
+        "after_service_ready_peak_increase_bytes": 873226240,
+        "final_increase_from_before_guest_bytes": -282705920,
+        "interpretation": "Charged group memory, not complete sandbox physical memory. Before-guest baseline includes prepared inputs and service; increases include subsequent control and service work. Peaks are sampled, final sample may be after guest deletion.",
+        "coverage": {
+          "outside_group_charges": "NOT_INCLUDED",
+          "unaccounted_kernel_allocations": "NOT_INCLUDED",
+          "swap_bytes": "NOT_MEASURED",
+          "hugetlb_coverage": "NOT_VERIFIED"
+        },
+        "components": "anon/file/kernel explain current; shmem is part of file. Counters are sequential and may lag: do not add them to current or label their residual unaccounted memory."
+      },
+      "host_collector": {
+        "status": "PASS",
+        "error": null,
+        "samples": 1121,
+        "interval_seconds": 0.1,
+        "pss_interval_seconds": null,
+        "thread_cpu_ns": 352636481,
+        "counter_read_total_ns": 282040058,
+        "scope": "Fresh rollout slice: input preparation, controller, private service and all its descendants; host file includes shmem, not guest Cached."
+      },
+      "original_tests": {
+        "passed": 0,
+        "failed": 2
+      },
+      "official_task_status": "FAIL",
+      "task_checks": {
+        "smoke_and_unfixed_oracle": "PASS",
+        "frozen_order_hashes_exit_codes_patch_and_key_outputs": "PASS",
+        "independent_properties": "PASS",
+        "official_task_tests": "FAIL",
+        "official_outcome_matches_full_replay": "PASS"
+      },
+      "cleanup": {
+        "owned_container_removed": true,
+        "mount_and_loop_removed": true,
+        "successful_fixture_removed": true,
+        "original_firecracker_identities_unchanged": true,
+        "original_service_unchanged": true
+      },
+      "io_accounting_checked": true,
+      "host_sampling": "on",
+      "host_creation_baseline_measured": true,
+      "available_before_bytes": 41547141120,
+      "available_after_bytes": 41542217728,
+      "native_min_available_bytes": 32954109952
+    }
+  ],
+  "comparison": {
+    "tools_seconds": {
+      "off": 12.056245354,
+      "on": 11.099117656,
+      "difference_seconds": -0.957127697999999,
+      "change_percent": -7.938853846255256
+    },
+    "frozen_replay_seconds": {
+      "off": 13.756671335,
+      "on": 13.239599587,
+      "difference_seconds": -0.5170717479999993,
+      "change_percent": -3.7586981284088328
+    },
+    "controller_seconds": {
+      "off": 24.477734819,
+      "on": 25.994824059,
+      "difference_seconds": 1.5170892400000007,
+      "change_percent": 6.197833464648905
+    },
+    "cold_start_seconds": {
+      "off": 3.583075908,
+      "on": 5.287651074,
+      "difference_seconds": 1.7045751660000001,
+      "change_percent": 47.57295713981844
+    },
+    "controller_after_cold_start_seconds": {
+      "off": 20.894658910999997,
+      "on": 20.707172985,
+      "difference_seconds": -0.18748592599999725,
+      "change_percent": -0.8972911536799244
+    },
+    "outer_entry_seconds": {
+      "off": 109.912679648,
+      "on": 114.28529455,
+      "difference_seconds": 4.372614902000009,
+      "change_percent": 3.978262486187667
+    },
+    "seed_preparation_seconds": {
+      "off": 74.679300074,
+      "on": 76.213804927,
+      "difference_seconds": 1.5345048530000014,
+      "change_percent": 2.0547927624916973
+    },
+    "native_task_command_seconds": {
+      "off": 24.606504888,
+      "on": 26.103969987,
+      "difference_seconds": 1.4974650989999994,
+      "change_percent": 6.085647294550456
+    },
+    "native_report_seconds": {
+      "off": 0,
+      "on": 0.655914492,
+      "difference_seconds": 0.655914492,
+      "change_percent": null
+    }
+  },
+  "launch_checker_status": "PASS",
+  "scope": "One pair with fresh accounting groups and identical preparation/checks; signed timing differences, not a repeated estimate",
+  "limitations": [
+    "current covers the charged group, not all physical memory",
+    "one off/on pair; startup and host variation remain",
+    "seed preparation excludes archive validation before its timer",
+    "collector CPU excludes runner boundary commands"
+  ],
+  "date": "2026-10-28",
+  "result_directory": "results/host-current-sampling-reverse-20261028"
+}

@@ -1,0 +1,204 @@
+{
+  "status": "PASS",
+  "live_workflow_status": "PASS",
+  "task_actions": 22,
+  "guests": 2,
+  "same_group_and_service": true,
+  "old_guest_identity_continuous": true,
+  "official_evaluation": "NOT_RUN_PREFIX_ONLY",
+  "baseline_counters_mib": {
+    "current": 7652.078125,
+    "file": 7328.6875,
+    "anon": 122.41015625,
+    "shmem": 0.0,
+    "kernel": 175.97265625,
+    "file_mapped": 0.32421875,
+    "file_dirty": 0.86328125,
+    "file_writeback": 0.0
+  },
+  "phases": [
+    {
+      "sandboxes": 1,
+      "samples": 50,
+      "window_seconds": 5.006012002,
+      "sample_mean_mib": 8219.590390625,
+      "sample_peak_mib": 8235.94140625,
+      "endpoint_counters_mib": {
+        "current": 8215.84375,
+        "file": 7350.59765625,
+        "anon": 655.5546875,
+        "shmem": 0.0078125,
+        "kernel": 183.06640625,
+        "file_mapped": 3.125,
+        "file_dirty": 10.40234375,
+        "file_writeback": 0.0
+      },
+      "baseline_delta_mib": {
+        "current": 563.765625,
+        "file": 21.91015625,
+        "anon": 533.14453125,
+        "shmem": 0.0078125,
+        "kernel": 7.09375,
+        "file_mapped": 2.80078125,
+        "file_dirty": 9.5390625,
+        "file_writeback": 0.0
+      },
+      "previous_endpoint_delta_mib": {
+        "current": 563.765625,
+        "file": 21.91015625,
+        "anon": 533.14453125,
+        "shmem": 0.0078125,
+        "kernel": 7.09375,
+        "file_mapped": 2.80078125,
+        "file_dirty": 9.5390625,
+        "file_writeback": 0.0
+      },
+      "guest_cached_mib": {
+        "backbone": 55.26953125
+      },
+      "guest_cached_at_observation_start_mib": {
+        "backbone": 186.30859375
+      },
+      "old_guest_cached_change_mib": {}
+    },
+    {
+      "sandboxes": 2,
+      "samples": 50,
+      "window_seconds": 5.00648589,
+      "sample_mean_mib": 8740.24546875,
+      "sample_peak_mib": 8752.2890625,
+      "endpoint_counters_mib": {
+        "current": 8736.41015625,
+        "file": 7360.234375,
+        "anon": 1161.08203125,
+        "shmem": 0.015625,
+        "kernel": 189.30859375,
+        "file_mapped": 3.234375,
+        "file_dirty": 19.75390625,
+        "file_writeback": 0.0
+      },
+      "baseline_delta_mib": {
+        "current": 1084.33203125,
+        "file": 31.546875,
+        "anon": 1038.671875,
+        "shmem": 0.015625,
+        "kernel": 13.3359375,
+        "file_mapped": 2.91015625,
+        "file_dirty": 18.890625,
+        "file_writeback": 0.0
+      },
+      "previous_endpoint_delta_mib": {
+        "current": 520.56640625,
+        "file": 9.63671875,
+        "anon": 505.52734375,
+        "shmem": 0.0078125,
+        "kernel": 6.2421875,
+        "file_mapped": 0.109375,
+        "file_dirty": 9.3515625,
+        "file_writeback": 0.0
+      },
+      "guest_cached_mib": {
+        "backbone": 12.83984375,
+        "early_1": 53.36328125
+      },
+      "guest_cached_at_observation_start_mib": {
+        "backbone": 12.8046875,
+        "early_1": 183.16015625
+      },
+      "old_guest_cached_change_mib": {
+        "backbone": -42.4296875
+      }
+    }
+  ],
+  "second_phase_mean_increase_mib": 520.6550781249989,
+  "costs": {
+    "host": {
+      "status": "PASS",
+      "error": null,
+      "samples": 545,
+      "interval_seconds": 0.1,
+      "pss_interval_seconds": null,
+      "thread_cpu_ns": 170024147,
+      "counter_read_total_ns": 136278898,
+      "scope": "Fresh rollout slice: input preparation, controller, private service and all its descendants; host file includes shmem, not guest Cached.",
+      "single_core_cpu_percent": 0.3125826501847494
+    },
+    "host_elapsed_seconds": 54.393341057,
+    "guest": [
+      {
+        "role": "backbone",
+        "samples": 226,
+        "elapsed_ns": 22603107855,
+        "cpu_seconds": 0.16298200000000002,
+        "median_gap_seconds": 0.100438864,
+        "max_gap_seconds": 0.101380345,
+        "single_core_cpu_percent": 0.721060134940457
+      },
+      {
+        "role": "early_1",
+        "samples": 92,
+        "elapsed_ns": 9050601279,
+        "cpu_seconds": 0.114345,
+        "median_gap_seconds": 0.100464379,
+        "max_gap_seconds": 0.101187115,
+        "single_core_cpu_percent": 1.2633967233239334
+      }
+    ],
+    "guest_cpu_sum_seconds": 0.277327,
+    "checkpoint_total_seconds": 0.279451092,
+    "checkpoint_cli_sum_seconds": 0.324959527,
+    "sampler_management_calls": 8,
+    "sampler_management_sum_seconds": 0.942121285
+  },
+  "timing": {
+    "tool_seconds": 1.479711748,
+    "controller_seconds": 27.553833872,
+    "sequence_seconds": 27.048925108,
+    "workflow_seconds": 55.517392357,
+    "grouped_workflow_excludes_external_restore": true,
+    "outer_launch_seconds": 174.255153957
+  },
+  "final_checks": {
+    "actual_writable_files_inside_volume": "PASS",
+    "readonly_root_rejects_write": "PASS",
+    "fixed_backing_allocation": "PASS"
+  },
+  "cleanup": {
+    "guests_and_owned_service_removed": true,
+    "mount_and_loop_removed": true,
+    "preparation_cache_released": true,
+    "source_stopped": true,
+    "successful_volume_removed": true
+  },
+  "disk_available_after_gib": 54.73149871826172,
+  "scope": "同组准备及服务基线下的host内存记账；新增量包含已有guest回收和服务变化，不是第二个guest独占物理量或共享节省率。",
+  "raw_workflow": ".artifacts/host-scaling/20261029T073954Z-2408974",
+  "raw_storage": ".artifacts/storage-isolated-service/20261029T074012Z-2409216",
+  "persistent_input": {
+    "profile": "host-persistent-input-v1",
+    "file_count": 105,
+    "new_inode_provenance": true,
+    "imported_logical_mib": 7026.38920211792,
+    "resident_mib": 7026.6953125,
+    "shortfall_mib": 0.0,
+    "file_before_mib": 7360.2578125,
+    "file_after_mib": 7360.2578125,
+    "query_wall_seconds": 0.178368764,
+    "query_thread_cpu_seconds": 0.176850086,
+    "query_after_both_windows": true,
+    "ownership": "NOT_QUERIED",
+    "source_scratch_removed": true,
+    "input_removed": true,
+    "import_seconds": 17.409793959,
+    "source_prepare_seconds": 117.842103661,
+    "ownership_interpretation": "新文件在组内首次填充，驻留量不大于组内file；未逐页查询归属，不是整host覆盖证明。"
+  },
+  "measurement_scope": "Fresh imported plain files, controller, private service and guests; archive restoration is outside this group and its scratch is removed before the baseline.",
+  "receipt_only_fix": {
+    "status": "PASS",
+    "toy_tests": 15,
+    "live_rerun": false,
+    "original_receipt_preserved": true,
+    "note": "真实流程全部通过。重复释放重写结束时间的问题已离线修正；原始收据保留。"
+  }
+}

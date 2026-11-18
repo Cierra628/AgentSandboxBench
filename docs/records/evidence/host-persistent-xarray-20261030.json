@@ -1,0 +1,178 @@
+{
+  "status": "PASS_ONE_FULL_PERSISTENT_CURRENT_XARRAY6992",
+  "task_id": "pydata__xarray-6992",
+  "actions": 35,
+  "cpu": 2,
+  "memory_mib": 4096,
+  "workflow": ".artifacts/platform-tasks/20261029T170301Z-2515411",
+  "storage": ".artifacts/storage-isolated-service/20261029T170335Z-2515789",
+  "raw": ".artifacts/storage-isolated-service/20261029T170335Z-2515789/python-backbone",
+  "report": ".artifacts/platform-tasks/report-20261029T170301Z-2515411",
+  "tool_seconds": 34.265585295,
+  "frozen_replay_seconds": 36.963530149,
+  "controller_seconds": 88.822086554,
+  "original_official": {
+    "passed": 945,
+    "failed": 12,
+    "skipped": 0
+  },
+  "task_replay_checks": "PASS_APPROVED_DIAGNOSTIC_RULES",
+  "guest_samples": 851,
+  "guest_used_peak_mib": 685.47265625,
+  "guest_cached_peak_mib": 301.046875,
+  "guest_maximum_gap_seconds": 0.107150109,
+  "guest_collector_cpu_seconds": 0.446471,
+  "guest_collector_elapsed_ns": 85304748643,
+  "guest_collector_maxrss_kib": 17644,
+  "monitor_control_calls": [
+    {
+      "stage": "monitor-upload-bundle",
+      "duration_ns": 42079042
+    },
+    {
+      "stage": "monitor-ready",
+      "duration_ns": 234700511
+    },
+    {
+      "stage": "monitor-phase",
+      "duration_ns": 126571261
+    },
+    {
+      "stage": "monitor-finish",
+      "duration_ns": 239150799
+    },
+    {
+      "stage": "monitor-download",
+      "duration_ns": 37871508
+    }
+  ],
+  "monitor_control_total_ns": 680373121,
+  "host_samples": 1342,
+  "host_maximum_gap_ns": 100175515,
+  "host_current": {
+    "metric": "memory.current",
+    "unit": "bytes",
+    "scope": "Measurement cgroup and descendants: preparation, controller, private service and all sandboxes.",
+    "window_start_monotonic_ns": 15063614409546991,
+    "window_end_monotonic_ns": 15063748579749582,
+    "initial_bytes": 44707840,
+    "final_bytes": 11199713280,
+    "observed_peak_bytes": 12842250240,
+    "time_weighted_mean_bytes": 11256516214.253674,
+    "mean_method": "Previous sample held until next sample; first-to-last sample only, including recorded gaps. Estimate, not a continuous integral.",
+    "before_guest_bytes": 11592536064,
+    "baseline_status": "OBSERVED_BEFORE_GUEST",
+    "after_service_ready_observed_peak_bytes": 12842250240,
+    "after_service_ready_peak_increase_bytes": 1249714176,
+    "final_increase_from_before_guest_bytes": -392822784,
+    "interpretation": "Charged group memory, not complete sandbox physical memory. Before-guest baseline includes prepared inputs and service; increases include subsequent control and service work. Peaks are sampled, final sample may be after guest deletion.",
+    "coverage": {
+      "outside_group_charges": "NOT_INCLUDED",
+      "unaccounted_kernel_allocations": "NOT_INCLUDED",
+      "swap_bytes": "NOT_MEASURED",
+      "hugetlb_coverage": "NOT_VERIFIED"
+    },
+    "components": "anon/file/kernel explain current; shmem is part of file. Counters are sequential and may lag: do not add them to current or label their residual unaccounted memory."
+  },
+  "host_collector": {
+    "status": "PASS",
+    "error": null,
+    "samples": 1342,
+    "interval_seconds": 0.1,
+    "pss_interval_seconds": null,
+    "thread_cpu_ns": 392995293,
+    "counter_read_total_ns": 313087117,
+    "scope": "Fresh rollout slice: input preparation, controller, private service and all its descendants; host file includes shmem, not guest Cached.",
+    "sample_span_seconds": 134.170202591,
+    "single_core_cpu_percent": 0.29290802682768086
+  },
+  "pss": "NOT_REQUESTED",
+  "mincore": "IMPORTED_INPUTS_ONCE_AFTER_RUNTIME_CLEANUP",
+  "default_reclaim_unchanged": true,
+  "new_model_requests": 0,
+  "checkpoint": false,
+  "completed": {
+    "original_35_actions": true,
+    "expected_patch_and_outputs": true,
+    "original_official_outcome": true,
+    "guest_sampling": true,
+    "host_sampling": true,
+    "automatic_reports": true,
+    "final_writable_files": true,
+    "fixed_volume_boundary": true,
+    "owned_cleanup": true
+  },
+  "matched_executed_sources": [
+    "platform_tasks.py",
+    "use_platform.py",
+    "run_host_file_workflow.py",
+    "host_file_monitor.py",
+    "report_host_file.py",
+    "host_persistent_input.py",
+    "validate_isolated_agentenv.py",
+    "run_xarray6992.py",
+    "sandbox_runtime_monitor.py",
+    "report_task_overview.py",
+    "report_sandbox_runtime.py",
+    "agentenv_cold_start.py",
+    "xarray6992_inputs.py"
+  ],
+  "available_start_bytes": 68031639552,
+  "available_min_bytes": 33617100800,
+  "available_after_bytes": 68028170240,
+  "source_restored_stopped": true,
+  "cleanup": {
+    "successful_runtime_and_input_removed": true,
+    "source_restored_stopped": true
+  },
+  "limitations": [
+    "current covers the charged experimental group, not complete sandbox physical memory",
+    "one run without an off/on timing control; no new slowdown or sharing/density estimate",
+    "collector CPU excludes task-runner boundary commands; control call time is not total sampling-induced slowdown"
+  ],
+  "strict_replay_status": "FAIL",
+  "diagnostic_status": "PASS",
+  "replay_policy": "xarray-approved-sigpipe",
+  "persistent_input": {
+    "profile": "host-persistent-input-v1",
+    "path_count": 116,
+    "unique_file_count": 116,
+    "logical_mib": 10388.305943489075,
+    "resident_mib": 10388.640625,
+    "file_before_mib": 10393.81640625,
+    "file_after_mib": 10393.81640625,
+    "shortfall_mib": 0.0,
+    "query_phase": "AFTER_ISOLATED_RUNTIME_CLEANUP",
+    "query_wall_seconds": 0.209626187,
+    "query_thread_cpu_seconds": 0.207771596,
+    "ownership": "NOT_QUERIED",
+    "source_prepare_seconds": 155.874777913,
+    "import_seconds": 33.909328424
+  },
+  "baseline_counters_mib": {
+    "current": 11055.50390625,
+    "file": 10689.41015625,
+    "anon": 78.46484375,
+    "shmem": 0.0,
+    "kernel": 266.390625,
+    "file_mapped": 0.32421875,
+    "file_dirty": 0.203125,
+    "file_writeback": 0.0
+  },
+  "measurement_scope": "Fresh imported plain files, controller, private service and guests; archive restoration is outside this group and its scratch is removed before the baseline.",
+  "workflow_seconds": 135.866940257,
+  "outer_launch_seconds": 292.661690748,
+  "guest_single_core_cpu_percent": 0.523383524484058,
+  "broad_mincore": "NOT_REQUESTED",
+  "strict_replay_scope": "historical strict failure retained; this mode never awards strict replay PASS",
+  "observed_exit_codes_status": "PASS",
+  "approved_exit_difference_count": 0,
+  "runtime_disk_min_available_bytes": 50796310528,
+  "offline_acceptance_correction": {
+    "first_check": "FileNotFoundError for Sphinx-only sphinx7590_inputs.py in Xarray executed-source snapshot",
+    "repair": "Explicitly check the 13 source files actually used by Xarray; all task, output, exit, patch, sampling and cleanup checks unchanged",
+    "runtime_repeated": false,
+    "first_log": ".artifacts/host-persistent-xarray-live-20261030/accept.log",
+    "corrected_log": ".artifacts/host-persistent-xarray-live-20261030/accept-corrected.log"
+  }
+}

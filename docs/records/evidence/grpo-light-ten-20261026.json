@@ -1,0 +1,4886 @@
+{
+  "status": "PASS_GRPO_LIGHT_REPEATS",
+  "pair_count": 10,
+  "run_count": 20,
+  "actual_actions": 3780,
+  "sample_count": 22497,
+  "definition": "Median and range of 10 signed (on/off-1)*100 paired changes; not a ratio of unpaired medians; sample standard deviation uses n-1; ten new pairs only, no outlier removal or pooling with old three",
+  "scope": "Guest-only seven-guest GRPO, .1 s sampling versus off, default reclaim, no host/PSS/physical queries",
+  "pairs": [
+    {
+      "pair": 1,
+      "directory": ".artifacts/grpo-light-ten-20261026/pair-01",
+      "order": [
+        "off",
+        "on"
+      ],
+      "runs": [
+        {
+          "mode": "off",
+          "actual_actions": 189,
+          "official": {
+            "backbone": {
+              "passed": 0,
+              "failed": 2
+            },
+            "early_1": {
+              "passed": 0,
+              "failed": 2
+            },
+            "early_2": {
+              "passed": 0,
+              "failed": 2
+            },
+            "early_3": {
+              "passed": 0,
+              "failed": 2
+            },
+            "late_1": {
+              "passed": 0,
+              "failed": 2
+            },
+            "late_2": {
+              "passed": 0,
+              "failed": 2
+            },
+            "late_3": {
+              "passed": 0,
+              "failed": 2
+            }
+          },
+          "sessions": [],
+          "timings_ns": {
+            "tool_sum": 60835978794,
+            "frozen_tools_and_downloads_span": 18087187867,
+            "cold_request_span": 3005262288,
+            "monitor_control_call_sum": 0,
+            "monitor_control_union": 0,
+            "cleanup": 262124080,
+            "controller": 28870286646,
+            "rollout": 28400888786
+          },
+          "minimum_free_disk_gib": 108.4416275024414,
+          "controller_phases_ns": {
+            "create_and_prepare": 5107924016,
+            "execution_and_download": 18088109555,
+            "post_path_checks": 5204855215,
+            "cleanup": 262124080,
+            "other": 207273780
+          },
+          "workflow": ".artifacts/platform-tasks/20261026T124336Z-1453413",
+          "storage": ".artifacts/storage-isolated-service/20261026T124455Z-1454430",
+          "raw": ".artifacts/storage-isolated-service/20261026T124455Z-1454430/prettier6604",
+          "report": ".artifacts/platform-tasks/report-20261026T124336Z-1453413",
+          "cold_requests": [
+            {
+              "role": "backbone",
+              "duration_ns": 2809449141,
+              "start_monotonic_ns": 14788945678729372,
+              "phases_ns": {
+                "before_create_log": 1859257800,
+                "create_to_launch_log": 938871000,
+                "launch_to_client_return": 11320341
+              },
+              "server_log_lines": {
+                "create": 23,
+                "launch": 46
+              }
+            },
+            {
+              "role": "early_1",
+              "duration_ns": 2789725998,
+              "start_monotonic_ns": 14788945679259575,
+              "phases_ns": {
+                "before_create_log": 1811350481,
+                "create_to_launch_log": 968832000,
+                "launch_to_client_return": 9543517
+              },
+              "server_log_lines": {
+                "create": 18,
+                "launch": 44
+              }
+            },
+            {
+              "role": "early_2",
+              "duration_ns": 3004464333,
+              "start_monotonic_ns": 14788945679527327,
+              "phases_ns": {
+                "before_create_log": 1840578769,
+                "create_to_launch_log": 1153711000,
+                "launch_to_client_return": 10174564
+              },
+              "server_log_lines": {
+                "create": 22,
+                "launch": 48
+              }
+            },
+            {
+              "role": "early_3",
+              "duration_ns": 2782220337,
+              "start_monotonic_ns": 14788945680314594,
+              "phases_ns": {
+                "before_create_log": 1869924628,
+                "create_to_launch_log": 901033000,
+                "launch_to_client_return": 11262709
+              },
+              "server_log_lines": {
+                "create": 24,
+                "launch": 43
+              }
+            },
+            {
+              "role": "late_1",
+              "duration_ns": 2971035362,
+              "start_monotonic_ns": 14788945680830117,
+              "phases_ns": {
+                "before_create_log": 1937396843,
+                "create_to_launch_log": 1021153000,
+                "launch_to_client_return": 12485519
+              },
+              "server_log_lines": {
+                "create": 29,
+                "launch": 47
+              }
+            },
+            {
+              "role": "late_2",
+              "duration_ns": 2796701730,
+              "start_monotonic_ns": 14788945681543182,
+              "phases_ns": {
+                "before_create_log": 1928239964,
+                "create_to_launch_log": 859067000,
+                "launch_to_client_return": 9394766
+              },
+              "server_log_lines": {
+                "create": 28,
+                "launch": 45
+              }
+            },
+            {
+              "role": "late_3",
+              "duration_ns": 2741371815,
+              "start_monotonic_ns": 14788945682272656,
+              "phases_ns": {
+                "before_create_log": 1806320461,
+                "create_to_launch_log": 924843000,
+                "launch_to_client_return": 10208354
+              },
+              "server_log_lines": {
+                "create": 17,
+                "launch": 42
+              }
+            }
+          ],
+          "cold_phase_sum_ns": {
+            "before_create_log": 13053068946,
+            "create_to_launch_log": 6767510000,
+            "launch_to_client_return": 74389770
+          },
+          "wall_minus_monotonic_offset_range_ns": 1598
+        },
+        {
+          "mode": "on",
+          "actual_actions": 189,
+          "official": {
+            "backbone": {
+              "passed": 0,
+              "failed": 2
+            },
+            "early_1": {
+              "passed": 0,
+              "failed": 2
+            },
+            "early_2": {
+              "passed": 0,
+              "failed": 2
+            },
+            "early_3": {
+              "passed": 0,
+              "failed": 2
+            },
+            "late_1": {
+              "passed": 0,
+              "failed": 2
+            },
+            "late_2": {
+              "passed": 0,
+              "failed": 2
+            },
+            "late_3": {
+              "passed": 0,
+              "failed": 2
+            }
+          },
+          "sessions": [
+            {
+              "role": "backbone",
+              "samples": 258,
+              "cpu_seconds": 0.197519,
+              "peak_rss_mib": 16.84375,
+              "max_gap_seconds": 0.105094093
+            },
+            {
+              "role": "late_1",
+              "samples": 257,
+              "cpu_seconds": 0.21264599999999997,
+              "peak_rss_mib": 16.1875,
+              "max_gap_seconds": 0.109148947
+            },
+            {
+              "role": "late_2",
+              "samples": 257,
+              "cpu_seconds": 0.197058,
+              "peak_rss_mib": 16.23828125,
+              "max_gap_seconds": 0.10255246
+            },
+            {
+              "role": "early_3",
+              "samples": 257,
+              "cpu_seconds": 0.18111299999999997,
+              "peak_rss_mib": 16.70703125,
+              "max_gap_seconds": 0.102578808
+            },
+            {
+              "role": "early_1",
+              "samples": 257,
+              "cpu_seconds": 0.18716999999999998,
+              "peak_rss_mib": 16.671875,
+              "max_gap_seconds": 0.101351954
+            },
+            {
+              "role": "late_3",
+              "samples": 256,
+              "cpu_seconds": 0.201337,
+              "peak_rss_mib": 16.09765625,
+              "max_gap_seconds": 0.104689518
+            },
+            {
+              "role": "early_2",
+              "samples": 255,
+              "cpu_seconds": 0.19801000000000002,
+              "peak_rss_mib": 16.51171875,
+              "max_gap_seconds": 0.104560006
+            }
+          ],
+          "timings_ns": {
+            "tool_sum": 59239418118,
+            "frozen_tools_and_downloads_span": 17901680997,
+            "cold_request_span": 2956283873,
+            "monitor_control_call_sum": 3449069475,
+            "monitor_control_union": 795944624,
+            "cleanup": 498490093,
+            "controller": 29084045144,
+            "rollout": 28382335870
+          },
+          "minimum_free_disk_gib": 108.4371452331543,
+          "controller_phases_ns": {
+            "create_and_prepare": 5141895134,
+            "execution_and_download": 17902657876,
+            "post_path_checks": 5337782860,
+            "cleanup": 498490093,
+            "other": 203219181
+          },
+          "workflow": ".artifacts/platform-tasks/20261026T124545Z-1456872",
+          "storage": ".artifacts/storage-isolated-service/20261026T124704Z-1457899",
+          "raw": ".artifacts/storage-isolated-service/20261026T124704Z-1457899/prettier6604",
+          "report": ".artifacts/platform-tasks/report-20261026T124545Z-1456872",
+          "collector_one_core_cpu_percent": [
+            0.7663615411583445,
+            0.8266648209412444,
+            0.7659841007771456,
+            0.7048083501866234,
+            0.7300908093006369,
+            0.7869698447384798,
+            0.7754053339269211
+          ],
+          "cold_requests": [
+            {
+              "role": "backbone",
+              "duration_ns": 2735892879,
+              "start_monotonic_ns": 14789076040082538,
+              "phases_ns": {
+                "before_create_log": 2007877541,
+                "create_to_launch_log": 716389000,
+                "launch_to_client_return": 11626338
+              },
+              "server_log_lines": {
+                "create": 27,
+                "launch": 42
+              }
+            },
+            {
+              "role": "early_1",
+              "duration_ns": 2845501269,
+              "start_monotonic_ns": 14789076040515014,
+              "phases_ns": {
+                "before_create_log": 2203923425,
+                "create_to_launch_log": 631520000,
+                "launch_to_client_return": 10057844
+              },
+              "server_log_lines": {
+                "create": 38,
+                "launch": 46
+              }
+            },
+            {
+              "role": "early_2",
+              "duration_ns": 2954602527,
+              "start_monotonic_ns": 14789076041763884,
+              "phases_ns": {
+                "before_create_log": 2004688237,
+                "create_to_launch_log": 940358000,
+                "launch_to_client_return": 9556290
+              },
+              "server_log_lines": {
+                "create": 26,
+                "launch": 48
+              }
+            },
+            {
+              "role": "early_3",
+              "duration_ns": 2805827019,
+              "start_monotonic_ns": 14789076042211072,
+              "phases_ns": {
+                "before_create_log": 1868371605,
+                "create_to_launch_log": 926766000,
+                "launch_to_client_return": 10689414
+              },
+              "server_log_lines": {
+                "create": 18,
+                "launch": 45
+              }
+            },
+            {
+              "role": "late_1",
+              "duration_ns": 2761982440,
+              "start_monotonic_ns": 14789076042778722,
+              "phases_ns": {
+                "before_create_log": 1862844939,
+                "create_to_launch_log": 887850000,
+                "launch_to_client_return": 11287501
+              },
+              "server_log_lines": {
+                "create": 17,
+                "launch": 43
+              }
+            },
+            {
+              "role": "late_2",
+              "duration_ns": 2800595579,
+              "start_monotonic_ns": 14789076043474966,
+              "phases_ns": {
+                "before_create_log": 1905276128,
+                "create_to_launch_log": 885754000,
+                "launch_to_client_return": 9565451
+              },
+              "server_log_lines": {
+                "create": 22,
+                "launch": 44
+              }
+            },
+            {
+              "role": "late_3",
+              "duration_ns": 2848401013,
+              "start_monotonic_ns": 14789076044256472,
+              "phases_ns": {
+                "before_create_log": 2081614347,
+                "create_to_launch_log": 755780000,
+                "launch_to_client_return": 11006666
+              },
+              "server_log_lines": {
+                "create": 32,
+                "launch": 47
+              }
+            }
+          ],
+          "cold_phase_sum_ns": {
+            "before_create_log": 13934596222,
+            "create_to_launch_log": 5744417000,
+            "launch_to_client_return": 73789504
+          },
+          "wall_minus_monotonic_offset_range_ns": 1706,
+          "first_upload_after_all_create_logs_ns": 532790660,
+          "first_ready_before_last_cold_return_ns": 29553488
+        }
+      ],
+      "comparison": {
+        "tool_sum": {
+          "off_ns": 60835978794,
+          "on_ns": 59239418118,
+          "difference_ns": -1596560676,
+          "change_percent": -2.6243691770065913
+        },
+        "frozen_tools_and_downloads_span": {
+          "off_ns": 18087187867,
+          "on_ns": 17901680997,
+          "difference_ns": -185506870,
+          "change_percent": -1.0256258262151263
+        },
+        "cold_request_span": {
+          "off_ns": 3005262288,
+          "on_ns": 2956283873,
+          "difference_ns": -48978415,
+          "change_percent": -1.629755086455198
+        },
+        "monitor_control_call_sum": {
+          "off_ns": 0,
+          "on_ns": 3449069475,
+          "difference_ns": 3449069475,
+          "change_percent": null
+        },
+        "monitor_control_union": {
+          "off_ns": 0,
+          "on_ns": 795944624,
+          "difference_ns": 795944624,
+          "change_percent": null
+        },
+        "cleanup": {
+          "off_ns": 262124080,
+          "on_ns": 498490093,
+          "difference_ns": 236366013,
+          "change_percent": 90.17333050820817
+        },
+        "controller": {
+          "off_ns": 28870286646,
+          "on_ns": 29084045144,
+          "difference_ns": 213758498,
+          "change_percent": 0.7404100299420291
+        },
+        "rollout": {
+          "off_ns": 28400888786,
+          "on_ns": 28382335870,
+          "difference_ns": -18552916,
+          "change_percent": -0.06532512464590967
+        }
+      },
+      "controller_phase_difference_ns": {
+        "create_and_prepare": 33971118,
+        "execution_and_download": -185451679,
+        "post_path_checks": 132927645,
+        "cleanup": 236366013,
+        "other": -4054599
+      }
+    },
+    {
+      "pair": 2,
+      "directory": ".artifacts/grpo-light-ten-20261026/pair-02",
+      "order": [
+        "on",
+        "off"
+      ],
+      "runs": [
+        {
+          "mode": "on",
+          "actual_actions": 189,
+          "official": {
+            "backbone": {
+              "passed": 0,
+              "failed": 2
+            },
+            "early_1": {
+              "passed": 0,
+              "failed": 2
+            },
+            "early_2": {
+              "passed": 0,
+              "failed": 2
+            },
+            "early_3": {
+              "passed": 0,
+              "failed": 2
+            },
+            "late_1": {
+              "passed": 0,
+              "failed": 2
+            },
+            "late_2": {
+              "passed": 0,
+              "failed": 2
+            },
+            "late_3": {
+              "passed": 0,
+              "failed": 2
+            }
+          },
+          "sessions": [
+            {
+              "role": "late_2",
+              "samples": 345,
+              "cpu_seconds": 0.19997399999999999,
+              "peak_rss_mib": 16.62890625,
+              "max_gap_seconds": 0.10413508
+            },
+            {
+              "role": "late_3",
+              "samples": 343,
+              "cpu_seconds": 0.255008,
+              "peak_rss_mib": 16.61328125,
+              "max_gap_seconds": 0.107258234
+            },
+            {
+              "role": "early_1",
+              "samples": 343,
+              "cpu_seconds": 0.244745,
+              "peak_rss_mib": 16.3515625,
+              "max_gap_seconds": 0.105717236
+            },
+            {
+              "role": "early_2",
+              "samples": 341,
+              "cpu_seconds": 0.22158699999999998,
+              "peak_rss_mib": 16.671875,
+              "max_gap_seconds": 0.103203236
+            },
+            {
+              "role": "early_3",
+              "samples": 322,
+              "cpu_seconds": 0.213913,
+              "peak_rss_mib": 16.80078125,
+              "max_gap_seconds": 0.102789181
+            },
+            {
+              "role": "late_1",
+              "samples": 275,
+              "cpu_seconds": 0.23105399999999998,
+              "peak_rss_mib": 16.77734375,
+              "max_gap_seconds": 0.105348833
+            },
+            {
+              "role": "backbone",
+              "samples": 272,
+              "cpu_seconds": 0.201739,
+              "peak_rss_mib": 16.66796875,
+              "max_gap_seconds": 0.106900187
+            }
+          ],
+          "timings_ns": {
+            "tool_sum": 61356423054,
+            "frozen_tools_and_downloads_span": 19415009067,
+            "cold_request_span": 9658063995,
+            "monitor_control_call_sum": 3745404427,
+            "monitor_control_union": 1549838777,
+            "cleanup": 509215540,
+            "controller": 37419838685,
+            "rollout": 36755360675
+          },
+          "minimum_free_disk_gib": 108.42930221557617,
+          "controller_phases_ns": {
+            "create_and_prepare": 11690539664,
+            "execution_and_download": 19415990145,
+            "post_path_checks": 5648830866,
+            "cleanup": 509215540,
+            "other": 155262470
+          },
+          "workflow": ".artifacts/platform-tasks/20261026T124758Z-1461098",
+          "storage": ".artifacts/storage-isolated-service/20261026T124918Z-1462151",
+          "raw": ".artifacts/storage-isolated-service/20261026T124918Z-1462151/prettier6604",
+          "report": ".artifacts/platform-tasks/report-20261026T124758Z-1461098",
+          "collector_one_core_cpu_percent": [
+            0.5787697213076436,
+            0.7413561290929944,
+            0.7121605562323674,
+            0.6487169266705427,
+            0.6645002551768053,
+            0.8397299753789367,
+            0.7421708570247663
+          ],
+          "cold_requests": [
+            {
+              "role": "backbone",
+              "duration_ns": 9658063995,
+              "start_monotonic_ns": 14789208451497293,
+              "phases_ns": {
+                "before_create_log": 9075618854,
+                "create_to_launch_log": 570923000,
+                "launch_to_client_return": 11522141
+              },
+              "server_log_lines": {
+                "create": 44,
+                "launch": 48
+              }
+            },
+            {
+              "role": "early_1",
+              "duration_ns": 2403903004,
+              "start_monotonic_ns": 14789208451859615,
+              "phases_ns": {
+                "before_create_log": 1560709431,
+                "create_to_launch_log": 833175000,
+                "launch_to_client_return": 10018573
+              },
+              "server_log_lines": {
+                "create": 25,
+                "launch": 35
+              }
+            },
+            {
+              "role": "early_2",
+              "duration_ns": 2620714523,
+              "start_monotonic_ns": 14789208453133738,
+              "phases_ns": {
+                "before_create_log": 1869233437,
+                "create_to_launch_log": 740327000,
+                "launch_to_client_return": 11154086
+              },
+              "server_log_lines": {
+                "create": 30,
+                "launch": 36
+              }
+            },
+            {
+              "role": "early_3",
+              "duration_ns": 4637031124,
+              "start_monotonic_ns": 14789208453543083,
+              "phases_ns": {
+                "before_create_log": 3943652985,
+                "create_to_launch_log": 682311000,
+                "launch_to_client_return": 11067139
+              },
+              "server_log_lines": {
+                "create": 37,
+                "launch": 40
+              }
+            },
+            {
+              "role": "late_1",
+              "duration_ns": 9280066910,
+              "start_monotonic_ns": 14789208453962567,
+              "phases_ns": {
+                "before_create_log": 8609797640,
+                "create_to_launch_log": 658634000,
+                "launch_to_client_return": 11635270
+              },
+              "server_log_lines": {
+                "create": 41,
+                "launch": 47
+              }
+            },
+            {
+              "role": "late_2",
+              "duration_ns": 2314107718,
+              "start_monotonic_ns": 14789208454783405,
+              "phases_ns": {
+                "before_create_log": 1441548802,
+                "create_to_launch_log": 862838000,
+                "launch_to_client_return": 9720916
+              },
+              "server_log_lines": {
+                "create": 18,
+                "launch": 33
+              }
+            },
+            {
+              "role": "late_3",
+              "duration_ns": 2400104041,
+              "start_monotonic_ns": 14789208455226362,
+              "phases_ns": {
+                "before_create_log": 1435105765,
+                "create_to_launch_log": 954033000,
+                "launch_to_client_return": 10965276
+              },
+              "server_log_lines": {
+                "create": 17,
+                "launch": 34
+              }
+            }
+          ],
+          "cold_phase_sum_ns": {
+            "before_create_log": 27935666914,
+            "create_to_launch_log": 5302241000,
+            "launch_to_client_return": 76083401
+          },
+          "wall_minus_monotonic_offset_range_ns": 1643,
+          "first_upload_after_all_create_logs_ns": -6756762457,
+          "first_ready_before_last_cold_return_ns": 7164357341
+        },
+        {
+          "mode": "off",
+          "actual_actions": 189,
+          "official": {
+            "backbone": {
+              "passed": 0,
+              "failed": 2
+            },
+            "early_1": {
+              "passed": 0,
+              "failed": 2
+            },
+            "early_2": {
+              "passed": 0,
+              "failed": 2
+            },
+            "early_3": {
+              "passed": 0,
+              "failed": 2
+            },
+            "late_1": {
+              "passed": 0,
+              "failed": 2
+            },
+            "late_2": {
+              "passed": 0,
+              "failed": 2
+            },
+            "late_3": {
+              "passed": 0,
+              "failed": 2
+            }
+          },
+          "sessions": [],
+          "timings_ns": {
+            "tool_sum": 60874700714,
+            "frozen_tools_and_downloads_span": 17506011448,
+            "cold_request_span": 3123434854,
+            "monitor_control_call_sum": 0,
+            "monitor_control_union": 0,
+            "cleanup": 337026341,
+            "controller": 28499460688,
+            "rollout": 27950952021
+          },
+          "minimum_free_disk_gib": 108.4217758178711,
+          "controller_phases_ns": {
+            "create_and_prepare": 5098826534,
+            "execution_and_download": 17506976787,
+            "post_path_checks": 5345148700,
+            "cleanup": 337026341,
+            "other": 211482326
+          },
+          "workflow": ".artifacts/platform-tasks/20261026T125017Z-1464817",
+          "storage": ".artifacts/storage-isolated-service/20261026T125136Z-1465873",
+          "raw": ".artifacts/storage-isolated-service/20261026T125136Z-1465873/prettier6604",
+          "report": ".artifacts/platform-tasks/report-20261026T125017Z-1464817",
+          "cold_requests": [
+            {
+              "role": "backbone",
+              "duration_ns": 2810842086,
+              "start_monotonic_ns": 14789346913735845,
+              "phases_ns": {
+                "before_create_log": 2009900138,
+                "create_to_launch_log": 789635000,
+                "launch_to_client_return": 11306948
+              },
+              "server_log_lines": {
+                "create": 22,
+                "launch": 50
+              }
+            },
+            {
+              "role": "early_1",
+              "duration_ns": 2957811821,
+              "start_monotonic_ns": 14789346914263553,
+              "phases_ns": {
+                "before_create_log": 2001602005,
+                "create_to_launch_log": 946033000,
+                "launch_to_client_return": 10176816
+              },
+              "server_log_lines": {
+                "create": 18,
+                "launch": 53
+              }
+            },
+            {
+              "role": "early_2",
+              "duration_ns": 3099712642,
+              "start_monotonic_ns": 14789346914567832,
+              "phases_ns": {
+                "before_create_log": 2005775343,
+                "create_to_launch_log": 1082784000,
+                "launch_to_client_return": 11153299
+              },
+              "server_log_lines": {
+                "create": 20,
+                "launch": 55
+              }
+            },
+            {
+              "role": "early_3",
+              "duration_ns": 2955685926,
+              "start_monotonic_ns": 14789346915011994,
+              "phases_ns": {
+                "before_create_log": 2003046227,
+                "create_to_launch_log": 941838000,
+                "launch_to_client_return": 10801699
+              },
+              "server_log_lines": {
+                "create": 19,
+                "launch": 52
+              }
+            },
+            {
+              "role": "late_1",
+              "duration_ns": 3121665849,
+              "start_monotonic_ns": 14789346915504850,
+              "phases_ns": {
+                "before_create_log": 1998353403,
+                "create_to_launch_log": 1113753000,
+                "launch_to_client_return": 9559446
+              },
+              "server_log_lines": {
+                "create": 17,
+                "launch": 56
+              }
+            },
+            {
+              "role": "late_2",
+              "duration_ns": 2911662139,
+              "start_monotonic_ns": 14789346916044342,
+              "phases_ns": {
+                "before_create_log": 2005613887,
+                "create_to_launch_log": 894491000,
+                "launch_to_client_return": 11557252
+              },
+              "server_log_lines": {
+                "create": 21,
+                "launch": 51
+              }
+            },
+            {
+              "role": "late_3",
+              "duration_ns": 2966443353,
+              "start_monotonic_ns": 14789346916673778,
+              "phases_ns": {
+                "before_create_log": 2051089445,
+                "create_to_launch_log": 904535000,
+                "launch_to_client_return": 10818908
+              },
+              "server_log_lines": {
+                "create": 30,
+                "launch": 54
+              }
+            }
+          ],
+          "cold_phase_sum_ns": {
+            "before_create_log": 14075380448,
+            "create_to_launch_log": 6673069000,
+            "launch_to_client_return": 75374368
+          },
+          "wall_minus_monotonic_offset_range_ns": 1631
+        }
+      ],
+      "comparison": {
+        "tool_sum": {
+          "off_ns": 60874700714,
+          "on_ns": 61356423054,
+          "difference_ns": 481722340,
+          "change_percent": 0.7913342231663956
+        },
+        "frozen_tools_and_downloads_span": {
+          "off_ns": 17506011448,
+          "on_ns": 19415009067,
+          "difference_ns": 1908997619,
+          "change_percent": 10.904811896590516
+        },
+        "cold_request_span": {
+          "off_ns": 3123434854,
+          "on_ns": 9658063995,
+          "difference_ns": 6534629141,
+          "change_percent": 209.21291611481774
+        },
+        "monitor_control_call_sum": {
+          "off_ns": 0,
+          "on_ns": 3745404427,
+          "difference_ns": 3745404427,
+          "change_percent": null
+        },
+        "monitor_control_union": {
+          "off_ns": 0,
+          "on_ns": 1549838777,
+          "difference_ns": 1549838777,
+          "change_percent": null
+        },
+        "cleanup": {
+          "off_ns": 337026341,
+          "on_ns": 509215540,
+          "difference_ns": 172189199,
+          "change_percent": 51.09072438940314
+        },
+        "controller": {
+          "off_ns": 28499460688,
+          "on_ns": 37419838685,
+          "difference_ns": 8920377997,
+          "change_percent": 31.300164219444415
+        },
+        "rollout": {
+          "off_ns": 27950952021,
+          "on_ns": 36755360675,
+          "difference_ns": 8804408654,
+          "change_percent": 31.49949471268494
+        }
+      },
+      "controller_phase_difference_ns": {
+        "create_and_prepare": 6591713130,
+        "execution_and_download": 1909013358,
+        "post_path_checks": 303682166,
+        "cleanup": 172189199,
+        "other": -56219856
+      }
+    },
+    {
+      "pair": 3,
+      "directory": ".artifacts/grpo-light-ten-20261026/pair-03",
+      "order": [
+        "off",
+        "on"
+      ],
+      "runs": [
+        {
+          "mode": "off",
+          "actual_actions": 189,
+          "official": {
+            "backbone": {
+              "passed": 0,
+              "failed": 2
+            },
+            "early_1": {
+              "passed": 0,
+              "failed": 2
+            },
+            "early_2": {
+              "passed": 0,
+              "failed": 2
+            },
+            "early_3": {
+              "passed": 0,
+              "failed": 2
+            },
+            "late_1": {
+              "passed": 0,
+              "failed": 2
+            },
+            "late_2": {
+              "passed": 0,
+              "failed": 2
+            },
+            "late_3": {
+              "passed": 0,
+              "failed": 2
+            }
+          },
+          "sessions": [],
+          "timings_ns": {
+            "tool_sum": 61723840588,
+            "frozen_tools_and_downloads_span": 17377643162,
+            "cold_request_span": 3245806581,
+            "monitor_control_call_sum": 0,
+            "monitor_control_union": 0,
+            "cleanup": 244984282,
+            "controller": 28731114499,
+            "rollout": 28279670417
+          },
+          "minimum_free_disk_gib": 108.41613388061523,
+          "controller_phases_ns": {
+            "create_and_prepare": 5416624097,
+            "execution_and_download": 17378582223,
+            "post_path_checks": 5484464097,
+            "cleanup": 244984282,
+            "other": 206459800
+          },
+          "workflow": ".artifacts/platform-tasks/20261026T125227Z-1468672",
+          "storage": ".artifacts/storage-isolated-service/20261026T125346Z-1469724",
+          "raw": ".artifacts/storage-isolated-service/20261026T125346Z-1469724/prettier6604",
+          "report": ".artifacts/platform-tasks/report-20261026T125227Z-1468672",
+          "cold_requests": [
+            {
+              "role": "backbone",
+              "duration_ns": 3241784686,
+              "start_monotonic_ns": 14789476832425084,
+              "phases_ns": {
+                "before_create_log": 2109033254,
+                "create_to_launch_log": 1121428000,
+                "launch_to_client_return": 11323432
+              },
+              "server_log_lines": {
+                "create": 18,
+                "launch": 57
+              }
+            },
+            {
+              "role": "early_1",
+              "duration_ns": 3237543676,
+              "start_monotonic_ns": 14789476832823646,
+              "phases_ns": {
+                "before_create_log": 2112208325,
+                "create_to_launch_log": 1116148000,
+                "launch_to_client_return": 9187351
+              },
+              "server_log_lines": {
+                "create": 20,
+                "launch": 56
+              }
+            },
+            {
+              "role": "early_2",
+              "duration_ns": 3089216788,
+              "start_monotonic_ns": 14789476833163133,
+              "phases_ns": {
+                "before_create_log": 2106655856,
+                "create_to_launch_log": 972661000,
+                "launch_to_client_return": 9899932
+              },
+              "server_log_lines": {
+                "create": 17,
+                "launch": 53
+              }
+            },
+            {
+              "role": "early_3",
+              "duration_ns": 3244445627,
+              "start_monotonic_ns": 14789476833786038,
+              "phases_ns": {
+                "before_create_log": 2113177111,
+                "create_to_launch_log": 1121587000,
+                "launch_to_client_return": 9681516
+              },
+              "server_log_lines": {
+                "create": 21,
+                "launch": 58
+              }
+            },
+            {
+              "role": "late_1",
+              "duration_ns": 3107153438,
+              "start_monotonic_ns": 14789476834378639,
+              "phases_ns": {
+                "before_create_log": 2114553501,
+                "create_to_launch_log": 981480000,
+                "launch_to_client_return": 11119937
+              },
+              "server_log_lines": {
+                "create": 22,
+                "launch": 54
+              }
+            },
+            {
+              "role": "late_2",
+              "duration_ns": 3071208830,
+              "start_monotonic_ns": 14789476834730136,
+              "phases_ns": {
+                "before_create_log": 2115554009,
+                "create_to_launch_log": 945898000,
+                "launch_to_client_return": 9756821
+              },
+              "server_log_lines": {
+                "create": 23,
+                "launch": 52
+              }
+            },
+            {
+              "role": "late_3",
+              "duration_ns": 3230378633,
+              "start_monotonic_ns": 14789476835246806,
+              "phases_ns": {
+                "before_create_log": 2107728369,
+                "create_to_launch_log": 1111047000,
+                "launch_to_client_return": 11603264
+              },
+              "server_log_lines": {
+                "create": 19,
+                "launch": 55
+              }
+            }
+          ],
+          "cold_phase_sum_ns": {
+            "before_create_log": 14778910425,
+            "create_to_launch_log": 7370249000,
+            "launch_to_client_return": 72572253
+          },
+          "wall_minus_monotonic_offset_range_ns": 1655
+        },
+        {
+          "mode": "on",
+          "actual_actions": 189,
+          "official": {
+            "backbone": {
+              "passed": 0,
+              "failed": 2
+            },
+            "early_1": {
+              "passed": 0,
+              "failed": 2
+            },
+            "early_2": {
+              "passed": 0,
+              "failed": 2
+            },
+            "early_3": {
+              "passed": 0,
+              "failed": 2
+            },
+            "late_1": {
+              "passed": 0,
+              "failed": 2
+            },
+            "late_2": {
+              "passed": 0,
+              "failed": 2
+            },
+            "late_3": {
+              "passed": 0,
+              "failed": 2
+            }
+          },
+          "sessions": [
+            {
+              "role": "late_3",
+              "samples": 393,
+              "cpu_seconds": 0.275267,
+              "peak_rss_mib": 16.7578125,
+              "max_gap_seconds": 0.103473162
+            },
+            {
+              "role": "late_2",
+              "samples": 332,
+              "cpu_seconds": 0.23352,
+              "peak_rss_mib": 16.14453125,
+              "max_gap_seconds": 0.104539112
+            },
+            {
+              "role": "late_1",
+              "samples": 330,
+              "cpu_seconds": 0.256165,
+              "peak_rss_mib": 16.67578125,
+              "max_gap_seconds": 0.11354442
+            },
+            {
+              "role": "early_2",
+              "samples": 321,
+              "cpu_seconds": 0.23077,
+              "peak_rss_mib": 16.12109375,
+              "max_gap_seconds": 0.101931413
+            },
+            {
+              "role": "early_1",
+              "samples": 311,
+              "cpu_seconds": 0.22164899999999998,
+              "peak_rss_mib": 16.7578125,
+              "max_gap_seconds": 0.105126863
+            },
+            {
+              "role": "backbone",
+              "samples": 302,
+              "cpu_seconds": 0.236572,
+              "peak_rss_mib": 16.7734375,
+              "max_gap_seconds": 0.110045559
+            },
+            {
+              "role": "early_3",
+              "samples": 267,
+              "cpu_seconds": 0.17635399999999998,
+              "peak_rss_mib": 16.66796875,
+              "max_gap_seconds": 0.101755725
+            }
+          ],
+          "timings_ns": {
+            "tool_sum": 63754141073,
+            "frozen_tools_and_downloads_span": 18701226141,
+            "cold_request_span": 15217896648,
+            "monitor_control_call_sum": 3809025374,
+            "monitor_control_union": 1766321733,
+            "cleanup": 510749545,
+            "controller": 42469049947,
+            "rollout": 41755274346
+          },
+          "minimum_free_disk_gib": 108.41123962402344,
+          "controller_phases_ns": {
+            "create_and_prepare": 17518493514,
+            "execution_and_download": 18701880587,
+            "post_path_checks": 5534900245,
+            "cleanup": 510749545,
+            "other": 203026056
+          },
+          "workflow": ".artifacts/platform-tasks/20261026T125436Z-1472134",
+          "storage": ".artifacts/storage-isolated-service/20261026T125554Z-1473156",
+          "raw": ".artifacts/storage-isolated-service/20261026T125554Z-1473156/prettier6604",
+          "report": ".artifacts/platform-tasks/report-20261026T125436Z-1472134",
+          "collector_one_core_cpu_percent": [
+            0.6994751189980924,
+            0.7035292531063336,
+            0.7743046856729054,
+            0.7195673909409239,
+            0.7120729755202592,
+            0.7810769183451671,
+            0.6602525291323201
+          ],
+          "cold_requests": [
+            {
+              "role": "backbone",
+              "duration_ns": 11601216299,
+              "start_monotonic_ns": 14789605892191446,
+              "phases_ns": {
+                "before_create_log": 10759891992,
+                "create_to_launch_log": 830302000,
+                "launch_to_client_return": 11022307
+              },
+              "server_log_lines": {
+                "create": 39,
+                "launch": 42
+              }
+            },
+            {
+              "role": "early_1",
+              "duration_ns": 10723536556,
+              "start_monotonic_ns": 14789605892436680,
+              "phases_ns": {
+                "before_create_log": 10129728467,
+                "create_to_launch_log": 579715000,
+                "launch_to_client_return": 14093089
+              },
+              "server_log_lines": {
+                "create": 35,
+                "launch": 38
+              }
+            },
+            {
+              "role": "early_2",
+              "duration_ns": 9808704887,
+              "start_monotonic_ns": 14789605893482954,
+              "phases_ns": {
+                "before_create_log": 9138664252,
+                "create_to_launch_log": 660216000,
+                "launch_to_client_return": 9824635
+              },
+              "server_log_lines": {
+                "create": 31,
+                "launch": 34
+              }
+            },
+            {
+              "role": "early_3",
+              "duration_ns": 15216167091,
+              "start_monotonic_ns": 14789605893921003,
+              "phases_ns": {
+                "before_create_log": 14432940215,
+                "create_to_launch_log": 771387000,
+                "launch_to_client_return": 11839876
+              },
+              "server_log_lines": {
+                "create": 43,
+                "launch": 46
+              }
+            },
+            {
+              "role": "late_1",
+              "duration_ns": 8790041390,
+              "start_monotonic_ns": 14789605894206464,
+              "phases_ns": {
+                "before_create_log": 8175434837,
+                "create_to_launch_log": 604673000,
+                "launch_to_client_return": 9933553
+              },
+              "server_log_lines": {
+                "create": 26,
+                "launch": 30
+              }
+            },
+            {
+              "role": "late_2",
+              "duration_ns": 8673147032,
+              "start_monotonic_ns": 14789605894524699,
+              "phases_ns": {
+                "before_create_log": 7939146541,
+                "create_to_launch_log": 723729000,
+                "launch_to_client_return": 10271491
+              },
+              "server_log_lines": {
+                "create": 23,
+                "launch": 29
+              }
+            },
+            {
+              "role": "late_3",
+              "duration_ns": 2506901563,
+              "start_monotonic_ns": 14789605895737397,
+              "phases_ns": {
+                "before_create_log": 1479242209,
+                "create_to_launch_log": 1016517000,
+                "launch_to_client_return": 11142354
+              },
+              "server_log_lines": {
+                "create": 17,
+                "launch": 22
+              }
+            }
+          ],
+          "cold_phase_sum_ns": {
+            "before_create_log": 62055048513,
+            "create_to_launch_log": 5186539000,
+            "launch_to_client_return": 78127305
+          },
+          "wall_minus_monotonic_offset_range_ns": 2080,
+          "first_upload_after_all_create_logs_ns": -11922519123,
+          "first_ready_before_last_cold_return_ns": 12472897649
+        }
+      ],
+      "comparison": {
+        "tool_sum": {
+          "off_ns": 61723840588,
+          "on_ns": 63754141073,
+          "difference_ns": 2030300485,
+          "change_percent": 3.2893294805681927
+        },
+        "frozen_tools_and_downloads_span": {
+          "off_ns": 17377643162,
+          "on_ns": 18701226141,
+          "difference_ns": 1323582979,
+          "change_percent": 7.6165850953499925
+        },
+        "cold_request_span": {
+          "off_ns": 3245806581,
+          "on_ns": 15217896648,
+          "difference_ns": 11972090067,
+          "change_percent": 368.84792017740995
+        },
+        "monitor_control_call_sum": {
+          "off_ns": 0,
+          "on_ns": 3809025374,
+          "difference_ns": 3809025374,
+          "change_percent": null
+        },
+        "monitor_control_union": {
+          "off_ns": 0,
+          "on_ns": 1766321733,
+          "difference_ns": 1766321733,
+          "change_percent": null
+        },
+        "cleanup": {
+          "off_ns": 244984282,
+          "on_ns": 510749545,
+          "difference_ns": 265765263,
+          "change_percent": 108.48257726183431
+        },
+        "controller": {
+          "off_ns": 28731114499,
+          "on_ns": 42469049947,
+          "difference_ns": 13737935448,
+          "change_percent": 47.81553269880343
+        },
+        "rollout": {
+          "off_ns": 28279670417,
+          "on_ns": 41755274346,
+          "difference_ns": 13475603929,
+          "change_percent": 47.65120572586057
+        }
+      },
+      "controller_phase_difference_ns": {
+        "create_and_prepare": 12101869417,
+        "execution_and_download": 1323298364,
+        "post_path_checks": 50436148,
+        "cleanup": 265765263,
+        "other": -3433744
+      }
+    },
+    {
+      "pair": 4,
+      "directory": ".artifacts/grpo-light-ten-20261026/pair-04",
+      "order": [
+        "on",
+        "off"
+      ],
+      "runs": [
+        {
+          "mode": "on",
+          "actual_actions": 189,
+          "official": {
+            "backbone": {
+              "passed": 0,
+              "failed": 2
+            },
+            "early_1": {
+              "passed": 0,
+              "failed": 2
+            },
+            "early_2": {
+              "passed": 0,
+              "failed": 2
+            },
+            "early_3": {
+              "passed": 0,
+              "failed": 2
+            },
+            "late_1": {
+              "passed": 0,
+              "failed": 2
+            },
+            "late_2": {
+              "passed": 0,
+              "failed": 2
+            },
+            "late_3": {
+              "passed": 0,
+              "failed": 2
+            }
+          },
+          "sessions": [
+            {
+              "role": "early_2",
+              "samples": 722,
+              "cpu_seconds": 0.366448,
+              "peak_rss_mib": 16.265625,
+              "max_gap_seconds": 0.102020247
+            },
+            {
+              "role": "early_3",
+              "samples": 716,
+              "cpu_seconds": 0.357825,
+              "peak_rss_mib": 16.25,
+              "max_gap_seconds": 0.10327974
+            },
+            {
+              "role": "late_3",
+              "samples": 703,
+              "cpu_seconds": 0.388439,
+              "peak_rss_mib": 16.26171875,
+              "max_gap_seconds": 0.111945207
+            },
+            {
+              "role": "backbone",
+              "samples": 696,
+              "cpu_seconds": 0.32488,
+              "peak_rss_mib": 16.72265625,
+              "max_gap_seconds": 0.101854381
+            },
+            {
+              "role": "early_1",
+              "samples": 660,
+              "cpu_seconds": 0.31893299999999997,
+              "peak_rss_mib": 16.27734375,
+              "max_gap_seconds": 0.106402028
+            },
+            {
+              "role": "late_1",
+              "samples": 641,
+              "cpu_seconds": 0.355531,
+              "peak_rss_mib": 16.72265625,
+              "max_gap_seconds": 0.104341655
+            },
+            {
+              "role": "late_2",
+              "samples": 267,
+              "cpu_seconds": 0.19419299999999998,
+              "peak_rss_mib": 16.29296875,
+              "max_gap_seconds": 0.106081696
+            }
+          ],
+          "timings_ns": {
+            "tool_sum": 62321169443,
+            "frozen_tools_and_downloads_span": 19011472979,
+            "cold_request_span": 54807513986,
+            "monitor_control_call_sum": 3614001213,
+            "monitor_control_union": 1771257840,
+            "cleanup": 494146801,
+            "controller": 82200426274,
+            "rollout": 81501304366
+          },
+          "minimum_free_disk_gib": 108.4027099609375,
+          "controller_phases_ns": {
+            "create_and_prepare": 57021315638,
+            "execution_and_download": 19012431631,
+            "post_path_checks": 5467557097,
+            "cleanup": 494146801,
+            "other": 204975107
+          },
+          "workflow": ".artifacts/platform-tasks/20261026T125701Z-1476399",
+          "storage": ".artifacts/storage-isolated-service/20261026T125820Z-1477450",
+          "raw": ".artifacts/storage-isolated-service/20261026T125820Z-1477450/prettier6604",
+          "report": ".artifacts/platform-tasks/report-20261026T125701Z-1476399",
+          "collector_one_core_cpu_percent": [
+            0.5061075129258683,
+            0.49858221019012355,
+            0.5502128665700856,
+            0.46559268061659176,
+            0.48222760529253894,
+            0.5530748430934201,
+            0.7269790267698562
+          ],
+          "cold_requests": [
+            {
+              "role": "backbone",
+              "duration_ns": 11901425594,
+              "start_monotonic_ns": 14789751664903147,
+              "phases_ns": {
+                "before_create_log": 11106893128,
+                "create_to_launch_log": 785064000,
+                "launch_to_client_return": 9468466
+              },
+              "server_log_lines": {
+                "create": 31,
+                "launch": 34
+              }
+            },
+            {
+              "role": "early_1",
+              "duration_ns": 15541217760,
+              "start_monotonic_ns": 14789751665249095,
+              "phases_ns": {
+                "before_create_log": 14729433229,
+                "create_to_launch_log": 801613000,
+                "launch_to_client_return": 10171531
+              },
+              "server_log_lines": {
+                "create": 35,
+                "launch": 38
+              }
+            },
+            {
+              "role": "early_2",
+              "duration_ns": 9213753009,
+              "start_monotonic_ns": 14789751666930746,
+              "phases_ns": {
+                "before_create_log": 8327067435,
+                "create_to_launch_log": 876791000,
+                "launch_to_client_return": 9894574
+              },
+              "server_log_lines": {
+                "create": 17,
+                "launch": 22
+              }
+            },
+            {
+              "role": "early_3",
+              "duration_ns": 9880656984,
+              "start_monotonic_ns": 14789751667246284,
+              "phases_ns": {
+                "before_create_log": 9267102946,
+                "create_to_launch_log": 603540000,
+                "launch_to_client_return": 10014038
+              },
+              "server_log_lines": {
+                "create": 23,
+                "launch": 26
+              }
+            },
+            {
+              "role": "late_1",
+              "duration_ns": 17322257456,
+              "start_monotonic_ns": 14789751667838086,
+              "phases_ns": {
+                "before_create_log": 16585813132,
+                "create_to_launch_log": 724594000,
+                "launch_to_client_return": 11850324
+              },
+              "server_log_lines": {
+                "create": 39,
+                "launch": 42
+              }
+            },
+            {
+              "role": "late_2",
+              "duration_ns": 54804068021,
+              "start_monotonic_ns": 14789751668349112,
+              "phases_ns": {
+                "before_create_log": 53944091092,
+                "create_to_launch_log": 850018000,
+                "launch_to_client_return": 9958929
+              },
+              "server_log_lines": {
+                "create": 43,
+                "launch": 46
+              }
+            },
+            {
+              "role": "late_3",
+              "duration_ns": 11030006261,
+              "start_monotonic_ns": 14789751668943903,
+              "phases_ns": {
+                "before_create_log": 10224619331,
+                "create_to_launch_log": 794202000,
+                "launch_to_client_return": 11184930
+              },
+              "server_log_lines": {
+                "create": 27,
+                "launch": 30
+              }
+            }
+          ],
+          "cold_phase_sum_ns": {
+            "before_create_log": 124185020293,
+            "create_to_launch_log": 5435822000,
+            "launch_to_client_return": 72542792
+          },
+          "wall_minus_monotonic_offset_range_ns": 16219,
+          "first_upload_after_all_create_logs_ns": -44730204320,
+          "first_ready_before_last_cold_return_ns": 45373324379
+        },
+        {
+          "mode": "off",
+          "actual_actions": 189,
+          "official": {
+            "backbone": {
+              "passed": 0,
+              "failed": 2
+            },
+            "early_1": {
+              "passed": 0,
+              "failed": 2
+            },
+            "early_2": {
+              "passed": 0,
+              "failed": 2
+            },
+            "early_3": {
+              "passed": 0,
+              "failed": 2
+            },
+            "late_1": {
+              "passed": 0,
+              "failed": 2
+            },
+            "late_2": {
+              "passed": 0,
+              "failed": 2
+            },
+            "late_3": {
+              "passed": 0,
+              "failed": 2
+            }
+          },
+          "sessions": [],
+          "timings_ns": {
+            "tool_sum": 57626874957,
+            "frozen_tools_and_downloads_span": 16544465711,
+            "cold_request_span": 4388515582,
+            "monitor_control_call_sum": 0,
+            "monitor_control_union": 0,
+            "cleanup": 277715360,
+            "controller": 28877495377,
+            "rollout": 28389613684
+          },
+          "minimum_free_disk_gib": 108.39312744140625,
+          "controller_phases_ns": {
+            "create_and_prepare": 6249622910,
+            "execution_and_download": 16545325046,
+            "post_path_checks": 5594665728,
+            "cleanup": 277715360,
+            "other": 210166333
+          },
+          "workflow": ".artifacts/platform-tasks/20261026T130005Z-1480958",
+          "storage": ".artifacts/storage-isolated-service/20261026T130123Z-1481953",
+          "raw": ".artifacts/storage-isolated-service/20261026T130123Z-1481953/prettier6604",
+          "report": ".artifacts/platform-tasks/report-20261026T130005Z-1480958",
+          "cold_requests": [
+            {
+              "role": "backbone",
+              "duration_ns": 2659051686,
+              "start_monotonic_ns": 14789934953199020,
+              "phases_ns": {
+                "before_create_log": 1931221105,
+                "create_to_launch_log": 717741000,
+                "launch_to_client_return": 10089581
+              },
+              "server_log_lines": {
+                "create": 23,
+                "launch": 38
+              }
+            },
+            {
+              "role": "early_1",
+              "duration_ns": 2789605078,
+              "start_monotonic_ns": 14789934953556623,
+              "phases_ns": {
+                "before_create_log": 2092943568,
+                "create_to_launch_log": 685285000,
+                "launch_to_client_return": 11376510
+              },
+              "server_log_lines": {
+                "create": 32,
+                "launch": 41
+              }
+            },
+            {
+              "role": "early_2",
+              "duration_ns": 2816021755,
+              "start_monotonic_ns": 14789934953999581,
+              "phases_ns": {
+                "before_create_log": 2012520021,
+                "create_to_launch_log": 791980000,
+                "launch_to_client_return": 11521734
+              },
+              "server_log_lines": {
+                "create": 28,
+                "launch": 42
+              }
+            },
+            {
+              "role": "early_3",
+              "duration_ns": 2747813722,
+              "start_monotonic_ns": 14789934954597454,
+              "phases_ns": {
+                "before_create_log": 1787959776,
+                "create_to_launch_log": 947170000,
+                "launch_to_client_return": 12683946
+              },
+              "server_log_lines": {
+                "create": 17,
+                "launch": 40
+              }
+            },
+            {
+              "role": "late_1",
+              "duration_ns": 2616047967,
+              "start_monotonic_ns": 14789934955166674,
+              "phases_ns": {
+                "before_create_log": 1839008029,
+                "create_to_launch_log": 765793000,
+                "launch_to_client_return": 11246938
+              },
+              "server_log_lines": {
+                "create": 19,
+                "launch": 37
+              }
+            },
+            {
+              "role": "late_2",
+              "duration_ns": 4386244198,
+              "start_monotonic_ns": 14789934955470404,
+              "phases_ns": {
+                "before_create_log": 3553647839,
+                "create_to_launch_log": 822466000,
+                "launch_to_client_return": 10130359
+              },
+              "server_log_lines": {
+                "create": 43,
+                "launch": 46
+              }
+            },
+            {
+              "role": "late_3",
+              "duration_ns": 2684741990,
+              "start_monotonic_ns": 14789934956221470,
+              "phases_ns": {
+                "before_create_log": 2020417748,
+                "create_to_launch_log": 654235000,
+                "launch_to_client_return": 10089242
+              },
+              "server_log_lines": {
+                "create": 29,
+                "launch": 39
+              }
+            }
+          ],
+          "cold_phase_sum_ns": {
+            "before_create_log": 15237718086,
+            "create_to_launch_log": 5384670000,
+            "launch_to_client_return": 77138310
+          },
+          "wall_minus_monotonic_offset_range_ns": 1569
+        }
+      ],
+      "comparison": {
+        "tool_sum": {
+          "off_ns": 57626874957,
+          "on_ns": 62321169443,
+          "difference_ns": 4694294486,
+          "change_percent": 8.146016055013883
+        },
+        "frozen_tools_and_downloads_span": {
+          "off_ns": 16544465711,
+          "on_ns": 19011472979,
+          "difference_ns": 2467007268,
+          "change_percent": 14.911374662040311
+        },
+        "cold_request_span": {
+          "off_ns": 4388515582,
+          "on_ns": 54807513986,
+          "difference_ns": 50418998404,
+          "change_percent": 1148.8850264266875
+        },
+        "monitor_control_call_sum": {
+          "off_ns": 0,
+          "on_ns": 3614001213,
+          "difference_ns": 3614001213,
+          "change_percent": null
+        },
+        "monitor_control_union": {
+          "off_ns": 0,
+          "on_ns": 1771257840,
+          "difference_ns": 1771257840,
+          "change_percent": null
+        },
+        "cleanup": {
+          "off_ns": 277715360,
+          "on_ns": 494146801,
+          "difference_ns": 216431441,
+          "change_percent": 77.93283057876236
+        },
+        "controller": {
+          "off_ns": 28877495377,
+          "on_ns": 82200426274,
+          "difference_ns": 53322930897,
+          "change_percent": 184.6522013106095
+        },
+        "rollout": {
+          "off_ns": 28389613684,
+          "on_ns": 81501304366,
+          "difference_ns": 53111690682,
+          "change_percent": 187.0814139043147
+        }
+      },
+      "controller_phase_difference_ns": {
+        "create_and_prepare": 50771692728,
+        "execution_and_download": 2467106585,
+        "post_path_checks": -127108631,
+        "cleanup": 216431441,
+        "other": -5191226
+      }
+    },
+    {
+      "pair": 5,
+      "directory": ".artifacts/grpo-light-ten-20261026/pair-05",
+      "order": [
+        "off",
+        "on"
+      ],
+      "runs": [
+        {
+          "mode": "off",
+          "actual_actions": 189,
+          "official": {
+            "backbone": {
+              "passed": 0,
+              "failed": 2
+            },
+            "early_1": {
+              "passed": 0,
+              "failed": 2
+            },
+            "early_2": {
+              "passed": 0,
+              "failed": 2
+            },
+            "early_3": {
+              "passed": 0,
+              "failed": 2
+            },
+            "late_1": {
+              "passed": 0,
+              "failed": 2
+            },
+            "late_2": {
+              "passed": 0,
+              "failed": 2
+            },
+            "late_3": {
+              "passed": 0,
+              "failed": 2
+            }
+          },
+          "sessions": [],
+          "timings_ns": {
+            "tool_sum": 61639224465,
+            "frozen_tools_and_downloads_span": 17957268948,
+            "cold_request_span": 3833638166,
+            "monitor_control_call_sum": 0,
+            "monitor_control_union": 0,
+            "cleanup": 284324427,
+            "controller": 29660640196,
+            "rollout": 29152493657
+          },
+          "minimum_free_disk_gib": 108.38970184326172,
+          "controller_phases_ns": {
+            "create_and_prepare": 5779620737,
+            "execution_and_download": 17958097730,
+            "post_path_checks": 5414775190,
+            "cleanup": 284324427,
+            "other": 223822112
+          },
+          "workflow": ".artifacts/platform-tasks/20261026T130217Z-1484819",
+          "storage": ".artifacts/storage-isolated-service/20261026T130335Z-1485862",
+          "raw": ".artifacts/storage-isolated-service/20261026T130335Z-1485862/prettier6604",
+          "report": ".artifacts/platform-tasks/report-20261026T130217Z-1484819",
+          "cold_requests": [
+            {
+              "role": "backbone",
+              "duration_ns": 2842258718,
+              "start_monotonic_ns": 14790066232702774,
+              "phases_ns": {
+                "before_create_log": 2013613276,
+                "create_to_launch_log": 817212000,
+                "launch_to_client_return": 11433442
+              },
+              "server_log_lines": {
+                "create": 17,
+                "launch": 40
+              }
+            },
+            {
+              "role": "early_1",
+              "duration_ns": 3166015976,
+              "start_monotonic_ns": 14790066233050509,
+              "phases_ns": {
+                "before_create_log": 2050206370,
+                "create_to_launch_log": 1103891000,
+                "launch_to_client_return": 11918606
+              },
+              "server_log_lines": {
+                "create": 23,
+                "launch": 47
+              }
+            },
+            {
+              "role": "early_2",
+              "duration_ns": 3068646009,
+              "start_monotonic_ns": 14790066233463913,
+              "phases_ns": {
+                "before_create_log": 2139090433,
+                "create_to_launch_log": 919880000,
+                "launch_to_client_return": 9675576
+              },
+              "server_log_lines": {
+                "create": 28,
+                "launch": 42
+              }
+            },
+            {
+              "role": "early_3",
+              "duration_ns": 3832317004,
+              "start_monotonic_ns": 14790066234023936,
+              "phases_ns": {
+                "before_create_log": 3060219215,
+                "create_to_launch_log": 758776000,
+                "launch_to_client_return": 13321789
+              },
+              "server_log_lines": {
+                "create": 43,
+                "launch": 48
+              }
+            },
+            {
+              "role": "late_1",
+              "duration_ns": 2717782349,
+              "start_monotonic_ns": 14790066234350041,
+              "phases_ns": {
+                "before_create_log": 2012831280,
+                "create_to_launch_log": 694917000,
+                "launch_to_client_return": 10034069
+              },
+              "server_log_lines": {
+                "create": 18,
+                "launch": 39
+              }
+            },
+            {
+              "role": "late_2",
+              "duration_ns": 3152296573,
+              "start_monotonic_ns": 14790066234819709,
+              "phases_ns": {
+                "before_create_log": 2040472338,
+                "create_to_launch_log": 1102082000,
+                "launch_to_client_return": 9742235
+              },
+              "server_log_lines": {
+                "create": 22,
+                "launch": 46
+              }
+            },
+            {
+              "role": "late_3",
+              "duration_ns": 2933185715,
+              "start_monotonic_ns": 14790066235321763,
+              "phases_ns": {
+                "before_create_log": 2135350387,
+                "create_to_launch_log": 786263000,
+                "launch_to_client_return": 11572328
+              },
+              "server_log_lines": {
+                "create": 27,
+                "launch": 41
+              }
+            }
+          ],
+          "cold_phase_sum_ns": {
+            "before_create_log": 15451783299,
+            "create_to_launch_log": 6183021000,
+            "launch_to_client_return": 77698045
+          },
+          "wall_minus_monotonic_offset_range_ns": 1897
+        },
+        {
+          "mode": "on",
+          "actual_actions": 189,
+          "official": {
+            "backbone": {
+              "passed": 0,
+              "failed": 2
+            },
+            "early_1": {
+              "passed": 0,
+              "failed": 2
+            },
+            "early_2": {
+              "passed": 0,
+              "failed": 2
+            },
+            "early_3": {
+              "passed": 0,
+              "failed": 2
+            },
+            "late_1": {
+              "passed": 0,
+              "failed": 2
+            },
+            "late_2": {
+              "passed": 0,
+              "failed": 2
+            },
+            "late_3": {
+              "passed": 0,
+              "failed": 2
+            }
+          },
+          "sessions": [
+            {
+              "role": "early_2",
+              "samples": 354,
+              "cpu_seconds": 0.222126,
+              "peak_rss_mib": 16.75,
+              "max_gap_seconds": 0.105631018
+            },
+            {
+              "role": "early_3",
+              "samples": 351,
+              "cpu_seconds": 0.235504,
+              "peak_rss_mib": 16.6015625,
+              "max_gap_seconds": 0.10142425
+            },
+            {
+              "role": "backbone",
+              "samples": 344,
+              "cpu_seconds": 0.246591,
+              "peak_rss_mib": 16.75390625,
+              "max_gap_seconds": 0.103156131
+            },
+            {
+              "role": "late_1",
+              "samples": 344,
+              "cpu_seconds": 0.231737,
+              "peak_rss_mib": 16.56640625,
+              "max_gap_seconds": 0.10831356
+            },
+            {
+              "role": "late_2",
+              "samples": 341,
+              "cpu_seconds": 0.23874399999999998,
+              "peak_rss_mib": 16.73046875,
+              "max_gap_seconds": 0.105635018
+            },
+            {
+              "role": "early_1",
+              "samples": 336,
+              "cpu_seconds": 0.243965,
+              "peak_rss_mib": 16.7265625,
+              "max_gap_seconds": 0.101555668
+            },
+            {
+              "role": "late_3",
+              "samples": 262,
+              "cpu_seconds": 0.185133,
+              "peak_rss_mib": 16.7890625,
+              "max_gap_seconds": 0.103982838
+            }
+          ],
+          "timings_ns": {
+            "tool_sum": 62811146367,
+            "frozen_tools_and_downloads_span": 18284158103,
+            "cold_request_span": 12791010682,
+            "monitor_control_call_sum": 3639914846,
+            "monitor_control_union": 1663947707,
+            "cleanup": 503951734,
+            "controller": 39575192108,
+            "rollout": 38872583177
+          },
+          "minimum_free_disk_gib": 108.38610076904297,
+          "controller_phases_ns": {
+            "create_and_prepare": 15116182830,
+            "execution_and_download": 18285114436,
+            "post_path_checks": 5471285911,
+            "cleanup": 503951734,
+            "other": 198657197
+          },
+          "workflow": ".artifacts/platform-tasks/20261026T130427Z-1488218",
+          "storage": ".artifacts/storage-isolated-service/20261026T130547Z-1489280",
+          "raw": ".artifacts/storage-isolated-service/20261026T130547Z-1489280/prettier6604",
+          "report": ".artifacts/platform-tasks/report-20261026T130427Z-1488218",
+          "collector_one_core_cpu_percent": [
+            0.6269825297688504,
+            0.6692130853129364,
+            0.715685727968435,
+            0.6729113661861064,
+            0.6985606719377365,
+            0.7250510482976492,
+            0.7070228098672906
+          ],
+          "cold_requests": [
+            {
+              "role": "backbone",
+              "duration_ns": 4503601379,
+              "start_monotonic_ns": 14790198341800135,
+              "phases_ns": {
+                "before_create_log": 3686198100,
+                "create_to_launch_log": 805591000,
+                "launch_to_client_return": 11812279
+              },
+              "server_log_lines": {
+                "create": 27,
+                "launch": 36
+              }
+            },
+            {
+              "role": "early_1",
+              "duration_ns": 5306904475,
+              "start_monotonic_ns": 14790198342143029,
+              "phases_ns": {
+                "before_create_log": 4511369064,
+                "create_to_launch_log": 785225000,
+                "launch_to_client_return": 10310411
+              },
+              "server_log_lines": {
+                "create": 37,
+                "launch": 42
+              }
+            },
+            {
+              "role": "early_2",
+              "duration_ns": 3564613583,
+              "start_monotonic_ns": 14790198343250814,
+              "phases_ns": {
+                "before_create_log": 2668932263,
+                "create_to_launch_log": 886057000,
+                "launch_to_client_return": 9624320
+              },
+              "server_log_lines": {
+                "create": 17,
+                "launch": 25
+              }
+            },
+            {
+              "role": "early_3",
+              "duration_ns": 3768159870,
+              "start_monotonic_ns": 14790198343641860,
+              "phases_ns": {
+                "before_create_log": 2851563268,
+                "create_to_launch_log": 906164000,
+                "launch_to_client_return": 10432602
+              },
+              "server_log_lines": {
+                "create": 22,
+                "launch": 30
+              }
+            },
+            {
+              "role": "late_1",
+              "duration_ns": 4536964594,
+              "start_monotonic_ns": 14790198344435289,
+              "phases_ns": {
+                "before_create_log": 3681087867,
+                "create_to_launch_log": 845548000,
+                "launch_to_client_return": 10328727
+              },
+              "server_log_lines": {
+                "create": 26,
+                "launch": 38
+              }
+            },
+            {
+              "role": "late_2",
+              "duration_ns": 4749880872,
+              "start_monotonic_ns": 14790198344742232,
+              "phases_ns": {
+                "before_create_log": 4065877938,
+                "create_to_launch_log": 672536000,
+                "launch_to_client_return": 11466934
+              },
+              "server_log_lines": {
+                "create": 33,
+                "launch": 41
+              }
+            },
+            {
+              "role": "late_3",
+              "duration_ns": 12787364347,
+              "start_monotonic_ns": 14790198345446470,
+              "phases_ns": {
+                "before_create_log": 11973510788,
+                "create_to_launch_log": 804174000,
+                "launch_to_client_return": 9679559
+              },
+              "server_log_lines": {
+                "create": 43,
+                "launch": 46
+              }
+            }
+          ],
+          "cold_phase_sum_ns": {
+            "before_create_log": 33438539288,
+            "create_to_launch_log": 5705295000,
+            "launch_to_client_return": 73654832
+          },
+          "wall_minus_monotonic_offset_range_ns": 1705,
+          "first_upload_after_all_create_logs_ns": -8409691130,
+          "first_ready_before_last_cold_return_ns": 9018881671
+        }
+      ],
+      "comparison": {
+        "tool_sum": {
+          "off_ns": 61639224465,
+          "on_ns": 62811146367,
+          "difference_ns": 1171921902,
+          "change_percent": 1.9012599723175372
+        },
+        "frozen_tools_and_downloads_span": {
+          "off_ns": 17957268948,
+          "on_ns": 18284158103,
+          "difference_ns": 326889155,
+          "change_percent": 1.820372329147557
+        },
+        "cold_request_span": {
+          "off_ns": 3833638166,
+          "on_ns": 12791010682,
+          "difference_ns": 8957372516,
+          "change_percent": 233.65200700060015
+        },
+        "monitor_control_call_sum": {
+          "off_ns": 0,
+          "on_ns": 3639914846,
+          "difference_ns": 3639914846,
+          "change_percent": null
+        },
+        "monitor_control_union": {
+          "off_ns": 0,
+          "on_ns": 1663947707,
+          "difference_ns": 1663947707,
+          "change_percent": null
+        },
+        "cleanup": {
+          "off_ns": 284324427,
+          "on_ns": 503951734,
+          "difference_ns": 219627307,
+          "change_percent": 77.24531772291236
+        },
+        "controller": {
+          "off_ns": 29660640196,
+          "on_ns": 39575192108,
+          "difference_ns": 9914551912,
+          "change_percent": 33.42662817283717
+        },
+        "rollout": {
+          "off_ns": 29152493657,
+          "on_ns": 38872583177,
+          "difference_ns": 9720089520,
+          "change_percent": 33.34222325665799
+        }
+      },
+      "controller_phase_difference_ns": {
+        "create_and_prepare": 9336562093,
+        "execution_and_download": 327016706,
+        "post_path_checks": 56510721,
+        "cleanup": 219627307,
+        "other": -25164915
+      }
+    },
+    {
+      "pair": 6,
+      "directory": ".artifacts/grpo-light-ten-20261026/pair-06",
+      "order": [
+        "on",
+        "off"
+      ],
+      "runs": [
+        {
+          "mode": "on",
+          "actual_actions": 189,
+          "official": {
+            "backbone": {
+              "passed": 0,
+              "failed": 2
+            },
+            "early_1": {
+              "passed": 0,
+              "failed": 2
+            },
+            "early_2": {
+              "passed": 0,
+              "failed": 2
+            },
+            "early_3": {
+              "passed": 0,
+              "failed": 2
+            },
+            "late_1": {
+              "passed": 0,
+              "failed": 2
+            },
+            "late_2": {
+              "passed": 0,
+              "failed": 2
+            },
+            "late_3": {
+              "passed": 0,
+              "failed": 2
+            }
+          },
+          "sessions": [
+            {
+              "role": "early_2",
+              "samples": 260,
+              "cpu_seconds": 0.17587699999999998,
+              "peak_rss_mib": 16.78515625,
+              "max_gap_seconds": 0.107074164
+            },
+            {
+              "role": "late_2",
+              "samples": 259,
+              "cpu_seconds": 0.164157,
+              "peak_rss_mib": 16.546875,
+              "max_gap_seconds": 0.103086004
+            },
+            {
+              "role": "late_1",
+              "samples": 258,
+              "cpu_seconds": 0.21077100000000001,
+              "peak_rss_mib": 16.26953125,
+              "max_gap_seconds": 0.107763631
+            },
+            {
+              "role": "late_3",
+              "samples": 258,
+              "cpu_seconds": 0.195347,
+              "peak_rss_mib": 16.78125,
+              "max_gap_seconds": 0.104455755
+            },
+            {
+              "role": "backbone",
+              "samples": 258,
+              "cpu_seconds": 0.190446,
+              "peak_rss_mib": 16.7109375,
+              "max_gap_seconds": 0.104646487
+            },
+            {
+              "role": "early_1",
+              "samples": 257,
+              "cpu_seconds": 0.189853,
+              "peak_rss_mib": 16.6640625,
+              "max_gap_seconds": 0.102092609
+            },
+            {
+              "role": "early_3",
+              "samples": 256,
+              "cpu_seconds": 0.17985399999999999,
+              "peak_rss_mib": 16.734375,
+              "max_gap_seconds": 0.104174796
+            }
+          ],
+          "timings_ns": {
+            "tool_sum": 60972343506,
+            "frozen_tools_and_downloads_span": 17940249212,
+            "cold_request_span": 2886802510,
+            "monitor_control_call_sum": 3515857072,
+            "monitor_control_union": 942056163,
+            "cleanup": 575596742,
+            "controller": 29178387048,
+            "rollout": 28387235627
+          },
+          "minimum_free_disk_gib": 108.37742233276367,
+          "controller_phases_ns": {
+            "create_and_prepare": 5189006705,
+            "execution_and_download": 17941140454,
+            "post_path_checks": 5257088468,
+            "cleanup": 575596742,
+            "other": 215554679
+          },
+          "workflow": ".artifacts/platform-tasks/20261026T130651Z-1492492",
+          "storage": ".artifacts/storage-isolated-service/20261026T130810Z-1493540",
+          "raw": ".artifacts/storage-isolated-service/20261026T130810Z-1493540/prettier6604",
+          "report": ".artifacts/platform-tasks/report-20261026T130651Z-1492492",
+          "collector_one_core_cpu_percent": [
+            0.6767323834532489,
+            0.6349433298590871,
+            0.8173452197925232,
+            0.757468657255967,
+            0.7388570442021845,
+            0.7398164425861706,
+            0.7019572594638087
+          ],
+          "cold_requests": [
+            {
+              "role": "backbone",
+              "duration_ns": 2739847438,
+              "start_monotonic_ns": 14790341139446319,
+              "phases_ns": {
+                "before_create_log": 1688427917,
+                "create_to_launch_log": 1042068000,
+                "launch_to_client_return": 9351521
+              },
+              "server_log_lines": {
+                "create": 17,
+                "launch": 48
+              }
+            },
+            {
+              "role": "early_1",
+              "duration_ns": 2861822421,
+              "start_monotonic_ns": 14790341139920674,
+              "phases_ns": {
+                "before_create_log": 1850582384,
+                "create_to_launch_log": 1000136000,
+                "launch_to_client_return": 11104037
+              },
+              "server_log_lines": {
+                "create": 29,
+                "launch": 49
+              }
+            },
+            {
+              "role": "early_2",
+              "duration_ns": 2531819245,
+              "start_monotonic_ns": 14790341140810837,
+              "phases_ns": {
+                "before_create_log": 1690118344,
+                "create_to_launch_log": 831685000,
+                "launch_to_client_return": 10015901
+              },
+              "server_log_lines": {
+                "create": 18,
+                "launch": 44
+              }
+            },
+            {
+              "role": "early_3",
+              "duration_ns": 2884689211,
+              "start_monotonic_ns": 14790341141559618,
+              "phases_ns": {
+                "before_create_log": 1851891575,
+                "create_to_launch_log": 1021753000,
+                "launch_to_client_return": 11044636
+              },
+              "server_log_lines": {
+                "create": 31,
+                "launch": 50
+              }
+            },
+            {
+              "role": "late_1",
+              "duration_ns": 2704250847,
+              "start_monotonic_ns": 14790341141782131,
+              "phases_ns": {
+                "before_create_log": 1850024090,
+                "create_to_launch_log": 844011000,
+                "launch_to_client_return": 10215757
+              },
+              "server_log_lines": {
+                "create": 30,
+                "launch": 46
+              }
+            },
+            {
+              "role": "late_2",
+              "duration_ns": 2658289596,
+              "start_monotonic_ns": 14790341142388991,
+              "phases_ns": {
+                "before_create_log": 1719660161,
+                "create_to_launch_log": 927396000,
+                "launch_to_client_return": 11233435
+              },
+              "server_log_lines": {
+                "create": 23,
+                "launch": 45
+              }
+            },
+            {
+              "role": "late_3",
+              "duration_ns": 2730509318,
+              "start_monotonic_ns": 14790341142953729,
+              "phases_ns": {
+                "before_create_log": 1710678356,
+                "create_to_launch_log": 1010054000,
+                "launch_to_client_return": 9776962
+              },
+              "server_log_lines": {
+                "create": 19,
+                "launch": 47
+              }
+            }
+          ],
+          "cold_phase_sum_ns": {
+            "before_create_log": 12361382827,
+            "create_to_launch_log": 6677103000,
+            "launch_to_client_return": 72742249
+          },
+          "wall_minus_monotonic_offset_range_ns": 1681,
+          "first_upload_after_all_create_logs_ns": 680511112,
+          "first_ready_before_last_cold_return_ns": 176504504
+        },
+        {
+          "mode": "off",
+          "actual_actions": 189,
+          "official": {
+            "backbone": {
+              "passed": 0,
+              "failed": 2
+            },
+            "early_1": {
+              "passed": 0,
+              "failed": 2
+            },
+            "early_2": {
+              "passed": 0,
+              "failed": 2
+            },
+            "early_3": {
+              "passed": 0,
+              "failed": 2
+            },
+            "late_1": {
+              "passed": 0,
+              "failed": 2
+            },
+            "late_2": {
+              "passed": 0,
+              "failed": 2
+            },
+            "late_3": {
+              "passed": 0,
+              "failed": 2
+            }
+          },
+          "sessions": [],
+          "timings_ns": {
+            "tool_sum": 60448054289,
+            "frozen_tools_and_downloads_span": 16874664045,
+            "cold_request_span": 23351085598,
+            "monitor_control_call_sum": 0,
+            "monitor_control_union": 0,
+            "cleanup": 261730850,
+            "controller": 48499696537,
+            "rollout": 48028358602
+          },
+          "minimum_free_disk_gib": 108.37059783935547,
+          "controller_phases_ns": {
+            "create_and_prepare": 25597283624,
+            "execution_and_download": 16875565308,
+            "post_path_checks": 5555509670,
+            "cleanup": 261730850,
+            "other": 209607085
+          },
+          "workflow": ".artifacts/platform-tasks/20261026T130902Z-1496244",
+          "storage": ".artifacts/storage-isolated-service/20261026T131022Z-1497288",
+          "raw": ".artifacts/storage-isolated-service/20261026T131022Z-1497288/prettier6604",
+          "report": ".artifacts/platform-tasks/report-20261026T130902Z-1496244",
+          "cold_requests": [
+            {
+              "role": "backbone",
+              "duration_ns": 3071472728,
+              "start_monotonic_ns": 14790472311560011,
+              "phases_ns": {
+                "before_create_log": 2232369213,
+                "create_to_launch_log": 827794000,
+                "launch_to_client_return": 11309515
+              },
+              "server_log_lines": {
+                "create": 27,
+                "launch": 32
+              }
+            },
+            {
+              "role": "early_1",
+              "duration_ns": 3033938884,
+              "start_monotonic_ns": 14790472311903273,
+              "phases_ns": {
+                "before_create_log": 2015778776,
+                "create_to_launch_log": 1008557000,
+                "launch_to_client_return": 9603108
+              },
+              "server_log_lines": {
+                "create": 18,
+                "launch": 31
+              }
+            },
+            {
+              "role": "early_2",
+              "duration_ns": 4270633120,
+              "start_monotonic_ns": 14790472312281296,
+              "phases_ns": {
+                "before_create_log": 3530329722,
+                "create_to_launch_log": 729113000,
+                "launch_to_client_return": 11190398
+              },
+              "server_log_lines": {
+                "create": 33,
+                "launch": 39
+              }
+            },
+            {
+              "role": "early_3",
+              "duration_ns": 4540368611,
+              "start_monotonic_ns": 14790472312580958,
+              "phases_ns": {
+                "before_create_log": 3768159271,
+                "create_to_launch_log": 760718000,
+                "launch_to_client_return": 11491340
+              },
+              "server_log_lines": {
+                "create": 36,
+                "launch": 43
+              }
+            },
+            {
+              "role": "late_1",
+              "duration_ns": 23349557722,
+              "start_monotonic_ns": 14790472313087887,
+              "phases_ns": {
+                "before_create_log": 22535479312,
+                "create_to_launch_log": 804104000,
+                "launch_to_client_return": 9974410
+              },
+              "server_log_lines": {
+                "create": 45,
+                "launch": 48
+              }
+            },
+            {
+              "role": "late_2",
+              "duration_ns": 5151001916,
+              "start_monotonic_ns": 14790472313987475,
+              "phases_ns": {
+                "before_create_log": 4331551980,
+                "create_to_launch_log": 809223000,
+                "launch_to_client_return": 10226936
+              },
+              "server_log_lines": {
+                "create": 40,
+                "launch": 44
+              }
+            },
+            {
+              "role": "late_3",
+              "duration_ns": 3000488182,
+              "start_monotonic_ns": 14790472314648260,
+              "phases_ns": {
+                "before_create_log": 2011438952,
+                "create_to_launch_log": 977095000,
+                "launch_to_client_return": 11954230
+              },
+              "server_log_lines": {
+                "create": 17,
+                "launch": 30
+              }
+            }
+          ],
+          "cold_phase_sum_ns": {
+            "before_create_log": 40425107226,
+            "create_to_launch_log": 5916604000,
+            "launch_to_client_return": 75749937
+          },
+          "wall_minus_monotonic_offset_range_ns": 1873
+        }
+      ],
+      "comparison": {
+        "tool_sum": {
+          "off_ns": 60448054289,
+          "on_ns": 60972343506,
+          "difference_ns": 524289217,
+          "change_percent": 0.8673384497925873
+        },
+        "frozen_tools_and_downloads_span": {
+          "off_ns": 16874664045,
+          "on_ns": 17940249212,
+          "difference_ns": 1065585167,
+          "change_percent": 6.314704483350808
+        },
+        "cold_request_span": {
+          "off_ns": 23351085598,
+          "on_ns": 2886802510,
+          "difference_ns": -20464283088,
+          "change_percent": -87.63739485308018
+        },
+        "monitor_control_call_sum": {
+          "off_ns": 0,
+          "on_ns": 3515857072,
+          "difference_ns": 3515857072,
+          "change_percent": null
+        },
+        "monitor_control_union": {
+          "off_ns": 0,
+          "on_ns": 942056163,
+          "difference_ns": 942056163,
+          "change_percent": null
+        },
+        "cleanup": {
+          "off_ns": 261730850,
+          "on_ns": 575596742,
+          "difference_ns": 313865892,
+          "change_percent": 119.91933392643625
+        },
+        "controller": {
+          "off_ns": 48499696537,
+          "on_ns": 29178387048,
+          "difference_ns": -19321309489,
+          "change_percent": -39.83800078885017
+        },
+        "rollout": {
+          "off_ns": 48028358602,
+          "on_ns": 28387235627,
+          "difference_ns": -19641122975,
+          "change_percent": -40.89484535118405
+        }
+      },
+      "controller_phase_difference_ns": {
+        "create_and_prepare": -20408276919,
+        "execution_and_download": 1065575146,
+        "post_path_checks": -298421202,
+        "cleanup": 313865892,
+        "other": 5947594
+      }
+    },
+    {
+      "pair": 7,
+      "directory": ".artifacts/grpo-light-ten-20261026/pair-07",
+      "order": [
+        "off",
+        "on"
+      ],
+      "runs": [
+        {
+          "mode": "off",
+          "actual_actions": 189,
+          "official": {
+            "backbone": {
+              "passed": 0,
+              "failed": 2
+            },
+            "early_1": {
+              "passed": 0,
+              "failed": 2
+            },
+            "early_2": {
+              "passed": 0,
+              "failed": 2
+            },
+            "early_3": {
+              "passed": 0,
+              "failed": 2
+            },
+            "late_1": {
+              "passed": 0,
+              "failed": 2
+            },
+            "late_2": {
+              "passed": 0,
+              "failed": 2
+            },
+            "late_3": {
+              "passed": 0,
+              "failed": 2
+            }
+          },
+          "sessions": [],
+          "timings_ns": {
+            "tool_sum": 60579419161,
+            "frozen_tools_and_downloads_span": 18939765937,
+            "cold_request_span": 2810331852,
+            "monitor_control_call_sum": 0,
+            "monitor_control_union": 0,
+            "cleanup": 564313028,
+            "controller": 30223906884,
+            "rollout": 29440003022
+          },
+          "minimum_free_disk_gib": 108.3656997680664,
+          "controller_phases_ns": {
+            "create_and_prepare": 4951709216,
+            "execution_and_download": 18940695649,
+            "post_path_checks": 5547598157,
+            "cleanup": 564313028,
+            "other": 219590834
+          },
+          "workflow": ".artifacts/platform-tasks/20261026T131132Z-1500378",
+          "storage": ".artifacts/storage-isolated-service/20261026T131251Z-1501410",
+          "raw": ".artifacts/storage-isolated-service/20261026T131251Z-1501410/prettier6604",
+          "report": ".artifacts/platform-tasks/report-20261026T131132Z-1500378",
+          "cold_requests": [
+            {
+              "role": "backbone",
+              "duration_ns": 2792601572,
+              "start_monotonic_ns": 14790622114529119,
+              "phases_ns": {
+                "before_create_log": 1920961405,
+                "create_to_launch_log": 860086000,
+                "launch_to_client_return": 11554167
+              },
+              "server_log_lines": {
+                "create": 31,
+                "launch": 48
+              }
+            },
+            {
+              "role": "early_1",
+              "duration_ns": 2656369092,
+              "start_monotonic_ns": 14790622115060264,
+              "phases_ns": {
+                "before_create_log": 1743879351,
+                "create_to_launch_log": 898545000,
+                "launch_to_client_return": 13944741
+              },
+              "server_log_lines": {
+                "create": 19,
+                "launch": 44
+              }
+            },
+            {
+              "role": "early_2",
+              "duration_ns": 2694573912,
+              "start_monotonic_ns": 14790622115641612,
+              "phases_ns": {
+                "before_create_log": 1741075945,
+                "create_to_launch_log": 941924000,
+                "launch_to_client_return": 11573967
+              },
+              "server_log_lines": {
+                "create": 18,
+                "launch": 46
+              }
+            },
+            {
+              "role": "early_3",
+              "duration_ns": 2808352286,
+              "start_monotonic_ns": 14790622116508685,
+              "phases_ns": {
+                "before_create_log": 1817579650,
+                "create_to_launch_log": 981294000,
+                "launch_to_client_return": 9478636
+              },
+              "server_log_lines": {
+                "create": 26,
+                "launch": 50
+              }
+            },
+            {
+              "role": "late_1",
+              "duration_ns": 2674966041,
+              "start_monotonic_ns": 14790622116986366,
+              "phases_ns": {
+                "before_create_log": 1793033777,
+                "create_to_launch_log": 872245000,
+                "launch_to_client_return": 9687264
+              },
+              "server_log_lines": {
+                "create": 25,
+                "launch": 45
+              }
+            },
+            {
+              "role": "late_2",
+              "duration_ns": 2802368280,
+              "start_monotonic_ns": 14790622117515178,
+              "phases_ns": {
+                "before_create_log": 1737384198,
+                "create_to_launch_log": 1055235000,
+                "launch_to_client_return": 9749082
+              },
+              "server_log_lines": {
+                "create": 17,
+                "launch": 49
+              }
+            },
+            {
+              "role": "late_3",
+              "duration_ns": 2731656800,
+              "start_monotonic_ns": 14790622118122413,
+              "phases_ns": {
+                "before_create_log": 1898889463,
+                "create_to_launch_log": 822390000,
+                "launch_to_client_return": 10377337
+              },
+              "server_log_lines": {
+                "create": 30,
+                "launch": 47
+              }
+            }
+          ],
+          "cold_phase_sum_ns": {
+            "before_create_log": 12652803789,
+            "create_to_launch_log": 6431719000,
+            "launch_to_client_return": 76365194
+          },
+          "wall_minus_monotonic_offset_range_ns": 2011
+        },
+        {
+          "mode": "on",
+          "actual_actions": 189,
+          "official": {
+            "backbone": {
+              "passed": 0,
+              "failed": 2
+            },
+            "early_1": {
+              "passed": 0,
+              "failed": 2
+            },
+            "early_2": {
+              "passed": 0,
+              "failed": 2
+            },
+            "early_3": {
+              "passed": 0,
+              "failed": 2
+            },
+            "late_1": {
+              "passed": 0,
+              "failed": 2
+            },
+            "late_2": {
+              "passed": 0,
+              "failed": 2
+            },
+            "late_3": {
+              "passed": 0,
+              "failed": 2
+            }
+          },
+          "sessions": [
+            {
+              "role": "late_2",
+              "samples": 262,
+              "cpu_seconds": 0.206339,
+              "peak_rss_mib": 16.7265625,
+              "max_gap_seconds": 0.10181903
+            },
+            {
+              "role": "early_3",
+              "samples": 263,
+              "cpu_seconds": 0.172869,
+              "peak_rss_mib": 16.65625,
+              "max_gap_seconds": 0.10234781
+            },
+            {
+              "role": "late_3",
+              "samples": 263,
+              "cpu_seconds": 0.21034299999999997,
+              "peak_rss_mib": 16.484375,
+              "max_gap_seconds": 0.103922934
+            },
+            {
+              "role": "late_1",
+              "samples": 262,
+              "cpu_seconds": 0.231643,
+              "peak_rss_mib": 16.27734375,
+              "max_gap_seconds": 0.104813555
+            },
+            {
+              "role": "early_1",
+              "samples": 262,
+              "cpu_seconds": 0.182587,
+              "peak_rss_mib": 16.80078125,
+              "max_gap_seconds": 0.104921389
+            },
+            {
+              "role": "early_2",
+              "samples": 261,
+              "cpu_seconds": 0.202292,
+              "peak_rss_mib": 16.73828125,
+              "max_gap_seconds": 0.102785922
+            },
+            {
+              "role": "backbone",
+              "samples": 261,
+              "cpu_seconds": 0.21126899999999998,
+              "peak_rss_mib": 16.55859375,
+              "max_gap_seconds": 0.102647696
+            }
+          ],
+          "timings_ns": {
+            "tool_sum": 60849978093,
+            "frozen_tools_and_downloads_span": 18128334522,
+            "cold_request_span": 3083425105,
+            "monitor_control_call_sum": 3519019092,
+            "monitor_control_union": 798101609,
+            "cleanup": 521695884,
+            "controller": 29772728340,
+            "rollout": 29059791531
+          },
+          "minimum_free_disk_gib": 108.36099624633789,
+          "controller_phases_ns": {
+            "create_and_prepare": 5258137812,
+            "execution_and_download": 18128699122,
+            "post_path_checks": 5672954597,
+            "cleanup": 521695884,
+            "other": 191240925
+          },
+          "workflow": ".artifacts/platform-tasks/20261026T131342Z-1503743",
+          "storage": ".artifacts/storage-isolated-service/20261026T131509Z-1504871",
+          "raw": ".artifacts/storage-isolated-service/20261026T131509Z-1504871/prettier6604",
+          "report": ".artifacts/platform-tasks/report-20261026T131342Z-1503743",
+          "collector_one_core_cpu_percent": [
+            0.7870780246966438,
+            0.6579223259697775,
+            0.7996408912864883,
+            0.8814366277419865,
+            0.6967266718582149,
+            0.7748027770922581,
+            0.8099692604859368
+          ],
+          "cold_requests": [
+            {
+              "role": "backbone",
+              "duration_ns": 3083425105,
+              "start_monotonic_ns": 14790759705389660,
+              "phases_ns": {
+                "before_create_log": 1889268238,
+                "create_to_launch_log": 1184425000,
+                "launch_to_client_return": 9731867
+              },
+              "server_log_lines": {
+                "create": 18,
+                "launch": 58
+              }
+            },
+            {
+              "role": "early_1",
+              "duration_ns": 2930197464,
+              "start_monotonic_ns": 14790759705763576,
+              "phases_ns": {
+                "before_create_log": 1886855412,
+                "create_to_launch_log": 1031859000,
+                "launch_to_client_return": 11483052
+              },
+              "server_log_lines": {
+                "create": 17,
+                "launch": 56
+              }
+            },
+            {
+              "role": "early_2",
+              "duration_ns": 2968613977,
+              "start_monotonic_ns": 14790759707131701,
+              "phases_ns": {
+                "before_create_log": 1892250518,
+                "create_to_launch_log": 1065415000,
+                "launch_to_client_return": 10948459
+              },
+              "server_log_lines": {
+                "create": 21,
+                "launch": 57
+              }
+            },
+            {
+              "role": "early_3",
+              "duration_ns": 2887493538,
+              "start_monotonic_ns": 14790759707666527,
+              "phases_ns": {
+                "before_create_log": 1888315682,
+                "create_to_launch_log": 987626000,
+                "launch_to_client_return": 11551856
+              },
+              "server_log_lines": {
+                "create": 19,
+                "launch": 53
+              }
+            },
+            {
+              "role": "late_1",
+              "duration_ns": 2901485392,
+              "start_monotonic_ns": 14790759708193047,
+              "phases_ns": {
+                "before_create_log": 1894824178,
+                "create_to_launch_log": 995746000,
+                "launch_to_client_return": 10915214
+              },
+              "server_log_lines": {
+                "create": 23,
+                "launch": 55
+              }
+            },
+            {
+              "role": "late_2",
+              "duration_ns": 2880792316,
+              "start_monotonic_ns": 14790759708759234,
+              "phases_ns": {
+                "before_create_log": 1892539013,
+                "create_to_launch_log": 976634000,
+                "launch_to_client_return": 11619303
+              },
+              "server_log_lines": {
+                "create": 22,
+                "launch": 52
+              }
+            },
+            {
+              "role": "late_3",
+              "duration_ns": 2890706393,
+              "start_monotonic_ns": 14790759709514425,
+              "phases_ns": {
+                "before_create_log": 1887952743,
+                "create_to_launch_log": 993212000,
+                "launch_to_client_return": 9541650
+              },
+              "server_log_lines": {
+                "create": 20,
+                "launch": 54
+              }
+            }
+          ],
+          "cold_phase_sum_ns": {
+            "before_create_log": 13232005784,
+            "create_to_launch_log": 7234917000,
+            "launch_to_client_return": 75791401
+          },
+          "wall_minus_monotonic_offset_range_ns": 3635,
+          "first_upload_after_all_create_logs_ns": 987707588,
+          "first_ready_before_last_cold_return_ns": 41151439
+        }
+      ],
+      "comparison": {
+        "tool_sum": {
+          "off_ns": 60579419161,
+          "on_ns": 60849978093,
+          "difference_ns": 270558932,
+          "change_percent": 0.4466185641049947
+        },
+        "frozen_tools_and_downloads_span": {
+          "off_ns": 18939765937,
+          "on_ns": 18128334522,
+          "difference_ns": -811431415,
+          "change_percent": -4.284273721750798
+        },
+        "cold_request_span": {
+          "off_ns": 2810331852,
+          "on_ns": 3083425105,
+          "difference_ns": 273093253,
+          "change_percent": 9.717473500705998
+        },
+        "monitor_control_call_sum": {
+          "off_ns": 0,
+          "on_ns": 3519019092,
+          "difference_ns": 3519019092,
+          "change_percent": null
+        },
+        "monitor_control_union": {
+          "off_ns": 0,
+          "on_ns": 798101609,
+          "difference_ns": 798101609,
+          "change_percent": null
+        },
+        "cleanup": {
+          "off_ns": 564313028,
+          "on_ns": 521695884,
+          "difference_ns": -42617144,
+          "change_percent": -7.552039716509961
+        },
+        "controller": {
+          "off_ns": 30223906884,
+          "on_ns": 29772728340,
+          "difference_ns": -451178544,
+          "change_percent": -1.4927869706971797
+        },
+        "rollout": {
+          "off_ns": 29440003022,
+          "on_ns": 29059791531,
+          "difference_ns": -380211491,
+          "change_percent": -1.2914791167510264
+        }
+      },
+      "controller_phase_difference_ns": {
+        "create_and_prepare": 306428596,
+        "execution_and_download": -811996527,
+        "post_path_checks": 125356440,
+        "cleanup": -42617144,
+        "other": -28349909
+      }
+    },
+    {
+      "pair": 8,
+      "directory": ".artifacts/grpo-light-ten-20261026/pair-08",
+      "order": [
+        "on",
+        "off"
+      ],
+      "runs": [
+        {
+          "mode": "on",
+          "actual_actions": 189,
+          "official": {
+            "backbone": {
+              "passed": 0,
+              "failed": 2
+            },
+            "early_1": {
+              "passed": 0,
+              "failed": 2
+            },
+            "early_2": {
+              "passed": 0,
+              "failed": 2
+            },
+            "early_3": {
+              "passed": 0,
+              "failed": 2
+            },
+            "late_1": {
+              "passed": 0,
+              "failed": 2
+            },
+            "late_2": {
+              "passed": 0,
+              "failed": 2
+            },
+            "late_3": {
+              "passed": 0,
+              "failed": 2
+            }
+          },
+          "sessions": [
+            {
+              "role": "backbone",
+              "samples": 267,
+              "cpu_seconds": 0.21185099999999998,
+              "peak_rss_mib": 16.203125,
+              "max_gap_seconds": 0.106649012
+            },
+            {
+              "role": "late_1",
+              "samples": 266,
+              "cpu_seconds": 0.20560099999999998,
+              "peak_rss_mib": 16.734375,
+              "max_gap_seconds": 0.101397726
+            },
+            {
+              "role": "early_2",
+              "samples": 267,
+              "cpu_seconds": 0.179363,
+              "peak_rss_mib": 16.64453125,
+              "max_gap_seconds": 0.103606125
+            },
+            {
+              "role": "late_3",
+              "samples": 266,
+              "cpu_seconds": 0.212687,
+              "peak_rss_mib": 16.5703125,
+              "max_gap_seconds": 0.107316829
+            },
+            {
+              "role": "early_3",
+              "samples": 265,
+              "cpu_seconds": 0.198805,
+              "peak_rss_mib": 16.625,
+              "max_gap_seconds": 0.105276142
+            },
+            {
+              "role": "early_1",
+              "samples": 265,
+              "cpu_seconds": 0.198293,
+              "peak_rss_mib": 16.1015625,
+              "max_gap_seconds": 0.113699653
+            },
+            {
+              "role": "late_2",
+              "samples": 265,
+              "cpu_seconds": 0.19331399999999999,
+              "peak_rss_mib": 16.27734375,
+              "max_gap_seconds": 0.103532597
+            }
+          ],
+          "timings_ns": {
+            "tool_sum": 60311800291,
+            "frozen_tools_and_downloads_span": 18432950998,
+            "cold_request_span": 2817973925,
+            "monitor_control_call_sum": 4073664291,
+            "monitor_control_union": 919177521,
+            "cleanup": 837558941,
+            "controller": 30210691109,
+            "rollout": 29158042348
+          },
+          "minimum_free_disk_gib": 108.35406112670898,
+          "controller_phases_ns": {
+            "create_and_prepare": 5278244530,
+            "execution_and_download": 18433877321,
+            "post_path_checks": 5445920497,
+            "cleanup": 837558941,
+            "other": 215089820
+          },
+          "workflow": ".artifacts/platform-tasks/20261026T131603Z-1508045",
+          "storage": ".artifacts/storage-isolated-service/20261026T131721Z-1509154",
+          "raw": ".artifacts/storage-isolated-service/20261026T131721Z-1509154/prettier6604",
+          "report": ".artifacts/platform-tasks/report-20261026T131603Z-1508045",
+          "collector_one_core_cpu_percent": [
+            0.7915073105483053,
+            0.7714981871892258,
+            0.6726455070116814,
+            0.7996649935954656,
+            0.7517394092287543,
+            0.748534623338882,
+            0.7296733273813097
+          ],
+          "cold_requests": [
+            {
+              "role": "backbone",
+              "duration_ns": 2533281098,
+              "start_monotonic_ns": 14790892629846228,
+              "phases_ns": {
+                "before_create_log": 1795158887,
+                "create_to_launch_log": 728343000,
+                "launch_to_client_return": 9779211
+              },
+              "server_log_lines": {
+                "create": 18,
+                "launch": 46
+              }
+            },
+            {
+              "role": "early_1",
+              "duration_ns": 2790101420,
+              "start_monotonic_ns": 14790892630356845,
+              "phases_ns": {
+                "before_create_log": 1805518259,
+                "create_to_launch_log": 974807000,
+                "launch_to_client_return": 9776161
+              },
+              "server_log_lines": {
+                "create": 19,
+                "launch": 51
+              }
+            },
+            {
+              "role": "early_2",
+              "duration_ns": 2677797161,
+              "start_monotonic_ns": 14790892631617178,
+              "phases_ns": {
+                "before_create_log": 1814508056,
+                "create_to_launch_log": 853354000,
+                "launch_to_client_return": 9935105
+              },
+              "server_log_lines": {
+                "create": 20,
+                "launch": 48
+              }
+            },
+            {
+              "role": "early_3",
+              "duration_ns": 2786904435,
+              "start_monotonic_ns": 14790892632358020,
+              "phases_ns": {
+                "before_create_log": 1851571313,
+                "create_to_launch_log": 923912000,
+                "launch_to_client_return": 11421122
+              },
+              "server_log_lines": {
+                "create": 27,
+                "launch": 50
+              }
+            },
+            {
+              "role": "late_1",
+              "duration_ns": 2643693233,
+              "start_monotonic_ns": 14790892632636925,
+              "phases_ns": {
+                "before_create_log": 1856396335,
+                "create_to_launch_log": 776379000,
+                "launch_to_client_return": 10917898
+              },
+              "server_log_lines": {
+                "create": 28,
+                "launch": 47
+              }
+            },
+            {
+              "role": "late_2",
+              "duration_ns": 2814803253,
+              "start_monotonic_ns": 14790892633016900,
+              "phases_ns": {
+                "before_create_log": 1848574336,
+                "create_to_launch_log": 955048000,
+                "launch_to_client_return": 11180917
+              },
+              "server_log_lines": {
+                "create": 26,
+                "launch": 52
+              }
+            },
+            {
+              "role": "late_3",
+              "duration_ns": 2684588090,
+              "start_monotonic_ns": 14790892633497668,
+              "phases_ns": {
+                "before_create_log": 1788752554,
+                "create_to_launch_log": 885226000,
+                "launch_to_client_return": 10609536
+              },
+              "server_log_lines": {
+                "create": 17,
+                "launch": 49
+              }
+            }
+          ],
+          "cold_phase_sum_ns": {
+            "before_create_log": 12760479740,
+            "create_to_launch_log": 6097069000,
+            "launch_to_client_return": 73619950
+          },
+          "wall_minus_monotonic_offset_range_ns": 6992,
+          "first_upload_after_all_create_logs_ns": 675578126,
+          "first_ready_before_last_cold_return_ns": 76629345
+        },
+        {
+          "mode": "off",
+          "actual_actions": 189,
+          "official": {
+            "backbone": {
+              "passed": 0,
+              "failed": 2
+            },
+            "early_1": {
+              "passed": 0,
+              "failed": 2
+            },
+            "early_2": {
+              "passed": 0,
+              "failed": 2
+            },
+            "early_3": {
+              "passed": 0,
+              "failed": 2
+            },
+            "late_1": {
+              "passed": 0,
+              "failed": 2
+            },
+            "late_2": {
+              "passed": 0,
+              "failed": 2
+            },
+            "late_3": {
+              "passed": 0,
+              "failed": 2
+            }
+          },
+          "sessions": [],
+          "timings_ns": {
+            "tool_sum": 60487216292,
+            "frozen_tools_and_downloads_span": 17720248968,
+            "cold_request_span": 3140659315,
+            "monitor_control_call_sum": 0,
+            "monitor_control_union": 0,
+            "cleanup": 265096933,
+            "controller": 29298824719,
+            "rollout": 28822098602
+          },
+          "minimum_free_disk_gib": 108.34616470336914,
+          "controller_phases_ns": {
+            "create_and_prepare": 5427196714,
+            "execution_and_download": 17721249357,
+            "post_path_checks": 5673652531,
+            "cleanup": 265096933,
+            "other": 211629184
+          },
+          "workflow": ".artifacts/platform-tasks/20261026T131814Z-1511854",
+          "storage": ".artifacts/storage-isolated-service/20261026T131933Z-1512872",
+          "raw": ".artifacts/storage-isolated-service/20261026T131933Z-1512872/prettier6604",
+          "report": ".artifacts/platform-tasks/report-20261026T131814Z-1511854",
+          "cold_requests": [
+            {
+              "role": "backbone",
+              "duration_ns": 3071509872,
+              "start_monotonic_ns": 14791024054425686,
+              "phases_ns": {
+                "before_create_log": 2139696704,
+                "create_to_launch_log": 921990000,
+                "launch_to_client_return": 9823168
+              },
+              "server_log_lines": {
+                "create": 19,
+                "launch": 55
+              }
+            },
+            {
+              "role": "early_1",
+              "duration_ns": 3047598907,
+              "start_monotonic_ns": 14791024054980681,
+              "phases_ns": {
+                "before_create_log": 2141333664,
+                "create_to_launch_log": 896875000,
+                "launch_to_client_return": 9390243
+              },
+              "server_log_lines": {
+                "create": 20,
+                "launch": 54
+              }
+            },
+            {
+              "role": "early_2",
+              "duration_ns": 2932859838,
+              "start_monotonic_ns": 14791024055530668,
+              "phases_ns": {
+                "before_create_log": 2146246416,
+                "create_to_launch_log": 774757000,
+                "launch_to_client_return": 11856422
+              },
+              "server_log_lines": {
+                "create": 23,
+                "launch": 52
+              }
+            },
+            {
+              "role": "early_3",
+              "duration_ns": 3083988467,
+              "start_monotonic_ns": 14791024056293391,
+              "phases_ns": {
+                "before_create_log": 2141783834,
+                "create_to_launch_log": 931038000,
+                "launch_to_client_return": 11166633
+              },
+              "server_log_lines": {
+                "create": 21,
+                "launch": 56
+              }
+            },
+            {
+              "role": "late_1",
+              "duration_ns": 3040066023,
+              "start_monotonic_ns": 14791024056670056,
+              "phases_ns": {
+                "before_create_log": 2143444061,
+                "create_to_launch_log": 886381000,
+                "launch_to_client_return": 10240962
+              },
+              "server_log_lines": {
+                "create": 22,
+                "launch": 53
+              }
+            },
+            {
+              "role": "late_2",
+              "duration_ns": 3137746060,
+              "start_monotonic_ns": 14791024057338941,
+              "phases_ns": {
+                "before_create_log": 2132952138,
+                "create_to_launch_log": 994777000,
+                "launch_to_client_return": 10016922
+              },
+              "server_log_lines": {
+                "create": 17,
+                "launch": 58
+              }
+            },
+            {
+              "role": "late_3",
+              "duration_ns": 3131126149,
+              "start_monotonic_ns": 14791024057935786,
+              "phases_ns": {
+                "before_create_log": 2134128781,
+                "create_to_launch_log": 985816000,
+                "launch_to_client_return": 11181368
+              },
+              "server_log_lines": {
+                "create": 18,
+                "launch": 57
+              }
+            }
+          ],
+          "cold_phase_sum_ns": {
+            "before_create_log": 14979585598,
+            "create_to_launch_log": 6391634000,
+            "launch_to_client_return": 73675718
+          },
+          "wall_minus_monotonic_offset_range_ns": 2860
+        }
+      ],
+      "comparison": {
+        "tool_sum": {
+          "off_ns": 60487216292,
+          "on_ns": 60311800291,
+          "difference_ns": -175416001,
+          "change_percent": -0.2900050816575628
+        },
+        "frozen_tools_and_downloads_span": {
+          "off_ns": 17720248968,
+          "on_ns": 18432950998,
+          "difference_ns": 712702030,
+          "change_percent": 4.021963976279497
+        },
+        "cold_request_span": {
+          "off_ns": 3140659315,
+          "on_ns": 2817973925,
+          "difference_ns": -322685390,
+          "change_percent": -10.27444742124155
+        },
+        "monitor_control_call_sum": {
+          "off_ns": 0,
+          "on_ns": 4073664291,
+          "difference_ns": 4073664291,
+          "change_percent": null
+        },
+        "monitor_control_union": {
+          "off_ns": 0,
+          "on_ns": 919177521,
+          "difference_ns": 919177521,
+          "change_percent": null
+        },
+        "cleanup": {
+          "off_ns": 265096933,
+          "on_ns": 837558941,
+          "difference_ns": 572462008,
+          "change_percent": 215.9444100396288
+        },
+        "controller": {
+          "off_ns": 29298824719,
+          "on_ns": 30210691109,
+          "difference_ns": 911866390,
+          "change_percent": 3.1122968199085
+        },
+        "rollout": {
+          "off_ns": 28822098602,
+          "on_ns": 29158042348,
+          "difference_ns": 335943746,
+          "change_percent": 1.1655769784115977
+        }
+      },
+      "controller_phase_difference_ns": {
+        "create_and_prepare": -148952184,
+        "execution_and_download": 712627964,
+        "post_path_checks": -227732034,
+        "cleanup": 572462008,
+        "other": 3460636
+      }
+    },
+    {
+      "pair": 9,
+      "directory": ".artifacts/grpo-light-ten-20261026/pair-09",
+      "order": [
+        "off",
+        "on"
+      ],
+      "runs": [
+        {
+          "mode": "off",
+          "actual_actions": 189,
+          "official": {
+            "backbone": {
+              "passed": 0,
+              "failed": 2
+            },
+            "early_1": {
+              "passed": 0,
+              "failed": 2
+            },
+            "early_2": {
+              "passed": 0,
+              "failed": 2
+            },
+            "early_3": {
+              "passed": 0,
+              "failed": 2
+            },
+            "late_1": {
+              "passed": 0,
+              "failed": 2
+            },
+            "late_2": {
+              "passed": 0,
+              "failed": 2
+            },
+            "late_3": {
+              "passed": 0,
+              "failed": 2
+            }
+          },
+          "sessions": [],
+          "timings_ns": {
+            "tool_sum": 61275192656,
+            "frozen_tools_and_downloads_span": 18157683710,
+            "cold_request_span": 2873396544,
+            "monitor_control_call_sum": 0,
+            "monitor_control_union": 0,
+            "cleanup": 260123623,
+            "controller": 29286706985,
+            "rollout": 28833400451
+          },
+          "minimum_free_disk_gib": 108.34127044677734,
+          "controller_phases_ns": {
+            "create_and_prepare": 5031685273,
+            "execution_and_download": 18158305465,
+            "post_path_checks": 5643409713,
+            "cleanup": 260123623,
+            "other": 193182911
+          },
+          "workflow": ".artifacts/platform-tasks/20261026T132026Z-1515731",
+          "storage": ".artifacts/storage-isolated-service/20261026T132144Z-1516807",
+          "raw": ".artifacts/storage-isolated-service/20261026T132144Z-1516807/prettier6604",
+          "report": ".artifacts/platform-tasks/report-20261026T132026Z-1515731",
+          "cold_requests": [
+            {
+              "role": "backbone",
+              "duration_ns": 2857580078,
+              "start_monotonic_ns": 14791155769871453,
+              "phases_ns": {
+                "before_create_log": 1768550805,
+                "create_to_launch_log": 1078752000,
+                "launch_to_client_return": 10277273
+              },
+              "server_log_lines": {
+                "create": 17,
+                "launch": 45
+              }
+            },
+            {
+              "role": "early_1",
+              "duration_ns": 2750562720,
+              "start_monotonic_ns": 14791155770144577,
+              "phases_ns": {
+                "before_create_log": 1919340385,
+                "create_to_launch_log": 820138000,
+                "launch_to_client_return": 11084335
+              },
+              "server_log_lines": {
+                "create": 26,
+                "launch": 41
+              }
+            },
+            {
+              "role": "early_2",
+              "duration_ns": 2803400705,
+              "start_monotonic_ns": 14791155770431775,
+              "phases_ns": {
+                "before_create_log": 1989341430,
+                "create_to_launch_log": 803380000,
+                "launch_to_client_return": 10679275
+              },
+              "server_log_lines": {
+                "create": 30,
+                "launch": 44
+              }
+            },
+            {
+              "role": "early_3",
+              "duration_ns": 2773775353,
+              "start_monotonic_ns": 14791155770990227,
+              "phases_ns": {
+                "before_create_log": 1911289943,
+                "create_to_launch_log": 852873000,
+                "launch_to_client_return": 9612410
+              },
+              "server_log_lines": {
+                "create": 25,
+                "launch": 42
+              }
+            },
+            {
+              "role": "late_1",
+              "duration_ns": 2651127095,
+              "start_monotonic_ns": 14791155771431761,
+              "phases_ns": {
+                "before_create_log": 1821760356,
+                "create_to_launch_log": 817450000,
+                "launch_to_client_return": 11916739
+              },
+              "server_log_lines": {
+                "create": 20,
+                "launch": 40
+              }
+            },
+            {
+              "role": "late_2",
+              "duration_ns": 2870949063,
+              "start_monotonic_ns": 14791155772318934,
+              "phases_ns": {
+                "before_create_log": 2088988405,
+                "create_to_launch_log": 772541000,
+                "launch_to_client_return": 9419658
+              },
+              "server_log_lines": {
+                "create": 35,
+                "launch": 46
+              }
+            },
+            {
+              "role": "late_3",
+              "duration_ns": 2793971294,
+              "start_monotonic_ns": 14791155772731592,
+              "phases_ns": {
+                "before_create_log": 1796090514,
+                "create_to_launch_log": 986641000,
+                "launch_to_client_return": 11239780
+              },
+              "server_log_lines": {
+                "create": 19,
+                "launch": 43
+              }
+            }
+          ],
+          "cold_phase_sum_ns": {
+            "before_create_log": 13295361838,
+            "create_to_launch_log": 6131775000,
+            "launch_to_client_return": 74229470
+          },
+          "wall_minus_monotonic_offset_range_ns": 1675
+        },
+        {
+          "mode": "on",
+          "actual_actions": 189,
+          "official": {
+            "backbone": {
+              "passed": 0,
+              "failed": 2
+            },
+            "early_1": {
+              "passed": 0,
+              "failed": 2
+            },
+            "early_2": {
+              "passed": 0,
+              "failed": 2
+            },
+            "early_3": {
+              "passed": 0,
+              "failed": 2
+            },
+            "late_1": {
+              "passed": 0,
+              "failed": 2
+            },
+            "late_2": {
+              "passed": 0,
+              "failed": 2
+            },
+            "late_3": {
+              "passed": 0,
+              "failed": 2
+            }
+          },
+          "sessions": [
+            {
+              "role": "early_1",
+              "samples": 279,
+              "cpu_seconds": 0.19808299999999998,
+              "peak_rss_mib": 16.55078125,
+              "max_gap_seconds": 0.104543178
+            },
+            {
+              "role": "early_2",
+              "samples": 279,
+              "cpu_seconds": 0.18370799999999998,
+              "peak_rss_mib": 16.72265625,
+              "max_gap_seconds": 0.104903333
+            },
+            {
+              "role": "late_3",
+              "samples": 277,
+              "cpu_seconds": 0.219797,
+              "peak_rss_mib": 16.7890625,
+              "max_gap_seconds": 0.107515362
+            },
+            {
+              "role": "early_3",
+              "samples": 278,
+              "cpu_seconds": 0.197564,
+              "peak_rss_mib": 16.80078125,
+              "max_gap_seconds": 0.101638195
+            },
+            {
+              "role": "late_1",
+              "samples": 277,
+              "cpu_seconds": 0.203791,
+              "peak_rss_mib": 16.7890625,
+              "max_gap_seconds": 0.107026708
+            },
+            {
+              "role": "backbone",
+              "samples": 277,
+              "cpu_seconds": 0.232605,
+              "peak_rss_mib": 16.83203125,
+              "max_gap_seconds": 0.102732736
+            },
+            {
+              "role": "late_2",
+              "samples": 277,
+              "cpu_seconds": 0.21414,
+              "peak_rss_mib": 16.5625,
+              "max_gap_seconds": 0.106366248
+            }
+          ],
+          "timings_ns": {
+            "tool_sum": 62986075481,
+            "frozen_tools_and_downloads_span": 19861194317,
+            "cold_request_span": 3028150660,
+            "monitor_control_call_sum": 3653407392,
+            "monitor_control_union": 838803942,
+            "cleanup": 822237842,
+            "controller": 31687259605,
+            "rollout": 30706379007
+          },
+          "minimum_free_disk_gib": 108.33653259277344,
+          "controller_phases_ns": {
+            "create_and_prepare": 5393435416,
+            "execution_and_download": 19862099451,
+            "post_path_checks": 5450844140,
+            "cleanup": 822237842,
+            "other": 158642756
+          },
+          "workflow": ".artifacts/platform-tasks/20261026T132236Z-1519212",
+          "storage": ".artifacts/storage-isolated-service/20261026T132355Z-1520258",
+          "raw": ".artifacts/storage-isolated-service/20261026T132355Z-1520258/prettier6604",
+          "report": ".artifacts/platform-tasks/report-20261026T132236Z-1519212",
+          "collector_one_core_cpu_percent": [
+            0.7088385793976809,
+            0.6591631608236064,
+            0.7914503490648721,
+            0.7116082376845556,
+            0.7339490143499994,
+            0.8376898478082222,
+            0.7710084399428292
+          ],
+          "cold_requests": [
+            {
+              "role": "backbone",
+              "duration_ns": 3018343455,
+              "start_monotonic_ns": 14791286631476039,
+              "phases_ns": {
+                "before_create_log": 2029891352,
+                "create_to_launch_log": 976871000,
+                "launch_to_client_return": 11581103
+              },
+              "server_log_lines": {
+                "create": 23,
+                "launch": 45
+              }
+            },
+            {
+              "role": "early_1",
+              "duration_ns": 2782793820,
+              "start_monotonic_ns": 14791286631770857,
+              "phases_ns": {
+                "before_create_log": 1908890398,
+                "create_to_launch_log": 861746000,
+                "launch_to_client_return": 12157422
+              },
+              "server_log_lines": {
+                "create": 17,
+                "launch": 40
+              }
+            },
+            {
+              "role": "early_2",
+              "duration_ns": 2922208586,
+              "start_monotonic_ns": 14791286632848918,
+              "phases_ns": {
+                "before_create_log": 2058846238,
+                "create_to_launch_log": 852096000,
+                "launch_to_client_return": 11266348
+              },
+              "server_log_lines": {
+                "create": 26,
+                "launch": 41
+              }
+            },
+            {
+              "role": "early_3",
+              "duration_ns": 2991131204,
+              "start_monotonic_ns": 14791286633297646,
+              "phases_ns": {
+                "before_create_log": 1933021534,
+                "create_to_launch_log": 1044358000,
+                "launch_to_client_return": 13751670
+              },
+              "server_log_lines": {
+                "create": 19,
+                "launch": 43
+              }
+            },
+            {
+              "role": "late_1",
+              "duration_ns": 3014032614,
+              "start_monotonic_ns": 14791286633769178,
+              "phases_ns": {
+                "before_create_log": 2048352956,
+                "create_to_launch_log": 954572000,
+                "launch_to_client_return": 11107658
+              },
+              "server_log_lines": {
+                "create": 25,
+                "launch": 44
+              }
+            },
+            {
+              "role": "late_2",
+              "duration_ns": 3025405980,
+              "start_monotonic_ns": 14791286634220719,
+              "phases_ns": {
+                "before_create_log": 2029287512,
+                "create_to_launch_log": 986264000,
+                "launch_to_client_return": 9854468
+              },
+              "server_log_lines": {
+                "create": 24,
+                "launch": 46
+              }
+            },
+            {
+              "role": "late_3",
+              "duration_ns": 2983832341,
+              "start_monotonic_ns": 14791286635013346,
+              "phases_ns": {
+                "before_create_log": 2157816865,
+                "create_to_launch_log": 813880000,
+                "launch_to_client_return": 12135476
+              },
+              "server_log_lines": {
+                "create": 28,
+                "launch": 42
+              }
+            }
+          ],
+          "cold_phase_sum_ns": {
+            "before_create_log": 14166106855,
+            "create_to_launch_log": 6489787000,
+            "launch_to_client_return": 81854145
+          },
+          "wall_minus_monotonic_offset_range_ns": 1882,
+          "first_upload_after_all_create_logs_ns": 622992913,
+          "first_ready_before_last_cold_return_ns": 25797032
+        }
+      ],
+      "comparison": {
+        "tool_sum": {
+          "off_ns": 61275192656,
+          "on_ns": 62986075481,
+          "difference_ns": 1710882825,
+          "change_percent": 2.7921296544997087
+        },
+        "frozen_tools_and_downloads_span": {
+          "off_ns": 18157683710,
+          "on_ns": 19861194317,
+          "difference_ns": 1703510607,
+          "change_percent": 9.381761650919284
+        },
+        "cold_request_span": {
+          "off_ns": 2873396544,
+          "on_ns": 3028150660,
+          "difference_ns": 154754116,
+          "change_percent": 5.385755625103172
+        },
+        "monitor_control_call_sum": {
+          "off_ns": 0,
+          "on_ns": 3653407392,
+          "difference_ns": 3653407392,
+          "change_percent": null
+        },
+        "monitor_control_union": {
+          "off_ns": 0,
+          "on_ns": 838803942,
+          "difference_ns": 838803942,
+          "change_percent": null
+        },
+        "cleanup": {
+          "off_ns": 260123623,
+          "on_ns": 822237842,
+          "difference_ns": 562114219,
+          "change_percent": 216.09502917003428
+        },
+        "controller": {
+          "off_ns": 29286706985,
+          "on_ns": 31687259605,
+          "difference_ns": 2400552620,
+          "change_percent": 8.196731101347488
+        },
+        "rollout": {
+          "off_ns": 28833400451,
+          "on_ns": 30706379007,
+          "difference_ns": 1872978556,
+          "change_percent": 6.49586426402593
+        }
+      },
+      "controller_phase_difference_ns": {
+        "create_and_prepare": 361750143,
+        "execution_and_download": 1703793986,
+        "post_path_checks": -192565573,
+        "cleanup": 562114219,
+        "other": -34540155
+      }
+    },
+    {
+      "pair": 10,
+      "directory": ".artifacts/grpo-light-ten-20261026/pair-10",
+      "order": [
+        "on",
+        "off"
+      ],
+      "runs": [
+        {
+          "mode": "on",
+          "actual_actions": 189,
+          "official": {
+            "backbone": {
+              "passed": 0,
+              "failed": 2
+            },
+            "early_1": {
+              "passed": 0,
+              "failed": 2
+            },
+            "early_2": {
+              "passed": 0,
+              "failed": 2
+            },
+            "early_3": {
+              "passed": 0,
+              "failed": 2
+            },
+            "late_1": {
+              "passed": 0,
+              "failed": 2
+            },
+            "late_2": {
+              "passed": 0,
+              "failed": 2
+            },
+            "late_3": {
+              "passed": 0,
+              "failed": 2
+            }
+          },
+          "sessions": [
+            {
+              "role": "late_1",
+              "samples": 297,
+              "cpu_seconds": 0.22794,
+              "peak_rss_mib": 16.53125,
+              "max_gap_seconds": 0.105550165
+            },
+            {
+              "role": "late_2",
+              "samples": 294,
+              "cpu_seconds": 0.21470499999999998,
+              "peak_rss_mib": 16.6640625,
+              "max_gap_seconds": 0.104874642
+            },
+            {
+              "role": "early_3",
+              "samples": 292,
+              "cpu_seconds": 0.200704,
+              "peak_rss_mib": 16.7265625,
+              "max_gap_seconds": 0.101771053
+            },
+            {
+              "role": "backbone",
+              "samples": 288,
+              "cpu_seconds": 0.214142,
+              "peak_rss_mib": 16.64453125,
+              "max_gap_seconds": 0.106225032
+            },
+            {
+              "role": "early_2",
+              "samples": 287,
+              "cpu_seconds": 0.203031,
+              "peak_rss_mib": 16.73828125,
+              "max_gap_seconds": 0.106070881
+            },
+            {
+              "role": "early_1",
+              "samples": 283,
+              "cpu_seconds": 0.20328699999999997,
+              "peak_rss_mib": 16.1875,
+              "max_gap_seconds": 0.101850824
+            },
+            {
+              "role": "late_3",
+              "samples": 280,
+              "cpu_seconds": 0.21183799999999997,
+              "peak_rss_mib": 16.58203125,
+              "max_gap_seconds": 0.105315797
+            }
+          ],
+          "timings_ns": {
+            "tool_sum": 62669076704,
+            "frozen_tools_and_downloads_span": 20376716285,
+            "cold_request_span": 4144913361,
+            "monitor_control_call_sum": 3784544653,
+            "monitor_control_union": 1939673243,
+            "cleanup": 520635512,
+            "controller": 32835103911,
+            "rollout": 32114809880
+          },
+          "minimum_free_disk_gib": 108.3299331665039,
+          "controller_phases_ns": {
+            "create_and_prepare": 6429889945,
+            "execution_and_download": 20377632118,
+            "post_path_checks": 5307287817,
+            "cleanup": 520635512,
+            "other": 199658519
+          },
+          "workflow": ".artifacts/platform-tasks/20261026T132451Z-1523410",
+          "storage": ".artifacts/storage-isolated-service/20261026T132609Z-1524440",
+          "raw": ".artifacts/storage-isolated-service/20261026T132609Z-1524440/prettier6604",
+          "report": ".artifacts/platform-tasks/report-20261026T132451Z-1523410",
+          "collector_one_core_cpu_percent": [
+            0.7663101818405391,
+            0.7292308529552125,
+            0.6861829924598062,
+            0.7422088480124993,
+            0.7082591170034855,
+            0.7181419165559205,
+            0.7554510969289168
+          ],
+          "cold_requests": [
+            {
+              "role": "backbone",
+              "duration_ns": 3303878477,
+              "start_monotonic_ns": 14791419454657820,
+              "phases_ns": {
+                "before_create_log": 2644458558,
+                "create_to_launch_log": 649628000,
+                "launch_to_client_return": 9791919
+              },
+              "server_log_lines": {
+                "create": 29,
+                "launch": 40
+              }
+            },
+            {
+              "role": "early_1",
+              "duration_ns": 3885108793,
+              "start_monotonic_ns": 14791419455060062,
+              "phases_ns": {
+                "before_create_log": 3123037982,
+                "create_to_launch_log": 752010000,
+                "launch_to_client_return": 10060811
+              },
+              "server_log_lines": {
+                "create": 37,
+                "launch": 45
+              }
+            },
+            {
+              "role": "early_2",
+              "duration_ns": 3564008599,
+              "start_monotonic_ns": 14791419456057091,
+              "phases_ns": {
+                "before_create_log": 2768645969,
+                "create_to_launch_log": 783564000,
+                "launch_to_client_return": 11798630
+              },
+              "server_log_lines": {
+                "create": 33,
+                "launch": 44
+              }
+            },
+            {
+              "role": "early_3",
+              "duration_ns": 2991680079,
+              "start_monotonic_ns": 14791419456610672,
+              "phases_ns": {
+                "before_create_log": 2183548576,
+                "create_to_launch_log": 797281000,
+                "launch_to_client_return": 10850503
+              },
+              "server_log_lines": {
+                "create": 25,
+                "launch": 36
+              }
+            },
+            {
+              "role": "late_1",
+              "duration_ns": 2514798127,
+              "start_monotonic_ns": 14791419457120513,
+              "phases_ns": {
+                "before_create_log": 1786429713,
+                "create_to_launch_log": 719042000,
+                "launch_to_client_return": 9326414
+              },
+              "server_log_lines": {
+                "create": 17,
+                "launch": 28
+              }
+            },
+            {
+              "role": "late_2",
+              "duration_ns": 2776252210,
+              "start_monotonic_ns": 14791419457803103,
+              "phases_ns": {
+                "before_create_log": 1933233057,
+                "create_to_launch_log": 832962000,
+                "launch_to_client_return": 10057153
+              },
+              "server_log_lines": {
+                "create": 22,
+                "launch": 32
+              }
+            },
+            {
+              "role": "late_3",
+              "duration_ns": 4141221295,
+              "start_monotonic_ns": 14791419458349886,
+              "phases_ns": {
+                "before_create_log": 3298349436,
+                "create_to_launch_log": 832925000,
+                "launch_to_client_return": 9946859
+              },
+              "server_log_lines": {
+                "create": 41,
+                "launch": 46
+              }
+            }
+          ],
+          "cold_phase_sum_ns": {
+            "before_create_log": 17737703291,
+            "create_to_launch_log": 5367412000,
+            "launch_to_client_return": 71832289
+          },
+          "wall_minus_monotonic_offset_range_ns": 1876,
+          "first_upload_after_all_create_logs_ns": -783438285,
+          "first_ready_before_last_cold_return_ns": 1411397368
+        },
+        {
+          "mode": "off",
+          "actual_actions": 189,
+          "official": {
+            "backbone": {
+              "passed": 0,
+              "failed": 2
+            },
+            "early_1": {
+              "passed": 0,
+              "failed": 2
+            },
+            "early_2": {
+              "passed": 0,
+              "failed": 2
+            },
+            "early_3": {
+              "passed": 0,
+              "failed": 2
+            },
+            "late_1": {
+              "passed": 0,
+              "failed": 2
+            },
+            "late_2": {
+              "passed": 0,
+              "failed": 2
+            },
+            "late_3": {
+              "passed": 0,
+              "failed": 2
+            }
+          },
+          "sessions": [],
+          "timings_ns": {
+            "tool_sum": 61512257345,
+            "frozen_tools_and_downloads_span": 18491495190,
+            "cold_request_span": 72541599314,
+            "monitor_control_call_sum": 0,
+            "monitor_control_union": 0,
+            "cleanup": 288070169,
+            "controller": 98949076374,
+            "rollout": 98459527310
+          },
+          "minimum_free_disk_gib": 108.32179641723633,
+          "controller_phases_ns": {
+            "create_and_prepare": 74609702032,
+            "execution_and_download": 18492446116,
+            "post_path_checks": 5357379162,
+            "cleanup": 288070169,
+            "other": 201478895
+          },
+          "workflow": ".artifacts/platform-tasks/20261026T132706Z-1527166",
+          "storage": ".artifacts/storage-isolated-service/20261026T132824Z-1528216",
+          "raw": ".artifacts/storage-isolated-service/20261026T132824Z-1528216/prettier6604",
+          "report": ".artifacts/platform-tasks/report-20261026T132706Z-1527166",
+          "cold_requests": [
+            {
+              "role": "backbone",
+              "duration_ns": 2595579774,
+              "start_monotonic_ns": 14791554696765971,
+              "phases_ns": {
+                "before_create_log": 1745127141,
+                "create_to_launch_log": 839125000,
+                "launch_to_client_return": 11327633
+              },
+              "server_log_lines": {
+                "create": 17,
+                "launch": 30
+              }
+            },
+            {
+              "role": "early_1",
+              "duration_ns": 2627661151,
+              "start_monotonic_ns": 14791554697142009,
+              "phases_ns": {
+                "before_create_log": 1855929097,
+                "create_to_launch_log": 761718000,
+                "launch_to_client_return": 10014054
+              },
+              "server_log_lines": {
+                "create": 25,
+                "launch": 32
+              }
+            },
+            {
+              "role": "early_2",
+              "duration_ns": 9092988458,
+              "start_monotonic_ns": 14791554697556635,
+              "phases_ns": {
+                "before_create_log": 8285492451,
+                "create_to_launch_log": 795856000,
+                "launch_to_client_return": 11640007
+              },
+              "server_log_lines": {
+                "create": 37,
+                "launch": 40
+              }
+            },
+            {
+              "role": "early_3",
+              "duration_ns": 72540047203,
+              "start_monotonic_ns": 14791554698318082,
+              "phases_ns": {
+                "before_create_log": 71812620140,
+                "create_to_launch_log": 717488000,
+                "launch_to_client_return": 9939063
+              },
+              "server_log_lines": {
+                "create": 45,
+                "launch": 48
+              }
+            },
+            {
+              "role": "late_1",
+              "duration_ns": 50910074627,
+              "start_monotonic_ns": 14791554698759813,
+              "phases_ns": {
+                "before_create_log": 50093318293,
+                "create_to_launch_log": 807017000,
+                "launch_to_client_return": 9739334
+              },
+              "server_log_lines": {
+                "create": 41,
+                "launch": 44
+              }
+            },
+            {
+              "role": "late_2",
+              "duration_ns": 5284475518,
+              "start_monotonic_ns": 14791554699194380,
+              "phases_ns": {
+                "before_create_log": 4454133859,
+                "create_to_launch_log": 820324000,
+                "launch_to_client_return": 10017659
+              },
+              "server_log_lines": {
+                "create": 33,
+                "launch": 36
+              }
+            },
+            {
+              "role": "late_3",
+              "duration_ns": 2598897500,
+              "start_monotonic_ns": 14791554699610351,
+              "phases_ns": {
+                "before_create_log": 1743956889,
+                "create_to_launch_log": 845060000,
+                "launch_to_client_return": 9880611
+              },
+              "server_log_lines": {
+                "create": 18,
+                "launch": 31
+              }
+            }
+          ],
+          "cold_phase_sum_ns": {
+            "before_create_log": 139990577870,
+            "create_to_launch_log": 5586588000,
+            "launch_to_client_return": 72558361
+          },
+          "wall_minus_monotonic_offset_range_ns": 12714
+        }
+      ],
+      "comparison": {
+        "tool_sum": {
+          "off_ns": 61512257345,
+          "on_ns": 62669076704,
+          "difference_ns": 1156819359,
+          "change_percent": 1.880632265715465
+        },
+        "frozen_tools_and_downloads_span": {
+          "off_ns": 18491495190,
+          "on_ns": 20376716285,
+          "difference_ns": 1885221095,
+          "change_percent": 10.19507116990468
+        },
+        "cold_request_span": {
+          "off_ns": 72541599314,
+          "on_ns": 4144913361,
+          "difference_ns": -68396685953,
+          "change_percent": -94.28615663261223
+        },
+        "monitor_control_call_sum": {
+          "off_ns": 0,
+          "on_ns": 3784544653,
+          "difference_ns": 3784544653,
+          "change_percent": null
+        },
+        "monitor_control_union": {
+          "off_ns": 0,
+          "on_ns": 1939673243,
+          "difference_ns": 1939673243,
+          "change_percent": null
+        },
+        "cleanup": {
+          "off_ns": 288070169,
+          "on_ns": 520635512,
+          "difference_ns": 232565343,
+          "change_percent": 80.73218542805797
+        },
+        "controller": {
+          "off_ns": 98949076374,
+          "on_ns": 32835103911,
+          "difference_ns": -66113972463,
+          "change_percent": -66.81615926671974
+        },
+        "rollout": {
+          "off_ns": 98459527310,
+          "on_ns": 32114809880,
+          "difference_ns": -66344717430,
+          "change_percent": -67.38272998316714
+        }
+      },
+      "controller_phase_difference_ns": {
+        "create_and_prepare": -68179812087,
+        "execution_and_download": 1885186002,
+        "post_path_checks": -50091345,
+        "cleanup": 232565343,
+        "other": -1820376
+      }
+    }
+  ],
+  "statistics": {
+    "tool_sum": {
+      "off_median_ns": 60855339754.0,
+      "on_median_ns": 61838796248.5,
+      "paired_difference_median_ns": 840554288.0,
+      "paired_change_median_percent": 1.3739853577540262,
+      "paired_change_range_percent": [
+        -2.6243691770065913,
+        8.146016055013883
+      ],
+      "off_distribution_ns": {
+        "mean": 60700275926.1,
+        "median": 60855339754.0,
+        "sample_stddev": 1180273102.0206206,
+        "minimum": 57626874957,
+        "maximum": 61723840588
+      },
+      "on_distribution_ns": {
+        "mean": 61727157213,
+        "median": 61838796248.5,
+        "sample_stddev": 1405439666.1243987,
+        "minimum": 59239418118,
+        "maximum": 63754141073
+      },
+      "paired_difference_distribution_ns": {
+        "mean": 1026881286.9,
+        "median": 840554288.0,
+        "sample_stddev": 1646961360.8977199,
+        "minimum": -1596560676,
+        "maximum": 4694294486
+      },
+      "paired_change_distribution_percent": {
+        "mean": 1.720028440651461,
+        "median": 1.3739853577540262,
+        "sample_stddev": 2.810480649840665,
+        "minimum": -2.6243691770065913,
+        "maximum": 8.146016055013883
+      }
+    },
+    "frozen_tools_and_downloads_span": {
+      "off_median_ns": 17838758958.0,
+      "on_median_ns": 18567088569.5,
+      "paired_difference_median_ns": 1194584073.0,
+      "paired_change_median_percent": 6.9656447893504,
+      "paired_change_range_percent": [
+        -4.284273721750798,
+        14.911374662040311
+      ],
+      "off_distribution_ns": {
+        "mean": 17765643498.6,
+        "median": 17838758958.0,
+        "sample_stddev": 722984870.0813193,
+        "minimum": 16544465711,
+        "maximum": 18939765937
+      },
+      "on_distribution_ns": {
+        "mean": 18805299262.1,
+        "median": 18567088569.5,
+        "sample_stddev": 846082531.0488732,
+        "minimum": 17901680997,
+        "maximum": 20376716285
+      },
+      "paired_difference_distribution_ns": {
+        "mean": 1039655763.5,
+        "median": 1194584073.0,
+        "sample_stddev": 1031317429.4635148,
+        "minimum": -811431415,
+        "maximum": 2467007268
+      },
+      "paired_change_distribution_percent": {
+        "mean": 5.985674571561672,
+        "median": 6.9656447893504,
+        "sample_stddev": 5.885223156419432,
+        "minimum": -4.284273721750798,
+        "maximum": 14.911374662040311
+      }
+    },
+    "cold_request_span": {
+      "off_median_ns": 3193232948.0,
+      "on_median_ns": 3614169233.0,
+      "paired_difference_median_ns": 213923684.5,
+      "paired_change_median_percent": 7.551614562904585,
+      "paired_change_range_percent": [
+        -94.28615663261223,
+        1148.8850264266875
+      ],
+      "off_distribution_ns": {
+        "mean": 12231373009.4,
+        "median": 3193232948.0,
+        "sample_stddev": 22112813389.79477,
+        "minimum": 2810331852,
+        "maximum": 72541599314
+      },
+      "on_distribution_ns": {
+        "mean": 11139203474.5,
+        "median": 3614169233.0,
+        "sample_stddev": 16029103098.668514,
+        "minimum": 2817973925,
+        "maximum": 54807513986
+      },
+      "paired_difference_distribution_ns": {
+        "mean": -1092169534.9,
+        "median": 213923684.5,
+        "sample_stddev": 29615147181.566273,
+        "minimum": -68396685953,
+        "maximum": 50418998404
+      },
+      "paired_change_distribution_percent": {
+        "mean": 178.18733448519353,
+        "median": 7.551614562904585,
+        "sample_stddev": 373.2207394852827,
+        "minimum": -94.28615663261223,
+        "maximum": 1148.8850264266875
+      }
+    },
+    "monitor_control_call_sum": {
+      "off_median_ns": 0.0,
+      "on_median_ns": 3646661119.0,
+      "paired_difference_median_ns": 3646661119.0,
+      "paired_change_median_percent": null,
+      "paired_change_range_percent": null,
+      "off_distribution_ns": {
+        "mean": 0,
+        "median": 0.0,
+        "sample_stddev": 0.0,
+        "minimum": 0,
+        "maximum": 0
+      },
+      "on_distribution_ns": {
+        "mean": 3680390783.5,
+        "median": 3646661119.0,
+        "sample_stddev": 182477214.63716218,
+        "minimum": 3449069475,
+        "maximum": 4073664291
+      },
+      "paired_difference_distribution_ns": {
+        "mean": 3680390783.5,
+        "median": 3646661119.0,
+        "sample_stddev": 182477214.63716218,
+        "minimum": 3449069475,
+        "maximum": 4073664291
+      },
+      "paired_change_distribution_percent": null
+    },
+    "monitor_control_union": {
+      "off_median_ns": 0.0,
+      "on_median_ns": 1245947470.0,
+      "paired_difference_median_ns": 1245947470.0,
+      "paired_change_median_percent": null,
+      "paired_change_range_percent": null,
+      "off_distribution_ns": {
+        "mean": 0,
+        "median": 0.0,
+        "sample_stddev": 0.0,
+        "minimum": 0,
+        "maximum": 0
+      },
+      "on_distribution_ns": {
+        "mean": 1298512315.9,
+        "median": 1245947470.0,
+        "sample_stddev": 475558403.46538854,
+        "minimum": 795944624,
+        "maximum": 1939673243
+      },
+      "paired_difference_distribution_ns": {
+        "mean": 1298512315.9,
+        "median": 1245947470.0,
+        "sample_stddev": 475558403.46538854,
+        "minimum": 795944624,
+        "maximum": 1939673243
+      },
+      "paired_change_distribution_percent": null
+    },
+    "cleanup": {
+      "off_median_ns": 271406146.5,
+      "on_median_ns": 515692528.5,
+      "paired_difference_median_ns": 234465678.0,
+      "paired_change_median_percent": 85.45275796813307,
+      "paired_change_range_percent": [
+        -7.552039716509961,
+        216.09502917003428
+      ],
+      "off_distribution_ns": {
+        "mean": 304550909.3,
+        "median": 271406146.5,
+        "sample_stddev": 94659659.65475258,
+        "minimum": 244984282,
+        "maximum": 564313028
+      },
+      "on_distribution_ns": {
+        "mean": 579427863.4,
+        "median": 515692528.5,
+        "sample_stddev": 133981528.0039726,
+        "minimum": 494146801,
+        "maximum": 837558941
+      },
+      "paired_difference_distribution_ns": {
+        "mean": 274876954.1,
+        "median": 234465678.0,
+        "sample_stddev": 180663688.39656577,
+        "minimum": -42617144,
+        "maximum": 572462008
+      },
+      "paired_change_distribution_percent": {
+        "mean": 103.00636993087677,
+        "median": 85.45275796813307,
+        "sample_stddev": 68.90542595011681,
+        "minimum": -7.552039716509961,
+        "maximum": 216.09502917003428
+      }
+    },
+    "controller": {
+      "off_median_ns": 29292765852.0,
+      "on_median_ns": 32261181758.0,
+      "paired_difference_median_ns": 1656209505.0,
+      "paired_change_median_percent": 5.654513960627995,
+      "paired_change_range_percent": [
+        -66.81615926671974,
+        184.6522013106095
+      ],
+      "off_distribution_ns": {
+        "mean": 38089720890.5,
+        "median": 29292765852.0,
+        "sample_stddev": 22234462126.588856,
+        "minimum": 28499460688,
+        "maximum": 98949076374
+      },
+      "on_distribution_ns": {
+        "mean": 38443272217.1,
+        "median": 32261181758.0,
+        "sample_stddev": 16078647973.552786,
+        "minimum": 29084045144,
+        "maximum": 82200426274
+      },
+      "paired_difference_distribution_ns": {
+        "mean": 353551326.6,
+        "median": 1656209505.0,
+        "sample_stddev": 29739425928.136444,
+        "minimum": -66113972463,
+        "maximum": 53322930897
+      },
+      "paired_change_distribution_percent": {
+        "mean": 20.109701732662547,
+        "median": 5.654513960627995,
+        "sample_stddev": 67.1374329993918,
+        "minimum": -66.81615926671974,
+        "maximum": 184.6522013106095
+      }
+    },
+    "rollout": {
+      "off_median_ns": 28827749526.5,
+      "on_median_ns": 31410594443.5,
+      "paired_difference_median_ns": 1104461151.0,
+      "paired_change_median_percent": 3.830720621218764,
+      "paired_change_range_percent": [
+        -67.38272998316714,
+        187.0814139043147
+      ],
+      "off_distribution_ns": {
+        "mean": 37575700655.2,
+        "median": 28827749526.5,
+        "sample_stddev": 22245861266.269,
+        "minimum": 27950952021,
+        "maximum": 98459527310
+      },
+      "on_distribution_ns": {
+        "mean": 37669311682.7,
+        "median": 31410594443.5,
+        "sample_stddev": 16119440169.871328,
+        "minimum": 28382335870,
+        "maximum": 81501304366
+      },
+      "paired_difference_distribution_ns": {
+        "mean": 93611027.5,
+        "median": 1104461151.0,
+        "sample_stddev": 29749910858.085655,
+        "minimum": -66344717430,
+        "maximum": 53111690682
+      },
+      "paired_change_distribution_percent": {
+        "mean": 19.76013992662076,
+        "median": 3.830720621218764,
+        "sample_stddev": 68.09097773437846,
+        "minimum": -67.38272998316714,
+        "maximum": 187.0814139043147
+      }
+    }
+  },
+  "additional_actions_vs_old_three": 3780,
+  "prior_three": "docs/records/evidence/grpo-light-repeats-20261026.json",
+  "old_source_comparison": {
+    "run_prettier6604_grpo.py": false,
+    "sandbox_runtime_monitor.py": true,
+    "report_prettier6604_grpo.py": true,
+    "report_task_overview.py": false
+  },
+  "old_three_controller_reference": {
+    "off": {
+      "values_seconds": [
+        28.189962728,
+        29.640324542,
+        29.792798498
+      ],
+      "mean_seconds": 29.207695256,
+      "sample_stddev_seconds": 0.8846732169148807,
+      "range_seconds": [
+        28.189962728,
+        29.792798498
+      ]
+    },
+    "on": {
+      "values_seconds": [
+        31.059413552,
+        30.411596992,
+        30.448489771
+      ],
+      "mean_seconds": 30.639833438333334,
+      "sample_stddev_seconds": 0.3638349531367008,
+      "range_seconds": [
+        30.411596992,
+        31.059413552
+      ]
+    }
+  },
+  "completed_checks": {
+    "all_twenty_successful_volumes_removed": "PASS",
+    "no_added_host_or_service_metric_queries": "PASS",
+    "all_140_cold_requests_linked_to_server_logs": "PASS"
+  },
+  "new_live_actions": 3780,
+  "task_identity_matches_old_three": {
+    "paths": true,
+    "patches": true,
+    "official": true
+  }
+}

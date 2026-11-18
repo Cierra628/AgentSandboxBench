@@ -1,0 +1,68 @@
+{
+  "status": "PASS",
+  "scope": "Offline implementation and mock verification only",
+  "date": "2026-10-31",
+  "option": "--persistent-input --local-no-proxy",
+  "task": "prettier__prettier-6604",
+  "run_mode": "single full original 29 actions, current-only light sampling",
+  "tests": [
+    {
+      "name": "local-no-proxy",
+      "count": 9,
+      "log": "no-proxy-final-9.log"
+    },
+    {
+      "name": "persistent-input",
+      "count": 28,
+      "log": "persistent-candidate-final.log"
+    },
+    {
+      "name": "external-old-contracts",
+      "count": 48,
+      "log": "external-compatibility.log"
+    },
+    {
+      "name": "platform-defaults",
+      "count": 14,
+      "log": "platform-final.log"
+    }
+  ],
+  "test_count": 99,
+  "metadata": {
+    "status": "PASS",
+    "image": "ghcr.io/timesler/swe-polybench.eval.x86_64.prettier__prettier-6604@sha256:8159d38fcbd6d5f09402d93d3e15cf2a891058ddd835a224f1d6b3357a87cc94",
+    "manifest_bytes": 4312,
+    "config_bytes": 9549,
+    "source": "Existing fixed manifest and local Docker image config; exact OCI pins checked",
+    "network_requests": 0,
+    "archive_restores": 0,
+    "sandboxes_started": 0
+  },
+  "runtime_sources": [
+    "scripts/run_host_file_workflow.py",
+    "scripts/platform_tasks.py",
+    "scripts/validate_isolated_agentenv.py",
+    "scripts/run_prettier6604.py",
+    "scripts/agentenv_cold_start.py",
+    "scripts/prettier_no_proxy.py"
+  ],
+  "source_evidence": {
+    "registry_commands": "AgentENV/src/image/oci_image.rs:199-216,861-873",
+    "guest_api": "AgentENV/src/api/openapi.yml:677-687",
+    "guest_override": "AgentENV/src/sandbox/firecracker/config.rs:408-416"
+  },
+  "services_started": 0,
+  "sandboxes_started": 0,
+  "network_requests": 0,
+  "archives_restored": 0,
+  "full_image_or_layer_bytes_read": 0,
+  "small_fixed_registry_metadata_bytes": 13861,
+  "hash_scope": "Only exact image manifest and config integrity pins, not archive/layer or ordinary code digests",
+  "constraints": [
+    "Original service/image/global proxy settings unchanged.",
+    "Old entry defaults and request body preserved; local mode only for explicit persistent full Prettier.",
+    "Registry shim returns exact local pinned metadata and rejects all other operations without invoking original regctl.",
+    "Guest creation requests empty proxy variables and allowInternetAccess=false; actual runtime enforcement remains to be validated.",
+    "Only offline checks completed; no new latency, memory or traffic performance results."
+  ]
+}

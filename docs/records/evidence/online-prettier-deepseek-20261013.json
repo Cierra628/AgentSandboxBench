@@ -1,0 +1,519 @@
+{
+  "status": "PASS",
+  "scope": "actual online capture frozen; original replay failed at dynamic listing times; corrected frozen replay complete; model task FAIL unchanged",
+  "task_id": "prettier__prettier-6604",
+  "model": "deepseek-ai/DeepSeek-V4-Pro",
+  "task_config": "configs/online-task-prettier6604-focused.json",
+  "model_config": "configs/online-agent-deepseek-prettier.json",
+  "changed_online_config_fields": [
+    "model"
+  ],
+  "unchanged_limits": {
+    "max_model_calls": 20,
+    "max_tool_calls": 30,
+    "max_completion_tokens": 8192,
+    "request_timeout_seconds": 135,
+    "max_run_seconds": 480
+  },
+  "attempted_requests": 20,
+  "successful_responses": 20,
+  "tool_calls": 24,
+  "total_model_tokens_reported": 229727,
+  "model_completion": "FAIL",
+  "model_error": "model call budget exhausted without completion",
+  "source_repair_produced": false,
+  "source_changed_files": [],
+  "final_changed_files": [
+    "Dockerfile",
+    "package.json",
+    "parse_ast.js"
+  ],
+  "task_outcome": "FAIL",
+  "source_image": "ghcr.io/timesler/swe-polybench.eval.x86_64.prettier__prettier-6604@sha256:8159d38fcbd6d5f09402d93d3e15cf2a891058ddd835a224f1d6b3357a87cc94",
+  "cpu": 2,
+  "memory_mib": 4096,
+  "storage_capacity_gib": 16,
+  "request_timings": [
+    {
+      "number": 1,
+      "timeout_seconds": 135,
+      "started_unix_ns": 1791864470817861994,
+      "status": "response_received",
+      "elapsed_ns": 9712550445
+    },
+    {
+      "number": 2,
+      "timeout_seconds": 135,
+      "started_unix_ns": 1791864481902890025,
+      "status": "response_received",
+      "elapsed_ns": 4259042860
+    },
+    {
+      "number": 3,
+      "timeout_seconds": 135,
+      "started_unix_ns": 1791864489567977840,
+      "status": "response_received",
+      "elapsed_ns": 4732452582
+    },
+    {
+      "number": 4,
+      "timeout_seconds": 135,
+      "started_unix_ns": 1791864494977901603,
+      "status": "response_received",
+      "elapsed_ns": 8441550638
+    },
+    {
+      "number": 5,
+      "timeout_seconds": 135,
+      "started_unix_ns": 1791864505799435299,
+      "status": "response_received",
+      "elapsed_ns": 7731960775
+    },
+    {
+      "number": 6,
+      "timeout_seconds": 135,
+      "started_unix_ns": 1791864515479414626,
+      "status": "response_received",
+      "elapsed_ns": 4689783892
+    },
+    {
+      "number": 7,
+      "timeout_seconds": 135,
+      "started_unix_ns": 1791864520634554318,
+      "status": "response_received",
+      "elapsed_ns": 4855051971
+    },
+    {
+      "number": 8,
+      "timeout_seconds": 135,
+      "started_unix_ns": 1791864526943295277,
+      "status": "response_received",
+      "elapsed_ns": 3365637419
+    },
+    {
+      "number": 9,
+      "timeout_seconds": 135,
+      "started_unix_ns": 1791864530933465598,
+      "status": "response_received",
+      "elapsed_ns": 6665167643
+    },
+    {
+      "number": 10,
+      "timeout_seconds": 135,
+      "started_unix_ns": 1791864538441222191,
+      "status": "response_received",
+      "elapsed_ns": 6776125402
+    },
+    {
+      "number": 11,
+      "timeout_seconds": 135,
+      "started_unix_ns": 1791864547009302184,
+      "status": "response_received",
+      "elapsed_ns": 6798317333
+    },
+    {
+      "number": 12,
+      "timeout_seconds": 135,
+      "started_unix_ns": 1791864554477769977,
+      "status": "response_received",
+      "elapsed_ns": 6613019571
+    },
+    {
+      "number": 13,
+      "timeout_seconds": 135,
+      "started_unix_ns": 1791864563040802724,
+      "status": "response_received",
+      "elapsed_ns": 4994116185
+    },
+    {
+      "number": 14,
+      "timeout_seconds": 135,
+      "started_unix_ns": 1791864568687762243,
+      "status": "response_received",
+      "elapsed_ns": 3773516136
+    },
+    {
+      "number": 15,
+      "timeout_seconds": 135,
+      "started_unix_ns": 1791864573116566182,
+      "status": "response_received",
+      "elapsed_ns": 4951495495
+    },
+    {
+      "number": 16,
+      "timeout_seconds": 135,
+      "started_unix_ns": 1791864579071666571,
+      "status": "response_received",
+      "elapsed_ns": 4497448863
+    },
+    {
+      "number": 17,
+      "timeout_seconds": 135,
+      "started_unix_ns": 1791864584609631078,
+      "status": "response_received",
+      "elapsed_ns": 6224204882
+    },
+    {
+      "number": 18,
+      "timeout_seconds": 135,
+      "started_unix_ns": 1791864591506425122,
+      "status": "response_received",
+      "elapsed_ns": 3744786733
+    },
+    {
+      "number": 19,
+      "timeout_seconds": 135,
+      "started_unix_ns": 1791864595912426577,
+      "status": "response_received",
+      "elapsed_ns": 3932479654
+    },
+    {
+      "number": 20,
+      "timeout_seconds": 135,
+      "started_unix_ns": 1791864600517570883,
+      "status": "response_received",
+      "elapsed_ns": 13877131780
+    }
+  ],
+  "malformed_shell_argument_steps": [
+    {
+      "step": "008",
+      "exit_code": 2
+    },
+    {
+      "step": "011",
+      "exit_code": 127
+    },
+    {
+      "step": "013",
+      "exit_code": 127
+    },
+    {
+      "step": "017",
+      "exit_code": 127
+    },
+    {
+      "step": "018",
+      "exit_code": 127
+    },
+    {
+      "step": "021",
+      "exit_code": 127
+    }
+  ],
+  "expected_failures": {
+    "008": 2,
+    "011": 127,
+    "013": 127,
+    "017": 127,
+    "018": 127,
+    "021": 127
+  },
+  "workflow_original": ".artifacts/platform-tasks/20261013T040620Z-1257692",
+  "workflow_replay": ".artifacts/platform-tasks/20261013T041450Z-1266238",
+  "raw_capture": ".artifacts/storage-isolated-service/20261013T040738Z-1258832/prettier6604",
+  "raw_replay": ".artifacts/storage-isolated-service/20261013T041607Z-1267654/prettier6604",
+  "report_capture": ".artifacts/platform-tasks/report-deepseek-capture-failed-20261013",
+  "report_replay": ".artifacts/platform-tasks/report-20261013T041450Z-1266238",
+  "recomputed_replay_report": ".artifacts/platform-tasks/report-online-prettier-deepseek-recomputed-20261013",
+  "replay": {
+    "status": "PASS",
+    "action_count": 24,
+    "expected_failures": {
+      "008": 2,
+      "011": 127,
+      "013": 127,
+      "017": 127,
+      "018": 127,
+      "021": 127
+    },
+    "captured_manifest_sha256": "4e43c4d0c69c02271cc663f760d92ab47f97dd312b54c8c4685d2975feb7255d",
+    "final_state": {
+      "/testbed/src/language-js/needs-parens.js": "1eaab9df29e1d3dce64cca198974d9f1ca764736cbb5cb8683c104397a6d1f08",
+      "repository": {
+        "head": "affa24ce764bd14ac087abeef0603012f5c635d6",
+        "status": " M package.json\n?? Dockerfile\n?? parse_ast.js\n",
+        "patch_b64": "ZGlmZiAtLWdpdCBhL3BhY2thZ2UuanNvbiBiL3BhY2thZ2UuanNvbgppbmRleCA5ZWU2YjYzYi4uNmVjM2RmNjQgMTAwNjQ0Ci0tLSBhL3BhY2thZ2UuanNvbgorKysgYi9wYWNrYWdlLmpzb24KQEAgLTEyNCw3ICsxMjQsNyBAQAogICAgICJwZXJmLXJlcGVhdCI6ICJ5YXJuICYmIHlhcm4gYnVpbGQgJiYgY3Jvc3MtZW52IE5PREVfRU5WPXByb2R1Y3Rpb24gbm9kZSAuL2Rpc3QvYmluLXByZXR0aWVyLmpzIC0tZGVidWctcmVwZWF0ICR7UEVSRl9SRVBFQVQ6LTEwMDB9IC0tbG9nbGV2ZWwgZGVidWcgJHtQRVJGX0ZJTEU6LS4vaW5kZXguanN9ID4gL2Rldi9udWxsIiwKICAgICAicGVyZi1yZXBlYXQtaW5zcGVjdCI6ICJ5YXJuICYmIHlhcm4gYnVpbGQgJiYgY3Jvc3MtZW52IE5PREVfRU5WPXByb2R1Y3Rpb24gbm9kZSAtLWluc3BlY3QtYnJrIC4vZGlzdC9iaW4tcHJldHRpZXIuanMgLS1kZWJ1Zy1yZXBlYXQgJHtQRVJGX1JFUEVBVDotMTAwMH0gLS1sb2dsZXZlbCBkZWJ1ZyAke1BFUkZfRklMRTotLi9pbmRleC5qc30gPiAvZGV2L251bGwiLAogICAgICJwZXJmLWJlbmNobWFyayI6ICJ5YXJuICYmIHlhcm4gYnVpbGQgJiYgY3Jvc3MtZW52IE5PREVfRU5WPXByb2R1Y3Rpb24gbm9kZSAuL2Rpc3QvYmluLXByZXR0aWVyLmpzIC0tZGVidWctYmVuY2htYXJrIC0tbG9nbGV2ZWwgZGVidWcgJHtQRVJGX0ZJTEU6LS4vaW5kZXguanN9ID4gL2Rldi9udWxsIiwKLSAgICAibGludCI6ICJjcm9zcy1lbnYgRUZGX05PX0xJTktfUlVMRVM9dHJ1ZSBlc2xpbnQgLiAtLWZvcm1hdCBmcmllbmRseSIsCisgICAgImxpbnQiOiAiZWNobyBub29wIiwKICAgICAibGludC1kb2NzIjogInByZXR0eWxpbnQgey4sZG9jcyx3ZWJzaXRlLHdlYnNpdGUvYmxvZ30vKi5tZCIsCiAgICAgImxpbnQtZGlzdCI6ICJlc2xpbnQgLS1uby1lc2xpbnRyYyAtLW5vLWlnbm9yZSAtLWVudj1icm93c2VyIFwiZGlzdC8hKGJpbi1wcmV0dGllcnxpbmRleHx0aGlyZC1wYXJ0eSkuanNcIiIsCiAgICAgImJ1aWxkIjogIm5vZGUgLS1tYXgtb2xkLXNwYWNlLXNpemU9MzA3MiAuL3NjcmlwdHMvYnVpbGQvYnVpbGQuanMiLAo=",
+        "changed_files": {
+          "Dockerfile": {
+            "sha256": "0b9cd4b0be4230f73a872660bb56e8a08518802c986f787ffdb6d3b058d618bb",
+            "mode": 436
+          },
+          "package.json": {
+            "sha256": "4e8a4fe91d327fe783bb8fb246e645176f1afe91d104bc84e0105ca4b57a9571",
+            "mode": 436
+          },
+          "parse_ast.js": {
+            "sha256": "8751abe276982bba2a88ab2dca1ee9b44bfa21f0207f82f3ef352e644f92f873",
+            "mode": 420
+          }
+        }
+      }
+    },
+    "output_policy": "prettier-runtime-v1",
+    "captured_output_policy": "jest-timing-v1",
+    "strict_output_status": "FAIL",
+    "dynamic_output_differences": [
+      "002/stdout",
+      "006/stderr"
+    ],
+    "scope": "order, command hashes, stdout/stderr, exit codes, cwd/env and selected final files; fresh shells, no persistent PTY or model calls"
+  },
+  "independent_tests": {
+    "status": "FAIL",
+    "exit_code": 1,
+    "passed": [],
+    "failed": [
+      "/testbed/tests/typescript_intersection/jsfmt.spec.js->intersection-parens.ts",
+      "/testbed/tests/typescript_intersection/jsfmt.spec.js->intersection-parens.ts"
+    ],
+    "summary": {
+      "numTotalTests": 2,
+      "numFailedTests": 2,
+      "numFailedTestSuites": 1,
+      "numPendingTests": 0,
+      "wasInterrupted": false
+    },
+    "snapshot": {
+      "added": 0,
+      "updated": 0,
+      "filesRemoved": 0,
+      "failure": true,
+      "unmatched": 2,
+      "matched": 0
+    }
+  },
+  "memory_capture_and_partial_replay": [
+    {
+      "sandbox_id": "01a13371-f2ba-72e0-b1ea-ab43e708c120",
+      "role": "capture",
+      "sample_count": 1487,
+      "observed_nonfree_peak_bytes": 472080384,
+      "components_at_peak_bytes": {
+        "Cached": 126464000,
+        "AnonPages": 213176320,
+        "Buffers": 33079296,
+        "Shmem": 1085440,
+        "Slab": 72929280
+      },
+      "components_at_peak_percent": {
+        "Cached": 26.788658094296075,
+        "AnonPages": 45.1567841463203,
+        "Buffers": 7.0071320735072105,
+        "Shmem": 0.2299269439672376,
+        "Slab": 15.448487688062887
+      },
+      "cached_min_bytes": 3223552,
+      "cached_observed_peak_bytes": 236015616,
+      "slab_status": "MEASURED",
+      "sessions": [
+        {
+          "stop_reason": "capture-complete",
+          "status": "PASS",
+          "error": null,
+          "pid": 361,
+          "start_ticks": "98",
+          "boot_id": "bbdfc547-23a1-4236-a2d6-b4a1595260a6",
+          "sandbox_id": "01a13371-f2ba-72e0-b1ea-ab43e708c120",
+          "role": "capture",
+          "session_id": "253fc671-51ba-425d-a889-d680e8f8fd91",
+          "samples": 1487,
+          "interval_seconds": 0.1,
+          "elapsed_ns": 151805963306,
+          "cpu_user_seconds": 2.438891,
+          "cpu_system_seconds": 0.770126,
+          "maxrss_kib": 16964,
+          "scope": "guest logical counters; collector maxrss is not private memory; no physical deduplication",
+          "performance_version": 1,
+          "clock_ticks": 100,
+          "performance_scope": "guest-wide CPU (guest ticks not double counted), per-device diskstats (512-byte sectors); includes sampler and other guest work"
+        }
+      ]
+    },
+    {
+      "sandbox_id": "01a13374-5255-7040-b9b3-a3ba0fda184f",
+      "role": "replay",
+      "sample_count": 18,
+      "observed_nonfree_peak_bytes": 304455680,
+      "components_at_peak_bytes": {
+        "Cached": 148971520,
+        "AnonPages": 72220672,
+        "Buffers": 20344832,
+        "Shmem": 1097728,
+        "Slab": 34787328
+      },
+      "components_at_peak_percent": {
+        "Cached": 48.93044531144894,
+        "AnonPages": 23.721243105071977,
+        "Buffers": 6.682362437777479,
+        "Shmem": 0.3605542849455132,
+        "Slab": 11.426072918068074
+      },
+      "cached_min_bytes": 88416256,
+      "cached_observed_peak_bytes": 148971520,
+      "slab_status": "MEASURED",
+      "sessions": [
+        {
+          "stop_reason": "cleanup",
+          "status": "PASS",
+          "error": null,
+          "pid": 693,
+          "start_ticks": "75",
+          "boot_id": "81b8b79a-7230-411b-8033-bd778ff6b72b",
+          "sandbox_id": "01a13374-5255-7040-b9b3-a3ba0fda184f",
+          "role": "replay",
+          "session_id": "17b45282-1f99-4574-9574-b5cc93d4c5f1",
+          "samples": 18,
+          "interval_seconds": 0.1,
+          "elapsed_ns": 1631754900,
+          "cpu_user_seconds": 0.047536999999999996,
+          "cpu_system_seconds": 0.027193,
+          "maxrss_kib": 16812,
+          "scope": "guest logical counters; collector maxrss is not private memory; no physical deduplication",
+          "performance_version": 1,
+          "clock_ticks": 100,
+          "performance_scope": "guest-wide CPU (guest ticks not double counted), per-device diskstats (512-byte sectors); includes sampler and other guest work"
+        }
+      ]
+    }
+  ],
+  "memory_complete_replay": [
+    {
+      "sandbox_id": "01a13379-c8e0-7331-bbea-b320a0e19c45",
+      "role": "replay",
+      "sample_count": 196,
+      "observed_nonfree_peak_bytes": 543399936,
+      "components_at_peak_bytes": {
+        "Cached": 344129536,
+        "AnonPages": 52097024,
+        "Buffers": 46440448,
+        "Shmem": 1093632,
+        "Slab": 70406144
+      },
+      "components_at_peak_percent": {
+        "Cached": 63.328961452067595,
+        "AnonPages": 9.587234106704054,
+        "Buffers": 8.54627410187991,
+        "Shmem": 0.20125729275021484,
+        "Slab": 12.9565977718481
+      },
+      "cached_min_bytes": 43806720,
+      "cached_observed_peak_bytes": 344129536,
+      "slab_status": "MEASURED",
+      "sessions": [
+        {
+          "stop_reason": "replay-complete",
+          "status": "PASS",
+          "error": null,
+          "pid": 371,
+          "start_ticks": "78",
+          "boot_id": "a0cea95c-265a-4b57-906a-0cc5598fa942",
+          "sandbox_id": "01a13379-c8e0-7331-bbea-b320a0e19c45",
+          "role": "replay",
+          "session_id": "25300582-3f68-4cda-be3a-38208d6483d6",
+          "samples": 196,
+          "interval_seconds": 0.1,
+          "elapsed_ns": 19876520836,
+          "cpu_user_seconds": 0.340261,
+          "cpu_system_seconds": 0.100576,
+          "maxrss_kib": 16816,
+          "scope": "guest logical counters; collector maxrss is not private memory; no physical deduplication",
+          "performance_version": 1,
+          "clock_ticks": 100,
+          "performance_scope": "guest-wide CPU (guest ticks not double counted), per-device diskstats (512-byte sectors); includes sampler and other guest work"
+        }
+      ]
+    }
+  ],
+  "physical_page_cache": "NOT_MEASURED; no source repair boundary; valid prior evidence reused",
+  "timing_seconds": {
+    "model_response_wait": 120.635840259,
+    "all_model_request_wait": 120.635840259,
+    "max_model_request_wait": 13.87713178,
+    "captured_guest_tools": 9.110419921,
+    "replayed_guest_tools": 7.998439314,
+    "original_controller_including_partial_replay": 161.155495232,
+    "complete_replay_controller": 28.650699249
+  },
+  "checks": {
+    "order_commands_exit_codes_final_files": "PASS",
+    "task_outcome_preserved": "PASS",
+    "identical_capture_report_files": 8,
+    "identical_replay_report_files": 8,
+    "capture_raw_files_unchanged": 525,
+    "replay_raw_files_unchanged": 363,
+    "tests_passed": 24
+  },
+  "original_failure": {
+    "status": "FAIL",
+    "failed_stage": "replay",
+    "error": "AssertionError('002: stdout differs')",
+    "completed_replay_steps": 2,
+    "known_command": "cd /testbed && ls -la",
+    "time_fields": [
+      "directory .. timestamp",
+      "directory .git timestamp"
+    ],
+    "fix": "only exact command stdout and these directory timestamps normalized; names, sizes, modes, owners, other rows, stderr, exit codes and final files remain compared",
+    "original_bytes_retained": true
+  },
+  "cleanup": {
+    "original": {
+      "owned_container_removed": true,
+      "mount_and_loop_removed": true,
+      "failed_fixture_retained": true,
+      "original_firecracker_identities_unchanged": true,
+      "original_source_firecracker_identities_unchanged": true,
+      "original_service_unchanged": true
+    },
+    "backup": {
+      "status": "PASS",
+      "source": "/home/yyxie/agentenv_experiment/.artifacts/storage-isolated-service/20261013T040738Z-1258832/volume.ext4",
+      "backup": "/home/yyxie/agentenv_experiment/.artifacts/storage-isolated-service/20261013T040738Z-1258832/volume.ext4.gz",
+      "source_sha256": "0ce4b5f4f484ca8234627dedc0f90f08e12faa5a7eeb980a57623a46386695ca",
+      "backup_sha256": "dcf15f1969c95f75a56b196bcb744b98939b72b6c790c0e90d48fe8d866b5b33",
+      "uncompressed_bytes": 17179869184,
+      "compressed_bytes": 124743340,
+      "source_retained": true,
+      "elapsed_ns": 22377228954,
+      "host_available_bytes": 36617158656
+    },
+    "source_volume_removed": true,
+    "authorization_receipt": ".artifacts/storage-isolated-service/20261013T040738Z-1258832/approved-volume-cleanup.json",
+    "replay_inner": {
+      "owned_vms_removed": true,
+      "collector_sessions_complete": true,
+      "service_sandbox_list_empty": true
+    },
+    "replay_outer": {
+      "owned_container_removed": true,
+      "mount_and_loop_removed": true,
+      "successful_fixture_removed": true,
+      "original_firecracker_identities_unchanged": true,
+      "original_source_firecracker_identities_unchanged": true,
+      "original_service_unchanged": true
+    },
+    "replay_volume_removed": true,
+    "host_min_available_gib": 34.10187530517578,
+    "host_after_available_gib": 50.09943389892578
+  },
+  "limitations": [
+    "one model-generated trajectory; not a causal speed/reliability comparison with GLM",
+    "API waits include transport, provider waiting and generation; cannot separate them",
+    "original controller contains capture and partial replay; separate replay controller includes complete replay, not model calls",
+    "no new physical scan or monitoring overhead comparison"
+  ],
+  "code_sha256": {
+    "original": {
+      "model_tool_agent.py": "de65a6185880df798d7c82be411e45a92322d017fb7f7e9b071907834047891a",
+      "tool_trajectory.py": "fdc8973719115bfe79026f1cd127b2a2d6d5024cafe77ca3ba2d3fecf62fee00",
+      "run_tool_capture.py": "edf46007ef519efbc8d1aa8f234beace81e22773c323d6a32013abf7ad887566"
+    },
+    "replay": {
+      "model_tool_agent.py": "de65a6185880df798d7c82be411e45a92322d017fb7f7e9b071907834047891a",
+      "tool_trajectory.py": "4e2d7dd7747e9c292541297bdcc21f36f43d5d76e97242307d1184b5bc8c2441",
+      "run_tool_capture.py": "edf46007ef519efbc8d1aa8f234beace81e22773c323d6a32013abf7ad887566"
+    }
+  },
+  "host_final_available_gib": 50.363643646240234
+}

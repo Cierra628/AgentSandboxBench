@@ -1,0 +1,567 @@
+{
+  "status": "PASS_OFFLINE_PHYSICAL_BREAKDOWN",
+  "workflow": ".artifacts/host-file-independent-pair/20261021T043400Z-3941125",
+  "source_evidence": "docs/records/evidence/host-import-sync-20261021.json",
+  "groups": [
+    {
+      "sandboxes": 1,
+      "storage": ".artifacts/storage-isolated-service/20261021T043518Z-3941973",
+      "cache_observations": {
+        "regular_bytes": 41922174976,
+        "block_bytes": 427851776,
+        "memory_device_bytes": 427507712,
+        "other_blocks_bytes": 344064,
+        "other_blocks_count": 2,
+        "raw_layer_bytes_excluded_as_duplicate": 582438912,
+        "enumerated_cache_observation_sum_bytes": 42350026752,
+        "sum_meaning": "Sequential distinct cache-object observations; not an atomic physical total, not a bound.",
+        "source_archive_bytes": 1830928384,
+        "regular_before_bytes": 41920458752,
+        "regular_net_change_bytes": 1716224,
+        "matched_file_change_bytes": 1609728,
+        "added_files": 13,
+        "added_file_resident_bytes": 106496,
+        "removed_files": 0
+      },
+      "timing": {
+        "target_query_ns": 157346411,
+        "target_with_pss_ns": 183003365,
+        "target_to_regular_gap_ns": 3124400584,
+        "regular_scan_ns": 1865581814,
+        "complete_cache_scan_ns": 5147328809,
+        "from_task_end_to_first_pss_ns": 35715185
+      },
+      "during_target": {
+        "duration_ns": 183003365,
+        "samples": 2,
+        "first_lag_ns": 7605487,
+        "last_lag_ns": 75097619,
+        "max_read_start_gap_ns": 100074880,
+        "metrics": {
+          "file": {
+            "first": 40522014720,
+            "last": 40522014720,
+            "minimum": 40522014720,
+            "maximum": 40522014720,
+            "observed_span": 0,
+            "net_change": 0
+          },
+          "anon": {
+            "first": 253104128,
+            "last": 253104128,
+            "minimum": 253104128,
+            "maximum": 253104128,
+            "observed_span": 0,
+            "net_change": 0
+          },
+          "current": {
+            "first": 41555345408,
+            "last": 41555345408,
+            "minimum": 41555345408,
+            "maximum": 41555345408,
+            "observed_span": 0,
+            "net_change": 0
+          },
+          "kernel": {
+            "first": 753348608,
+            "last": 753348608,
+            "minimum": 753348608,
+            "maximum": 753348608,
+            "observed_span": 0,
+            "net_change": 0
+          },
+          "shmem": {
+            "first": 7604277248,
+            "last": 7604277248,
+            "minimum": 7604277248,
+            "maximum": 7604277248,
+            "observed_span": 0,
+            "net_change": 0
+          },
+          "file_dirty": {
+            "first": 6987776,
+            "last": 6987776,
+            "minimum": 6987776,
+            "maximum": 6987776,
+            "observed_span": 0,
+            "net_change": 0
+          },
+          "file_writeback": {
+            "first": 0,
+            "last": 0,
+            "minimum": 0,
+            "maximum": 0,
+            "observed_span": 0,
+            "net_change": 0
+          }
+        }
+      },
+      "during_full_scan": {
+        "duration_ns": 5167391417,
+        "samples": 52,
+        "first_lag_ns": 7605487,
+        "last_lag_ns": 55583715,
+        "max_read_start_gap_ns": 100104869,
+        "metrics": {
+          "file": {
+            "first": 40522014720,
+            "last": 40526663680,
+            "minimum": 40522014720,
+            "maximum": 40526663680,
+            "observed_span": 4648960,
+            "net_change": 4648960
+          },
+          "anon": {
+            "first": 253104128,
+            "last": 266407936,
+            "minimum": 253104128,
+            "maximum": 266407936,
+            "observed_span": 13303808,
+            "net_change": 13303808
+          },
+          "current": {
+            "first": 41555345408,
+            "last": 41572945920,
+            "minimum": 41555345408,
+            "maximum": 41572945920,
+            "observed_span": 17600512,
+            "net_change": 17600512
+          },
+          "kernel": {
+            "first": 753348608,
+            "last": 753418240,
+            "minimum": 753348608,
+            "maximum": 753487872,
+            "observed_span": 139264,
+            "net_change": 69632
+          },
+          "shmem": {
+            "first": 7604277248,
+            "last": 7604277248,
+            "minimum": 7604277248,
+            "maximum": 7604277248,
+            "observed_span": 0,
+            "net_change": 0
+          },
+          "file_dirty": {
+            "first": 6987776,
+            "last": 6524928,
+            "minimum": 6246400,
+            "maximum": 6987776,
+            "observed_span": 741376,
+            "net_change": -462848
+          },
+          "file_writeback": {
+            "first": 0,
+            "last": 0,
+            "minimum": 0,
+            "maximum": 233472,
+            "observed_span": 233472,
+            "net_change": 0
+          }
+        }
+      },
+      "anon_pss_observations": [
+        {
+          "kind": "target_before",
+          "start_after_task_ns": 35715185,
+          "end_after_task_ns": 55765310,
+          "all": 253104128,
+          "vmm": 123584512,
+          "other": 129519616
+        },
+        {
+          "kind": "target_after",
+          "start_after_task_ns": 213128261,
+          "end_after_task_ns": 218718550,
+          "all": 253149184,
+          "vmm": 123629568,
+          "other": 129519616
+        },
+        {
+          "kind": "periodic",
+          "start_after_task_ns": 443864077,
+          "end_after_task_ns": 461115821,
+          "all": 253587456,
+          "vmm": 124063744,
+          "other": 129523712
+        },
+        {
+          "kind": "periodic",
+          "start_after_task_ns": 1444646840,
+          "end_after_task_ns": 1461539681,
+          "all": 255623168,
+          "vmm": 126091264,
+          "other": 129531904
+        },
+        {
+          "kind": "periodic",
+          "start_after_task_ns": 2445453310,
+          "end_after_task_ns": 2463276520,
+          "all": 254423040,
+          "vmm": 124887040,
+          "other": 129536000
+        },
+        {
+          "kind": "periodic",
+          "start_after_task_ns": 3446220290,
+          "end_after_task_ns": 3464176498,
+          "all": 263368704,
+          "vmm": 133771264,
+          "other": 129597440
+        },
+        {
+          "kind": "periodic",
+          "start_after_task_ns": 4447012677,
+          "end_after_task_ns": 4464799624,
+          "all": 266407936,
+          "vmm": 136749056,
+          "other": 129658880
+        }
+      ],
+      "anon_pss_observed_span": {
+        "all": 13303808,
+        "vmm": 13164544,
+        "other": 139264
+      },
+      "cgroup": {
+        "baseline": {
+          "current": 40967462912,
+          "file": 40089419776,
+          "anon": 105566208,
+          "shmem": 7604273152,
+          "kernel": 745623552,
+          "file_mapped": 339968,
+          "file_dirty": 950272,
+          "file_writeback": 0
+        },
+        "post_task_before_scan": {
+          "current": 41555083264,
+          "file": 40522014720,
+          "anon": 253104128,
+          "shmem": 7604277248,
+          "kernel": 753348608,
+          "file_mapped": 217415680,
+          "file_dirty": 6987776,
+          "file_writeback": 0
+        },
+        "delta_bytes": {
+          "file": 432594944,
+          "anon": 147537920,
+          "current": 587620352,
+          "kernel": 7725056,
+          "shmem": 4096
+        }
+      },
+      "final_accounting": "SHORTFALL_REQUIRES_RESOLUTION",
+      "final_shortfall_bytes": 1832808448,
+      "whole_host_physical_total": "NOT_MEASURED",
+      "guest_cache_physical_subset": "NOT_MEASURED"
+    },
+    {
+      "sandboxes": 2,
+      "storage": ".artifacts/storage-isolated-service/20261021T043646Z-3943882",
+      "cache_observations": {
+        "regular_bytes": 41922736128,
+        "block_bytes": 441454592,
+        "memory_device_bytes": 441110528,
+        "other_blocks_bytes": 344064,
+        "other_blocks_count": 3,
+        "raw_layer_bytes_excluded_as_duplicate": 582438912,
+        "enumerated_cache_observation_sum_bytes": 42364190720,
+        "sum_meaning": "Sequential distinct cache-object observations; not an atomic physical total, not a bound.",
+        "source_archive_bytes": 1830928384,
+        "regular_before_bytes": 41920536576,
+        "regular_net_change_bytes": 2199552,
+        "matched_file_change_bytes": 2076672,
+        "added_files": 16,
+        "added_file_resident_bytes": 122880,
+        "removed_files": 0
+      },
+      "timing": {
+        "target_query_ns": 157966833,
+        "target_with_pss_ns": 184390517,
+        "target_to_regular_gap_ns": 4668193107,
+        "regular_scan_ns": 1977624920,
+        "complete_cache_scan_ns": 6803784860,
+        "from_task_end_to_first_pss_ns": 39002454
+      },
+      "during_target": {
+        "duration_ns": 184390517,
+        "samples": 2,
+        "first_lag_ns": 44295628,
+        "last_lag_ns": 39727794,
+        "max_read_start_gap_ns": 100085769,
+        "metrics": {
+          "file": {
+            "first": 40544575488,
+            "last": 40544575488,
+            "minimum": 40544575488,
+            "maximum": 40544575488,
+            "observed_span": 0,
+            "net_change": 0
+          },
+          "anon": {
+            "first": 397058048,
+            "last": 397058048,
+            "minimum": 397058048,
+            "maximum": 397058048,
+            "observed_span": 0,
+            "net_change": 0
+          },
+          "current": {
+            "first": 41735921664,
+            "last": 41735921664,
+            "minimum": 41735921664,
+            "maximum": 41735921664,
+            "observed_span": 0,
+            "net_change": 0
+          },
+          "kernel": {
+            "first": 761118720,
+            "last": 761118720,
+            "minimum": 761118720,
+            "maximum": 761118720,
+            "observed_span": 0,
+            "net_change": 0
+          },
+          "shmem": {
+            "first": 7604281344,
+            "last": 7604281344,
+            "minimum": 7604281344,
+            "maximum": 7604281344,
+            "observed_span": 0,
+            "net_change": 0
+          },
+          "file_dirty": {
+            "first": 11964416,
+            "last": 11964416,
+            "minimum": 11964416,
+            "maximum": 11964416,
+            "observed_span": 0,
+            "net_change": 0
+          },
+          "file_writeback": {
+            "first": 0,
+            "last": 0,
+            "minimum": 0,
+            "maximum": 0,
+            "observed_span": 0,
+            "net_change": 0
+          }
+        }
+      },
+      "during_full_scan": {
+        "duration_ns": 6821278627,
+        "samples": 68,
+        "first_lag_ns": 44295628,
+        "last_lag_ns": 71474336,
+        "max_read_start_gap_ns": 100109597,
+        "metrics": {
+          "file": {
+            "first": 40544575488,
+            "last": 40546648064,
+            "minimum": 40544575488,
+            "maximum": 40546648064,
+            "observed_span": 2072576,
+            "net_change": 2072576
+          },
+          "anon": {
+            "first": 397058048,
+            "last": 406581248,
+            "minimum": 396439552,
+            "maximum": 406581248,
+            "observed_span": 10141696,
+            "net_change": 9523200
+          },
+          "current": {
+            "first": 41735921664,
+            "last": 41746489344,
+            "minimum": 41733562368,
+            "maximum": 41746489344,
+            "observed_span": 12926976,
+            "net_change": 10567680
+          },
+          "kernel": {
+            "first": 761118720,
+            "last": 761294848,
+            "minimum": 761118720,
+            "maximum": 761344000,
+            "observed_span": 225280,
+            "net_change": 176128
+          },
+          "shmem": {
+            "first": 7604281344,
+            "last": 7604281344,
+            "minimum": 7604281344,
+            "maximum": 7604281344,
+            "observed_span": 0,
+            "net_change": 0
+          },
+          "file_dirty": {
+            "first": 11964416,
+            "last": 11988992,
+            "minimum": 11460608,
+            "maximum": 12042240,
+            "observed_span": 581632,
+            "net_change": 24576
+          },
+          "file_writeback": {
+            "first": 0,
+            "last": 0,
+            "minimum": 0,
+            "maximum": 0,
+            "observed_span": 0,
+            "net_change": 0
+          }
+        }
+      },
+      "anon_pss_observations": [
+        {
+          "kind": "target_before",
+          "start_after_task_ns": 39002454,
+          "end_after_task_ns": 56487919,
+          "all": 397070336,
+          "vmm": 257490944,
+          "other": 139579392
+        },
+        {
+          "kind": "target_after",
+          "start_after_task_ns": 214467714,
+          "end_after_task_ns": 223392971,
+          "all": 397176832,
+          "vmm": 257495040,
+          "other": 139681792
+        },
+        {
+          "kind": "periodic",
+          "start_after_task_ns": 984430995,
+          "end_after_task_ns": 1013522148,
+          "all": 397217792,
+          "vmm": 257527808,
+          "other": 139689984
+        },
+        {
+          "kind": "periodic",
+          "start_after_task_ns": 1985020071,
+          "end_after_task_ns": 2011656494,
+          "all": 400662528,
+          "vmm": 261111808,
+          "other": 139550720
+        },
+        {
+          "kind": "periodic",
+          "start_after_task_ns": 2985806769,
+          "end_after_task_ns": 3011331849,
+          "all": 401571840,
+          "vmm": 262021120,
+          "other": 139550720
+        },
+        {
+          "kind": "periodic",
+          "start_after_task_ns": 3986595771,
+          "end_after_task_ns": 4011647564,
+          "all": 403484672,
+          "vmm": 264200192,
+          "other": 139284480
+        },
+        {
+          "kind": "periodic",
+          "start_after_task_ns": 4987409893,
+          "end_after_task_ns": 5012043753,
+          "all": 405090304,
+          "vmm": 265719808,
+          "other": 139370496
+        },
+        {
+          "kind": "periodic",
+          "start_after_task_ns": 5988212420,
+          "end_after_task_ns": 6014936036,
+          "all": 407461888,
+          "vmm": 268107776,
+          "other": 139354112
+        }
+      ],
+      "anon_pss_observed_span": {
+        "all": 10391552,
+        "vmm": 10616832,
+        "other": 405504
+      },
+      "cgroup": {
+        "baseline": {
+          "current": 40974761984,
+          "file": 40092962816,
+          "anon": 105676800,
+          "shmem": 7604273152,
+          "kernel": 746209280,
+          "file_mapped": 339968,
+          "file_dirty": 942080,
+          "file_writeback": 0
+        },
+        "post_task_before_scan": {
+          "current": 41735397376,
+          "file": 40544575488,
+          "anon": 397058048,
+          "shmem": 7604281344,
+          "kernel": 761118720,
+          "file_mapped": 259305472,
+          "file_dirty": 11964416,
+          "file_writeback": 0
+        },
+        "delta_bytes": {
+          "file": 451612672,
+          "anon": 291381248,
+          "current": 760635392,
+          "kernel": 14909440,
+          "shmem": 8192
+        }
+      },
+      "final_accounting": "SHORTFALL_REQUIRES_RESOLUTION",
+      "final_shortfall_bytes": 1829990400,
+      "whole_host_physical_total": "NOT_MEASURED",
+      "guest_cache_physical_subset": "NOT_MEASURED"
+    }
+  ],
+  "charged_increment_linear_reference": {
+    "file": {
+      "single_increment_bytes": 432594944,
+      "dual_increment_bytes": 451612672,
+      "linear_increment_reference_bytes": 865189888,
+      "reduction_vs_linear_reference_bytes": 413577216,
+      "reduction_vs_linear_reference": 0.4780190126309012,
+      "meaning": "Fresh-slice charged increment above each no-VMM baseline; includes restore and task, not physical union."
+    },
+    "anon": {
+      "single_increment_bytes": 147537920,
+      "dual_increment_bytes": 291381248,
+      "linear_increment_reference_bytes": 295075840,
+      "reduction_vs_linear_reference_bytes": 3694592,
+      "reduction_vs_linear_reference": 0.01252082176568573,
+      "meaning": "Fresh-slice charged increment above each no-VMM baseline; includes restore and task, not physical union."
+    },
+    "current": {
+      "single_increment_bytes": 587620352,
+      "dual_increment_bytes": 760635392,
+      "linear_increment_reference_bytes": 1175240704,
+      "reduction_vs_linear_reference_bytes": 414605312,
+      "reduction_vs_linear_reference": 0.3527833154424168,
+      "meaning": "Fresh-slice charged increment above each no-VMM baseline; includes restore and task, not physical union."
+    },
+    "kernel": {
+      "single_increment_bytes": 7725056,
+      "dual_increment_bytes": 14909440,
+      "linear_increment_reference_bytes": 15450112,
+      "reduction_vs_linear_reference_bytes": 540672,
+      "reduction_vs_linear_reference": 0.03499469777306469,
+      "meaning": "Fresh-slice charged increment above each no-VMM baseline; includes restore and task, not physical union."
+    }
+  },
+  "device_reference_reduction_bytes": 413904896,
+  "device_reference_ratio": 0.48409056068677425,
+  "source_archive_common_preparation_bytes": 1830928384,
+  "whole_host_physical_savings": "NOT_MEASURED",
+  "whole_host_physical_total": "NOT_MEASURED",
+  "guest_cache_physical_subset": "NOT_MEASURED",
+  "all_coverage_and_temporal_error_bound": "NOT_ESTABLISHED",
+  "method": "Existing saved metadata/counters only; no services, guest, data-file content, mincore, or live PSS queries."
+}

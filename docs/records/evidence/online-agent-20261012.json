@@ -1,0 +1,171 @@
+{
+  "status": "PASS",
+  "scope": "One real GLM-driven CSV task, frozen exact replay in a fresh AgentENV sandbox; first online collection closure, no research benchmark or monitoring overhead comparison",
+  "command": "bash scripts/use-platform.sh collect-demo --agent-config configs/online-agent-glm.json",
+  "workflow": ".artifacts/platform-tasks/20261012T092932Z-1042295",
+  "raw": "/home/yyxie/agentenv_experiment/.artifacts/storage-isolated-service/20261012T093056Z-1043260/python-backbone",
+  "automatic_report": "/home/yyxie/agentenv_experiment/.artifacts/platform-tasks/report-20261012T092932Z-1042295",
+  "recomputed_report": ".artifacts/platform-tasks/report-online-agent-recomputed-20261012",
+  "model": "zai-org/GLM-5.3-Flash",
+  "model_calls": 4,
+  "tool_calls": 3,
+  "total_successful_model_tokens": 3401,
+  "resource_config": {
+    "cpu_per_vm": 2,
+    "memory_mib_per_vm": 512,
+    "volume_capacity_gib": 8
+  },
+  "task_status": "PASS",
+  "replay_status": "PASS",
+  "replay_proof": {
+    "status": "PASS",
+    "action_count": 3,
+    "expected_failures": {},
+    "captured_manifest_sha256": "6c0c506e665756d29b2476aa7cdfbff5b9926bd7301cd770cd590338b7c2848d",
+    "final_state": {
+      "/workspace/asb-tool-session/sales.csv": "8d26b9424951e117ed7f53b6a45b325b6f1592e0b50b741c71274c90f6ba0c49",
+      "/workspace/asb-tool-session/summarize.py": "024d75bd722651b167f83984e2ae1c95220363bb648498d963affc494cdee29a",
+      "/workspace/asb-tool-session/summary.json": "c1b0fbf4287fe035de34e3b1b119e97d16fcc76d2f44f63f6ded3239bc644151"
+    },
+    "scope": "order, command hashes, stdout/stderr, exit codes, cwd/env and selected final files; fresh shells, no persistent PTY or model calls"
+  },
+  "timing": {
+    "unit": "ns",
+    "model_wait_sum_ns": 12350548216,
+    "controller_elapsed_ns": 25492972745,
+    "tools": {
+      "capture": {
+        "unit": "ns",
+        "guest_tool_sum_ns": 174917078,
+        "controller_tool_call_sum_ns": 474436039,
+        "scope": "captured sequential tool calls only; model wait, setup, cold start, report and cleanup are separate"
+      },
+      "replay": {
+        "unit": "ns",
+        "guest_tool_sum_ns": 139589700,
+        "controller_tool_call_sum_ns": 468313220,
+        "scope": "captured sequential tool calls only; model wait, setup, cold start, report and cleanup are separate"
+      }
+    },
+    "scope": "controller includes model wait, tools, setup/checks/cleanup; nested intervals not added"
+  },
+  "guest_memory": [
+    {
+      "role": "capture",
+      "sample_count": 156,
+      "observed_nonfree_peak_bytes": 83320832,
+      "cached_observed_peak_bytes": 35262464,
+      "components_at_peak_bytes": {
+        "Cached": 33812480,
+        "AnonPages": 26206208,
+        "Buffers": 4083712,
+        "Shmem": 831488,
+        "Slab": 9437184
+      },
+      "components_at_peak_percent": {
+        "Cached": 40.58106380886835,
+        "AnonPages": 31.45216792842395,
+        "Buffers": 4.901189656867564,
+        "Shmem": 0.9979353062629044,
+        "Slab": 11.3263199292105
+      }
+    },
+    {
+      "role": "replay",
+      "sample_count": 17,
+      "observed_nonfree_peak_bytes": 99926016,
+      "cached_observed_peak_bytes": 45326336,
+      "components_at_peak_bytes": {
+        "Cached": 45219840,
+        "AnonPages": 27713536,
+        "Buffers": 7254016,
+        "Shmem": 831488,
+        "Slab": 10485760
+      },
+      "components_at_peak_percent": {
+        "Cached": 45.253320216428925,
+        "AnonPages": 27.734054763075914,
+        "Buffers": 7.2593867847188065,
+        "Shmem": 0.8321036235448435,
+        "Slab": 10.493523528447286
+      }
+    }
+  ],
+  "performance": [
+    {
+      "role": "capture",
+      "guest_cpu_status": "MEASURED",
+      "guest_io_status": "MEASURED",
+      "host_vmm_status": "MEASURED",
+      "rss_observed_peak_bytes": 120762368,
+      "pss_observed_peak_bytes": 118239232
+    },
+    {
+      "role": "replay",
+      "guest_cpu_status": "MEASURED",
+      "guest_io_status": "MEASURED",
+      "host_vmm_status": "MEASURED",
+      "rss_observed_peak_bytes": 134295552,
+      "pss_observed_peak_bytes": 131416064
+    }
+  ],
+  "physical_page_cache": "NOT_MEASURED",
+  "monitoring_overhead": "NOT_MEASURED_FOR_THIS_ONLINE_TASK; existing lightweight monitor reused",
+  "report_files_byte_identical": 10,
+  "raw_file_count": 204,
+  "raw_hashes_verified_unchanged": true,
+  "cleanup": {
+    "owned_container_removed": true,
+    "mount_and_loop_removed": true,
+    "successful_fixture_removed": true,
+    "original_firecracker_identities_unchanged": true,
+    "original_source_firecracker_identities_unchanged": true,
+    "original_service_unchanged": true
+  },
+  "ram_cache_released": true,
+  "observed_host_available_min_bytes": 37111836672,
+  "source_sha256": {
+    "validate_isolated_agentenv.py": "b97e62b9c5602580fa506b08ec50fb1c77320c1542af9194b8f1c20ab1ae9f00",
+    "run_tool_capture.py": "9611ab8b9f0a8a54f4d0d1f53cf7e4333217d8fb97bdccc80523809a460dffef",
+    "use_platform.py": "c1a3a75337d74e07145e4a5c9397dad40880e882d329e3554d1e05ddba38e116",
+    "platform_tasks.py": "fb453856bd07e1a2760b45d217f01be4c5090ba2dd3507f67900a9842ba185d2",
+    "model_tool_agent.py": "a57f302f1e672b981f6ff4448adcdc011da032b56f532f8b4a2d0a4879a67253",
+    "tool_trajectory.py": "9fc86b796ab6ad75c714b2196623fe2468c754bb96a1852e70d7e8137802dd3f"
+  },
+  "tests": {
+    "online_agent": 8,
+    "trajectory_and_management": 9,
+    "task_dispatch": 9,
+    "scope": "26 focused tests, no real service called by tests"
+  },
+  "failures": [
+    {
+      "run_id": "20261012T085754Z-1011905",
+      "stage": "first-model-request",
+      "reason": "45 second API timeout; same payload returned after 82.25 seconds in one isolated API diagnosis"
+    },
+    {
+      "run_id": "20261012T091029Z-1026197",
+      "stage": "docker-create",
+      "reason": "client timed out after 30 seconds, owned created container appeared later and was removed; cleanup reconciliation fixed"
+    },
+    {
+      "run_id": "20261012T092027Z-1036037",
+      "stage": "independent-task-check",
+      "reason": "five real model calls and four tools completed; alternate cwd test failed for script-relative paths; metadata ls output not replay-stable. Original FAIL retained; freeze-before-evaluation and failed-task replay now supported."
+    }
+  ],
+  "credentials": "host-only private file; no credential in shared code, guest environment or model request documents",
+  "transport": "user-provided HTTP through existing local proxy; HTTPS expired, no insecure TLS override",
+  "remaining": [
+    "Shell tool and short CSV task only; persistent PTY and research task agent prompts not added",
+    "Cross-host deployment deferred by user"
+  ],
+  "closeout": {
+    "host_available_bytes": 54209261568,
+    "owned_runtime_resources_removed": true,
+    "failure_backups_retained": 3,
+    "failure_source_volumes_removed": 3,
+    "failure_backup_bytes": 251795698
+  }
+}

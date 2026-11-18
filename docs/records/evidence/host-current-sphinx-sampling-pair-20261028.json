@@ -1,0 +1,742 @@
+{
+  "status": "PASS_ONE_COMPLETE_CURRENT_SAMPLING_PAIR",
+  "task": "sphinx-doc__sphinx-7590",
+  "order": [
+    "off",
+    "on"
+  ],
+  "guests": 2,
+  "actions": 70,
+  "interval_seconds": 0.1,
+  "pss": "NOT_REQUESTED",
+  "mincore": "NOT_REQUESTED",
+  "default_reclaim_unchanged": true,
+  "same_patch_order_and_official_outcome": true,
+  "all_observed_exits_identical": false,
+  "approved_pipeline_exit_differences": [
+    {
+      "segment": "read_repo",
+      "step": "001",
+      "off_exit": 0,
+      "on_exit": 141,
+      "policy": "existing sphinx-pipeline-v2"
+    }
+  ],
+  "original_replay_policy_unchanged": true,
+  "source_restored_stopped": true,
+  "runs": [
+    {
+      "mode": "off",
+      "workflow": ".artifacts/platform-tasks/20261028T132510Z-2250666",
+      "storage": ".artifacts/storage-isolated-service/20261028T132632Z-2251439",
+      "report": ".artifacts/platform-tasks/report-20261028T132510Z-2250666",
+      "tools_seconds": 9.68310764,
+      "frozen_replay_seconds": 12.027112038,
+      "controller_seconds": 32.09362383,
+      "cold_start_seconds": 12.746373638,
+      "controller_after_cold_start_seconds": 19.347250191999997,
+      "outer_entry_seconds": 124.035688013,
+      "seed_preparation_seconds": 79.482923421,
+      "native_task_command_seconds": 32.245929786,
+      "native_report_seconds": 0,
+      "monitor_control_calls": [],
+      "monitor_control_seconds": 0.0,
+      "guest_samples": null,
+      "guest_collector_cpu_seconds": null,
+      "guest_maximum_gap_seconds": null,
+      "guest_used_peak_mib": null,
+      "guest_cached_peak_mib": null,
+      "guest_collector_receipt": null,
+      "host_samples": null,
+      "host_current": null,
+      "host_collector": null,
+      "original_tests": {
+        "passed": 24,
+        "failed": 1,
+        "skipped": 0
+      },
+      "official_task_status": "FAIL",
+      "strict_replay_status": "FAIL",
+      "diagnostic_status": "PASS",
+      "sphinx_pipeline_policy_version": 2,
+      "task_checks": {
+        "first_segment_smoke": "PASS",
+        "key_outputs": "PASS",
+        "frozen_actions_order_and_diagnostic_exit_policy": "PASS",
+        "final_patch_and_source_hashes": "PASS",
+        "complete_benchmark_results_and_source_unchanged": "PASS"
+      },
+      "cleanup": {
+        "owned_container_removed": true,
+        "mount_and_loop_removed": true,
+        "successful_fixture_removed": true,
+        "original_firecracker_identities_unchanged": true,
+        "original_service_unchanged": true
+      },
+      "io_accounting_checked": true,
+      "host_sampling": "off",
+      "host_creation_baseline_measured": false,
+      "available_before_bytes": 41530843136,
+      "available_after_bytes": 41526583296,
+      "native_min_available_bytes": 32938688512
+    },
+    {
+      "mode": "on",
+      "workflow": ".artifacts/platform-tasks/20261028T132714Z-2252999",
+      "storage": ".artifacts/storage-isolated-service/20261028T132843Z-2253499",
+      "report": ".artifacts/platform-tasks/report-20261028T132714Z-2252999",
+      "tools_seconds": 15.927871364,
+      "frozen_replay_seconds": 19.235485302,
+      "controller_seconds": 29.632300195,
+      "cold_start_seconds": 2.605642478,
+      "controller_after_cold_start_seconds": 27.026657717,
+      "outer_entry_seconds": 130.243401559,
+      "seed_preparation_seconds": 86.648283109,
+      "native_task_command_seconds": 29.783228852,
+      "native_report_seconds": 0.661311114,
+      "monitor_control_calls": [
+        {
+          "stage": "monitor-upload-bundle",
+          "duration_ns": 43037885
+        },
+        {
+          "stage": "monitor-ready",
+          "duration_ns": 224690431
+        },
+        {
+          "stage": "monitor-phase",
+          "duration_ns": 128239726
+        },
+        {
+          "stage": "monitor-finish",
+          "duration_ns": 116255338
+        },
+        {
+          "stage": "monitor-download",
+          "duration_ns": 36251819
+        }
+      ],
+      "monitor_control_seconds": 0.548475199,
+      "guest_samples": 265,
+      "guest_collector_cpu_seconds": 0.236259,
+      "guest_maximum_gap_seconds": 0.10524008,
+      "guest_used_peak_mib": 284.92578125,
+      "guest_cached_peak_mib": 119.10546875,
+      "guest_collector_receipt": {
+        "status": "PASS",
+        "profile": "light",
+        "samples": 265,
+        "interval_seconds": 0.1,
+        "elapsed_ns": 26501298382,
+        "cpu_user_seconds": 0.167649,
+        "cpu_system_seconds": 0.06860999999999999,
+        "maxrss_kib": 17648
+      },
+      "host_samples": 1279,
+      "host_current": {
+        "metric": "memory.current",
+        "unit": "bytes",
+        "scope": "Measurement cgroup and descendants: preparation, controller, private service and all sandboxes.",
+        "window_start_monotonic_ns": 14964267498385853,
+        "window_end_monotonic_ns": 14964395352735577,
+        "initial_bytes": 44756992,
+        "final_bytes": 18150649856,
+        "observed_peak_bytes": 19048824832,
+        "time_weighted_mean_bytes": 10824487738.273731,
+        "mean_method": "Previous sample held until next sample; first-to-last sample only, including recorded gaps. Estimate, not a continuous integral.",
+        "before_guest_bytes": 18431361024,
+        "baseline_status": "OBSERVED_BEFORE_GUEST",
+        "after_service_ready_observed_peak_bytes": 19048824832,
+        "after_service_ready_peak_increase_bytes": 617463808,
+        "final_increase_from_before_guest_bytes": -280711168,
+        "interpretation": "Charged group memory, not complete sandbox physical memory. Before-guest baseline includes prepared inputs and service; increases include subsequent control and service work. Peaks are sampled, final sample may be after guest deletion.",
+        "coverage": {
+          "outside_group_charges": "NOT_INCLUDED",
+          "unaccounted_kernel_allocations": "NOT_INCLUDED",
+          "swap_bytes": "NOT_MEASURED",
+          "hugetlb_coverage": "NOT_VERIFIED"
+        },
+        "components": "anon/file/kernel explain current; shmem is part of file. Counters are sequential and may lag: do not add them to current or label their residual unaccounted memory."
+      },
+      "host_collector": {
+        "status": "PASS",
+        "error": null,
+        "samples": 1279,
+        "interval_seconds": 0.1,
+        "pss_interval_seconds": null,
+        "thread_cpu_ns": 426866035,
+        "counter_read_total_ns": 339832074,
+        "scope": "Fresh rollout slice: input preparation, controller, private service and all its descendants; host file includes shmem, not guest Cached."
+      },
+      "original_tests": {
+        "passed": 24,
+        "failed": 1,
+        "skipped": 0
+      },
+      "official_task_status": "FAIL",
+      "strict_replay_status": "FAIL",
+      "diagnostic_status": "PASS",
+      "sphinx_pipeline_policy_version": 2,
+      "task_checks": {
+        "first_segment_smoke": "PASS",
+        "key_outputs": "PASS",
+        "frozen_actions_order_and_diagnostic_exit_policy": "PASS",
+        "final_patch_and_source_hashes": "PASS",
+        "complete_benchmark_results_and_source_unchanged": "PASS"
+      },
+      "cleanup": {
+        "owned_container_removed": true,
+        "mount_and_loop_removed": true,
+        "successful_fixture_removed": true,
+        "original_firecracker_identities_unchanged": true,
+        "original_service_unchanged": true
+      },
+      "io_accounting_checked": true,
+      "host_sampling": "on",
+      "host_creation_baseline_measured": true,
+      "available_before_bytes": 41526575104,
+      "available_after_bytes": 41520979968,
+      "native_min_available_bytes": 32934334464
+    }
+  ],
+  "comparison": {
+    "tools_seconds": {
+      "off": 9.68310764,
+      "on": 15.927871364,
+      "difference_seconds": 6.244763724,
+      "change_percent": 64.49131783068766
+    },
+    "frozen_replay_seconds": {
+      "off": 12.027112038,
+      "on": 19.235485302,
+      "difference_seconds": 7.2083732640000004,
+      "change_percent": 59.93436530087142
+    },
+    "controller_seconds": {
+      "off": 32.09362383,
+      "on": 29.632300195,
+      "difference_seconds": -2.4613236349999994,
+      "change_percent": -7.669198243357112
+    },
+    "cold_start_seconds": {
+      "off": 12.746373638,
+      "on": 2.605642478,
+      "difference_seconds": -10.14073116,
+      "change_percent": -79.55777421876326
+    },
+    "controller_after_cold_start_seconds": {
+      "off": 19.347250191999997,
+      "on": 27.026657717,
+      "difference_seconds": 7.679407525000002,
+      "change_percent": 39.69250125361692
+    },
+    "outer_entry_seconds": {
+      "off": 124.035688013,
+      "on": 130.243401559,
+      "difference_seconds": 6.207713546000008,
+      "change_percent": 5.0047801930597435
+    },
+    "seed_preparation_seconds": {
+      "off": 79.482923421,
+      "on": 86.648283109,
+      "difference_seconds": 7.165359688000009,
+      "change_percent": 9.014967466718593
+    },
+    "native_task_command_seconds": {
+      "off": 32.245929786,
+      "on": 29.783228852,
+      "difference_seconds": -2.4627009339999972,
+      "change_percent": -7.637245848836438
+    },
+    "native_report_seconds": {
+      "off": 0,
+      "on": 0.661311114,
+      "difference_seconds": 0.661311114,
+      "change_percent": null
+    }
+  },
+  "launch_checker_status": "PASS",
+  "scope": "One pair with fresh accounting groups and identical preparation/checks; signed timing differences, not a repeated estimate",
+  "limitations": [
+    "current covers the charged group, not all physical memory",
+    "one off/on pair; startup and host variation remain",
+    "seed preparation excludes archive validation before its timer",
+    "collector CPU excludes runner boundary commands"
+  ],
+  "date": "2026-10-28",
+  "result_directory": "results/host-current-sphinx-pair-20261028",
+  "stage_breakdown": {
+    "status": "PASS",
+    "scope": "Disjoint saved synchronous calls plus local remainder; monitor-collect overlaps task and is excluded",
+    "rows": [
+      {
+        "stage": "cold_start",
+        "off_seconds": 12.746373638,
+        "on_seconds": 2.605642478,
+        "difference_seconds": -10.14073116
+      },
+      {
+        "stage": "controller-download",
+        "off_seconds": 0.259268931,
+        "on_seconds": 0.274287927,
+        "difference_seconds": 0.015018996
+      },
+      {
+        "stage": "controller-exec",
+        "off_seconds": 11.705465861,
+        "on_seconds": 18.891110678,
+        "difference_seconds": 7.185644817
+      },
+      {
+        "stage": "final_task_checks",
+        "off_seconds": 1.125328865,
+        "on_seconds": 0.892471471,
+        "difference_seconds": -0.232857394
+      },
+      {
+        "stage": "guest_cleanup",
+        "off_seconds": 0.18234551,
+        "on_seconds": 0.154175101,
+        "difference_seconds": -0.028170409
+      },
+      {
+        "stage": "local_work_and_other_wait",
+        "off_seconds": 0.083057045,
+        "on_seconds": 0.094139797,
+        "difference_seconds": 0.011082752
+      },
+      {
+        "stage": "official_evaluation",
+        "off_seconds": 4.189471631,
+        "on_seconds": 4.122469922,
+        "difference_seconds": -0.067001709
+      },
+      {
+        "stage": "sampling_control",
+        "off_seconds": 0.0,
+        "on_seconds": 0.548475199,
+        "difference_seconds": 0.548475199
+      },
+      {
+        "stage": "source_setup_and_other_checks",
+        "off_seconds": 1.802312349,
+        "on_seconds": 2.049527622,
+        "difference_seconds": 0.247215273
+      }
+    ]
+  },
+  "tool_breakdown": {
+    "status": "PASS",
+    "all_35_tool_timings": [
+      {
+        "tool_index": 1,
+        "segment": "read_repo",
+        "step": "001",
+        "off_exit": 0,
+        "on_exit": 141,
+        "off_seconds": 0.035461215,
+        "on_seconds": 0.060947887,
+        "difference_seconds": 0.025486672
+      },
+      {
+        "tool_index": 2,
+        "segment": "read_repo",
+        "step": "002",
+        "off_exit": 0,
+        "on_exit": 0,
+        "off_seconds": 0.02707354,
+        "on_seconds": 0.041197326,
+        "difference_seconds": 0.014123786
+      },
+      {
+        "tool_index": 3,
+        "segment": "read_repo",
+        "step": "003",
+        "off_exit": 0,
+        "on_exit": 0,
+        "off_seconds": 0.030587854,
+        "on_seconds": 0.03973211,
+        "difference_seconds": 0.009144256
+      },
+      {
+        "tool_index": 4,
+        "segment": "read_repo",
+        "step": "004",
+        "off_exit": 0,
+        "on_exit": 0,
+        "off_seconds": 0.020461519,
+        "on_seconds": 0.037628785,
+        "difference_seconds": 0.017167266
+      },
+      {
+        "tool_index": 5,
+        "segment": "read_repo",
+        "step": "005",
+        "off_exit": 0,
+        "on_exit": 0,
+        "off_seconds": 0.041635152,
+        "on_seconds": 0.026816676,
+        "difference_seconds": -0.014818476
+      },
+      {
+        "tool_index": 6,
+        "segment": "read_repo",
+        "step": "006",
+        "off_exit": 0,
+        "on_exit": 0,
+        "off_seconds": 0.027368912,
+        "on_seconds": 0.027205926,
+        "difference_seconds": -0.000162986
+      },
+      {
+        "tool_index": 7,
+        "segment": "trace_cpp_parser",
+        "step": "001",
+        "off_exit": 0,
+        "on_exit": 0,
+        "off_seconds": 0.04901108,
+        "on_seconds": 0.034130926,
+        "difference_seconds": -0.014880154
+      },
+      {
+        "tool_index": 8,
+        "segment": "trace_cpp_parser",
+        "step": "002",
+        "off_exit": 0,
+        "on_exit": 0,
+        "off_seconds": 0.030698668,
+        "on_seconds": 0.035864517,
+        "difference_seconds": 0.005165849
+      },
+      {
+        "tool_index": 9,
+        "segment": "trace_cpp_parser",
+        "step": "003",
+        "off_exit": 1,
+        "on_exit": 1,
+        "off_seconds": 0.101648141,
+        "on_seconds": 0.130303949,
+        "difference_seconds": 0.028655808
+      },
+      {
+        "tool_index": 10,
+        "segment": "trace_cpp_parser",
+        "step": "004",
+        "off_exit": 1,
+        "on_exit": 1,
+        "off_seconds": 0.10920299,
+        "on_seconds": 0.127464257,
+        "difference_seconds": 0.018261267
+      },
+      {
+        "tool_index": 11,
+        "segment": "trace_cpp_parser",
+        "step": "005",
+        "off_exit": 0,
+        "on_exit": 0,
+        "off_seconds": 0.434709968,
+        "on_seconds": 0.448132265,
+        "difference_seconds": 0.013422297
+      },
+      {
+        "tool_index": 12,
+        "segment": "trace_cpp_parser",
+        "step": "006",
+        "off_exit": 1,
+        "on_exit": 1,
+        "off_seconds": 1.58472705,
+        "on_seconds": 7.177710679,
+        "difference_seconds": 5.592983629
+      },
+      {
+        "tool_index": 13,
+        "segment": "trace_cpp_parser",
+        "step": "007",
+        "off_exit": 1,
+        "on_exit": 1,
+        "off_seconds": 0.312573226,
+        "on_seconds": 0.456314317,
+        "difference_seconds": 0.143741091
+      },
+      {
+        "tool_index": 14,
+        "segment": "core_patch",
+        "step": "001",
+        "off_exit": 141,
+        "on_exit": 141,
+        "off_seconds": 0.05552511,
+        "on_seconds": 0.053457196,
+        "difference_seconds": -0.002067914
+      },
+      {
+        "tool_index": 15,
+        "segment": "core_patch",
+        "step": "002",
+        "off_exit": 0,
+        "on_exit": 0,
+        "off_seconds": 0.034452756,
+        "on_seconds": 0.030289062,
+        "difference_seconds": -0.004163694
+      },
+      {
+        "tool_index": 16,
+        "segment": "core_patch",
+        "step": "003",
+        "off_exit": 0,
+        "on_exit": 0,
+        "off_seconds": 0.037913204,
+        "on_seconds": 0.036602611,
+        "difference_seconds": -0.001310593
+      },
+      {
+        "tool_index": 17,
+        "segment": "core_patch",
+        "step": "004",
+        "off_exit": 0,
+        "on_exit": 0,
+        "off_seconds": 0.029947265,
+        "on_seconds": 0.029465147,
+        "difference_seconds": -0.000482118
+      },
+      {
+        "tool_index": 18,
+        "segment": "core_patch",
+        "step": "005",
+        "off_exit": 0,
+        "on_exit": 0,
+        "off_seconds": 0.253945291,
+        "on_seconds": 0.404574806,
+        "difference_seconds": 0.150629515
+      },
+      {
+        "tool_index": 19,
+        "segment": "core_patch",
+        "step": "006",
+        "off_exit": 0,
+        "on_exit": 0,
+        "off_seconds": 0.01447231,
+        "on_seconds": 0.037591751,
+        "difference_seconds": 0.023119441
+      },
+      {
+        "tool_index": 20,
+        "segment": "core_patch",
+        "step": "007",
+        "off_exit": 0,
+        "on_exit": 0,
+        "off_seconds": 0.146076892,
+        "on_seconds": 0.281331379,
+        "difference_seconds": 0.135254487
+      },
+      {
+        "tool_index": 21,
+        "segment": "core_patch",
+        "step": "008",
+        "off_exit": 0,
+        "on_exit": 0,
+        "off_seconds": 0.048616789,
+        "on_seconds": 0.02234508,
+        "difference_seconds": -0.026271709
+      },
+      {
+        "tool_index": 22,
+        "segment": "core_patch",
+        "step": "009",
+        "off_exit": 0,
+        "on_exit": 0,
+        "off_seconds": 0.01449554,
+        "on_seconds": 0.021395583,
+        "difference_seconds": 0.006900043
+      },
+      {
+        "tool_index": 23,
+        "segment": "core_verify",
+        "step": "001",
+        "off_exit": 0,
+        "on_exit": 0,
+        "off_seconds": 0.022393958,
+        "on_seconds": 0.035784714,
+        "difference_seconds": 0.013390756
+      },
+      {
+        "tool_index": 24,
+        "segment": "core_verify",
+        "step": "002",
+        "off_exit": 0,
+        "on_exit": 0,
+        "off_seconds": 0.013986126,
+        "on_seconds": 0.024355967,
+        "difference_seconds": 0.010369841
+      },
+      {
+        "tool_index": 25,
+        "segment": "core_verify",
+        "step": "003",
+        "off_exit": 0,
+        "on_exit": 0,
+        "off_seconds": 0.087175658,
+        "on_seconds": 0.074968075,
+        "difference_seconds": -0.012207583
+      },
+      {
+        "tool_index": 26,
+        "segment": "core_verify",
+        "step": "004",
+        "off_exit": 0,
+        "on_exit": 0,
+        "off_seconds": 0.090237609,
+        "on_seconds": 0.090544053,
+        "difference_seconds": 0.000306444
+      },
+      {
+        "tool_index": 27,
+        "segment": "core_verify",
+        "step": "005",
+        "off_exit": 0,
+        "on_exit": 0,
+        "off_seconds": 0.351456548,
+        "on_seconds": 0.367693708,
+        "difference_seconds": 0.01623716
+      },
+      {
+        "tool_index": 28,
+        "segment": "core_verify",
+        "step": "006",
+        "off_exit": 0,
+        "on_exit": 0,
+        "off_seconds": 0.179995624,
+        "on_seconds": 0.482588171,
+        "difference_seconds": 0.302592547
+      },
+      {
+        "tool_index": 29,
+        "segment": "core_verify",
+        "step": "007",
+        "off_exit": 0,
+        "on_exit": 0,
+        "off_seconds": 0.223173378,
+        "on_seconds": 0.32356334,
+        "difference_seconds": 0.100389962
+      },
+      {
+        "tool_index": 30,
+        "segment": "backbone_finish",
+        "step": "001",
+        "off_exit": 0,
+        "on_exit": 0,
+        "off_seconds": 0.022354183,
+        "on_seconds": 0.027034009,
+        "difference_seconds": 0.004679826
+      },
+      {
+        "tool_index": 31,
+        "segment": "backbone_finish",
+        "step": "002",
+        "off_exit": 0,
+        "on_exit": 0,
+        "off_seconds": 0.241303442,
+        "on_seconds": 0.252906675,
+        "difference_seconds": 0.011603233
+      },
+      {
+        "tool_index": 32,
+        "segment": "backbone_finish",
+        "step": "003",
+        "off_exit": 0,
+        "on_exit": 0,
+        "off_seconds": 0.049244698,
+        "on_seconds": 0.028390511,
+        "difference_seconds": -0.020854187
+      },
+      {
+        "tool_index": 33,
+        "segment": "backbone_finish",
+        "step": "004",
+        "off_exit": 0,
+        "on_exit": 0,
+        "off_seconds": 0.421552,
+        "on_seconds": 0.303201365,
+        "difference_seconds": -0.118350635
+      },
+      {
+        "tool_index": 34,
+        "segment": "backbone_finish",
+        "step": "005",
+        "off_exit": 1,
+        "on_exit": 1,
+        "off_seconds": 0.350497454,
+        "on_seconds": 0.274787078,
+        "difference_seconds": -0.075710376
+      },
+      {
+        "tool_index": 35,
+        "segment": "backbone_finish",
+        "step": "006",
+        "off_exit": 0,
+        "on_exit": 0,
+        "off_seconds": 4.18913249,
+        "on_seconds": 4.081551463,
+        "difference_seconds": -0.107581027
+      }
+    ],
+    "dominant_tool": {
+      "tool_index": 12,
+      "segment": "trace_cpp_parser",
+      "step": "006",
+      "off_exit": 1,
+      "on_exit": 1,
+      "off_seconds": 1.58472705,
+      "on_seconds": 7.177710679,
+      "difference_seconds": 5.592983629,
+      "command": "cd /testbed && ls /opt/miniconda3/envs 2>/dev/null; /opt/miniconda3/bin/conda env list 2>/dev/null; pip list 2>/dev/null | grep -i -E \"docutils|sphinx|pytest\"",
+      "same_stdout_stderr": true,
+      "share_of_tool_difference_percent": 89.5627741287462,
+      "prior_light_on_seconds": 1.660090282,
+      "prior_raw": ".artifacts/storage-isolated-service/20261028T103715Z-2210161/python-backbone"
+    },
+    "approved_pipeline_exit_differences": [
+      {
+        "segment": "read_repo",
+        "step": "001",
+        "off_exit": 0,
+        "on_exit": 141,
+        "policy": "existing sphinx-pipeline-v2"
+      }
+    ],
+    "limit": "Compound command timing only; saved logs do not split ls, conda and pip or explain the waiting cause"
+  },
+  "analysis_checker_repair": {
+    "original_status": "FAIL",
+    "cause": "Prettier-specific exact exit equality was incorrectly reused for Sphinx diagnostic replay",
+    "final_status": "PASS",
+    "original_policy": "sphinx-pipeline-v2",
+    "original_policy_unchanged": true,
+    "raw_exits_preserved": true,
+    "task_rerun": false,
+    "original_log": ".artifacts/host-current-sphinx-pair-20261028/analysis-initial-checker-failure.log"
+  },
+  "slow_tool_cache_context": {
+    "status": "OBSERVED",
+    "scope": "Guest-global counters bracket the command, not process-private attribution; no DAMON event counters",
+    "records": [
+      {
+        "label": "current_on",
+        "raw": ".artifacts/storage-isolated-service/20261028T132843Z-2253499/python-backbone",
+        "cached_before_kib": 85480,
+        "cached_after_kib": 20628,
+        "pgmajfault_before": 620,
+        "pgmajfault_after": 911,
+        "pgmajfault_increase": 291
+      },
+      {
+        "label": "prior_on",
+        "raw": ".artifacts/storage-isolated-service/20261028T103715Z-2210161/python-backbone",
+        "cached_before_kib": 79356,
+        "cached_after_kib": 111472,
+        "pgmajfault_before": 615,
+        "pgmajfault_after": 734,
+        "pgmajfault_increase": 119
+      }
+    ]
+  }
+}

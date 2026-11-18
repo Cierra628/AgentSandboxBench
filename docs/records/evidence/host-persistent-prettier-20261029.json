@@ -1,0 +1,161 @@
+{
+  "status": "PASS_ONE_FULL_PERSISTENT_CURRENT_PRETTIER6604",
+  "task_id": "prettier__prettier-6604",
+  "actions": 29,
+  "cpu": 2,
+  "memory_mib": 4096,
+  "workflow": ".artifacts/platform-tasks/20261029T131608Z-2451963",
+  "storage": ".artifacts/storage-isolated-service/20261029T131626Z-2452165",
+  "raw": ".artifacts/storage-isolated-service/20261029T131626Z-2452165/prettier6604",
+  "report": ".artifacts/platform-tasks/report-20261029T131608Z-2451963",
+  "tool_seconds": 12.44194423,
+  "frozen_replay_seconds": 14.823118996,
+  "controller_seconds": 45.241820871,
+  "original_official": {
+    "passed": 0,
+    "failed": 2
+  },
+  "task_replay_checks": "PASS",
+  "guest_samples": 420,
+  "guest_used_peak_mib": 493.7734375,
+  "guest_cached_peak_mib": 185.87109375,
+  "guest_maximum_gap_seconds": 0.10328934,
+  "guest_collector_cpu_seconds": 0.25986499999999996,
+  "guest_collector_elapsed_ns": 42032780994,
+  "guest_collector_maxrss_kib": 17120,
+  "monitor_control_calls": [
+    {
+      "stage": "monitor-upload-bundle",
+      "duration_ns": 30090880
+    },
+    {
+      "stage": "monitor-ready",
+      "duration_ns": 184509716
+    },
+    {
+      "stage": "monitor-phase",
+      "duration_ns": 40969885
+    },
+    {
+      "stage": "monitor-finish",
+      "duration_ns": 163313570
+    },
+    {
+      "stage": "monitor-download",
+      "duration_ns": 41438326
+    }
+  ],
+  "monitor_control_total_ns": 460322377,
+  "host_samples": 718,
+  "host_maximum_gap_ns": 100129451,
+  "host_current": {
+    "metric": "memory.current",
+    "unit": "bytes",
+    "scope": "Measurement cgroup and descendants: preparation, controller, private service and all sandboxes.",
+    "window_start_monotonic_ns": 15050001618935688,
+    "window_end_monotonic_ns": 15050073352069171,
+    "initial_bytes": 44253184,
+    "final_bytes": 7570960384,
+    "observed_peak_bytes": 8707035136,
+    "time_weighted_mean_bytes": 7592738927.784306,
+    "mean_method": "Previous sample held until next sample; first-to-last sample only, including recorded gaps. Estimate, not a continuous integral.",
+    "before_guest_bytes": 7973638144,
+    "baseline_status": "OBSERVED_BEFORE_GUEST",
+    "after_service_ready_observed_peak_bytes": 8707035136,
+    "after_service_ready_peak_increase_bytes": 733396992,
+    "final_increase_from_before_guest_bytes": -402677760,
+    "interpretation": "Charged group memory, not complete sandbox physical memory. Before-guest baseline includes prepared inputs and service; increases include subsequent control and service work. Peaks are sampled, final sample may be after guest deletion.",
+    "coverage": {
+      "outside_group_charges": "NOT_INCLUDED",
+      "unaccounted_kernel_allocations": "NOT_INCLUDED",
+      "swap_bytes": "NOT_MEASURED",
+      "hugetlb_coverage": "NOT_VERIFIED"
+    },
+    "components": "anon/file/kernel explain current; shmem is part of file. Counters are sequential and may lag: do not add them to current or label their residual unaccounted memory."
+  },
+  "host_collector": {
+    "status": "PASS",
+    "error": null,
+    "samples": 718,
+    "interval_seconds": 0.1,
+    "pss_interval_seconds": null,
+    "thread_cpu_ns": 225447468,
+    "counter_read_total_ns": 179957227,
+    "scope": "Fresh rollout slice: input preparation, controller, private service and all its descendants; host file includes shmem, not guest Cached.",
+    "sample_span_seconds": 71.733133483,
+    "single_core_cpu_percent": 0.3142863793248746
+  },
+  "pss": "NOT_REQUESTED",
+  "mincore": "IMPORTED_INPUTS_ONCE_AFTER_RUNTIME_CLEANUP",
+  "default_reclaim_unchanged": true,
+  "new_model_requests": 0,
+  "checkpoint": false,
+  "completed": {
+    "original_29_actions": true,
+    "expected_patch_and_outputs": true,
+    "original_official_outcome": true,
+    "guest_sampling": true,
+    "host_sampling": true,
+    "automatic_reports": true,
+    "final_writable_files": true,
+    "fixed_volume_boundary": true,
+    "owned_cleanup": true
+  },
+  "matched_executed_sources": [
+    "platform_tasks.py",
+    "use_platform.py",
+    "run_host_file_workflow.py",
+    "host_file_monitor.py",
+    "report_host_file.py",
+    "host_persistent_input.py",
+    "validate_isolated_agentenv.py",
+    "run_prettier6604.py",
+    "sandbox_runtime_monitor.py",
+    "report_task_overview.py",
+    "report_sandbox_runtime.py"
+  ],
+  "available_start_bytes": 58789007360,
+  "available_min_bytes": 31880445952,
+  "available_after_bytes": 58786365440,
+  "source_restored_stopped": true,
+  "cleanup": {
+    "successful_runtime_and_input_removed": true,
+    "source_restored_stopped": true
+  },
+  "limitations": [
+    "current covers the charged experimental group, not complete sandbox physical memory",
+    "one run without an off/on timing control; no new slowdown or sharing/density estimate",
+    "collector CPU excludes task-runner boundary commands; control call time is not total sampling-induced slowdown"
+  ],
+  "persistent_input": {
+    "profile": "host-persistent-input-v1",
+    "path_count": 105,
+    "unique_file_count": 105,
+    "logical_mib": 7026.38920211792,
+    "resident_mib": 7026.6953125,
+    "file_before_mib": 7029.1328125,
+    "file_after_mib": 7029.1328125,
+    "shortfall_mib": 0.0,
+    "query_phase": "AFTER_ISOLATED_RUNTIME_CLEANUP",
+    "query_wall_seconds": 0.160808424,
+    "query_thread_cpu_seconds": 0.16076797,
+    "ownership": "NOT_QUERIED",
+    "source_prepare_seconds": 117.467850895,
+    "import_seconds": 17.479998291
+  },
+  "baseline_counters_mib": {
+    "current": 7604.25390625,
+    "file": 7327.40234375,
+    "anon": 78.49609375,
+    "shmem": 0.0,
+    "kernel": 175.0625,
+    "file_mapped": 0.32421875,
+    "file_dirty": 0.203125,
+    "file_writeback": 0.0
+  },
+  "measurement_scope": "Fresh imported plain files, controller, private service and guests; archive restoration is outside this group and its scratch is removed before the baseline.",
+  "workflow_seconds": 73.218554254,
+  "outer_launch_seconds": 191.693002621,
+  "guest_single_core_cpu_percent": 0.6182436513945974,
+  "broad_mincore": "NOT_REQUESTED"
+}

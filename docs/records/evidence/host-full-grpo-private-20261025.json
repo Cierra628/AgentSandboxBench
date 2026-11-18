@@ -1,0 +1,181 @@
+{
+  "status": "PASS_SAVED_RESULT_AUDIT",
+  "schedule": "grpo",
+  "planned_actions": 378,
+  "actual_actions": 378,
+  "execution_order": [
+    "shared",
+    "private"
+  ],
+  "pair": ".artifacts/host-full-grpo-resume-20261025",
+  "groups": {
+    "shared": {
+      "storage": ".artifacts/storage-isolated-service/20261025T033849Z-931236",
+      "group_result": ".artifacts/host-full-rootfs/20261025T033732Z-shared-930308",
+      "mode": "shared",
+      "objects": 19,
+      "users_per_object": 7,
+      "actions": 189,
+      "P0_resident_bytes": 4418736128,
+      "P1_resident_bytes": 4419899392,
+      "change_bytes": 1163264,
+      "P0_file_before": {
+        "current": 26609733632,
+        "file": 26048901120,
+        "anon": 134291456,
+        "shmem": 7604273152,
+        "kernel": 400285696,
+        "file_mapped": 17616896,
+        "file_dirty": 933888,
+        "file_writeback": 0
+      },
+      "P1_file_after": {
+        "current": 30937456640,
+        "file": 26156736512,
+        "anon": 4296818688,
+        "shmem": 7604330496,
+        "kernel": 451928064,
+        "file_mapped": 25174016,
+        "file_dirty": 90685440,
+        "file_writeback": 0
+      },
+      "query_seconds": {
+        "P0": 0.16061937,
+        "P1": 0.185539815
+      },
+      "query_cpu_seconds": {
+        "P0": 0.15914138,
+        "P1": 0.185393152
+      },
+      "metadata_seconds": {
+        "P0_metadata": 0.000234444,
+        "P1_metadata": 0.054944724,
+        "P1_postcheck": 0.018032057
+      },
+      "metadata_cpu_seconds": {
+        "P0_metadata": 0.00022563,
+        "P1_metadata": 0.047663845,
+        "P1_postcheck": 0.011882316
+      },
+      "initial_cache_copy_seconds": 6.614467848,
+      "extra_copy_preparation_seconds": 0.006289229,
+      "preparation_sync_seconds": 3.14007454,
+      "sync_parent_cpu_seconds": 0.001344919,
+      "creation_and_original_paths_seconds": 30.259692495,
+      "rollout_including_query_and_checks_seconds": 38.349284226,
+      "controller_seconds": 43.472728312,
+      "tool_cumulative_seconds": 70.179215281,
+      "host_samples": 1356,
+      "guest_periodic_samples": 2629,
+      "pss": "NOT_REQUESTED",
+      "functional_checks": "PASS",
+      "cleanup": "PASS",
+      "initial_cache_copy_cpu_seconds": 4.921674436,
+      "extra_preparation_cpu_seconds": 0.00616346
+    },
+    "private": {
+      "storage": ".artifacts/storage-isolated-service/20261025T035223Z-938973",
+      "group_result": ".artifacts/host-full-rootfs/20261025T035106Z-private-938217",
+      "mode": "private",
+      "objects": 133,
+      "users_per_object": 1,
+      "actions": 189,
+      "P0_resident_bytes": 30931152896,
+      "P1_resident_bytes": 30936666112,
+      "change_bytes": 5513216,
+      "P0_file_before": {
+        "current": 81223323648,
+        "file": 79141474304,
+        "anon": 109727744,
+        "shmem": 7604273152,
+        "kernel": 1948250112,
+        "file_mapped": 17997824,
+        "file_dirty": 921600,
+        "file_writeback": 0
+      },
+      "P1_file_after": {
+        "current": 85372112896,
+        "file": 78884560896,
+        "anon": 4453953536,
+        "shmem": 7604330496,
+        "kernel": 1998495744,
+        "file_mapped": 25415680,
+        "file_dirty": 91152384,
+        "file_writeback": 0
+      },
+      "query_seconds": {
+        "P0": 1.16509021,
+        "P1": 1.17195451
+      },
+      "query_cpu_seconds": {
+        "P0": 1.161907175,
+        "P1": 1.168401408
+      },
+      "metadata_seconds": {
+        "P0_metadata": 0.00333246,
+        "P1_metadata": 0.093050678,
+        "P1_postcheck": 0.019038176
+      },
+      "metadata_cpu_seconds": {
+        "P0_metadata": 0.003331401,
+        "P1_metadata": 0.086197702,
+        "P1_postcheck": 0.011791025
+      },
+      "initial_cache_copy_seconds": 6.672134034,
+      "extra_copy_preparation_seconds": 12.547689796,
+      "preparation_sync_seconds": 78.569580069,
+      "sync_parent_cpu_seconds": 0.002890403,
+      "creation_and_original_paths_seconds": 24.907906661,
+      "rollout_including_query_and_checks_seconds": 33.570290974,
+      "controller_seconds": 39.478790683,
+      "tool_cumulative_seconds": 65.501173637,
+      "host_samples": 2258,
+      "guest_periodic_samples": 2302,
+      "pss": "NOT_REQUESTED",
+      "functional_checks": "PASS",
+      "cleanup": "PASS",
+      "initial_cache_copy_cpu_seconds": 4.924688314,
+      "extra_preparation_cpu_seconds": 0.274632289
+    }
+  },
+  "comparison": {
+    "preparation_difference_bytes": 26512416768,
+    "endpoint_difference_bytes": 26516766720,
+    "endpoint_reduction_fraction": 0.8571307142146914,
+    "shared_runtime_change_bytes": 1163264,
+    "private_runtime_change_bytes": 5513216,
+    "difference_change_bytes": 4349952,
+    "scope": "Direct initial-lower file residency comparison: one private service and seven guests per group; preparation included, not whole RAM"
+  },
+  "scope": "Initial 19 immutable lower files: actual host global cache residency; preparation included. Not whole RAM, anon, guest Cached attribution, BPO or a timing slowdown estimate.",
+  "new_replica_bpo": "NOT_RUN",
+  "new_actual_actions": 189,
+  "reused_action_count": 189,
+  "prior_failed_attempt": "storage-isolated-service/20261025T034107Z-934685; 0 actions, preparation timeout retained as FAIL",
+  "original_pair_status": "FAIL_PRESERVED",
+  "completion": "REUSED_SHARED_AND_NEW_PRIVATE",
+  "sync_timeout_seconds": {
+    "shared": 60,
+    "private": 300
+  },
+  "failed_volume_deletion": {
+    "status": "PASS",
+    "authorization": "User approved deleting this specific failed image and continuing the private group",
+    "path": ".artifacts/storage-isolated-service/20261025T034107Z-934685/volume.ext4",
+    "deleted": true,
+    "free_before_bytes": 56489316352,
+    "identity": {
+      "device": 64512,
+      "inode": 52183102,
+      "size": 51539607552
+    },
+    "allocated_bytes": 51543425024,
+    "all_other_entries_unchanged": true,
+    "retained_entries": 346,
+    "free_after_bytes": 108032737280,
+    "finished_timestamp_ns": 1792900237001781489
+  },
+  "raw_scope_label_correction": "Raw resumed comparison inherited the old two-service/two-guest label; actual seven-guest identities/counts and all numerical values unchanged. Corrected in derived evidence and the full-mode helper, original raw retained.",
+  "free_after_bytes": 108019703808,
+  "figure": "docs/records/evidence/host-full-grpo-private-20261025.png"
+}

@@ -1,0 +1,49 @@
+{
+  "status": "PREPARATION_FAILED_BEFORE_GUEST_CREATION",
+  "checked_utc": "2026-10-23T15:57:17.060343+00:00",
+  "user_approved_old_volume_deleted": true,
+  "old_volume_allocated_bytes": 17180549120,
+  "old_logs_retained": true,
+  "free_after_old_delete_bytes": 56389349376,
+  "new_task_actions": 0,
+  "new_sandboxes": 0,
+  "first_attempt": {
+    "result_dir": ".artifacts/host-rootfs-short/20261023T154808Z-594948",
+    "status": "FAIL",
+    "cause": "Container ID was incorrectly compared to image ID; fixed and regression tested"
+  },
+  "preparation_attempt": {
+    "result_dir": ".artifacts/host-rootfs-short/20261023T154850Z-595489",
+    "storage": ".artifacts/storage-isolated-service/20261023T155017Z-596564",
+    "status": "FAIL",
+    "cause": "Fixed network pools 10.211/16 and 10.212/16 already used",
+    "own_resources_cleaned": true,
+    "source_returned_to_stopped": true,
+    "cache_released": true,
+    "periodic_host_points": 1588,
+    "pss": "NOT_REQUESTED",
+    "final_regular_inventory": "NOT_CAPTURED: snapshot-local-cache not yet created",
+    "external_vmm_changes": "One foreign VMM created during preparation; old all-host identity comparison was false"
+  },
+  "offline_fixes": {
+    "tests": 35,
+    "status": "PASS",
+    "new_candidate_pools_from_saved_routes": [
+      "10.213.0.0/16",
+      "10.214.0.0/16"
+    ],
+    "source_scope": "Explicit short mode compares original source VMs, permits unchanged empty set, records foreign VMM changes; old default remains strict",
+    "child_failure_receipt": "Save isolated result path and actual action count even when child returns nonzero"
+  },
+  "runtime_restore": "NOT_RUN",
+  "rootfs_residency": "NOT_MEASURED",
+  "query_cost": "NOT_MEASURED",
+  "failed_volume": {
+    "path": ".artifacts/storage-isolated-service/20261023T155017Z-596564/volume.ext4",
+    "allocated_bytes": 25770364928,
+    "retained": true,
+    "deletion_authorized": false
+  },
+  "available_bytes": 30616883200,
+  "required_available_bytes": 53687091200
+}

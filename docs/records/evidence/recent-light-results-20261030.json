@@ -1,0 +1,105 @@
+{
+  "status": "SAVED_RESULTS_CHECKED",
+  "date": "2026-10-30",
+  "new_tasks": [
+    {
+      "task_id": "django__django-16819",
+      "actions": 28,
+      "tool_sum_seconds": 10.81164892,
+      "guest_used_peak_mib": 257.21875,
+      "guest_cached_peak_mib": 65.2109375,
+      "host_whole_workflow_peak_mib": 8239.92578125,
+      "cold_create_seconds": 210.777208753,
+      "host_single_core_cpu_percent": 0.2849708920861903,
+      "guest_single_core_cpu_percent": 1.320992959656561,
+      "public_curves": "results/external-django16819-light-20261030",
+      "official_tests": "NOT_RUN_ORIGIN_SYNTAX_ONLY"
+    },
+    {
+      "task_id": "reshard-c4-data",
+      "actions": 36,
+      "tool_sum_seconds": 45.754191669,
+      "guest_used_peak_mib": 1264.04296875,
+      "guest_cached_peak_mib": 2920.85546875,
+      "host_whole_workflow_peak_mib": 20284.4609375,
+      "cold_create_seconds": 315.144841048,
+      "host_single_core_cpu_percent": 0.34492721079443184,
+      "guest_single_core_cpu_percent": 0.739068862901583,
+      "public_curves": "results/external-c4-light-20261030",
+      "official_tests": "NOT_RUN_ORIGINAL_SAMPLE_ROUNDTRIP_ONLY"
+    },
+    {
+      "task_id": "build-cython-ext",
+      "actions": 83,
+      "tool_sum_seconds": 228.722720539,
+      "guest_used_peak_mib": 718.87890625,
+      "guest_cached_peak_mib": 230.34765625,
+      "host_whole_workflow_peak_mib": 4769.09765625,
+      "cold_create_seconds": 49.188567963,
+      "host_single_core_cpu_percent": 0.29296961632445917,
+      "guest_single_core_cpu_percent": 0.4990809666064625,
+      "public_curves": "results/external-cython-light-20261030",
+      "official_tests": "NOT_RUN_ORIGINAL_18_TESTS_TWICE_AND_EXTENSION_CHECK"
+    }
+  ],
+  "prettier_expansion": {
+    "actions": 189,
+    "guests": 7,
+    "original_regular_lowers": 19,
+    "regular_union_files": 211,
+    "observed_regular_file_sum_mib": 7096.1953125,
+    "new_regular_resident_mib": 1788.12890625,
+    "expanded_query_seconds": 0.050724024,
+    "all_selected_query_seconds": 0.340876562,
+    "public_curves": "results/prettier-grpo-expanded-20261030",
+    "input_mode": "Original GRPO RAM seed and copied commits retained; not the newer persistent-input mode"
+  },
+  "limitations": [
+    "The first single-run records have no sampling-off control. C4 and Django now each have a separate two-pair host+guest sampling comparison; Cython does not. No new-task sharing controls.",
+    "Host current is group-accounted memory including preparation/service/control/guest, not task-exclusive memory.",
+    "Prettier retained the older RAM preparation, not directly comparable to new-task single-guest host totals.",
+    "File mincore extension measures retained regular file residency, not all guest cache-backed physical memory."
+  ],
+  "c4_sampling_controls": {
+    "runs": 4,
+    "actions": 144,
+    "order": [
+      "off",
+      "on",
+      "on",
+      "off"
+    ],
+    "tool_pair_changes_percent": [
+      9.298823309421579,
+      -2.702020847584219
+    ],
+    "tool_on_mean_seconds": 44.154034872500006,
+    "tool_off_mean_seconds": 42.9206461105,
+    "source": "docs/records/evidence/external-c4-sampling-controls-20261030.json",
+    "public_curves": "results/external-c4-sampling-controls-20261030",
+    "cleanup": "PASS"
+  },
+  "django_sampling_controls": {
+    "runs": 4,
+    "actions": 112,
+    "order": [
+      "off",
+      "on",
+      "on",
+      "off"
+    ],
+    "tool_pair_changes_percent": [
+      9.512068258695038,
+      -3.6151717537934447
+    ],
+    "controller_pair_changes_percent": [
+      10.663928232049248,
+      39.319886719016274
+    ],
+    "tool_on_mean_seconds": 11.232216177,
+    "tool_off_mean_seconds": 10.900358501,
+    "source": "docs/records/evidence/external-django-sampling-controls-20261030.json",
+    "public_curves": "results/external-django-sampling-controls-20261030",
+    "cleanup": "PASS"
+  }
+}

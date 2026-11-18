@@ -1,0 +1,316 @@
+{
+  "status": "PASS",
+  "date": "2026-10-17",
+  "verdict": "Validated in the listed scopes; current private provider/gap-two candidate kept. No further same-scope calibration required.",
+  "validation_kind": "offline evidence/version/entry-point reconciliation; saved functional and counting checks reused",
+  "new_live_runs": 0,
+  "new_performance_measurements": 0,
+  "runtime_changed": false,
+  "file_calibration": {
+    "samples": 102,
+    "scope": "declared 1 MiB file, original guest kernel; temporary file mlock, not full guest"
+  },
+  "whole_guest": {
+    "groups": 6,
+    "kernel": "6.1.175-asb-cache-v3",
+    "page_size": 4096,
+    "metadata_static_bytes": 17039360,
+    "scope": "whole guest Cached membership, regular files plus shmem; excludes block-device/swap-only cache"
+  },
+  "selected_full_tasks": [
+    {
+      "task_id": "prettier__prettier-6604",
+      "actions": 29,
+      "samples": 22,
+      "guest_cached_peak_bytes": 270163968,
+      "host_confirmed_peak_bytes": 270163968,
+      "unknown_guest_capacity_max_bytes": 3526656
+    },
+    {
+      "task_id": "sphinx-doc__sphinx-7590",
+      "actions": 35,
+      "samples": 22,
+      "guest_cached_peak_bytes": 103653376,
+      "host_confirmed_peak_bytes": 103673856,
+      "unknown_guest_capacity_max_bytes": 3387392
+    },
+    {
+      "task_id": "pydata__xarray-6992",
+      "actions": 35,
+      "samples": 65,
+      "guest_cached_peak_bytes": 350490624,
+      "host_confirmed_peak_bytes": 350498816,
+      "unknown_guest_capacity_max_bytes": 18640896
+    }
+  ],
+  "total_actions": 99,
+  "total_samples": 109,
+  "coverage_by_saved_session": [
+    {
+      "name": "prettier__prettier-6604",
+      "evidence": "docs/records/evidence/live-prettier-cache-optimized-20261015.json",
+      "status": "PASS",
+      "physical_scope": [
+        "VMM"
+      ],
+      "sessions": [
+        {
+          "result": ".artifacts/storage-isolated-service/20261015T050604Z-1849409/prettier6604/live-cache/result.json",
+          "samples": 22,
+          "collector_version": "array-accounting-batched-export-v2"
+        }
+      ]
+    },
+    {
+      "name": "sphinx-doc__sphinx-7590",
+      "evidence": "docs/records/evidence/sphinx-live-cache-unified-20261015.json",
+      "status": "PASS",
+      "physical_scope": [
+        "VMM"
+      ],
+      "sessions": [
+        {
+          "result": ".artifacts/storage-isolated-service/20261015T053138Z-1860659/python-backbone/live-cache/result.json",
+          "samples": 22,
+          "collector_version": "array-accounting-batched-export-v2"
+        }
+      ]
+    },
+    {
+      "name": "pydata__xarray-6992",
+      "evidence": "docs/records/evidence/xarray-live-cache-unified-20261015.json",
+      "status": "PASS",
+      "physical_scope": [
+        "VMM"
+      ],
+      "sessions": [
+        {
+          "result": ".artifacts/storage-isolated-service/20261015T065740Z-1883035/python-backbone/live-cache/result.json",
+          "samples": 65,
+          "collector_version": "array-accounting-batched-export-v2"
+        }
+      ]
+    },
+    {
+      "name": "Prettier step24 continuity",
+      "evidence": "docs/records/evidence/prettier-live-cache-restore-20261015.json",
+      "status": "PASS",
+      "physical_scope": [
+        "VMM"
+      ],
+      "sessions": [
+        {
+          "result": ".artifacts/storage-isolated-service/20261015T071537Z-1897070/prettier6604/live-cache/parent/result.json",
+          "samples": 11,
+          "collector_version": "array-accounting-batched-export-v2"
+        },
+        {
+          "result": ".artifacts/storage-isolated-service/20261015T071537Z-1897070/prettier6604/live-cache/restored/result.json",
+          "samples": 14,
+          "collector_version": "array-accounting-batched-export-v2"
+        }
+      ]
+    },
+    {
+      "name": "Prettier direct backend",
+      "evidence": "docs/records/evidence/snapshot-cache-residency-20261015.json",
+      "status": "PASS",
+      "physical_scope": [
+        "VMM",
+        "direct"
+      ],
+      "sessions": [
+        {
+          "result": ".artifacts/storage-isolated-service/20261015T075346Z-1921832/prettier6604/live-cache/parent/result.json",
+          "samples": 11,
+          "collector_version": "snapshot-mincore-pfn-union-v3"
+        },
+        {
+          "result": ".artifacts/storage-isolated-service/20261015T075346Z-1921832/prettier6604/live-cache/restored/result.json",
+          "samples": 15,
+          "collector_version": "snapshot-mincore-pfn-union-v3"
+        }
+      ]
+    },
+    {
+      "name": "Prettier raw layer",
+      "evidence": "docs/records/evidence/prettier-raw-layer-cache-20261015.json",
+      "status": "PASS",
+      "physical_scope": [
+        "VMM",
+        "direct",
+        "raw"
+      ],
+      "sessions": [
+        {
+          "result": ".artifacts/storage-isolated-service/20261015T140929Z-1989958/prettier6604/live-cache/parent/result.json",
+          "samples": 10,
+          "collector_version": "snapshot-mincore-pfn-union-v3"
+        },
+        {
+          "result": ".artifacts/storage-isolated-service/20261015T140929Z-1989958/prettier6604/live-cache/restored/result.json",
+          "samples": 15,
+          "collector_version": "snapshot-raw-layer-pfn-union-v4"
+        }
+      ]
+    },
+    {
+      "name": "Prettier real early_1/early_2",
+      "evidence": "docs/records/evidence/prettier-real-pair-cache-20261015.json",
+      "status": "PASS",
+      "physical_scope": [
+        "VMM",
+        "direct",
+        "raw"
+      ],
+      "sessions": [
+        {
+          "result": ".artifacts/storage-isolated-service/20261015T143027Z-2009384/prettier6604/live-cache/child-a/result.json",
+          "samples": 11,
+          "collector_version": "snapshot-raw-layer-pfn-union-v4"
+        },
+        {
+          "result": ".artifacts/storage-isolated-service/20261015T143027Z-2009384/prettier6604/live-cache/child-b/result.json",
+          "samples": 10,
+          "collector_version": "snapshot-raw-layer-pfn-union-v4"
+        }
+      ]
+    },
+    {
+      "name": "Private provider plus gap-two short restore",
+      "evidence": "docs/records/evidence/provider-mincore-gap-two-live-20261017.json",
+      "status": "PASS",
+      "physical_scope": [
+        "VMM",
+        "direct",
+        "raw",
+        "attributed_provider"
+      ],
+      "sessions": [
+        {
+          "result": ".artifacts/storage-isolated-service/20261017T065143Z-2431526/guest-cache/live-cache/parent/result.json",
+          "samples": 3,
+          "collector_version": "snapshot-mincore-pfn-union-v3"
+        },
+        {
+          "result": ".artifacts/storage-isolated-service/20261017T065143Z-2431526/guest-cache/live-cache/restored/result.json",
+          "samples": 10,
+          "collector_version": "snapshot-provider-segment-pfn-union-v6"
+        }
+      ]
+    }
+  ],
+  "unified_configs": {
+    "platform-prettier6604-live-cache": {
+      "task_id": "prettier__prettier-6604",
+      "checkpoint_after_step": null,
+      "live_cache_kernel": ".artifacts/agentenv-cache-kernel-20261015-v3/vmlinux.bin"
+    },
+    "platform-sphinx7590-live-cache": {
+      "task_id": "sphinx-doc__sphinx-7590",
+      "checkpoint_after_step": null,
+      "live_cache_kernel": ".artifacts/agentenv-cache-kernel-20261015-v3/vmlinux.bin"
+    },
+    "platform-xarray6992-live-cache": {
+      "task_id": "pydata__xarray-6992",
+      "checkpoint_after_step": null,
+      "live_cache_kernel": ".artifacts/agentenv-cache-kernel-20261015-v3/vmlinux.bin"
+    },
+    "platform-prettier6604-checkpoint-live-cache": {
+      "task_id": "prettier__prettier-6604",
+      "checkpoint_after_step": 24,
+      "live_cache_kernel": ".artifacts/agentenv-cache-kernel-20261015-v3/vmlinux.bin"
+    },
+    "platform-prettier6604-checkpoint-layer-cache": {
+      "task_id": "prettier__prettier-6604",
+      "checkpoint_after_step": 24,
+      "live_cache_kernel": ".artifacts/agentenv-cache-kernel-20261015-v3/vmlinux.bin",
+      "live_cache_lower": true
+    }
+  },
+  "current_defaults": {
+    "lower_cache": false,
+    "provider_cache": false,
+    "batch_lookup": false
+  },
+  "provider_and_gap_two_unified_task_entry": false,
+  "cross_guest": {
+    "valid_pairs": 8,
+    "samples": [
+      11,
+      10
+    ],
+    "layers": [
+      "VMM",
+      "direct",
+      "raw"
+    ],
+    "first_pair": {
+      "phase": "real-task-branches",
+      "point_a": 2,
+      "point_b": 1,
+      "timestamp_ns": 1792074666390748583,
+      "overlap_ns": 507193153,
+      "guest_a_cached_bytes": 93007872,
+      "guest_b_cached_bytes": 97550336,
+      "host_a_bytes": 128933888,
+      "host_b_bytes": 130039808,
+      "host_sum_bytes": 258973696,
+      "host_union_bytes": 185323520,
+      "shared_bytes": 73650176,
+      "unknown_a_capacity_bytes": 1642496,
+      "unknown_b_capacity_bytes": 5373952
+    }
+  },
+  "latest_short_restore": {
+    "samples": {
+      "parent": 3,
+      "restored": 10
+    },
+    "queries": 40,
+    "point_cpu_mean_ns": 294529153.6,
+    "point_elapsed_mean_ns": 327133465.4,
+    "guest_read_span_host_mean_ns": 188732168.5,
+    "unknown_guest_bytes": [
+      479232,
+      45056,
+      262144,
+      4689920,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+    ],
+    "stable_source_gap_pages": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+    ],
+    "unknown_provider_resident_range_bytes": [
+      53248,
+      434176
+    ],
+    "whole_provider_resident_bytes": 4136960,
+    "provider_boundary_pages": 21,
+    "regression_tests_reused": 52,
+    "classification_tests_reused": 10
+  },
+  "limitations": [
+    "Interval observations, not an atomic snapshot; changing guest identities/mappings remain unknown.",
+    "Unknown guest capacity and unknown provider resident bytes are different quantities and are not summed.",
+    "Compression/multiple raw layers and all possible physical sources not covered.",
+    "Newest provider/gap-two candidate tested in a short restore, not full tasks or real dual branch.",
+    "Sphinx/Xarray new-method restore not validated; no stable full-task slowdown or isolated guest-kernel-table cost.",
+    "Aggregate result version may describe parent; use each session and query metadata."
+  ],
+  "local_checks": ".artifacts/cache-measurement-closeout-20261017/checks.json"
+}

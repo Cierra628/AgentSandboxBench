@@ -1,0 +1,42 @@
+{
+  "status": "PASS_CURRENT_OLD_CACHE_OWNERSHIP",
+  "fixture": {
+    "status": "PASS",
+    "inside_bytes": 4096,
+    "outside_bytes": 4096,
+    "unknown_bytes": 0,
+    "hole_pages": 511,
+    "query_ns": 1834289,
+    "total_query_ns": 7300841660,
+    "cleaned": true
+  },
+  "archive": {
+    "status": "OBSERVED",
+    "reference_group": "/asbhost.slice",
+    "resident_pages": 447004,
+    "resident_bytes": 1830928384,
+    "inside_bytes": 0,
+    "outside_bytes": 1830928384,
+    "unknown_bytes": 0,
+    "owner_kind": "online interactive session cgroup, outside experiment parent",
+    "owner_group_id": 5087322,
+    "page_size": 4096,
+    "query_ns": 414660801,
+    "total_query_ns": 5266816384,
+    "matched_lookup_entries": 447004,
+    "matched_lookup_returns": 447004,
+    "cache_add_delete_events": 0,
+    "probe_reaped": true
+  },
+  "tests": {
+    "pure_metadata_cases": 5,
+    "status": "PASS",
+    "final_type_cast_compile_only": "PASS"
+  },
+  "source_constraints": "Referenced existing folio during PROT_NONE mincore, ordinary-file metadata only; target PID plus inode/device; no data reads/faults/preload/locking or new modules.",
+  "scope": "Current sequential file observation. No historical backfill, complete host physical total or new sandbox actions.",
+  "artifacts": {
+    "fixture": ".artifacts/host-existing-cache-fixture/20261021T135338Z-64019",
+    "archive": ".artifacts/host-existing-cache-archive-20261021T135517Z"
+  }
+}

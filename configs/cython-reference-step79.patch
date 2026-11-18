@@ -1,0 +1,331 @@
+diff --git a/pyknotid/invariants.py b/pyknotid/invariants.py
+index c4ab998..bca7c93 100644
+--- a/pyknotid/invariants.py
++++ b/pyknotid/invariants.py
+@@ -134,7 +134,7 @@ def _alexander_numpy(crossings, variable=-1.0, quadrant='lr'):
+     '''
+     import numpy as n
+     num_crossings = int(len(crossings)/2)
+-    dtype = n.complex if isinstance(variable, n.complex) else n.float
++    dtype = complex if isinstance(variable, complex) else float
+     matrix = n.zeros((num_crossings, num_crossings), dtype=dtype)
+     line_num = 0
+     crossing_num_counter = 0
+@@ -174,7 +174,7 @@ def _alexander_numpy(crossings, variable=-1.0, quadrant='lr'):
+         poly_val = n.linalg.det(matrix[:-1:, :-1])
+     elif quadrant == 'll':
+         poly_val = n.linalg.det(matrix[1:, :-1])
+-    if not isinstance(poly_val, n.complex):
++    if not isinstance(poly_val, complex):
+         poly_val = n.abs(poly_val)
+     return poly_val
+ 
+@@ -975,7 +975,7 @@ def _crossing_arrows_and_signs_numpy(gc, crossing_numbers):
+             under_crossing_indices[row[0]] = i
+         signs[row[0]] = row[2]
+ 
+-    arrows = n.zeros((len(crossing_numbers), 3), dtype=n.long)
++    arrows = n.zeros((len(crossing_numbers), 3), dtype=n.int_)
+ 
+     for index, number in enumerate(crossing_numbers):
+         row = arrows[index]
+diff --git a/pyknotid/make/periodic_knot.py b/pyknotid/make/periodic_knot.py
+index 19c8768..70f8343 100644
+--- a/pyknotid/make/periodic_knot.py
++++ b/pyknotid/make/periodic_knot.py
+@@ -31,14 +31,14 @@ def cell_trefoil2(num_points=40):
+     points = aperiodic_trefoil(num_points) + 4
+     points *= 10
+ 
+-    end = n.zeros((30, 3), dtype=n.float)
++    end = n.zeros((30, 3), dtype=float)
+     end_start = points[-1]
+     end_prev = points[-2]
+     end[:, 0] = n.linspace(end_prev[0], end_start[0], 30)
+     end[:, 1] = n.linspace(end_prev[1], end_start[1], 30)
+     end[:, 2] = n.linspace(end_prev[2], 0, 30.)
+ 
+-    start = n.zeros((30, 3), dtype=n.float)
++    start = n.zeros((30, 3), dtype=float)
+     start_start = points[0]
+     start_prev = points[1]
+     start[:, 0] = n.linspace(start_start[0], start_prev[0], 30)
+diff --git a/pyknotid/make/torus.py b/pyknotid/make/torus.py
+index 0780cd9..a8f6b7b 100644
+--- a/pyknotid/make/torus.py
++++ b/pyknotid/make/torus.py
+@@ -11,7 +11,7 @@ API documentation
+ from __future__ import division
+ 
+ import numpy as np
+-from fractions import gcd
++from math import gcd
+ 
+ from pyknotid.spacecurves.knot import Knot
+ from pyknotid.spacecurves.link import Link
+diff --git a/pyknotid/representations/dtnotation.py b/pyknotid/representations/dtnotation.py
+index 43f97b8..7e2370f 100644
+--- a/pyknotid/representations/dtnotation.py
++++ b/pyknotid/representations/dtnotation.py
+@@ -45,14 +45,14 @@ class DTNotation(object):
+         Converts the string into internal DT notation representation.
+         '''
+ 
+-        regex = re.compile('[\n]*')
++        regex = re.compile('[\n]+')
+         lines = regex.split(code)
+ 
+         dt = []
+ 
+         for line in lines:
+             numbers = line.split(' ')
+-            dt.append(n.array([int(number) for number in numbers], dtype=n.int))
++            dt.append(n.array([int(number) for number in numbers], dtype=int))
+ 
+         self._dt = dt
+ 
+@@ -70,7 +70,7 @@ class DTNotation(object):
+                              'work with links')
+ 
+         dt = self._dt[0]
+-        arr = n.zeros((len(dt) * 2, 2), dtype=n.int)
++        arr = n.zeros((len(dt) * 2, 2), dtype=int)
+ 
+ 
+         for index, even in enumerate(dt, 0):
+diff --git a/pyknotid/representations/gausscode.py b/pyknotid/representations/gausscode.py
+index 6f5d60c..0dc851a 100644
+--- a/pyknotid/representations/gausscode.py
++++ b/pyknotid/representations/gausscode.py
+@@ -120,7 +120,7 @@ class GaussCode(object):
+         new_rows = []
+ 
+         for row in gc._gauss_code:
+-            keep = n.ones(len(row), dtype=n.bool)
++            keep = n.ones(len(row), dtype=bool)
+             virtual_cs = n.argwhere(row[:, 0] < 0)
+             indices = virtual_cs.flatten()
+             for index in indices:
+@@ -169,7 +169,7 @@ class GaussCode(object):
+         '''
+         Converts the string into internal Gauss code representation.
+         '''
+-        regex = re.compile('[ \n]*')
++        regex = re.compile('[ \n]+')
+         lines = regex.split(crossings)
+ 
+         gauss_code = []
+diff --git a/pyknotid/representations/representation.py b/pyknotid/representations/representation.py
+index 6a40385..2c79d51 100644
+--- a/pyknotid/representations/representation.py
++++ b/pyknotid/representations/representation.py
+@@ -497,8 +497,8 @@ class Representation(GaussCode):
+ 
+         cg = CrossingGraph()
+         for line in lines:
+-            start_node = nodes_by_height[n.int(n.round(line[0, 1]))]
+-            end_node = nodes_by_height[n.int(n.round(line[-1, 1]))]
++            start_node = nodes_by_height[int(n.round(line[0, 1]))]
++            end_node = nodes_by_height[int(n.round(line[-1, 1]))]
+             cl = CrossingLine(start_node, end_node, line)
+             cg[start_node].append(cl)
+             cg[end_node].append(cl.reversed())
+diff --git a/pyknotid/simplify/octree.py b/pyknotid/simplify/octree.py
+index 38cc6dd..e54431a 100644
+--- a/pyknotid/simplify/octree.py
++++ b/pyknotid/simplify/octree.py
+@@ -796,7 +796,7 @@ def remove_nearby_points(points):
+     '''Takes a set of points, and removes those that are no distance from
+     the previous one.'''
+     points = points.copy()
+-    keep = n.ones(len(points), dtype=n.bool)
++    keep = n.ones(len(points), dtype=bool)
+ 
+     comparator = points[0]
+     for i, point in enumerate(points):
+diff --git a/pyknotid/spacecurves/ccomplexity.pyx b/pyknotid/spacecurves/ccomplexity.pyx
+index 503ec42..bfcf714 100644
+--- a/pyknotid/spacecurves/ccomplexity.pyx
++++ b/pyknotid/spacecurves/ccomplexity.pyx
+@@ -13,7 +13,7 @@ cpdef cython_higher_order_writhe(double [:, :] points,
+                         long [:] order):
+ 
+     cdef long i1, i2, i3, i4
+-    cdef long [:] indices = np.zeros(4, dtype=np.int)
++    cdef long [:] indices = np.zeros(4, dtype=np.int_)
+ 
+     cdef double writhe = 0.0
+ 
+@@ -41,7 +41,7 @@ cpdef cython_second_order_writhes(double [:, :] points,
+                                   double [:, :] contributions):
+ 
+     cdef long i1, i2, i3, i4
+-    cdef long [:] indices = np.zeros(4, dtype=np.int)
++    cdef long [:] indices = np.zeros(4, dtype=np.int_)
+ 
+     cdef double writhe_1 = 0.0
+     cdef double writhe_2 = 0.0
+@@ -72,7 +72,7 @@ cpdef cython_second_order_writhes_no_basepoint(double [:, :] points,
+                                                double [:, :] contributions):
+ 
+     cdef long i1, i2, i3, i4
+-    cdef long [:] indices = np.zeros(4, dtype=np.int)
++    cdef long [:] indices = np.zeros(4, dtype=np.int_)
+ 
+     cdef double writhe_1 = 0.0
+     cdef double writhe_2 = 0.0
+diff --git a/pyknotid/spacecurves/knot.py b/pyknotid/spacecurves/knot.py
+index e2617ad..26c6542 100644
+--- a/pyknotid/spacecurves/knot.py
++++ b/pyknotid/spacecurves/knot.py
+@@ -312,7 +312,7 @@ class Knot(SpaceCurve):
+         points = self.points
+         if num_samples == 0:
+             num_samples = len(points)
+-        indices = n.linspace(0, len(points), num_samples).astype(n.int)
++        indices = n.linspace(0, len(points), num_samples).astype(int)
+ 
+         from pyknotid.spacecurves.openknot import OpenKnot
+ 
+diff --git a/pyknotid/spacecurves/openknot.py b/pyknotid/spacecurves/openknot.py
+index bfadb6c..81fd50d 100644
+--- a/pyknotid/spacecurves/openknot.py
++++ b/pyknotid/spacecurves/openknot.py
+@@ -302,7 +302,7 @@ class OpenKnot(SpaceCurve):
+         '''
+         polys = self.alexander_polynomials(
+             number_of_samples=number_of_samples, **kwargs)
+-        alexs = n.round(polys[:, 2]).astype(n.int)
++        alexs = n.round(polys[:, 2]).astype(int)
+ 
+         fracs = []
+         length = float(len(alexs))
+@@ -477,7 +477,7 @@ class OpenKnot(SpaceCurve):
+         '''
+         polys = self.virtual_checks(
+             number_of_samples=number_of_samples, **kwargs)
+-        alexs = n.round(polys[:, 2]).astype(n.int)
++        alexs = n.round(polys[:, 2]).astype(int)
+ 
+         fracs = []
+         length = float(len(alexs))
+@@ -680,7 +680,7 @@ class OpenKnot(SpaceCurve):
+         '''
+         self_linkings = self.self_linkings(
+             number_of_samples=number_of_samples, **kwargs)
+-        self_linkings = n.round(self_linkings[:, 2]).astype(n.int)
++        self_linkings = n.round(self_linkings[:, 2]).astype(int)
+ 
+         fracs = []
+         length = float(len(self_linkings))
+@@ -1124,7 +1124,7 @@ class OpenKnot(SpaceCurve):
+ 
+             # Remove closing crossings to calculate self linking
+             xs, ys = n.where(cs[:, :2] > len(k.points) - 1)
+-            keeps = n.ones(len(cs), dtype=n.bool)
++            keeps = n.ones(len(cs), dtype=bool)
+             for x in xs:
+                 keeps[x] = False
+             cs = cs[keeps]
+@@ -1149,7 +1149,7 @@ class OpenKnot(SpaceCurve):
+         polys, self_linkings = self._determinants_and_self_linkings(
+             number_of_samples, **kwargs)
+ 
+-        alexs = n.round(polys[:, 2]).astype(n.int)
++        alexs = n.round(polys[:, 2]).astype(int)
+ 
+         fracs = []
+         length = float(len(alexs))
+@@ -1159,7 +1159,7 @@ class OpenKnot(SpaceCurve):
+         det_fracs = sorted(fracs, key=lambda j: j[1])
+ 
+ 
+-        self_linkings = n.round(self_linkings[:, 2]).astype(n.int)
++        self_linkings = n.round(self_linkings[:, 2]).astype(int)
+ 
+         fracs = []
+         length = float(len(self_linkings))
+@@ -1211,7 +1211,7 @@ class OpenKnot(SpaceCurve):
+ 
+             # Remove closing crossings to calculate self linking
+             xs, ys = n.where(cs[:, :2] > len(k.points) - 1)
+-            keeps = n.ones(len(cs), dtype=n.bool)
++            keeps = n.ones(len(cs), dtype=bool)
+             for x in xs:
+                 keeps[x] = False
+             cs = cs[keeps]
+@@ -1238,8 +1238,8 @@ class OpenKnot(SpaceCurve):
+         ck_fraction = n.average(ck[:, -1])
+         pv_fraction = n.average(pv[:, -1])
+ 
+-        return ck_fraction, pv_fraction, n.average(pv[:, -1].astype(n.bool) |
+-                                                   pk[:, -1].astype(n.bool))
++        return ck_fraction, pv_fraction, n.average(pv[:, -1].astype(bool) |
++                                                   pk[:, -1].astype(bool))
+ 
+     def plot_vassiliev_spectrum(self, angles=100, max_crossings=8):
+         v2 = self.vassiliev_degree_2_average()
+diff --git a/pyknotid/spacecurves/periodiccell.py b/pyknotid/spacecurves/periodiccell.py
+index 4aff56a..1198d28 100644
+--- a/pyknotid/spacecurves/periodiccell.py
++++ b/pyknotid/spacecurves/periodiccell.py
+@@ -391,8 +391,8 @@ class BoundingBox(object):
+             shape = float(shape[0])
+ 
+         # should these have +1 and -1?
+-        steps_mins = np.floor((b2.mins - b1.maxs) / shape).astype(np.int) + 1
+-        steps_maxs = np.floor((b2.maxs - b1.mins) / shape).astype(np.int)
++        steps_mins = np.floor((b2.mins - b1.maxs) / shape).astype(int) + 1
++        steps_maxs = np.floor((b2.maxs - b1.mins) / shape).astype(int)
+ 
+         return steps_mins, steps_maxs
+ 
+@@ -457,7 +457,7 @@ def get_linking_between_loop_and_line(loop, line, shape,
+     line = OpenKnot.from_periodic_line(line, shape)
+ 
+     line_closure = (line.points[-1] - line.points[0]) / shape[0]
+-    line_closure = np.round(line_closure).astype(np.int)
++    line_closure = np.round(line_closure).astype(int)
+ 
+     print('closure is', line_closure)
+ 
+diff --git a/pyknotid/spacecurves/spacecurve.py b/pyknotid/spacecurves/spacecurve.py
+index 449ce04..eee0226 100644
+--- a/pyknotid/spacecurves/spacecurve.py
++++ b/pyknotid/spacecurves/spacecurve.py
+@@ -80,7 +80,7 @@ class SpaceCurve(object):
+         self._points = n.zeros((0, 3))
+         self._crossings = None  # Will store a list of crossings if
+                                 # self.crossings() has been called
+-        self.points = n.array(points).astype(n.float)
++        self.points = n.array(points).astype(float)
+         self.verbose = verbose
+ 
+         self._cached_writhe_and_crossing_numbers = None
+@@ -635,7 +635,7 @@ class SpaceCurve(object):
+ 
+     def second_order_twist(self, z):
+         from pyknotid.spacecurves import complexity as com
+-        z = np.array(z).astype(np.float)
++        z = np.array(z).astype(float)
+         assert len(z) == 3
+         return com.second_order_twist(self.points, z)
+ 
+@@ -987,7 +987,7 @@ class SpaceCurve(object):
+                              n.hstack((self.points[:, 2],
+                                       self.points[:, 2][:1])))
+ 
+-        new_points = n.zeros((len(indices), 3), dtype=n.float)
++        new_points = n.zeros((len(indices), 3), dtype=float)
+         new_points[:, 0] = interp_xs(indices)
+         new_points[:, 1] = interp_ys(indices)
+         new_points[:, 2] = interp_zs(indices)
+@@ -1080,7 +1080,7 @@ class SpaceCurve(object):
+         points = self.points
+         ts = np.roll(points, -1, axis=0) - points
+ 
+-        keep_points = np.ones(len(points), dtype=np.bool)
++        keep_points = np.ones(len(points), dtype=bool)
+ 
+         ts_range = ts[:-2] if not closed else ts
+ 

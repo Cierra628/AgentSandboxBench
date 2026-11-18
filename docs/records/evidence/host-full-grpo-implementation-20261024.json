@@ -1,0 +1,92 @@
+{
+  "status": "PASS_OFFLINE_IMPLEMENTATION_LIVE_NOT_RUN",
+  "observed_at_utc": "2026-10-24T15:59:20.847081+00:00",
+  "profile": "full-grpo-rootfs-copies-v1",
+  "schedule": "grpo",
+  "main_objects": {
+    "initial_layers": 19,
+    "shared_objects": 19,
+    "private_objects": 133,
+    "private_copy_sets": 7,
+    "extra_sets_copied": 6
+  },
+  "phases": {
+    "P0": "After owned filesystem sync, before guests: prepared copies, planned users only",
+    "P1": "After all original paths, before official checks/deletion: live lower identities, open files, actual users and daemon assignments"
+  },
+  "measurement": {
+    "host_file_interval_seconds": 0.1,
+    "guest_meminfo_interval_seconds": 0.1,
+    "pss": "NOT_REQUESTED",
+    "residency": "mincore, PROT_NONE; no target payload reread",
+    "reclaim": "AgentENV default",
+    "difference": "Actual private P1 minus actual shared P1; P0 and difference change separate"
+  },
+  "validation": {
+    "python_tests": {
+      "new": 10,
+      "private": 14,
+      "storage": 27,
+      "grpo": 9,
+      "light": 7
+    },
+    "python_total": 67,
+    "rust_filtered_tests": 3,
+    "rust_build": "PASS",
+    "rustfmt": "PASS",
+    "clippy": "PASS (pre-existing dependency warning retained)",
+    "old_schedule_methods_unchanged": "PASS",
+    "check_only_modes": [
+      {
+        "mode": "default",
+        "status": "PASS",
+        "output": "status=VALIDATED schedule=grpo roles=backbone,early_1,early_2,early_3,late_1,late_2,late_3"
+      },
+      {
+        "mode": "shared",
+        "status": "PASS",
+        "output": "status=VALIDATED schedule=grpo roles=backbone,early_1,early_2,early_3,late_1,late_2,late_3"
+      },
+      {
+        "mode": "private",
+        "status": "PASS",
+        "output": "status=VALIDATED schedule=grpo roles=backbone,early_1,early_2,early_3,late_1,late_2,late_3"
+      }
+    ]
+  },
+  "live": {
+    "status": "NOT_RUN",
+    "new_actions": 0,
+    "new_sandboxes": 0,
+    "reason": "Free disk below strict >74 GiB threshold; an external service is also active and is left untouched",
+    "free_bytes": 31162036224,
+    "free_gib": 29.021907806396484,
+    "required_free_strictly_greater_than_bytes": 79456894976,
+    "volume_capacity_bytes": 51539607552,
+    "external_service": "aswr-agentenv-20261024t153452z-876603",
+    "deleted_volumes": []
+  },
+  "binary": ".artifacts/host-full-grpo-build-20261024/uvm-ublk-daemon",
+  "sources": [
+    "scripts/host_full_rootfs_control.py",
+    "scripts/run_host_full_rootfs.py",
+    "scripts/run-host-full-rootfs.sh",
+    "scripts/run_host_file_workflow.py",
+    "scripts/validate_isolated_agentenv.py",
+    "scripts/run_prettier6604_grpo.py",
+    "scripts/report_task_overview.py",
+    "scripts/build-rootfs-copy-daemon.sh",
+    "tests/test_host_full_rootfs_control.py",
+    "AgentENV/storage/ublk-daemon/src/rootfs_copies.rs",
+    "AgentENV/storage/ublk-daemon/src/runtime.rs",
+    "AgentENV/storage/ublk-daemon/src/lib.rs"
+  ],
+  "local_evidence": ".artifacts/host-full-grpo-implementation-20261024",
+  "rust_logs": ".artifacts/host-full-grpo-build-20261024/logs",
+  "limits": [
+    "Real daemon/service/VMM integration not exercised",
+    "BPO new copy mode explicitly rejected, not implemented",
+    "No new residency or performance results",
+    "Specified initial lower-file cache, not anon or whole-host RAM"
+  ]
+}

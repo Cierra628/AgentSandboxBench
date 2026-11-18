@@ -1,0 +1,18 @@
+{
+  "version": 1,
+  "task_id": "csv-category-sum-v1",
+  "profile": "sphinx7590",
+  "cwd": "/workspace/asb-tool-session",
+  "memory_mib": 512,
+  "prompt": "Work only in /workspace/asb-tool-session. sales.csv is already present. Write summarize.py using Python standard library: read sales.csv from the current working directory, sum integer amounts by category, write summary.json with keys sorted. Do not hard-code the totals. Run the script and check the result: books=20, food=10, tools=5. Use the run_shell tool to do the work; finish only after execution and checking. Each tool runs a fresh bash; files persist, shell state does not. For reproducible replay use deterministic output: no timestamps, process IDs, random values or test duration reports. Do not use ls -l, ls -a, ls -la or stat. Plain ls and cat are sufficient for this task. Use assertions with a fixed success message for testing; do not install packages or use the network.",
+  "seed_files": {
+    "/workspace/asb-tool-session/sales.csv": "category,amount\nbooks,12\nfood,7\nbooks,8\nfood,3\ntools,5\n"
+  },
+  "tracked_files": [
+    "/workspace/asb-tool-session/sales.csv",
+    "/workspace/asb-tool-session/summarize.py",
+    "/workspace/asb-tool-session/summary.json"
+  ],
+  "check_command": "python3 -c 'import json,pathlib,subprocess,sys,tempfile\nroot=pathlib.Path('\"'\"'/workspace/asb-tool-session'\"'\"')\nassert json.loads((root/'\"'\"'summary.json'\"'\"').read_text())=={'\"'\"'books'\"'\"':20,'\"'\"'food'\"'\"':10,'\"'\"'tools'\"'\"':5}\nassert (root/'\"'\"'summarize.py'\"'\"').is_file()\nwith tempfile.TemporaryDirectory(dir=root) as directory:\n    p=pathlib.Path(directory)\n    (p/'\"'\"'sales.csv'\"'\"').write_text('\"'\"'category,amount\\nbooks,1\\nbooks,2\\ntools,11\\n'\"'\"')\n    subprocess.run([sys.executable,str(root/'\"'\"'summarize.py'\"'\"')],cwd=p,check=True,capture_output=True,timeout=5)\n    assert json.loads((p/'\"'\"'summary.json'\"'\"').read_text())=={'\"'\"'books'\"'\"':3,'\"'\"'tools'\"'\"':11}\nprint('\"'\"'TASK_OK'\"'\"')\n'",
+  "check_timeout_seconds": 20
+}

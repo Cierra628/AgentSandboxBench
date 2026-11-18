@@ -1,0 +1,93 @@
+{
+  "status": "PASS_OFFLINE_SCALING_IMPLEMENTATION",
+  "live_validation": "NOT_RUN",
+  "new_live_sandbox_actions": 0,
+  "new_live_cache_queries": 0,
+  "modes": {
+    "cold": {
+      "sizes": [
+        1,
+        2,
+        4,
+        7
+      ],
+      "planned_actions": 77,
+      "volume_gib": 16,
+      "required_available_gib_over": 42
+    },
+    "restore": {
+      "sizes": [
+        1,
+        2,
+        4,
+        7
+      ],
+      "planned_actions": 70,
+      "volume_gib": 24,
+      "required_available_gib_over": 50,
+      "reuses_existing_capture": true
+    }
+  },
+  "scope": "Each sequence shares one cgroup/service/volume/baseline; old guests stay running; no physical total inferred",
+  "observations": {
+    "fixed_checkpoints": 9,
+    "guest_interval_seconds": 0.1,
+    "periodic_host_interval_seconds": 0.1,
+    "periodic_pss_interval_seconds": 1,
+    "primary": [
+      "anon",
+      "current"
+    ],
+    "context": [
+      "file",
+      "PSS",
+      "guest MemTotal-MemAvailable",
+      "guest Cached"
+    ],
+    "disabled_periodic_host_sampling_keeps_checkpoints": true,
+    "mid_sequence_mincore": false,
+    "endpoint_residency_separate": true,
+    "original_action_checks_before_next_batch": true
+  },
+  "tests": {
+    "new_cases": 12,
+    "related_initial": {
+      "run": 87,
+      "passed": 85,
+      "failed": 2
+    },
+    "affected_after_repair": {
+      "run": 3,
+      "passed": 3,
+      "failed": 0
+    },
+    "final_unique_related_passed": 88,
+    "unchanged_real_mincore_fixture": "Not rerun; existing evidence reused",
+    "repaired_checks": [
+      "Stale source-string guard assertion replaced with semantic AST condition checks",
+      "Preserved old CLI error prefix while describing scaling option"
+    ],
+    "new_cases_final_run": {
+      "run": 12,
+      "passed": 12,
+      "failed": 0
+    }
+  },
+  "check_only": {
+    "cold": "VALIDATED",
+    "restore": "VALIDATED",
+    "existing_capture_original_status": "FAIL",
+    "recovered_export_metadata": "VALIDATED",
+    "new_capture_actions": 0
+  },
+  "rendering": "SYNTHETIC_RENDER_ONLY; inspected locally, no experimental values",
+  "whole_physical_savings": "NOT_MEASURED",
+  "original_entry_defaults": "PRESERVED",
+  "implementation": [
+    "scripts/host_scaling.py",
+    "scripts/run_host_scaling.py",
+    "scripts/analyze_light_host_growth.py"
+  ],
+  "artifacts": ".artifacts/host-scaling-offline-20261022",
+  "next": "One cold sequence; first N=1 is the necessary short live validation; not started"
+}

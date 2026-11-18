@@ -1,0 +1,149 @@
+{
+  "status": "PASS",
+  "source": ".artifacts/host-loop-accounting/20261020T081736Z-3477915",
+  "scope": "One 128 MiB initialization calibration; no guest or synthetic payload; actual folio memcg, not actor membership.",
+  "page_size": 4096,
+  "add_folio_events": 237,
+  "delete_folio_events": 0,
+  "live_base_pages": 325,
+  "folio_order_counts": {
+    "0": 227,
+    "2": 4,
+    "3": 2,
+    "4": 2,
+    "5": 1,
+    "1": 1
+  },
+  "stages": {
+    "initial-empty": {
+      "resident_pages": 0,
+      "inner_file_before_pages": 0,
+      "inner_file_after_pages": 0,
+      "net_shortfall_pages": 0,
+      "start_monotonic_ns": 14254490420082336,
+      "end_monotonic_ns": 14254490420453045,
+      "classification": null
+    },
+    "allocated": {
+      "resident_pages": 0,
+      "inner_file_before_pages": 0,
+      "inner_file_after_pages": 0,
+      "net_shortfall_pages": 0,
+      "start_monotonic_ns": 14254491041195943,
+      "end_monotonic_ns": 14254491069310488,
+      "classification": {
+        "status": "STABLE",
+        "resident_pages": 0,
+        "owner_pages": {},
+        "actor_pages": {},
+        "measurement_owned_pages": 0,
+        "outside_measurement_pages": 0
+      }
+    },
+    "formatted": {
+      "resident_pages": 27,
+      "inner_file_before_pages": 0,
+      "inner_file_after_pages": 0,
+      "net_shortfall_pages": 27,
+      "start_monotonic_ns": 14254491074271927,
+      "end_monotonic_ns": 14254491102303342,
+      "classification": {
+        "status": "STABLE",
+        "resident_pages": 27,
+        "owner_pages": {
+          "5068237": 27
+        },
+        "actor_pages": {
+          "mkfs.ext4": 27
+        },
+        "measurement_owned_pages": 27,
+        "outside_measurement_pages": 0
+      }
+    },
+    "attached": {
+      "resident_pages": 27,
+      "inner_file_before_pages": 0,
+      "inner_file_after_pages": 0,
+      "net_shortfall_pages": 27,
+      "start_monotonic_ns": 14254491105087291,
+      "end_monotonic_ns": 14254491129550268,
+      "classification": {
+        "status": "CHANGED_DURING_QUERY"
+      }
+    },
+    "mounted-synced": {
+      "resident_pages": 325,
+      "inner_file_before_pages": 0,
+      "inner_file_after_pages": 0,
+      "net_shortfall_pages": 325,
+      "start_monotonic_ns": 14254491143886733,
+      "end_monotonic_ns": 14254491164625837,
+      "classification": {
+        "status": "STABLE",
+        "resident_pages": 325,
+        "owner_pages": {
+          "5068237": 27,
+          "4904527": 298
+        },
+        "actor_pages": {
+          "mkfs.ext4": 27,
+          "kworker/u513:10": 298
+        },
+        "measurement_owned_pages": 27,
+        "outside_measurement_pages": 298
+      }
+    },
+    "baseline": {
+      "resident_pages": 325,
+      "inner_file_before_pages": 40,
+      "inner_file_after_pages": 40,
+      "net_shortfall_pages": 285,
+      "start_monotonic_ns": 14254493365811420,
+      "end_monotonic_ns": 14254493386773469,
+      "classification": {
+        "status": "STABLE",
+        "resident_pages": 325,
+        "owner_pages": {
+          "5068237": 27,
+          "4904527": 298
+        },
+        "actor_pages": {
+          "mkfs.ext4": 27,
+          "kworker/u513:10": 298
+        },
+        "measurement_owned_pages": 27,
+        "outside_measurement_pages": 298
+      }
+    }
+  },
+  "measured_image_pages": 27,
+  "external_image_pages": 298,
+  "external_owner": "system.slice/systemd-udevd.service",
+  "external_actor_group": "root",
+  "root_flush": {
+    "attempt_ns": 14254491564023662,
+    "completion_ns": 14254491566532340,
+    "force": true,
+    "needs_flush": true
+  },
+  "baseline_file_pages": 40,
+  "baseline_net_shortfall_pages": 285,
+  "baseline_file_minus_measured_image_pages": 13,
+  "trace_records": 259,
+  "trace_loss_check": "PASS: per-kind BPF totals equal parsed record counts, no loss messages",
+  "attached_stage": "CHANGED_DURING_QUERY",
+  "tracer_outside_measurement": true,
+  "cleanup": {
+    "mount_removed": true,
+    "loop_removed": true,
+    "successful_image_removed": true
+  },
+  "owned_cgroups_removed": true,
+  "unrelated_loops_unchanged": true,
+  "snapshot_cpu_ns": 122214263,
+  "initial_available_bytes": 54141485056,
+  "available_before_cleanup_bytes": 54124273664,
+  "final_available_bytes": 54141194240,
+  "prior_large_volume_residual_attribution": "NOT_RETROACTIVELY_RESOLVED",
+  "savings_ratio": null
+}

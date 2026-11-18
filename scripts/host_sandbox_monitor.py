@@ -1,6 +1,7 @@
 """Read only an owned service's VMMs; bind sandbox identity through Firecracker MMDS."""
 import http.client
 import json
+import math
 import os
 from pathlib import Path
 import resource
@@ -44,6 +45,13 @@ class Binding:
         self.proc_root=proc_root
         self.cgroup_text=(proc_root/str(info['State']['Pid'])/'cgroup').read_text()
         lines=[s[3:] for s in self.cgroup_text.splitlines() if s.startswith('0::')];assert len(lines)==1 and lines[0]!='/'
+        self.private_service_cgroup=cgroup_root/lines[0].lstrip('/')
+        if info['Config']['Labels'].get('asb.vmm-child-cgroup')=='on':
+            parent=Path(info['Config']['Labels']['asb.vmm-parent'])
+            assert parent.is_relative_to(cgroup_root) and parent.name.startswith('asbvmm')
+            relative='/'+str(parent.relative_to(cgroup_root))
+            assert str(Path(lines[0]).parent)==relative, 'service is outside explicit experiment parent'
+            lines=[relative]
         self.cgroup_path=lines[0];self.cgroup=cgroup_root/lines[0].lstrip('/')
         assert self.cgroup.is_dir()
 
@@ -71,7 +79,7 @@ class Binding:
         return matches[0]
 
 
-def read(pid,proc_root=Path('/proc'),pss=False):
+def read(pid,proc_root=Path('/proc'),pss=False,*,pss_timestamps=False):
     root=proc_root/str(pid);values=(root/'stat').read_text().rsplit(')',1)[1].split()
     status=dict(s.split(':',1) for s in (root/'status').read_text().splitlines() if ':' in s)
     io=dict(s.split(':',1) for s in (root/'io').read_text().splitlines())
@@ -83,12 +91,22 @@ def read(pid,proc_root=Path('/proc'),pss=False):
         assert 'Pss' in memory,'PSS is unavailable'
         result.update({target:int(memory[source].split()[0]) if source in memory else '' for source,target in
             [('Pss','pss_kib'),('Pss_Anon','pss_anon_kib'),('Pss_File','pss_file_kib'),('Pss_Shmem','pss_shmem_kib')]})
-        result['pss_scan_duration_ns']=time.monotonic_ns()-begin
+        end=time.monotonic_ns()
+        result['pss_scan_duration_ns']=end-begin
+        if pss_timestamps:result.update(pss_read_start_monotonic_ns=begin,pss_read_end_monotonic_ns=end)
     return result
 
 
+def validate_pss_interval(value):
+    value=float(value)
+    if not math.isfinite(value) or value<1e-9 or not math.isfinite(value*10**9):
+        raise ValueError('PSS interval must be finite and at least 1 nanosecond')
+    return value
+
+
 class HostMonitor:
-    def __init__(self,binding,sid,role,token,directory,phase):
+    def __init__(self,binding,sid,role,token,directory,phase,*,pss_interval_seconds=1):
+        self.pss_interval_seconds=validate_pss_interval(pss_interval_seconds)
         self.binding=binding;self.sid=sid;self.role=role;self.token=token;self.directory=directory;self.phase=phase
         self.vmm=binding.resolve(sid);self.stop_event=threading.Event();self.ready=threading.Event();self.receipt=None
         directory.mkdir(parents=True,exist_ok=False)
@@ -108,7 +126,7 @@ class HostMonitor:
                     assert identity(pid)=={k:self.vmm[k] for k in ('pid','start_ticks','boot_id')} and self.binding.owned(pid),'VMM identity/cgroup changed'
                     value=read(pid,pss=now>=next_pss)
                     assert value['start_ticks']==self.vmm['start_ticks']
-                    if now>=next_pss:pss_count+=1;next_pss=now+10**9
+                    if now>=next_pss:pss_count+=1;next_pss=now+int(self.pss_interval_seconds*10**9)
                     value.update(timestamp_ns=time.time_ns(),monotonic_ns=now,elapsed_ns=now-started,
                         sandbox_id=self.sid,role=self.role,session_id=self.token,phase=self.phase,pid=pid,
                         scan_duration_ns=time.monotonic_ns()-now)
@@ -120,7 +138,7 @@ class HostMonitor:
         except Exception as exc:error=repr(exc)
         usage=resource.getrusage(resource.RUSAGE_THREAD)
         self.receipt=dict(status='FAIL' if error else 'PASS',error=error,sandbox_id=self.sid,role=self.role,session_id=self.token,
-            identity=self.vmm,samples=count,pss_samples=pss_count,interval_seconds=.1,pss_interval_seconds=1,
+            identity=self.vmm,samples=count,pss_samples=pss_count,interval_seconds=.1,pss_interval_seconds=self.pss_interval_seconds,
             clock_ticks=os.sysconf('SC_CLK_TCK'),cpu_user_seconds=usage.ru_utime,cpu_system_seconds=usage.ru_stime,
             max_scan_duration_ns=max_read,elapsed_ns=time.monotonic_ns()-started,
             scope='owned VMM process only; excludes shared service/block-provider processes; PSS is proportional residency, not unique physical file cache')

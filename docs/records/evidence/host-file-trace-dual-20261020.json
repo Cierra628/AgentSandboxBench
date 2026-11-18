@@ -1,0 +1,197 @@
+{
+  "status": "PARTIAL_EVIDENCE_TRACE_LOSS",
+  "workflow": ".artifacts/host-file-traced-dual-task/20261020T115037Z-3723650",
+  "storage": ".artifacts/storage-isolated-service/20261020T115156Z-3724260",
+  "original_workflow_status": "FAIL",
+  "task_status": "PASS",
+  "actual_actions": 31,
+  "logical_actions": 42,
+  "trace_expected_events": {
+    "4": 170,
+    "3": 300,
+    "2": 106912,
+    "1": 213438
+  },
+  "trace_observed_events": {
+    "ADD": 196625,
+    "DEL": 25625,
+    "FLUSH": 300,
+    "FLUSH_DONE": 170
+  },
+  "trace_missing_events": {
+    "ADD": 16813,
+    "DEL": 81287,
+    "FLUSH": 0,
+    "FLUSH_DONE": 0
+  },
+  "lost_events": 98100,
+  "loss_during_task": true,
+  "complete_cache_attribution": "FAIL",
+  "whole_host_physical_savings": "NOT_MEASURED",
+  "task_duration_ns": 2600611563,
+  "task_host_samples": 26,
+  "task_counter_delta_ranges_bytes": {
+    "file": [
+      350027776,
+      463069184
+    ],
+    "anon": [
+      133349376,
+      299712512
+    ],
+    "current": [
+      495800320,
+      776466432
+    ],
+    "shmem": [
+      8192,
+      8192
+    ]
+  },
+  "burst": {
+    "start_seconds": 0.128964563,
+    "end_seconds": 0.429241259,
+    "file_increase_bytes": 50597888,
+    "observed_events_by_file": [
+      {
+        "device": 3,
+        "inode": 271581186,
+        "rdev": 271581186,
+        "owner": 5073420,
+        "actor": "fc_vcpu 1",
+        "add_bytes": 44761088,
+        "del_bytes": 0,
+        "events": 9638,
+        "net_bytes": 44761088
+      },
+      {
+        "device": 3,
+        "inode": 271581186,
+        "rdev": 271581186,
+        "owner": 5073420,
+        "actor": "fc_vcpu 0",
+        "add_bytes": 1392640,
+        "del_bytes": 0,
+        "events": 340,
+        "net_bytes": 1392640
+      },
+      {
+        "device": 3,
+        "inode": 271581186,
+        "rdev": 271581186,
+        "owner": 5073420,
+        "actor": "firecracker",
+        "add_bytes": 688128,
+        "del_bytes": 0,
+        "events": 93,
+        "net_bytes": 688128
+      },
+      {
+        "device": 7340042,
+        "inode": 917781,
+        "rdev": 0,
+        "owner": 5073420,
+        "actor": "ublk-q-107-0",
+        "add_bytes": 16384,
+        "del_bytes": 0,
+        "events": 4,
+        "net_bytes": 16384
+      },
+      {
+        "device": 7340042,
+        "inode": 917746,
+        "rdev": 0,
+        "owner": 5073420,
+        "actor": "ublk-q-104-0",
+        "add_bytes": 12288,
+        "del_bytes": 0,
+        "events": 3,
+        "net_bytes": 12288
+      },
+      {
+        "device": 264241152,
+        "inode": 51269321,
+        "rdev": 0,
+        "owner": 5073342,
+        "actor": "python3",
+        "add_bytes": 4096,
+        "del_bytes": 0,
+        "events": 1,
+        "net_bytes": 4096
+      },
+      {
+        "device": 264241152,
+        "inode": 51269320,
+        "rdev": 0,
+        "owner": 5073342,
+        "actor": "python3",
+        "add_bytes": 4096,
+        "del_bytes": 0,
+        "events": 1,
+        "net_bytes": 4096
+      }
+    ],
+    "meaning": "Incomplete event observations; neither an exact attribution nor a current-residency sum."
+  },
+  "backing_cache_observations": {
+    "post_task_add_bytes": 517902336,
+    "post_task_observed_del_bytes": 0,
+    "observed_post_task_add_bytes_by_owner": {
+      "5073342": 515907584,
+      "5041522": 1249280,
+      "1": 729088,
+      "5073420": 16384
+    },
+    "observed_post_task_outside_add_bytes": 1978368,
+    "seconds_11_to_12_after_task_add_bytes": 515715072,
+    "task_add_bytes": 172032,
+    "observed_post_task_owners": {
+      "5073342": [
+        "/sys/fs/cgroup/asbhost.slice/asbhost-20261020t1150373723571.slice/asbhost-20261020t1150373723571.service"
+      ],
+      "5041522": [
+        "/sys/fs/cgroup/asbhost.slice"
+      ],
+      "1": [
+        "/sys/fs/cgroup"
+      ],
+      "5073420": [
+        "/sys/fs/cgroup/asbhost.slice/asbhost-20261020t1150373723571.slice/docker-d7e71592252b913278cf8904f7cf22c6f42c9ebad9e3d65e402390163efc8f83.scope"
+      ]
+    },
+    "stack_path": [
+      "ext4_buffered_write_iter",
+      "ext4_file_write_iter",
+      "lo_rw_aio",
+      "loop_process_work"
+    ],
+    "meaning": "Observed additions only; loss prevents a complete lifecycle/net-residency result."
+  },
+  "endpoint_vmm_pss_bytes": {
+    "pss": 535271424,
+    "pss_anon": 286572544,
+    "pss_file": 248690688
+  },
+  "memory_device_resident_bytes": 445538304,
+  "final_inventory": {
+    "files": 187,
+    "resident_bytes": 28943532032,
+    "cgroup_file_bytes": 28941971456,
+    "net_shortfall_bytes": 1560576,
+    "accounting": "SHORTFALL_REQUIRES_RESOLUTION"
+  },
+  "cleanup": {
+    "host_file_residency_captured": true,
+    "owned_container_removed": true,
+    "mount_and_loop_removed": true,
+    "failed_fixture_retained": true,
+    "original_firecracker_identities_unchanged": true,
+    "original_service_unchanged": true
+  },
+  "source_service_final": "STOPPED",
+  "corrected_aggregate_probe": {
+    "status": "OFFLINE_TEST_AND_COMPILATION_PASS_LIVE_NOT_RUN",
+    "method": "100 ms in-kernel byte/event maps by file, actual owner and ADD/DEL; validate total map counts against independent event counts."
+  },
+  "next_run_blocker": "Retained 24 GiB failed volume leaves less than required 50 GiB free. No volume deletion authorized."
+}

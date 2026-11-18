@@ -1,5 +1,69 @@
 # 沙箱持续采样与默认曲线
 
+## 2026-10-31：当前三任务轻量曲线统一入口
+
+[Prettier／Sphinx／Xarray本地无代理汇总](../../results/local-no-proxy-three-tasks-20261031/REPORT.md)提供各一轮完整单沙箱、0.1秒、默认回收下的工具时延、guest内存／Cached、host current及分项、创建前基线增量和结束后输入驻留核对。九张图和逐点表直接链接到results，不必加载.artifacts；[采样成本总说明](LIGHT_MONITOR_COST_SUMMARY.md)区分这批直接成本与历史开关对照。
+
+以下保留旧完整采样及GRPO／BPO／TVCache记录，指标、准备条件和采集版本不同，不合并成当前轻量批次。
+
+## 2026-10-12：完整TVCache的统一入口与恢复后持续指标通过
+
+通过`bash scripts/use-platform.sh run configs/platform-prettier6604-tvcache.json`完成Prettier #6604的确定顺序前缀树：第11、24步各保存一次完整VM状态，两处各恢复三个子实例，按原树顺序执行分支。当前按角色修正的冻结inspect段对应17个实际段、84个实际动作，七条逻辑路径共189动作；学长历史13段来自旧共享段定义，不能套用于当前输入。原采样消息及动作保持，未重新请求模型。
+
+本次前缀树和全部段顺序与10月8日成功版本相同，两处保存及六个恢复边界的文件、准确步骤进度、原运行进程和下一段检查通过。七条终态patch和独立任务结果与旧TVCache逐角色一致，仍各0项通过、2项失败；平台PASS与原模型任务FAIL分别保留。
+
+七个沙箱有九个采样会话，主干在保存前后共三次、六个恢复子实例各一次；所有采集器正常停止并确认进程回收。100 ms持续内存、CPU、逐设备I/O及对应host VMM CPU/I/O/RSS/PSS曲线通过，PSS约1秒采样。各角色样本为backbone 712、early_1 689、early_2 696、early_3 684、late_1 602、late_2 615、late_3 609，合计4607。子实例等待执行期间仍持续采样，保存期间的缺口不补造样本，继承前缀不重复计入实际动作量。
+
+| 指标 | 本次实测 | 范围 |
+| --- | ---: | --- |
+| guest工具执行之和 | 51.660秒 | 84个实际动作；不含创建、保存/恢复或检查 |
+| 控制器生命周期 | 85.781秒 | 含创建、调度、保存/恢复、传输、原任务测试和清理；不含外层镜像准备 |
+| 两次checkpoint请求之和 | 4.182秒 | 第11步2.977秒、第24步1.205秒；本机原生保存 |
+| 六次restore请求之和 | 1.528秒 | 仅start调用；随后工具/状态核对另列，不能当作完整恢复阶段耗时 |
+| 单沙箱非空闲内存最高观测值 | 568.06 MiB | guest `MemTotal−MemFree`，不求和各实例峰值 |
+| 单VMM PSS最高观测值 | 625.38 MiB | host比例驻留内存，不与guest相加 |
+| 私有服务cgroup内存观测峰值 | 6.650 GiB | 包含七VMM及共享服务/镜像缓存，不是单个沙箱文件缓存 |
+
+每角色组成及逻辑Cached变化、CPU/I/O曲线与保存/恢复调用明细在统一报告中。fork组耗时包含保存、恢复启动和状态核对，不与其子阶段重复相加。本轮没有增加物理页扫描或采样开启/关闭对照；BPO/TVCache执行顺序不同、各一次且主机条件变化，不直接用52.642/85.781秒判断调度性能优劣。
+
+成功工作流`.artifacts/platform-tasks/20261012T051428Z-894741`，raw为`.artifacts/storage-isolated-service/20261012T051547Z-895688/prettier6604`。自动报告与两个新目录复算的21个文件逐字节一致，870份raw哈希不变，全部原测试与终态核对通过。执行的controller、冻结输入和采样代码与上轮BPO相同，复用其30项相关测试，不重复同版本测试或实际任务。一次离线核对脚本的测试记录路径写错，已修正后复用已生成的两份报告核对；错误日志保留，没有重跑沙箱。完整记录在`.artifacts/exp3-tvcache-review-20261012/`，公开[本轮证据](evidence/prettier6604-tvcache-runtime-20261012.json)不含镜像或原始日志。
+
+七个VM、两份临时快照、采集器、私有服务、32 GiB卷、挂载、loop及RAM准备缓存均回收，原服务和其他VM身份不变。卷内占用观测峰值6.81 GiB，host最低空闲26.68 GiB，高于20 GiB保护量。结束回执空闲66.03 GiB；相对启动前额外增加约7.35 GiB，来源未核实，不计为本项目清理收益。此前BPO失败完整备份继续保留，未删除其他归档。
+
+**Prettier AgentENV的GRPO、BPO、TVCache三种调度均已有完整恢复或分支运行及新增指标证据。** 当前TVCache功能范围完成，下一项按计划接入Sphinx/Xarray七路径；统计性能比较另定配置和轮数。
+
+![TVCache七个沙箱的持续内存曲线](evidence/prettier6604-tvcache-runtime-20261012.svg)
+
+![TVCache early_1恢复后CPU、I/O及host VMM曲线](evidence/prettier6604-tvcache-runtime-20261012-early1-performance.svg)
+
+## 2026-10-12：完整BPO的恢复后持续指标及统一入口通过
+
+通过`bash scripts/use-platform.sh run configs/platform-prettier6604-bpo.json`完成Prettier #6604原BPO：一个主干在第11、24步后保存完整VM快照，继续原主干，再从两处各恢复三个子实例；六个后缀并发执行。实际84动作、17段，七条逻辑路径共189动作。动作哈希、执行顺序、预期失败、恢复后的文件/准确步骤进度/运行进程及下一段、终态patch和原独立任务结果全部核对通过。七条原模型路径仍各0项通过、2项失败，与10月8日旧BPO一致；这是平台通过，未改变原模型修复失败。
+
+七个沙箱有九次采样会话：主干保存前后共三次，六个恢复子实例各一次。全部采集器停止并确认进程已回收；100 ms持续内存/CPU/逐设备I/O及对应host VMM CPU/I/O/RSS/PSS齐全，PSS约1秒采样。各角色持续样本为backbone 398、early_1 220、early_2 214、early_3 228、late_1 236、late_2 229、late_3 223，合计1748。快照期间保留曲线缺口，不补造样本，也不把继承前缀重复计入子实例的实际执行量。
+
+| 指标 | 本次实测 | 范围 |
+| --- | ---: | --- |
+| guest工具执行之和 | 46.370秒 | 84个实际动作；并发之和，不是端到端时间 |
+| 控制器生命周期 | 52.642秒 | 含创建、重放、保存/恢复、传输、任务检查和清理，不含外层镜像准备 |
+| 两次checkpoint请求之和 | 3.309秒 | 第11步1.984秒、第24步1.324秒；本机原生恢复，不是长期离线持久化 |
+| 六次restore请求之和 | 1.586秒 | 仅原生start调用；另有工具/状态核对，不能当作全阶段恢复耗时 |
+| 单沙箱非空闲内存最高观测值 | 699.86 MiB | guest `MemTotal−MemFree`，不求和各沙箱峰值 |
+| 单VMM PSS最高观测值 | 770.18 MiB | host `smaps_rollup`，含该VMM驻留内存，不与guest值相加 |
+| 私有服务cgroup内存观测峰值 | 7.001 GiB | 包含七VMM及共享服务/镜像缓存，不是单沙箱page cache |
+
+内存组成、逻辑Cached、CPU及I/O曲线和每角色阶段耗时在统一报告内；逻辑Cached与Shmem重叠。本轮没有扫描物理PFN、没有新增BPO采样开关对照，也不据一次运行比较BPO/GRPO性能。原segment报告的内存项来自runner边界行，`runtime_metrics`才是本次持续组成/CPU/I/O及各VMM指标，两种范围分别使用。
+
+首次工作流`.artifacts/platform-tasks/20261012T045333Z-869535`失败在第二处保存之前。已完成24个原动作并离线核对通过，采集器自身PASS且已回收，但停止检查在读取`/proc/PID/stat`的过程中遇到`ProcessLookupError`（进程已消失），此前只接受文件不存在。仅补这一退出条件，新增回归及相关30项测试通过；未更改冻结动作或放宽任务退出码。旧FAIL保留，六个分支当时未执行，不将其计为成功。
+
+失败32 GiB卷完整备份2.252 GiB，解压SHA-256与原卷一致、资源已回收、没有保留锁后，按用户持续授权删除源卷；备份、原始数据、首个错误、快照现场及清理回执保留。成功重试为`.artifacts/platform-tasks/20261012T045958Z-882526`，raw为`.artifacts/storage-isolated-service/20261012T050116Z-883459/prettier6604`。自动报告和两个新目录复算的21个文件逐字节一致，870份raw哈希未变。完整核对在`.artifacts/exp3-bpo-review-20261012/`，公开[证据](evidence/prettier6604-bpo-runtime-20261012.json)不含镜像或原始日志。
+
+七个VM、两份临时快照、全部采集器、私有服务、32 GiB卷、挂载、loop及RAM准备缓存回收，原服务与其他VM身份保持。成功卷内占用观测峰值6.89 GiB、host最低空闲26.69 GiB，高于20 GiB保护量；收尾58.68 GiB。完整BPO新增指标功能及统一入口至此完成，下一项为TVCache同范围验证，不追加BPO轮数。
+
+![BPO七个沙箱的持续内存曲线](evidence/prettier6604-bpo-runtime-20261012.svg)
+
+![BPO early_1恢复后CPU、I/O及host VMM曲线](evidence/prettier6604-bpo-runtime-20261012-early1-performance.svg)
+
 ## 2026-10-11：Prettier新增CPU/I/O/PSS的五对采集影响已量化
 
 新五对十次原29步重放及状态/清理通过，第一对是前日两个实际PASS的接续，余下四对本日运行；执行代码和不可变缓存一致，原FAIL保留。所有开启实例193–217个guest持续样本，覆盖工具、等待和测试；对应host VMM CPU/I/O/RSS/PSS归属检查和采集器回收通过。Guest逻辑Cached观测峰值198.44–253.28 MiB，非空闲观测峰值545.21–662.32 MiB；不相加guest/host，Cached与Shmem重叠，物理去重本批NOT_MEASURED。

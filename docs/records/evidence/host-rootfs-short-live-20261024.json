@@ -1,0 +1,75 @@
+{
+  "status": "RESTORE_CONTROL_SERVICE_TIMEOUT",
+  "checked_utc": "2026-10-23T16:17:33.834504+00:00",
+  "approved_delete": {
+    "path": ".artifacts/storage-isolated-service/20261023T155017Z-596564/volume.ext4",
+    "allocated_bytes": 25770364928,
+    "logs_retained": true,
+    "free_after_bytes": 55253925888
+  },
+  "run": ".artifacts/host-rootfs-short/20261023T160500Z-602265",
+  "storage": ".artifacts/storage-isolated-service/20261023T160616Z-603802",
+  "new_suffix_actions": 0,
+  "action_evidence": "No completed paths; segments contain only the two imported backbone records; first restore failed before run_path",
+  "api_snapshot_load": "PASS",
+  "api_vm_resume": "PASS",
+  "vmm_start_attempts": 1,
+  "envd_readiness": "FAIL_TIMEOUT",
+  "second_restore": "NOT_RUN",
+  "rootfs_residency": "NOT_MEASURED",
+  "query_cost": "NOT_MEASURED",
+  "task_validation": "NOT_RUN",
+  "periodic_host": {
+    "samples": 2177,
+    "interval_seconds": 0.1,
+    "pss": "NOT_REQUESTED",
+    "thread_cpu_ns": 682565024,
+    "scope": "Preparation and failed first restore only, not successful task curves"
+  },
+  "runtime_networks": [
+    "10.213.0.0/16",
+    "10.214.0.0/16"
+  ],
+  "runtime_control_address": "10.213.0.2",
+  "confirmed_configuration_omission": {
+    "saved": {
+      "NO_PROXY": "localhost,127.0.0.1,::1,10.211.0.0/16,10.212.0.0/16",
+      "HTTP_PROXY": "http://127.0.0.1:17891"
+    },
+    "fixed": {
+      "NO_PROXY": "localhost,127.0.0.1,::1,10.213.0.0/16,10.214.0.0/16",
+      "HTTP_PROXY": "http://127.0.0.1:17891"
+    },
+    "explanation": "Selected internal networks were absent from both proxy bypass variables",
+    "live_fix_validation": "NOT_RUN",
+    "sole_timeout_cause": "NOT_PROVEN"
+  },
+  "masked_error": {
+    "original": "KeyError('actual_action_count')",
+    "underlying": "RuntimeError('0003-restore-N2-a: exit 1')",
+    "fix": "Absent action count yields null/NOT_REPORTED; original child error remains visible"
+  },
+  "offline_tests": {
+    "status": "PASS",
+    "count": 37
+  },
+  "cleanup": {
+    "host_file_residency_captured": true,
+    "owned_container_removed": true,
+    "mount_and_loop_removed": true,
+    "failed_fixture_retained": true,
+    "original_firecracker_identities_unchanged": true,
+    "original_source_firecracker_identities_unchanged": true,
+    "original_service_unchanged": true
+  },
+  "source_returned_to_stopped": true,
+  "cache_released": true,
+  "failed_volume": {
+    "path": ".artifacts/storage-isolated-service/20261023T160616Z-603802/volume.ext4",
+    "allocated_bytes": 25770348544,
+    "retained": true,
+    "deletion_authorized": false
+  },
+  "available_bytes": 30163447808,
+  "required_available_bytes": 53687091200
+}

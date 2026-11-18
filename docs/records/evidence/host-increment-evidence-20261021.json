@@ -1,0 +1,220 @@
+{
+  "status": "PASS_OFFLINE_EVIDENCE_REVIEW",
+  "workflow": ".artifacts/host-file-independent-pair/20261021T080638Z-4169682",
+  "scope": "Restore plus suffix charged increment above no-VMM baseline; global object residency separate. No live reads.",
+  "groups": [
+    {
+      "sandboxes": 1,
+      "storage": ".artifacts/storage-isolated-service/20261021T080756Z-4170563",
+      "baseline": {
+        "current": 40965160960,
+        "file": 40089526272,
+        "anon": 105693184,
+        "shmem": 7604273152,
+        "kernel": 745553920,
+        "file_mapped": 339968,
+        "file_dirty": 974848,
+        "file_writeback": 0
+      },
+      "post_task_before_scan": {
+        "current": 41559789568,
+        "file": 40522776576,
+        "anon": 256954368,
+        "shmem": 7604277248,
+        "kernel": 753917952,
+        "file_mapped": 217505792,
+        "file_dirty": 7008256,
+        "file_writeback": 0
+      },
+      "charged_increment_bytes": {
+        "file": 433250304,
+        "anon": 151261184,
+        "current": 594628608,
+        "kernel": 8364032,
+        "shmem": 4096
+      },
+      "counter_read_entry_lag_after_suffix_ns": 29811090,
+      "counter_timing": "Counter read begins just after residency entry, after endpoint PSS; not an exact suffix-end timestamp.",
+      "archive_observations": [
+        {
+          "stage": "before_restore",
+          "resident_bytes": 1830928384,
+          "all_pages_resident": true
+        },
+        {
+          "stage": "live",
+          "resident_bytes": 1830928384,
+          "all_pages_resident": true
+        },
+        {
+          "stage": "final",
+          "resident_bytes": 1830928384,
+          "all_pages_resident": true
+        }
+      ],
+      "archive_endpoint_global_residency_delta_bytes": 0,
+      "archive_charge_owner": "NOT_MEASURED",
+      "archive_charge_change_bytes": null,
+      "ordinary_endpoint_global_residency_delta_bytes": 1421312,
+      "ordinary_change_breakdown": {
+        "matched_bytes": 1314816,
+        "added_bytes": 106496,
+        "removed_bytes": 0
+      },
+      "target_device_resident_bytes": 428331008,
+      "additional_regular_files": 35,
+      "additional_whole_file_resident_bytes": 162586624,
+      "additional_regular_file_initial_residency": "NOT_MEASURED",
+      "deleted_objects_without_owner_descriptor": 2,
+      "deleted_mapping_pss_bytes": 4096,
+      "deleted_mapping_virtual_bytes": 12288,
+      "deleted_whole_backing_upper_bound_bytes": null,
+      "deleted_whole_backing_upper_bound_status": "NO_BOUND_FROM_SAVED_DATA",
+      "ublkc_source_calculated_allocation_bytes": 12288,
+      "final_file_shortfall_bytes": 1829965824,
+      "final_accounting": "SHORTFALL_REQUIRES_RESOLUTION",
+      "shortfall_minus_archive_signed_bytes": -962560,
+      "signed_residual_meaning": "Diagnostic only: subtracting all archive bytes may overcorrect; not a repair or missing-memory bound.",
+      "compact_window_ns": 2159857136,
+      "all_post_task_queries_ns": 5258686635,
+      "compact_counter_samples": 21,
+      "compact_observed_counter_span_bytes": {
+        "file": 4620288,
+        "anon": 3821568,
+        "current": 8101888,
+        "kernel": 45056,
+        "shmem": 0
+      },
+      "compact_observed_anon_pss_span_bytes": 3342336,
+      "temporal_error_upper_bound_bytes": null,
+      "outside_group_increment_bytes": null,
+      "overall_unmeasured_correction_bound_bytes": null
+    },
+    {
+      "sandboxes": 2,
+      "storage": ".artifacts/storage-isolated-service/20261021T080931Z-4173413",
+      "baseline": {
+        "current": 40974647296,
+        "file": 40095866880,
+        "anon": 106332160,
+        "shmem": 7604273152,
+        "kernel": 746373120,
+        "file_mapped": 339968,
+        "file_dirty": 974848,
+        "file_writeback": 0
+      },
+      "post_task_before_scan": {
+        "current": 41739214848,
+        "file": 40551411712,
+        "anon": 400584704,
+        "shmem": 7604281344,
+        "kernel": 761126912,
+        "file_mapped": 242409472,
+        "file_dirty": 12177408,
+        "file_writeback": 0
+      },
+      "charged_increment_bytes": {
+        "file": 455544832,
+        "anon": 294252544,
+        "current": 764567552,
+        "kernel": 14753792,
+        "shmem": 8192
+      },
+      "counter_read_entry_lag_after_suffix_ns": 39777145,
+      "counter_timing": "Counter read begins just after residency entry, after endpoint PSS; not an exact suffix-end timestamp.",
+      "archive_observations": [
+        {
+          "stage": "before_restore",
+          "resident_bytes": 1830928384,
+          "all_pages_resident": true
+        },
+        {
+          "stage": "live",
+          "resident_bytes": 1830928384,
+          "all_pages_resident": true
+        },
+        {
+          "stage": "final",
+          "resident_bytes": 1830928384,
+          "all_pages_resident": true
+        }
+      ],
+      "archive_endpoint_global_residency_delta_bytes": 0,
+      "archive_charge_owner": "NOT_MEASURED",
+      "archive_charge_change_bytes": null,
+      "ordinary_endpoint_global_residency_delta_bytes": 1900544,
+      "ordinary_change_breakdown": {
+        "matched_bytes": 1781760,
+        "added_bytes": 118784,
+        "removed_bytes": 0
+      },
+      "target_device_resident_bytes": 444989440,
+      "additional_regular_files": 35,
+      "additional_whole_file_resident_bytes": 162586624,
+      "additional_regular_file_initial_residency": "NOT_MEASURED",
+      "deleted_objects_without_owner_descriptor": 4,
+      "deleted_mapping_pss_bytes": 8192,
+      "deleted_mapping_virtual_bytes": 24576,
+      "deleted_whole_backing_upper_bound_bytes": null,
+      "deleted_whole_backing_upper_bound_status": "NO_BOUND_FROM_SAVED_DATA",
+      "ublkc_source_calculated_allocation_bytes": 16384,
+      "final_file_shortfall_bytes": 1822875648,
+      "final_accounting": "SHORTFALL_REQUIRES_RESOLUTION",
+      "shortfall_minus_archive_signed_bytes": -8052736,
+      "signed_residual_meaning": "Diagnostic only: subtracting all archive bytes may overcorrect; not a repair or missing-memory bound.",
+      "compact_window_ns": 2176950029,
+      "all_post_task_queries_ns": 6840015924,
+      "compact_counter_samples": 21,
+      "compact_observed_counter_span_bytes": {
+        "file": 933888,
+        "anon": 11108352,
+        "current": 13643776,
+        "kernel": 258048,
+        "shmem": 0
+      },
+      "compact_observed_anon_pss_span_bytes": 13254656,
+      "temporal_error_upper_bound_bytes": null,
+      "outside_group_increment_bytes": null,
+      "overall_unmeasured_correction_bound_bytes": null
+    }
+  ],
+  "charged_increment_reference": {
+    "file": {
+      "single_increment_bytes": 433250304,
+      "dual_increment_bytes": 455544832,
+      "reduction_vs_single_linear_reference_bytes": 410955776
+    },
+    "anon": {
+      "single_increment_bytes": 151261184,
+      "dual_increment_bytes": 294252544,
+      "reduction_vs_single_linear_reference_bytes": 8269824
+    },
+    "current": {
+      "single_increment_bytes": 594628608,
+      "dual_increment_bytes": 764567552,
+      "reduction_vs_single_linear_reference_bytes": 424689664
+    },
+    "kernel": {
+      "single_increment_bytes": 8364032,
+      "dual_increment_bytes": 14753792,
+      "reduction_vs_single_linear_reference_bytes": 1974272
+    },
+    "shmem": {
+      "single_increment_bytes": 4096,
+      "dual_increment_bytes": 8192,
+      "reduction_vs_single_linear_reference_bytes": 0
+    }
+  },
+  "device_reference_reduction_bytes": 411672576,
+  "device_reference_ratio": 0.48055425396612894,
+  "archive_same_identity_all_six_observations": true,
+  "archive_common_preparation_bytes": 1830928384,
+  "archive_global_endpoint_delta": "ZERO_FOR_THIS_OBJECT",
+  "whole_physical_saving": "NOT_MEASURED",
+  "whole_physical_saving_sign": "NOT_ESTABLISHED",
+  "unknown_can_reverse_overall_reference": "NOT_EXCLUDED_BY_SAVED_DATA",
+  "correction_model": "If true increment M_n = charged increment C_n + E_n, then 2*M_1-M_2 = 2*C_1-C_2 + 2*E_1-E_2. E_n includes scope and timing differences, not just file shortfall.",
+  "sufficient_positive_condition": "With proven abs(E_1)<=u1 and abs(E_2)<=u2, 2*u1+u2 < charged reference reduction suffices. No such bounds are measured.",
+  "first_missing_evidence": "Net out-of-group resident change for the actual ordinary/block/shmem object set between matched endpoints, with initial state and event/charge coverage.",
+  "first_missing_evidence_is_unique_or_sufficient": false
+}

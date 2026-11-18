@@ -25,8 +25,14 @@ bash scripts/check-platform-offline.sh
 | Django #16819 | 28 | 外部固定轨迹单路径；原源码及语法检查 |
 | C4 | 36 | 外部固定轨迹单路径；原9898文件内容／结构往返及约束检查 |
 | Cython | 83 | 外部固定轨迹单路径；两种目录各18项测试及扩展导入检查；另有联网限制，见后文 |
+| Matplotlib #24177 | 95 | 单guest固定轨迹；最终两轮各60 passed及完整补丁；PSS／P1等已验证 |
+| 大规模文本编辑 | 50 | 单guest固定轨迹；两种solve方式及逐字节输出；PSS／P1等已验证 |
 
-按任务类型共6种，Prettier两个题号分开计为7项。Matplotlib和文本编辑由本项目继续适配；HF、PDF.js、Log4j2、token计数及CompCert由同伴负责。具体分工和数据要求见[多任务测量计划](records/WORKLOAD_MEASUREMENT_PLAN.md)。新增任务必须补执行和结果检查分支，不能只修改task_id或动作数。
+以上实跑证据按任务类型共8种，Prettier两个题号分开计为9项。新两项各一次的结果见[汇总报告](../results/external-matplotlib-text-20261105/REPORT.md)及[实现记录](records/EXTERNAL_MATPLOTLIB_TEXT_IMPLEMENTATION.md)；HF、PDF.js、Log4j2、token计数及CompCert由同伴负责。具体分工和数据要求见[多任务测量计划](records/WORKLOAD_MEASUREMENT_PLAN.md)。新增任务必须补执行和结果检查分支，不能只修改task_id或动作数。
+
+看已有数据先打开[8种任务指标与曲线索引](../results/workload-metrics-index-20261105/REPORT.md)。它区分所选单guest和三调度、旧／新采集组合，列出PSS、指定文件P1和新版时间边界的缺项；不同批次不能拼成“一次全量采集”。同伴可据此判断哪些数据已可复用，而不是默认重跑全部任务。
+
+五项旧任务的新版PSS／初始下层P1／任务窗口已补齐，入口和结果见[实现记录](records/TASK_METRICS_UPGRADE.md)及[五项汇总](../results/task-metrics-upgrade-20261105/REPORT.md)。旧索引所选记录保留，新结果单列。
 
 ## 实跑前必须准备的资源
 
@@ -75,9 +81,19 @@ env -u HTTP_PROXY -u HTTPS_PROXY -u ALL_PROXY \
 # Django使用configs/external-django16819-light.json。
 ```
 
-此入口创建新的外层统计组、私有服务及单guest；host current／file与guest meminfo均0.1秒采样，关闭PSS和mincore，保存原逐工具计时。结果目录由终端的`result_dir`给出，摘要列明原始数据和图表路径。
+Django／C4的此入口创建新的外层统计组、私有服务及单guest；host current／file与guest meminfo均0.1秒采样，关闭PSS和mincore，保存原逐工具计时。结果目录由终端的`result_dir`给出，摘要列明原始数据和图表路径。
+
+**新两任务：**将上述配置替换为`configs/external-matplotlib24177-light.json`或`configs/external-text-editing-light.json`，上游版本相同。它们另开单VMM PSS周期1秒及终点查询、实际初始下层文件一次mincore P1，保存查询成本；成功报告另存到新的`results/external-<task_id>-<run_id>/`。新两项会清空各层代理并使用明确长超时，不改变旧三任务默认值。本机两项各一次完整验证已通过；其他主机仍须准备自己的输入和服务。已有完整OCI输入时追加`--oci-input /本机路径/输入目录`，其中包含`request.json`、原始`requested-manifest.json`及`oci/`；入口核对固定摘要和平台，只读挂载并关闭远程回退。镜像不随Git复制，本次17891下载例外不作为其他机器的默认联网设置。
 
 **Cython的旧入口有额外限制：**它依赖显式提供的本机HTTP代理和临时guest转发来安装依赖，不能直接套用上面的无代理命令。该逻辑一并保留，不代表当前无代理运行已通过；本项目禁止使用17891，不自动选择其他代理。要在当前网络规则下重新运行，应先单独确认本地依赖准备或直连适配方案。Django／C4若缺本地镜像，直连失败就停止，不回退代理。
+
+### 旧任务显式开启新版采集
+
+Sphinx／Xarray使用`platform-sphinx7590-endpoint-metrics.json`或`platform-xarray6992-endpoint-metrics.json`，通过原host外层入口并加`--persistent-input --local-no-proxy`。仍需准备对应持久输入。
+
+Django／C4／Cython在原外部任务命令中显式加`--endpoint-metrics`，开启单VMM PSS周期1秒和终点查询、实际下层文件一次P1及精确任务窗口；普通计数仍0.1秒，原入口不加参数时保持原行为。固定本地OCI可配`--oci-input`。
+
+Cython新版默认无代理；直连不通不能自动回退。只有已有明确授权时，才可显式添加`--guest-relay-proxy http://127.0.0.1:端口`，接入原临时guest转发；结束删除本次进程、临时地址和规则，不改全局设置。本次17891授权仅限这一份Cython验证，不作为同伴的默认授权。
 
 ### 三调度的四类指标
 

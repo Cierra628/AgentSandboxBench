@@ -1,0 +1,77 @@
+{
+  "status": "FAIL_DOWNLOAD_RANGE_TIMEOUT",
+  "source_directory": ".artifacts/django-local-creation-live-20261031",
+  "input_directory": ".artifacts/django-oci/django16819",
+  "authorized_cleanup": {
+    "status": "PASS",
+    "authorization": "User said \u6309\u7167\u4f60\u7684\u8ba1\u5212\u7ee7\u7eed\u5b9e\u9a8c immediately after the specific deletion-and-run request",
+    "deleted": ".artifacts/storage-isolated-service/20261030T132618Z-2712183/volume.ext4",
+    "size_bytes": 34359738368,
+    "allocated_bytes": 34359799808,
+    "no_mount_loop_or_users": true,
+    "logs_and_120_trace_points_preserved": true,
+    "available_before_bytes": 33334738944,
+    "available_after_bytes": 67694538752,
+    "timestamp_ns": 1793376512422533212
+  },
+  "download_exit_code": 1,
+  "download_internal_seconds": 316.742645392,
+  "download_outer_seconds": 316.893980011,
+  "planned_download_budget_seconds": 850,
+  "wrapper_hard_timeout_seconds": 900,
+  "received_ranges": 39,
+  "received_range_bytes": 327155712,
+  "verified_complete_blobs": 0,
+  "whole_layer_integrity": "NOT_YET_VERIFIED",
+  "measured_creations_completed": 0,
+  "new_guests": 0,
+  "successful_ranges_by_digest": [
+    {
+      "digest": "sha256:079027039e9d5fa1677dd462c60fd9240097243a87ff8a124fffbd16f909c266",
+      "ranges": 16,
+      "received_bytes": 134217728
+    },
+    {
+      "digest": "sha256:fd3f01088aa854fa99907bd918d9bc8146064c2f452aae3e07d61a6244ca9968",
+      "ranges": 16,
+      "received_bytes": 134217728
+    },
+    {
+      "digest": "sha256:ac7756917c6714c127c9ecf98074801233eee3400c00153aa1c13b91151b7f70",
+      "ranges": 7,
+      "received_bytes": 58720256
+    }
+  ],
+  "failed_range": {
+    "digest": "sha256:ac7756917c6714c127c9ecf98074801233eee3400c00153aa1c13b91151b7f70",
+    "offset_bytes": 58720256,
+    "length_bytes": 8388608,
+    "attempts": 3,
+    "failed_elapsed_seconds": [
+      234.468620474,
+      274.466820803,
+      313.050237671
+    ],
+    "failure_stage": "NOT_RECORDED_BY_LIVE_CANDIDATE"
+  },
+  "range_failures_total": 4,
+  "max_successful_range_call_seconds": 60.508746293,
+  "timeout_semantics": "30 seconds was a socket-operation timeout parameter, not a total wall-clock bound for an authenticated redirected range call",
+  "post_failure_repair": {
+    "explicit_flag": "--resume --resume-ranges",
+    "checkpoint_ranges": 39,
+    "checkpoint_bytes": 327155712,
+    "payload_read_for_checkpoint": false,
+    "integrity": "Partial-file identity and successful receive/write receipts; final full OCI layer digest still required",
+    "range_resume_live": "NOT_RUN",
+    "new_tests": 18,
+    "related_existing_tests_reused": 75,
+    "total_applicable_tests": 93
+  },
+  "source_returned_stopped": true,
+  "no_active_docker_or_firecracker": true,
+  "no_new_failed_volume": true,
+  "available_after_bytes": 67365920768,
+  "remaining_input_retained": true,
+  "next_step": "One explicitly authorized range resume within the same 850/900 budgets; only PASS permits one preparation and four creation controls. No automatic retry performed."
+}

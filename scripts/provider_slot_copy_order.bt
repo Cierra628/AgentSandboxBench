@@ -1,0 +1,26 @@
+// Only the child diagnostic process. Read metadata, never payload bytes.
+tracepoint:syscalls:sys_enter_mmap
+/pid == cpid && args.len == 4096 && args.prot == 3 && args.flags == 1/
+{
+    @mapping[tid] = 1;
+}
+tracepoint:syscalls:sys_exit_mmap
+/pid == cpid && @mapping[tid]/
+{
+    if (args.ret > 0) { @metadata[pid] = args.ret; @epoch[pid]++; }
+    delete(@mapping[tid]);
+}
+kprobe:ublk_copy_user_pages.isra.0
+/pid == cpid && @metadata[pid]/
+{
+    $addr = @metadata[pid];
+    printf("copy pid=%d epoch=%d dir=%d magic=%llu generation=%llu valid_len=%llu state=%llu\n",
+        pid, @epoch[pid], arg3, *(uint64*)uptr($addr), *(uint64*)uptr($addr+8),
+        *(uint64*)uptr($addr+40), *(uint64*)uptr($addr+48));
+}
+tracepoint:syscalls:sys_enter_munmap
+/pid == cpid && args.addr == @metadata[pid]/
+{
+    delete(@metadata[pid]);
+}
+END { clear(@metadata); clear(@mapping); clear(@epoch); }

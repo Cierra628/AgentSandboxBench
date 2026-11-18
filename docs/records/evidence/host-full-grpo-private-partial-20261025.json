@@ -1,0 +1,113 @@
+{
+  "status": "PARTIAL_SHARED_PASS_PRIVATE_PREPARATION_TIMEOUT",
+  "schedule": "grpo",
+  "planned_actions": 378,
+  "actual_actions": 189,
+  "execution_order": [
+    "shared",
+    "private"
+  ],
+  "pair": ".artifacts/host-full-rootfs-pairs/20261025T033730Z-929880",
+  "groups": {
+    "shared": {
+      "storage": ".artifacts/storage-isolated-service/20261025T033849Z-931236",
+      "group_result": ".artifacts/host-full-rootfs/20261025T033732Z-shared-930308",
+      "mode": "shared",
+      "objects": 19,
+      "users_per_object": 7,
+      "actions": 189,
+      "P0_resident_bytes": 4418736128,
+      "P1_resident_bytes": 4419899392,
+      "change_bytes": 1163264,
+      "P0_file_before": {
+        "current": 26609733632,
+        "file": 26048901120,
+        "anon": 134291456,
+        "shmem": 7604273152,
+        "kernel": 400285696,
+        "file_mapped": 17616896,
+        "file_dirty": 933888,
+        "file_writeback": 0
+      },
+      "P1_file_after": {
+        "current": 30937456640,
+        "file": 26156736512,
+        "anon": 4296818688,
+        "shmem": 7604330496,
+        "kernel": 451928064,
+        "file_mapped": 25174016,
+        "file_dirty": 90685440,
+        "file_writeback": 0
+      },
+      "query_seconds": {
+        "P0": 0.16061937,
+        "P1": 0.185539815
+      },
+      "query_cpu_seconds": {
+        "P0": 0.15914138,
+        "P1": 0.185393152
+      },
+      "metadata_seconds": {
+        "P0_metadata": 0.000234444,
+        "P1_metadata": 0.054944724,
+        "P1_postcheck": 0.018032057
+      },
+      "metadata_cpu_seconds": {
+        "P0_metadata": 0.00022563,
+        "P1_metadata": 0.047663845,
+        "P1_postcheck": 0.011882316
+      },
+      "initial_cache_copy_seconds": 6.614467848,
+      "extra_copy_preparation_seconds": 0.006289229,
+      "preparation_sync_seconds": 3.14007454,
+      "sync_parent_cpu_seconds": 0.001344919,
+      "creation_and_original_paths_seconds": 30.259692495,
+      "rollout_including_query_and_checks_seconds": 38.349284226,
+      "controller_seconds": 43.472728312,
+      "tool_cumulative_seconds": 70.179215281,
+      "host_samples": 1356,
+      "guest_periodic_samples": 2629,
+      "pss": "NOT_REQUESTED",
+      "functional_checks": "PASS",
+      "cleanup": "PASS"
+    }
+  },
+  "comparison": null,
+  "scope": "Initial 19 immutable lower files: actual host global cache residency; preparation included. Not whole RAM, anon, guest Cached attribution, BPO or a timing slowdown estimate.",
+  "new_replica_bpo": "NOT_RUN",
+  "private_failure": {
+    "storage": ".artifacts/storage-isolated-service/20261025T034107Z-934685",
+    "stage": "sync-shared-preparation",
+    "original_error": "TimeoutExpired(['sync', '-f', '/home/yyxie/agentenv_experiment/.artifacts/storage-isolated-service/20261025T034107Z-934685/mount'], 10)",
+    "prepared_objects": 133,
+    "actual_actions": 0,
+    "guest_creation": "NOT_RUN",
+    "P0": "NOT_RUN",
+    "P1": "NOT_RUN",
+    "resident_bytes": null,
+    "initial_copy_seconds": 7.091759655,
+    "extra_preparation_seconds": 12.282760331,
+    "original_cleanup": {
+      "owned_container_removed": true,
+      "error": "RuntimeError('unmount-own-volume: exit 32; inspect private logs')",
+      "original_firecracker_identities_unchanged": true,
+      "original_source_firecracker_identities_unchanged": true,
+      "original_service_unchanged": true
+    },
+    "recovery_cleanup": {
+      "status": "PASS",
+      "image": "/home/yyxie/agentenv_experiment/.artifacts/storage-isolated-service/20261025T034107Z-934685/volume.ext4",
+      "image_retained": true,
+      "mount_and_loop_removed": true,
+      "elapsed_ns": 1623742390,
+      "loop": "/dev/loop9"
+    },
+    "failed_volume_retained": true,
+    "file_dirty_peak_bytes": 26823032832,
+    "file_dirty_last_bytes": 3166965760,
+    "original_sync_timeout_seconds": 60,
+    "patched_sync_timeout_seconds": 300,
+    "patched_live_validation": "NOT_RUN"
+  },
+  "free_after_bytes": 56489902080
+}

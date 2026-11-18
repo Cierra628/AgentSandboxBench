@@ -1,0 +1,57 @@
+{
+  "status": "PASS_OFFLINE_OLD_CACHE_INTEGRATION",
+  "related_tests": 40,
+  "saved_json_files_preserved": 6,
+  "saved_runs": [
+    {
+      "name": "latest",
+      "status": "PASS_OLD_VALUES_PRESERVED",
+      "json_files": 3,
+      "old_owner_status": "NOT_MEASURED",
+      "new_live_queries": 0,
+      "output": ".artifacts/host-existing-cache-integration-20261021/latest"
+    },
+    {
+      "name": "earlier",
+      "status": "PASS_OLD_VALUES_PRESERVED",
+      "json_files": 3,
+      "old_owner_status": "NOT_MEASURED",
+      "new_live_queries": 0,
+      "output": ".artifacts/host-existing-cache-integration-20261021/earlier"
+    }
+  ],
+  "old_owner_fields": {
+    "status": "NOT_MEASURED",
+    "inside_bytes": null,
+    "outside_bytes": null,
+    "unknown_bytes": null
+  },
+  "new_behavior": {
+    "explicit_option": "--host-memory-detail",
+    "target": "Imported checkpoint repository.tar.gz only",
+    "location": "After original PSS/file/device observation, before original verification and cleanup",
+    "default_sampling_seconds": 0.1,
+    "timeout_seconds": 30,
+    "termination_grace_seconds": 15,
+    "result": "Separate existing_cache_owner status/capacities/reference group/times/coverage/cost",
+    "original_observation_window": "Preserved",
+    "new_combined_window_field": "timing_ns.including_existing_cache_owner"
+  },
+  "timeout_validation": {
+    "kind": "Real self-owned blocking worker and child; no BPF or target file",
+    "timeout_seconds": 1,
+    "grace_seconds": 3,
+    "worker_and_child_reaped": true,
+    "owned_group_released": true,
+    "unrelated_control_child_survived": true,
+    "force_kill_branch": "Mock only"
+  },
+  "bpf_program_and_metadata_decoder": "Unchanged; previous live evidence reused",
+  "new_bpf_queries": 0,
+  "new_sandbox_actions": 0,
+  "new_task_payload_reads": 0,
+  "updated_entrypoint_live_task": "NOT_RUN",
+  "new_task_owner_capacity": "NOT_MEASURED",
+  "whole_host_physical_savings": "NOT_MEASURED",
+  "historical_results_backfilled": false
+}

@@ -1,0 +1,328 @@
+{
+  "status": "PASS_LIGHT_METRICS",
+  "runs": [
+    {
+      "status": "PASS_LIGHT_METRICS_WITH_INCOMPLETE_INVENTORY",
+      "original_workflow_status": "FAIL",
+      "inventory_status": "INCOMPLETE",
+      "retained_failure_volume": "/home/yyxie/agentenv_experiment/.artifacts/storage-isolated-service/20261022T065540Z-161492/volume.ext4",
+      "schedule": "grpo",
+      "workflow": "/home/yyxie/agentenv_experiment/.artifacts/platform-tasks/20261022T065423Z-160678",
+      "storage": "/home/yyxie/agentenv_experiment/.artifacts/storage-isolated-service/20261022T065540Z-161492",
+      "actual_actions": 189,
+      "logical_actions": 189,
+      "tool_ns": 61752752662,
+      "rollout_timing": {
+        "start_monotonic_ns": 14422391812746072,
+        "end_monotonic_ns": 14422425135653022,
+        "elapsed_ns": 33322906950,
+        "scope": "Before sandbox creation through all branch checks; excludes outer preparation, reporting and cleanup",
+        "checkpoint_request_ns": [],
+        "restore_request_per_role_ns": {},
+        "restore_return_to_first_segment_ns": {},
+        "restore_gap_scope": "Restore request returned to first segment dispatch; includes monitor setup and state checks, not a guest-command start timestamp"
+      },
+      "guest_samples": 2164,
+      "guest_sessions": 7,
+      "per_sandbox": [
+        {
+          "sandbox_id": "01a16265-2fba-7c23-8ec9-dd4117bc86b3",
+          "role": "early_2",
+          "sample_count": 305,
+          "memory_observed_peak_bytes": 482807808,
+          "cached_observed_peak_bytes": 194727936
+        },
+        {
+          "sandbox_id": "01a16265-2fdc-7a73-b893-a8ce33e93bc3",
+          "role": "early_1",
+          "sample_count": 310,
+          "memory_observed_peak_bytes": 469217280,
+          "cached_observed_peak_bytes": 193466368
+        },
+        {
+          "sandbox_id": "01a16265-3032-7052-b0ca-c29e4e19a243",
+          "role": "backbone",
+          "sample_count": 316,
+          "memory_observed_peak_bytes": 649809920,
+          "cached_observed_peak_bytes": 209006592
+        },
+        {
+          "sandbox_id": "01a16265-2fb7-7a81-b5fc-059bbe74e957",
+          "role": "late_2",
+          "sample_count": 321,
+          "memory_observed_peak_bytes": 480116736,
+          "cached_observed_peak_bytes": 190033920
+        },
+        {
+          "sandbox_id": "01a16265-3b8d-7ed3-89e0-83608a5b05e7",
+          "role": "late_1",
+          "sample_count": 299,
+          "memory_observed_peak_bytes": 724701184,
+          "cached_observed_peak_bytes": 209522688
+        },
+        {
+          "sandbox_id": "01a16265-3b8a-7cd3-8b95-0a2a9a8aaaf6",
+          "role": "late_3",
+          "sample_count": 303,
+          "memory_observed_peak_bytes": 618094592,
+          "cached_observed_peak_bytes": 214093824
+        },
+        {
+          "sandbox_id": "01a16265-3bf9-7063-825f-581703ede924",
+          "role": "early_3",
+          "sample_count": 310,
+          "memory_observed_peak_bytes": 474554368,
+          "cached_observed_peak_bytes": 195817472
+        }
+      ],
+      "host_before_first_segment": {
+        "start_monotonic_ns": 14422400302788774,
+        "end_monotonic_ns": 14422400303386635,
+        "counters": {
+          "current": 27760336896,
+          "file": 23326859264,
+          "anon": 4082659328,
+          "shmem": 7604330496,
+          "kernel": 317497344,
+          "file_mapped": 3964928,
+          "file_dirty": 5279834112,
+          "file_writeback": 0
+        }
+      },
+      "task_window_file_min_bytes": 23326924800,
+      "task_window_file_max_bytes": 23369277440,
+      "task_window_file_final_delta_bytes": 42418176,
+      "final_sample_to_checks_end_ns": 96490130,
+      "official_task_status": "FAIL",
+      "official_per_instance": {
+        "passed": 0,
+        "failed": 2
+      },
+      "cache_policy": "Original kernel/DAMON configuration retained; no added reclaim, prefetch or pinning",
+      "physical_savings": "NOT_MEASURED",
+      "host": {
+        "status": "OBSERVED_COUNTERS_INCOMPLETE_INVENTORY",
+        "samples": 1379,
+        "pss_samples": 138,
+        "partial_pss_samples": 6,
+        "maximum_sampling_gap_ns": 100137957,
+        "file_peak_bytes": 27804631040,
+        "pss_observed_peak_bytes": 4757991424,
+        "collector": {
+          "status": "PASS",
+          "error": null,
+          "cgroup": "/sys/fs/cgroup/asbhost.slice/asbhost-20261022t065423160597.slice",
+          "samples": 1379,
+          "interval_seconds": 0.1,
+          "pss_interval_seconds": 1,
+          "thread_cpu_ns": 3643304814,
+          "counter_read_total_ns": 382479539,
+          "scope": "Fresh rollout slice: input preparation, controller, private service and all its descendants; host file includes shmem, not guest Cached."
+        },
+        "mincore": {
+          "status": "INCOMPLETE",
+          "resident_bytes": 26190434304,
+          "cgroup_before": {
+            "current": 24765509632,
+            "file": 24411869184,
+            "anon": 50450432,
+            "shmem": 7604273152,
+            "kernel": 295616512,
+            "file_mapped": 0,
+            "file_dirty": 3419332608,
+            "file_writeback": 30613504
+          },
+          "cgroup_after": {
+            "current": 28243976192,
+            "file": 24756154368,
+            "anon": 50450432,
+            "shmem": 7604273152,
+            "kernel": 304295936,
+            "file_mapped": 0,
+            "file_dirty": 3426402304,
+            "file_writeback": 25645056
+          },
+          "minimum_unaccounted_or_timing_bytes": 1434279936,
+          "file_residency_lower_bound_bytes": 26190434304,
+          "accounting": "SHORTFALL_REQUIRES_RESOLUTION",
+          "scope": "Retained regular files under listed roots (inputs, cache, deps, logs/state, snapshots when listed) and explicit loop backing images, deduplicated by device+inode; excludes removed files and ublk device cache. Not guest cache attribution.",
+          "cpu_ns": 1549194476,
+          "start_monotonic_ns": 14422431498876912,
+          "end_monotonic_ns": 14422433049259211
+        }
+      }
+    },
+    {
+      "status": "PASS",
+      "original_workflow_status": "PASS",
+      "inventory_status": "OBSERVED",
+      "retained_failure_volume": null,
+      "schedule": "bpo",
+      "workflow": "/home/yyxie/agentenv_experiment/.artifacts/platform-tasks/20261022T070025Z-165775",
+      "storage": "/home/yyxie/agentenv_experiment/.artifacts/storage-isolated-service/20261022T070143Z-166686",
+      "actual_actions": 84,
+      "logical_actions": 189,
+      "tool_ns": 45478726949,
+      "rollout_timing": {
+        "start_monotonic_ns": 14422754630301087,
+        "end_monotonic_ns": 14422802955784518,
+        "elapsed_ns": 48325483431,
+        "scope": "Before sandbox creation through all branch checks; excludes outer preparation, reporting and cleanup",
+        "checkpoint_request_ns": [
+          2652190661,
+          1328708360
+        ],
+        "restore_request_per_role_ns": {
+          "early_1": 266455016,
+          "early_2": 263553828,
+          "early_3": 264231192,
+          "late_1": 245087809,
+          "late_2": 241680888,
+          "late_3": 234273720
+        },
+        "restore_return_to_first_segment_ns": {
+          "early_1": 2114032649,
+          "early_2": 2117516884,
+          "early_3": 2117359442,
+          "late_1": 959916205,
+          "late_2": 964218048,
+          "late_3": 973237962
+        },
+        "restore_gap_scope": "Restore request returned to first segment dispatch; includes monitor setup and state checks, not a guest-command start timestamp"
+      },
+      "guest_samples": 1767,
+      "guest_sessions": 9,
+      "per_sandbox": [
+        {
+          "sandbox_id": "01a1626a-bb88-7c12-8686-6bf9e0913b4d",
+          "role": "backbone",
+          "sample_count": 402,
+          "memory_observed_peak_bytes": 731045888,
+          "cached_observed_peak_bytes": 213897216
+        },
+        {
+          "sandbox_id": "01a1626b-1a29-7c70-aef2-6f9864f85b12",
+          "role": "early_2",
+          "sample_count": 219,
+          "memory_observed_peak_bytes": 482459648,
+          "cached_observed_peak_bytes": 200634368
+        },
+        {
+          "sandbox_id": "01a1626b-1a29-7c70-aef2-6f89f760cea6",
+          "role": "early_3",
+          "sample_count": 224,
+          "memory_observed_peak_bytes": 482623488,
+          "cached_observed_peak_bytes": 200613888
+        },
+        {
+          "sandbox_id": "01a1626b-1a29-7c70-aef2-6f76b6ba1716",
+          "role": "early_1",
+          "sample_count": 230,
+          "memory_observed_peak_bytes": 476475392,
+          "cached_observed_peak_bytes": 200630272
+        },
+        {
+          "sandbox_id": "01a1626b-1ec2-7f82-9d02-8f3fd3817571",
+          "role": "late_3",
+          "sample_count": 224,
+          "memory_observed_peak_bytes": 673136640,
+          "cached_observed_peak_bytes": 217341952
+        },
+        {
+          "sandbox_id": "01a1626b-1ec2-7f82-9d02-8f23440acbdb",
+          "role": "late_2",
+          "sample_count": 231,
+          "memory_observed_peak_bytes": 484085760,
+          "cached_observed_peak_bytes": 217305088
+        },
+        {
+          "sandbox_id": "01a1626b-1ec3-71a1-a6a1-7c33d4f24ee7",
+          "role": "late_1",
+          "sample_count": 237,
+          "memory_observed_peak_bytes": 524562432,
+          "cached_observed_peak_bytes": 217092096
+        }
+      ],
+      "host_before_first_segment": {
+        "start_monotonic_ns": 14422760702983871,
+        "end_monotonic_ns": 14422760703218867,
+        "counters": {
+          "current": 24583110656,
+          "file": 23579209728,
+          "anon": 691658752,
+          "shmem": 7604281344,
+          "kernel": 284319744,
+          "file_mapped": 3276800,
+          "file_dirty": 4219584512,
+          "file_writeback": 0
+        }
+      },
+      "task_window_file_min_bytes": 23579209728,
+      "task_window_file_max_bytes": 31845457920,
+      "task_window_file_final_delta_bytes": 8266248192,
+      "final_sample_to_checks_end_ns": 85460775,
+      "official_task_status": "FAIL",
+      "official_per_instance": {
+        "passed": 0,
+        "failed": 2
+      },
+      "cache_policy": "Original kernel/DAMON configuration retained; no added reclaim, prefetch or pinning",
+      "physical_savings": "NOT_MEASURED",
+      "host": {
+        "status": "PASS",
+        "samples": 1534,
+        "pss_samples": 154,
+        "partial_pss_samples": 8,
+        "maximum_sampling_gap_ns": 100141628,
+        "file_peak_bytes": 31846019072,
+        "pss_observed_peak_bytes": 3482534912,
+        "collector": {
+          "status": "PASS",
+          "error": null,
+          "cgroup": "/sys/fs/cgroup/asbhost.slice/asbhost-20261022t070025165700.slice",
+          "samples": 1534,
+          "interval_seconds": 0.1,
+          "pss_interval_seconds": 1,
+          "thread_cpu_ns": 3302937370,
+          "counter_read_total_ns": 428027977,
+          "scope": "Fresh rollout slice: input preparation, controller, private service and all its descendants; host file includes shmem, not guest Cached."
+        },
+        "mincore": {
+          "status": "OBSERVED",
+          "resident_bytes": 29133701120,
+          "cgroup_before": {
+            "current": 30989623296,
+            "file": 30465445888,
+            "anon": 50483200,
+            "shmem": 7604273152,
+            "kernel": 466518016,
+            "file_mapped": 0,
+            "file_dirty": 3461120,
+            "file_writeback": 0
+          },
+          "cgroup_after": {
+            "current": 30991351808,
+            "file": 30468214784,
+            "anon": 50667520,
+            "shmem": 7604273152,
+            "kernel": 465104896,
+            "file_mapped": 0,
+            "file_dirty": 77824,
+            "file_writeback": 0
+          },
+          "minimum_unaccounted_or_timing_bytes": 0,
+          "file_residency_lower_bound_bytes": 30468214784,
+          "accounting": "NO_SHORTFALL_DETECTED_NOT_PROOF_OF_COMPLETE_ACCOUNTING",
+          "scope": "Retained regular files under listed roots (inputs, cache, deps, logs/state, snapshots when listed) and explicit loop backing images, deduplicated by device+inode; excludes removed files and ublk device cache. Not guest cache attribution.",
+          "cpu_ns": 1928555411,
+          "start_monotonic_ns": 14422809214881464,
+          "end_monotonic_ns": 14422811161993586
+        }
+      }
+    }
+  ],
+  "source_returned_to_stopped": true,
+  "raw_result": ".artifacts/light-rollout-pair-20261022-final",
+  "auxiliary_failure": "Original GRPO workflow FAIL retained: final loop image mtime changed during one post-task mincore query. No GRPO rerun. One derived offline report failed on absent optional logical_action_count, repaired from actual GRPO schema without rerunning any task.",
+  "runtime_collection": "guest meminfo 0.1s; outer cgroup memory.stat/current 0.1s; all-group PSS 1s; no guest CPU/I/O or per-VMM sampling, BPF or physical-page scan"
+}

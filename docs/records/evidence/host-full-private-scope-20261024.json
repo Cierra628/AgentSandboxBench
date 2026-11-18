@@ -1,4 +1,8 @@
 {
+  "status": "PASS_OFFLINE_FULL_SCHEDULE_COPY_SCOPE",
+  "live": "NOT_RUN",
+  "runtime_entry": "NOT_IMPLEMENTED",
+  "original_runs": 10,
   "base_manifest": [
     {
       "index": 0,
@@ -114,5 +118,902 @@
       "relative": "sha256-51837fa7934cf000da18c91fab488b8bccdedf72879499a34cddbb38c9767421/overlaybd.commit",
       "size": 67949568
     }
-  ]
+  ],
+  "rows": [
+    {
+      "round": 1,
+      "schedule": "grpo",
+      "storage": ".artifacts/storage-isolated-service/20261024T032643Z-701407",
+      "actual_actions": 189,
+      "per_role_actions": {
+        "backbone": 29,
+        "early_1": 21,
+        "early_2": 21,
+        "early_3": 21,
+        "late_1": 32,
+        "late_2": 32,
+        "late_3": 33
+      },
+      "phase_labels": [
+        "before-guests",
+        "roots-ready",
+        "paths-finished"
+      ],
+      "base_shared_objects": 19,
+      "base_private_live_objects": 133,
+      "generated_layers": {},
+      "final_shared_inventory_objects": 19,
+      "planned_primary_shared_objects": 19,
+      "planned_primary_private_objects": 133,
+      "planned_private_inventory_objects": 133,
+      "deferred_all_layer_private_objects": 133,
+      "original_volume_bytes": 17179869184,
+      "original_volume_used_peak_bytes": 6054178816,
+      "additional_base_copy_bytes": 33395128320,
+      "deferred_additional_generated_copy_bytes": 0,
+      "conservative_private_volume_gib": 48,
+      "required_available_gib_exclusive": 74,
+      "memory_objects_kept_separate": []
+    },
+    {
+      "round": 1,
+      "schedule": "bpo",
+      "storage": ".artifacts/storage-isolated-service/20261024T032905Z-704559",
+      "actual_actions": 84,
+      "per_role_actions": {
+        "backbone": 29,
+        "early_1": 10,
+        "early_2": 10,
+        "early_3": 10,
+        "late_1": 8,
+        "late_2": 8,
+        "late_3": 9
+      },
+      "phase_labels": [
+        "before-guests",
+        "root-ready",
+        "before-checkpoint-11",
+        "after-checkpoint-11",
+        "before-checkpoint-24",
+        "after-checkpoint-24",
+        "early-restores-ready",
+        "all-restores-ready",
+        "paths-finished"
+      ],
+      "base_shared_objects": 19,
+      "base_private_live_objects": 133,
+      "generated_layers": {
+        "11": {
+          "source_identity": [
+            1795,
+            1835238
+          ],
+          "size": 1175552,
+          "users": [
+            "backbone",
+            "early_1",
+            "early_2",
+            "early_3",
+            "late_1",
+            "late_2",
+            "late_3"
+          ],
+          "restored_digest": "sha256:346febcb2d13b1d616009f472ae755e04abe484fce785d78dd2a189fec83aaaa",
+          "source_aliases": [
+            "/proc/705579/root/workspace/env/firecracker-work/managed-snapshots/01a16bf4-d68f-72c3-abdd-d1a8b088407c/01a16bf4-eb79-7342-a921-6051cf0e5cf3/rootfs/snapshot.commit",
+            "/proc/705915/cwd/overlaybd/../../../snapshot-store/repository/managed-layers/sha256_346febcb2d13b1d616009f472ae755e04abe484fce785d78dd2a189fec83aaaa.overlaybd.commit",
+            "/proc/705952/cwd/overlaybd/../../../snapshot-store/repository/managed-layers/sha256_346febcb2d13b1d616009f472ae755e04abe484fce785d78dd2a189fec83aaaa.overlaybd.commit",
+            "/proc/705956/cwd/overlaybd/../../../snapshot-store/repository/managed-layers/sha256_346febcb2d13b1d616009f472ae755e04abe484fce785d78dd2a189fec83aaaa.overlaybd.commit",
+            "/proc/706046/cwd/overlaybd/../../../snapshot-store/repository/managed-layers/sha256_346febcb2d13b1d616009f472ae755e04abe484fce785d78dd2a189fec83aaaa.overlaybd.commit",
+            "/proc/706084/cwd/overlaybd/../../../snapshot-store/repository/managed-layers/sha256_346febcb2d13b1d616009f472ae755e04abe484fce785d78dd2a189fec83aaaa.overlaybd.commit",
+            "/proc/706083/cwd/overlaybd/../../../snapshot-store/repository/managed-layers/sha256_346febcb2d13b1d616009f472ae755e04abe484fce785d78dd2a189fec83aaaa.overlaybd.commit"
+          ],
+          "shared_objects": 1,
+          "private_live_objects": 7,
+          "additional_copies": 6
+        },
+        "24": {
+          "source_identity": [
+            1795,
+            1835261
+          ],
+          "size": 9043968,
+          "users": [
+            "backbone",
+            "late_1",
+            "late_2",
+            "late_3"
+          ],
+          "restored_digest": "sha256:6bbff09bec5a5b9cae72d92a8f68739f45248f52cb82fbed1766a2dcc1dbf92f",
+          "source_aliases": [
+            "/proc/705579/root/workspace/env/firecracker-work/managed-snapshots/01a16bf4-d68f-72c3-abdd-d1a8b088407c/01a16bf5-0786-7811-bb74-f1347d745577/rootfs/snapshot.commit",
+            "/proc/706046/cwd/overlaybd/../../../snapshot-store/repository/managed-layers/sha256_6bbff09bec5a5b9cae72d92a8f68739f45248f52cb82fbed1766a2dcc1dbf92f.overlaybd.commit",
+            "/proc/706084/cwd/overlaybd/../../../snapshot-store/repository/managed-layers/sha256_6bbff09bec5a5b9cae72d92a8f68739f45248f52cb82fbed1766a2dcc1dbf92f.overlaybd.commit",
+            "/proc/706083/cwd/overlaybd/../../../snapshot-store/repository/managed-layers/sha256_6bbff09bec5a5b9cae72d92a8f68739f45248f52cb82fbed1766a2dcc1dbf92f.overlaybd.commit"
+          ],
+          "shared_objects": 1,
+          "private_live_objects": 4,
+          "additional_copies": 3
+        }
+      },
+      "final_shared_inventory_objects": 21,
+      "planned_primary_shared_objects": 19,
+      "planned_primary_private_objects": 133,
+      "planned_private_inventory_objects": 135,
+      "deferred_all_layer_private_objects": 144,
+      "original_volume_bytes": 34359738368,
+      "original_volume_used_peak_bytes": 7364509696,
+      "additional_base_copy_bytes": 33395128320,
+      "deferred_additional_generated_copy_bytes": 34185216,
+      "conservative_private_volume_gib": 64,
+      "required_available_gib_exclusive": 90,
+      "memory_objects_kept_separate": [
+        {
+          "category": "snapshot_memory_device",
+          "users": [
+            "early_1",
+            "early_2",
+            "early_3"
+          ],
+          "mapping_length": 4294967296
+        },
+        {
+          "category": "snapshot_memory_device",
+          "users": [
+            "late_1",
+            "late_2",
+            "late_3"
+          ],
+          "mapping_length": 4294967296
+        },
+        {
+          "category": "snapshot_memory_layer",
+          "users": [
+            "early_1",
+            "early_2",
+            "early_3"
+          ],
+          "mapping_length": 571416576
+        },
+        {
+          "category": "snapshot_memory_layer",
+          "users": [
+            "late_1",
+            "late_2",
+            "late_3"
+          ],
+          "mapping_length": 728084480
+        }
+      ]
+    },
+    {
+      "round": 2,
+      "schedule": "grpo",
+      "storage": ".artifacts/storage-isolated-service/20261024T042701Z-713177",
+      "actual_actions": 189,
+      "per_role_actions": {
+        "backbone": 29,
+        "early_1": 21,
+        "early_2": 21,
+        "early_3": 21,
+        "late_1": 32,
+        "late_2": 32,
+        "late_3": 33
+      },
+      "phase_labels": [
+        "before-guests",
+        "roots-ready",
+        "paths-finished"
+      ],
+      "base_shared_objects": 19,
+      "base_private_live_objects": 133,
+      "generated_layers": {},
+      "final_shared_inventory_objects": 19,
+      "planned_primary_shared_objects": 19,
+      "planned_primary_private_objects": 133,
+      "planned_private_inventory_objects": 133,
+      "deferred_all_layer_private_objects": 133,
+      "original_volume_bytes": 17179869184,
+      "original_volume_used_peak_bytes": 6077726720,
+      "additional_base_copy_bytes": 33395128320,
+      "deferred_additional_generated_copy_bytes": 0,
+      "conservative_private_volume_gib": 48,
+      "required_available_gib_exclusive": 74,
+      "memory_objects_kept_separate": []
+    },
+    {
+      "round": 2,
+      "schedule": "bpo",
+      "storage": ".artifacts/storage-isolated-service/20261024T042930Z-716443",
+      "actual_actions": 84,
+      "per_role_actions": {
+        "backbone": 29,
+        "early_1": 10,
+        "early_2": 10,
+        "early_3": 10,
+        "late_1": 8,
+        "late_2": 8,
+        "late_3": 9
+      },
+      "phase_labels": [
+        "before-guests",
+        "root-ready",
+        "before-checkpoint-11",
+        "after-checkpoint-11",
+        "before-checkpoint-24",
+        "after-checkpoint-24",
+        "early-restores-ready",
+        "all-restores-ready",
+        "paths-finished"
+      ],
+      "base_shared_objects": 19,
+      "base_private_live_objects": 133,
+      "generated_layers": {
+        "11": {
+          "source_identity": [
+            1795,
+            786662
+          ],
+          "size": 10145792,
+          "users": [
+            "backbone",
+            "early_1",
+            "early_2",
+            "early_3",
+            "late_1",
+            "late_2",
+            "late_3"
+          ],
+          "restored_digest": "sha256:0fc765705e40d0b921b8d294556d9d6b93d5740d1a2a69e1584cd6afedf66e0f",
+          "source_aliases": [
+            "/proc/717480/root/workspace/env/firecracker-work/managed-snapshots/01a16c2c-27cc-7fa0-a706-4e17dcd45ffd/01a16c2c-4007-7081-aeaa-47d066dad932/rootfs/snapshot.commit",
+            "/proc/717863/cwd/overlaybd/../../../snapshot-store/repository/managed-layers/sha256_0fc765705e40d0b921b8d294556d9d6b93d5740d1a2a69e1584cd6afedf66e0f.overlaybd.commit",
+            "/proc/717873/cwd/overlaybd/../../../snapshot-store/repository/managed-layers/sha256_0fc765705e40d0b921b8d294556d9d6b93d5740d1a2a69e1584cd6afedf66e0f.overlaybd.commit",
+            "/proc/717829/cwd/overlaybd/../../../snapshot-store/repository/managed-layers/sha256_0fc765705e40d0b921b8d294556d9d6b93d5740d1a2a69e1584cd6afedf66e0f.overlaybd.commit",
+            "/proc/717989/cwd/overlaybd/../../../snapshot-store/repository/managed-layers/sha256_0fc765705e40d0b921b8d294556d9d6b93d5740d1a2a69e1584cd6afedf66e0f.overlaybd.commit",
+            "/proc/717952/cwd/overlaybd/../../../snapshot-store/repository/managed-layers/sha256_0fc765705e40d0b921b8d294556d9d6b93d5740d1a2a69e1584cd6afedf66e0f.overlaybd.commit",
+            "/proc/717990/cwd/overlaybd/../../../snapshot-store/repository/managed-layers/sha256_0fc765705e40d0b921b8d294556d9d6b93d5740d1a2a69e1584cd6afedf66e0f.overlaybd.commit"
+          ],
+          "shared_objects": 1,
+          "private_live_objects": 7,
+          "additional_copies": 6
+        },
+        "24": {
+          "source_identity": [
+            1795,
+            786685
+          ],
+          "size": 4677632,
+          "users": [
+            "backbone",
+            "late_1",
+            "late_2",
+            "late_3"
+          ],
+          "restored_digest": "sha256:c1405fddd3e79f2ae0a6a7b2d79e36270bf07887617058edca4093420adcde1b",
+          "source_aliases": [
+            "/proc/717480/root/workspace/env/firecracker-work/managed-snapshots/01a16c2c-27cc-7fa0-a706-4e17dcd45ffd/01a16c2c-5de5-7793-b73e-9696df7fed8e/rootfs/snapshot.commit",
+            "/proc/717989/cwd/overlaybd/../../../snapshot-store/repository/managed-layers/sha256_c1405fddd3e79f2ae0a6a7b2d79e36270bf07887617058edca4093420adcde1b.overlaybd.commit",
+            "/proc/717952/cwd/overlaybd/../../../snapshot-store/repository/managed-layers/sha256_c1405fddd3e79f2ae0a6a7b2d79e36270bf07887617058edca4093420adcde1b.overlaybd.commit",
+            "/proc/717990/cwd/overlaybd/../../../snapshot-store/repository/managed-layers/sha256_c1405fddd3e79f2ae0a6a7b2d79e36270bf07887617058edca4093420adcde1b.overlaybd.commit"
+          ],
+          "shared_objects": 1,
+          "private_live_objects": 4,
+          "additional_copies": 3
+        }
+      },
+      "final_shared_inventory_objects": 21,
+      "planned_primary_shared_objects": 19,
+      "planned_primary_private_objects": 133,
+      "planned_private_inventory_objects": 135,
+      "deferred_all_layer_private_objects": 144,
+      "original_volume_bytes": 34359738368,
+      "original_volume_used_peak_bytes": 7366553600,
+      "additional_base_copy_bytes": 33395128320,
+      "deferred_additional_generated_copy_bytes": 74907648,
+      "conservative_private_volume_gib": 64,
+      "required_available_gib_exclusive": 90,
+      "memory_objects_kept_separate": [
+        {
+          "category": "snapshot_memory_device",
+          "users": [
+            "early_1",
+            "early_2",
+            "early_3"
+          ],
+          "mapping_length": 4294967296
+        },
+        {
+          "category": "snapshot_memory_device",
+          "users": [
+            "late_1",
+            "late_2",
+            "late_3"
+          ],
+          "mapping_length": 4294967296
+        },
+        {
+          "category": "snapshot_memory_layer",
+          "users": [
+            "early_1",
+            "early_2",
+            "early_3"
+          ],
+          "mapping_length": 583680000
+        },
+        {
+          "category": "snapshot_memory_layer",
+          "users": [
+            "late_1",
+            "late_2",
+            "late_3"
+          ],
+          "mapping_length": 725565440
+        }
+      ]
+    },
+    {
+      "round": 3,
+      "schedule": "grpo",
+      "storage": ".artifacts/storage-isolated-service/20261024T043213Z-720177",
+      "actual_actions": 189,
+      "per_role_actions": {
+        "backbone": 29,
+        "early_1": 21,
+        "early_2": 21,
+        "early_3": 21,
+        "late_1": 32,
+        "late_2": 32,
+        "late_3": 33
+      },
+      "phase_labels": [
+        "before-guests",
+        "roots-ready",
+        "paths-finished"
+      ],
+      "base_shared_objects": 19,
+      "base_private_live_objects": 133,
+      "generated_layers": {},
+      "final_shared_inventory_objects": 19,
+      "planned_primary_shared_objects": 19,
+      "planned_primary_private_objects": 133,
+      "planned_private_inventory_objects": 133,
+      "deferred_all_layer_private_objects": 133,
+      "original_volume_bytes": 17179869184,
+      "original_volume_used_peak_bytes": 6055194624,
+      "additional_base_copy_bytes": 33395128320,
+      "deferred_additional_generated_copy_bytes": 0,
+      "conservative_private_volume_gib": 48,
+      "required_available_gib_exclusive": 74,
+      "memory_objects_kept_separate": []
+    },
+    {
+      "round": 3,
+      "schedule": "bpo",
+      "storage": ".artifacts/storage-isolated-service/20261024T043437Z-723486",
+      "actual_actions": 84,
+      "per_role_actions": {
+        "backbone": 29,
+        "early_1": 10,
+        "early_2": 10,
+        "early_3": 10,
+        "late_1": 8,
+        "late_2": 8,
+        "late_3": 9
+      },
+      "phase_labels": [
+        "before-guests",
+        "root-ready",
+        "before-checkpoint-11",
+        "after-checkpoint-11",
+        "before-checkpoint-24",
+        "after-checkpoint-24",
+        "early-restores-ready",
+        "all-restores-ready",
+        "paths-finished"
+      ],
+      "base_shared_objects": 19,
+      "base_private_live_objects": 133,
+      "generated_layers": {
+        "11": {
+          "source_identity": [
+            1795,
+            1179878
+          ],
+          "size": 5136384,
+          "users": [
+            "backbone",
+            "early_1",
+            "early_2",
+            "early_3",
+            "late_1",
+            "late_2",
+            "late_3"
+          ],
+          "restored_digest": "sha256:575b3f3a6b91351b8670f9eb86ad955e0afb71a09e7c4d68e78ca9e577c9495a",
+          "source_aliases": [
+            "/proc/724516/root/workspace/env/firecracker-work/managed-snapshots/01a16c30-d715-7130-99d2-6db4accdbfc9/01a16c30-eda1-7bf2-8a9d-7335d119bce6/rootfs/snapshot.commit",
+            "/proc/724810/cwd/overlaybd/../../../snapshot-store/repository/managed-layers/sha256_575b3f3a6b91351b8670f9eb86ad955e0afb71a09e7c4d68e78ca9e577c9495a.overlaybd.commit",
+            "/proc/724846/cwd/overlaybd/../../../snapshot-store/repository/managed-layers/sha256_575b3f3a6b91351b8670f9eb86ad955e0afb71a09e7c4d68e78ca9e577c9495a.overlaybd.commit",
+            "/proc/724849/cwd/overlaybd/../../../snapshot-store/repository/managed-layers/sha256_575b3f3a6b91351b8670f9eb86ad955e0afb71a09e7c4d68e78ca9e577c9495a.overlaybd.commit",
+            "/proc/725028/cwd/overlaybd/../../../snapshot-store/repository/managed-layers/sha256_575b3f3a6b91351b8670f9eb86ad955e0afb71a09e7c4d68e78ca9e577c9495a.overlaybd.commit",
+            "/proc/725065/cwd/overlaybd/../../../snapshot-store/repository/managed-layers/sha256_575b3f3a6b91351b8670f9eb86ad955e0afb71a09e7c4d68e78ca9e577c9495a.overlaybd.commit",
+            "/proc/725063/cwd/overlaybd/../../../snapshot-store/repository/managed-layers/sha256_575b3f3a6b91351b8670f9eb86ad955e0afb71a09e7c4d68e78ca9e577c9495a.overlaybd.commit"
+          ],
+          "shared_objects": 1,
+          "private_live_objects": 7,
+          "additional_copies": 6
+        },
+        "24": {
+          "source_identity": [
+            1795,
+            1179901
+          ],
+          "size": 4947968,
+          "users": [
+            "backbone",
+            "late_1",
+            "late_2",
+            "late_3"
+          ],
+          "restored_digest": "sha256:32deee63ebb3b77f42490e5b2cf459e0603a4b24b3506cc6ecc5a39a12242a50",
+          "source_aliases": [
+            "/proc/724516/root/workspace/env/firecracker-work/managed-snapshots/01a16c30-d715-7130-99d2-6db4accdbfc9/01a16c31-0a5f-72a1-9ae6-c1087106ba46/rootfs/snapshot.commit",
+            "/proc/725028/cwd/overlaybd/../../../snapshot-store/repository/managed-layers/sha256_32deee63ebb3b77f42490e5b2cf459e0603a4b24b3506cc6ecc5a39a12242a50.overlaybd.commit",
+            "/proc/725065/cwd/overlaybd/../../../snapshot-store/repository/managed-layers/sha256_32deee63ebb3b77f42490e5b2cf459e0603a4b24b3506cc6ecc5a39a12242a50.overlaybd.commit",
+            "/proc/725063/cwd/overlaybd/../../../snapshot-store/repository/managed-layers/sha256_32deee63ebb3b77f42490e5b2cf459e0603a4b24b3506cc6ecc5a39a12242a50.overlaybd.commit"
+          ],
+          "shared_objects": 1,
+          "private_live_objects": 4,
+          "additional_copies": 3
+        }
+      },
+      "final_shared_inventory_objects": 21,
+      "planned_primary_shared_objects": 19,
+      "planned_primary_private_objects": 133,
+      "planned_private_inventory_objects": 135,
+      "deferred_all_layer_private_objects": 144,
+      "original_volume_bytes": 34359738368,
+      "original_volume_used_peak_bytes": 7377264640,
+      "additional_base_copy_bytes": 33395128320,
+      "deferred_additional_generated_copy_bytes": 45662208,
+      "conservative_private_volume_gib": 64,
+      "required_available_gib_exclusive": 90,
+      "memory_objects_kept_separate": [
+        {
+          "category": "snapshot_memory_device",
+          "users": [
+            "early_1",
+            "early_2",
+            "early_3"
+          ],
+          "mapping_length": 4294967296
+        },
+        {
+          "category": "snapshot_memory_device",
+          "users": [
+            "late_1",
+            "late_2",
+            "late_3"
+          ],
+          "mapping_length": 4294967296
+        },
+        {
+          "category": "snapshot_memory_layer",
+          "users": [
+            "early_1",
+            "early_2",
+            "early_3"
+          ],
+          "mapping_length": 580202496
+        },
+        {
+          "category": "snapshot_memory_layer",
+          "users": [
+            "late_1",
+            "late_2",
+            "late_3"
+          ],
+          "mapping_length": 734998528
+        }
+      ]
+    },
+    {
+      "round": 4,
+      "schedule": "grpo",
+      "storage": ".artifacts/storage-isolated-service/20261024T043720Z-727340",
+      "actual_actions": 189,
+      "per_role_actions": {
+        "backbone": 29,
+        "early_1": 21,
+        "early_2": 21,
+        "early_3": 21,
+        "late_1": 32,
+        "late_2": 32,
+        "late_3": 33
+      },
+      "phase_labels": [
+        "before-guests",
+        "roots-ready",
+        "paths-finished"
+      ],
+      "base_shared_objects": 19,
+      "base_private_live_objects": 133,
+      "generated_layers": {},
+      "final_shared_inventory_objects": 19,
+      "planned_primary_shared_objects": 19,
+      "planned_primary_private_objects": 133,
+      "planned_private_inventory_objects": 133,
+      "deferred_all_layer_private_objects": 133,
+      "original_volume_bytes": 17179869184,
+      "original_volume_used_peak_bytes": 6054600704,
+      "additional_base_copy_bytes": 33395128320,
+      "deferred_additional_generated_copy_bytes": 0,
+      "conservative_private_volume_gib": 48,
+      "required_available_gib_exclusive": 74,
+      "memory_objects_kept_separate": []
+    },
+    {
+      "round": 4,
+      "schedule": "bpo",
+      "storage": ".artifacts/storage-isolated-service/20261024T043945Z-730611",
+      "actual_actions": 84,
+      "per_role_actions": {
+        "backbone": 29,
+        "early_1": 10,
+        "early_2": 10,
+        "early_3": 10,
+        "late_1": 8,
+        "late_2": 8,
+        "late_3": 9
+      },
+      "phase_labels": [
+        "before-guests",
+        "root-ready",
+        "before-checkpoint-11",
+        "after-checkpoint-11",
+        "before-checkpoint-24",
+        "after-checkpoint-24",
+        "early-restores-ready",
+        "all-restores-ready",
+        "paths-finished"
+      ],
+      "base_shared_objects": 19,
+      "base_private_live_objects": 133,
+      "generated_layers": {
+        "11": {
+          "source_identity": [
+            1795,
+            1179878
+          ],
+          "size": 9498624,
+          "users": [
+            "backbone",
+            "early_1",
+            "early_2",
+            "early_3",
+            "late_1",
+            "late_2",
+            "late_3"
+          ],
+          "restored_digest": "sha256:8f8784507598369e969d001d17def449626508a36abdeaa2371c8e9650653029",
+          "source_aliases": [
+            "/proc/731646/root/workspace/env/firecracker-work/managed-snapshots/01a16c35-8958-7b32-9eac-83017f040a9a/01a16c35-a14e-7251-a477-09d15462f10d/rootfs/snapshot.commit",
+            "/proc/732050/cwd/overlaybd/../../../snapshot-store/repository/managed-layers/sha256_8f8784507598369e969d001d17def449626508a36abdeaa2371c8e9650653029.overlaybd.commit",
+            "/proc/732064/cwd/overlaybd/../../../snapshot-store/repository/managed-layers/sha256_8f8784507598369e969d001d17def449626508a36abdeaa2371c8e9650653029.overlaybd.commit",
+            "/proc/732066/cwd/overlaybd/../../../snapshot-store/repository/managed-layers/sha256_8f8784507598369e969d001d17def449626508a36abdeaa2371c8e9650653029.overlaybd.commit",
+            "/proc/732196/cwd/overlaybd/../../../snapshot-store/repository/managed-layers/sha256_8f8784507598369e969d001d17def449626508a36abdeaa2371c8e9650653029.overlaybd.commit",
+            "/proc/732234/cwd/overlaybd/../../../snapshot-store/repository/managed-layers/sha256_8f8784507598369e969d001d17def449626508a36abdeaa2371c8e9650653029.overlaybd.commit",
+            "/proc/732232/cwd/overlaybd/../../../snapshot-store/repository/managed-layers/sha256_8f8784507598369e969d001d17def449626508a36abdeaa2371c8e9650653029.overlaybd.commit"
+          ],
+          "shared_objects": 1,
+          "private_live_objects": 7,
+          "additional_copies": 6
+        },
+        "24": {
+          "source_identity": [
+            1795,
+            1179901
+          ],
+          "size": 614400,
+          "users": [
+            "backbone",
+            "late_1",
+            "late_2",
+            "late_3"
+          ],
+          "restored_digest": "sha256:e82d7baae5b6cbefd213b2c5ba4136397cdc4b31d581229c693076ce95077b5f",
+          "source_aliases": [
+            "/proc/731646/root/workspace/env/firecracker-work/managed-snapshots/01a16c35-8958-7b32-9eac-83017f040a9a/01a16c35-c38d-7240-b941-99645221d5fd/rootfs/snapshot.commit",
+            "/proc/732196/cwd/overlaybd/../../../snapshot-store/repository/managed-layers/sha256_e82d7baae5b6cbefd213b2c5ba4136397cdc4b31d581229c693076ce95077b5f.overlaybd.commit",
+            "/proc/732234/cwd/overlaybd/../../../snapshot-store/repository/managed-layers/sha256_e82d7baae5b6cbefd213b2c5ba4136397cdc4b31d581229c693076ce95077b5f.overlaybd.commit",
+            "/proc/732232/cwd/overlaybd/../../../snapshot-store/repository/managed-layers/sha256_e82d7baae5b6cbefd213b2c5ba4136397cdc4b31d581229c693076ce95077b5f.overlaybd.commit"
+          ],
+          "shared_objects": 1,
+          "private_live_objects": 4,
+          "additional_copies": 3
+        }
+      },
+      "final_shared_inventory_objects": 21,
+      "planned_primary_shared_objects": 19,
+      "planned_primary_private_objects": 133,
+      "planned_private_inventory_objects": 135,
+      "deferred_all_layer_private_objects": 144,
+      "original_volume_bytes": 34359738368,
+      "original_volume_used_peak_bytes": 7212777472,
+      "additional_base_copy_bytes": 33395128320,
+      "deferred_additional_generated_copy_bytes": 58834944,
+      "conservative_private_volume_gib": 64,
+      "required_available_gib_exclusive": 90,
+      "memory_objects_kept_separate": [
+        {
+          "category": "snapshot_memory_device",
+          "users": [
+            "early_1",
+            "early_2",
+            "early_3"
+          ],
+          "mapping_length": 4294967296
+        },
+        {
+          "category": "snapshot_memory_device",
+          "users": [
+            "late_1",
+            "late_2",
+            "late_3"
+          ],
+          "mapping_length": 4294967296
+        },
+        {
+          "category": "snapshot_memory_layer",
+          "users": [
+            "early_1",
+            "early_2",
+            "early_3"
+          ],
+          "mapping_length": 573562880
+        },
+        {
+          "category": "snapshot_memory_layer",
+          "users": [
+            "late_1",
+            "late_2",
+            "late_3"
+          ],
+          "mapping_length": 594681856
+        }
+      ]
+    },
+    {
+      "round": 5,
+      "schedule": "grpo",
+      "storage": ".artifacts/storage-isolated-service/20261024T044231Z-734537",
+      "actual_actions": 189,
+      "per_role_actions": {
+        "backbone": 29,
+        "early_1": 21,
+        "early_2": 21,
+        "early_3": 21,
+        "late_1": 32,
+        "late_2": 32,
+        "late_3": 33
+      },
+      "phase_labels": [
+        "before-guests",
+        "roots-ready",
+        "paths-finished"
+      ],
+      "base_shared_objects": 19,
+      "base_private_live_objects": 133,
+      "generated_layers": {},
+      "final_shared_inventory_objects": 19,
+      "planned_primary_shared_objects": 19,
+      "planned_primary_private_objects": 133,
+      "planned_private_inventory_objects": 133,
+      "deferred_all_layer_private_objects": 133,
+      "original_volume_bytes": 17179869184,
+      "original_volume_used_peak_bytes": 6055104512,
+      "additional_base_copy_bytes": 33395128320,
+      "deferred_additional_generated_copy_bytes": 0,
+      "conservative_private_volume_gib": 48,
+      "required_available_gib_exclusive": 74,
+      "memory_objects_kept_separate": []
+    },
+    {
+      "round": 5,
+      "schedule": "bpo",
+      "storage": ".artifacts/storage-isolated-service/20261024T044458Z-737812",
+      "actual_actions": 84,
+      "per_role_actions": {
+        "backbone": 29,
+        "early_1": 10,
+        "early_2": 10,
+        "early_3": 10,
+        "late_1": 8,
+        "late_2": 8,
+        "late_3": 9
+      },
+      "phase_labels": [
+        "before-guests",
+        "root-ready",
+        "before-checkpoint-11",
+        "after-checkpoint-11",
+        "before-checkpoint-24",
+        "after-checkpoint-24",
+        "early-restores-ready",
+        "all-restores-ready",
+        "paths-finished"
+      ],
+      "base_shared_objects": 19,
+      "base_private_live_objects": 133,
+      "generated_layers": {
+        "11": {
+          "source_identity": [
+            1795,
+            524330
+          ],
+          "size": 5140480,
+          "users": [
+            "backbone",
+            "early_1",
+            "early_2",
+            "early_3",
+            "late_1",
+            "late_2",
+            "late_3"
+          ],
+          "restored_digest": "sha256:dc2f46db2f3aa7a504754ceb53ef4f84d124f1dd8484ffd8e305e71a2e928a53",
+          "source_aliases": [
+            "/proc/738811/root/workspace/env/firecracker-work/managed-snapshots/01a16c3a-4f65-7870-9e48-2ad4fe303078/01a16c3a-65d0-7703-bace-1d2a6bd3461f/rootfs/snapshot.commit",
+            "/proc/739178/cwd/overlaybd/../../../snapshot-store/repository/managed-layers/sha256_dc2f46db2f3aa7a504754ceb53ef4f84d124f1dd8484ffd8e305e71a2e928a53.overlaybd.commit",
+            "/proc/739167/cwd/overlaybd/../../../snapshot-store/repository/managed-layers/sha256_dc2f46db2f3aa7a504754ceb53ef4f84d124f1dd8484ffd8e305e71a2e928a53.overlaybd.commit",
+            "/proc/739135/cwd/overlaybd/../../../snapshot-store/repository/managed-layers/sha256_dc2f46db2f3aa7a504754ceb53ef4f84d124f1dd8484ffd8e305e71a2e928a53.overlaybd.commit",
+            "/proc/739325/cwd/overlaybd/../../../snapshot-store/repository/managed-layers/sha256_dc2f46db2f3aa7a504754ceb53ef4f84d124f1dd8484ffd8e305e71a2e928a53.overlaybd.commit",
+            "/proc/739290/cwd/overlaybd/../../../snapshot-store/repository/managed-layers/sha256_dc2f46db2f3aa7a504754ceb53ef4f84d124f1dd8484ffd8e305e71a2e928a53.overlaybd.commit",
+            "/proc/739327/cwd/overlaybd/../../../snapshot-store/repository/managed-layers/sha256_dc2f46db2f3aa7a504754ceb53ef4f84d124f1dd8484ffd8e305e71a2e928a53.overlaybd.commit"
+          ],
+          "shared_objects": 1,
+          "private_live_objects": 7,
+          "additional_copies": 6
+        },
+        "24": {
+          "source_identity": [
+            1795,
+            524353
+          ],
+          "size": 4935680,
+          "users": [
+            "backbone",
+            "late_1",
+            "late_2",
+            "late_3"
+          ],
+          "restored_digest": "sha256:8f2096bd048afe20af6d16deb480809aec2f9ecaa0bba4aa7402b4d8c549d77b",
+          "source_aliases": [
+            "/proc/738811/root/workspace/env/firecracker-work/managed-snapshots/01a16c3a-4f65-7870-9e48-2ad4fe303078/01a16c3a-8218-7452-b9e9-89a71d324571/rootfs/snapshot.commit",
+            "/proc/739325/cwd/overlaybd/../../../snapshot-store/repository/managed-layers/sha256_8f2096bd048afe20af6d16deb480809aec2f9ecaa0bba4aa7402b4d8c549d77b.overlaybd.commit",
+            "/proc/739290/cwd/overlaybd/../../../snapshot-store/repository/managed-layers/sha256_8f2096bd048afe20af6d16deb480809aec2f9ecaa0bba4aa7402b4d8c549d77b.overlaybd.commit",
+            "/proc/739327/cwd/overlaybd/../../../snapshot-store/repository/managed-layers/sha256_8f2096bd048afe20af6d16deb480809aec2f9ecaa0bba4aa7402b4d8c549d77b.overlaybd.commit"
+          ],
+          "shared_objects": 1,
+          "private_live_objects": 4,
+          "additional_copies": 3
+        }
+      },
+      "final_shared_inventory_objects": 21,
+      "planned_primary_shared_objects": 19,
+      "planned_primary_private_objects": 133,
+      "planned_private_inventory_objects": 135,
+      "deferred_all_layer_private_objects": 144,
+      "original_volume_bytes": 34359738368,
+      "original_volume_used_peak_bytes": 7342039040,
+      "additional_base_copy_bytes": 33395128320,
+      "deferred_additional_generated_copy_bytes": 45649920,
+      "conservative_private_volume_gib": 64,
+      "required_available_gib_exclusive": 90,
+      "memory_objects_kept_separate": [
+        {
+          "category": "snapshot_memory_device",
+          "users": [
+            "early_1",
+            "early_2",
+            "early_3"
+          ],
+          "mapping_length": 4294967296
+        },
+        {
+          "category": "snapshot_memory_device",
+          "users": [
+            "late_1",
+            "late_2",
+            "late_3"
+          ],
+          "mapping_length": 4294967296
+        },
+        {
+          "category": "snapshot_memory_layer",
+          "users": [
+            "early_1",
+            "early_2",
+            "early_3"
+          ],
+          "mapping_length": 577998848
+        },
+        {
+          "category": "snapshot_memory_layer",
+          "users": [
+            "late_1",
+            "late_2",
+            "late_3"
+          ],
+          "mapping_length": 708665344
+        }
+      ]
+    }
+  ],
+  "schedules": {
+    "grpo": {
+      "primary_shared_objects": 19,
+      "primary_private_objects": 133,
+      "shared_final_inventory_objects": 19,
+      "private_final_inventory_objects": 133,
+      "deferred_all_layer_private_objects": 133,
+      "generated_layers": {},
+      "private_volume_gib": 48,
+      "matched_shared_volume_gib": 48,
+      "required_available_gib_exclusive": 74,
+      "current_available_bytes": 66955784192,
+      "current_disk_ready": false,
+      "current_shortfall_bytes": 12501110785,
+      "additional_copy_bytes": 33395128320
+    },
+    "bpo": {
+      "primary_shared_objects": 19,
+      "primary_private_objects": 133,
+      "shared_final_inventory_objects": 21,
+      "private_final_inventory_objects": 135,
+      "deferred_all_layer_private_objects": 144,
+      "generated_layers": {
+        "11": {
+          "users": [
+            "backbone",
+            "early_1",
+            "early_2",
+            "early_3",
+            "late_1",
+            "late_2",
+            "late_3"
+          ],
+          "min_size_bytes": 1175552,
+          "max_size_bytes": 10145792,
+          "distinct_saved_digests": 5
+        },
+        "24": {
+          "users": [
+            "backbone",
+            "late_1",
+            "late_2",
+            "late_3"
+          ],
+          "min_size_bytes": 614400,
+          "max_size_bytes": 9043968,
+          "distinct_saved_digests": 5
+        }
+      },
+      "private_volume_gib": 64,
+      "matched_shared_volume_gib": 64,
+      "required_available_gib_exclusive": 90,
+      "current_available_bytes": 66955784192,
+      "current_disk_ready": false,
+      "current_shortfall_bytes": 29680979969,
+      "additional_copy_bytes": 33395128320
+    }
+  },
+  "planned_actions": {
+    "grpo_one_pair": 378,
+    "bpo_one_pair": 168,
+    "total_first_pairs": 546
+  },
+  "selected_policy": "Copy only the identical initial 19 lower files; keep BPO generated layers shared and report separately",
+  "scope": "Full GRPO vs itself, full BPO vs itself. Same one-service schedule. The fixed initial lower files are the only intervention; BPO generated layers, memory devices, memory layers and tools backing stay outside the copied set. Budget extends prior fixed-volume allowances by logical base-file-copy bytes, not an estimate of physical savings."
 }

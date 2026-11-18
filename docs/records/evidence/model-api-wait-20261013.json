@@ -1,0 +1,157 @@
+{
+  "date": "2026-10-13",
+  "status": "COMPLETE",
+  "model": "zai-org/GLM-5.3-Flash",
+  "base_url": "http://tokenapi.boundlessai.tech/v1/",
+  "requests": [
+    {
+      "number": 1,
+      "name": "short",
+      "source": null,
+      "source_sha256": null,
+      "message_count": 1,
+      "max_tokens": 512,
+      "timeout_seconds": 60.0,
+      "started_unix_ns": 1791863382969507424,
+      "status": "response_received",
+      "elapsed_ns": 12829721457,
+      "response_status": "final_text",
+      "finish_reason": "stop",
+      "usage": {
+        "prompt_tokens": 16,
+        "completion_tokens": 74,
+        "total_tokens": 90,
+        "completion_tokens_details": {
+          "reasoning_tokens": 73
+        },
+        "prompt_tokens_details": {
+          "cached_tokens": 0
+        },
+        "prompt_cache_hit_tokens": 0,
+        "prompt_cache_miss_tokens": 16
+      },
+      "content_chars": 2,
+      "reasoning_chars": 342,
+      "tool_call_count": 0,
+      "diagnostic_number": 1
+    },
+    {
+      "number": 2,
+      "name": "001-request",
+      "source": ".artifacts/storage-isolated-service/20261013T031806Z-1220565/prettier6604/online/001-request.json",
+      "source_sha256": "04657cc97a3d0abc3c0c6cda9bf514775034c77fad63c435050942180de5bd9f",
+      "message_count": 2,
+      "max_tokens": 8192,
+      "timeout_seconds": 60.0,
+      "started_unix_ns": 1791863395800213118,
+      "status": "response_received",
+      "elapsed_ns": 1961113735,
+      "response_status": "valid_tool_call",
+      "finish_reason": "tool_calls",
+      "usage": {
+        "prompt_tokens": 1432,
+        "completion_tokens": 99,
+        "total_tokens": 1531,
+        "completion_tokens_details": {
+          "reasoning_tokens": 23
+        },
+        "prompt_tokens_details": {
+          "cached_tokens": 0
+        },
+        "prompt_cache_hit_tokens": 0,
+        "prompt_cache_miss_tokens": 1432
+      },
+      "content_chars": 0,
+      "reasoning_chars": 138,
+      "tool_call_count": 2,
+      "diagnostic_number": 2,
+      "saved_request_bytes": 4327,
+      "assistant_reasoning_chars_in_request": 0,
+      "tool_feedback_chars_in_request": 0
+    },
+    {
+      "number": 1,
+      "name": "016-request",
+      "source": ".artifacts/storage-isolated-service/20261013T031806Z-1220565/prettier6604/online/016-request.json",
+      "source_sha256": "8002f76f944cb3defc99c4074147c7041c6681447e3626b42aa89e10939bfff9",
+      "message_count": 34,
+      "max_tokens": 8192,
+      "timeout_seconds": 60.0,
+      "started_unix_ns": 1791863452726680633,
+      "status": "response_received",
+      "elapsed_ns": 39531080042,
+      "response_status": "valid_tool_call",
+      "finish_reason": "tool_calls",
+      "usage": {
+        "prompt_tokens": 13738,
+        "completion_tokens": 57,
+        "total_tokens": 13795,
+        "completion_tokens_details": {
+          "reasoning_tokens": 0
+        },
+        "prompt_tokens_details": {
+          "cached_tokens": 0
+        },
+        "prompt_cache_hit_tokens": 0,
+        "prompt_cache_miss_tokens": 13738
+      },
+      "content_chars": 0,
+      "reasoning_chars": 0,
+      "tool_call_count": 1,
+      "diagnostic_number": 3,
+      "saved_request_bytes": 58968,
+      "assistant_reasoning_chars_in_request": 10799,
+      "tool_feedback_chars_in_request": 27482
+    }
+  ],
+  "new_api_requests": 3,
+  "request_wait_total_seconds": 54.321915234,
+  "interpretation": {
+    "current_api": "short final text and saved early/late tool requests returned successfully",
+    "latency_scope": "whole non-streaming HTTP response wait measured with monotonic clock; not separate queue/inference/network times",
+    "causal_comparison": false,
+    "reason": "different prompts, token limits and sequential provider state; three single samples",
+    "repair_or_execution_validation": false,
+    "no_generated_command_executed": true
+  },
+  "implementation": {
+    "function": "scripts/model_tool_agent.py:timed_complete",
+    "per_request_file": "NNN-timing.json",
+    "unit": "ns; timeout_seconds is seconds",
+    "model_calls": "successful parsed responses, unchanged existing meaning",
+    "model_requests": "all attempted HTTP requests, including failures",
+    "model_wait_sum_ns": "successful parsed response waits only",
+    "model_wait_total_ns": "all attempted HTTP request waits, including failures",
+    "old_timeout_52_61_seconds": "mtime estimate preserved, not rewritten as exact duration",
+    "failure_timing_verification": "injected TimeoutError tests; no new live API failure in these three requests"
+  },
+  "diagnostic_script_failure": {
+    "kind": "FileExistsError while writing summary after second successful response",
+    "preserved_directory": ".artifacts/model-api-diagnostic-20261013",
+    "recovery": "recovered-result.json rebuilt offline; first two HTTP requests not repeated; only untested late request sent",
+    "fix": "one result per request and one final summary; multiple-request regression passed"
+  },
+  "verification": {
+    "model_tests": 14,
+    "trajectory_tests": 9,
+    "old_input_json_files_unchanged": 35,
+    "secret_not_present_in_diagnostic_json_and_logs": true
+  },
+  "resources": {
+    "new_vm": false,
+    "new_service": false,
+    "cache_clear": false,
+    "archive_deleted": false,
+    "host_free_gib": 50.26457977294922
+  },
+  "raw_directories": [
+    ".artifacts/model-api-diagnostic-20261013",
+    ".artifacts/model-api-diagnostic-late-20261013",
+    ".artifacts/model-api-diagnostic-20261013-preparation"
+  ],
+  "code_sha256": {
+    "scripts/model_tool_agent.py": "de65a6185880df798d7c82be411e45a92322d017fb7f7e9b071907834047891a",
+    "scripts/diagnose_model_api.py": "00c8311c3b5a95cb4ddfd2b823f1781d0ab38e62972b79b36fef8688855ee404",
+    "tests/test_model_tool_agent.py": "3ca33e337248674618d13f9a0a512b1a50e0f11d528a62c8325acceed35ea1ad"
+  }
+}

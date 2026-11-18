@@ -1,0 +1,103 @@
+{
+  "status": "PASS_OFFLINE_SAVED_RECORD_ANALYSIS",
+  "workflow": ".artifacts/host-file-independent-pair/20261021T110642Z-31195",
+  "groups": [
+    {
+      "sandboxes": 1,
+      "storage": ".artifacts/storage-isolated-service/20261021T110800Z-31817",
+      "observations": [
+        {
+          "phase": "before_restore",
+          "file_count": 192,
+          "listed_global_resident_bytes": 41920565248,
+          "cgroup_file_before_bytes": 40089370624,
+          "cgroup_file_after_bytes": 40089370624,
+          "comparison_cgroup_file_bytes": 40089370624,
+          "signed_gap_bytes": 1831194624,
+          "archive_resident_bytes": 1830928384,
+          "signed_gap_minus_archive_bytes": 266240,
+          "query_window_ns": 1972246948
+        },
+        {
+          "phase": "after_suffix",
+          "file_count": 205,
+          "listed_global_resident_bytes": 41921941504,
+          "cgroup_file_before_bytes": 40524607488,
+          "cgroup_file_after_bytes": 40527081472,
+          "comparison_cgroup_file_bytes": 40527081472,
+          "signed_gap_bytes": 1394860032,
+          "archive_resident_bytes": 1830928384,
+          "signed_gap_minus_archive_bytes": -436068352,
+          "query_window_ns": 1969066913
+        },
+        {
+          "phase": "final_after_guest_release",
+          "file_count": 201,
+          "listed_global_resident_bytes": 41928933376,
+          "cgroup_file_before_bytes": 40096055296,
+          "cgroup_file_after_bytes": 40096055296,
+          "comparison_cgroup_file_bytes": 40096055296,
+          "signed_gap_bytes": 1832878080,
+          "archive_resident_bytes": 1830928384,
+          "signed_gap_minus_archive_bytes": 1949696,
+          "query_window_ns": 2044372354
+        }
+      ],
+      "target_device_resident_bytes": 430403584,
+      "listed_resident_endpoint_change_bytes": 1376256,
+      "archive_resident_endpoint_change_bytes": 0,
+      "target_in_ordinary_inventory": false
+    },
+    {
+      "sandboxes": 2,
+      "storage": ".artifacts/storage-isolated-service/20261021T110935Z-34418",
+      "observations": [
+        {
+          "phase": "before_restore",
+          "file_count": 192,
+          "listed_global_resident_bytes": 41920561152,
+          "cgroup_file_before_bytes": 40094527488,
+          "cgroup_file_after_bytes": 40094527488,
+          "comparison_cgroup_file_bytes": 40094527488,
+          "signed_gap_bytes": 1826033664,
+          "archive_resident_bytes": 1830928384,
+          "signed_gap_minus_archive_bytes": -4894720,
+          "query_window_ns": 1995715320
+        },
+        {
+          "phase": "after_suffix",
+          "file_count": 208,
+          "listed_global_resident_bytes": 41922732032,
+          "cgroup_file_before_bytes": 40548745216,
+          "cgroup_file_after_bytes": 40550862848,
+          "comparison_cgroup_file_bytes": 40550862848,
+          "signed_gap_bytes": 1371869184,
+          "archive_resident_bytes": 1830928384,
+          "signed_gap_minus_archive_bytes": -459059200,
+          "query_window_ns": 1956695202
+        },
+        {
+          "phase": "final_after_guest_release",
+          "file_count": 204,
+          "listed_global_resident_bytes": 41929367552,
+          "cgroup_file_before_bytes": 40101445632,
+          "cgroup_file_after_bytes": 40104464384,
+          "comparison_cgroup_file_bytes": 40104464384,
+          "signed_gap_bytes": 1824903168,
+          "archive_resident_bytes": 1830928384,
+          "signed_gap_minus_archive_bytes": -6025216,
+          "query_window_ns": 1956358502
+        }
+      ],
+      "target_device_resident_bytes": 444063744,
+      "listed_resident_endpoint_change_bytes": 2170880,
+      "archive_resident_endpoint_change_bytes": 0,
+      "target_in_ordinary_inventory": false
+    }
+  ],
+  "archive_identity_consistent_in_six_queries": true,
+  "archive_allocation_group": "NOT_MEASURED",
+  "interpretation": "Old shared archive versus new cgroup scope is the leading explanation; capacity subtraction is diagnostic, not ownership proof or a corrected physical total.",
+  "new_sandbox_actions": 0,
+  "live_cache_queries": 0
+}

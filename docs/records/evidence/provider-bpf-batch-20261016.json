@@ -1,0 +1,153 @@
+{
+  "status": "PASS",
+  "scope": "Offline source and saved-data assessment only",
+  "kernel_release": "6.19.9+",
+  "kernel_source_commit": "7e4e3f1145e0c02604b9afb140594764057e2f56",
+  "libbpf_package": "1:1.3.0-2build2",
+  "bpftrace_package": "0.20.2-1ubuntu4.3",
+  "inferred_map_schema": {
+    "type": "HASH",
+    "key_bytes": 8,
+    "value_bytes": 16,
+    "max_entries": 131072
+  },
+  "schema_status": "SOURCE_INFERENCE; ACTUAL_MAP_INFO_NOT_SAVED",
+  "installed_batch_symbol": true,
+  "installed_binary_abi_matches_upstream": true,
+  "source_counts": {
+    "status": "PASS",
+    "points": [
+      {
+        "point": 0,
+        "old_lookup_calls": 103630,
+        "mincore_calls": 7114,
+        "requested_unique": {
+          "backend": 25935,
+          "lower": 25880
+        }
+      },
+      {
+        "point": 1,
+        "old_lookup_calls": 105770,
+        "mincore_calls": 6948,
+        "requested_unique": {
+          "backend": 26470,
+          "lower": 26415
+        }
+      },
+      {
+        "point": 2,
+        "old_lookup_calls": 105770,
+        "mincore_calls": 6948,
+        "requested_unique": {
+          "backend": 26470,
+          "lower": 26415
+        }
+      },
+      {
+        "point": 3,
+        "old_lookup_calls": 104406,
+        "mincore_calls": 6966,
+        "requested_unique": {
+          "backend": 26129,
+          "lower": 26074
+        }
+      },
+      {
+        "point": 4,
+        "old_lookup_calls": 105386,
+        "mincore_calls": 7094,
+        "requested_unique": {
+          "backend": 26374,
+          "lower": 26319
+        }
+      },
+      {
+        "point": 5,
+        "old_lookup_calls": 48718,
+        "mincore_calls": 6826,
+        "requested_unique": {
+          "backend": 12181,
+          "lower": 12178
+        }
+      },
+      {
+        "point": 6,
+        "old_lookup_calls": 60302,
+        "mincore_calls": 8282,
+        "requested_unique": {
+          "backend": 15078,
+          "lower": 15073
+        }
+      },
+      {
+        "point": 7,
+        "old_lookup_calls": 65270,
+        "mincore_calls": 8700,
+        "requested_unique": {
+          "backend": 16320,
+          "lower": 16315
+        }
+      },
+      {
+        "point": 8,
+        "old_lookup_calls": 65076,
+        "mincore_calls": 8710,
+        "requested_unique": {
+          "backend": 16271,
+          "lower": 16267
+        }
+      },
+      {
+        "point": 9,
+        "old_lookup_calls": 65256,
+        "mincore_calls": 8702,
+        "requested_unique": {
+          "backend": 16316,
+          "lower": 16312
+        }
+      }
+    ],
+    "queries": 40,
+    "old_lookup_calls": 829584,
+    "old_lookup_calls_mean": 82958.4,
+    "mincore_calls": 76290,
+    "requested_offset_union": 54308,
+    "requested_offset_union_is_not_measured_map_occupancy": true,
+    "expected_schema": {
+      "type": "HASH",
+      "key_bytes": 8,
+      "value_bytes": 16,
+      "max_entries": 131072
+    },
+    "batch_buffer_bytes_per_map": 3145728,
+    "batch_buffers_two_maps_bytes": 6291456,
+    "proposed_batch_lookup_calls_if_complete_one_call_each": 40,
+    "actual_batch_calls": "NOT_RUN",
+    "actual_map_info": "NOT_CAPTURED",
+    "input_files_unchanged": 20
+  },
+  "runtime_code_changed": false,
+  "live_map_access": false,
+  "batch_syscalls_executed": 0,
+  "measured_performance_gain": null,
+  "decision": "Proceed to explicit private validation; full-capacity read-only batch is the preferred minimum.",
+  "validation_gaps": [
+    "Check type/key/value/max_entries on a newly owned map before enabling the new path.",
+    "Exercise actual empty/final-nonempty batch return and token filtering in a small owned HASH map.",
+    "Measure complete query CPU and output equality only after implementation."
+  ],
+  "kernel_build_id": "c49aee38e502b6a335b1bf2a764829a1b9ea2b5f",
+  "upstream_sources": {
+    "libbpf/bpf.h": "https://raw.githubusercontent.com/libbpf/libbpf/v1.3.0/src/bpf.h",
+    "libbpf/bpf.c": "https://raw.githubusercontent.com/libbpf/libbpf/v1.3.0/src/bpf.c",
+    "libbpf/libbpf_internal.h": "https://raw.githubusercontent.com/libbpf/libbpf/v1.3.0/src/libbpf_internal.h",
+    "bpftrace/codegen_llvm.cpp": "https://raw.githubusercontent.com/bpftrace/bpftrace/v0.20.2/src/ast/passes/codegen_llvm.cpp",
+    "bpftrace/bpftrace.cpp": "https://raw.githubusercontent.com/bpftrace/bpftrace/v0.20.2/src/bpftrace.cpp",
+    "bpftrace/irbuilderbpf.cpp": "https://raw.githubusercontent.com/bpftrace/bpftrace/v0.20.2/src/ast/irbuilderbpf.cpp",
+    "bpftrace/required_resources.cpp": "https://raw.githubusercontent.com/bpftrace/bpftrace/v0.20.2/src/required_resources.cpp",
+    "bpftrace/map.cpp": "https://raw.githubusercontent.com/bpftrace/bpftrace/v0.20.2/src/map.cpp",
+    "bpftrace/mapkey.cpp": "https://raw.githubusercontent.com/bpftrace/bpftrace/v0.20.2/src/mapkey.cpp",
+    "bpftrace/imap.cpp": "https://raw.githubusercontent.com/bpftrace/bpftrace/v0.20.2/src/imap.cpp"
+  }
+}

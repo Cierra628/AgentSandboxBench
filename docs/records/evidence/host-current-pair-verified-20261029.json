@@ -1,0 +1,173 @@
+{
+  "status": "PASS",
+  "live_workflow_status": "PASS",
+  "task_actions": 22,
+  "guests": 2,
+  "same_group_and_service": true,
+  "old_guest_identity_continuous": true,
+  "official_evaluation": "NOT_RUN_PREFIX_ONLY",
+  "baseline_counters_mib": {
+    "current": 14804.51171875,
+    "file": 14580.95703125,
+    "anon": 121.32421875,
+    "shmem": 7252.0,
+    "kernel": 78.46875,
+    "file_mapped": 0.32421875,
+    "file_dirty": 0.87109375,
+    "file_writeback": 0.0
+  },
+  "phases": [
+    {
+      "sandboxes": 1,
+      "samples": 50,
+      "window_seconds": 5.005965803,
+      "sample_mean_mib": 15378.526171875,
+      "sample_peak_mib": 15391.4453125,
+      "endpoint_counters_mib": {
+        "current": 15379.015625,
+        "file": 14598.54296875,
+        "anon": 668.390625,
+        "shmem": 7252.0078125,
+        "kernel": 85.19140625,
+        "file_mapped": 3.125,
+        "file_dirty": 6.125,
+        "file_writeback": 0.0
+      },
+      "baseline_delta_mib": {
+        "current": 574.50390625,
+        "file": 17.5859375,
+        "anon": 547.06640625,
+        "shmem": 0.0078125,
+        "kernel": 6.72265625,
+        "file_mapped": 2.80078125,
+        "file_dirty": 5.25390625,
+        "file_writeback": 0.0
+      },
+      "previous_endpoint_delta_mib": {
+        "current": 574.50390625,
+        "file": 17.5859375,
+        "anon": 547.06640625,
+        "shmem": 0.0078125,
+        "kernel": 6.72265625,
+        "file_mapped": 2.80078125,
+        "file_dirty": 5.25390625,
+        "file_writeback": 0.0
+      },
+      "guest_cached_mib": {
+        "backbone": 55.28125
+      },
+      "guest_cached_at_observation_start_mib": {
+        "backbone": 186.390625
+      },
+      "old_guest_cached_change_mib": {}
+    },
+    {
+      "sandboxes": 2,
+      "samples": 50,
+      "window_seconds": 5.006440281,
+      "sample_mean_mib": 15923.783125,
+      "sample_peak_mib": 15926.31640625,
+      "endpoint_counters_mib": {
+        "current": 15924.671875,
+        "file": 14612.3359375,
+        "anon": 1196.3046875,
+        "shmem": 7252.015625,
+        "kernel": 92.37890625,
+        "file_mapped": 3.234375,
+        "file_dirty": 19.65234375,
+        "file_writeback": 0.0
+      },
+      "baseline_delta_mib": {
+        "current": 1120.16015625,
+        "file": 31.37890625,
+        "anon": 1074.98046875,
+        "shmem": 0.015625,
+        "kernel": 13.91015625,
+        "file_mapped": 2.91015625,
+        "file_dirty": 18.78125,
+        "file_writeback": 0.0
+      },
+      "previous_endpoint_delta_mib": {
+        "current": 545.65625,
+        "file": 13.79296875,
+        "anon": 527.9140625,
+        "shmem": 0.0078125,
+        "kernel": 7.1875,
+        "file_mapped": 0.109375,
+        "file_dirty": 13.52734375,
+        "file_writeback": 0.0
+      },
+      "guest_cached_mib": {
+        "backbone": 14.39453125,
+        "early_1": 186.203125
+      },
+      "guest_cached_at_observation_start_mib": {
+        "backbone": 14.2734375,
+        "early_1": 186.08984375
+      },
+      "old_guest_cached_change_mib": {
+        "backbone": -40.9765625
+      }
+    }
+  ],
+  "second_phase_mean_increase_mib": 545.2569531249992,
+  "costs": {
+    "host": {
+      "status": "PASS",
+      "error": null,
+      "samples": 1101,
+      "interval_seconds": 0.1,
+      "pss_interval_seconds": null,
+      "thread_cpu_ns": 348784299,
+      "counter_read_total_ns": 278502288,
+      "scope": "Fresh rollout slice: input preparation, controller, private service and all its descendants; host file includes shmem, not guest Cached."
+    },
+    "host_elapsed_seconds": 110.00014488,
+    "guest": [
+      {
+        "role": "backbone",
+        "samples": 210,
+        "elapsed_ns": 20967859404,
+        "cpu_seconds": 0.158296,
+        "median_gap_seconds": 0.100372742,
+        "max_gap_seconds": 0.104008812
+      },
+      {
+        "role": "early_1",
+        "samples": 91,
+        "elapsed_ns": 8977119159,
+        "cpu_seconds": 0.11385699999999999,
+        "median_gap_seconds": 0.100470241,
+        "max_gap_seconds": 0.10239546
+      }
+    ],
+    "guest_cpu_sum_seconds": 0.272153,
+    "checkpoint_total_seconds": 0.284609946,
+    "checkpoint_cli_sum_seconds": 0.307517908,
+    "sampler_management_calls": 8,
+    "sampler_management_sum_seconds": 0.822952103
+  },
+  "timing": {
+    "tool_seconds": 1.484759882,
+    "controller_seconds": 24.544064025,
+    "sequence_seconds": 24.02033518,
+    "workflow_seconds": 111.291010215
+  },
+  "final_checks": {
+    "actual_writable_files_inside_volume": "PASS",
+    "readonly_root_rejects_write": "PASS",
+    "fixed_backing_allocation": "PASS"
+  },
+  "cleanup": {
+    "guests_and_owned_service_removed": true,
+    "mount_and_loop_removed": true,
+    "preparation_cache_released": true,
+    "source_stopped": true,
+    "successful_volume_removed": true
+  },
+  "disk_available_after_gib": 38.497554779052734,
+  "deleted_previous_failed_volume": "/home/yyxie/agentenv_experiment/.artifacts/storage-isolated-service/20261029T031020Z-2332646/volume.ext4",
+  "scope": "同组准备及服务基线下的host内存记账；新增量包含已有guest回收和服务变化，不是第二个guest独占物理量或共享节省率。",
+  "raw_workflow": ".artifacts/host-scaling/20261029T032742Z-2339983",
+  "raw_storage": ".artifacts/storage-isolated-service/20261029T032859Z-2340697"
+}

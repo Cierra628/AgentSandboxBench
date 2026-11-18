@@ -1,0 +1,148 @@
+{
+  "status": "PASS",
+  "source": ".artifacts/storage-isolated-service/20261015T071537Z-1897070/prettier6604",
+  "task_id": "prettier__prettier-6604",
+  "action_count": 29,
+  "task_checks": {
+    "smoke_and_unfixed_oracle": "PASS",
+    "checkpoint_interface": "PASS",
+    "restored_progress_and_files": "PASS",
+    "process_continuity": "PASS",
+    "frozen_order_hashes_exit_codes_patch_and_key_outputs": "PASS",
+    "independent_properties": "PASS",
+    "official_task_tests": "FAIL",
+    "official_outcome_matches_full_replay": "PASS"
+  },
+  "strict_replay_status": "PASS",
+  "official_task_status": "FAIL",
+  "final_patch_sha256": "73eb5f9d0c5582c5b1be464aa6915cfba621a27b80d953b69db74c6d1fa3da5a",
+  "timing": {
+    "guest_action_sum_ns": 14280983226,
+    "frozen_replay_elapsed_ns": 22884236152,
+    "controller_elapsed_ns": 34881638643,
+    "stages_ns": {
+      "cold-start": 3428142962,
+      "live-cache-upload": 44948936,
+      "live-cache-start": 48183709,
+      "live-cache-ready": 236891652,
+      "live-cache-bootstrap": 31803762,
+      "segment-read_repo": 1108202093,
+      "segment-read_typescript": 700832841,
+      "segment-core_patch": 1756825329,
+      "segment-core_verify": 4401307028,
+      "live-cache-done": 44342833,
+      "live-cache-result": 32330463,
+      "checkpoint": 3126485254,
+      "delete-original": 165801103,
+      "restore": 172202366,
+      "restore-ready": 61142647,
+      "segment-backbone_finish": 8690131175,
+      "official-task-tests": 3151150451
+    }
+  },
+  "sample_count": 25,
+  "observation_seconds": 28.570158822,
+  "observed_guest_cached_peak_bytes": 206618624,
+  "observed_host_confirmed_peak_bytes": 206618624,
+  "unconfirmed_capacity_max_bytes": 126566400,
+  "changed_or_new_capacity_max_bytes": 6000640,
+  "mapping_absent_capacity_max_bytes": 126476288,
+  "host_residency_scope": "Confirmed resident PFNs in VMM RAM mappings only; absent host PTEs do not establish zero backing-file cache.",
+  "session_metrics": {
+    "parent": {
+      "samples": 11,
+      "guest_cached_range_bytes": [
+        99901440,
+        206618624
+      ],
+      "host_confirmed_range_bytes": [
+        93802496,
+        206618624
+      ],
+      "unconfirmed_guest_capacity_max_bytes": 6000640,
+      "mapping_absent_capacity_max_bytes": 0
+    },
+    "restored": {
+      "samples": 14,
+      "guest_cached_range_bytes": [
+        35360768,
+        161112064
+      ],
+      "host_confirmed_range_bytes": [
+        29925376,
+        150949888
+      ],
+      "unconfirmed_guest_capacity_max_bytes": 126566400,
+      "mapping_absent_capacity_max_bytes": 126476288
+    }
+  },
+  "metadata_counters": {
+    "duplicate_adds": 0,
+    "missing_removes": 0,
+    "out_of_range": 0,
+    "moved_pages": 0,
+    "stale_records": 0,
+    "bitmap_lock_ns": 43850
+  },
+  "limitations": [
+    "Diagnostic guest kernel/config differs from the original baseline.",
+    "Confirmed residency is sampled over an interval, not an atomic instantaneous total.",
+    "Unconfirmed guest-page capacity includes changing, absent and swapped host mappings; it is not measured host RAM.",
+    "After file-backed restore, absent VMM PTEs may have resident backing-cache pages; that residency is not measured here.",
+    "Collector anonymous memory is locked; task file pages are not locked or prefetched.",
+    "No monitoring-off comparison in this run; local collector costs are not task slowdown."
+  ],
+  "version": 1,
+  "unit": "bytes unless timing ns or explicitly noted",
+  "run": ".artifacts/platform-tasks/20261015T071419Z-1896169",
+  "corrected_report": ".artifacts/cache-restore-20261015/report-a",
+  "sampling_pause": false,
+  "normal_checkpoint_pause": true,
+  "checkpoint_after_step": 24,
+  "gap": {
+    "start_ns": 1792048570607500879,
+    "reason": "checkpoint, parent removal, restore and sampler setup",
+    "end_ns": 1792048575365146969
+  },
+  "sample_to_sample_gap_ns": 5567683245,
+  "diagnostic_guest_kernel": {
+    "source": "/home/yyxie/agentenv_experiment/.artifacts/agentenv-cache-kernel-20261015-v3/vmlinux.bin",
+    "sha256": "5bbe0a10aa13f41694cec1ca3b38b2f926108132219bd42990888836af34881d",
+    "scope": "new private service only; original kernel and host kernel unchanged"
+  },
+  "process_continuity": {
+    "pid_preserved": true,
+    "start_ticks_preserved": true,
+    "boot_id_preserved": true,
+    "before_count": 82,
+    "after_count": 104
+  },
+  "host_thread_total_cpu_ns": 1887032068,
+  "guest_publication_cpu_ns": 95216413,
+  "host_pair_elapsed_mean_ns": 104160717.84,
+  "host_pair_elapsed_max_ns": 129891110,
+  "report_files_identical": 13,
+  "raw_files_unchanged": 408,
+  "verification_path": ".artifacts/cache-restore-20261015/verification.json",
+  "offline_tests": 52,
+  "cleanup": {
+    "owned_container_removed": true,
+    "mount_and_loop_removed": true,
+    "successful_fixture_removed": true,
+    "original_firecracker_identities_unchanged": true,
+    "original_service_unchanged": true
+  },
+  "fixed_volume_bytes": 25769803776,
+  "observed_volume_peak_bytes": 6861713408,
+  "minimum_host_available_during_volume_bytes": 30822748160,
+  "cleanup_receipt": ".artifacts/cache-restore-20261015/cleanup.json",
+  "interpretation": "Restored file-backed RAM can have absent host PTEs. The confirmed PFN sum is a lower bound, not the complete backing-cache residency. No absent page is reported as zero host physical memory.",
+  "backend_evidence": {
+    "log": ".artifacts/storage-isolated-service/20261015T071537Z-1897070/service-logs/serial",
+    "code": "AgentENV/src/sandbox/firecracker/instance.rs:load_snapshot_file; sandbox.rs:start_resume",
+    "observed_backend": "File via /dev/ublkb105; exact snapshot/load request preserved in private Firecracker log"
+  },
+  "report_correction": "Original report excluded absent host PTEs from the unconfirmed capacity curve. Raw samples unchanged; corrected report includes them. No sandbox rerun.",
+  "next_step": "Measure resident cache of the snapshot-memory backing device for absent VMM PTEs without touching task data or pausing; deduplicate against mapped PFNs. Reuse this run for interpretation, not another full task run.",
+  "monitoring_impact": "Not controlled in this restored run; previous single Prettier pair is a separate implementation-specific observation"
+}

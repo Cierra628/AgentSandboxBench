@@ -1,0 +1,448 @@
+{
+  "status": "PARTIAL_EVENT_COVERAGE_GAP",
+  "workflow": ".artifacts/host-file-traced-dual-task/20261020T123958Z-3732753",
+  "storage": ".artifacts/storage-isolated-service/20261020T124115Z-3733562",
+  "actual_actions": 31,
+  "logical_actions": 42,
+  "suffix_actions": 20,
+  "task_status": "PASS",
+  "original_official_result": {
+    "passed": 0,
+    "failed": 2,
+    "per_instance": true
+  },
+  "trace": {
+    "status": "PASS",
+    "event_counts": {
+      "1": 226452,
+      "2": 96209,
+      "3": 318,
+      "4": 172
+    },
+    "aggregate_bins": 1166,
+    "folio_events": 322661,
+    "detected_lost_events": 0,
+    "scope": "Actual measurement owners, private-volume files, explicit loop backing. Initial pages before READY unknown; not a whole-host census."
+  },
+  "task_duration_ns": 3155815708,
+  "task_host_samples": 31,
+  "task_counter_delta_ranges_bytes": {
+    "file": [
+      497811456,
+      688676864
+    ],
+    "anon": [
+      194744320,
+      415649792
+    ],
+    "current": [
+      709873664,
+      1128439808
+    ],
+    "shmem": [
+      8192,
+      8192
+    ]
+  },
+  "full_trace": [
+    {
+      "source": "files-inside-private-volume",
+      "owner": "measurement-controller",
+      "inside_measurement": true,
+      "net_bytes": 1630208,
+      "add_bytes": 3026944,
+      "del_bytes": 1396736,
+      "events": 713
+    },
+    {
+      "source": "files-inside-private-volume",
+      "owner": "private-service",
+      "inside_measurement": true,
+      "net_bytes": 581758976,
+      "add_bytes": 609398784,
+      "del_bytes": 27639808,
+      "events": 75302
+    },
+    {
+      "source": "loop-backing",
+      "owner": "measurement-controller",
+      "inside_measurement": true,
+      "net_bytes": 5435289600,
+      "add_bytes": 5435289600,
+      "del_bytes": 0,
+      "events": 52502
+    },
+    {
+      "source": "loop-backing",
+      "owner": "measurement-parent",
+      "inside_measurement": false,
+      "net_bytes": 1101824,
+      "add_bytes": 1101824,
+      "del_bytes": 0,
+      "events": 72
+    },
+    {
+      "source": "loop-backing",
+      "owner": "private-service",
+      "inside_measurement": true,
+      "net_bytes": 581750784,
+      "add_bytes": 581750784,
+      "del_bytes": 0,
+      "events": 3270
+    },
+    {
+      "source": "loop-backing",
+      "owner": "root-group",
+      "inside_measurement": false,
+      "net_bytes": 3678208,
+      "add_bytes": 3678208,
+      "del_bytes": 0,
+      "events": 273
+    },
+    {
+      "source": "other-block-device",
+      "owner": "measurement-controller",
+      "inside_measurement": true,
+      "net_bytes": 327680,
+      "add_bytes": 327680,
+      "del_bytes": 0,
+      "events": 80
+    },
+    {
+      "source": "other-block-device",
+      "owner": "private-service",
+      "inside_measurement": true,
+      "net_bytes": 13275136,
+      "add_bytes": 13275136,
+      "del_bytes": 0,
+      "events": 2733
+    },
+    {
+      "source": "other-group-files",
+      "owner": "measurement-controller",
+      "inside_measurement": true,
+      "net_bytes": 98304,
+      "add_bytes": 110592,
+      "del_bytes": 12288,
+      "events": 30
+    },
+    {
+      "source": "other-group-files",
+      "owner": "private-service",
+      "inside_measurement": true,
+      "net_bytes": -16384,
+      "add_bytes": 0,
+      "del_bytes": 16384,
+      "events": 4
+    },
+    {
+      "source": "shared-memory-device",
+      "owner": "private-service",
+      "inside_measurement": true,
+      "net_bytes": 0,
+      "add_bytes": 533344256,
+      "del_bytes": 533344256,
+      "events": 187682
+    }
+  ],
+  "task_whole_bins": [
+    {
+      "source": "files-inside-private-volume",
+      "owner": "measurement-controller",
+      "inside_measurement": true,
+      "net_bytes": 151552,
+      "add_bytes": 245760,
+      "del_bytes": 94208,
+      "events": 69
+    },
+    {
+      "source": "files-inside-private-volume",
+      "owner": "private-service",
+      "inside_measurement": true,
+      "net_bytes": 577536,
+      "add_bytes": 577536,
+      "del_bytes": 0,
+      "events": 133
+    },
+    {
+      "source": "loop-backing",
+      "owner": "measurement-controller",
+      "inside_measurement": true,
+      "net_bytes": 140853248,
+      "add_bytes": 140853248,
+      "del_bytes": 0,
+      "events": 3627
+    },
+    {
+      "source": "loop-backing",
+      "owner": "measurement-parent",
+      "inside_measurement": false,
+      "net_bytes": 1101824,
+      "add_bytes": 1101824,
+      "del_bytes": 0,
+      "events": 72
+    },
+    {
+      "source": "other-block-device",
+      "owner": "measurement-controller",
+      "inside_measurement": true,
+      "net_bytes": 69632,
+      "add_bytes": 69632,
+      "del_bytes": 0,
+      "events": 17
+    },
+    {
+      "source": "other-group-files",
+      "owner": "measurement-controller",
+      "inside_measurement": true,
+      "net_bytes": 12288,
+      "add_bytes": 12288,
+      "del_bytes": 0,
+      "events": 3
+    },
+    {
+      "source": "shared-memory-device",
+      "owner": "private-service",
+      "inside_measurement": true,
+      "net_bytes": 49852416,
+      "add_bytes": 49852416,
+      "del_bytes": 0,
+      "events": 6317
+    }
+  ],
+  "task_boundary_bins": [
+    {
+      "source": "files-inside-private-volume",
+      "owner": "measurement-controller",
+      "inside_measurement": true,
+      "net_bytes": 53248,
+      "add_bytes": 200704,
+      "del_bytes": 147456,
+      "events": 47
+    },
+    {
+      "source": "files-inside-private-volume",
+      "owner": "private-service",
+      "inside_measurement": true,
+      "net_bytes": 32768,
+      "add_bytes": 32768,
+      "del_bytes": 0,
+      "events": 8
+    },
+    {
+      "source": "loop-backing",
+      "owner": "measurement-controller",
+      "inside_measurement": true,
+      "net_bytes": 147456,
+      "add_bytes": 147456,
+      "del_bytes": 0,
+      "events": 14
+    },
+    {
+      "source": "other-block-device",
+      "owner": "measurement-controller",
+      "inside_measurement": true,
+      "net_bytes": 12288,
+      "add_bytes": 12288,
+      "del_bytes": 0,
+      "events": 3
+    },
+    {
+      "source": "shared-memory-device",
+      "owner": "private-service",
+      "inside_measurement": true,
+      "net_bytes": 368640,
+      "add_bytes": 368640,
+      "del_bytes": 0,
+      "events": 59
+    }
+  ],
+  "after_task_whole_bins": [
+    {
+      "source": "files-inside-private-volume",
+      "owner": "measurement-controller",
+      "inside_measurement": true,
+      "net_bytes": 339968,
+      "add_bytes": 1007616,
+      "del_bytes": 667648,
+      "events": 232
+    },
+    {
+      "source": "files-inside-private-volume",
+      "owner": "private-service",
+      "inside_measurement": true,
+      "net_bytes": -17928192,
+      "add_bytes": 921600,
+      "del_bytes": 18849792,
+      "events": 1754
+    },
+    {
+      "source": "loop-backing",
+      "owner": "measurement-controller",
+      "inside_measurement": true,
+      "net_bytes": 755900416,
+      "add_bytes": 755900416,
+      "del_bytes": 0,
+      "events": 11888
+    },
+    {
+      "source": "loop-backing",
+      "owner": "private-service",
+      "inside_measurement": true,
+      "net_bytes": 106496,
+      "add_bytes": 106496,
+      "del_bytes": 0,
+      "events": 3
+    },
+    {
+      "source": "loop-backing",
+      "owner": "root-group",
+      "inside_measurement": false,
+      "net_bytes": 765952,
+      "add_bytes": 765952,
+      "del_bytes": 0,
+      "events": 37
+    },
+    {
+      "source": "other-block-device",
+      "owner": "measurement-controller",
+      "inside_measurement": true,
+      "net_bytes": 32768,
+      "add_bytes": 32768,
+      "del_bytes": 0,
+      "events": 8
+    },
+    {
+      "source": "other-group-files",
+      "owner": "measurement-controller",
+      "inside_measurement": true,
+      "net_bytes": 49152,
+      "add_bytes": 61440,
+      "del_bytes": 12288,
+      "events": 18
+    },
+    {
+      "source": "other-group-files",
+      "owner": "private-service",
+      "inside_measurement": true,
+      "net_bytes": -8192,
+      "add_bytes": 0,
+      "del_bytes": 8192,
+      "events": 2
+    },
+    {
+      "source": "shared-memory-device",
+      "owner": "private-service",
+      "inside_measurement": true,
+      "net_bytes": -409931776,
+      "add_bytes": 123412480,
+      "del_bytes": 533344256,
+      "events": 100515
+    }
+  ],
+  "burst": {
+    "start_seconds": 2.500249845,
+    "end_seconds": 2.800489215,
+    "file_increase_bytes": 141049856,
+    "whole_bins": [
+      {
+        "source": "files-inside-private-volume",
+        "owner": "private-service",
+        "inside_measurement": true,
+        "net_bytes": 20480,
+        "add_bytes": 20480,
+        "del_bytes": 0,
+        "events": 5
+      },
+      {
+        "source": "loop-backing",
+        "owner": "measurement-controller",
+        "inside_measurement": true,
+        "net_bytes": 140754944,
+        "add_bytes": 140754944,
+        "del_bytes": 0,
+        "events": 3612
+      },
+      {
+        "source": "loop-backing",
+        "owner": "measurement-parent",
+        "inside_measurement": false,
+        "net_bytes": 1101824,
+        "add_bytes": 1101824,
+        "del_bytes": 0,
+        "events": 72
+      },
+      {
+        "source": "shared-memory-device",
+        "owner": "private-service",
+        "inside_measurement": true,
+        "net_bytes": 45056,
+        "add_bytes": 45056,
+        "del_bytes": 0,
+        "events": 10
+      }
+    ],
+    "boundary_bins": [
+      {
+        "source": "files-inside-private-volume",
+        "owner": "private-service",
+        "inside_measurement": true,
+        "net_bytes": 53248,
+        "add_bytes": 53248,
+        "del_bytes": 0,
+        "events": 9
+      },
+      {
+        "source": "shared-memory-device",
+        "owner": "private-service",
+        "inside_measurement": true,
+        "net_bytes": 61440,
+        "add_bytes": 61440,
+        "del_bytes": 0,
+        "events": 15
+      }
+    ]
+  },
+  "memory_device": {
+    "resident_bytes": 411254784,
+    "capacity_bytes": 4294967296,
+    "trace_whole_lifetime_net_bytes": 0,
+    "query_event_lower_bytes": 410185728,
+    "query_event_upper_bytes": 410185728,
+    "mincore_in_event_bounds": false,
+    "actual_shared_vmm_count": 2,
+    "unaccounted_by_filtered_events_bytes": 1069056,
+    "interpretation": "New restore-device identity first observed after READY. Whole-lifetime filtered ADD/DEL counts balance, but endpoint mincore must be checked independently. The filter admits block-device cache only for measurement owners; outside owners for this device are excluded. Does not identify guest page types."
+  },
+  "raw_memory_layers": [
+    {
+      "resident_bytes": 580329472
+    }
+  ],
+  "endpoint_vmm_pss_bytes": {
+    "pss": 565452800,
+    "pss_anon": 407613440,
+    "pss_file": 157831168
+  },
+  "final_inventory": {
+    "files": 187,
+    "roots": 11,
+    "resident_bytes": 28949798912,
+    "cgroup_file_before_bytes": 28948570112,
+    "cgroup_file_after_bytes": 28948574208,
+    "net_shortfall_bytes": 1224704,
+    "accounting": "SHORTFALL_REQUIRES_RESOLUTION"
+  },
+  "cleanup": {
+    "host_file_residency_captured": true,
+    "owned_container_removed": true,
+    "mount_and_loop_removed": true,
+    "successful_fixture_removed": true,
+    "original_firecracker_identities_unchanged": true,
+    "original_service_unchanged": true
+  },
+  "whole_host_physical_savings": "NOT_MEASURED",
+  "guest_cache_physical_attribution": "NOT_MEASURED",
+  "monitoring_slowdown": "NOT_MEASURED",
+  "bin_interpretation": "Only whole 100 ms bins assigned to task; intersecting start/end bins separate. ADD-DEL is change, not current residency for objects present before READY."
+}

@@ -1,0 +1,153 @@
+{
+  "status": "PASS_OFFLINE",
+  "scope": "Four saved Django runs; no new services, guests, network, residency queries or workload actions",
+  "source_directory": ".artifacts/external-django-sampling-controls-20261030",
+  "runs": [
+    {
+      "index": 1,
+      "pair": 1,
+      "mode": "off",
+      "cold_seconds": 104.582667905,
+      "spans_seconds": {
+        "oci_preparation": 94.14713,
+        "resolved_to_creating": 0.000327,
+        "creating_to_launched": 0.893088,
+        "outside_selected_server_spans": 9.542122904999985
+      },
+      "server_log_lines": {
+        "oci_start": 17,
+        "resolved": 18,
+        "creating": 19,
+        "launched": 24
+      },
+      "source_server_log": ".artifacts/storage-isolated-service/20261030T113121Z-2686221/service-logs/server.log",
+      "source_events": ".artifacts/storage-isolated-service/20261030T113121Z-2686221/external-workload/events.json",
+      "logged_errors": 0,
+      "logged_retries": 0,
+      "device_adds_between_create_and_launch": 2,
+      "host_creation_queries": "NOT_MEASURED"
+    },
+    {
+      "index": 2,
+      "pair": 1,
+      "mode": "on",
+      "cold_seconds": 115.475519411,
+      "spans_seconds": {
+        "oci_preparation": 90.885475,
+        "resolved_to_creating": 0.000401,
+        "creating_to_launched": 0.972537,
+        "outside_selected_server_spans": 23.617106410999995
+      },
+      "server_log_lines": {
+        "oci_start": 17,
+        "resolved": 18,
+        "creating": 19,
+        "launched": 24
+      },
+      "source_server_log": ".artifacts/storage-isolated-service/20261030T113324Z-2688376/service-logs/server.log",
+      "source_events": ".artifacts/storage-isolated-service/20261030T113324Z-2688376/external-workload/events.json",
+      "logged_errors": 0,
+      "logged_retries": 0,
+      "device_adds_between_create_and_launch": 2,
+      "guest_monitor_first_call_after_cold_return_seconds": 0.687298129,
+      "host_creation_queries": {
+        "samples": 1154,
+        "read_total_seconds": 0.309166008,
+        "read_max_seconds": 0.000794838,
+        "read_p99_nearest_rank_seconds": 0.000500094,
+        "file_dirty_peak_mib": 4923.28125,
+        "file_writeback_peak_mib": 24.5546875,
+        "full_collector_thread_cpu_seconds": 0.453441111,
+        "source": ".artifacts/host-external-workload/20261030T113324Z-2688371/host-file/memory.tsv"
+      }
+    },
+    {
+      "index": 3,
+      "pair": 2,
+      "mode": "on",
+      "cold_seconds": 154.804558972,
+      "spans_seconds": {
+        "oci_preparation": 143.486744,
+        "resolved_to_creating": 0.000341,
+        "creating_to_launched": 1.05527,
+        "outside_selected_server_spans": 10.262203972000009
+      },
+      "server_log_lines": {
+        "oci_start": 17,
+        "resolved": 18,
+        "creating": 19,
+        "launched": 24
+      },
+      "source_server_log": ".artifacts/storage-isolated-service/20261030T113541Z-2690605/service-logs/server.log",
+      "source_events": ".artifacts/storage-isolated-service/20261030T113541Z-2690605/external-workload/events.json",
+      "logged_errors": 0,
+      "logged_retries": 0,
+      "device_adds_between_create_and_launch": 2,
+      "guest_monitor_first_call_after_cold_return_seconds": 0.712194939,
+      "host_creation_queries": {
+        "samples": 1547,
+        "read_total_seconds": 0.346116941,
+        "read_max_seconds": 0.000602475,
+        "read_p99_nearest_rank_seconds": 0.000356471,
+        "file_dirty_peak_mib": 4056.67578125,
+        "file_writeback_peak_mib": 17.26171875,
+        "full_collector_thread_cpu_seconds": 0.495991542,
+        "source": ".artifacts/host-external-workload/20261030T113541Z-2690600/host-file/memory.tsv"
+      }
+    },
+    {
+      "index": 4,
+      "pair": 2,
+      "mode": "off",
+      "cold_seconds": 107.60641644,
+      "spans_seconds": {
+        "oci_preparation": 92.350885,
+        "resolved_to_creating": 0.000389,
+        "creating_to_launched": 0.803577,
+        "outside_selected_server_spans": 14.451565439999996
+      },
+      "server_log_lines": {
+        "oci_start": 17,
+        "resolved": 18,
+        "creating": 19,
+        "launched": 24
+      },
+      "source_server_log": ".artifacts/storage-isolated-service/20261030T113835Z-2693216/service-logs/server.log",
+      "source_events": ".artifacts/storage-isolated-service/20261030T113835Z-2693216/external-workload/events.json",
+      "logged_errors": 0,
+      "logged_retries": 0,
+      "device_adds_between_create_and_launch": 2,
+      "host_creation_queries": "NOT_MEASURED"
+    }
+  ],
+  "paired_changes": [
+    {
+      "pair": 1,
+      "cold_delta_seconds": 10.892851506,
+      "span_deltas_seconds": {
+        "oci_preparation": -3.2616550000000046,
+        "resolved_to_creating": 7.400000000000001e-05,
+        "creating_to_launched": 0.07944899999999999,
+        "outside_selected_server_spans": 14.07498350600001
+      }
+    },
+    {
+      "pair": 2,
+      "cold_delta_seconds": 47.19814253199999,
+      "span_deltas_seconds": {
+        "oci_preparation": 51.13585899999998,
+        "resolved_to_creating": -4.800000000000003e-05,
+        "creating_to_launched": 0.25169299999999994,
+        "outside_selected_server_spans": -4.189361467999987
+      }
+    }
+  ],
+  "interpretation": {
+    "oci_span": "Image copy/conversion preparation, not pure network transfer",
+    "residual": "Difference of measured durations, not an aligned client/server interval; includes unlogged request work and client wrapper/return",
+    "query_cost": "Creation-window counter reads only; full collector CPU is not creation-specific and neither cost bounds causal delay",
+    "dirty_pages": "Observed only in enabled runs; no disabled time series or per-stage I/O attribution",
+    "logs": "No ERROR/retry messages in saved server logs does not establish no internal retries"
+  },
+  "decision": "Do not repeat full tasks or the same fresh-image cold comparison. Prefer a separate local prepared-image host-only creation control after confirming image reuse and an explicit scoped entry point."
+}

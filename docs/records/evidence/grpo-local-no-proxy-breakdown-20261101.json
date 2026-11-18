@@ -1,0 +1,121 @@
+{
+  "status": "PASS_GRPO_LOCAL_OFFLINE_BREAKDOWN",
+  "result": "results/prettier-grpo-local-no-proxy-breakdown-20261101/REPORT.md",
+  "source": ".artifacts/prettier-grpo-local-no-proxy-controls-20261101/live-3/result.json",
+  "scope": "Only the four completed current local-no-proxy host+guest runs; two preparation failures excluded",
+  "new_live_guests": 0,
+  "new_live_actions": 0,
+  "exec_calls": 140,
+  "unique_exec_assignments": 140,
+  "bounded_exec_assignments": 0,
+  "pairs": [
+    {
+      "pair": 1,
+      "order": [
+        "off",
+        "on"
+      ],
+      "critical_comparison": {
+        "off_role": "late_1",
+        "on_role": "late_1",
+        "window_difference_ns": 813832893,
+        "components_ns": {
+          "command_ns": 45948904,
+          "exec_minus_command_min_ns": 784587914,
+          "download_ns": -17501754,
+          "gap_min_ns": 1751174,
+          "start_offset_from_original_window_ns": -953345
+        }
+      },
+      "controller_phase_difference_ns": {
+        "initial_and_other": 13588705,
+        "cold_span": -25804765,
+        "after_cold_setup": 304361645,
+        "actions_and_downloads": 813832893,
+        "final_checks": 337348773,
+        "cleanup": 248473683
+      }
+    },
+    {
+      "pair": 2,
+      "order": [
+        "on",
+        "off"
+      ],
+      "critical_comparison": {
+        "off_role": "late_1",
+        "on_role": "late_1",
+        "window_difference_ns": 440698641,
+        "components_ns": {
+          "command_ns": -247639156,
+          "exec_minus_command_min_ns": 695434387,
+          "download_ns": -171107,
+          "gap_min_ns": -5834468,
+          "start_offset_from_original_window_ns": -1091015
+        }
+      },
+      "controller_phase_difference_ns": {
+        "initial_and_other": -3356527,
+        "cold_span": -127469198,
+        "after_cold_setup": -36556253,
+        "actions_and_downloads": 440698641,
+        "final_checks": 195390068,
+        "cleanup": 268445423
+      }
+    }
+  ],
+  "management_union_by_phase_ns": [
+    {
+      "index": 2,
+      "mode": "on",
+      "before_actions": 353217750,
+      "actions": 0,
+      "checks": 81214391,
+      "after_checks": 271917193
+    },
+    {
+      "index": 3,
+      "mode": "on",
+      "before_actions": 415276522,
+      "actions": 0,
+      "checks": 86397332,
+      "after_checks": 284057364
+    }
+  ],
+  "boundary_rows_per_on_run": {
+    "memory": 448,
+    "vmstat": 448
+  },
+  "critical_path_boundary_rows": {
+    "memory": 76,
+    "vmstat": 76
+  },
+  "known_limit": "Exec minus guest command duration includes boundary reads, runner work, client/API and scheduling; not individually timed",
+  "host_and_guest_switch": "Together; cannot attribute the observed difference to host sampling alone",
+  "runtime_changes": false,
+  "validation": {
+    "status": "PASS",
+    "new_live_guests": 0,
+    "new_live_actions": 0,
+    "exec_unique": 140,
+    "download_identity_matches": 140,
+    "controller_exact_sums": 4,
+    "critical_path_exact_pair_differences": 2,
+    "all_paths_exact_sums": 28,
+    "table_rows": {
+      "controller-phases.tsv": 4,
+      "phase-pairs.tsv": 2,
+      "paths.tsv": 28,
+      "path-pairs.tsv": 14,
+      "critical-segments.tsv": 12,
+      "management.tsv": 10,
+      "final-checks.tsv": 28
+    },
+    "relative_links_per_report": 9,
+    "old_matching_regressions": 5,
+    "new_offline_regressions": 5,
+    "source": "Prettier four completed local-no-proxy runs only",
+    "existing_measurement_metrics_unchanged": true
+  },
+  "artifacts": ".artifacts/grpo-local-no-proxy-breakdown-20261101"
+}

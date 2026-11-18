@@ -1,0 +1,331 @@
+{
+  "status": "PASS",
+  "scope": "platform capture and complete replay of 17 executed tools; online model timed out and task repair FAIL",
+  "task_id": "prettier__prettier-6604",
+  "model": "zai-org/GLM-5.3-Flash",
+  "task_config": "configs/online-task-prettier6604-focused.json",
+  "model_config": "configs/online-agent-glm-prettier-8k.json",
+  "changed_parameters": {
+    "max_completion_tokens": [
+      4096,
+      8192
+    ],
+    "request_timeout_seconds": [
+      90,
+      135
+    ]
+  },
+  "unchanged_limits": {
+    "max_model_calls": 20,
+    "max_tool_calls": 30,
+    "max_run_seconds": 480
+  },
+  "attempted_requests": 16,
+  "successful_responses": 15,
+  "tool_calls": 17,
+  "total_model_tokens_reported": 92899,
+  "model_completion": "FAIL",
+  "model_error": "timed out",
+  "source_repair_produced": false,
+  "task_outcome": "FAIL",
+  "source_image": "ghcr.io/timesler/swe-polybench.eval.x86_64.prettier__prettier-6604@sha256:8159d38fcbd6d5f09402d93d3e15cf2a891058ddd835a224f1d6b3357a87cc94",
+  "cpu": 2,
+  "memory_mib": 4096,
+  "storage_capacity_gib": 16,
+  "response_waits": [
+    {
+      "number": 1,
+      "elapsed_ns": 19721444929,
+      "completion_tokens": 162,
+      "finish_reason": "tool_calls"
+    },
+    {
+      "number": 2,
+      "elapsed_ns": 8599444227,
+      "completion_tokens": 29,
+      "finish_reason": "tool_calls"
+    },
+    {
+      "number": 3,
+      "elapsed_ns": 1605070651,
+      "completion_tokens": 29,
+      "finish_reason": "tool_calls"
+    },
+    {
+      "number": 4,
+      "elapsed_ns": 35522906848,
+      "completion_tokens": 47,
+      "finish_reason": "tool_calls"
+    },
+    {
+      "number": 5,
+      "elapsed_ns": 12045933308,
+      "completion_tokens": 61,
+      "finish_reason": "tool_calls"
+    },
+    {
+      "number": 6,
+      "elapsed_ns": 3285271287,
+      "completion_tokens": 310,
+      "finish_reason": "tool_calls"
+    },
+    {
+      "number": 7,
+      "elapsed_ns": 48916538422,
+      "completion_tokens": 980,
+      "finish_reason": "tool_calls"
+    },
+    {
+      "number": 8,
+      "elapsed_ns": 23267611134,
+      "completion_tokens": 30,
+      "finish_reason": "tool_calls"
+    },
+    {
+      "number": 9,
+      "elapsed_ns": 59204377116,
+      "completion_tokens": 587,
+      "finish_reason": "tool_calls"
+    },
+    {
+      "number": 10,
+      "elapsed_ns": 27370551659,
+      "completion_tokens": 97,
+      "finish_reason": "tool_calls"
+    },
+    {
+      "number": 11,
+      "elapsed_ns": 58004384414,
+      "completion_tokens": 859,
+      "finish_reason": "tool_calls"
+    },
+    {
+      "number": 12,
+      "elapsed_ns": 24283022914,
+      "completion_tokens": 505,
+      "finish_reason": "tool_calls"
+    },
+    {
+      "number": 13,
+      "elapsed_ns": 42381156086,
+      "completion_tokens": 61,
+      "finish_reason": "tool_calls"
+    },
+    {
+      "number": 14,
+      "elapsed_ns": 8098932288,
+      "completion_tokens": 162,
+      "finish_reason": "tool_calls"
+    },
+    {
+      "number": 15,
+      "elapsed_ns": 40062593382,
+      "completion_tokens": 584,
+      "finish_reason": "tool_calls"
+    }
+  ],
+  "maximum_returned_completion_tokens": 980,
+  "timeout_evidence": {
+    "attempt": 16,
+    "response_received": false,
+    "online_wall_seconds_from_host_file_mtime": 480.01186752319336,
+    "last_wait_seconds_from_host_file_mtime": 52.607401847839355,
+    "inference": "remaining overall 480 s budget limited the final request to about 52.6 s, below the per-request 135 s limit",
+    "limitation": "failed request monotonic duration not logged by the executed code; file-mtime elapsed values are approximate, successful responses have exact monotonic durations; cannot split queue/model/network delay"
+  },
+  "workflow": ".artifacts/platform-tasks/20261013T031647Z-1219252",
+  "raw": ".artifacts/storage-isolated-service/20261013T031806Z-1220565/prettier6604",
+  "report": ".artifacts/platform-tasks/report-20261013T031647Z-1219252",
+  "recomputed_report": ".artifacts/platform-tasks/report-online-prettier-8k-recomputed-20261013",
+  "replay": {
+    "status": "PASS",
+    "action_count": 17,
+    "expected_failures": {
+      "002": 2,
+      "004": 1
+    },
+    "captured_manifest_sha256": "c9b45e5c03d07944e6cbdcd3befed3b4625a5b60cb8884fe1c2b0be10d13b130",
+    "final_state": {
+      "/testbed/src/language-js/needs-parens.js": "1eaab9df29e1d3dce64cca198974d9f1ca764736cbb5cb8683c104397a6d1f08",
+      "repository": {
+        "head": "affa24ce764bd14ac087abeef0603012f5c635d6",
+        "status": " M package.json\n?? Dockerfile\n",
+        "patch_b64": "ZGlmZiAtLWdpdCBhL3BhY2thZ2UuanNvbiBiL3BhY2thZ2UuanNvbgppbmRleCA5ZWU2YjYzYi4uNmVjM2RmNjQgMTAwNjQ0Ci0tLSBhL3BhY2thZ2UuanNvbgorKysgYi9wYWNrYWdlLmpzb24KQEAgLTEyNCw3ICsxMjQsNyBAQAogICAgICJwZXJmLXJlcGVhdCI6ICJ5YXJuICYmIHlhcm4gYnVpbGQgJiYgY3Jvc3MtZW52IE5PREVfRU5WPXByb2R1Y3Rpb24gbm9kZSAuL2Rpc3QvYmluLXByZXR0aWVyLmpzIC0tZGVidWctcmVwZWF0ICR7UEVSRl9SRVBFQVQ6LTEwMDB9IC0tbG9nbGV2ZWwgZGVidWcgJHtQRVJGX0ZJTEU6LS4vaW5kZXguanN9ID4gL2Rldi9udWxsIiwKICAgICAicGVyZi1yZXBlYXQtaW5zcGVjdCI6ICJ5YXJuICYmIHlhcm4gYnVpbGQgJiYgY3Jvc3MtZW52IE5PREVfRU5WPXByb2R1Y3Rpb24gbm9kZSAtLWluc3BlY3QtYnJrIC4vZGlzdC9iaW4tcHJldHRpZXIuanMgLS1kZWJ1Zy1yZXBlYXQgJHtQRVJGX1JFUEVBVDotMTAwMH0gLS1sb2dsZXZlbCBkZWJ1ZyAke1BFUkZfRklMRTotLi9pbmRleC5qc30gPiAvZGV2L251bGwiLAogICAgICJwZXJmLWJlbmNobWFyayI6ICJ5YXJuICYmIHlhcm4gYnVpbGQgJiYgY3Jvc3MtZW52IE5PREVfRU5WPXByb2R1Y3Rpb24gbm9kZSAuL2Rpc3QvYmluLXByZXR0aWVyLmpzIC0tZGVidWctYmVuY2htYXJrIC0tbG9nbGV2ZWwgZGVidWcgJHtQRVJGX0ZJTEU6LS4vaW5kZXguanN9ID4gL2Rldi9udWxsIiwKLSAgICAibGludCI6ICJjcm9zcy1lbnYgRUZGX05PX0xJTktfUlVMRVM9dHJ1ZSBlc2xpbnQgLiAtLWZvcm1hdCBmcmllbmRseSIsCisgICAgImxpbnQiOiAiZWNobyBub29wIiwKICAgICAibGludC1kb2NzIjogInByZXR0eWxpbnQgey4sZG9jcyx3ZWJzaXRlLHdlYnNpdGUvYmxvZ30vKi5tZCIsCiAgICAgImxpbnQtZGlzdCI6ICJlc2xpbnQgLS1uby1lc2xpbnRyYyAtLW5vLWlnbm9yZSAtLWVudj1icm93c2VyIFwiZGlzdC8hKGJpbi1wcmV0dGllcnxpbmRleHx0aGlyZC1wYXJ0eSkuanNcIiIsCiAgICAgImJ1aWxkIjogIm5vZGUgLS1tYXgtb2xkLXNwYWNlLXNpemU9MzA3MiAuL3NjcmlwdHMvYnVpbGQvYnVpbGQuanMiLAo=",
+        "changed_files": {
+          "Dockerfile": {
+            "sha256": "0b9cd4b0be4230f73a872660bb56e8a08518802c986f787ffdb6d3b058d618bb",
+            "mode": 436
+          },
+          "package.json": {
+            "sha256": "4e8a4fe91d327fe783bb8fb246e645176f1afe91d104bc84e0105ca4b57a9571",
+            "mode": 436
+          }
+        }
+      }
+    },
+    "output_policy": "prettier-runtime-v1",
+    "captured_output_policy": "jest-timing-v1",
+    "strict_output_status": "FAIL",
+    "dynamic_output_differences": [
+      "007/stderr"
+    ],
+    "scope": "order, command hashes, stdout/stderr, exit codes, cwd/env and selected final files; fresh shells, no persistent PTY or model calls"
+  },
+  "independent_tests": {
+    "status": "FAIL",
+    "exit_code": 1,
+    "passed": [],
+    "failed": [
+      "/testbed/tests/typescript_intersection/jsfmt.spec.js->intersection-parens.ts",
+      "/testbed/tests/typescript_intersection/jsfmt.spec.js->intersection-parens.ts"
+    ],
+    "summary": {
+      "numTotalTests": 2,
+      "numFailedTests": 2,
+      "numFailedTestSuites": 1,
+      "numPendingTests": 0,
+      "wasInterrupted": false
+    },
+    "snapshot": {
+      "added": 0,
+      "updated": 0,
+      "filesRemoved": 0,
+      "failure": true,
+      "unmatched": 2,
+      "matched": 0
+    }
+  },
+  "memory": [
+    {
+      "sandbox_id": "01a13344-972e-7891-89d3-f96898295798",
+      "role": "capture",
+      "sample_count": 4783,
+      "observed_nonfree_peak_bytes": 462413824,
+      "components_at_peak_bytes": {
+        "Cached": 129511424,
+        "AnonPages": 216817664,
+        "Buffers": 38232064,
+        "Shmem": 1085440,
+        "Slab": 46252032
+      },
+      "components_at_peak_percent": {
+        "Cached": 28.007688628270767,
+        "AnonPages": 46.88823143834039,
+        "Buffers": 8.26793275107623,
+        "Shmem": 0.23473346679185786,
+        "Slab": 10.002303045334562
+      },
+      "cached_min_bytes": 3244032,
+      "cached_observed_peak_bytes": 149393408,
+      "slab_status": "MEASURED",
+      "sessions": [
+        {
+          "stop_reason": "capture-complete",
+          "status": "PASS",
+          "error": null,
+          "pid": 362,
+          "start_ticks": "83",
+          "boot_id": "495db8b0-3030-4b67-9721-1bb8e502d1c4",
+          "sandbox_id": "01a13344-972e-7891-89d3-f96898295798",
+          "role": "capture",
+          "session_id": "33af2af6-e3e6-49a5-9cb2-955f906396ee",
+          "samples": 4783,
+          "interval_seconds": 0.1,
+          "elapsed_ns": 488511767902,
+          "cpu_user_seconds": 7.734528,
+          "cpu_system_seconds": 2.261541,
+          "maxrss_kib": 16780,
+          "scope": "guest logical counters; collector maxrss is not private memory; no physical deduplication",
+          "performance_version": 1,
+          "clock_ticks": 100,
+          "performance_scope": "guest-wide CPU (guest ticks not double counted), per-device diskstats (512-byte sectors); includes sampler and other guest work"
+        }
+      ]
+    },
+    {
+      "sandbox_id": "01a1334c-2e9f-7ed0-9740-18cdeba06684",
+      "role": "replay",
+      "sample_count": 124,
+      "observed_nonfree_peak_bytes": 568741888,
+      "components_at_peak_bytes": {
+        "Cached": 225337344,
+        "AnonPages": 216596480,
+        "Buffers": 48631808,
+        "Shmem": 1089536,
+        "Slab": 46395392
+      },
+      "components_at_peak_percent": {
+        "Cached": 39.620317890142815,
+        "AnonPages": 38.08344076109267,
+        "Buffers": 8.55076951884367,
+        "Shmem": 0.1915695015592029,
+        "Slab": 8.157547910380043
+      },
+      "cached_min_bytes": 43180032,
+      "cached_observed_peak_bytes": 227680256,
+      "slab_status": "MEASURED",
+      "sessions": [
+        {
+          "stop_reason": "replay-complete",
+          "status": "PASS",
+          "error": null,
+          "pid": 364,
+          "start_ticks": "102",
+          "boot_id": "8433ee8e-4fbb-4ab3-b4cf-347fb55f7e7e",
+          "sandbox_id": "01a1334c-2e9f-7ed0-9740-18cdeba06684",
+          "role": "replay",
+          "session_id": "1694ce78-fbcd-47d1-8f92-039ddb034d8d",
+          "samples": 124,
+          "interval_seconds": 0.1,
+          "elapsed_ns": 12505083676,
+          "cpu_user_seconds": 0.20854399999999998,
+          "cpu_system_seconds": 0.119696,
+          "maxrss_kib": 16760,
+          "scope": "guest logical counters; collector maxrss is not private memory; no physical deduplication",
+          "performance_version": 1,
+          "clock_ticks": 100,
+          "performance_scope": "guest-wide CPU (guest ticks not double counted), per-device diskstats (512-byte sectors); includes sampler and other guest work"
+        }
+      ]
+    }
+  ],
+  "physical_page_cache": "NOT_MEASURED; no source change boundary; old evidence reused",
+  "timing_seconds": {
+    "successful_model_response_wait": 412.369238665,
+    "captured_guest_tools": 4.529643099,
+    "replayed_guest_tools": 3.703742784,
+    "controller": 513.701861126
+  },
+  "checks": {
+    "order_commands_exit_codes_final_files": "PASS",
+    "task_outcome_preserved": "PASS",
+    "identical_report_files": 10,
+    "raw_files_unchanged": 516,
+    "implementation_tests": "reused existing 11 tests; no implementation change this run"
+  },
+  "cleanup": {
+    "inner": {
+      "owned_vms_removed": true,
+      "collector_sessions_complete": true,
+      "service_sandbox_list_empty": true
+    },
+    "outer": {
+      "owned_container_removed": true,
+      "mount_and_loop_removed": true,
+      "successful_fixture_removed": true,
+      "original_firecracker_identities_unchanged": true,
+      "original_source_firecracker_identities_unchanged": true,
+      "original_service_unchanged": true
+    },
+    "volume_removed": true,
+    "host_min_available_gib": 33.17106628417969,
+    "host_after_available_gib": 49.153045654296875
+  },
+  "conclusion": "larger output allowance did not yield a source repair in this run; no length-truncated returned responses, but total online budget exhausted while waiting for the API",
+  "limitations": [
+    "one stochastic model trajectory; provider conditions and two config parameters changed, no causal latency comparison",
+    "HTTP responses were received for requests 1-15; request 16 timed out, no token usage or completion outcome known",
+    "returned outputs all <=980 tokens, so this does not verify a successful >4096-token reply",
+    "no new physical scan or monitoring overhead control"
+  ]
+}

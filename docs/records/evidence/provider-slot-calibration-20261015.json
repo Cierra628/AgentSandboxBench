@@ -1,0 +1,193 @@
+{
+  "status": "PASS",
+  "coverage": "NO_STABLE_VALID_WINDOW",
+  "storage_run": "20261015T155211Z-2038835",
+  "binary_sha256": "e1db6d7831d15dd92411be0e4c7f640c88e429c8a0370ff8c132d184a3597123",
+  "sample_counts": {
+    "parent": 3,
+    "restored": 10
+  },
+  "slot_count": 16,
+  "allocation_capacity_bytes": 4194304,
+  "metadata_table_file_bytes": 65536,
+  "complete_reads_after_release": 3853,
+  "sampled_complete_read_counts": [
+    3335,
+    3338,
+    3342,
+    3353,
+    3606,
+    3641,
+    3649,
+    3714,
+    3715,
+    3715
+  ],
+  "sampled_content_states": [
+    4
+  ],
+  "initial": {
+    "guest_cached_bytes": 95191040,
+    "host_vmm_confirmed_bytes": 37933056,
+    "host_current_union_bytes": 55529472,
+    "host_lower_current_bytes": 87465984,
+    "host_three_current_union_bytes": 142995456,
+    "host_four_current_union_bytes": 142995456,
+    "host_four_unconfirmed_guest_capacity_bytes": 2297856,
+    "host_provider_current_bytes": 0,
+    "provider_unattributed_resident_bytes": 4128768,
+    "provider_mixed_or_edge_resident_pages": 23,
+    "host_provider_old_snapshot_bytes": 0,
+    "provider_valid_slots": 0,
+    "provider_stable_slots": 8
+  },
+  "restored_ranges": {
+    "guest_cached_bytes": [
+      12324864,
+      95191040
+    ],
+    "host_vmm_confirmed_bytes": [
+      11075584,
+      45015040
+    ],
+    "host_current_union_bytes": [
+      11517952,
+      59260928
+    ],
+    "host_lower_current_bytes": [
+      5955584,
+      87560192
+    ],
+    "host_three_current_union_bytes": [
+      18980864,
+      146821120
+    ],
+    "host_four_current_union_bytes": [
+      18980864,
+      146821120
+    ],
+    "host_four_unconfirmed_guest_capacity_bytes": [
+      0,
+      2297856
+    ],
+    "host_provider_current_bytes": [
+      0,
+      0
+    ],
+    "provider_unattributed_resident_bytes": [
+      4128768,
+      4128768
+    ],
+    "provider_mixed_or_edge_resident_pages": [
+      23,
+      23
+    ],
+    "host_provider_old_snapshot_bytes": [
+      0,
+      0
+    ],
+    "provider_valid_slots": [
+      0,
+      0
+    ],
+    "provider_stable_slots": [
+      8,
+      16
+    ]
+  },
+  "native_checkpoint_pause_bounds_ns": [
+    330004835,
+    330515770
+  ],
+  "checkpoint_interface_ns": 3180927979,
+  "observation_gap_ns": 8544502377,
+  "costs": {
+    "provider_query_cpu_mean_ns": 604345,
+    "provider_query_elapsed_mean_ns": 605314.7,
+    "restored_pair_cpu_mean_ns": 286935333.9,
+    "restored_pair_elapsed_mean_ns": 316306060.2,
+    "session_thread_cpu_ns": {
+      "parent": 210612229,
+      "restored": 2879205657
+    },
+    "monitoring_impact": "NOT_CONTROLLED; dev daemon; no slowdown percentage"
+  },
+  "metadata_counters": {
+    "duplicate_adds": 0,
+    "missing_removes": 0,
+    "out_of_range": 0,
+    "moved_pages": 0,
+    "stale_records": 0
+  },
+  "checks": {
+    "content_and_process_restore": "PASS",
+    "three_level_independent_recount": "PASS",
+    "no_valid_window_independent_check": "PASS",
+    "allocation_residency_independent_recount": "PASS",
+    "all_slots_released_invalid": "PASS",
+    "positive_provider_attribution_live": "NOT_OBSERVED"
+  },
+  "storage_budget": {
+    "ready": true,
+    "available_bytes": 66431500288,
+    "required_available_bytes": 53687091200,
+    "capacity_bytes": 25769803776,
+    "host_reserve_bytes": 21474836480,
+    "host_margin_bytes": 6442450944,
+    "checkpoint_archive_reserved_bytes": 0,
+    "actual_host_available_bytes": 66431500288
+  },
+  "host_available_min_bytes": 40660955136,
+  "cleanup": {
+    "owned_container_removed": true,
+    "mount_and_loop_removed": true,
+    "successful_fixture_removed": true,
+    "original_firecracker_identities_unchanged": true,
+    "original_service_unchanged": true
+  },
+  "build": {
+    "base_commit": "2f48c9c78ec58e4d73c49aa07cb81d984a4a4184",
+    "rustc": "rustc 1.99.0 (b940084d7 2026-09-28)",
+    "cargo": "cargo 1.99.0 (5f94df478 2026-08-27)",
+    "build_user": "yyxie",
+    "profile": "dev, debug=0, incremental=0, jobs=8; diagnostic correctness only",
+    "source_sha256": {
+      "storage/ublk/src/dev.rs": "9a8453ebfbc8ac7233226501535e3f6e9e4c694631e97c16ff6791909732ec34",
+      "storage/ublk/src/lib.rs": "e661e9ad910b38744f3813de172759c955d2a59469d2279109a20aaa1f31d3b3",
+      "storage/ublk/src/impls/overlaybd_target.rs": "1f193099c87904c6376d042ee3db031eea6487734b5089b0d443921a68585054",
+      "storage/ublk/src/slot_observation.rs": "13fb30cbf1ff38f05ee208a16c38febc8eda3fd9f4b602893facd7090e2d898c",
+      "storage/ublk-daemon/src/main.rs": "76e238008012aaf872af602882859ecc95b025868ce0e4acafb3ab05e9ded249",
+      "Cargo.lock": "9227c4e9d32c2c0a92686deadc71b03b851ccbca7fe3c0514aaa3c6e51f085dd"
+    },
+    "binary_sha256": "e1db6d7831d15dd92411be0e4c7f640c88e429c8a0370ff8c132d184a3597123",
+    "checks": {
+      "format": "PASS",
+      "slot_tests": "2 PASS",
+      "clippy": "PASS with existing async_trait double_must_use exception; strict failure retained",
+      "build": "PASS"
+    },
+    "patch_sha256": "6c1cc68409a257d6b66e567cc6488af0957595366fc133799c98003e022a84ba"
+  },
+  "verification": {
+    "status": "PASS",
+    "scope": "one short restore calibration after one pre-service preparation failure",
+    "no_extra_guest_pauses": true,
+    "positive_provider_attribution": "NOT_OBSERVED",
+    "report_files_equal": 3,
+    "report_sha256": {
+      "cache.svg": "22ebf07f71dfeaf0df8f9b3316c979f1dfaa6f6086913cd05b7f236e493e9a62",
+      "summary.json": "1461838d195090933cbea1fac165bd08dee5f3f2c2d98fedfae5ead6728863fe",
+      "cache.png": "5751babd167e29de20ace7e52c40a58f1c957ffef95961246c3ab16432b09f07"
+    },
+    "existing_evidence_files_unchanged": 1082,
+    "calibration_raw_files_unchanged": 135,
+    "source_and_binary_match": true,
+    "preparation_failure_backup_bytes": 1947048607,
+    "temporary_resources_released": true,
+    "build_tmpfs_unmounted": true,
+    "free_bytes": 66409304064,
+    "staged_changes": false
+  },
+  "raw_evidence": ".artifacts/provider-slot-calibration-20261015/",
+  "preparation_failure": "20261015T154910Z-2037403; no private service or VM created; backup retained"
+}

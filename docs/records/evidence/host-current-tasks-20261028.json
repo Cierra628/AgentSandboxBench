@@ -1,0 +1,428 @@
+{
+  "status": "PASS_SAVED_CURRENT_TASK_INVENTORY",
+  "live_runs": 0,
+  "cases": [
+    {
+      "name": "prettier6604",
+      "task_id": "prettier__prettier-6604",
+      "workflow": ".artifacts/platform-tasks/20261020T030036Z-3306828",
+      "storage": ".artifacts/storage-isolated-service/20261020T030201Z-3307600",
+      "raw": ".artifacts/storage-isolated-service/20261020T030201Z-3307600/prettier6604",
+      "executed_code": ".artifacts/storage-isolated-service/20261020T030201Z-3307600/code",
+      "original_workflow_status": "FAIL",
+      "task_capture_status": "PASS",
+      "official": {
+        "passed": 0,
+        "failed": 2
+      },
+      "strict_replay_status": null,
+      "actions": 29,
+      "guests": 1,
+      "cpu_per_guest": 2,
+      "memory_mib_per_guest": 4096,
+      "guest_samples": 193,
+      "guest_interval_seconds": 0.1,
+      "host_interval_seconds": 0.1,
+      "host_samples": 1175,
+      "maximum_host_gap_ns": 100128301,
+      "pss_interval_seconds": 1,
+      "guest_control_batching": false,
+      "guest_collector_cpu_seconds": 0.145117,
+      "host_thread_cpu_ns": 1264169381,
+      "host_counter_read_total_ns": 335025230,
+      "mincore": {
+        "final_inventory_requested": true,
+        "final_files": 100,
+        "fixed_phase_queries": [],
+        "elapsed_ns": 239680251
+      },
+      "preparation": {
+        "source_backup": ".artifacts/storage-isolated-service/20261008T102942Z-3642885/volume.ext4.gz",
+        "seed_task_id": "prettier__prettier-6604",
+        "ram_allocated_bytes": 7604273152,
+        "volume_bytes": 8589934592,
+        "readonly_commits_bytes": 7178259456,
+        "explicit_prebaseline_sync": false,
+        "before_guest_file_dirty_bytes": null,
+        "actual_io_state_recorded": false
+      },
+      "reclaim_policy": "AgentENV defaults retained; no separate reclaim-counter observation",
+      "current": {
+        "metric": "memory.current",
+        "unit": "bytes",
+        "scope": "Measurement cgroup and descendants: preparation, controller, private service and all sandboxes.",
+        "window_start_monotonic_ns": 14235469338245491,
+        "window_end_monotonic_ns": 14235586826243376,
+        "initial_bytes": 36302848,
+        "final_bytes": 15063789568,
+        "observed_peak_bytes": 16235433984,
+        "time_weighted_mean_bytes": 8675613170.890116,
+        "mean_method": "Previous sample held until next sample; first-to-last sample only, including recorded gaps. Estimate, not a continuous integral.",
+        "before_guest_bytes": null,
+        "baseline_status": "NOT_MEASURED",
+        "after_service_ready_observed_peak_bytes": 16235433984,
+        "after_service_ready_peak_increase_bytes": null,
+        "final_increase_from_before_guest_bytes": null,
+        "interpretation": "Charged group memory, not complete sandbox physical memory. Before-guest baseline includes prepared inputs and service; increases include subsequent control and service work. Peaks are sampled, final sample may be after guest deletion.",
+        "coverage": {
+          "outside_group_charges": "NOT_INCLUDED",
+          "unaccounted_kernel_allocations": "NOT_INCLUDED",
+          "swap_bytes": "NOT_MEASURED",
+          "hugetlb_coverage": "NOT_VERIFIED"
+        },
+        "components": "anon/file/kernel explain current; shmem is part of file. Counters are sequential and may lag: do not add them to current or label their residual unaccounted memory."
+      },
+      "display": "absolute current only; exact baseline absent",
+      "performance_comparison": "not a sampling-toggle pair",
+      "window": "Input preparation to host collector stop; after-marker window also includes control, checks and cleanup",
+      "extra_queries_in_window": true
+    },
+    {
+      "name": "sphinx7590",
+      "task_id": "sphinx-doc__sphinx-7590",
+      "workflow": ".artifacts/platform-tasks/20261020T164427Z-3886208",
+      "storage": ".artifacts/storage-isolated-service/20261020T164558Z-3887137",
+      "raw": ".artifacts/storage-isolated-service/20261020T164558Z-3887137/python-backbone",
+      "executed_code": ".artifacts/storage-isolated-service/20261020T164558Z-3887137/code",
+      "original_workflow_status": "PASS",
+      "task_capture_status": "PASS",
+      "official": {
+        "passed": 24,
+        "failed": 1,
+        "skipped": 0
+      },
+      "strict_replay_status": "FAIL",
+      "actions": 35,
+      "guests": 1,
+      "cpu_per_guest": 2,
+      "memory_mib_per_guest": 4096,
+      "guest_samples": 227,
+      "guest_interval_seconds": 0.1,
+      "host_interval_seconds": 0.1,
+      "host_samples": 1271,
+      "maximum_host_gap_ns": 100144574,
+      "pss_interval_seconds": 1,
+      "guest_control_batching": false,
+      "guest_collector_cpu_seconds": 0.15315299999999998,
+      "host_thread_cpu_ns": 1316112885,
+      "host_counter_read_total_ns": 392585285,
+      "mincore": {
+        "final_inventory_requested": true,
+        "final_files": 157,
+        "fixed_phase_queries": [],
+        "elapsed_ns": 1052580029
+      },
+      "preparation": {
+        "source_backup": ".artifacts/storage-isolated-service/20261009T050703Z-3934019/volume.ext4.gz",
+        "seed_task_id": "sphinx-doc__sphinx-7590",
+        "ram_allocated_bytes": 9130999808,
+        "volume_bytes": 8589934592,
+        "readonly_commits_bytes": 8724162560,
+        "explicit_prebaseline_sync": false,
+        "before_guest_file_dirty_bytes": 120025088,
+        "actual_io_state_recorded": true
+      },
+      "reclaim_policy": "AgentENV defaults retained; no separate reclaim-counter observation",
+      "current": {
+        "metric": "memory.current",
+        "unit": "bytes",
+        "scope": "Measurement cgroup and descendants: preparation, controller, private service and all sandboxes.",
+        "window_start_monotonic_ns": 14284900664673631,
+        "window_end_monotonic_ns": 14285027716122256,
+        "initial_bytes": 42655744,
+        "final_bytes": 18164248576,
+        "observed_peak_bytes": 19020734464,
+        "time_weighted_mean_bytes": 10533111480.457422,
+        "mean_method": "Previous sample held until next sample; first-to-last sample only, including recorded gaps. Estimate, not a continuous integral.",
+        "before_guest_bytes": 18411995136,
+        "baseline_status": "OBSERVED_BEFORE_GUEST",
+        "after_service_ready_observed_peak_bytes": 19020734464,
+        "after_service_ready_peak_increase_bytes": 608739328,
+        "final_increase_from_before_guest_bytes": -247746560,
+        "interpretation": "Charged group memory, not complete sandbox physical memory. Before-guest baseline includes prepared inputs and service; increases include subsequent control and service work. Peaks are sampled, final sample may be after guest deletion.",
+        "coverage": {
+          "outside_group_charges": "NOT_INCLUDED",
+          "unaccounted_kernel_allocations": "NOT_INCLUDED",
+          "swap_bytes": "NOT_MEASURED",
+          "hugetlb_coverage": "NOT_VERIFIED"
+        },
+        "components": "anon/file/kernel explain current; shmem is part of file. Counters are sequential and may lag: do not add them to current or label their residual unaccounted memory."
+      },
+      "display": "absolute current and exact-baseline increase",
+      "performance_comparison": "not a sampling-toggle pair",
+      "window": "Input preparation to host collector stop; after-marker window also includes control, checks and cleanup",
+      "extra_queries_in_window": true
+    },
+    {
+      "name": "xarray6992",
+      "task_id": "pydata__xarray-6992",
+      "workflow": ".artifacts/platform-tasks/20261020T164737Z-3889772",
+      "storage": ".artifacts/storage-isolated-service/20261020T164916Z-3890897",
+      "raw": ".artifacts/storage-isolated-service/20261020T164916Z-3890897/python-backbone",
+      "executed_code": ".artifacts/storage-isolated-service/20261020T164916Z-3890897/code",
+      "original_workflow_status": "PASS",
+      "task_capture_status": "PASS",
+      "official": {
+        "passed": 945,
+        "failed": 12,
+        "skipped": 0
+      },
+      "strict_replay_status": "FAIL",
+      "actions": 35,
+      "guests": 1,
+      "cpu_per_guest": 2,
+      "memory_mib_per_guest": 4096,
+      "guest_samples": 632,
+      "guest_interval_seconds": 0.1,
+      "host_interval_seconds": 0.1,
+      "host_samples": 1778,
+      "maximum_host_gap_ns": 100122779,
+      "pss_interval_seconds": 1,
+      "guest_control_batching": false,
+      "guest_collector_cpu_seconds": 0.278091,
+      "host_thread_cpu_ns": 2750068709,
+      "host_counter_read_total_ns": 480891675,
+      "mincore": {
+        "final_inventory_requested": true,
+        "final_files": 157,
+        "fixed_phase_queries": [],
+        "elapsed_ns": 1209762127
+      },
+      "preparation": {
+        "source_backup": ".artifacts/storage-isolated-service/20261008T165515Z-3834076/volume.ext4.gz",
+        "seed_task_id": "pydata__xarray-6992",
+        "ram_allocated_bytes": 11161042944,
+        "volume_bytes": 8589934592,
+        "readonly_commits_bytes": 10703484928,
+        "explicit_prebaseline_sync": false,
+        "before_guest_file_dirty_bytes": 120025088,
+        "actual_io_state_recorded": true
+      },
+      "reclaim_policy": "AgentENV defaults retained; no separate reclaim-counter observation",
+      "current": {
+        "metric": "memory.current",
+        "unit": "bytes",
+        "scope": "Measurement cgroup and descendants: preparation, controller, private service and all sandboxes.",
+        "window_start_monotonic_ns": 14285090040329454,
+        "window_end_monotonic_ns": 14285267864058647,
+        "initial_bytes": 42762240,
+        "final_bytes": 22168674304,
+        "observed_peak_bytes": 23844311040,
+        "time_weighted_mean_bytes": 15218476062.88748,
+        "mean_method": "Previous sample held until next sample; first-to-last sample only, including recorded gaps. Estimate, not a continuous integral.",
+        "before_guest_bytes": 22426476544,
+        "baseline_status": "OBSERVED_BEFORE_GUEST",
+        "after_service_ready_observed_peak_bytes": 23844311040,
+        "after_service_ready_peak_increase_bytes": 1417834496,
+        "final_increase_from_before_guest_bytes": -257802240,
+        "interpretation": "Charged group memory, not complete sandbox physical memory. Before-guest baseline includes prepared inputs and service; increases include subsequent control and service work. Peaks are sampled, final sample may be after guest deletion.",
+        "coverage": {
+          "outside_group_charges": "NOT_INCLUDED",
+          "unaccounted_kernel_allocations": "NOT_INCLUDED",
+          "swap_bytes": "NOT_MEASURED",
+          "hugetlb_coverage": "NOT_VERIFIED"
+        },
+        "components": "anon/file/kernel explain current; shmem is part of file. Counters are sequential and may lag: do not add them to current or label their residual unaccounted memory."
+      },
+      "display": "absolute current and exact-baseline increase",
+      "performance_comparison": "not a sampling-toggle pair",
+      "window": "Input preparation to host collector stop; after-marker window also includes control, checks and cleanup",
+      "extra_queries_in_window": true
+    },
+    {
+      "name": "prettier14400",
+      "task_id": "prettier__prettier-14400",
+      "workflow": ".artifacts/host-exp1-light/20261028T063439Z-2055110",
+      "storage": ".artifacts/storage-isolated-service/20261028T063556Z-2055755",
+      "raw": ".artifacts/storage-isolated-service/20261028T063556Z-2055755/exp1/raw/20261028T063603Z-2056467",
+      "executed_code": ".artifacts/storage-isolated-service/20261028T063556Z-2055755/code",
+      "original_workflow_status": "PASS",
+      "task_capture_status": "PASS",
+      "official": {
+        "passed": 4,
+        "failed": 0
+      },
+      "strict_replay_status": null,
+      "actions": 26,
+      "guests": 1,
+      "cpu_per_guest": 2,
+      "memory_mib_per_guest": 4096,
+      "guest_samples": 97,
+      "guest_interval_seconds": 0.1,
+      "host_interval_seconds": 0.1,
+      "host_samples": 1008,
+      "maximum_host_gap_ns": 100137099,
+      "pss_interval_seconds": null,
+      "guest_control_batching": true,
+      "guest_collector_cpu_seconds": 0.143197,
+      "host_thread_cpu_ns": 360277650,
+      "host_counter_read_total_ns": 285616100,
+      "mincore": {
+        "final_inventory_requested": false,
+        "final_files": null,
+        "fixed_phase_queries": [],
+        "elapsed_ns": null
+      },
+      "preparation": {
+        "source_backup": ".artifacts/storage-isolated-service/20261008T102942Z-3642885/volume.ext4.gz",
+        "seed_task_id": "prettier__prettier-6604",
+        "ram_allocated_bytes": 7604273152,
+        "volume_bytes": 21474836480,
+        "readonly_commits_bytes": 7178259456,
+        "explicit_prebaseline_sync": false,
+        "before_guest_file_dirty_bytes": 120020992,
+        "actual_io_state_recorded": true
+      },
+      "reclaim_policy": "AgentENV defaults retained; no separate reclaim-counter observation",
+      "current": {
+        "metric": "memory.current",
+        "unit": "bytes",
+        "scope": "Measurement cgroup and descendants: preparation, controller, private service and all sandboxes.",
+        "window_start_monotonic_ns": 14939511869522640,
+        "window_end_monotonic_ns": 14939612592443979,
+        "initial_bytes": 13742080,
+        "final_bytes": 15061647360,
+        "observed_peak_bytes": 16195465216,
+        "time_weighted_mean_bytes": 8220718770.074166,
+        "mean_method": "Previous sample held until next sample; first-to-last sample only, including recorded gaps. Estimate, not a continuous integral.",
+        "before_guest_bytes": 15342993408,
+        "baseline_status": "OBSERVED_BEFORE_GUEST",
+        "after_service_ready_observed_peak_bytes": 16195465216,
+        "after_service_ready_peak_increase_bytes": 852471808,
+        "final_increase_from_before_guest_bytes": -281346048,
+        "interpretation": "Charged group memory, not complete sandbox physical memory. Before-guest baseline includes prepared inputs and service; increases include subsequent control and service work. Peaks are sampled, final sample may be after guest deletion.",
+        "coverage": {
+          "outside_group_charges": "NOT_INCLUDED",
+          "unaccounted_kernel_allocations": "NOT_INCLUDED",
+          "swap_bytes": "NOT_MEASURED",
+          "hugetlb_coverage": "NOT_VERIFIED"
+        },
+        "components": "anon/file/kernel explain current; shmem is part of file. Counters are sequential and may lag: do not add them to current or label their residual unaccounted memory."
+      },
+      "display": "absolute current and exact-baseline increase",
+      "performance_comparison": "not a sampling-toggle pair",
+      "window": "Input preparation to host collector stop; after-marker window also includes control, checks and cleanup",
+      "extra_queries_in_window": false
+    },
+    {
+      "name": "grpo7_reference",
+      "task_id": "prettier__prettier-6604",
+      "workflow": ".artifacts/host-full-rootfs/20261025T165257Z-shared-1101459",
+      "storage": ".artifacts/storage-isolated-service/20261025T165417Z-1102226",
+      "raw": ".artifacts/storage-isolated-service/20261025T165417Z-1102226/prettier6604",
+      "executed_code": ".artifacts/storage-isolated-service/20261025T165417Z-1102226/code",
+      "original_workflow_status": "PASS",
+      "task_capture_status": "PASS",
+      "official": {
+        "passed": 0,
+        "failed": 2
+      },
+      "strict_replay_status": null,
+      "actions": 189,
+      "guests": 7,
+      "cpu_per_guest": 2,
+      "memory_mib_per_guest": 4096,
+      "guest_samples": 2288,
+      "guest_interval_seconds": 0.1,
+      "host_interval_seconds": 0.1,
+      "host_samples": 1355,
+      "maximum_host_gap_ns": 101508312,
+      "pss_interval_seconds": null,
+      "guest_control_batching": true,
+      "guest_collector_cpu_seconds": 1.623701,
+      "host_thread_cpu_ns": 455032225,
+      "host_counter_read_total_ns": 369784966,
+      "mincore": {
+        "final_inventory_requested": false,
+        "final_files": null,
+        "fixed_phase_queries": [
+          "P0",
+          "P1"
+        ],
+        "elapsed_ns": 133678428
+      },
+      "preparation": {
+        "source_backup": ".artifacts/storage-isolated-service/20261008T102942Z-3642885/volume.ext4.gz",
+        "seed_task_id": "prettier__prettier-6604",
+        "ram_allocated_bytes": 7604273152,
+        "volume_bytes": 51539607552,
+        "readonly_commits_bytes": null,
+        "explicit_prebaseline_sync": true,
+        "before_guest_file_dirty_bytes": 217088,
+        "actual_io_state_recorded": true
+      },
+      "reclaim_policy": "AgentENV defaults retained; no separate reclaim-counter observation",
+      "current": {
+        "metric": "memory.current",
+        "unit": "bytes",
+        "scope": "Measurement cgroup and descendants: preparation, controller, private service and all sandboxes.",
+        "window_start_monotonic_ns": 14717410687056280,
+        "window_end_monotonic_ns": 14717546132796830,
+        "initial_bytes": 43761664,
+        "final_bytes": 15084625920,
+        "observed_peak_bytes": 31224553472,
+        "time_weighted_mean_bytes": 15013787654.054213,
+        "mean_method": "Previous sample held until next sample; first-to-last sample only, including recorded gaps. Estimate, not a continuous integral.",
+        "before_guest_bytes": 26552160256,
+        "baseline_status": "OBSERVED_BEFORE_GUEST",
+        "after_service_ready_observed_peak_bytes": 31224553472,
+        "after_service_ready_peak_increase_bytes": 4672393216,
+        "final_increase_from_before_guest_bytes": -11467534336,
+        "interpretation": "Charged group memory, not complete sandbox physical memory. Before-guest baseline includes prepared inputs and service; increases include subsequent control and service work. Peaks are sampled, final sample may be after guest deletion.",
+        "coverage": {
+          "outside_group_charges": "NOT_INCLUDED",
+          "unaccounted_kernel_allocations": "NOT_INCLUDED",
+          "swap_bytes": "NOT_MEASURED",
+          "hugetlb_coverage": "NOT_VERIFIED"
+        },
+        "components": "anon/file/kernel explain current; shmem is part of file. Counters are sequential and may lag: do not add them to current or label their residual unaccounted memory."
+      },
+      "display": "absolute current and exact-baseline increase",
+      "performance_comparison": "not a sampling-toggle pair",
+      "window": "Input preparation to host collector stop; after-marker window also includes control, checks and cleanup",
+      "extra_queries_in_window": true
+    }
+  ],
+  "identical_executed_sources": {
+    "host_file_monitor.py": [
+      [
+        "prettier6604"
+      ],
+      [
+        "sphinx7590",
+        "xarray6992"
+      ],
+      [
+        "prettier14400",
+        "grpo7_reference"
+      ]
+    ],
+    "sandbox_runtime_monitor.py": [
+      [
+        "prettier6604",
+        "sphinx7590",
+        "xarray6992"
+      ],
+      [
+        "prettier14400"
+      ],
+      [
+        "grpo7_reference"
+      ]
+    ],
+    "agentenv_cold_start.py": [
+      [
+        "prettier6604",
+        "sphinx7590",
+        "xarray6992",
+        "grpo7_reference"
+      ]
+    ]
+  },
+  "missing_executed_sources": {
+    "agentenv_cold_start.py": [
+      "prettier14400"
+    ]
+  },
+  "scope": "Four full single code tasks; seven-guest GRPO is a separate reference, not N=1/N=7 control"
+}

@@ -1,0 +1,29 @@
+{
+  "status": "FAIL",
+  "mode": "direct_https_connection",
+  "proxy_used": false,
+  "proxy_fallback": false,
+  "image": "alexgshaw/build-cython-ext@sha256:3612a38fadb89a96f74a1a951fb0b0af734198fd160571eeaba6401593234594",
+  "layer_downloads": 0,
+  "requests": [
+    {
+      "host": "registry-1.docker.io",
+      "status": null,
+      "body_bytes": 0,
+      "elapsed_seconds": 5.019906617701054
+    }
+  ],
+  "response_body_bytes": 0,
+  "body_limit_per_response": 65536,
+  "stage": "registry_reachability",
+  "error_type": "ConnectionResetError",
+  "error": "[Errno 104] Connection reset by peer",
+  "elapsed_seconds": 5.020627595484257,
+  "date_local": "2026-10-31",
+  "authorization_scope": "One direct metadata check only; no full image pull or sandbox task",
+  "connection_implementation": "http.client.HTTPSConnection directly to registry-1.docker.io; all six proxy variables removed in the subprocess",
+  "current_proxy_configuration": "All four existing HTTP(S) proxy variables point to port 17891; values not recorded",
+  "policy": "No future experiment may use user proxy port 17891, directly or via guest/container relay. No automatic proxy fallback.",
+  "existing_local_input": ".artifacts/django-oci/django16819",
+  "existing_local_input_note": "Directory still exists; prior validation reused, no image-content reread or revalidation in this check."
+}

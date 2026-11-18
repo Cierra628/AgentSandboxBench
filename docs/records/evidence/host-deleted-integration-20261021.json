@@ -1,0 +1,96 @@
+{
+  "status": "PASS_DELETED_BACKING_INTEGRATION",
+  "raw_result": ".artifacts/host-deleted-backing/20261021T104651Z-25167",
+  "logical_test_data_bytes": 40960,
+  "objects": [
+    {
+      "family": "memfd",
+      "mapping_count": 2,
+      "whole_backing_cache_bytes": 8192,
+      "worker_query_ns": 878650
+    },
+    {
+      "family": "dev_zero",
+      "mapping_count": 1,
+      "whole_backing_cache_bytes": 4096,
+      "worker_query_ns": 603372
+    }
+  ],
+  "total_unique_backing_cache_bytes": 12288,
+  "parent_query_call_ns": 45015688,
+  "worker_lifecycle_ns": 45008024,
+  "object_queries_ns": 1482022,
+  "normal_worker_exit": 0,
+  "normal_worker_reaped": true,
+  "target_is_separate_running_owner": true,
+  "injected_timeout_seconds": 2,
+  "injected_timeout_observed_ns": 2003531684,
+  "injected_timeout_open_backing_confirmed": true,
+  "injected_timeout_worker_exit": -9,
+  "injected_timeout_worker_reaped": true,
+  "injected_timeout_independent_wait": "PASS",
+  "injected_timeout_capacity_bytes": null,
+  "checks": {
+    "resource_budget": "PASS",
+    "original_descriptors_closed_and_page7_unmapped": "PASS",
+    "opath_rejected": "PASS",
+    "cross_process_owner_identity_and_reap": "PASS",
+    "whole_backing_includes_unmapped_cache": "PASS",
+    "deduplicated_objects": "PASS",
+    "tmpfs_identity": "PASS",
+    "timeout_after_backing_open_killed_and_reaped": "PASS",
+    "residency_unchanged_and_query_handles_closed": "PASS"
+  },
+  "cleanup": {
+    "errors": [],
+    "owned_fds_closed": true,
+    "initial_fd_set_restored": true,
+    "owned_mappings_absent": true
+  },
+  "tests": [
+    {
+      "log": "deleted-tests.log",
+      "count": 15,
+      "status": "PASS"
+    },
+    {
+      "log": "related-tests.log",
+      "count": 26,
+      "status": "PASS"
+    },
+    {
+      "log": "matched-tests.log",
+      "count": 4,
+      "status": "PASS"
+    }
+  ],
+  "test_count": 45,
+  "report_compatibility": [
+    {
+      "dataset": "latest",
+      "old_fields_preserved": true,
+      "json_files": [
+        "summary.json",
+        "report-N2/summary.json",
+        "report-N1/summary.json"
+      ],
+      "new_cache_fields": "NOT_MEASURED_NULL"
+    },
+    {
+      "dataset": "legacy",
+      "old_fields_preserved": true,
+      "json_files": [
+        "summary.json",
+        "report-N2/summary.json",
+        "report-N1/summary.json"
+      ],
+      "new_cache_fields": "NOT_MEASURED_NULL"
+    }
+  ],
+  "collector_integration": "EXPLICIT_DETAIL_CALLBACK_ONLY",
+  "actual_agentenv_object_query": "NOT_RUN",
+  "old_task_unknown_bytes": null,
+  "whole_host_physical_saving": "NOT_MEASURED",
+  "page_charge_owner": "NOT_MEASURED",
+  "new_sandbox_actions": 0
+}

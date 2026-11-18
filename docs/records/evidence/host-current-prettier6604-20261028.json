@@ -1,0 +1,126 @@
+{
+  "status": "PASS_ONE_FULL_CURRENT_ONLY_PRETTIER6604",
+  "task_id": "prettier__prettier-6604",
+  "actions": 29,
+  "cpu": 2,
+  "memory_mib": 4096,
+  "workflow": ".artifacts/platform-tasks/20261028T094233Z-2168794",
+  "storage": ".artifacts/storage-isolated-service/20261028T094351Z-2169958",
+  "raw": ".artifacts/storage-isolated-service/20261028T094351Z-2169958/prettier6604",
+  "report": ".artifacts/platform-tasks/report-20261028T094233Z-2168794",
+  "tool_seconds": 12.652855658,
+  "frozen_replay_seconds": 14.97343044,
+  "controller_seconds": 25.914943326,
+  "original_official": {
+    "passed": 0,
+    "failed": 2
+  },
+  "task_replay_checks": "PASS",
+  "guest_samples": 213,
+  "guest_used_peak_mib": 615.08203125,
+  "guest_cached_peak_mib": 255.796875,
+  "guest_maximum_gap_seconds": 0.10379669,
+  "guest_collector_cpu_seconds": 0.15834099999999998,
+  "guest_collector_elapsed_ns": 21232033447,
+  "guest_collector_maxrss_kib": 17140,
+  "monitor_control_calls": [
+    {
+      "stage": "monitor-upload-bundle",
+      "duration_ns": 47898898
+    },
+    {
+      "stage": "monitor-ready",
+      "duration_ns": 167007958
+    },
+    {
+      "stage": "monitor-phase",
+      "duration_ns": 39139036
+    },
+    {
+      "stage": "monitor-finish",
+      "duration_ns": 154247117
+    },
+    {
+      "stage": "monitor-download",
+      "duration_ns": 36788762
+    }
+  ],
+  "monitor_control_total_ns": 445081771,
+  "host_samples": 1119,
+  "host_maximum_gap_ns": 100178049,
+  "host_current": {
+    "metric": "memory.current",
+    "unit": "bytes",
+    "scope": "Measurement cgroup and descendants: preparation, controller, private service and all sandboxes.",
+    "window_start_monotonic_ns": 14950786779430159,
+    "window_end_monotonic_ns": 14950898670952937,
+    "initial_bytes": 43835392,
+    "final_bytes": 15087120384,
+    "observed_peak_bytes": 16320806912,
+    "time_weighted_mean_bytes": 9080180227.498465,
+    "mean_method": "Previous sample held until next sample; first-to-last sample only, including recorded gaps. Estimate, not a continuous integral.",
+    "before_guest_bytes": 15350407168,
+    "baseline_status": "OBSERVED_BEFORE_GUEST",
+    "after_service_ready_observed_peak_bytes": 16320806912,
+    "after_service_ready_peak_increase_bytes": 970399744,
+    "final_increase_from_before_guest_bytes": -263286784,
+    "interpretation": "Charged group memory, not complete sandbox physical memory. Before-guest baseline includes prepared inputs and service; increases include subsequent control and service work. Peaks are sampled, final sample may be after guest deletion.",
+    "coverage": {
+      "outside_group_charges": "NOT_INCLUDED",
+      "unaccounted_kernel_allocations": "NOT_INCLUDED",
+      "swap_bytes": "NOT_MEASURED",
+      "hugetlb_coverage": "NOT_VERIFIED"
+    },
+    "components": "anon/file/kernel explain current; shmem is part of file. Counters are sequential and may lag: do not add them to current or label their residual unaccounted memory."
+  },
+  "host_collector": {
+    "status": "PASS",
+    "error": null,
+    "samples": 1119,
+    "interval_seconds": 0.1,
+    "pss_interval_seconds": null,
+    "thread_cpu_ns": 460772245,
+    "counter_read_total_ns": 361373395,
+    "scope": "Fresh rollout slice: input preparation, controller, private service and all its descendants; host file includes shmem, not guest Cached."
+  },
+  "pss": "NOT_REQUESTED",
+  "mincore": "NOT_REQUESTED",
+  "default_reclaim_unchanged": true,
+  "new_model_requests": 0,
+  "checkpoint": false,
+  "completed": {
+    "original_29_actions": true,
+    "expected_patch_and_outputs": true,
+    "original_official_outcome": true,
+    "guest_sampling": true,
+    "host_sampling": true,
+    "automatic_reports": true,
+    "final_writable_files": true,
+    "fixed_volume_boundary": true,
+    "owned_cleanup": true
+  },
+  "matched_executed_sources": [
+    "platform_tasks.py",
+    "run_host_file_workflow.py",
+    "host_file_monitor.py",
+    "report_host_file.py",
+    "validate_isolated_agentenv.py",
+    "run_prettier6604.py",
+    "sandbox_runtime_monitor.py",
+    "report_task_overview.py",
+    "agentenv_cold_start.py"
+  ],
+  "available_start_bytes": 57222258688,
+  "available_min_bytes": 43782651904,
+  "available_after_bytes": 52303654912,
+  "source_restored_stopped": true,
+  "cleanup": {
+    "build_cache_removed_bytes": 2699489280,
+    "previously_approved_failed_volume_bytes": 17179922432
+  },
+  "limitations": [
+    "current covers the charged experimental group, not complete sandbox physical memory",
+    "one run without an off/on timing control; no new slowdown or sharing/density estimate",
+    "collector CPU excludes task-runner boundary commands; control call time is not total sampling-induced slowdown"
+  ]
+}

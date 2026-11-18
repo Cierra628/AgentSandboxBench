@@ -1,0 +1,257 @@
+{
+  "status": "PASS_ONE_COMPLETE_CURRENT_SAMPLING_PAIR",
+  "task": "prettier__prettier-6604",
+  "order": [
+    "off",
+    "on"
+  ],
+  "guests": 2,
+  "actions": 58,
+  "interval_seconds": 0.1,
+  "pss": "NOT_REQUESTED",
+  "mincore": "NOT_REQUESTED",
+  "default_reclaim_unchanged": true,
+  "same_patch_order_exits_and_official_outcome": true,
+  "source_restored_stopped": true,
+  "runs": [
+    {
+      "mode": "off",
+      "workflow": ".artifacts/platform-tasks/20261028T114738Z-2229402",
+      "storage": ".artifacts/storage-isolated-service/20261028T114856Z-2230187",
+      "report": ".artifacts/platform-tasks/report-20261028T114738Z-2229402",
+      "tools_seconds": 11.477090744,
+      "frozen_replay_seconds": 13.014031962,
+      "controller_seconds": 27.194720685,
+      "cold_start_seconds": 8.433950934,
+      "controller_after_cold_start_seconds": 18.760769750999998,
+      "outer_entry_seconds": 113.620129555,
+      "seed_preparation_seconds": 75.644581448,
+      "native_task_command_seconds": 27.323027117,
+      "native_report_seconds": 0,
+      "monitor_control_calls": [],
+      "monitor_control_seconds": 0.0,
+      "guest_samples": null,
+      "guest_collector_cpu_seconds": null,
+      "guest_maximum_gap_seconds": null,
+      "guest_used_peak_mib": null,
+      "guest_cached_peak_mib": null,
+      "guest_collector_receipt": null,
+      "host_samples": null,
+      "host_current": null,
+      "host_collector": null,
+      "original_tests": {
+        "passed": 0,
+        "failed": 2
+      },
+      "official_task_status": "FAIL",
+      "task_checks": {
+        "smoke_and_unfixed_oracle": "PASS",
+        "frozen_order_hashes_exit_codes_patch_and_key_outputs": "PASS",
+        "independent_properties": "PASS",
+        "official_task_tests": "FAIL",
+        "official_outcome_matches_full_replay": "PASS"
+      },
+      "cleanup": {
+        "owned_container_removed": true,
+        "mount_and_loop_removed": true,
+        "successful_fixture_removed": true,
+        "original_firecracker_identities_unchanged": true,
+        "original_service_unchanged": true
+      },
+      "io_accounting_checked": true,
+      "host_sampling": "off",
+      "host_creation_baseline_measured": false,
+      "available_before_bytes": 41550090240,
+      "available_after_bytes": 41546854400,
+      "native_min_available_bytes": 32957661184
+    },
+    {
+      "mode": "on",
+      "workflow": ".artifacts/platform-tasks/20261028T114932Z-2231742",
+      "storage": ".artifacts/storage-isolated-service/20261028T115050Z-2232513",
+      "report": ".artifacts/platform-tasks/report-20261028T114932Z-2231742",
+      "tools_seconds": 11.00554064,
+      "frozen_replay_seconds": 12.975344792,
+      "controller_seconds": 22.12534613,
+      "cold_start_seconds": 2.545743724,
+      "controller_after_cold_start_seconds": 19.579602406,
+      "outer_entry_seconds": 109.512822987,
+      "seed_preparation_seconds": 76.145405219,
+      "native_task_command_seconds": 22.253956867,
+      "native_report_seconds": 0.652532728,
+      "monitor_control_calls": [
+        {
+          "stage": "monitor-upload-bundle",
+          "duration_ns": 43689749
+        },
+        {
+          "stage": "monitor-ready",
+          "duration_ns": 185637204
+        },
+        {
+          "stage": "monitor-phase",
+          "duration_ns": 35955997
+        },
+        {
+          "stage": "monitor-finish",
+          "duration_ns": 153728803
+        },
+        {
+          "stage": "monitor-download",
+          "duration_ns": 36386657
+        }
+      ],
+      "monitor_control_seconds": 0.45539841,
+      "guest_samples": 191,
+      "guest_collector_cpu_seconds": 0.154689,
+      "guest_maximum_gap_seconds": 0.103731859,
+      "guest_used_peak_mib": 576.38671875,
+      "guest_cached_peak_mib": 255.7265625,
+      "guest_collector_receipt": {
+        "status": "PASS",
+        "profile": "light",
+        "samples": 191,
+        "interval_seconds": 0.1,
+        "elapsed_ns": 19028423825,
+        "cpu_user_seconds": 0.10445499999999999,
+        "cpu_system_seconds": 0.050234,
+        "maxrss_kib": 17108
+      },
+      "host_samples": 1073,
+      "host_current": {
+        "metric": "memory.current",
+        "unit": "bytes",
+        "scope": "Measurement cgroup and descendants: preparation, controller, private service and all sandboxes.",
+        "window_start_monotonic_ns": 14958405427894207,
+        "window_end_monotonic_ns": 14958512653739826,
+        "initial_bytes": 43982848,
+        "final_bytes": 15072559104,
+        "observed_peak_bytes": 16264720384,
+        "time_weighted_mean_bytes": 8706030767.35845,
+        "mean_method": "Previous sample held until next sample; first-to-last sample only, including recorded gaps. Estimate, not a continuous integral.",
+        "before_guest_bytes": 15352598528,
+        "baseline_status": "OBSERVED_BEFORE_GUEST",
+        "after_service_ready_observed_peak_bytes": 16264720384,
+        "after_service_ready_peak_increase_bytes": 912121856,
+        "final_increase_from_before_guest_bytes": -280039424,
+        "interpretation": "Charged group memory, not complete sandbox physical memory. Before-guest baseline includes prepared inputs and service; increases include subsequent control and service work. Peaks are sampled, final sample may be after guest deletion.",
+        "coverage": {
+          "outside_group_charges": "NOT_INCLUDED",
+          "unaccounted_kernel_allocations": "NOT_INCLUDED",
+          "swap_bytes": "NOT_MEASURED",
+          "hugetlb_coverage": "NOT_VERIFIED"
+        },
+        "components": "anon/file/kernel explain current; shmem is part of file. Counters are sequential and may lag: do not add them to current or label their residual unaccounted memory."
+      },
+      "host_collector": {
+        "status": "PASS",
+        "error": null,
+        "samples": 1073,
+        "interval_seconds": 0.1,
+        "pss_interval_seconds": null,
+        "thread_cpu_ns": 381258225,
+        "counter_read_total_ns": 304974394,
+        "scope": "Fresh rollout slice: input preparation, controller, private service and all its descendants; host file includes shmem, not guest Cached."
+      },
+      "original_tests": {
+        "passed": 0,
+        "failed": 2
+      },
+      "official_task_status": "FAIL",
+      "task_checks": {
+        "smoke_and_unfixed_oracle": "PASS",
+        "frozen_order_hashes_exit_codes_patch_and_key_outputs": "PASS",
+        "independent_properties": "PASS",
+        "official_task_tests": "FAIL",
+        "official_outcome_matches_full_replay": "PASS"
+      },
+      "cleanup": {
+        "owned_container_removed": true,
+        "mount_and_loop_removed": true,
+        "successful_fixture_removed": true,
+        "original_firecracker_identities_unchanged": true,
+        "original_service_unchanged": true
+      },
+      "io_accounting_checked": true,
+      "host_sampling": "on",
+      "host_creation_baseline_measured": true,
+      "available_before_bytes": 41546846208,
+      "available_after_bytes": 41543098368,
+      "native_min_available_bytes": 32955002880
+    }
+  ],
+  "comparison": {
+    "tools_seconds": {
+      "off": 11.477090744,
+      "on": 11.00554064,
+      "difference_seconds": -0.4715501040000003,
+      "change_percent": -4.108620507740756
+    },
+    "frozen_replay_seconds": {
+      "off": 13.014031962,
+      "on": 12.975344792,
+      "difference_seconds": -0.0386871700000011,
+      "change_percent": -0.29727274462645337
+    },
+    "controller_seconds": {
+      "off": 27.194720685,
+      "on": 22.12534613,
+      "difference_seconds": -5.069374555,
+      "change_percent": -18.641024534575024
+    },
+    "cold_start_seconds": {
+      "off": 8.433950934,
+      "on": 2.545743724,
+      "difference_seconds": -5.888207210000001,
+      "change_percent": -69.81552603374442
+    },
+    "controller_after_cold_start_seconds": {
+      "off": 18.760769750999998,
+      "on": 19.579602406,
+      "difference_seconds": 0.8188326550000014,
+      "change_percent": 4.3646005247538255
+    },
+    "outer_entry_seconds": {
+      "off": 113.620129555,
+      "on": 109.512822987,
+      "difference_seconds": -4.1073065679999985,
+      "change_percent": -3.6149462107520125
+    },
+    "seed_preparation_seconds": {
+      "off": 75.644581448,
+      "on": 76.145405219,
+      "difference_seconds": 0.5008237710000003,
+      "change_percent": 0.6620748788785047
+    },
+    "native_task_command_seconds": {
+      "off": 27.323027117,
+      "on": 22.253956867,
+      "difference_seconds": -5.069070249999999,
+      "change_percent": -18.5523742603399
+    },
+    "native_report_seconds": {
+      "off": 0,
+      "on": 0.652532728,
+      "difference_seconds": 0.652532728,
+      "change_percent": null
+    }
+  },
+  "launch_checker_status": "FAIL",
+  "scope": "One pair with fresh accounting groups and identical preparation/checks; signed timing differences, not a repeated estimate",
+  "limitations": [
+    "current covers the charged group, not all physical memory",
+    "one off/on pair; startup and host variation remain",
+    "seed preparation excludes archive validation before its timer",
+    "collector CPU excludes runner boundary commands"
+  ],
+  "date": "2026-10-28",
+  "launch_checker_repair": {
+    "original_status": "FAIL",
+    "kind": "checker error after both native workflows passed",
+    "cause": "task_metrics_prefix.py is archived only for monitor-off; the extra launch checker incorrectly required it for on",
+    "offline_status": "PASS",
+    "task_rerun": false,
+    "original_log": ".artifacts/host-current-sampling-pair-20261028/failure.txt"
+  },
+  "result_directory": "results/host-current-sampling-pair-20261028"
+}

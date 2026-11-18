@@ -1,0 +1,250 @@
+{
+  "date": "2026-10-31",
+  "runtime_status": "FAIL",
+  "failed_stage": "local-no-proxy-network",
+  "failure_class": "Observed network policy differs from strict internal-DNS-only acceptance",
+  "local_creation_status": "PASS",
+  "service_proxy_status": "PASS_BEFORE_CREATION",
+  "guest_proxy_status": "PASS",
+  "service_dependency_version_fix": "PASS_LIVE",
+  "registry_commands": [
+    "version",
+    "manifest"
+  ],
+  "registry_network_fallback_observed": false,
+  "new_guest_count": 1,
+  "guest_memory_mib": 4096,
+  "guest_vcpu": 2,
+  "task_actions": 0,
+  "guest_sampling": "NOT_REQUESTED",
+  "creation_request_seconds": 0.96116596,
+  "source_prepare_seconds": 124.926520149,
+  "input_import_seconds": 17.697013388,
+  "grouped_workflow_seconds": 27.01717793,
+  "host_samples": 270,
+  "host_sample_interval_seconds": 0.1,
+  "host_direct_thread_cpu_ns": 90620698,
+  "network": {
+    "strict_status": "FAIL_PUBLIC_DNS_EXCEPTION",
+    "default_ipv4_filter_structure": "MATCHES_SAVED_SOURCE",
+    "except_existing_connections": true,
+    "public_dns_exception": [
+      {
+        "-d": "8.8.8.8/32",
+        "-i": "tap0",
+        "-o": "vpeer",
+        "-p": "udp",
+        "-m": "udp",
+        "--dport": "53",
+        "-j": "ACCEPT"
+      },
+      {
+        "-d": "8.8.8.8/32",
+        "-i": "tap0",
+        "-o": "vpeer",
+        "-p": "tcp",
+        "-m": "tcp",
+        "--dport": "53",
+        "-j": "ACCEPT"
+      }
+    ],
+    "other_new_forwarded_ipv4": "REJECT",
+    "external_traffic_probe": "NOT_SENT",
+    "actual_dns_traffic": "NOT_MEASURED",
+    "namespace_identity_recheck": "NOT_REACHED_AFTER_PARSE_ERROR",
+    "saved_rules": {
+      "FORWARD": [
+        {
+          "-i": "tap0",
+          "-o": "vpeer",
+          "-j": "AGENTENV-EGRESS"
+        },
+        {
+          "-i": "tap0",
+          "-o": "vpeer",
+          "-j": "ACCEPT"
+        },
+        {
+          "-i": "vpeer",
+          "-o": "tap0",
+          "-m": "state",
+          "--state": "RELATED,ESTABLISHED",
+          "-j": "ACCEPT"
+        }
+      ],
+      "AGENTENV-EGRESS": [
+        {
+          "-i": "tap0",
+          "-o": "vpeer",
+          "-m": "conntrack",
+          "--ctstate": "RELATED,ESTABLISHED",
+          "-j": "ACCEPT"
+        },
+        {
+          "-d": "8.8.8.8/32",
+          "-i": "tap0",
+          "-o": "vpeer",
+          "-p": "udp",
+          "-m": "udp",
+          "--dport": "53",
+          "-j": "ACCEPT"
+        },
+        {
+          "-d": "8.8.8.8/32",
+          "-i": "tap0",
+          "-o": "vpeer",
+          "-p": "tcp",
+          "-m": "tcp",
+          "--dport": "53",
+          "-j": "ACCEPT"
+        },
+        {
+          "-d": "10.211.0.0/16",
+          "-i": "tap0",
+          "-o": "vpeer",
+          "-j": "REJECT",
+          "--reject-with": "icmp-port-unreachable"
+        },
+        {
+          "-d": "10.212.0.0/16",
+          "-i": "tap0",
+          "-o": "vpeer",
+          "-j": "REJECT",
+          "--reject-with": "icmp-port-unreachable"
+        },
+        {
+          "-d": "169.254.0.20/30",
+          "-i": "tap0",
+          "-o": "vpeer",
+          "-j": "REJECT",
+          "--reject-with": "icmp-port-unreachable"
+        },
+        {
+          "-d": "10.0.0.0/8",
+          "-i": "tap0",
+          "-o": "vpeer",
+          "-j": "REJECT",
+          "--reject-with": "icmp-port-unreachable"
+        },
+        {
+          "-d": "100.64.0.0/10",
+          "-i": "tap0",
+          "-o": "vpeer",
+          "-j": "REJECT",
+          "--reject-with": "icmp-port-unreachable"
+        },
+        {
+          "-d": "127.0.0.0/8",
+          "-i": "tap0",
+          "-o": "vpeer",
+          "-j": "REJECT",
+          "--reject-with": "icmp-port-unreachable"
+        },
+        {
+          "-d": "169.254.0.0/16",
+          "-i": "tap0",
+          "-o": "vpeer",
+          "-j": "REJECT",
+          "--reject-with": "icmp-port-unreachable"
+        },
+        {
+          "-d": "172.16.0.0/12",
+          "-i": "tap0",
+          "-o": "vpeer",
+          "-j": "REJECT",
+          "--reject-with": "icmp-port-unreachable"
+        },
+        {
+          "-d": "192.168.0.0/16",
+          "-i": "tap0",
+          "-o": "vpeer",
+          "-j": "REJECT",
+          "--reject-with": "icmp-port-unreachable"
+        },
+        {
+          "-i": "tap0",
+          "-o": "vpeer",
+          "-j": "AGENTENV-USER-EGRESS"
+        }
+      ],
+      "AGENTENV-USER-EGRESS": [
+        {
+          "-i": "tap0",
+          "-o": "vpeer",
+          "-j": "REJECT",
+          "--reject-with": "icmp-port-unreachable"
+        }
+      ]
+    },
+    "source": [
+      "AgentENV/src/sandbox/network/slot.rs:935-976",
+      "AgentENV/src/sandbox/network/policy.rs:312-385"
+    ]
+  },
+  "final_writable_boundary_audit": "NOT_REACHED",
+  "initial_container_mount_boundary": {
+    "readonly_root": true,
+    "daemon_log_disabled": true,
+    "write_mounts": {
+      "/home/yyxie/agentenv_experiment/.artifacts/storage-isolated-service/20261031T052137Z-2837626/mount/env": "/workspace/env",
+      "/home/yyxie/agentenv_experiment/.artifacts/storage-isolated-service/20261031T052137Z-2837626/mount/run": "/run",
+      "/home/yyxie/agentenv_experiment/.artifacts/storage-isolated-service/20261031T052137Z-2837626/mount/tmp": "/tmp"
+    },
+    "exclusions": [
+      "privileged device operations",
+      "bounded Docker container/network metadata",
+      "small host control receipts",
+      "other users and the existing service"
+    ]
+  },
+  "cleanup": {
+    "owned_container_removed": true,
+    "mount_and_loop_removed": true,
+    "failed_fixture_retained": true,
+    "original_firecracker_identities_unchanged": true,
+    "original_service_unchanged": true
+  },
+  "final_audit": {
+    "status": "PASS",
+    "failed_volume": ".artifacts/storage-isolated-service/20261031T052137Z-2837626/volume.ext4",
+    "volume_logical_bytes": 8589934592,
+    "volume_allocated_bytes": 8589959168,
+    "loop_associations": "",
+    "open_users": "",
+    "volume_not_mounted": true,
+    "temporary_source_removed": true,
+    "source_service_stopped": true,
+    "remaining_firecrackers": [],
+    "remaining_running_containers": [],
+    "previous_approved_volume_deleted": true,
+    "retained_current_input_files": 105,
+    "retained_current_input_bytes": 7367703084,
+    "disk_available_bytes": 46044147712
+  },
+  "preflight_disk_gib": 55.94483947753906,
+  "preflight_memory_gib": 478.8162040710449,
+  "final_disk_gib": 42.881954193115234,
+  "previous_volume_deletion": {
+    "status": "DELETED",
+    "authorized_scope": "User approved this one 8 GiB failure volume; retain logs and inputs",
+    "volume": ".artifacts/storage-isolated-service/20261031T050959Z-2832458/volume.ext4",
+    "device": 64512,
+    "inode": 52704117,
+    "size": 8589934592,
+    "allocated_bytes": 8589967360,
+    "disk_available_before_bytes": 51480371200,
+    "loop_associations": [],
+    "open_users": [],
+    "mounted": false,
+    "disk_available_after_bytes": 60070326272,
+    "deleted_utc": "2026-10-31T05:19:11Z"
+  },
+  "evidence_directories": [
+    ".artifacts/prettier-no-proxy-check-retry-20261031",
+    ".artifacts/storage-isolated-service/20261031T052137Z-2837626",
+    ".artifacts/platform-tasks/20261031T052118Z-2837404",
+    ".artifacts/prettier6604/host-persistent-asbhost-20261031t0519132836213"
+  ],
+  "runtime_result_rewritten": false,
+  "additional_live_attempts": 0
+}

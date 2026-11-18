@@ -1,0 +1,500 @@
+{
+  "status": "PASS_SAVED_DATA_CHECKS",
+  "workflow": ".artifacts/host-file-independent-pair/20261021T080638Z-4169682",
+  "new_actions": 30,
+  "reused_prefix_actions": 11,
+  "query_build_ns": 113955569,
+  "groups": [
+    {
+      "sandboxes": 1,
+      "storage": ".artifacts/storage-isolated-service/20261021T080756Z-4170563",
+      "actual_new_actions": 10,
+      "platform_and_original_results": "PASS_ORIGINAL_0_PASS_2_FAIL_PER_INSTANCE_RETAINED",
+      "families": [
+        {
+          "name": "io_uring",
+          "metadata_keys": 9,
+          "mapping_lines": 23,
+          "smaps_status_counts": {
+            "OBSERVED": 23
+          },
+          "permissions": [
+            "rw-s"
+          ],
+          "offsets": [
+            0,
+            134217728,
+            268435456
+          ],
+          "vm_flags_values": [
+            [
+              "rd",
+              "wr",
+              "sh",
+              "mr",
+              "mw",
+              "ms",
+              "de",
+              "sd",
+              "mm"
+            ]
+          ],
+          "kernel_page_sizes": [
+            4096
+          ],
+          "mapping_pss_rss_observations_bytes": {
+            "Pss": 446464,
+            "Rss": 487424,
+            "Anonymous": 0,
+            "Shared_Hugetlb": 0,
+            "Private_Hugetlb": 0
+          },
+          "mapped_names": [
+            "anon_inode:[io_uring]"
+          ],
+          "descriptor_metadata_rows": 0,
+          "backing_types": [],
+          "deleted_objects_without_descriptor": 0
+        },
+        {
+          "name": "kvm",
+          "metadata_keys": 1,
+          "mapping_lines": 4,
+          "smaps_status_counts": {
+            "OBSERVED": 4
+          },
+          "permissions": [
+            "rw-s"
+          ],
+          "offsets": [
+            0
+          ],
+          "vm_flags_values": [
+            [
+              "rd",
+              "wr",
+              "sh",
+              "mr",
+              "mw",
+              "ms",
+              "sd"
+            ]
+          ],
+          "kernel_page_sizes": [
+            4096
+          ],
+          "mapping_pss_rss_observations_bytes": {
+            "Pss": 12288,
+            "Rss": 20480,
+            "Anonymous": 0,
+            "Shared_Hugetlb": 0,
+            "Private_Hugetlb": 0
+          },
+          "mapped_names": [
+            "anon_inode:kvm-vcpu:0",
+            "anon_inode:kvm-vcpu:1"
+          ],
+          "descriptor_metadata_rows": 0,
+          "backing_types": [],
+          "deleted_objects_without_descriptor": 0
+        },
+        {
+          "name": "memfd",
+          "metadata_keys": 1,
+          "mapping_lines": 2,
+          "smaps_status_counts": {
+            "OBSERVED": 2
+          },
+          "permissions": [
+            "rw-s"
+          ],
+          "offsets": [
+            0
+          ],
+          "vm_flags_values": [
+            [
+              "rd",
+              "wr",
+              "sh",
+              "mr",
+              "mw",
+              "me",
+              "ms",
+              "sd"
+            ]
+          ],
+          "kernel_page_sizes": [
+            4096
+          ],
+          "mapping_pss_rss_observations_bytes": {
+            "Pss": 4096,
+            "Rss": 8192,
+            "Anonymous": 0,
+            "Shared_Hugetlb": 0,
+            "Private_Hugetlb": 0
+          },
+          "mapped_names": [
+            "/memfd:iov_deque (deleted)"
+          ],
+          "descriptor_metadata_rows": 0,
+          "backing_types": [],
+          "deleted_objects_without_descriptor": 1
+        },
+        {
+          "name": "dev_zero",
+          "metadata_keys": 1,
+          "mapping_lines": 1,
+          "smaps_status_counts": {
+            "OBSERVED": 1
+          },
+          "permissions": [
+            "rw-s"
+          ],
+          "offsets": [
+            0
+          ],
+          "vm_flags_values": [
+            [
+              "rd",
+              "wr",
+              "sh",
+              "mr",
+              "mw",
+              "me",
+              "ms",
+              "sd"
+            ]
+          ],
+          "kernel_page_sizes": [
+            4096
+          ],
+          "mapping_pss_rss_observations_bytes": {
+            "Pss": 0,
+            "Rss": 0,
+            "Anonymous": 0,
+            "Shared_Hugetlb": 0,
+            "Private_Hugetlb": 0
+          },
+          "mapped_names": [
+            "/dev/zero (deleted)"
+          ],
+          "descriptor_metadata_rows": 0,
+          "backing_types": [],
+          "deleted_objects_without_descriptor": 1
+        }
+      ],
+      "ublkc_commands": [
+        {
+          "status": "SOURCE_CALCULATED",
+          "queues": 1,
+          "depth": 16,
+          "allocation_bytes": 4096,
+          "mapped_pss_bytes": 0,
+          "query_ns": 1660469,
+          "error": null
+        },
+        {
+          "status": "SOURCE_CALCULATED",
+          "queues": 1,
+          "depth": 16,
+          "allocation_bytes": 4096,
+          "mapped_pss_bytes": 0,
+          "query_ns": 2857302,
+          "error": null
+        },
+        {
+          "status": "SOURCE_CALCULATED",
+          "queues": 1,
+          "depth": 16,
+          "allocation_bytes": 4096,
+          "mapped_pss_bytes": 0,
+          "query_ns": 764402,
+          "error": null
+        }
+      ],
+      "ublkc_command_allocation_bytes": 12288,
+      "special_metadata_status": "INCOMPLETE",
+      "special_metadata_errors": [],
+      "mapped_coverage": "INCOMPLETE",
+      "special_mapping_smaps_count": 41,
+      "special_mapping_smaps_status": "OBSERVED",
+      "metadata_incomplete_reason": "DELETED_BACKING_DESCRIPTOR_UNAVAILABLE",
+      "deleted_objects_without_descriptor": 2,
+      "compact_window_ns": 2159857136,
+      "mapped_metadata_and_file_query_ns": 23449564,
+      "ublkc_query_ns": 5282173,
+      "all_post_task_query_ns": 5258686635,
+      "previous_compact_window_ns": 2062095407,
+      "previous_mapped_query_ns": 9220306,
+      "task_wall_ns": 2348422295,
+      "tool_ns": 1728795589,
+      "target_memory_device_bytes": 428331008,
+      "additional_regular_files": 35,
+      "additional_global_cache_bytes": 162586624,
+      "before_all_process_pss": {
+        "pss": 521552896,
+        "pss_anon": 257089536,
+        "pss_file": 264459264,
+        "pss_shmem": 4096
+      },
+      "final_file_shortfall_bytes": 1829965824,
+      "final_file_accounting": "SHORTFALL_REQUIRES_RESOLUTION",
+      "before_restore_file_baseline": 40089526272,
+      "cleaned": true
+    },
+    {
+      "sandboxes": 2,
+      "storage": ".artifacts/storage-isolated-service/20261021T080931Z-4173413",
+      "actual_new_actions": 20,
+      "platform_and_original_results": "PASS_ORIGINAL_0_PASS_2_FAIL_PER_INSTANCE_RETAINED",
+      "families": [
+        {
+          "name": "io_uring",
+          "metadata_keys": 15,
+          "mapping_lines": 40,
+          "smaps_status_counts": {
+            "OBSERVED": 40
+          },
+          "permissions": [
+            "rw-s"
+          ],
+          "offsets": [
+            0,
+            134217728,
+            268435456
+          ],
+          "vm_flags_values": [
+            [
+              "rd",
+              "wr",
+              "sh",
+              "mr",
+              "mw",
+              "ms",
+              "de",
+              "sd",
+              "mm"
+            ]
+          ],
+          "kernel_page_sizes": [
+            4096
+          ],
+          "mapping_pss_rss_observations_bytes": {
+            "Pss": 536576,
+            "Rss": 618496,
+            "Anonymous": 0,
+            "Shared_Hugetlb": 0,
+            "Private_Hugetlb": 0
+          },
+          "mapped_names": [
+            "anon_inode:[io_uring]"
+          ],
+          "descriptor_metadata_rows": 0,
+          "backing_types": [],
+          "deleted_objects_without_descriptor": 0
+        },
+        {
+          "name": "kvm",
+          "metadata_keys": 1,
+          "mapping_lines": 8,
+          "smaps_status_counts": {
+            "OBSERVED": 8
+          },
+          "permissions": [
+            "rw-s"
+          ],
+          "offsets": [
+            0
+          ],
+          "vm_flags_values": [
+            [
+              "rd",
+              "wr",
+              "sh",
+              "mr",
+              "mw",
+              "ms",
+              "sd"
+            ]
+          ],
+          "kernel_page_sizes": [
+            4096
+          ],
+          "mapping_pss_rss_observations_bytes": {
+            "Pss": 28672,
+            "Rss": 45056,
+            "Anonymous": 0,
+            "Shared_Hugetlb": 0,
+            "Private_Hugetlb": 0
+          },
+          "mapped_names": [
+            "anon_inode:kvm-vcpu:0",
+            "anon_inode:kvm-vcpu:1"
+          ],
+          "descriptor_metadata_rows": 0,
+          "backing_types": [],
+          "deleted_objects_without_descriptor": 0
+        },
+        {
+          "name": "memfd",
+          "metadata_keys": 2,
+          "mapping_lines": 4,
+          "smaps_status_counts": {
+            "OBSERVED": 4
+          },
+          "permissions": [
+            "rw-s"
+          ],
+          "offsets": [
+            0
+          ],
+          "vm_flags_values": [
+            [
+              "rd",
+              "wr",
+              "sh",
+              "mr",
+              "mw",
+              "me",
+              "ms",
+              "sd"
+            ]
+          ],
+          "kernel_page_sizes": [
+            4096
+          ],
+          "mapping_pss_rss_observations_bytes": {
+            "Pss": 8192,
+            "Rss": 16384,
+            "Anonymous": 0,
+            "Shared_Hugetlb": 0,
+            "Private_Hugetlb": 0
+          },
+          "mapped_names": [
+            "/memfd:iov_deque (deleted)"
+          ],
+          "descriptor_metadata_rows": 0,
+          "backing_types": [],
+          "deleted_objects_without_descriptor": 2
+        },
+        {
+          "name": "dev_zero",
+          "metadata_keys": 2,
+          "mapping_lines": 2,
+          "smaps_status_counts": {
+            "OBSERVED": 2
+          },
+          "permissions": [
+            "rw-s"
+          ],
+          "offsets": [
+            0
+          ],
+          "vm_flags_values": [
+            [
+              "rd",
+              "wr",
+              "sh",
+              "mr",
+              "mw",
+              "me",
+              "ms",
+              "sd"
+            ]
+          ],
+          "kernel_page_sizes": [
+            4096
+          ],
+          "mapping_pss_rss_observations_bytes": {
+            "Pss": 0,
+            "Rss": 0,
+            "Anonymous": 0,
+            "Shared_Hugetlb": 0,
+            "Private_Hugetlb": 0
+          },
+          "mapped_names": [
+            "/dev/zero (deleted)"
+          ],
+          "descriptor_metadata_rows": 0,
+          "backing_types": [],
+          "deleted_objects_without_descriptor": 2
+        }
+      ],
+      "ublkc_commands": [
+        {
+          "status": "SOURCE_CALCULATED",
+          "queues": 1,
+          "depth": 16,
+          "allocation_bytes": 4096,
+          "mapped_pss_bytes": 0,
+          "query_ns": 1365935,
+          "error": null
+        },
+        {
+          "status": "SOURCE_CALCULATED",
+          "queues": 1,
+          "depth": 16,
+          "allocation_bytes": 4096,
+          "mapped_pss_bytes": 0,
+          "query_ns": 2908467,
+          "error": null
+        },
+        {
+          "status": "SOURCE_CALCULATED",
+          "queues": 1,
+          "depth": 16,
+          "allocation_bytes": 4096,
+          "mapped_pss_bytes": 0,
+          "query_ns": 766923,
+          "error": null
+        },
+        {
+          "status": "SOURCE_CALCULATED",
+          "queues": 1,
+          "depth": 16,
+          "allocation_bytes": 4096,
+          "mapped_pss_bytes": 0,
+          "query_ns": 783199,
+          "error": null
+        }
+      ],
+      "ublkc_command_allocation_bytes": 16384,
+      "special_metadata_status": "INCOMPLETE",
+      "special_metadata_errors": [],
+      "mapped_coverage": "INCOMPLETE",
+      "special_mapping_smaps_count": 74,
+      "special_mapping_smaps_status": "OBSERVED",
+      "metadata_incomplete_reason": "DELETED_BACKING_DESCRIPTOR_UNAVAILABLE",
+      "deleted_objects_without_descriptor": 4,
+      "compact_window_ns": 2176950029,
+      "mapped_metadata_and_file_query_ns": 29322501,
+      "ublkc_query_ns": 5824524,
+      "all_post_task_query_ns": 6840015924,
+      "previous_compact_window_ns": 2082607770,
+      "previous_mapped_query_ns": 10555084,
+      "task_wall_ns": 2890782625,
+      "tool_ns": 3957049079,
+      "target_memory_device_bytes": 444989440,
+      "additional_regular_files": 35,
+      "additional_global_cache_bytes": 162586624,
+      "before_all_process_pss": {
+        "pss": 690524160,
+        "pss_anon": 400596992,
+        "pss_file": 289918976,
+        "pss_shmem": 8192
+      },
+      "final_file_shortfall_bytes": 1822875648,
+      "final_file_accounting": "SHORTFALL_REQUIRES_RESOLUTION",
+      "before_restore_file_baseline": 40095866880,
+      "cleaned": true
+    }
+  ],
+  "metadata_status": "INCOMPLETE",
+  "command_buffer_query_validation": "PASS",
+  "host_counter_points": 2655,
+  "pss_points": 266,
+  "partial_pss_points": 2,
+  "whole_physical_saving": "NOT_MEASURED",
+  "guest_cache_physical_subset": "NOT_MEASURED",
+  "scope": "One N1/N2 pair; shared original snapshot, independent writable services. Mapping PSS observations and source-calculated command allocations are separate from file-cache residency, not a physical union. Prior timings are a different single run, not an overhead-control estimate."
+}

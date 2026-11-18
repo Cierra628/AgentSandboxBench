@@ -14,7 +14,7 @@ class NoRedirect(urllib.request.HTTPRedirectHandler):
         raise RuntimeError('cold creation redirects are forbidden')
 
 
-def create(config_home, service_url, image, *, request_timeout=600, memory_mib=4096, allow_8gib=False,local_no_proxy=False,local_c4=False):
+def create(config_home, service_url, image, *, request_timeout=600, memory_mib=4096, allow_8gib=False,local_no_proxy=False,local_c4=False,clean_guest_proxy=False):
     url = urlsplit(service_url)
     if (url.scheme != 'http' or url.hostname != '127.0.0.1' or not url.port
             or url.path or url.query or url.fragment or url.username or url.password):
@@ -28,6 +28,8 @@ def create(config_home, service_url, image, *, request_timeout=600, memory_mib=4
     if credentials['url'] != service_url or not credentials['api_key']:
         raise ValueError('credentials do not match owned service')
     body = dict(image=image, timeout=1800, cpuCount=2, memoryMB=memory_mib, secure=True)
+    if clean_guest_proxy:
+        body['envVars']={key:'' for key in ('HTTP_PROXY','HTTPS_PROXY','ALL_PROXY','http_proxy','https_proxy','all_proxy')}
     if local_no_proxy:
         from prettier_no_proxy import IMAGE,SPHINX_IMAGE,XARRAY_IMAGE,PROXY_KEYS
         if image not in (IMAGE,SPHINX_IMAGE,XARRAY_IMAGE) or memory_mib!=4096:raise ValueError('local-no-proxy is limited to the pinned 4 GiB Prettier/Sphinx/Xarray images')
@@ -60,10 +62,12 @@ if __name__ == '__main__':
     parser.add_argument('--image', required=True)
     parser.add_argument('--memory-mib', type=int, default=4096)
     parser.add_argument('--allow-8gib',action='store_true',help='Explicit external-workload 8192 MiB budget; default limit unchanged')
+    parser.add_argument('--clean-guest-proxy',action='store_true',help='Explicitly empty the six guest proxy variables; network policy unchanged')
     parser.add_argument('--local-no-proxy',action='store_true',help='Pinned Prettier/Sphinx/Xarray only: empty guest proxy environment; request deny-egress with DNS exception')
     args = parser.parse_args()
     try:
         print(create(args.config_home, args.service_url, args.image,memory_mib=args.memory_mib,
+            **(dict(clean_guest_proxy=True) if args.clean_guest_proxy else {}),
             **(dict(local_no_proxy=True) if args.local_no_proxy else {}),
             **(dict(allow_8gib=True) if args.allow_8gib else {})))
     except Exception as error:

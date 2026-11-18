@@ -1,0 +1,141 @@
+{
+  "date": "2026-10-31",
+  "status": "PASS",
+  "task_id": "sphinx-doc__sphinx-7590",
+  "mode": "single; persistent input; local-no-proxy; light 0.1 seconds; default reclaim",
+  "correctness": {
+    "original_actions": 35,
+    "diagnostic_status": "PASS",
+    "strict_replay_status": "FAIL",
+    "pipeline_policy_version": 2,
+    "original_final_tests_passed": 25,
+    "independent_cases_passed": 7,
+    "official": {
+      "status": "FAIL",
+      "exit_code": 1,
+      "passed": 24,
+      "failed": 1,
+      "skipped": 0,
+      "failed_tests": [
+        "tests/test_domain_cpp.py::test_expressions"
+      ],
+      "skipped_tests": [],
+      "F2P_passed": 0,
+      "F2P_total": 1,
+      "P2P_passed": 24,
+      "P2P_total": 24,
+      "scope": "SWE-bench selected C++ tests and test patch; direct image pytest, not full official Docker harness"
+    },
+    "write_boundary": "PASS",
+    "readonly_root": "PASS",
+    "fixed_volume": "PASS",
+    "cleanup": "PASS"
+  },
+  "timing_seconds": {
+    "original_35_tool_sum": 19.428204469,
+    "frozen_replay": 22.776335482,
+    "task_controller": 31.920212131,
+    "grouped_workflow": 67.59306467,
+    "archive_preparation": 115.558367523,
+    "input_import": 23.837069685,
+    "guest_creation": 1.041151467,
+    "official_test_call": 4.020191735
+  },
+  "memory_bytes": {
+    "host_current_before_guest": 9558712320,
+    "host_current_peak": 10069319680,
+    "host_peak_increase_from_before_guest": 510607360,
+    "host_file_peak": 9259552768,
+    "guest_memory_peak": 306008064,
+    "guest_cached_peak": 125870080
+  },
+  "sampling": {
+    "host_samples": 660,
+    "guest_samples": 300,
+    "interval_seconds": 0.1,
+    "host_sample_window_seconds": 65.951583178,
+    "host_direct_thread_cpu_seconds": 0.199350633,
+    "host_single_cpu_percent": 0.3022681539910311,
+    "host_maximum_sample_gap_seconds": 0.103228465,
+    "guest_collector_elapsed_seconds": 30.010772949,
+    "guest_direct_process_cpu_seconds": 0.23274899999999998,
+    "guest_single_cpu_percent": 0.7755515007745094,
+    "guest_collector_maxrss_kib": 17848,
+    "guest_maximum_sample_gap_seconds": 0.103611536,
+    "blocking_management_calls": 5,
+    "blocking_management_total_seconds": 0.53419071,
+    "blocking_management_events": [
+      {
+        "stage": "monitor-upload-bundle",
+        "seconds": 0.038646001
+      },
+      {
+        "stage": "monitor-ready",
+        "seconds": 0.168093881
+      },
+      {
+        "stage": "monitor-phase",
+        "seconds": 0.122520455
+      },
+      {
+        "stage": "monitor-finish",
+        "seconds": 0.169547031
+      },
+      {
+        "stage": "monitor-download",
+        "seconds": 0.035383342
+      }
+    ],
+    "pss": "NOT_REQUESTED",
+    "slowdown_control": "NOT_RUN_THIS_ROUND"
+  },
+  "final_input_residency": {
+    "status": "PASS",
+    "files": 116,
+    "resident_bytes": 8913952768,
+    "group_file_before_bytes": 8917639168,
+    "group_file_after_bytes": 8917639168,
+    "shortfall_bytes": 0,
+    "query_elapsed_seconds": 0.179669246,
+    "query_thread_cpu_seconds": 0.178456991,
+    "ownership": "NOT_QUERIED",
+    "scope": "Imported input files only; sequential, not atomic; fresh-inode provenance plus residency cross-check, not whole-host coverage."
+  },
+  "proxy": {
+    "guest_check": "PASS",
+    "outer_proxy_removed": true,
+    "private_service_proxy_explicitly_empty": true,
+    "registry_commands": [
+      "version",
+      "manifest"
+    ],
+    "image_or_dependency_download_log_entries": 0,
+    "network_policy": "allowInternetAccess=false; default DNS exception retained",
+    "traffic_volume": "NOT_MEASURED"
+  },
+  "cleanup": {
+    "approved_deletion": ".artifacts/prettier6604/host-persistent-asbhost-20261031t0519132836213/input",
+    "successful_runtime_volume_removed": true,
+    "new_input_released": true,
+    "temporary_source_removed": true,
+    "source_service_stopped": true,
+    "running_containers": 0,
+    "firecrackers": 0,
+    "disk_available_after_bytes": 65471418368
+  },
+  "scopes": {
+    "host": "memory.current of measurement group: imported inputs, controller, private service and guest; excludes outside charges",
+    "guest_memory": "MemTotal - MemAvailable",
+    "guest_cache": "Cached including Shmem",
+    "baseline_increase": "Includes guest and subsequent service/control work; not guest alone",
+    "collector_cpu": "Direct sampler CPU, not task slowdown; no new off/on pair",
+    "mincore": "Once after isolated runtime cleanup; imported inputs only, not runtime physical union"
+  },
+  "raw_paths": {
+    "workflow": ".artifacts/platform-tasks/20261031T102855Z-2871843",
+    "native": ".artifacts/storage-isolated-service/20261031T102920Z-2872101",
+    "report": ".artifacts/platform-tasks/report-20261031T102855Z-2871843"
+  },
+  "driver_directory": ".artifacts/sphinx-local-no-proxy-full-20261031",
+  "result_directory": "results/sphinx-local-no-proxy-20261031"
+}

@@ -1,0 +1,150 @@
+{
+  "status": "PASS_OFFLINE_AUDIT",
+  "source_revision": "2f48c9c78ec58e4d73c49aa07cb81d984a4a4184",
+  "examined_source_paths": [
+    "src/api/impls/sandbox.rs",
+    "src/api/server.rs",
+    "src/api/impls/auth.rs",
+    "src/observability/prometheus.rs",
+    "src/image/resolver.rs",
+    "src/image/oci_image.rs",
+    "src/orchestrator/service.rs",
+    "src/bin/server.rs",
+    "crates/observability/src/lib.rs"
+  ],
+  "examined_source_files_unchanged_from_revision": true,
+  "source_binary": {
+    "size_bytes": 92227816,
+    "found": {
+      "agentenv_http_request_duration_seconds": true,
+      "agentenv_sandbox_stage_duration_seconds": true,
+      "agentenv_sandbox_stage_inflight": true,
+      "agentenv_image_resolve_stage_duration_seconds": true,
+      "agentenv_image_resolve_cache_total": true,
+      "resolve_rootfs": true,
+      "resolve_attached_drives": true,
+      "create_sandbox": true,
+      "manifest_fetch": true,
+      "config_fetch": true,
+      "layer_convert": true,
+      "/metrics": true
+    }
+  },
+  "source_container_unchanged_and_stopped": true,
+  "server_image": "sha256:db9eb044ae3d85f9b276b9d2e5dea28cb0be95263d217ea4989f095e1d828681",
+  "metrics_http_runtime_status": "NOT_QUERIED_OFFLINE",
+  "new_guests": 0,
+  "new_task_actions": 0,
+  "runs": [
+    {
+      "pair": 1,
+      "mode": "off",
+      "storage": ".artifacts/storage-isolated-service/20261026T100212Z-1382663",
+      "cold_span_ns": 4163610080,
+      "request_elapsed_sum_ns": 28565413809,
+      "pre_create_sum_ns": 21973141890,
+      "create_to_launch_sum_ns": 6515097000,
+      "post_launch_sum_ns": 77174919,
+      "exported_metric_data_files": [],
+      "metric_named_helper_sources": [
+        "code/task_metrics_prefix.py"
+      ],
+      "explicit_retry_log_counts": {
+        "regctl failed; retrying": 0,
+        "candidate manifest fetch failed": 0,
+        "candidate does not exist": 0
+      }
+    },
+    {
+      "pair": 1,
+      "mode": "on",
+      "storage": ".artifacts/storage-isolated-service/20261026T100359Z-1384548",
+      "cold_span_ns": 3137893316,
+      "request_elapsed_sum_ns": 21015137983,
+      "pre_create_sum_ns": 14779470281,
+      "create_to_launch_sum_ns": 6160973000,
+      "post_launch_sum_ns": 74694702,
+      "exported_metric_data_files": [],
+      "metric_named_helper_sources": [],
+      "explicit_retry_log_counts": {
+        "regctl failed; retrying": 0,
+        "candidate manifest fetch failed": 0,
+        "candidate does not exist": 0
+      }
+    },
+    {
+      "pair": 2,
+      "mode": "on",
+      "storage": ".artifacts/storage-isolated-service/20261026T100544Z-1386711",
+      "cold_span_ns": 43234734761,
+      "request_elapsed_sum_ns": 99954578026,
+      "pre_create_sum_ns": 94645144609,
+      "create_to_launch_sum_ns": 5233563000,
+      "post_launch_sum_ns": 75870417,
+      "exported_metric_data_files": [],
+      "metric_named_helper_sources": [],
+      "explicit_retry_log_counts": {
+        "regctl failed; retrying": 0,
+        "candidate manifest fetch failed": 0,
+        "candidate does not exist": 0
+      }
+    },
+    {
+      "pair": 2,
+      "mode": "off",
+      "storage": ".artifacts/storage-isolated-service/20261026T100807Z-1389627",
+      "cold_span_ns": 10330459737,
+      "request_elapsed_sum_ns": 44263649774,
+      "pre_create_sum_ns": 39061843889,
+      "create_to_launch_sum_ns": 5131987000,
+      "post_launch_sum_ns": 69818885,
+      "exported_metric_data_files": [],
+      "metric_named_helper_sources": [
+        "code/task_metrics_prefix.py"
+      ],
+      "explicit_retry_log_counts": {
+        "regctl failed; retrying": 0,
+        "candidate manifest fetch failed": 0,
+        "candidate does not exist": 0
+      }
+    },
+    {
+      "pair": 3,
+      "mode": "off",
+      "storage": ".artifacts/storage-isolated-service/20261026T101006Z-1391470",
+      "cold_span_ns": 3278088504,
+      "request_elapsed_sum_ns": 22270661467,
+      "pre_create_sum_ns": 15062791328,
+      "create_to_launch_sum_ns": 7131094000,
+      "post_launch_sum_ns": 76776139,
+      "exported_metric_data_files": [],
+      "metric_named_helper_sources": [
+        "code/task_metrics_prefix.py"
+      ],
+      "explicit_retry_log_counts": {
+        "regctl failed; retrying": 0,
+        "candidate manifest fetch failed": 0,
+        "candidate does not exist": 0
+      }
+    },
+    {
+      "pair": 3,
+      "mode": "on",
+      "storage": ".artifacts/storage-isolated-service/20261026T101151Z-1393276",
+      "cold_span_ns": 7764197405,
+      "request_elapsed_sum_ns": 32759762885,
+      "pre_create_sum_ns": 27050490222,
+      "create_to_launch_sum_ns": 5630057000,
+      "post_launch_sum_ns": 79215663,
+      "exported_metric_data_files": [],
+      "metric_named_helper_sources": [],
+      "explicit_retry_log_counts": {
+        "regctl failed; retrying": 0,
+        "candidate manifest fetch failed": 0,
+        "candidate does not exist": 0
+      }
+    }
+  ],
+  "decision": "Read two snapshots of the owned server /metrics outside cold intervals; compare seven-request cumulative durations, never batch wall time; no per-request attribution from aggregate labels",
+  "implementation_status": "PROPOSED_NOT_IMPLEMENTED"
+}

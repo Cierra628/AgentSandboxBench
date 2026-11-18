@@ -1,0 +1,99 @@
+{
+  "status": "PASS_OFFLINE_FULL_SHARED_ALIGNMENT",
+  "saved_runs": [
+    {
+      "schedule": "grpo",
+      "raw": ".artifacts/storage-isolated-service/20261022T065540Z-161492/prettier6604",
+      "task_status": "PASS",
+      "original_workflow_storage_status": "FAIL",
+      "actual_actions": 189,
+      "logical_actions": 189,
+      "roles": 7,
+      "guest_sessions": 7,
+      "snapshot_count": 0,
+      "restored_count": 0,
+      "live_shared_object_observations": "NOT_SAVED",
+      "final_inventory_status": "INCOMPLETE",
+      "final_inventory_snapshot_paths": 0,
+      "original_official_per_guest": {
+        "passed": 0,
+        "failed": 2,
+        "status": "FAIL_PRESERVED"
+      }
+    },
+    {
+      "schedule": "bpo",
+      "raw": ".artifacts/storage-isolated-service/20261022T070143Z-166686/prettier6604",
+      "task_status": "PASS",
+      "original_workflow_storage_status": "PASS",
+      "actual_actions": 84,
+      "logical_actions": 189,
+      "roles": 7,
+      "guest_sessions": 9,
+      "snapshot_count": 2,
+      "restored_count": 6,
+      "live_shared_object_observations": "NOT_SAVED",
+      "final_inventory_status": "OBSERVED",
+      "final_inventory_snapshot_paths": 0,
+      "original_official_per_guest": {
+        "passed": 0,
+        "failed": 2,
+        "status": "FAIL_PRESERVED"
+      }
+    }
+  ],
+  "bpo_restore_groups": [
+    {
+      "checkpoint_step": 11,
+      "roles": [
+        "early_1",
+        "early_2",
+        "early_3"
+      ]
+    },
+    {
+      "checkpoint_step": 24,
+      "roles": [
+        "late_1",
+        "late_2",
+        "late_3"
+      ]
+    }
+  ],
+  "checks": [
+    {
+      "name": "mixed_memory_helper",
+      "result": "REJECTED_AS_EXPECTED",
+      "message": "restored guests do not share one memory backing"
+    },
+    {
+      "name": "subset_readonly",
+      "result": "NOT_SELECTED_BY_ALL_GUEST_HELPER"
+    },
+    {
+      "name": "classifier_membership",
+      "result": "USES_PASSED_ROLE_SET_NOT_TEMPLATE_MEMBERSHIP"
+    },
+    {
+      "name": "cache_identity_aliases",
+      "result": "FOUR_SYNTHETIC_REFERENCES_TWO_OBJECTS"
+    },
+    {
+      "name": "legacy_host_pss_default",
+      "result": "ENABLED_OLD_BEHAVIOR_PRESERVED"
+    }
+  ],
+  "current_entry_defaults": [
+    {
+      "schedule": "grpo",
+      "current_host_pss": "ENABLED_BY_DEFAULT",
+      "new_shared_profile": "NOT_IMPLEMENTED"
+    },
+    {
+      "schedule": "bpo",
+      "current_host_pss": "ENABLED_BY_DEFAULT",
+      "new_shared_profile": "NOT_IMPLEMENTED"
+    }
+  ],
+  "scope": "Saved JSON metadata, source AST and pure or mocked calls only. No sandbox, service, payload file, proc inventory, mincore or actual device access. Logical two-template groups do not establish historical physical device identities. No new production implementation or physical measurement."
+}

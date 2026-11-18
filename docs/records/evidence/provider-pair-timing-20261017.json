@@ -1,0 +1,188 @@
+{
+  "status": "PASS",
+  "date": "2026-10-17",
+  "order": [
+    "off",
+    "on"
+  ],
+  "live_runs": 2,
+  "action_count_per_run": 31,
+  "configuration": {
+    "vcpu": 2,
+    "memory_mib": 4096,
+    "volume_gib": 24,
+    "page_size": 4096,
+    "guest_kernel": "6.1.175-asb-cache-v3",
+    "provider": "existing segmented GET_DATA binary, observation enabled in both",
+    "regular_monitoring": "unchanged",
+    "switch": "guest publication plus host physical collection and BPF"
+  },
+  "runs": {
+    "off": {
+      "wrapper": ".artifacts/prettier-snapshot-cache-pair/20261017T110955Z-2457407",
+      "storage_run": "20261017T111114Z-2457830",
+      "native_checkpoint_pause_bounds_ns": [
+        368481672,
+        369020606
+      ],
+      "physical_report": "NOT_REQUESTED",
+      "startup_available_bytes": 59425824768,
+      "minimum_available_bytes": 33653858304,
+      "after_cleanup_available_bytes": 59421298688,
+      "cache_sampler_stop_ns": null
+    },
+    "on": {
+      "wrapper": ".artifacts/prettier-snapshot-cache-pair/20261017T111205Z-2460968",
+      "storage_run": "20261017T111324Z-2461159",
+      "native_checkpoint_pause_bounds_ns": [
+        362884557,
+        363253091
+      ],
+      "physical_report": "PASS",
+      "startup_available_bytes": 59420696576,
+      "minimum_available_bytes": 33649299456,
+      "after_cleanup_available_bytes": 59310960640,
+      "cache_sampler_stop_ns": 1816171225,
+      "physical_samples": {
+        "child-a": 14,
+        "child-b": 12
+      },
+      "overlap_pairs": 6,
+      "queries": 104,
+      "missing_query_results": 0,
+      "independent_maps": 4,
+      "independent_four_source_sets": true
+    }
+  },
+  "comparison": {
+    "task_tool_sum_ns": {
+      "off_ns": 6322275582,
+      "on_ns": 5549818476,
+      "delta_ns": -772457106,
+      "delta_percent": -12.218023336395587
+    },
+    "prefix_tool_sum_ns": {
+      "off_ns": 969148111,
+      "on_ns": 972441821,
+      "delta_ns": 3293710,
+      "delta_percent": 0.33985620594167365
+    },
+    "suffix_tool_sum_ns": {
+      "off_ns": 5353127471,
+      "on_ns": 4577376655,
+      "delta_ns": -775750816,
+      "delta_percent": -14.491543872297974
+    },
+    "early_1_tool_sum_ns": {
+      "off_ns": 2727514254,
+      "on_ns": 2272407377,
+      "delta_ns": -455106877,
+      "delta_percent": -16.68577446781695
+    },
+    "early_2_tool_sum_ns": {
+      "off_ns": 2625613217,
+      "on_ns": 2304969278,
+      "delta_ns": -320643939,
+      "delta_percent": -12.21215436165288
+    },
+    "branch_replay_elapsed_ns": {
+      "off_ns": 4267282903,
+      "on_ns": 3676984782,
+      "delta_ns": -590298121,
+      "delta_percent": -13.833114288837203
+    },
+    "branch_phase_with_checks_ns": {
+      "off_ns": 12656060037,
+      "on_ns": 11625658869,
+      "delta_ns": -1030401168,
+      "delta_percent": -8.141563527571941
+    },
+    "restore_and_cache_ready_ns": {
+      "off_ns": 2331252497,
+      "on_ns": 7965642151,
+      "delta_ns": 5634389654,
+      "delta_percent": 241.68937775940964
+    },
+    "controller_elapsed_ns": {
+      "off_ns": 28403277760,
+      "on_ns": 35013531996,
+      "delta_ns": 6610254236,
+      "delta_percent": 23.27285706901456
+    },
+    "cold_start_cli_ns": {
+      "off_ns": 2463010300,
+      "on_ns": 2529164675,
+      "delta_ns": 66154375,
+      "delta_percent": 2.6859154831792624
+    },
+    "checkpoint_cli_ns": {
+      "off_ns": 2482247733,
+      "on_ns": 2957004885,
+      "delta_ns": 474757152,
+      "delta_percent": 19.126098724490205
+    },
+    "restore_cli_sum_ns": {
+      "off_ns": 347564331,
+      "on_ns": 413803535,
+      "delta_ns": 66239204,
+      "delta_percent": 19.058113302196134
+    },
+    "official_early_1_cli_ns": {
+      "off_ns": 7244042050,
+      "on_ns": 5967841098,
+      "delta_ns": -1276200952,
+      "delta_percent": -17.61724936425514
+    },
+    "official_early_2_cli_ns": {
+      "off_ns": 6778598625,
+      "on_ns": 7171837226,
+      "delta_ns": 393238601,
+      "delta_percent": 5.8011784257251255
+    }
+  },
+  "definitions": {
+    "task_tool_sum_ns": "Sum of 31 actual guest action durations; concurrent work, not elapsed wall time.",
+    "suffix_tool_sum_ns": "Sum of the two original 10-action suffixes; prefix occurs before sampling in both runs.",
+    "branch_replay_elapsed_ns": "Host monotonic elapsed for both original suffixes, after restore/readiness; excludes final independent/official checks.",
+    "branch_phase_with_checks_ns": "Recorded branch phase, including final checks, official evaluation and terminal allocation scan.",
+    "restore_and_cache_ready_ns": "After parent deletion through two restores, boundary checks and optional sampler readiness.",
+    "controller_elapsed_ns": "Controller lifecycle including startup, snapshot, preparation, task, official evaluation and cleanup; excludes RAM seed preparation and offline reports.",
+    "cache_sampler_stop_ns": "On-run sampler teardown only; no corresponding off-run operation.",
+    "other_cli_ns": "Individual CLI elapsed or explicit sum; overlaps/containment prevent summing them into lifecycle time."
+  },
+  "scope": "One sequential off/on configuration comparison; guest kernel metadata, provider observation/GET_DATA and regular monitoring held enabled. Switch controls guest publication, host cache collection and BPF queries.",
+  "limitations": [
+    "One pair, fixed off-then-on order; no stable slowdown distribution or uncertainty interval.",
+    "Kernel-table and provider-instrumentation independent costs are not separated.",
+    "No cache clearing, workload prefetch, forced residency or extra sampler pause."
+  ],
+  "on_collection_costs": {
+    "child-a": {
+      "samples": 14,
+      "point_cpu_mean_ns": 396415718.28571427,
+      "point_elapsed_mean_ns": 425077980.35714287,
+      "session_thread_cpu_ns": 5673270435,
+      "outside_point_cpu_total_ns": 123450379
+    },
+    "child-b": {
+      "samples": 12,
+      "point_cpu_mean_ns": 413754770.8333333,
+      "point_elapsed_mean_ns": 446974253.75,
+      "session_thread_cpu_ns": 5070945050,
+      "outside_point_cpu_total_ns": 105887800
+    }
+  },
+  "verification": {
+    "status": "PASS",
+    "task_semantics_equal": true,
+    "original_task_outcomes_equal": true,
+    "process_and_boundary_restored": true,
+    "guest_kernel_provider_and_seed_equal": true,
+    "off_measurement_not_requested": true,
+    "on_four_source_collection_pass": true,
+    "owned_resources_released": true,
+    "original_service_and_12_vmm_unchanged": true,
+    "related_tests_passed": 35,
+    "report_tests_passed": 2
+  }
+}

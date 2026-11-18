@@ -1,0 +1,499 @@
+{
+  "status": "PASS_DIRECT_BOUNDARY_VMSTAT_PAIR",
+  "date": "2026-10-27",
+  "order": [
+    "retain",
+    "skip"
+  ],
+  "actual_actions": 378,
+  "new_guests": 14,
+  "sample_count": 3663,
+  "comparison": {
+    "tool_sum": {
+      "retain_ns": 63329988978,
+      "skip_ns": 60594261543,
+      "difference_ns": -2735727435,
+      "change_percent": -4.319797743767739
+    },
+    "frozen_tools_and_downloads_span": {
+      "retain_ns": 19555991521,
+      "skip_ns": 16908378760,
+      "difference_ns": -2647612761,
+      "change_percent": -13.538627065556296
+    },
+    "cold_request_span": {
+      "retain_ns": 9731222243,
+      "skip_ns": 3159003207,
+      "difference_ns": -6572219036,
+      "change_percent": -67.53744670385697
+    },
+    "monitor_control_call_sum": {
+      "retain_ns": 3708197475,
+      "skip_ns": 3987579082,
+      "difference_ns": 279381607,
+      "change_percent": 7.534162052683024
+    },
+    "monitor_control_union": {
+      "retain_ns": 707243712,
+      "skip_ns": 684925974,
+      "difference_ns": -22317738,
+      "change_percent": -3.1555936972402554
+    },
+    "cleanup": {
+      "retain_ns": 527579984,
+      "skip_ns": 506210838,
+      "difference_ns": -21369146,
+      "change_percent": -4.05040878123989
+    },
+    "controller": {
+      "retain_ns": 38049000242,
+      "skip_ns": 28504709232,
+      "difference_ns": -9544291010,
+      "change_percent": -25.08420970142766
+    },
+    "rollout": {
+      "retain_ns": 37315371893,
+      "skip_ns": 27801899053,
+      "difference_ns": -9513472840,
+      "change_percent": -25.49478233066903
+    },
+    "created_to_controller_end_ns": {
+      "retain_ns": 28265851551,
+      "skip_ns": 25302710345,
+      "difference_ns": -2963141206,
+      "change_percent": -10.483113168034619
+    },
+    "create_to_setup_ns": {
+      "retain_ns": 2304174718,
+      "skip_ns": 2196320418,
+      "difference_ns": -107854300,
+      "change_percent": -4.680821257062329
+    }
+  },
+  "runs": [
+    {
+      "group": "retain",
+      "mode": "on",
+      "actual_actions": 189,
+      "grpo_setup_schedule": "create-all-before-setup",
+      "sessions": [
+        {
+          "role": "backbone",
+          "samples": 277,
+          "cpu_seconds": 0.2108,
+          "peak_rss_mib": 16.44140625,
+          "max_gap_seconds": 0.105091971
+        },
+        {
+          "role": "early_2",
+          "samples": 277,
+          "cpu_seconds": 0.23354899999999998,
+          "peak_rss_mib": 16.703125,
+          "max_gap_seconds": 0.105122976
+        },
+        {
+          "role": "early_3",
+          "samples": 277,
+          "cpu_seconds": 0.19893899999999998,
+          "peak_rss_mib": 16.7109375,
+          "max_gap_seconds": 0.104319369
+        },
+        {
+          "role": "early_1",
+          "samples": 277,
+          "cpu_seconds": 0.201617,
+          "peak_rss_mib": 16.74609375,
+          "max_gap_seconds": 0.103572672
+        },
+        {
+          "role": "late_1",
+          "samples": 275,
+          "cpu_seconds": 0.21970699999999999,
+          "peak_rss_mib": 16.203125,
+          "max_gap_seconds": 0.104548796
+        },
+        {
+          "role": "late_2",
+          "samples": 277,
+          "cpu_seconds": 0.18556599999999998,
+          "peak_rss_mib": 16.1328125,
+          "max_gap_seconds": 0.105106141
+        },
+        {
+          "role": "late_3",
+          "samples": 276,
+          "cpu_seconds": 0.21814599999999998,
+          "peak_rss_mib": 16.67578125,
+          "max_gap_seconds": 0.107111288
+        }
+      ],
+      "timings_ns": {
+        "tool_sum": 63329988978,
+        "frozen_tools_and_downloads_span": 19555991521,
+        "cold_request_span": 9731222243,
+        "monitor_control_call_sum": 3708197475,
+        "monitor_control_union": 707243712,
+        "cleanup": 527579984,
+        "controller": 38049000242,
+        "rollout": 37315371893,
+        "created_to_controller_end_ns": 28265851551,
+        "create_to_setup_ns": 2304174718
+      },
+      "minimum_free_disk_gib": 108.11553192138672,
+      "official": {
+        "backbone": {
+          "passed": 0,
+          "failed": 2
+        },
+        "early_1": {
+          "passed": 0,
+          "failed": 2
+        },
+        "early_2": {
+          "passed": 0,
+          "failed": 2
+        },
+        "early_3": {
+          "passed": 0,
+          "failed": 2
+        },
+        "late_1": {
+          "passed": 0,
+          "failed": 2
+        },
+        "late_2": {
+          "passed": 0,
+          "failed": 2
+        },
+        "late_3": {
+          "passed": 0,
+          "failed": 2
+        }
+      },
+      "boundary_rows": {
+        "guest-memory.tsv": 448,
+        "guest-vmstat.tsv": 448
+      },
+      "light_skip_boundary_vmstat": false,
+      "controller_phases_ns": {
+        "before_rollout": 50999836,
+        "creation": 9732148855,
+        "preparation": 2304174718,
+        "prepared_to_first_action": 249225,
+        "actions_and_downloads": 19556462812,
+        "final_checks": 5722336283,
+        "after_checks_and_cleanup": 682628513
+      },
+      "monitor_control_breakdown": {
+        "monitor-upload-bundle": {
+          "count": 7,
+          "sum_ns": 303916917,
+          "union_ns": 50746208,
+          "max_ns": 46407080
+        },
+        "monitor-ready": {
+          "count": 7,
+          "sum_ns": 1251059930,
+          "union_ns": 299114459,
+          "max_ns": 294670726
+        },
+        "monitor-phase": {
+          "count": 7,
+          "sum_ns": 466845369,
+          "union_ns": 89145722,
+          "max_ns": 86158313
+        },
+        "monitor-finish": {
+          "count": 7,
+          "sum_ns": 1395256855,
+          "union_ns": 233614219,
+          "max_ns": 230512867
+        },
+        "monitor-download": {
+          "count": 7,
+          "sum_ns": 291118404,
+          "union_ns": 94537638,
+          "max_ns": 43932549
+        }
+      },
+      "collector_one_core_cpu_percent": [
+        0.7615076738624036,
+        0.8440054249582074,
+        0.717406054681298,
+        0.7277652254065572,
+        0.7977089309781993,
+        0.6697607178692396,
+        0.7884532430199565
+      ],
+      "collector_cpu_seconds": 1.468324,
+      "sample_count": 1936,
+      "paths": [
+        {
+          "role": "backbone",
+          "actions": 29,
+          "boundary_memory_rows": 68,
+          "boundary_vmstat_rows": 68
+        },
+        {
+          "role": "early_1",
+          "actions": 21,
+          "boundary_memory_rows": 50,
+          "boundary_vmstat_rows": 50
+        },
+        {
+          "role": "early_2",
+          "actions": 21,
+          "boundary_memory_rows": 50,
+          "boundary_vmstat_rows": 50
+        },
+        {
+          "role": "early_3",
+          "actions": 21,
+          "boundary_memory_rows": 50,
+          "boundary_vmstat_rows": 50
+        },
+        {
+          "role": "late_1",
+          "actions": 32,
+          "boundary_memory_rows": 76,
+          "boundary_vmstat_rows": 76
+        },
+        {
+          "role": "late_2",
+          "actions": 32,
+          "boundary_memory_rows": 76,
+          "boundary_vmstat_rows": 76
+        },
+        {
+          "role": "late_3",
+          "actions": 33,
+          "boundary_memory_rows": 78,
+          "boundary_vmstat_rows": 78
+        }
+      ],
+      "workflow": ".artifacts/platform-tasks/20261027T025412Z-1679907",
+      "storage": ".artifacts/storage-isolated-service/20261027T025531Z-1681616",
+      "raw": ".artifacts/storage-isolated-service/20261027T025531Z-1681616/prettier6604",
+      "report": ".artifacts/platform-tasks/report-20261027T025412Z-1679907"
+    },
+    {
+      "group": "skip",
+      "mode": "on",
+      "actual_actions": 189,
+      "grpo_setup_schedule": "create-all-before-setup",
+      "sessions": [
+        {
+          "role": "backbone",
+          "samples": 246,
+          "cpu_seconds": 0.20975,
+          "peak_rss_mib": 16.6484375,
+          "max_gap_seconds": 0.104491577
+        },
+        {
+          "role": "early_1",
+          "samples": 247,
+          "cpu_seconds": 0.183472,
+          "peak_rss_mib": 16.73828125,
+          "max_gap_seconds": 0.101872399
+        },
+        {
+          "role": "early_2",
+          "samples": 247,
+          "cpu_seconds": 0.222747,
+          "peak_rss_mib": 16.22265625,
+          "max_gap_seconds": 0.103884232
+        },
+        {
+          "role": "early_3",
+          "samples": 247,
+          "cpu_seconds": 0.182448,
+          "peak_rss_mib": 16.21484375,
+          "max_gap_seconds": 0.102273409
+        },
+        {
+          "role": "late_1",
+          "samples": 246,
+          "cpu_seconds": 0.181132,
+          "peak_rss_mib": 16.0703125,
+          "max_gap_seconds": 0.105436625
+        },
+        {
+          "role": "late_2",
+          "samples": 247,
+          "cpu_seconds": 0.226846,
+          "peak_rss_mib": 16.6484375,
+          "max_gap_seconds": 0.104999607
+        },
+        {
+          "role": "late_3",
+          "samples": 247,
+          "cpu_seconds": 0.19178699999999999,
+          "peak_rss_mib": 16.72265625,
+          "max_gap_seconds": 0.105013407
+        }
+      ],
+      "timings_ns": {
+        "tool_sum": 60594261543,
+        "frozen_tools_and_downloads_span": 16908378760,
+        "cold_request_span": 3159003207,
+        "monitor_control_call_sum": 3987579082,
+        "monitor_control_union": 684925974,
+        "cleanup": 506210838,
+        "controller": 28504709232,
+        "rollout": 27801899053,
+        "created_to_controller_end_ns": 25302710345,
+        "create_to_setup_ns": 2196320418
+      },
+      "minimum_free_disk_gib": 108.10791397094727,
+      "official": {
+        "backbone": {
+          "passed": 0,
+          "failed": 2
+        },
+        "early_1": {
+          "passed": 0,
+          "failed": 2
+        },
+        "early_2": {
+          "passed": 0,
+          "failed": 2
+        },
+        "early_3": {
+          "passed": 0,
+          "failed": 2
+        },
+        "late_1": {
+          "passed": 0,
+          "failed": 2
+        },
+        "late_2": {
+          "passed": 0,
+          "failed": 2
+        },
+        "late_3": {
+          "passed": 0,
+          "failed": 2
+        }
+      },
+      "boundary_rows": {
+        "guest-memory.tsv": 448,
+        "guest-vmstat.tsv": 0
+      },
+      "light_skip_boundary_vmstat": true,
+      "controller_phases_ns": {
+        "before_rollout": 41782738,
+        "creation": 3160216149,
+        "preparation": 2196320418,
+        "prepared_to_first_action": 450232,
+        "actions_and_downloads": 16909335166,
+        "final_checks": 5535577088,
+        "after_checks_and_cleanup": 661027441
+      },
+      "monitor_control_breakdown": {
+        "monitor-upload-bundle": {
+          "count": 7,
+          "sum_ns": 303696285,
+          "union_ns": 55282953,
+          "max_ns": 49987084
+        },
+        "monitor-ready": {
+          "count": 7,
+          "sum_ns": 1592761704,
+          "union_ns": 286733664,
+          "max_ns": 277728660
+        },
+        "monitor-phase": {
+          "count": 7,
+          "sum_ns": 444378408,
+          "union_ns": 85686489,
+          "max_ns": 82097322
+        },
+        "monitor-finish": {
+          "count": 7,
+          "sum_ns": 1373916599,
+          "union_ns": 234867445,
+          "max_ns": 234803843
+        },
+        "monitor-download": {
+          "count": 7,
+          "sum_ns": 272826086,
+          "union_ns": 132381434,
+          "max_ns": 41365108
+        }
+      },
+      "collector_one_core_cpu_percent": [
+        0.8510792691028797,
+        0.7432148365916764,
+        0.9011558638445393,
+        0.7405490204548445,
+        0.735429738779928,
+        0.9180292337044479,
+        0.7763982672796006
+      ],
+      "collector_cpu_seconds": 1.398182,
+      "sample_count": 1727,
+      "paths": [
+        {
+          "role": "backbone",
+          "actions": 29,
+          "boundary_memory_rows": 68,
+          "boundary_vmstat_rows": 0
+        },
+        {
+          "role": "early_1",
+          "actions": 21,
+          "boundary_memory_rows": 50,
+          "boundary_vmstat_rows": 0
+        },
+        {
+          "role": "early_2",
+          "actions": 21,
+          "boundary_memory_rows": 50,
+          "boundary_vmstat_rows": 0
+        },
+        {
+          "role": "early_3",
+          "actions": 21,
+          "boundary_memory_rows": 50,
+          "boundary_vmstat_rows": 0
+        },
+        {
+          "role": "late_1",
+          "actions": 32,
+          "boundary_memory_rows": 76,
+          "boundary_vmstat_rows": 0
+        },
+        {
+          "role": "late_2",
+          "actions": 32,
+          "boundary_memory_rows": 76,
+          "boundary_vmstat_rows": 0
+        },
+        {
+          "role": "late_3",
+          "actions": 33,
+          "boundary_memory_rows": 78,
+          "boundary_vmstat_rows": 0
+        }
+      ],
+      "boundary_vmstat": {
+        "status": "NOT_MEASURED",
+        "reason": "explicitly skipped boundary vmstat",
+        "row_count": 0,
+        "boundary_memory_rows": 448
+      },
+      "workflow": ".artifacts/platform-tasks/20261027T025632Z-1684576",
+      "storage": ".artifacts/storage-isolated-service/20261027T025749Z-1686520",
+      "raw": ".artifacts/storage-isolated-service/20261027T025749Z-1686520/prettier6604",
+      "report": ".artifacts/platform-tasks/report-20261027T025632Z-1684576"
+    }
+  ],
+  "source_returned_to_stopped": true,
+  "ending_available_gib": 124.09814071655273,
+  "scope": "One direct retain/skip comparison; both groups sampled at 0.1 s, same task code and default reclaim; no repeat statistics",
+  "source_comparison": "Actual saved task/sampler snapshots match both runs and the pair snapshot",
+  "cleanup": "Both native workflows and strict per-run audits passed; successful volumes deleted by existing workflow",
+  "task_reruns": 0,
+  "host_queries": false,
+  "pss": false
+}

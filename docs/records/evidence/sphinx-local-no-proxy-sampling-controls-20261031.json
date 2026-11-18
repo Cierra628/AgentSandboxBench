@@ -1,0 +1,554 @@
+{
+  "date": "2026-11-01",
+  "start_utc": "2026-10-31T15:56:15Z",
+  "finish_utc": "2026-10-31T16:08:14Z",
+  "status": "PASS",
+  "task_id": "sphinx-doc__sphinx-7590",
+  "runs": [
+    {
+      "status": "PASS",
+      "workflow": ".artifacts/platform-tasks/20261031T155810Z-2929129",
+      "raw": ".artifacts/storage-isolated-service/20261031T155834Z-2929378/python-backbone",
+      "report": ".artifacts/platform-tasks/report-20261031T155810Z-2929129",
+      "task": "sphinx7590",
+      "mode": "off",
+      "tool_count": 35,
+      "tool_seconds": 19.664256838,
+      "frozen_replay_seconds": 21.979510008,
+      "controller_seconds": 30.677077928,
+      "sample_count": 0,
+      "collector_cpu_seconds": null,
+      "max_sample_gap_seconds": null,
+      "memory_peak_mib": null,
+      "cached_peak_mib": null,
+      "minimum_host_available_gib": 48.0693359375,
+      "original_tests": {
+        "passed": 24,
+        "failed": 1,
+        "skipped": 0
+      },
+      "owned_resources_removed": true,
+      "official_failed_tests": [
+        "tests/test_domain_cpp.py::test_expressions"
+      ],
+      "diagnostic_status": "PASS",
+      "strict_replay_status": "FAIL",
+      "replay_exit_differences": [],
+      "observed_exit_codes_status": "PASS",
+      "pipeline_policy_version": 2,
+      "grouped_workflow_seconds": 64.388337959,
+      "archive_preparation_seconds": 113.038837301,
+      "input_import_seconds": 23.222875668,
+      "cold_create_seconds": 1.082728259,
+      "official_tests_seconds": 3.99913947,
+      "query_seconds": 0.148477053,
+      "query_cpu_seconds": 0.148477716,
+      "input_resident_bytes": 8913952768,
+      "input_group_file_bytes": 8917217280,
+      "input_files": 116,
+      "ownership": "NOT_QUERIED",
+      "sampling": {
+        "mode": "off",
+        "interval_seconds": null,
+        "boundary_rows": {
+          "guest-memory.tsv": 0,
+          "guest-vmstat.tsv": 0
+        },
+        "pss": "NOT_REQUESTED",
+        "host_cpu_seconds": null,
+        "guest_cpu_seconds": null,
+        "management_seconds": null,
+        "memory": "NOT_MEASURED"
+      },
+      "registry_commands": [
+        "version",
+        "manifest"
+      ],
+      "workflow_directory": ".artifacts/platform-tasks/20261031T155810Z-2929129",
+      "storage_directory": ".artifacts/storage-isolated-service/20261031T155834Z-2929378",
+      "cleanup": "PASS",
+      "guest_ids": [
+        "01a192af-4732-7141-b94f-dbb3a040a366",
+        "01a192af-4732-7141-b94f-dbb3a040a366",
+        "01a192af-4732-7141-b94f-dbb3a040a366",
+        "01a192af-4732-7141-b94f-dbb3a040a366",
+        "01a192af-4732-7141-b94f-dbb3a040a366"
+      ],
+      "index": 1,
+      "pair": 1
+    },
+    {
+      "status": "PASS",
+      "workflow": ".artifacts/platform-tasks/20261031T160110Z-2930975",
+      "raw": ".artifacts/storage-isolated-service/20261031T160133Z-2931141/python-backbone",
+      "report": ".artifacts/platform-tasks/report-20261031T160110Z-2930975",
+      "task": "sphinx7590",
+      "mode": "on",
+      "tool_count": 35,
+      "tool_seconds": 19.895560134,
+      "frozen_replay_seconds": 22.982243983,
+      "controller_seconds": 31.461137673,
+      "sample_count": 298,
+      "collector_cpu_seconds": 0.19352299999999997,
+      "max_sample_gap_seconds": 0.101484026,
+      "memory_peak_mib": 313.14453125,
+      "cached_peak_mib": 120.046875,
+      "minimum_host_available_gib": 48.070457458496094,
+      "original_tests": {
+        "passed": 24,
+        "failed": 1,
+        "skipped": 0
+      },
+      "owned_resources_removed": true,
+      "official_failed_tests": [
+        "tests/test_domain_cpp.py::test_expressions"
+      ],
+      "diagnostic_status": "PASS",
+      "strict_replay_status": "FAIL",
+      "replay_exit_differences": [],
+      "observed_exit_codes_status": "PASS",
+      "pipeline_policy_version": 2,
+      "host_memory": {
+        "current_baseline_bytes": 9560891392,
+        "current_peak_bytes": 10069352448,
+        "current_peak_increase_bytes": 508461056
+      },
+      "grouped_workflow_seconds": 65.831865373,
+      "archive_preparation_seconds": 114.567976575,
+      "input_import_seconds": 22.564541824,
+      "cold_create_seconds": 0.879198094,
+      "official_tests_seconds": 4.04721604,
+      "query_seconds": 0.147784385,
+      "query_cpu_seconds": 0.147535831,
+      "input_resident_bytes": 8913952768,
+      "input_group_file_bytes": 8917880832,
+      "input_files": 116,
+      "ownership": "NOT_QUERIED",
+      "sampling": {
+        "mode": "on",
+        "interval_seconds": 0.1,
+        "boundary_rows": {
+          "guest-memory.tsv": 80,
+          "guest-vmstat.tsv": 80
+        },
+        "pss": "NOT_REQUESTED",
+        "host_cpu_seconds": 0.19845112,
+        "host_span_seconds": 64.218250434,
+        "host_cpu_percent": 0.30902604580290954,
+        "host_samples": 643,
+        "host_max_gap_seconds": 0.100106645,
+        "guest_cpu_seconds": 0.19352299999999997,
+        "guest_span_seconds": 29.813739271,
+        "guest_cpu_percent": 0.649106770006005,
+        "management_seconds": 0.561247587,
+        "management_events": [
+          {
+            "index": 4,
+            "stage": "monitor-upload-bundle",
+            "start_monotonic_ns": 15232736015727228,
+            "timestamp_ns": 1793462503150986034,
+            "duration_ns": 36409156,
+            "exit_code": 0
+          },
+          {
+            "index": 6,
+            "stage": "monitor-ready",
+            "start_monotonic_ns": 15232736052940255,
+            "timestamp_ns": 1793462503188199145,
+            "duration_ns": 139828394,
+            "exit_code": 0
+          },
+          {
+            "index": 27,
+            "stage": "monitor-phase",
+            "start_monotonic_ns": 15232761556622533,
+            "timestamp_ns": 1793462528691881259,
+            "duration_ns": 107628062,
+            "exit_code": 0
+          },
+          {
+            "index": 31,
+            "stage": "monitor-finish",
+            "start_monotonic_ns": 15232765792640212,
+            "timestamp_ns": 1793462532927899698,
+            "duration_ns": 238995988,
+            "exit_code": 0
+          },
+          {
+            "index": 32,
+            "stage": "monitor-download",
+            "start_monotonic_ns": 15232766032578209,
+            "timestamp_ns": 1793462533167837242,
+            "duration_ns": 38385987,
+            "exit_code": 0
+          }
+        ],
+        "coverage": "All five original segments and official evaluation observed"
+      },
+      "registry_commands": [
+        "version",
+        "manifest"
+      ],
+      "workflow_directory": ".artifacts/platform-tasks/20261031T160110Z-2930975",
+      "storage_directory": ".artifacts/storage-isolated-service/20261031T160133Z-2931141",
+      "cleanup": "PASS",
+      "guest_ids": [
+        "01a192b2-02ba-73b3-a443-3cf406ecfb51",
+        "01a192b2-02ba-73b3-a443-3cf406ecfb51",
+        "01a192b2-02ba-73b3-a443-3cf406ecfb51",
+        "01a192b2-02ba-73b3-a443-3cf406ecfb51",
+        "01a192b2-02ba-73b3-a443-3cf406ecfb51"
+      ],
+      "index": 2,
+      "pair": 1
+    },
+    {
+      "status": "PASS",
+      "workflow": ".artifacts/platform-tasks/20261031T160405Z-2932656",
+      "raw": ".artifacts/storage-isolated-service/20261031T160429Z-2932809/python-backbone",
+      "report": ".artifacts/platform-tasks/report-20261031T160405Z-2932656",
+      "task": "sphinx7590",
+      "mode": "on",
+      "tool_count": 35,
+      "tool_seconds": 19.846245638,
+      "frozen_replay_seconds": 23.177200004,
+      "controller_seconds": 31.963617333,
+      "sample_count": 302,
+      "collector_cpu_seconds": 0.21502999999999997,
+      "max_sample_gap_seconds": 0.116373784,
+      "memory_peak_mib": 289.90625,
+      "cached_peak_mib": 119.390625,
+      "minimum_host_available_gib": 48.06562042236328,
+      "original_tests": {
+        "passed": 24,
+        "failed": 1,
+        "skipped": 0
+      },
+      "owned_resources_removed": true,
+      "official_failed_tests": [
+        "tests/test_domain_cpp.py::test_expressions"
+      ],
+      "diagnostic_status": "PASS",
+      "strict_replay_status": "FAIL",
+      "replay_exit_differences": [],
+      "observed_exit_codes_status": "PASS",
+      "pipeline_policy_version": 2,
+      "host_memory": {
+        "current_baseline_bytes": 9560768512,
+        "current_peak_bytes": 10070790144,
+        "current_peak_increase_bytes": 510021632
+      },
+      "grouped_workflow_seconds": 66.67450228,
+      "archive_preparation_seconds": 108.432484545,
+      "input_import_seconds": 22.838065115,
+      "cold_create_seconds": 0.933583982,
+      "official_tests_seconds": 4.123682754,
+      "query_seconds": 0.14971158,
+      "query_cpu_seconds": 0.147879712,
+      "input_resident_bytes": 8913952768,
+      "input_group_file_bytes": 8917770240,
+      "input_files": 116,
+      "ownership": "NOT_QUERIED",
+      "sampling": {
+        "mode": "on",
+        "interval_seconds": 0.1,
+        "boundary_rows": {
+          "guest-memory.tsv": 80,
+          "guest-vmstat.tsv": 80
+        },
+        "pss": "NOT_REQUESTED",
+        "host_cpu_seconds": 0.194956468,
+        "host_span_seconds": 65.071668146,
+        "host_cpu_percent": 0.29960268970295967,
+        "host_samples": 652,
+        "host_max_gap_seconds": 0.101998553,
+        "guest_cpu_seconds": 0.21502999999999997,
+        "guest_span_seconds": 30.187786636,
+        "guest_cpu_percent": 0.7123079362949025,
+        "management_seconds": 0.47749902,
+        "management_events": [
+          {
+            "index": 4,
+            "stage": "monitor-upload-bundle",
+            "start_monotonic_ns": 15232911611848980,
+            "timestamp_ns": 1793462678747107660,
+            "duration_ns": 36509886,
+            "exit_code": 0
+          },
+          {
+            "index": 6,
+            "stage": "monitor-ready",
+            "start_monotonic_ns": 15232911649382050,
+            "timestamp_ns": 1793462678784641220,
+            "duration_ns": 139989904,
+            "exit_code": 0
+          },
+          {
+            "index": 27,
+            "stage": "monitor-phase",
+            "start_monotonic_ns": 15232937535878401,
+            "timestamp_ns": 1793462704671137242,
+            "duration_ns": 127653265,
+            "exit_code": 0
+          },
+          {
+            "index": 31,
+            "stage": "monitor-finish",
+            "start_monotonic_ns": 15232941864131363,
+            "timestamp_ns": 1793462708999390376,
+            "duration_ns": 135847293,
+            "exit_code": 0
+          },
+          {
+            "index": 32,
+            "stage": "monitor-download",
+            "start_monotonic_ns": 15232942000902455,
+            "timestamp_ns": 1793462709136161294,
+            "duration_ns": 37498672,
+            "exit_code": 0
+          }
+        ],
+        "coverage": "All five original segments and official evaluation observed"
+      },
+      "registry_commands": [
+        "version",
+        "manifest"
+      ],
+      "workflow_directory": ".artifacts/platform-tasks/20261031T160405Z-2932656",
+      "storage_directory": ".artifacts/storage-isolated-service/20261031T160429Z-2932809",
+      "cleanup": "PASS",
+      "guest_ids": [
+        "01a192b4-b020-79f1-adab-87b6d8b6d0aa",
+        "01a192b4-b020-79f1-adab-87b6d8b6d0aa",
+        "01a192b4-b020-79f1-adab-87b6d8b6d0aa",
+        "01a192b4-b020-79f1-adab-87b6d8b6d0aa",
+        "01a192b4-b020-79f1-adab-87b6d8b6d0aa"
+      ],
+      "index": 3,
+      "pair": 2
+    },
+    {
+      "status": "PASS",
+      "workflow": ".artifacts/platform-tasks/20261031T160710Z-2934391",
+      "raw": ".artifacts/storage-isolated-service/20261031T160734Z-2934551/python-backbone",
+      "report": ".artifacts/platform-tasks/report-20261031T160710Z-2934391",
+      "task": "sphinx7590",
+      "mode": "off",
+      "tool_count": 35,
+      "tool_seconds": 19.706054063,
+      "frozen_replay_seconds": 22.375263641,
+      "controller_seconds": 30.249745602,
+      "sample_count": 0,
+      "collector_cpu_seconds": null,
+      "max_sample_gap_seconds": null,
+      "memory_peak_mib": null,
+      "cached_peak_mib": null,
+      "minimum_host_available_gib": 48.067413330078125,
+      "original_tests": {
+        "passed": 24,
+        "failed": 1,
+        "skipped": 0
+      },
+      "owned_resources_removed": true,
+      "official_failed_tests": [
+        "tests/test_domain_cpp.py::test_expressions"
+      ],
+      "diagnostic_status": "PASS",
+      "strict_replay_status": "FAIL",
+      "replay_exit_differences": [],
+      "observed_exit_codes_status": "PASS",
+      "pipeline_policy_version": 2,
+      "grouped_workflow_seconds": 64.16180428,
+      "archive_preparation_seconds": 116.600999945,
+      "input_import_seconds": 23.442875724,
+      "cold_create_seconds": 0.912921444,
+      "official_tests_seconds": 3.97324339,
+      "query_seconds": 0.177571259,
+      "query_cpu_seconds": 0.177348366,
+      "input_resident_bytes": 8913952768,
+      "input_group_file_bytes": 8917159936,
+      "input_files": 116,
+      "ownership": "NOT_QUERIED",
+      "sampling": {
+        "mode": "off",
+        "interval_seconds": null,
+        "boundary_rows": {
+          "guest-memory.tsv": 0,
+          "guest-vmstat.tsv": 0
+        },
+        "pss": "NOT_REQUESTED",
+        "host_cpu_seconds": null,
+        "guest_cpu_seconds": null,
+        "management_seconds": null,
+        "memory": "NOT_MEASURED"
+      },
+      "registry_commands": [
+        "version",
+        "manifest"
+      ],
+      "workflow_directory": ".artifacts/platform-tasks/20261031T160710Z-2934391",
+      "storage_directory": ".artifacts/storage-isolated-service/20261031T160734Z-2934551",
+      "cleanup": "PASS",
+      "guest_ids": [
+        "01a192b7-8301-7660-b5ed-a21e7cebd400",
+        "01a192b7-8301-7660-b5ed-a21e7cebd400",
+        "01a192b7-8301-7660-b5ed-a21e7cebd400",
+        "01a192b7-8301-7660-b5ed-a21e7cebd400",
+        "01a192b7-8301-7660-b5ed-a21e7cebd400"
+      ],
+      "index": 4,
+      "pair": 2
+    }
+  ],
+  "pairs": [
+    {
+      "pair": 1,
+      "order": [
+        "off",
+        "on"
+      ],
+      "metrics": {
+        "tool_seconds": {
+          "off": 19.664256838,
+          "on": 19.895560134,
+          "on_minus_off": 0.2313032960000001,
+          "change_percent": 1.1762625859982778
+        },
+        "frozen_replay_seconds": {
+          "off": 21.979510008,
+          "on": 22.982243983,
+          "on_minus_off": 1.0027339750000017,
+          "change_percent": 4.5621307055299765
+        },
+        "controller_seconds": {
+          "off": 30.677077928,
+          "on": 31.461137673,
+          "on_minus_off": 0.7840597450000004,
+          "change_percent": 2.555848855096987
+        },
+        "cold_create_seconds": {
+          "off": 1.082728259,
+          "on": 0.879198094,
+          "on_minus_off": -0.20353016499999999,
+          "change_percent": -18.79789903959641
+        },
+        "official_tests_seconds": {
+          "off": 3.99913947,
+          "on": 4.04721604,
+          "on_minus_off": 0.04807657000000054,
+          "change_percent": 1.2021728764563644
+        },
+        "grouped_workflow_seconds": {
+          "off": 64.388337959,
+          "on": 65.831865373,
+          "on_minus_off": 1.4435274140000018,
+          "change_percent": 2.241908177408125
+        },
+        "archive_preparation_seconds": {
+          "off": 113.038837301,
+          "on": 114.567976575,
+          "on_minus_off": 1.529139274000002,
+          "change_percent": 1.3527556639035598
+        },
+        "input_import_seconds": {
+          "off": 23.222875668,
+          "on": 22.564541824,
+          "on_minus_off": -0.6583338440000013,
+          "change_percent": -2.8348506593744216
+        },
+        "query_seconds": {
+          "off": 0.148477053,
+          "on": 0.147784385,
+          "on_minus_off": -0.0006926680000000074,
+          "change_percent": -0.4665151860200334
+        }
+      }
+    },
+    {
+      "pair": 2,
+      "order": [
+        "on",
+        "off"
+      ],
+      "metrics": {
+        "tool_seconds": {
+          "off": 19.706054063,
+          "on": 19.846245638,
+          "on_minus_off": 0.14019157499999935,
+          "change_percent": 0.7114137338292581
+        },
+        "frozen_replay_seconds": {
+          "off": 22.375263641,
+          "on": 23.177200004,
+          "on_minus_off": 0.8019363629999994,
+          "change_percent": 3.5840309006708093
+        },
+        "controller_seconds": {
+          "off": 30.249745602,
+          "on": 31.963617333,
+          "on_minus_off": 1.7138717309999976,
+          "change_percent": 5.665739320752117
+        },
+        "cold_create_seconds": {
+          "off": 0.912921444,
+          "on": 0.933583982,
+          "on_minus_off": 0.020662538000000064,
+          "change_percent": 2.263342386773859
+        },
+        "official_tests_seconds": {
+          "off": 3.97324339,
+          "on": 4.123682754,
+          "on_minus_off": 0.1504393639999999,
+          "change_percent": 3.7863113137904136
+        },
+        "grouped_workflow_seconds": {
+          "off": 64.16180428,
+          "on": 66.67450228,
+          "on_minus_off": 2.5126980000000003,
+          "change_percent": 3.9161897459034423
+        },
+        "archive_preparation_seconds": {
+          "off": 116.600999945,
+          "on": 108.432484545,
+          "on_minus_off": -8.168515400000004,
+          "change_percent": -7.005527743203787
+        },
+        "input_import_seconds": {
+          "off": 23.442875724,
+          "on": 22.838065115,
+          "on_minus_off": -0.6048106090000012,
+          "change_percent": -2.5799335206167395
+        },
+        "query_seconds": {
+          "off": 0.177571259,
+          "on": 0.14971158,
+          "on_minus_off": -0.027859679,
+          "change_percent": -15.689295191627828
+        }
+      }
+    }
+  ],
+  "scope": "Two fixed full-task pairs; fresh group, input, private service and 4 GiB/2 vCPU guest for each run; local-no-proxy; default reclaim; periodic and boundary sampling toggled together",
+  "correctness": {
+    "actions": 140,
+    "distinct_guests": 4,
+    "pipeline_policy_version": 2,
+    "diagnostic_status": "PASS",
+    "strict_replay_status": "FAIL",
+    "original_final_tests_passed": 25,
+    "independent_cases_passed": 7,
+    "official_passed": 24,
+    "official_failed": 1,
+    "official_failure_matches_reference": true,
+    "all_cleanup": "PASS"
+  },
+  "direct_cpu_scope": "Sampler thread/process only; excludes runner shell boundary reads and guest sampling phase writes",
+  "interpretation": "Signed per-pair observations; no fixed population slowdown inferred from two pairs; all cold/evaluation values retained",
+  "cleanup": {
+    "source_stopped": true,
+    "active_containers": 0,
+    "firecrackers": 0,
+    "disk_available_bytes": 66865008640
+  },
+  "driver_directory": ".artifacts/sphinx-local-no-proxy-sampling-controls-20261031"
+}

@@ -1,0 +1,61 @@
+{
+  "date": "2026-10-31",
+  "live_status": "FAIL",
+  "failed_stage": "isolated-server-start",
+  "failure_kind": "private service startup; no task request",
+  "created_guests": 0,
+  "task_actions": 0,
+  "guest_environment_check": "NOT_REACHED",
+  "guest_network_check": "NOT_REACHED",
+  "network_observation": "Dependency GET to GitHub failed with connection reset; no successful download recorded; no proxy fallback",
+  "cause": "Exact regctl version command was rejected by the initial local wrapper; backend ensure_regctl attempted replacement",
+  "local_lower_count": 19,
+  "input_file_count": 105,
+  "input_bytes": 7367703084,
+  "source_prepare_seconds": 120.340739284,
+  "import_seconds": 17.555699196,
+  "grouped_workflow_seconds": 29.465843584,
+  "host_samples": 294,
+  "preflight_disk_gib": 61.00971603393555,
+  "preflight_memory_gib": 478.8121337890625,
+  "final_disk_gib": 47.94601058959961,
+  "cleanup": {
+    "owned_container_removed": true,
+    "mount_and_loop_removed": true,
+    "failed_fixture_retained": true,
+    "original_firecracker_identities_unchanged": true,
+    "original_service_unchanged": true
+  },
+  "final_audit": {
+    "status": "PASS",
+    "failed_volume": ".artifacts/storage-isolated-service/20261031T050959Z-2832458/volume.ext4",
+    "volume_logical_bytes": 8589934592,
+    "volume_allocated_bytes": 8589967360,
+    "volume_loop_associations": "",
+    "volume_open_users": "",
+    "volume_not_mounted": true,
+    "source_scratch_removed": true,
+    "source_service_stopped": true,
+    "retained_input_file_count": 105,
+    "retained_input_bytes": 7367703084,
+    "remaining_firecrackers": [],
+    "remaining_running_containers": [],
+    "source_unchanged_in_native_check": true
+  },
+  "offline_repair": {
+    "status": "PASS",
+    "live_retested": false,
+    "regctl_version": "v0.11.5",
+    "new_proxy_and_short_tests": 16,
+    "persistent_input_tests": 29,
+    "original_local_binary_version_observed": true,
+    "wrapper_version_matches_original": true
+  },
+  "evidence_directories": [
+    ".artifacts/prettier-no-proxy-check-live-20261031",
+    ".artifacts/prettier6604/host-persistent-asbhost-20261031t0507402831084",
+    ".artifacts/platform-tasks/20261031T050941Z-2832246",
+    ".artifacts/storage-isolated-service/20261031T050959Z-2832458",
+    ".artifacts/prettier-no-proxy-check-implementation-20261031"
+  ]
+}

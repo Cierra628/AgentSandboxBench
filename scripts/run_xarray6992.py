@@ -47,6 +47,9 @@ def run(args):
         raise ValueError('cache target requires positive MiB and complete live replay without baseline mode')
     cache_control=cache_baseline or cache_target is not None
     light=getattr(args,'light_monitor',False)
+    endpoint=getattr(args,'endpoint_metrics',False)
+    if endpoint and not (light and monitoring and getattr(args,'persistent_sampling',False) and not (checkpoint or physical_segments or live_cache or cache_control or getattr(args,'diagnostic_only',False) or getattr(args,'evaluation_patch',None))):
+        raise ValueError('endpoint metrics require one complete persistent light Python task')
     if light and (not monitoring or checkpoint or physical_segments or live_cache or getattr(args,'diagnostic_only',False) or getattr(args,'evaluation_patch',None)):
         raise ValueError('light monitoring requires a complete task without physical cache analysis')
     if cache_baseline and not live_cache:raise ValueError('cache baseline requires complete live cache replay')
@@ -100,9 +103,11 @@ def run(args):
     from sandbox_runtime_monitor import RuntimeMonitor, boundary_runner
     events=[];controller=None;sid=None;monitor=None;success=False;stage='preflight';snapshot=None;parent=None;physical=None;live=None;capacity_active=False
     started=time.monotonic_ns()
+    endpoint_collector=None
     result=dict(status='FAIL',task_id=cfg['task_id'],schedule='single backbone',checks={},
                 physical_page_cache='NOT_MEASURED',VMM_PSS='NOT_MEASURED',monitoring_impact='NOT_VALIDATED')
     if light:result['monitor_profile']='light'
+    if endpoint:result.update(measurement_status='NOT_STARTED',functional_validation='NOT_RUN')
     if continuation:
         result.update(diagnostic_continuation=True,diagnostic_status='INCOMPLETE',strict_replay_status='FAIL',
             strict_replay_scope='historical strict failure retained; this mode never awards strict replay PASS',
@@ -131,13 +136,14 @@ def run(args):
             with (out/(filename+'.stderr')).open('x') as log:
                 proc=subprocess.run(list(map(str,argv)),cwd=ROOT,env=env,stdout=subprocess.PIPE,
                                     stderr=log,text=True,timeout=timeout)
+            command_end=time.monotonic_ns()
             (out/(filename+'.stdout')).write_text(proc.stdout);code=proc.returncode
             if code:raise RuntimeError(filename+': exit '+str(code))
             return proc.stdout.strip()
         finally:
             with event_lock:
                 events.append(dict(index=index,stage=label,start_monotonic_ns=begin,timestamp_ns=wall,
-                               duration_ns=time.monotonic_ns()-begin,exit_code=code))
+                               duration_ns=time.monotonic_ns()-begin,exit_code=code,**(dict(command_end_monotonic_ns=command_end) if endpoint and code is not None else {})))
                 (out/'events.json').write_text(json.dumps(events,indent=2)+'\n')
 
     def cli(label,*argv,timeout=180):return call(label,[ROOT/'runtime/bin/aenv',*argv],timeout)
@@ -238,6 +244,7 @@ def run(args):
             stage='live-cache-capture'
             live=LiveTaskCache(out,args.container,cli,**(dict(expected_kernel='6.1.175-asb-cache-v3-reclaim') if cache_control else {}))
         stage='cold-start';controller.phase(stage)
+        if endpoint:result['schedule_start_monotonic_ns']=time.monotonic_ns()
         sid=call(stage,[sys.executable,'-B',ROOT/'scripts/agentenv_cold_start.py','--config-home',args.config_home,
                  '--service-url',args.service_url,'--image',cfg['source_image'],*(['--local-no-proxy'] if local_no_proxy else [])],610)
         assert re.fullmatch(r'[a-fA-F0-9-]{36}',sid)
@@ -251,6 +258,10 @@ def run(args):
         if physical:physical.ready()
         if live:live.start(sid)
         controller.record('sandbox-ids.tsv',f'backbone\t{sid}\t\troot')
+        if endpoint:
+            from external_task_metrics import ExternalMetrics
+            result['measurement_status']='FAIL'
+            endpoint_collector=ExternalMetrics(args.container,out,sid)
         if runtime:runtime.start(sid,'backbone','setup')
         stage='source-and-tool-smoke';controller.phase(stage)
         source_extra=',image_background='+profile.background_probe() if sphinx else ''
@@ -376,6 +387,13 @@ def run(args):
             result['checks']['frozen_actions_order_and_diagnostic_exit_policy' if (continuation or pipeline) else 'actions_hash_order_expected_failures']='PASS'
             result['frozen_replay_elapsed_ns']=time.monotonic_ns()-replay_started_ns
             if cache_control:capacity_stop()
+            if endpoint:
+                end=next(e['command_end_monotonic_ns'] for e in reversed(events) if e['stage']=='controller-download')
+                result.update(schedule_end_monotonic_ns=end,schedule_elapsed_ns=end-result['schedule_start_monotonic_ns'],actions_download_elapsed_ns=end-replay_started_ns,
+                    time_scope='Before cold create to last original segment download command return; controller also includes endpoint query, official checks and cleanup')
+                result['endpoint_metrics']=endpoint_collector.observe()
+                result['host_vmm_collector']=endpoint_collector.stop()
+                result.update(measurement_status='PASS',VMM_PSS='MEASURED_PER_OWNED_VMM',save_restore=dict(saves=0,restores=0))
         if not getattr(args,'diagnostic_only',False):
             stage='final-frozen-state';controller.phase(stage)
             final_extra=',image_background='+profile.background_probe() if sphinx else ''
@@ -418,6 +436,7 @@ def run(args):
                 result['checks']['official_outcome_matches_full_replay']='PASS'
                 result['checks']['continuation_from_step_30_and_final_state' if sphinx else 'continuation_from_step_23_and_final_state']='PASS'
                 result['checkpoint_restore']='PASS'
+            if endpoint:result['functional_validation']='PASS'
             success=True
     except BaseException as error:
         import traceback
@@ -437,6 +456,9 @@ def run(args):
     finally:
         for sig in (signal.SIGTERM,signal.SIGINT):signal.signal(sig,signal.SIG_IGN)
         cleanup={}
+        if endpoint_collector:
+            try:result['host_vmm_collector']=endpoint_collector.stop()
+            except Exception as error:cleanup['endpoint_monitor_error']=repr(error);success=False;result['measurement_status']='FAIL'
         if capacity_active and sid:
             try:capacity_stop();cleanup['cache_baseline_stopped_on_failure']=True
             except Exception as error:cleanup['cache_baseline_error']=repr(error);success=False
@@ -492,6 +514,7 @@ if __name__=='__main__':
     parser.add_argument('--cache-baseline',action='store_true',help='Complete live-cache replay only; observe with owned DAMON disabled, restore before final checks; no reclaim')
     parser.add_argument('--cache-target-mib',type=int,help='Positive periodic clean-file target for the explicit complete live-cache Python replay')
     parser.add_argument('--monitor-mode',choices=['continuous','off'],default='continuous',help='Off control disables guest boundary/periodic and host memory sampling; complete replay only, tool timing retained')
+    parser.add_argument('--endpoint-metrics',action='store_true',help='Single light task: one VMM PSS period 1s, endpoint PSS and initial lower P1')
     parser.add_argument('--light-monitor',action='store_true',help='Guest meminfo at 0.1 s only; keep existing tool timing')
     parser.add_argument('--sphinx-pipeline-policy-version',type=int,choices=(1,2),default=1,help='1: only step 1; 2: approved steps 1 and 14; all other exits strict')
     parser.add_argument('--sphinx-pipeline-diagnostic',action='store_true',help='Approved read_repo/001 only: exact output/patch and 141 or 0; strict FAIL retained')

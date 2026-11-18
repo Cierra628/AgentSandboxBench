@@ -1,0 +1,49 @@
+{
+  "status": "AWAITING_TARGETED_CLEANUP_APPROVAL",
+  "planned_runs": 4,
+  "planned_actions": 756,
+  "completed_task_runs": 0,
+  "attempts": [
+    {
+      "directory": ".artifacts/prettier-grpo-local-no-proxy-controls-20261101/live",
+      "failure": "Pair-only seed forwarded to full GRPO check-only",
+      "sandboxes_created": 0,
+      "runtime_volume_created": false
+    },
+    {
+      "directory": ".artifacts/prettier-grpo-local-no-proxy-controls-20261101/live-2",
+      "failure": "Runtime budget checked before import/source release",
+      "available_bytes": 40312606720,
+      "required_bytes": 45097156608,
+      "sandboxes_created": 0,
+      "runtime_volume_created": false
+    }
+  ],
+  "fixes": [
+    "Only current_pair forwards host-persistent-seed to the GRPO checker",
+    "Only persistent GRPO defers unchanged live preflight until after import/source release"
+  ],
+  "cleanup_request": {
+    "path": ".artifacts/prettier6604/host-persistent-asbhost-20261101t0709152991074/source.ext4",
+    "size_bytes": 21474836480,
+    "mounted": false,
+    "loop_attached": false,
+    "open_users": false,
+    "approved": false
+  },
+  "offline_tests": {
+    "no_proxy": 70,
+    "persistent": 31,
+    "grpo": 9,
+    "total": 110,
+    "new": 9,
+    "check_only": "VALIDATED"
+  },
+  "actual_new_guest_checks": "NOT_RUN",
+  "actual_new_four_run_report": "NOT_RUN",
+  "source_restored_stopped": true,
+  "active_containers": 0,
+  "active_firecrackers": 0,
+  "disk_available_bytes": 40312111104,
+  "artifacts": ".artifacts/prettier-grpo-local-no-proxy-controls-20261101"
+}

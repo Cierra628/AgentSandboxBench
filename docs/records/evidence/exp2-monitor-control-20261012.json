@@ -1,0 +1,330 @@
+{
+  "status": "PASS",
+  "scope": "One original four-round TrEnv-X Exp2 replay using batched initial monitor upload and hash-verified code inherited through snapshots; other workflows retain individual upload/control.",
+  "command": "bash scripts/use-platform.sh run configs/platform-exp2-trenvx.json",
+  "workflow": ".artifacts/platform-tasks/20261012T044204Z-858374",
+  "storage_result_dir": ".artifacts/storage-isolated-trenvx/20261012T044204Z-858382",
+  "raw": ".artifacts/storage-isolated-trenvx/20261012T044204Z-858382/raw/20261012T044204Z-858410/replay",
+  "baseline": {
+    "raw": ".artifacts/storage-isolated-trenvx/20261012T041534Z-845285/raw/20261012T041535Z-845300/replay",
+    "controller_elapsed_ns": 193849154015,
+    "guest_action_sum_ns": 7692680055,
+    "serial_call_breakdown": {
+      "other": {
+        "calls": 71,
+        "duration_ns": 94702072409
+      },
+      "monitor-control": {
+        "calls": 55,
+        "duration_ns": 73213997098
+      },
+      "round-runner-call": {
+        "calls": 4,
+        "duration_ns": 17843658456
+      },
+      "vm-delete-and-sdk-close": {
+        "calls": 5,
+        "duration_ns": 7555551624
+      }
+    }
+  },
+  "replay": {
+    "action_count": 32,
+    "checkpoint_count": 4,
+    "restore_count": 4,
+    "guest_action_sum_ns": 8012187005,
+    "controller_elapsed_ns": 154483680055,
+    "transitions": [
+      {
+        "after_round": 1,
+        "checkpoint_ns": 1580839751,
+        "restore_ns": 3496050199,
+        "image_rebuild_ns": 1718639994,
+        "state_verification_ns": 3598405469,
+        "guest_cache_clear_ns": 2392562996
+      },
+      {
+        "after_round": 2,
+        "checkpoint_ns": 1850123399,
+        "restore_ns": 3513171500,
+        "image_rebuild_ns": 1662135898,
+        "state_verification_ns": 3303739191,
+        "guest_cache_clear_ns": 2404428448
+      },
+      {
+        "after_round": 3,
+        "checkpoint_ns": 1785345031,
+        "restore_ns": 3680983202,
+        "image_rebuild_ns": 1999267840,
+        "state_verification_ns": 3074932352,
+        "guest_cache_clear_ns": 2373555315
+      },
+      {
+        "after_round": 4,
+        "checkpoint_ns": 1806194659,
+        "restore_ns": 3516569472,
+        "image_rebuild_ns": 1990311121,
+        "state_verification_ns": 3389692945,
+        "guest_cache_clear_ns": 2476747947
+      }
+    ],
+    "focused_tests": [
+      {
+        "round": 3,
+        "step": "008",
+        "passed": 1,
+        "total": 1
+      },
+      {
+        "round": 4,
+        "step": "006",
+        "passed": 6,
+        "total": 6
+      }
+    ],
+    "final_source_sha256": "123b5e6c1be804ff1c7649b217a64576fb41ed3beb1185f2b8c728f49741829f",
+    "final_patch_sha256": "1f8f98afa26eb3164c584a015fc0d40356af8d5363254e6a578b30074caf8da2",
+    "serial_call_breakdown": {
+      "other": {
+        "calls": 71,
+        "duration_ns": 100020683767
+      },
+      "monitor-control": {
+        "calls": 26,
+        "duration_ns": 28355343000
+      },
+      "round-runner-call": {
+        "calls": 4,
+        "duration_ns": 18107803426
+      },
+      "vm-delete-and-sdk-close": {
+        "calls": 5,
+        "duration_ns": 7541568708
+      }
+    },
+    "monitor_call_detail": {
+      "monitor-upload-bundle": {
+        "calls": 1,
+        "duration_ns": 2278556793
+      },
+      "monitor-ready": {
+        "calls": 5,
+        "duration_ns": 2342653468
+      },
+      "monitor-phase": {
+        "calls": 5,
+        "duration_ns": 5983623965
+      },
+      "monitor-stop": {
+        "calls": 5,
+        "duration_ns": 5795539154
+      },
+      "monitor-reaped": {
+        "calls": 5,
+        "duration_ns": 6067902391
+      },
+      "monitor-download": {
+        "calls": 5,
+        "duration_ns": 5887067229
+      }
+    },
+    "monitor_sessions": [
+      {
+        "role": "round-1",
+        "sandbox_id": "3ac657d5-de6e-4490-bf1f-573a42045d92",
+        "code_reused_from_snapshot": false,
+        "code_sha256": {
+          "/workspace/guest_diskstats.py": "986eb2e5129fcc99c3b9d7d6d048dcb0cb059a067923895d1cd7f7f5409d64f5",
+          "/workspace/guest_memory_collector.py": "c22162dd608c3628acacabcc423cb792702e6ad5b4fc676b512cd95938c16a8b",
+          "/workspace/asb-runtime-monitor.py": "d3488c2225596d387f928e087e84404d89993cab849d3e4a0d083cff16f93f53",
+          "/workspace/guest_performance.py": "7f9735d387f7722e7728afc2efbb6872825b609f6bd8aea32c2bb19821f1adbf"
+        },
+        "first_sample_phase": "round-1",
+        "sample_count": 99,
+        "collector_reaped": true
+      },
+      {
+        "role": "round-2",
+        "sandbox_id": "229d4e65-5c20-46ec-865f-4cc091d12b96",
+        "code_reused_from_snapshot": true,
+        "code_sha256": {
+          "/workspace/guest_diskstats.py": "986eb2e5129fcc99c3b9d7d6d048dcb0cb059a067923895d1cd7f7f5409d64f5",
+          "/workspace/guest_memory_collector.py": "c22162dd608c3628acacabcc423cb792702e6ad5b4fc676b512cd95938c16a8b",
+          "/workspace/asb-runtime-monitor.py": "d3488c2225596d387f928e087e84404d89993cab849d3e4a0d083cff16f93f53",
+          "/workspace/guest_performance.py": "7f9735d387f7722e7728afc2efbb6872825b609f6bd8aea32c2bb19821f1adbf"
+        },
+        "first_sample_phase": "round-2",
+        "sample_count": 91,
+        "collector_reaped": true
+      },
+      {
+        "role": "round-3",
+        "sandbox_id": "2d2a9fa3-ab9f-4aaf-be32-df1f05065d4a",
+        "code_reused_from_snapshot": true,
+        "code_sha256": {
+          "/workspace/guest_diskstats.py": "986eb2e5129fcc99c3b9d7d6d048dcb0cb059a067923895d1cd7f7f5409d64f5",
+          "/workspace/guest_memory_collector.py": "c22162dd608c3628acacabcc423cb792702e6ad5b4fc676b512cd95938c16a8b",
+          "/workspace/asb-runtime-monitor.py": "d3488c2225596d387f928e087e84404d89993cab849d3e4a0d083cff16f93f53",
+          "/workspace/guest_performance.py": "7f9735d387f7722e7728afc2efbb6872825b609f6bd8aea32c2bb19821f1adbf"
+        },
+        "first_sample_phase": "round-3",
+        "sample_count": 103,
+        "collector_reaped": true
+      },
+      {
+        "role": "round-4",
+        "sandbox_id": "fe5c8f67-527b-4e52-8858-8e2e25847369",
+        "code_reused_from_snapshot": true,
+        "code_sha256": {
+          "/workspace/guest_diskstats.py": "986eb2e5129fcc99c3b9d7d6d048dcb0cb059a067923895d1cd7f7f5409d64f5",
+          "/workspace/guest_memory_collector.py": "c22162dd608c3628acacabcc423cb792702e6ad5b4fc676b512cd95938c16a8b",
+          "/workspace/asb-runtime-monitor.py": "d3488c2225596d387f928e087e84404d89993cab849d3e4a0d083cff16f93f53",
+          "/workspace/guest_performance.py": "7f9735d387f7722e7728afc2efbb6872825b609f6bd8aea32c2bb19821f1adbf"
+        },
+        "first_sample_phase": "round-4",
+        "sample_count": 115,
+        "collector_reaped": true
+      },
+      {
+        "role": "final-restored",
+        "sandbox_id": "a71d57fe-8d20-40c9-ae79-12d203e150a2",
+        "code_reused_from_snapshot": true,
+        "code_sha256": {
+          "/workspace/guest_diskstats.py": "986eb2e5129fcc99c3b9d7d6d048dcb0cb059a067923895d1cd7f7f5409d64f5",
+          "/workspace/guest_memory_collector.py": "c22162dd608c3628acacabcc423cb792702e6ad5b4fc676b512cd95938c16a8b",
+          "/workspace/asb-runtime-monitor.py": "d3488c2225596d387f928e087e84404d89993cab849d3e4a0d083cff16f93f53",
+          "/workspace/guest_performance.py": "7f9735d387f7722e7728afc2efbb6872825b609f6bd8aea32c2bb19821f1adbf"
+        },
+        "first_sample_phase": "final-restored",
+        "sample_count": 40,
+        "collector_reaped": true
+      }
+    ],
+    "guest_runtime": [
+      {
+        "role": "round-1",
+        "sample_count": 99,
+        "observed_nonfree_peak_bytes": 322535424,
+        "cached_observed_peak_bytes": 5386240
+      },
+      {
+        "role": "round-2",
+        "sample_count": 91,
+        "observed_nonfree_peak_bytes": 270516224,
+        "cached_observed_peak_bytes": 4161536
+      },
+      {
+        "role": "round-3",
+        "sample_count": 103,
+        "observed_nonfree_peak_bytes": 355356672,
+        "cached_observed_peak_bytes": 6447104
+      },
+      {
+        "role": "round-4",
+        "sample_count": 115,
+        "observed_nonfree_peak_bytes": 312201216,
+        "cached_observed_peak_bytes": 6254592
+      },
+      {
+        "role": "final-restored",
+        "sample_count": 40,
+        "observed_nonfree_peak_bytes": 205258752,
+        "cached_observed_peak_bytes": 5607424
+      }
+    ],
+    "performance": [
+      {
+        "role": "round-1",
+        "guest_cpu_status": "MEASURED",
+        "guest_io_status": "MEASURED",
+        "host_vmm_status": "MEASURED",
+        "host_pss_observed_peak_bytes": 473408512
+      },
+      {
+        "role": "round-2",
+        "guest_cpu_status": "MEASURED",
+        "guest_io_status": "MEASURED",
+        "host_vmm_status": "MEASURED",
+        "host_pss_observed_peak_bytes": 370250752
+      },
+      {
+        "role": "round-3",
+        "guest_cpu_status": "MEASURED",
+        "guest_io_status": "MEASURED",
+        "host_vmm_status": "MEASURED",
+        "host_pss_observed_peak_bytes": 494461952
+      },
+      {
+        "role": "round-4",
+        "guest_cpu_status": "MEASURED",
+        "guest_io_status": "MEASURED",
+        "host_vmm_status": "MEASURED",
+        "host_pss_observed_peak_bytes": 410940416
+      },
+      {
+        "role": "final-restored",
+        "guest_cpu_status": "MEASURED",
+        "guest_io_status": "MEASURED",
+        "host_vmm_status": "MEASURED",
+        "host_pss_observed_peak_bytes": 221938688
+      }
+    ],
+    "cleanup": {
+      "owned_vms_removed": true,
+      "owned_snapshots_removed": true,
+      "collector_sessions_complete": true,
+      "service_sandbox_list_empty": true
+    }
+  },
+  "report_files_identical": 17,
+  "raw_files_unchanged": 454,
+  "reports": [
+    ".artifacts/exp2-monitor-control-review-20261012/report-a",
+    ".artifacts/exp2-monitor-control-review-20261012/report-b"
+  ],
+  "auto_report": ".artifacts/platform-tasks/report-20261012T044204Z-858374",
+  "final_outputs_match_baseline": true,
+  "source_template_hashes_unchanged": true,
+  "cleanup": {
+    "mount_and_loop_removed": true,
+    "successful_fixture_removed": true,
+    "original_firecracker_identities_unchanged": true
+  },
+  "host_cleanup": {
+    "cgroup_removed": true,
+    "loop_query_exit_code": 0,
+    "owned_loop_backings": []
+  },
+  "backend_checks": {
+    "private_template_prepare": "PASS",
+    "exp2_four_rounds_restore_state_and_continuation": "PASS",
+    "sdk_cleanup": "PASS",
+    "service_shutdown": "PASS",
+    "data_archive": "PASS"
+  },
+  "observed_volume_used_peak_bytes": 19419279360,
+  "observed_host_available_min_bytes": 31098433536,
+  "host_available_after_cleanup_bytes": 65455558656,
+  "outer_invocation_elapsed_seconds": 298.4647996239364,
+  "archive_elapsed_seconds": 113.431,
+  "archive_verification": {
+    "archive_bytes": 1570248023,
+    "archive_sha256": "ffd6b9bbc9c81479149053dc51c56701dfa11ef6f0d9cc5bb14be509c6ee3f22",
+    "gzip_test": "PASS",
+    "tar_compare": "PASS",
+    "source_removed": true
+  },
+  "tests": {
+    "tests-exp2.log": 5,
+    "tests-platform.log": 9,
+    "tests-runtime.log": 12,
+    "tests-trenvx.log": 6
+  },
+  "total_tests": 32,
+  "memory_chart": "docs/records/evidence/exp2-trenvx-batched-control-memory-20261012.svg",
+  "units": "bytes/ns; MiB=2^20 bytes; GiB=2^30 bytes; outer/archive are seconds",
+  "monitoring_overhead": "NOT_MEASURED_FOR_EXP2",
+  "physical_cache_measurement": "NOT_RUN",
+  "independent_task_tests": "NOT_RUN",
+  "attribution": "Call count and code reuse directly verified. Previous and new full runs are single sequential observations; not an on/off monitoring comparison or a statistical backend speed comparison."
+}

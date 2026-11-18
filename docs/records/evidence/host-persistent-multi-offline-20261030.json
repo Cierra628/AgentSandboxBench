@@ -1,0 +1,363 @@
+{
+  "status": "PASS_OFFLINE_REVIEW",
+  "date": "2026-10-30",
+  "checks": [
+    {
+      "name": "prettier6604_single_persistent_config",
+      "outcome": "ACCEPTED",
+      "details": null
+    },
+    {
+      "name": "prettier6604_persistent_command_changes_only_seed_option",
+      "outcome": "PASS",
+      "details": null
+    },
+    {
+      "name": "sphinx7590_single_persistent_config",
+      "outcome": "ACCEPTED",
+      "details": null
+    },
+    {
+      "name": "sphinx7590_persistent_command_changes_only_seed_option",
+      "outcome": "PASS",
+      "details": null
+    },
+    {
+      "name": "xarray6992_single_persistent_config",
+      "outcome": "ACCEPTED",
+      "details": null
+    },
+    {
+      "name": "xarray6992_persistent_command_changes_only_seed_option",
+      "outcome": "PASS",
+      "details": null
+    },
+    {
+      "name": "full_prettier_grpo_rejects_persistent_single_gate",
+      "outcome": "REJECTED_AS_EXPECTED",
+      "details": "persistent input requires a complete sampled current-only task with default reclaim"
+    },
+    {
+      "name": "full_prettier_grpo_persistent_command_rejected",
+      "outcome": "REJECTED_AS_EXPECTED",
+      "details": "persistent input requires a complete sampled current-only task with default reclaim"
+    },
+    {
+      "name": "sphinx7590_cannot_relabel_as_grpo",
+      "outcome": "REJECTED_AS_EXPECTED",
+      "details": "branch schedules require the corrected Prettier export; boundaries belong to the schedule"
+    },
+    {
+      "name": "xarray6992_cannot_relabel_as_grpo",
+      "outcome": "REJECTED_AS_EXPECTED",
+      "details": "branch schedules require the corrected Prettier export; boundaries belong to the schedule"
+    },
+    {
+      "name": "native_persistent_grpo_not_an_ordinary_single",
+      "outcome": "REJECTED_AS_EXPECTED",
+      "details": "persistent cache requires a sampled current pair or full current-only task, default reclaim and no RAM seed"
+    },
+    {
+      "name": "existing_prefix_pair_constructs_persistent_command",
+      "outcome": "PASS",
+      "details": null
+    },
+    {
+      "name": "wrapper_existing_persistent_prefix_pair",
+      "outcome": "ROUTED_TO_PREFLIGHT_ONLY",
+      "details": "Runtime preflight and Docker were not called"
+    },
+    {
+      "name": "wrapper_current_config_cannot_be_reused_for_pair",
+      "outcome": "REJECTED_AS_EXPECTED",
+      "details": "entry: error: host_current_only config requires the ordinary single-task entry without other modes"
+    },
+    {
+      "name": "wrapper_python_prefix_pair_rejected",
+      "outcome": "REJECTED_AS_EXPECTED",
+      "details": "entry: error: persistent-input pair requires the ordinary Prettier host config and default reclaim"
+    },
+    {
+      "name": "wrapper_persistent_full_grpo_rejected",
+      "outcome": "REJECTED_AS_EXPECTED",
+      "details": "persistent input requires a complete sampled current-only task with default reclaim"
+    },
+    {
+      "name": "wrapper_persistent_full_bpo_rejected",
+      "outcome": "REJECTED_AS_EXPECTED",
+      "details": "persistent input requires a complete sampled current-only task with default reclaim"
+    },
+    {
+      "name": "wrapper_persistent_scaling_rejected",
+      "outcome": "REJECTED_AS_EXPECTED",
+      "details": "entry: error: persistent-input requires current-pair or an ordinary current-only task"
+    },
+    {
+      "name": "wrapper_persistent_rootfs_rejected",
+      "outcome": "REJECTED_AS_EXPECTED",
+      "details": "entry: error: persistent-input requires current-pair or an ordinary current-only task"
+    },
+    {
+      "name": "saved_short_pair_not_full_task",
+      "outcome": "PASS",
+      "details": {
+        "actions": 22,
+        "guests": 2,
+        "window_seconds": 5,
+        "official": "NOT_RUN_PREFIX_ONLY"
+      }
+    },
+    {
+      "name": "three_saved_single_runs_not_concurrency",
+      "outcome": "PASS",
+      "details": [
+        {
+          "task_id": "prettier__prettier-6604",
+          "actions": 29,
+          "input_files": 105,
+          "baseline_mib": 7604.25390625,
+          "peak_increase_mib": 699.421875,
+          "host_single_core_cpu_percent": 0.3142863793248746,
+          "guest_single_core_cpu_percent": 0.6182436513945974,
+          "query_wall_seconds": 0.160808424,
+          "query_phase": "AFTER_ISOLATED_RUNTIME_CLEANUP",
+          "ownership": "NOT_QUERIED"
+        },
+        {
+          "task_id": "sphinx-doc__sphinx-7590",
+          "actions": 35,
+          "input_files": 116,
+          "baseline_mib": 9113.76171875,
+          "peak_increase_mib": 484.44140625,
+          "host_single_core_cpu_percent": 0.30993105667516324,
+          "guest_single_core_cpu_percent": 0.7226800634572321,
+          "query_wall_seconds": 0.194928418,
+          "query_phase": "AFTER_ISOLATED_RUNTIME_CLEANUP",
+          "ownership": "NOT_QUERIED"
+        },
+        {
+          "task_id": "pydata__xarray-6992",
+          "actions": 35,
+          "input_files": 116,
+          "baseline_mib": 11055.50390625,
+          "peak_increase_mib": 1191.8203125,
+          "host_single_core_cpu_percent": 0.29290802682768086,
+          "guest_single_core_cpu_percent": 0.523383524484058,
+          "query_wall_seconds": 0.209626187,
+          "query_phase": "AFTER_ISOLATED_RUNTIME_CLEANUP",
+          "ownership": "NOT_QUERIED"
+        }
+      ]
+    },
+    {
+      "name": "legacy_full_grpo_schedule_only",
+      "outcome": "REFERENCE_ONLY",
+      "details": {
+        "actual_actions": 189,
+        "guest_sessions": 7,
+        "old_inventory_status": "INCOMPLETE",
+        "old_workflow_status": "FAIL",
+        "reuse_scope": "schedule only; not new persistent measurement evidence"
+      }
+    }
+  ],
+  "source_references": {
+    "scripts/run_host_file_workflow.py": [
+      {
+        "line": 41,
+        "code": "parser.error('persistent-input requires current-pair or an ordinary current-only task')"
+      },
+      {
+        "line": 80,
+        "code": "parser.error('persistent-input pair requires the ordinary Prettier host config and default reclaim')"
+      },
+      {
+        "line": 82,
+        "code": "from host_persistent_input import single_config"
+      }
+    ],
+    "scripts/host_persistent_input.py": [
+      {
+        "line": 43,
+        "code": "def single_config(cfg):"
+      },
+      {
+        "line": 71,
+        "code": "def native_option(args):"
+      },
+      {
+        "line": 214,
+        "code": "def observe_input(out,group,output,*,task_id='prettier__prettier-6604'):"
+      }
+    ],
+    "scripts/platform_tasks.py": [
+      {
+        "line": 63,
+        "code": "raise ValueError('branch schedules require the corrected Prettier export; boundaries belong to the schedule')"
+      },
+      {
+        "line": 167,
+        "code": "from host_persistent_input import single_config"
+      },
+      {
+        "line": 257,
+        "code": "if cfg.get('host_current_only'):"
+      },
+      {
+        "line": 381,
+        "code": "if cfg.get('host_current_only'):"
+      },
+      {
+        "line": 435,
+        "code": "from host_persistent_input import single_config,owned"
+      },
+      {
+        "line": 484,
+        "code": "host_monitor=HostFileMonitor(out/'host-file',host_group,include_pss=not (cfg.get('host_shared_files') or cfg.get('host_current_only')))"
+      },
+      {
+        "line": 515,
+        "code": "q.update(phase='AFTER_ISOLATED_RUNTIME_CLEANUP',task_id=cfg['task_id'])"
+      }
+    ],
+    "scripts/run_host_scaling.py": [
+      {
+        "line": 37,
+        "code": "raise ValueError('scaling requires the ordinary explicit Prettier host config')"
+      },
+      {
+        "line": 53,
+        "code": "capacity=8 if current_pair else 16 if mode=='cold' else 24"
+      }
+    ],
+    "scripts/host_current_pair.py": [
+      {
+        "line": 11,
+        "code": "ROLES=('backbone','early_1')"
+      },
+      {
+        "line": 12,
+        "code": "OBSERVATION_SECONDS=5"
+      },
+      {
+        "line": 55,
+        "code": "assert verify_instance(role)['action_count']==11"
+      },
+      {
+        "line": 67,
+        "code": "state['mincore']='INPUT_FILES_ONCE_AFTER_WINDOWS'"
+      }
+    ],
+    "scripts/run_prettier6604_grpo.py": [
+      {
+        "line": 521,
+        "code": "timed_rollout=light_monitor or not monitoring"
+      },
+      {
+        "line": 798,
+        "code": "sandboxes=await joined(self.start(role) for role in roles)"
+      },
+      {
+        "line": 907,
+        "code": "if timed_rollout:result['rollout_start_monotonic_ns']=time.monotonic_ns()"
+      },
+      {
+        "line": 909,
+        "code": "full_rootfs.cold.mark('guest-creation-begin',monotonic_ns=result['rollout_start_monotonic_ns'])"
+      },
+      {
+        "line": 957,
+        "code": "if timed_rollout:result['rollout_end_monotonic_ns']=time.monotonic_ns()"
+      }
+    ],
+    "scripts/report_host_file.py": [
+      {
+        "line": 71,
+        "code": "report_schema='host-memory-current-v1',primary_metric='memory.current',context_metric='memory.stat:file',"
+      }
+    ]
+  },
+  "current_native_copy_bind_scan_conditions": [
+    {
+      "line": 946,
+      "expression": "not durable_bundle and (readonly_fixture or (python_inputs and seed_value) or prettier_readonly or online_task or exp1_light or current_pair)",
+      "hypothetical_grpo_if_only_parameter_gates_were_opened": false
+    },
+    {
+      "line": 791,
+      "expression": "(readonly_fixture or (python_inputs and seed_value) or prettier_readonly or online_task or exp1_light or current_pair) and part == 'image-cache/commits'",
+      "hypothetical_grpo_if_only_parameter_gates_were_opened": false
+    },
+    {
+      "line": 1496,
+      "expression": "host_group and mounted and (host_sampling == 'on') and (not (private_control or full_rootfs_mode or host_current_only or current_pair))",
+      "hypothetical_grpo_if_only_parameter_gates_were_opened": true
+    }
+  ],
+  "existing_support": {
+    "three_complete_single_tasks": "SUPPORTED_AND_LIVE_VALIDATED_ONE_EACH",
+    "prettier_current_pair": "SUPPORTED_AND_LIVE_VALIDATED_2X11_ACTIONS_TWO_5S_WINDOWS",
+    "prettier_full_grpo_persistent": "REJECTED_BY_CURRENT_CONFIG_AND_NATIVE_GATES",
+    "prettier_full_bpo_persistent": "REJECTED",
+    "sphinx_xarray_grpo": "NOT_IMPLEMENTED_TASK_SCHEDULES",
+    "ordinary_scaling_or_rootfs_persistent": "REJECTED"
+  },
+  "decision": "先离线接入Prettier完整GRPO的普通输入与current轻量路径；保留原7个冷启动guest、189动作及并发创建调度。不要重复已完成的前缀短测，也不先扩BPO或Python多实例。",
+  "proposed_entry": [
+    "bash",
+    "scripts/run-host-file-monitor.sh",
+    "configs/platform-prettier6604-grpo-light-host.json",
+    "--persistent-input"
+  ],
+  "proposed_entry_status": "NOT_IMPLEMENTED_CURRENTLY_REJECTED",
+  "changes_needed": {
+    "scripts/host_persistent_input.py": "新增明确的完整GRPO配置／原生参数识别，复用三任务导入／来源／查询／清理；旧single_config与短pair语义保留。",
+    "scripts/run_host_file_workflow.py": "将新显式选项转交完整GRPO，不放开BPO、scaling、off或回收干预组合；原输入准备顺序不变。",
+    "scripts/platform_tasks.py": "新模式用已存在的GRPO命令，保留原检查；禁用PSS，报告不再依赖全文件驻留清单；沿用结束后一次输入核对。",
+    "scripts/validate_isolated_agentenv.py": "新模式只读绑定commits并跳过重复复制，16 GiB原运行卷与>8 GiB原余量检查保持；同步后基线、无池新服务、跳过广泛收尾驻留查询；其余旧路径不变。"
+  },
+  "measurement_windows": {
+    "preparation": "新组先于导入和新服务；临时来源先释放，运行卷同步后、任何guest创建前保存唯一准备基线。",
+    "active_rollout": "复用已有rollout_start_monotonic_ns到rollout_end_monotonic_ns，覆盖创建、准备、189动作、每实例最终检查与官方评测，不含后续删除；不得串行化7个创建或添加稳定等待。",
+    "full_flow": "保留原current全流程曲线与峰值，另标出活跃窗口内峰值／增量，二者分列。",
+    "input_residency": "隔离运行／自有清理完成后，输入删除前一次105对象mincore；不是7次，不进入活跃窗口。"
+  },
+  "cost_requirements": [
+    "一个host 0.1秒采样线程",
+    "7个guest各自0.1秒采样与各自收据",
+    "采样管理调用总量与墙钟范围分开",
+    "工具累计、并发窗口墙钟、控制程序整轮分开",
+    "查询墙钟和线程CPU分列",
+    "没有关闭组时不输出任务减速率"
+  ],
+  "future_first_live_scope": {
+    "schedule": "Prettier原完整GRPO",
+    "guests": 7,
+    "actual_actions": 189,
+    "runs": 1,
+    "snapshots": false,
+    "model_calls": 0,
+    "default_reclaim": true,
+    "guest_mib": 4096,
+    "guest_cpus": 2
+  },
+  "future_budget_gib": {
+    "source": 20,
+    "import": 8,
+    "runtime_volume": 16,
+    "prepare_free_strictly_above": 54,
+    "before_runtime_volume_free_strictly_above": 42,
+    "mem_available_strictly_above": 64
+  },
+  "schedule_comparison_boundary": "完整GRPO原本并发创建7个guest，不是1→2递增；此前短pair是递增但只有前缀。两者不合并推算共享率。Python两任务需要自己的完整多实例调度，不是替换task_id。",
+  "code_modified": false,
+  "source_archives_restored": 0,
+  "new_services": 0,
+  "new_guests": 0,
+  "new_tasks": 0,
+  "new_mincore_queries": 0,
+  "resource_context": {
+    "available_disk_bytes": 68008853504
+  },
+  "next": "建议按上述四处范围离线实现并做必要模拟回归；通过后再安排一轮7guest／189动作首次正式验证，不自动实跑。"
+}

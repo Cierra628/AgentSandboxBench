@@ -1,0 +1,656 @@
+{
+  "date": "2026-11-01",
+  "start_utc": "2026-11-01T03:17:44Z",
+  "finish_utc": "2026-11-01T03:35:28Z",
+  "status": "PASS",
+  "task_id": "pydata__xarray-6992",
+  "runs": [
+    {
+      "status": "PASS",
+      "workflow": ".artifacts/platform-tasks/20261101T032007Z-2964790",
+      "raw": ".artifacts/storage-isolated-service/20261101T032038Z-2965150/python-backbone",
+      "report": ".artifacts/platform-tasks/report-20261101T032007Z-2964790",
+      "task": "xarray6992",
+      "mode": "off",
+      "tool_count": 35,
+      "tool_seconds": 34.385039779,
+      "frozen_replay_seconds": 36.648461353,
+      "controller_seconds": 85.933631298,
+      "sample_count": 0,
+      "collector_cpu_seconds": null,
+      "max_sample_gap_seconds": null,
+      "memory_peak_mib": null,
+      "cached_peak_mib": null,
+      "minimum_host_available_gib": 46.6036376953125,
+      "original_tests": {
+        "passed": 945,
+        "failed": 12,
+        "skipped": 0
+      },
+      "owned_resources_removed": true,
+      "official_failed_tests": [
+        "xarray/tests/test_dataarray.py::TestDataArray::test_reset_index",
+        "xarray/tests/test_dataset.py::TestDataset::test_reset_index",
+        "xarray/tests/test_dataset.py::TestDataset::test_reset_index_drop_dims",
+        "xarray/tests/test_dataset.py::TestDataset::test_reset_index_drop_convert[foo-False-dropped0-converted0-renamed0]",
+        "xarray/tests/test_dataset.py::TestDataset::test_reset_index_drop_convert[foo-True-dropped1-converted1-renamed1]",
+        "xarray/tests/test_dataset.py::TestDataset::test_reset_index_drop_convert[x-False-dropped2-converted2-renamed2]",
+        "xarray/tests/test_dataset.py::TestDataset::test_reset_index_drop_convert[x-True-dropped3-converted3-renamed3]",
+        "xarray/tests/test_dataset.py::TestDataset::test_reset_index_drop_convert[arg4-False-dropped4-converted4-renamed4]",
+        "xarray/tests/test_dataset.py::TestDataset::test_reset_index_drop_convert[arg5-True-dropped5-converted5-renamed5]",
+        "xarray/tests/test_dataset.py::TestDataset::test_reset_index_drop_convert[arg6-False-dropped6-converted6-renamed6]",
+        "xarray/tests/test_dataset.py::TestDataset::test_reset_index_drop_convert[arg7-True-dropped7-converted7-renamed7]",
+        "xarray/tests/test_groupby.py::test_groupby_drops_nans"
+      ],
+      "diagnostic_status": "PASS",
+      "strict_replay_status": "FAIL",
+      "replay_exit_differences": [
+        {
+          "segment": "trace_index_state",
+          "step": "002",
+          "expected": 0,
+          "actual": 141,
+          "reason": "SIGPIPE with exact original stdout; diagnostic continuation only",
+          "stdout_sha256": "66a4fc50cddc48f5feac753a6dde7cc8f246d6ad6f9bcf74a60370ad04496f6d"
+        }
+      ],
+      "observed_exit_codes_status": "FAIL",
+      "replay_policy": "xarray-approved-sigpipe",
+      "grouped_workflow_seconds": 128.718293923,
+      "archive_preparation_seconds": 140.145389643,
+      "input_import_seconds": 31.107784604,
+      "cold_create_seconds": 0.820141206,
+      "official_tests_seconds": 42.140217266,
+      "query_seconds": 0.200863803,
+      "query_cpu_seconds": 0.20070661,
+      "input_resident_bytes": 10893279232,
+      "input_group_file_bytes": 10897690624,
+      "input_files": 116,
+      "ownership": "NOT_QUERIED",
+      "sampling": {
+        "mode": "off",
+        "interval_seconds": null,
+        "boundary_rows": {
+          "guest-memory.tsv": 0,
+          "guest-vmstat.tsv": 0
+        },
+        "pss": "NOT_REQUESTED",
+        "host_cpu_seconds": null,
+        "guest_cpu_seconds": null,
+        "management_seconds": null,
+        "memory": "NOT_MEASURED"
+      },
+      "registry_commands": [
+        "version",
+        "manifest"
+      ],
+      "workflow_directory": ".artifacts/platform-tasks/20261101T032007Z-2964790",
+      "storage_directory": ".artifacts/storage-isolated-service/20261101T032038Z-2965150",
+      "cleanup": "PASS",
+      "guest_ids": [
+        "01a1951f-bf2c-7e42-95bb-573358b3304e",
+        "01a1951f-bf2c-7e42-95bb-573358b3304e",
+        "01a1951f-bf2c-7e42-95bb-573358b3304e",
+        "01a1951f-bf2c-7e42-95bb-573358b3304e",
+        "01a1951f-bf2c-7e42-95bb-573358b3304e"
+      ],
+      "index": 1,
+      "pair": 1
+    },
+    {
+      "status": "PASS",
+      "workflow": ".artifacts/platform-tasks/20261101T032430Z-2967990",
+      "raw": ".artifacts/storage-isolated-service/20261101T032502Z-2968064/python-backbone",
+      "report": ".artifacts/platform-tasks/report-20261101T032430Z-2967990",
+      "task": "xarray6992",
+      "mode": "on",
+      "tool_count": 35,
+      "tool_seconds": 32.859683264,
+      "frozen_replay_seconds": 35.838434297,
+      "controller_seconds": 84.420717158,
+      "sample_count": 825,
+      "collector_cpu_seconds": 0.320356,
+      "max_sample_gap_seconds": 0.113803463,
+      "memory_peak_mib": 735.70703125,
+      "cached_peak_mib": 329.9609375,
+      "minimum_host_available_gib": 46.597389221191406,
+      "original_tests": {
+        "passed": 945,
+        "failed": 12,
+        "skipped": 0
+      },
+      "owned_resources_removed": true,
+      "official_failed_tests": [
+        "xarray/tests/test_dataarray.py::TestDataArray::test_reset_index",
+        "xarray/tests/test_dataset.py::TestDataset::test_reset_index",
+        "xarray/tests/test_dataset.py::TestDataset::test_reset_index_drop_dims",
+        "xarray/tests/test_dataset.py::TestDataset::test_reset_index_drop_convert[foo-False-dropped0-converted0-renamed0]",
+        "xarray/tests/test_dataset.py::TestDataset::test_reset_index_drop_convert[foo-True-dropped1-converted1-renamed1]",
+        "xarray/tests/test_dataset.py::TestDataset::test_reset_index_drop_convert[x-False-dropped2-converted2-renamed2]",
+        "xarray/tests/test_dataset.py::TestDataset::test_reset_index_drop_convert[x-True-dropped3-converted3-renamed3]",
+        "xarray/tests/test_dataset.py::TestDataset::test_reset_index_drop_convert[arg4-False-dropped4-converted4-renamed4]",
+        "xarray/tests/test_dataset.py::TestDataset::test_reset_index_drop_convert[arg5-True-dropped5-converted5-renamed5]",
+        "xarray/tests/test_dataset.py::TestDataset::test_reset_index_drop_convert[arg6-False-dropped6-converted6-renamed6]",
+        "xarray/tests/test_dataset.py::TestDataset::test_reset_index_drop_convert[arg7-True-dropped7-converted7-renamed7]",
+        "xarray/tests/test_groupby.py::test_groupby_drops_nans"
+      ],
+      "diagnostic_status": "PASS",
+      "strict_replay_status": "FAIL",
+      "replay_exit_differences": [
+        {
+          "segment": "trace_index_state",
+          "step": "002",
+          "expected": 0,
+          "actual": 141,
+          "reason": "SIGPIPE with exact original stdout; diagnostic continuation only",
+          "stdout_sha256": "66a4fc50cddc48f5feac753a6dde7cc8f246d6ad6f9bcf74a60370ad04496f6d"
+        }
+      ],
+      "observed_exit_codes_status": "FAIL",
+      "replay_policy": "xarray-approved-sigpipe",
+      "host_memory": {
+        "current_baseline_bytes": 11598090240,
+        "current_peak_bytes": 12882341888,
+        "current_peak_increase_bytes": 1284251648
+      },
+      "grouped_workflow_seconds": 129.234846448,
+      "archive_preparation_seconds": 133.330532222,
+      "input_import_seconds": 31.56340808,
+      "cold_create_seconds": 0.873243148,
+      "official_tests_seconds": 41.548592578,
+      "query_seconds": 0.195791942,
+      "query_cpu_seconds": 0.19534311,
+      "input_resident_bytes": 10893279232,
+      "input_group_file_bytes": 10898665472,
+      "input_files": 116,
+      "ownership": "NOT_QUERIED",
+      "sampling": {
+        "mode": "on",
+        "interval_seconds": 0.1,
+        "boundary_rows": {
+          "guest-memory.tsv": 80,
+          "guest-vmstat.tsv": 80
+        },
+        "pss": "NOT_REQUESTED",
+        "host_cpu_seconds": 0.372262085,
+        "host_span_seconds": 127.543848991,
+        "host_cpu_percent": 0.2918698847062929,
+        "host_samples": 1276,
+        "host_max_gap_seconds": 0.10011659,
+        "guest_cpu_seconds": 0.320356,
+        "guest_span_seconds": 82.74595774,
+        "guest_cpu_percent": 0.387156072332386,
+        "management_seconds": 0.545636926,
+        "management_events": [
+          {
+            "index": 4,
+            "stage": "monitor-upload-bundle",
+            "start_monotonic_ns": 15273745685586150,
+            "timestamp_ns": 1793503512820844867,
+            "duration_ns": 34648103,
+            "exit_code": 0
+          },
+          {
+            "index": 6,
+            "stage": "monitor-ready",
+            "start_monotonic_ns": 15273745721213006,
+            "timestamp_ns": 1793503512856471768,
+            "duration_ns": 100995100,
+            "exit_code": 0
+          },
+          {
+            "index": 27,
+            "stage": "monitor-phase",
+            "start_monotonic_ns": 15273786547488253,
+            "timestamp_ns": 1793503553682747864,
+            "duration_ns": 147259298,
+            "exit_code": 0
+          },
+          {
+            "index": 31,
+            "stage": "monitor-finish",
+            "start_monotonic_ns": 15273828362813096,
+            "timestamp_ns": 1793503595498072439,
+            "duration_ns": 224527157,
+            "exit_code": 0
+          },
+          {
+            "index": 32,
+            "stage": "monitor-download",
+            "start_monotonic_ns": 15273828588210327,
+            "timestamp_ns": 1793503595723469079,
+            "duration_ns": 38207268,
+            "exit_code": 0
+          }
+        ],
+        "coverage": "All five original segments and official evaluation observed"
+      },
+      "registry_commands": [
+        "version",
+        "manifest"
+      ],
+      "workflow_directory": ".artifacts/platform-tasks/20261101T032430Z-2967990",
+      "storage_directory": ".artifacts/storage-isolated-service/20261101T032502Z-2968064",
+      "cleanup": "PASS",
+      "guest_ids": [
+        "01a19523-c48d-7a91-a892-fc293674b296",
+        "01a19523-c48d-7a91-a892-fc293674b296",
+        "01a19523-c48d-7a91-a892-fc293674b296",
+        "01a19523-c48d-7a91-a892-fc293674b296",
+        "01a19523-c48d-7a91-a892-fc293674b296"
+      ],
+      "index": 2,
+      "pair": 1
+    },
+    {
+      "status": "PASS",
+      "workflow": ".artifacts/platform-tasks/20261101T032856Z-2969834",
+      "raw": ".artifacts/storage-isolated-service/20261101T032927Z-2970003/python-backbone",
+      "report": ".artifacts/platform-tasks/report-20261101T032856Z-2969834",
+      "task": "xarray6992",
+      "mode": "on",
+      "tool_count": 35,
+      "tool_seconds": 34.064041352,
+      "frozen_replay_seconds": 36.820242553,
+      "controller_seconds": 85.590472088,
+      "sample_count": 836,
+      "collector_cpu_seconds": 0.379152,
+      "max_sample_gap_seconds": 0.12739303,
+      "memory_peak_mib": 722.953125,
+      "cached_peak_mib": 316.3203125,
+      "minimum_host_available_gib": 46.589969635009766,
+      "original_tests": {
+        "passed": 945,
+        "failed": 12,
+        "skipped": 0
+      },
+      "owned_resources_removed": true,
+      "official_failed_tests": [
+        "xarray/tests/test_dataarray.py::TestDataArray::test_reset_index",
+        "xarray/tests/test_dataset.py::TestDataset::test_reset_index",
+        "xarray/tests/test_dataset.py::TestDataset::test_reset_index_drop_dims",
+        "xarray/tests/test_dataset.py::TestDataset::test_reset_index_drop_convert[foo-False-dropped0-converted0-renamed0]",
+        "xarray/tests/test_dataset.py::TestDataset::test_reset_index_drop_convert[foo-True-dropped1-converted1-renamed1]",
+        "xarray/tests/test_dataset.py::TestDataset::test_reset_index_drop_convert[x-False-dropped2-converted2-renamed2]",
+        "xarray/tests/test_dataset.py::TestDataset::test_reset_index_drop_convert[x-True-dropped3-converted3-renamed3]",
+        "xarray/tests/test_dataset.py::TestDataset::test_reset_index_drop_convert[arg4-False-dropped4-converted4-renamed4]",
+        "xarray/tests/test_dataset.py::TestDataset::test_reset_index_drop_convert[arg5-True-dropped5-converted5-renamed5]",
+        "xarray/tests/test_dataset.py::TestDataset::test_reset_index_drop_convert[arg6-False-dropped6-converted6-renamed6]",
+        "xarray/tests/test_dataset.py::TestDataset::test_reset_index_drop_convert[arg7-True-dropped7-converted7-renamed7]",
+        "xarray/tests/test_groupby.py::test_groupby_drops_nans"
+      ],
+      "diagnostic_status": "PASS",
+      "strict_replay_status": "FAIL",
+      "replay_exit_differences": [
+        {
+          "segment": "trace_index_state",
+          "step": "002",
+          "expected": 0,
+          "actual": 141,
+          "reason": "SIGPIPE with exact original stdout; diagnostic continuation only",
+          "stdout_sha256": "66a4fc50cddc48f5feac753a6dde7cc8f246d6ad6f9bcf74a60370ad04496f6d"
+        }
+      ],
+      "observed_exit_codes_status": "FAIL",
+      "replay_policy": "xarray-approved-sigpipe",
+      "host_memory": {
+        "current_baseline_bytes": 11598872576,
+        "current_peak_bytes": 12816216064,
+        "current_peak_increase_bytes": 1217343488
+      },
+      "grouped_workflow_seconds": 129.153356147,
+      "archive_preparation_seconds": 136.400686671,
+      "input_import_seconds": 30.223879133,
+      "cold_create_seconds": 0.930720213,
+      "official_tests_seconds": 41.72708557,
+      "query_seconds": 0.156156029,
+      "query_cpu_seconds": 0.1559081,
+      "input_resident_bytes": 10893279232,
+      "input_group_file_bytes": 10898677760,
+      "input_files": 116,
+      "ownership": "NOT_QUERIED",
+      "sampling": {
+        "mode": "on",
+        "interval_seconds": 0.1,
+        "boundary_rows": {
+          "guest-memory.tsv": 80,
+          "guest-vmstat.tsv": 80
+        },
+        "pss": "NOT_REQUESTED",
+        "host_cpu_seconds": 0.370701433,
+        "host_span_seconds": 127.413254586,
+        "host_cpu_percent": 0.2909441676256594,
+        "host_samples": 1275,
+        "host_max_gap_seconds": 0.100173935,
+        "guest_cpu_seconds": 0.379152,
+        "guest_span_seconds": 83.838302068,
+        "guest_cpu_percent": 0.4522419832554283,
+        "management_seconds": 0.514618241,
+        "management_events": [
+          {
+            "index": 4,
+            "stage": "monitor-upload-bundle",
+            "start_monotonic_ns": 15274011077690273,
+            "timestamp_ns": 1793503778212948923,
+            "duration_ns": 35741712,
+            "exit_code": 0
+          },
+          {
+            "index": 6,
+            "stage": "monitor-ready",
+            "start_monotonic_ns": 15274011114257156,
+            "timestamp_ns": 1793503778249515836,
+            "duration_ns": 117751494,
+            "exit_code": 0
+          },
+          {
+            "index": 27,
+            "stage": "monitor-phase",
+            "start_monotonic_ns": 15274052906112775,
+            "timestamp_ns": 1793503820041372128,
+            "duration_ns": 179887014,
+            "exit_code": 0
+          },
+          {
+            "index": 31,
+            "stage": "monitor-finish",
+            "start_monotonic_ns": 15274094924931679,
+            "timestamp_ns": 1793503862060190865,
+            "duration_ns": 145336796,
+            "exit_code": 0
+          },
+          {
+            "index": 32,
+            "stage": "monitor-download",
+            "start_monotonic_ns": 15274095071215418,
+            "timestamp_ns": 1793503862206474392,
+            "duration_ns": 35901225,
+            "exit_code": 0
+          }
+        ],
+        "coverage": "All five original segments and official evaluation observed"
+      },
+      "registry_commands": [
+        "version",
+        "manifest"
+      ],
+      "workflow_directory": ".artifacts/platform-tasks/20261101T032856Z-2969834",
+      "storage_directory": ".artifacts/storage-isolated-service/20261101T032927Z-2970003",
+      "cleanup": "PASS",
+      "guest_ids": [
+        "01a19527-d0f9-7251-9712-de938503363d",
+        "01a19527-d0f9-7251-9712-de938503363d",
+        "01a19527-d0f9-7251-9712-de938503363d",
+        "01a19527-d0f9-7251-9712-de938503363d",
+        "01a19527-d0f9-7251-9712-de938503363d"
+      ],
+      "index": 3,
+      "pair": 2
+    },
+    {
+      "status": "PASS",
+      "workflow": ".artifacts/platform-tasks/20261101T033324Z-2971781",
+      "raw": ".artifacts/storage-isolated-service/20261101T033353Z-2971856/python-backbone",
+      "report": ".artifacts/platform-tasks/report-20261101T033324Z-2971781",
+      "task": "xarray6992",
+      "mode": "off",
+      "tool_count": 35,
+      "tool_seconds": 33.200686422,
+      "frozen_replay_seconds": 35.404728446,
+      "controller_seconds": 84.130057116,
+      "sample_count": 0,
+      "collector_cpu_seconds": null,
+      "max_sample_gap_seconds": null,
+      "memory_peak_mib": null,
+      "cached_peak_mib": null,
+      "minimum_host_available_gib": 46.58332061767578,
+      "original_tests": {
+        "passed": 945,
+        "failed": 12,
+        "skipped": 0
+      },
+      "owned_resources_removed": true,
+      "official_failed_tests": [
+        "xarray/tests/test_dataarray.py::TestDataArray::test_reset_index",
+        "xarray/tests/test_dataset.py::TestDataset::test_reset_index",
+        "xarray/tests/test_dataset.py::TestDataset::test_reset_index_drop_dims",
+        "xarray/tests/test_dataset.py::TestDataset::test_reset_index_drop_convert[foo-False-dropped0-converted0-renamed0]",
+        "xarray/tests/test_dataset.py::TestDataset::test_reset_index_drop_convert[foo-True-dropped1-converted1-renamed1]",
+        "xarray/tests/test_dataset.py::TestDataset::test_reset_index_drop_convert[x-False-dropped2-converted2-renamed2]",
+        "xarray/tests/test_dataset.py::TestDataset::test_reset_index_drop_convert[x-True-dropped3-converted3-renamed3]",
+        "xarray/tests/test_dataset.py::TestDataset::test_reset_index_drop_convert[arg4-False-dropped4-converted4-renamed4]",
+        "xarray/tests/test_dataset.py::TestDataset::test_reset_index_drop_convert[arg5-True-dropped5-converted5-renamed5]",
+        "xarray/tests/test_dataset.py::TestDataset::test_reset_index_drop_convert[arg6-False-dropped6-converted6-renamed6]",
+        "xarray/tests/test_dataset.py::TestDataset::test_reset_index_drop_convert[arg7-True-dropped7-converted7-renamed7]",
+        "xarray/tests/test_groupby.py::test_groupby_drops_nans"
+      ],
+      "diagnostic_status": "PASS",
+      "strict_replay_status": "FAIL",
+      "replay_exit_differences": [
+        {
+          "segment": "trace_index_state",
+          "step": "002",
+          "expected": 0,
+          "actual": 141,
+          "reason": "SIGPIPE with exact original stdout; diagnostic continuation only",
+          "stdout_sha256": "66a4fc50cddc48f5feac753a6dde7cc8f246d6ad6f9bcf74a60370ad04496f6d"
+        }
+      ],
+      "observed_exit_codes_status": "FAIL",
+      "replay_policy": "xarray-approved-sigpipe",
+      "grouped_workflow_seconds": 124.406722136,
+      "archive_preparation_seconds": 137.403128081,
+      "input_import_seconds": 28.437093953,
+      "cold_create_seconds": 0.930946177,
+      "official_tests_seconds": 41.847388562,
+      "query_seconds": 0.194957586,
+      "query_cpu_seconds": 0.193151701,
+      "input_resident_bytes": 10893279232,
+      "input_group_file_bytes": 10897637376,
+      "input_files": 116,
+      "ownership": "NOT_QUERIED",
+      "sampling": {
+        "mode": "off",
+        "interval_seconds": null,
+        "boundary_rows": {
+          "guest-memory.tsv": 0,
+          "guest-vmstat.tsv": 0
+        },
+        "pss": "NOT_REQUESTED",
+        "host_cpu_seconds": null,
+        "guest_cpu_seconds": null,
+        "management_seconds": null,
+        "memory": "NOT_MEASURED"
+      },
+      "registry_commands": [
+        "version",
+        "manifest"
+      ],
+      "workflow_directory": ".artifacts/platform-tasks/20261101T033324Z-2971781",
+      "storage_directory": ".artifacts/storage-isolated-service/20261101T033353Z-2971856",
+      "cleanup": "PASS",
+      "guest_ids": [
+        "01a1952b-df0c-7da2-9249-d3000f42b60b",
+        "01a1952b-df0c-7da2-9249-d3000f42b60b",
+        "01a1952b-df0c-7da2-9249-d3000f42b60b",
+        "01a1952b-df0c-7da2-9249-d3000f42b60b",
+        "01a1952b-df0c-7da2-9249-d3000f42b60b"
+      ],
+      "index": 4,
+      "pair": 2
+    }
+  ],
+  "pairs": [
+    {
+      "pair": 1,
+      "order": [
+        "off",
+        "on"
+      ],
+      "metrics": {
+        "tool_seconds": {
+          "off": 34.385039779,
+          "on": 32.859683264,
+          "on_minus_off": -1.5253565150000057,
+          "change_percent": -4.43610513410424
+        },
+        "frozen_replay_seconds": {
+          "off": 36.648461353,
+          "on": 35.838434297,
+          "on_minus_off": -0.8100270560000027,
+          "change_percent": -2.210262112228334
+        },
+        "controller_seconds": {
+          "off": 85.933631298,
+          "on": 84.420717158,
+          "on_minus_off": -1.5129141399999924,
+          "change_percent": -1.760561164642882
+        },
+        "cold_create_seconds": {
+          "off": 0.820141206,
+          "on": 0.873243148,
+          "on_minus_off": 0.05310194200000007,
+          "change_percent": 6.474731620788732
+        },
+        "official_tests_seconds": {
+          "off": 42.140217266,
+          "on": 41.548592578,
+          "on_minus_off": -0.5916246880000031,
+          "change_percent": -1.4039431364710642
+        },
+        "grouped_workflow_seconds": {
+          "off": 128.718293923,
+          "on": 129.234846448,
+          "on_minus_off": 0.5165525250000087,
+          "change_percent": 0.40130467026622263
+        },
+        "archive_preparation_seconds": {
+          "off": 140.145389643,
+          "on": 133.330532222,
+          "on_minus_off": -6.814857420999999,
+          "change_percent": -4.862705393562972
+        },
+        "input_import_seconds": {
+          "off": 31.107784604,
+          "on": 31.56340808,
+          "on_minus_off": 0.4556234759999995,
+          "change_percent": 1.4646606365578796
+        },
+        "query_seconds": {
+          "off": 0.200863803,
+          "on": 0.195791942,
+          "on_minus_off": -0.005071861000000011,
+          "change_percent": -2.5250248796693353
+        }
+      }
+    },
+    {
+      "pair": 2,
+      "order": [
+        "on",
+        "off"
+      ],
+      "metrics": {
+        "tool_seconds": {
+          "off": 33.200686422,
+          "on": 34.064041352,
+          "on_minus_off": 0.8633549299999999,
+          "change_percent": 2.6004128921500502
+        },
+        "frozen_replay_seconds": {
+          "off": 35.404728446,
+          "on": 36.820242553,
+          "on_minus_off": 1.415514107,
+          "change_percent": 3.998093387890189
+        },
+        "controller_seconds": {
+          "off": 84.130057116,
+          "on": 85.590472088,
+          "on_minus_off": 1.4604149719999953,
+          "change_percent": 1.7359015577349979
+        },
+        "cold_create_seconds": {
+          "off": 0.930946177,
+          "on": 0.930720213,
+          "on_minus_off": -0.00022596400000007844,
+          "change_percent": -0.024272509580336443
+        },
+        "official_tests_seconds": {
+          "off": 41.847388562,
+          "on": 41.72708557,
+          "on_minus_off": -0.12030299199999916,
+          "change_percent": -0.2874802852315672
+        },
+        "grouped_workflow_seconds": {
+          "off": 124.406722136,
+          "on": 129.153356147,
+          "on_minus_off": 4.746634011000012,
+          "change_percent": 3.8154160237507506
+        },
+        "archive_preparation_seconds": {
+          "off": 137.403128081,
+          "on": 136.400686671,
+          "on_minus_off": -1.0024414100000172,
+          "change_percent": -0.7295622916307032
+        },
+        "input_import_seconds": {
+          "off": 28.437093953,
+          "on": 30.223879133,
+          "on_minus_off": 1.786785179999999,
+          "change_percent": 6.283290349404713
+        },
+        "query_seconds": {
+          "off": 0.194957586,
+          "on": 0.156156029,
+          "on_minus_off": -0.038801556999999987,
+          "change_percent": -19.902563319593003
+        }
+      }
+    }
+  ],
+  "scope": "Two fixed full-task pairs; fresh group, input, private service and 4 GiB/2 vCPU guest for each run; local-no-proxy; default reclaim; periodic and boundary sampling toggled together",
+  "correctness": {
+    "actions": 140,
+    "distinct_guests": 4,
+    "replay_policy": "xarray-approved-sigpipe",
+    "diagnostic_status": "PASS",
+    "strict_replay_status": "FAIL",
+    "original_last_test_calls": [
+      {
+        "passed": 3,
+        "failed": 1
+      },
+      {
+        "passed": 129,
+        "failed": 1
+      }
+    ],
+    "negative_control": "PASS",
+    "final_invariant": "PASS",
+    "official_passed": 945,
+    "official_failed": 12,
+    "official_failure_matches_reference": true,
+    "all_cleanup": "PASS",
+    "observed_exit_codes_status_by_run": [
+      "FAIL",
+      "FAIL",
+      "FAIL",
+      "FAIL"
+    ],
+    "approved_exit_difference_counts_by_run": [
+      1,
+      1,
+      1,
+      1
+    ]
+  },
+  "direct_cpu_scope": "Sampler thread/process only; excludes runner shell boundary reads and guest sampling phase writes",
+  "interpretation": "Signed per-pair observations; no fixed population slowdown inferred from two pairs; all cold/evaluation values retained",
+  "cleanup": {
+    "source_stopped": true,
+    "active_containers": 0,
+    "firecrackers": 0,
+    "disk_available_bytes": 67248578560
+  },
+  "driver_directory": ".artifacts/xarray-local-no-proxy-sampling-controls-20261101"
+}

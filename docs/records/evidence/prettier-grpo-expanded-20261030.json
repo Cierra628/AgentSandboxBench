@@ -1,0 +1,118 @@
+{
+  "status": "PASS_FULL_GRPO_EXPANDED_REGULAR_FILES",
+  "date": "2026-10-30",
+  "actions": 189,
+  "guests": 7,
+  "original_official_per_instance": {
+    "passed": 0,
+    "failed": 2
+  },
+  "source_returned_stopped": true,
+  "owned_cleanup": "PASS",
+  "input_mode": "Original GRPO RAM seed and copied commits retained; not the newer persistent-input mode",
+  "original_regular_lowers": 19,
+  "original_regular_lower_resident_mib": 5308.06640625,
+  "original_readonly_device_resident_mib": 12.4765625,
+  "expanded_status": "OBSERVED",
+  "new_regular_files": 192,
+  "regular_union_files": 211,
+  "new_regular_resident_mib": 1788.12890625,
+  "observed_regular_file_sum_mib": 7096.1953125,
+  "categories": {
+    "other_owned_deps": {
+      "files": 12,
+      "stable_resident_bytes": 189087744,
+      "unknown_or_changed": 0,
+      "resident_mib": 180.328125
+    },
+    "other_owned_firecracker-work": {
+      "files": 42,
+      "stable_resident_bytes": 86016,
+      "unknown_or_changed": 0,
+      "resident_mib": 0.08203125
+    },
+    "other_owned_image-cache": {
+      "files": 81,
+      "stable_resident_bytes": 1613320192,
+      "unknown_or_changed": 0,
+      "resident_mib": 1538.58203125
+    },
+    "other_owned_logs": {
+      "files": 23,
+      "stable_resident_bytes": 438272,
+      "unknown_or_changed": 0,
+      "resident_mib": 0.41796875
+    },
+    "other_owned_overlaybd": {
+      "files": 4,
+      "stable_resident_bytes": 16384,
+      "unknown_or_changed": 0,
+      "resident_mib": 0.015625
+    },
+    "other_owned_persisted-sandboxes": {
+      "files": 7,
+      "stable_resident_bytes": 53248,
+      "unknown_or_changed": 0,
+      "resident_mib": 0.05078125
+    },
+    "other_owned_secrets": {
+      "files": 2,
+      "stable_resident_bytes": 8192,
+      "unknown_or_changed": 0,
+      "resident_mib": 0.0078125
+    },
+    "other_owned_template-builds": {
+      "files": 7,
+      "stable_resident_bytes": 53248,
+      "unknown_or_changed": 0,
+      "resident_mib": 0.05078125
+    },
+    "rootfs_upper_data": {
+      "files": 7,
+      "stable_resident_bytes": 71839744,
+      "unknown_or_changed": 0,
+      "resident_mib": 68.51171875
+    },
+    "rootfs_upper_index": {
+      "files": 7,
+      "stable_resident_bytes": 86016,
+      "unknown_or_changed": 0,
+      "resident_mib": 0.08203125
+    }
+  },
+  "unresolved_upper_references": 0,
+  "expanded_query_seconds": 0.050724024,
+  "expanded_query_thread_cpu_seconds": 0.050508107,
+  "all_selected_query_seconds": 0.340876562,
+  "metadata_seconds": 0.292816423,
+  "tool_seconds": 58.973201311,
+  "rollout_seconds": 48.80379931,
+  "host_current_baseline_mib": 26952.34375,
+  "host_current_peak_mib": 31751.796875,
+  "host_current_peak_increase_mib": 4799.453125,
+  "pss": "NOT_REQUESTED",
+  "broad_final_inventory": "NOT_REQUESTED",
+  "default_reclaim": true,
+  "freeze": false,
+  "mincore_scope": "Regular files retained in the owned service env, including rootfs upper data/index, deps, cache metadata, logs and state; deduplicated with prior lower queries. Not guest RAM or all host allocations.",
+  "exclusions": [
+    "Writable ublk device cache",
+    "VMM anonymous guest RAM",
+    "Deleted/unlinked files outside the retained tree",
+    "Outer loop backing image (separate cache layer)",
+    "Files outside this private service env"
+  ],
+  "measurement_limits": [
+    "Only retained regular-file page-cache objects are deduplicated by device/inode; not all sandbox host RAM or guest Cached attribution",
+    "Queries are sequential during runnable guests and kernel reclaim, not an atomic snapshot",
+    "Regular file sum excludes the separate ublk device-cache layer and is not added to memory.current",
+    "No off control or no-sharing baseline; no slowdown or sharing saving rate",
+    "RAM seed preparation differs from recent persistent-input single-task runs; absolute current is not an apples-to-apples comparison"
+  ],
+  "workflow": ".artifacts/platform-tasks/20261030T032254Z-2553431",
+  "storage": ".artifacts/storage-isolated-service/20261030T032412Z-2554076",
+  "report": ".artifacts/platform-tasks/report-20261030T032254Z-2553431",
+  "public_curves": "results/prettier-grpo-expanded-20261030",
+  "unknown_selected_files": 0,
+  "uncaptured_global_capacity": "NOT_MEASURED_NOT_ZERO"
+}

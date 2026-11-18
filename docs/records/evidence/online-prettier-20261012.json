@@ -1,0 +1,266 @@
+{
+  "status": "PASS",
+  "scope": "platform capture/freeze and complete replay of one model-generated 30-tool exploration prefix; model task and completion FAIL",
+  "task_id": "prettier__prettier-6604",
+  "model": "zai-org/GLM-5.3-Flash",
+  "model_calls": 20,
+  "tool_calls": 30,
+  "total_model_tokens": 192427,
+  "model_completion": "FAIL; tool budget exhausted",
+  "task_outcome": "FAIL",
+  "source_repair_produced": false,
+  "source_image": "ghcr.io/timesler/swe-polybench.eval.x86_64.prettier__prettier-6604@sha256:8159d38fcbd6d5f09402d93d3e15cf2a891058ddd835a224f1d6b3357a87cc94",
+  "cpu": 2,
+  "memory_mib": 4096,
+  "storage_capacity_gib": 16,
+  "capture_workflow": ".artifacts/platform-tasks/20261012T104011Z-1075195",
+  "capture_raw": ".artifacts/storage-isolated-service/20261012T104130Z-1075868/prettier6604",
+  "successful_replay_workflow": ".artifacts/platform-tasks/20261012T105241Z-1086700",
+  "successful_replay_raw": ".artifacts/storage-isolated-service/20261012T105359Z-1087646/prettier6604",
+  "report": ".artifacts/platform-tasks/report-online-prettier-recomputed-1",
+  "replay": {
+    "status": "PASS",
+    "action_count": 30,
+    "expected_failures": {
+      "014": 1,
+      "017": 127,
+      "018": 1
+    },
+    "captured_manifest_sha256": "ec93f970d4f7705432bee2df73aa039f67313c7480696d70ebdc5e22c1c512e6",
+    "final_state": {
+      "/testbed/src/language-js/needs-parens.js": "1eaab9df29e1d3dce64cca198974d9f1ca764736cbb5cb8683c104397a6d1f08",
+      "repository": {
+        "head": "affa24ce764bd14ac087abeef0603012f5c635d6",
+        "status": " M package.json\n?? Dockerfile\n?? tmp-bug.ts\n",
+        "patch_b64": "ZGlmZiAtLWdpdCBhL3BhY2thZ2UuanNvbiBiL3BhY2thZ2UuanNvbgppbmRleCA5ZWU2YjYzYi4uNmVjM2RmNjQgMTAwNjQ0Ci0tLSBhL3BhY2thZ2UuanNvbgorKysgYi9wYWNrYWdlLmpzb24KQEAgLTEyNCw3ICsxMjQsNyBAQAogICAgICJwZXJmLXJlcGVhdCI6ICJ5YXJuICYmIHlhcm4gYnVpbGQgJiYgY3Jvc3MtZW52IE5PREVfRU5WPXByb2R1Y3Rpb24gbm9kZSAuL2Rpc3QvYmluLXByZXR0aWVyLmpzIC0tZGVidWctcmVwZWF0ICR7UEVSRl9SRVBFQVQ6LTEwMDB9IC0tbG9nbGV2ZWwgZGVidWcgJHtQRVJGX0ZJTEU6LS4vaW5kZXguanN9ID4gL2Rldi9udWxsIiwKICAgICAicGVyZi1yZXBlYXQtaW5zcGVjdCI6ICJ5YXJuICYmIHlhcm4gYnVpbGQgJiYgY3Jvc3MtZW52IE5PREVfRU5WPXByb2R1Y3Rpb24gbm9kZSAtLWluc3BlY3QtYnJrIC4vZGlzdC9iaW4tcHJldHRpZXIuanMgLS1kZWJ1Zy1yZXBlYXQgJHtQRVJGX1JFUEVBVDotMTAwMH0gLS1sb2dsZXZlbCBkZWJ1ZyAke1BFUkZfRklMRTotLi9pbmRleC5qc30gPiAvZGV2L251bGwiLAogICAgICJwZXJmLWJlbmNobWFyayI6ICJ5YXJuICYmIHlhcm4gYnVpbGQgJiYgY3Jvc3MtZW52IE5PREVfRU5WPXByb2R1Y3Rpb24gbm9kZSAuL2Rpc3QvYmluLXByZXR0aWVyLmpzIC0tZGVidWctYmVuY2htYXJrIC0tbG9nbGV2ZWwgZGVidWcgJHtQRVJGX0ZJTEU6LS4vaW5kZXguanN9ID4gL2Rldi9udWxsIiwKLSAgICAibGludCI6ICJjcm9zcy1lbnYgRUZGX05PX0xJTktfUlVMRVM9dHJ1ZSBlc2xpbnQgLiAtLWZvcm1hdCBmcmllbmRseSIsCisgICAgImxpbnQiOiAiZWNobyBub29wIiwKICAgICAibGludC1kb2NzIjogInByZXR0eWxpbnQgey4sZG9jcyx3ZWJzaXRlLHdlYnNpdGUvYmxvZ30vKi5tZCIsCiAgICAgImxpbnQtZGlzdCI6ICJlc2xpbnQgLS1uby1lc2xpbnRyYyAtLW5vLWlnbm9yZSAtLWVudj1icm93c2VyIFwiZGlzdC8hKGJpbi1wcmV0dGllcnxpbmRleHx0aGlyZC1wYXJ0eSkuanNcIiIsCiAgICAgImJ1aWxkIjogIm5vZGUgLS1tYXgtb2xkLXNwYWNlLXNpemU9MzA3MiAuL3NjcmlwdHMvYnVpbGQvYnVpbGQuanMiLAo=",
+        "changed_files": {
+          "Dockerfile": {
+            "sha256": "0b9cd4b0be4230f73a872660bb56e8a08518802c986f787ffdb6d3b058d618bb",
+            "mode": 436
+          },
+          "package.json": {
+            "sha256": "4e8a4fe91d327fe783bb8fb246e645176f1afe91d104bc84e0105ca4b57a9571",
+            "mode": 436
+          },
+          "tmp-bug.ts": {
+            "sha256": "c259936bc3829e5d03f2d272c8d249a42b16d81628d70f92e4e3d481297fffed",
+            "mode": 420
+          }
+        }
+      }
+    },
+    "output_policy": "prettier-runtime-v1",
+    "captured_output_policy": "jest-timing-v1",
+    "strict_output_status": "FAIL",
+    "dynamic_output_differences": [
+      "025/stderr"
+    ],
+    "scope": "order, command hashes, stdout/stderr, exit codes, cwd/env and selected final files; fresh shells, no persistent PTY or model calls"
+  },
+  "independent_tests": {
+    "status": "FAIL",
+    "exit_code": 1,
+    "passed": [],
+    "failed": [
+      "/testbed/tests/typescript_intersection/jsfmt.spec.js->intersection-parens.ts",
+      "/testbed/tests/typescript_intersection/jsfmt.spec.js->intersection-parens.ts"
+    ],
+    "summary": {
+      "numTotalTests": 2,
+      "numFailedTests": 2,
+      "numFailedTestSuites": 1,
+      "numPendingTests": 0,
+      "wasInterrupted": false
+    },
+    "snapshot": {
+      "added": 0,
+      "updated": 0,
+      "filesRemoved": 0,
+      "failure": true,
+      "unmatched": 2,
+      "matched": 0
+    }
+  },
+  "timing_seconds": {
+    "model_wait": 148.055282266,
+    "captured_guest_tools": 5.562667177,
+    "replayed_guest_tools": 5.668855771,
+    "capture_and_partial_replay_controller": 194.473561794,
+    "complete_replay_with_physical_controller": 34.748387827,
+    "physical_analysis_sum": 11.92341888,
+    "paused_sum": 4.240437811
+  },
+  "memory": {
+    "capture": {
+      "sandbox_id": "01a12fb4-2cc9-7e83-a202-83561126494b",
+      "role": "capture",
+      "sample_count": 1734,
+      "observed_nonfree_peak_bytes": 466214912,
+      "components_at_peak_bytes": {
+        "Cached": 127856640,
+        "AnonPages": 228794368,
+        "Buffers": 38195200,
+        "Shmem": 1085440,
+        "Slab": 46063616
+      },
+      "components_at_peak_percent": {
+        "Cached": 27.424399500975206,
+        "AnonPages": 49.07487129026023,
+        "Buffers": 8.192616541617614,
+        "Shmem": 0.232819665793959,
+        "Slab": 9.88033947742967
+      },
+      "cached_min_bytes": 3436544,
+      "cached_observed_peak_bytes": 148733952,
+      "slab_status": "MEASURED",
+      "sessions": [
+        {
+          "stop_reason": "capture-complete",
+          "status": "PASS",
+          "error": null,
+          "pid": 363,
+          "start_ticks": "84",
+          "boot_id": "e81f99be-08da-4c78-90bb-94a9bb2ba73b",
+          "sandbox_id": "01a12fb4-2cc9-7e83-a202-83561126494b",
+          "role": "capture",
+          "session_id": "47c6b00c-135d-4647-9bd4-13f8f04ae04f",
+          "samples": 1734,
+          "interval_seconds": 0.1,
+          "elapsed_ns": 177092278667,
+          "cpu_user_seconds": 2.88503,
+          "cpu_system_seconds": 0.880419,
+          "maxrss_kib": 16852,
+          "scope": "guest logical counters; collector maxrss is not private memory; no physical deduplication",
+          "performance_version": 1,
+          "clock_ticks": 100,
+          "performance_scope": "guest-wide CPU (guest ticks not double counted), per-device diskstats (512-byte sectors); includes sampler and other guest work"
+        }
+      ]
+    },
+    "complete_replay": {
+      "sandbox_id": "01a12fbf-99c2-7f11-867f-4597e971edf0",
+      "role": "replay",
+      "sample_count": 260,
+      "observed_nonfree_peak_bytes": 439902208,
+      "components_at_peak_bytes": {
+        "Cached": 108642304,
+        "AnonPages": 216719360,
+        "Buffers": 36229120,
+        "Shmem": 17883136,
+        "Slab": 46186496
+      },
+      "components_at_peak_percent": {
+        "Cached": 24.69692173038604,
+        "AnonPages": 49.26534944784819,
+        "Buffers": 8.235721335592842,
+        "Shmem": 4.06525261178048,
+        "Slab": 10.499264418331812
+      },
+      "cached_min_bytes": 21430272,
+      "cached_observed_peak_bytes": 149131264,
+      "slab_status": "MEASURED",
+      "sessions": [
+        {
+          "stop_reason": "replay-complete",
+          "status": "PASS",
+          "error": null,
+          "pid": 362,
+          "start_ticks": "102",
+          "boot_id": "3a8ae4d5-c10e-400b-8806-5115a70b5d6b",
+          "sandbox_id": "01a12fbf-99c2-7f11-867f-4597e971edf0",
+          "role": "replay",
+          "session_id": "f832c999-8615-45a6-9ee3-aa7bc10bdba5",
+          "samples": 260,
+          "interval_seconds": 0.1,
+          "elapsed_ns": 30626066870,
+          "cpu_user_seconds": 0.464499,
+          "cpu_system_seconds": 0.17823899999999998,
+          "maxrss_kib": 17152,
+          "scope": "guest logical counters; collector maxrss is not private memory; no physical deduplication",
+          "performance_version": 1,
+          "clock_ticks": 100,
+          "performance_scope": "guest-wide CPU (guest ticks not double counted), per-device diskstats (512-byte sectors); includes sampler and other guest work"
+        }
+      ]
+    }
+  },
+  "physical_points": [
+    {
+      "after_tool": 12,
+      "status": "PASS",
+      "confirmed_file_lru_bytes": 81338368,
+      "regular_file_content_bytes": 73203712,
+      "unknown_host_pages": 0,
+      "analysis_elapsed_ns": 6188851289,
+      "paused_interval_ns": 2431975791
+    },
+    {
+      "after_tool": 30,
+      "status": "PASS",
+      "confirmed_file_lru_bytes": 31031296,
+      "regular_file_content_bytes": 30040064,
+      "unknown_host_pages": 0,
+      "analysis_elapsed_ns": 5734567591,
+      "paused_interval_ns": 1808462020
+    }
+  ],
+  "physical_scope": "4 GiB guest SystemRAM file-LRU; host PFN dedup within this VM; file contents and metadata separate; each point includes three retained 4 KiB calibration file pages; no host/guest cache drop, no host backing-cache total or sharing claim",
+  "boundaries": "after tool 12 before new repro file; after tool 30 final captured state; no source repair patch exists",
+  "checks": {
+    "full_order_commands_exit_codes_files": "PASS",
+    "expected_failures": {
+      "014": 1,
+      "017": 127,
+      "018": 1
+    },
+    "task_result_preserved": "PASS",
+    "independent_reports": "PASS",
+    "report_file_count": 9,
+    "raw_files_hash_verified": 1354,
+    "focused_tests_passed": 62
+  },
+  "cleanup": {
+    "inner": {
+      "physical_tracer_stopped": true,
+      "owned_vms_removed": true,
+      "collector_sessions_complete": true,
+      "service_sandbox_list_empty": true
+    },
+    "outer": {
+      "owned_container_removed": true,
+      "mount_and_loop_removed": true,
+      "successful_fixture_removed": true,
+      "original_firecracker_identities_unchanged": true,
+      "original_source_firecracker_identities_unchanged": true,
+      "original_service_unchanged": true
+    },
+    "host_min_available_gib": 26.241424560546875,
+    "host_after_available_gib": 49.76609802246094
+  },
+  "failure_history": [
+    {
+      "run": "20261012T103756Z-1073044",
+      "stage": "known image initial state rejected before model calls",
+      "source_volume_removed": true,
+      "complete_backup_retained": true
+    },
+    {
+      "run": "20261012T104130Z-1075868",
+      "stage": "partial replay 25/30; exact node warning PID differs",
+      "source_volume_removed": true,
+      "complete_backup_retained": true
+    },
+    {
+      "run": "20261012T104919Z-1082361",
+      "stage": "physical calibration page no longer on LRU",
+      "source_volume_removed": true,
+      "complete_backup_retained": true
+    }
+  ],
+  "limits": [
+    "online task not completed; this is an explicitly frozen executed prefix, not a successful repair",
+    "full replay allows exact known Node warning PID and standard Jest timing; strict raw byte difference retained",
+    "no new monitoring overhead control; physical analysis pauses VM",
+    "original automatic report used demo task label and NOT_RUN; current offline report corrects task label and independently recomputes official FAIL, original data/report kept"
+  ]
+}

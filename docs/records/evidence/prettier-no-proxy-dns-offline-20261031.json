@@ -1,0 +1,318 @@
+{
+  "date": "2026-10-31",
+  "status": "PASS_OFFLINE",
+  "scope": "Saved-rule classification and fixed-command inventory only",
+  "network": {
+    "status": "PASS",
+    "policy": "AgentENV default deny with DNS exception",
+    "ipv4_new_egress": "REJECT except recorded DNS",
+    "rules": {
+      "FORWARD": [
+        [
+          "-i",
+          "tap0",
+          "-o",
+          "vpeer",
+          "-j",
+          "AGENTENV-EGRESS"
+        ],
+        [
+          "-i",
+          "tap0",
+          "-o",
+          "vpeer",
+          "-j",
+          "ACCEPT"
+        ],
+        [
+          "-i",
+          "vpeer",
+          "-o",
+          "tap0",
+          "-m",
+          "state",
+          "--state",
+          "RELATED,ESTABLISHED",
+          "-j",
+          "ACCEPT"
+        ]
+      ],
+      "AGENTENV-EGRESS": [
+        [
+          "-i",
+          "tap0",
+          "-o",
+          "vpeer",
+          "-m",
+          "conntrack",
+          "--ctstate",
+          "RELATED,ESTABLISHED",
+          "-j",
+          "ACCEPT"
+        ],
+        [
+          "-d",
+          "8.8.8.8/32",
+          "-i",
+          "tap0",
+          "-o",
+          "vpeer",
+          "-p",
+          "udp",
+          "-m",
+          "udp",
+          "--dport",
+          "53",
+          "-j",
+          "ACCEPT"
+        ],
+        [
+          "-d",
+          "8.8.8.8/32",
+          "-i",
+          "tap0",
+          "-o",
+          "vpeer",
+          "-p",
+          "tcp",
+          "-m",
+          "tcp",
+          "--dport",
+          "53",
+          "-j",
+          "ACCEPT"
+        ],
+        [
+          "-d",
+          "10.211.0.0/16",
+          "-i",
+          "tap0",
+          "-o",
+          "vpeer",
+          "-j",
+          "REJECT",
+          "--reject-with",
+          "icmp-port-unreachable"
+        ],
+        [
+          "-d",
+          "10.212.0.0/16",
+          "-i",
+          "tap0",
+          "-o",
+          "vpeer",
+          "-j",
+          "REJECT",
+          "--reject-with",
+          "icmp-port-unreachable"
+        ],
+        [
+          "-d",
+          "169.254.0.20/30",
+          "-i",
+          "tap0",
+          "-o",
+          "vpeer",
+          "-j",
+          "REJECT",
+          "--reject-with",
+          "icmp-port-unreachable"
+        ],
+        [
+          "-d",
+          "10.0.0.0/8",
+          "-i",
+          "tap0",
+          "-o",
+          "vpeer",
+          "-j",
+          "REJECT",
+          "--reject-with",
+          "icmp-port-unreachable"
+        ],
+        [
+          "-d",
+          "100.64.0.0/10",
+          "-i",
+          "tap0",
+          "-o",
+          "vpeer",
+          "-j",
+          "REJECT",
+          "--reject-with",
+          "icmp-port-unreachable"
+        ],
+        [
+          "-d",
+          "127.0.0.0/8",
+          "-i",
+          "tap0",
+          "-o",
+          "vpeer",
+          "-j",
+          "REJECT",
+          "--reject-with",
+          "icmp-port-unreachable"
+        ],
+        [
+          "-d",
+          "169.254.0.0/16",
+          "-i",
+          "tap0",
+          "-o",
+          "vpeer",
+          "-j",
+          "REJECT",
+          "--reject-with",
+          "icmp-port-unreachable"
+        ],
+        [
+          "-d",
+          "172.16.0.0/12",
+          "-i",
+          "tap0",
+          "-o",
+          "vpeer",
+          "-j",
+          "REJECT",
+          "--reject-with",
+          "icmp-port-unreachable"
+        ],
+        [
+          "-d",
+          "192.168.0.0/16",
+          "-i",
+          "tap0",
+          "-o",
+          "vpeer",
+          "-j",
+          "REJECT",
+          "--reject-with",
+          "icmp-port-unreachable"
+        ],
+        [
+          "-i",
+          "tap0",
+          "-o",
+          "vpeer",
+          "-j",
+          "AGENTENV-USER-EGRESS"
+        ]
+      ],
+      "AGENTENV-USER-EGRESS": [
+        [
+          "-i",
+          "tap0",
+          "-o",
+          "vpeer",
+          "-j",
+          "REJECT",
+          "--reject-with",
+          "icmp-port-unreachable"
+        ]
+      ]
+    },
+    "dns_exception": {
+      "address": "8.8.8.8",
+      "port": 53,
+      "protocols": [
+        "tcp",
+        "udp"
+      ],
+      "public": true
+    },
+    "complete_egress_isolation": false,
+    "traffic_probe": "NOT_SENT",
+    "scope": "Forwarded guest IPv4 traffic in the owned network namespace"
+  },
+  "network_evidence": ".artifacts/storage-isolated-service/20261031T052137Z-2837626/local-no-proxy-network-rules.stdout",
+  "acceptance_change": "DNS need not be private: require one IPv4 /32 address, exactly TCP and UDP destination port 53, record public scope; other allowances still fail",
+  "prior_runtime_status": "FAIL",
+  "prior_runtime_result_rewritten": false,
+  "prior_identity_recheck": "NOT_REACHED",
+  "prior_final_writable_boundary": "NOT_REACHED",
+  "task": {
+    "task_id": "prettier__prettier-6604",
+    "base_commit": "affa24ce764bd14ac087abeef0603012f5c635d6",
+    "count": 29,
+    "categories": {
+      "local_edit": 2,
+      "local_node": 7,
+      "local_shell_read_search_git": 17,
+      "local_yarn_jest": 3
+    },
+    "manifest_commands_equal_original_sampling": true,
+    "explicit_download_commands": 0,
+    "yarn_jest_steps": [
+      23,
+      26,
+      29
+    ],
+    "missing_rg_step_preserved": 2,
+    "expected_rg_exit": 127,
+    "official_test_command": ". /usr/local/nvm/nvm.sh && nvm use 20.16.0 && npm pkg set scripts.lint=\"echo noop\" && yarn test tests/typescript_intersection/__snapshots__/jsfmt.spec.js.snap tests/typescript_union/__snapshots__/jsfmt.spec.js.snap tests/typescript_union/inlining.ts tests/typescript_intersection/jsfmt.spec.js tests/typescript_keyof/keyof.ts tests/typescript_intersection/intersection-parens.ts tests/typescript_conditional_types/__snapshots__/jsfmt.spec.js.snap tests/typescript_conditional_types/conditonal-types.ts tests/typescript_keyof/__snapshots__/jsfmt.spec.js.snap --json",
+    "official_network_inventory": "nvm use, npm pkg set and yarn test; no explicit install or download",
+    "dependency_evidence": "Pinned image build history installs Node versions, Yarn and project dependencies; original output shows node_modules and local Jest",
+    "transitive_package_hooks_and_test_helpers": "Not fully inspected from local rootfs; no claim of zero runtime requests",
+    "complete_no_proxy_task_runtime": "NOT_RUN"
+  },
+  "execution": {
+    "new_services": 0,
+    "new_guests": 0,
+    "workload_actions_executed": 0,
+    "network_requests": 0,
+    "archives_restored": 0,
+    "deleted_files": 0
+  },
+  "tests": {
+    "no_proxy_and_short": 17,
+    "status": "PASS",
+    "log": ".artifacts/prettier-no-proxy-dns-offline-20261031/final-tests.log"
+  },
+  "future_disk_threshold_gib": 54,
+  "available_disk_bytes": 46042169344,
+  "sources": [
+    "IncrementalDAX_moti/motivation/experiments/exp3-RL-fork/workloads/prettier-6604-rl-fork/agent-sampling.json",
+    "configs/prettier6604-backbone.json",
+    "scripts/run_prettier6604.py",
+    "scripts/exp1_official_task.py",
+    "scripts/prettier6604_check.cjs",
+    "IncrementalDAX_moti/motivation/experiments/exp3-RL-fork/workloads/prettier-6604-rl-fork/guest-runner.sh",
+    "IncrementalDAX_moti/motivation/experiments/exp3-RL-fork/controller.py",
+    ".artifacts/prettier-no-proxy-implementation-20261031/verified-metadata/config.json"
+  ],
+  "evidence_directory": ".artifacts/prettier-no-proxy-dns-offline-20261031",
+  "cleanup_proposal": {
+    "status": "PROPOSAL_ONLY",
+    "deleted_files": 0,
+    "current_free_bytes": 46042210304,
+    "inputs": [
+      {
+        "directory": ".artifacts/prettier6604/host-persistent-asbhost-20261031t0507402831084/input",
+        "file_count": 105,
+        "unique_inodes": 105,
+        "logical_bytes": 7367703084,
+        "allocated_file_bytes": 5434060800
+      },
+      {
+        "directory": ".artifacts/prettier6604/host-persistent-asbhost-20261031t0519132836213/input",
+        "file_count": 105,
+        "unique_inodes": 105,
+        "logical_bytes": 7367703084,
+        "allocated_file_bytes": 5434060800
+      }
+    ],
+    "stored_manifests_equal": true,
+    "proposed_deletions": [
+      ".artifacts/storage-isolated-service/20261031T052137Z-2837626/volume.ext4",
+      ".artifacts/prettier6604/host-persistent-asbhost-20261031t0507402831084/input"
+    ],
+    "retain_input": ".artifacts/prettier6604/host-persistent-asbhost-20261031t0519132836213/input",
+    "failed_volume_allocated_bytes": 8589959168,
+    "proposed_releasable_file_bytes": 14024019968,
+    "expected_available_bytes": 60066230272,
+    "preparation_requires_strictly_more_than_bytes": 57982058496,
+    "retain": "All logs, seed/source receipts, metadata, original compressed backup and the second imported input",
+    "condition": "Need user approval for both paths; recheck use, mounts and current budget before deletion"
+  }
+}

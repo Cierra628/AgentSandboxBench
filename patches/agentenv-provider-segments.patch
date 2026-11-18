@@ -1,0 +1,378 @@
+diff --git a/storage/ublk/src/slot_observation.rs b/storage/ublk/src/slot_observation.rs
+--- a/storage/ublk/src/slot_observation.rs
++++ b/storage/ublk/src/slot_observation.rs
+@@ -8,6 +8,8 @@
+ 
+ pub(crate) const MAGIC: u64 = 0x31544f4c53425341;
+ const WORDS: usize = 8;
++const UNIT: u64 = 512;
++const UNKNOWN: u64 = u64::MAX;
+ 
+ // [magic, generation, address, capacity, logical_offset, valid_len, state, reads]
+ // States: 1 allocated, 2 filling, 3 complete read, 4 before kernel overwrite,
+@@ -15,6 +17,8 @@
+ pub struct SlotObservation {
+     row: NonNull<[AtomicU64; WORDS]>,
+     retain_during_fetch: bool,
++    map_len: usize,
++    segment_count: usize,
+ }
+ 
+ impl SlotObservation {
+@@ -41,12 +45,23 @@
+             .read(true)
+             .create_new(true)
+             .open(path)?;
+-        file.set_len(4096)?;
+-        // SAFETY: the file has one full writable page; the mapping lives until Drop.
++        let retain_during_fetch = info.flags & ublk_sys::UBLK_F_NEED_GET_DATA as u64 != 0;
++        let segment_count = if retain_during_fetch {
++            anyhow::ensure!(
++                capacity.is_multiple_of(UNIT) && address.is_multiple_of(UNIT),
++                "segment observation requires sector-aligned buffers"
++            );
++            (capacity / UNIT) as usize
++        } else {
++            0
++        };
++        let map_len = (64 + segment_count * 16).div_ceil(4096) * 4096;
++        file.set_len(map_len as u64)?;
++        // SAFETY: the file covers map_len bytes; the mapping lives until Drop.
+         let ptr = unsafe {
+             libc::mmap(
+                 std::ptr::null_mut(),
+-                4096,
++                map_len,
+                 libc::PROT_READ | libc::PROT_WRITE,
+                 libc::MAP_SHARED,
+                 file.as_raw_fd(),
+@@ -60,19 +75,28 @@
+         );
+         let mut this = Self {
+             row: NonNull::new(ptr.cast()).context("null metadata mapping")?,
+-            retain_during_fetch: info.flags & ublk_sys::UBLK_F_NEED_GET_DATA as u64 != 0,
++            retain_during_fetch,
++            map_len,
++            segment_count,
+         };
+         this.words()[0].store(MAGIC, SeqCst);
+         this.words()[2].store(address, SeqCst);
+         this.words()[3].store(capacity, SeqCst);
+         this.update(0, 0, 1);
+-        let identity = serde_json::json!({"schema":1, "pid":std::process::id(),
++        for entry in this.segments() {
++            entry[1].store(UNKNOWN, SeqCst);
++        }
++        let mut identity = serde_json::json!({"schema":1, "pid":std::process::id(),
+             "image_config":image, "dev_id":info.dev_id, "queue":qid, "slot":tag,
+             "nr_queues":info.nr_hw_queues, "queue_depth":info.queue_depth,
+             "max_io_buf_bytes":info.max_io_buf_bytes,
+             "negotiated_flags":info.flags,
+             "content_validity":if this.retain_during_fetch { "before_overwrite" } else { "before_fetch" },
+             "process_stat":std::fs::read_to_string("/proc/self/stat")?});
++        if segment_count > 0 {
++            identity["segments"] = serde_json::json!({"schema":1, "unit_bytes":UNIT,
++                "entry_offset":64, "entry_bytes":16, "count":segment_count});
++        }
+         std::fs::write(
+             dir.join(stem).with_extension("json"),
+             serde_json::to_vec(&identity)?,
+@@ -83,6 +107,26 @@
+     fn words(&self) -> &[AtomicU64; WORDS] {
+         // SAFETY: mmap is aligned, initialized to zeros, and owned by this slot task.
+         unsafe { self.row.as_ref() }
++    }
++
++    fn segments(&self) -> &[[AtomicU64; 2]] {
++        // SAFETY: the aligned entries follow the unchanged 64-byte header, and
++        // segment_count entries fit inside the mapping owned by this slot.
++        unsafe {
++            std::slice::from_raw_parts(
++                self.row.as_ptr().cast::<u8>().add(64).cast(),
++                self.segment_count,
++            )
++        }
++    }
++
++    fn set_segments(&mut self, len: u64, offset: Option<u64>) {
++        let count = len.div_ceil(UNIT).min(self.segment_count as u64) as usize;
++        for (index, entry) in self.segments()[..count].iter().enumerate() {
++            entry[0].fetch_add(1, SeqCst);
++            entry[1].store(offset.map_or(UNKNOWN, |o| o + index as u64 * UNIT), SeqCst);
++            entry[0].fetch_add(1, SeqCst);
++        }
+     }
+ 
+     fn update(&mut self, offset: u64, len: u64, state: u64) {
+@@ -94,7 +138,10 @@
+         w[1].fetch_add(1, SeqCst);
+     }
+ 
+-    pub(crate) fn begin(&mut self, offset: u64) {
++    pub(crate) fn begin(&mut self, offset: u64, len: u64, read: bool) {
++        if read {
++            self.set_segments(len, None);
++        }
+         self.update(offset, 0, 2);
+     }
+ 
+@@ -106,6 +153,7 @@
+             && result >= 0
+             && result as u64 == len;
+         if valid {
++            self.set_segments(len, Some(offset));
+             self.words()[7].fetch_add(1, SeqCst);
+         }
+         self.update(
+@@ -117,21 +165,23 @@
+ 
+     pub(crate) fn before_fetch(&mut self) {
+         if !self.retain_during_fetch {
+-            self.before_get_data();
+-        }
+-    }
+-
+-    pub(crate) fn before_get_data(&mut self) {
++            self.before_get_data(self.words()[3].load(SeqCst));
++        }
++    }
++
++    pub(crate) fn before_get_data(&mut self, len: u64) {
++        self.set_segments(len, None);
+         self.update(0, 0, 4);
+     }
+ }
+ 
+ impl Drop for SlotObservation {
+     fn drop(&mut self) {
++        self.set_segments(self.words()[3].load(SeqCst), None);
+         self.update(0, 0, 5);
+         // SAFETY: this mapping was created with exactly this length.
+         unsafe {
+-            libc::munmap(self.row.as_ptr().cast(), 4096);
++            libc::munmap(self.row.as_ptr().cast(), self.map_len);
+         }
+     }
+ }
+@@ -139,6 +189,114 @@
+ #[cfg(test)]
+ mod tests {
+     use super::*;
++
++    fn segment_slot(capacity: u64) -> SlotObservation {
++        let segment_count = (capacity / UNIT) as usize;
++        let map_len = (64 + segment_count * 16).div_ceil(4096) * 4096;
++        let ptr = unsafe {
++            libc::mmap(
++                std::ptr::null_mut(),
++                map_len,
++                libc::PROT_READ | libc::PROT_WRITE,
++                libc::MAP_PRIVATE | libc::MAP_ANONYMOUS,
++                -1,
++                0,
++            )
++        };
++        assert_ne!(ptr, libc::MAP_FAILED);
++        let slot = SlotObservation {
++            row: NonNull::new(ptr.cast()).unwrap(),
++            retain_during_fetch: true,
++            map_len,
++            segment_count,
++        };
++        slot.words()[3].store(capacity, SeqCst);
++        for entry in slot.segments() {
++            entry[1].store(UNKNOWN, SeqCst);
++        }
++        slot
++    }
++
++    fn offsets(slot: &SlotObservation) -> Vec<u64> {
++        slot.segments().iter().map(|e| e[1].load(SeqCst)).collect()
++    }
++
++    #[test]
++    fn segments_keep_older_tails_through_multiple_short_reads() {
++        let mut slot = segment_slot(4096);
++        assert_eq!(offsets(&slot), vec![UNKNOWN; 8]);
++        for (offset, len) in [(0, 4096), (10240, 2048), (20480, 1024)] {
++            slot.begin(offset, len, true);
++            assert!(offsets(&slot)[..(len / UNIT) as usize]
++                .iter()
++                .all(|o| *o == UNKNOWN));
++            slot.complete(true, len, len as i32);
++        }
++        assert_eq!(
++            offsets(&slot),
++            vec![20480, 20992, 11264, 11776, 2048, 2560, 3072, 3584]
++        );
++        let tail_generation = slot.segments()[7][0].load(SeqCst);
++        slot.begin(20480, 1024, true);
++        slot.complete(true, 1024, 1024);
++        assert_eq!(slot.segments()[7][0].load(SeqCst), tail_generation);
++        assert!(slot
++            .segments()
++            .iter()
++            .all(|e| e[0].load(SeqCst).is_multiple_of(2)));
++    }
++
++    #[test]
++    fn failed_partial_and_cancelled_prefixes_stay_unknown() {
++        let mut slot = segment_slot(4096);
++        for result in [-libc::EIO, -libc::ECANCELED, 512] {
++            slot.begin(0, 4096, true);
++            slot.complete(true, 4096, 4096);
++            slot.begin(10240, 2048, true);
++            slot.complete(true, 2048, result);
++            assert_eq!(&offsets(&slot)[..4], &[UNKNOWN; 4]);
++            assert_eq!(&offsets(&slot)[4..], &[2048, 2560, 3072, 3584]);
++        }
++    }
++
++    #[test]
++    fn get_data_invalidates_original_range_including_repeated_notifications() {
++        let mut slot = segment_slot(4096);
++        slot.begin(0, 4096, true);
++        slot.complete(true, 4096, 4096);
++        slot.before_get_data(2048);
++        slot.before_get_data(512);
++        // A returned shorter descriptor or failed WRITE cannot restore bytes.
++        slot.begin(0, 512, false);
++        slot.complete(false, 512, -libc::EPERM);
++        assert_eq!(&offsets(&slot)[..4], &[UNKNOWN; 4]);
++        assert_eq!(&offsets(&slot)[4..], &[2048, 2560, 3072, 3584]);
++    }
++
++    #[test]
++    fn same_offset_republication_changes_only_covered_generations() {
++        let mut slot = segment_slot(4096);
++        slot.begin(0, 4096, true);
++        slot.complete(true, 4096, 4096);
++        let first = slot.segments()[0][0].load(SeqCst);
++        let last = slot.segments()[7][0].load(SeqCst);
++        slot.before_fetch();
++        assert_eq!(slot.segments()[0][0].load(SeqCst), first);
++        slot.begin(0, 512, true);
++        slot.complete(true, 512, 512);
++        assert_eq!(slot.segments()[0][0].load(SeqCst), first + 4);
++        assert_eq!(slot.segments()[7][0].load(SeqCst), last);
++        slot.retain_during_fetch = false;
++        slot.before_fetch();
++        assert!(offsets(&slot).iter().all(|o| *o == UNKNOWN));
++    }
++
++    #[test]
++    fn segment_mapping_budget_is_three_pages_for_256_kib() {
++        let slot = segment_slot(256 * 1024);
++        assert_eq!(slot.map_len, 12288);
++        assert_eq!(slot.segment_count, 512);
++    }
+ 
+     #[test]
+     fn release_is_visible_before_unmapping() {
+@@ -161,15 +319,23 @@
+         let mut slot = SlotObservation {
+             row: NonNull::new(writer.cast()).unwrap(),
+             retain_during_fetch: true,
++            map_len: 4096,
++            segment_count: 8,
+         };
+         slot.words()[3].store(4096, SeqCst);
+-        slot.begin(0);
++        slot.begin(0, 4096, true);
+         slot.complete(true, 4096, 4096);
+         drop(slot);
+         let words = unsafe { &*reader.cast::<[AtomicU64; WORDS]>() };
+         assert_eq!(words[5].load(SeqCst), 0);
+         assert_eq!(words[6].load(SeqCst), 5);
+         assert_eq!(words[1].load(SeqCst) % 2, 0);
++        let entries = unsafe {
++            std::slice::from_raw_parts(reader.cast::<u8>().add(64).cast::<[AtomicU64; 2]>(), 8)
++        };
++        assert!(entries
++            .iter()
++            .all(|e| e[1].load(SeqCst) == UNKNOWN && e[0].load(SeqCst).is_multiple_of(2)));
+         unsafe {
+             libc::munmap(reader, 4096);
+         }
+@@ -182,8 +348,10 @@
+         let mut slot = std::mem::ManuallyDrop::new(SlotObservation {
+             row: NonNull::from(&mut words),
+             retain_during_fetch: true,
++            map_len: 4096,
++            segment_count: 0,
+         });
+-        slot.begin(4096);
++        slot.begin(4096, 4096, true);
+         slot.complete(true, 4096, 4096);
+         let generation = words[1].load(SeqCst);
+         slot.before_fetch();
+@@ -191,14 +359,14 @@
+         assert_eq!(words[6].load(SeqCst), 3);
+         // The caller must do this before sending GET_DATA, including on requeue.
+         for _ in 0..2 {
+-            slot.before_get_data();
++            slot.before_get_data(4096);
+             assert_eq!(words[5].load(SeqCst), 0);
+             assert_eq!(words[6].load(SeqCst), 4);
+         }
+-        slot.begin(8192);
+-        slot.complete(true, 4096, 4096);
+-        slot.before_fetch();
+-        slot.begin(12288);
++        slot.begin(8192, 4096, true);
++        slot.complete(true, 4096, 4096);
++        slot.before_fetch();
++        slot.begin(12288, 4096, true);
+         assert_eq!(words[5].load(SeqCst), 0);
+         assert_eq!(words[6].load(SeqCst), 2);
+         slot.complete(true, 4096, -libc::EIO);
+@@ -214,8 +382,10 @@
+         let mut slot = std::mem::ManuallyDrop::new(SlotObservation {
+             row: NonNull::from(&mut words),
+             retain_during_fetch: false,
++            map_len: 4096,
++            segment_count: 0,
+         });
+-        slot.begin(4096);
++        slot.begin(4096, 4096, true);
+         slot.complete(true, 4096, 4096);
+         assert_eq!(words[5].load(SeqCst), 4096);
+         assert_eq!(words[6].load(SeqCst), 3);
+@@ -231,7 +401,7 @@
+             (true, 16384, 16384),
+             (true, 0, 0),
+         ] {
+-            slot.begin(8192);
++            slot.begin(8192, 4096, true);
+             slot.complete(read, len, result);
+             assert_eq!(words[5].load(SeqCst), 0);
+             assert_eq!(words[6].load(SeqCst), 6);
+diff --git a/storage/ublk/src/dev.rs b/storage/ublk/src/dev.rs
+--- a/storage/ublk/src/dev.rs
++++ b/storage/ublk/src/dev.rs
+@@ -127,7 +127,11 @@
+                 "unexpected GET_DATA notification"
+             );
+             if let Some(observation) = observation.as_mut() {
+-                observation.before_get_data();
++                // The kernel may shorten nr_sectors after a partial copy.
++                // Invalidate the original range before send() permits copying.
++                let len =
++                    (self.io_desc(tag).context("GET_DATA descriptor")?.nr_sectors as u64) << 9;
++                observation.before_get_data(len);
+             }
+             // send() queues immediately: invalidate before calling it, not after.
+             result = self.get_data_for_slot(tag, buf)?.await;
+@@ -204,7 +208,11 @@
+                 .ok_or_else(|| anyhow!("cannot get io_dsec at {tag}"))?;
+             // TODO: update auto buffer's size according to io_desc
+             if let Some(observation) = observation.as_mut() {
+-                observation.begin(io_desc.start_sector << shift);
++                observation.begin(
++                    io_desc.start_sector << shift,
++                    (io_desc.nr_sectors as u64) << shift,
++                    io_desc.op_flags & 0xff == ublk_sys::UBLK_IO_OP_READ,
++                );
+             }
+             let res = tgt
+                 .handle_io_request(

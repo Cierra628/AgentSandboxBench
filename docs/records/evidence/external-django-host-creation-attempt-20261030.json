@@ -1,0 +1,38 @@
+{
+  "status": "FAIL_IMAGE_PREPARATION_TIMEOUT",
+  "task_id": "django__django-16819",
+  "image": "docker.io/swebench/sweb.eval.x86_64.django_1776_django-16819@sha256:6c46d22aaf692840f16209fe29b1d0c940bed043fce8047eb12169215222f044",
+  "stage": "preparation",
+  "task_actions": 0,
+  "returned_guest_ids": 0,
+  "measured_creations_completed": 0,
+  "planned_measured_creations": 4,
+  "periodic_host_sampling_started": false,
+  "guest_sampling_started": false,
+  "preparation_call_seconds": 600.184460686,
+  "preparation_exit_code": 1,
+  "cold_create_stderr": "cold creation failed: TimeoutError",
+  "converted_config_completed": false,
+  "source_returned_stopped": true,
+  "cleanup": {
+    "owned_container_removed": true,
+    "mount_and_loop_removed": true,
+    "failed_fixture_retained": true,
+    "original_firecracker_identities_unchanged": true,
+    "original_service_unchanged": true
+  },
+  "failure_fixture_retained": true,
+  "failed_volume": ".artifacts/storage-isolated-service/20261030T122503Z-2704313/volume.ext4",
+  "failed_volume_gib": 32.0,
+  "available_after_gib": 31.044776916503906,
+  "source_directory": ".artifacts/external-django-host-creation-controls-20261030",
+  "storage_directory": ".artifacts/storage-isolated-service/20261030T122503Z-2704313",
+  "observed_volume_used_peak_gib": 1.0944023132324219,
+  "checks": {
+    "immutable_cache_copy": "PASS",
+    "isolated_service_ready": "PASS"
+  },
+  "offline_tests": 70,
+  "post_failure_change": "Preparation-only owned process CPU/I/O/wait-state trace at 5s; stopped before measured creations; mocked tests passed, no live validation yet",
+  "interpretation": "Failure before guest creation, with no periodic memory sampling. Saved logs locate image preparation but do not separate fetch/conversion/I/O causes."
+}

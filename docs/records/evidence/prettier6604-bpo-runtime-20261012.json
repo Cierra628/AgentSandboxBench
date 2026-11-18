@@ -1,0 +1,4975 @@
+{
+  "status": "PASS",
+  "scope": "One full seven-path AgentENV Prettier6604 BPO through unified entry; two snapshots, six restored children and expanded continuous metrics. Original model task failures preserved.",
+  "command": "bash scripts/use-platform.sh run configs/platform-prettier6604-bpo.json",
+  "workflow": ".artifacts/platform-tasks/20261012T045958Z-882526",
+  "raw": ".artifacts/storage-isolated-service/20261012T050116Z-883459/prettier6604",
+  "auto_report": ".artifacts/platform-tasks/report-20261012T045958Z-882526",
+  "reports": [
+    ".artifacts/exp3-bpo-review-20261012/report-a",
+    ".artifacts/exp3-bpo-review-20261012/report-b"
+  ],
+  "task_id": "prettier__prettier-6604",
+  "schedule": "bpo",
+  "cpu_per_vm": 2,
+  "memory_mib_per_vm": 4096,
+  "action_count": 84,
+  "physical_segments": 17,
+  "logical_actions": 189,
+  "logical_paths": 7,
+  "checkpoint_count": 2,
+  "restores": {
+    "early_1": {
+      "status": "PASS",
+      "sandbox_id": "01a12e7d-39dd-7270-b285-7cdf18b3b81b",
+      "parent": "01a12e7c-dbd2-75b2-b0c3-deff99eb58cf",
+      "template": "01a12e7c-f44d-7613-8c47-6c0686aa3cea",
+      "next_segment": "early_1_inspect",
+      "process_identity_preserved": true,
+      "boundary": {
+        "status": "PASS",
+        "checkpoint_after_global_step": 11,
+        "continuation_global_step": 12,
+        "next_segment": "core_patch",
+        "files_compared": 59,
+        "scope": "prefix progress, source, new tests, frozen inputs, prefix outputs, known temporary tool inputs"
+      }
+    },
+    "early_2": {
+      "status": "PASS",
+      "sandbox_id": "01a12e7d-39de-7441-82f5-c60e57d1d334",
+      "parent": "01a12e7c-dbd2-75b2-b0c3-deff99eb58cf",
+      "template": "01a12e7c-f44d-7613-8c47-6c0686aa3cea",
+      "next_segment": "early_2_inspect",
+      "process_identity_preserved": true,
+      "boundary": {
+        "status": "PASS",
+        "checkpoint_after_global_step": 11,
+        "continuation_global_step": 12,
+        "next_segment": "core_patch",
+        "files_compared": 59,
+        "scope": "prefix progress, source, new tests, frozen inputs, prefix outputs, known temporary tool inputs"
+      }
+    },
+    "early_3": {
+      "status": "PASS",
+      "sandbox_id": "01a12e7d-39e0-7f32-a275-4b7b44f126f5",
+      "parent": "01a12e7c-dbd2-75b2-b0c3-deff99eb58cf",
+      "template": "01a12e7c-f44d-7613-8c47-6c0686aa3cea",
+      "next_segment": "early_3_inspect",
+      "process_identity_preserved": true,
+      "boundary": {
+        "status": "PASS",
+        "checkpoint_after_global_step": 11,
+        "continuation_global_step": 12,
+        "next_segment": "core_patch",
+        "files_compared": 59,
+        "scope": "prefix progress, source, new tests, frozen inputs, prefix outputs, known temporary tool inputs"
+      }
+    },
+    "late_1": {
+      "status": "PASS",
+      "sandbox_id": "01a12e7d-3f2d-7a10-9e6c-c4ff2bc92f48",
+      "parent": "01a12e7c-dbd2-75b2-b0c3-deff99eb58cf",
+      "template": "01a12e7d-156c-76c3-a461-76af5718f5e5",
+      "next_segment": "late_1_inspect",
+      "process_identity_preserved": true,
+      "boundary": {
+        "status": "PASS",
+        "checkpoint_after_global_step": 24,
+        "continuation_global_step": 25,
+        "next_segment": "backbone_finish",
+        "files_compared": 101,
+        "scope": "prefix progress, source, new tests, frozen inputs, prefix outputs, known temporary tool inputs"
+      }
+    },
+    "late_2": {
+      "status": "PASS",
+      "sandbox_id": "01a12e7d-3f2d-7a10-9e6c-c4e912d4b9e0",
+      "parent": "01a12e7c-dbd2-75b2-b0c3-deff99eb58cf",
+      "template": "01a12e7d-156c-76c3-a461-76af5718f5e5",
+      "next_segment": "late_2_inspect",
+      "process_identity_preserved": true,
+      "boundary": {
+        "status": "PASS",
+        "checkpoint_after_global_step": 24,
+        "continuation_global_step": 25,
+        "next_segment": "backbone_finish",
+        "files_compared": 101,
+        "scope": "prefix progress, source, new tests, frozen inputs, prefix outputs, known temporary tool inputs"
+      }
+    },
+    "late_3": {
+      "status": "PASS",
+      "sandbox_id": "01a12e7d-3f2d-7a10-9e6c-c503c4a8f736",
+      "parent": "01a12e7c-dbd2-75b2-b0c3-deff99eb58cf",
+      "template": "01a12e7d-156c-76c3-a461-76af5718f5e5",
+      "next_segment": "late_3_inspect",
+      "process_identity_preserved": true,
+      "boundary": {
+        "status": "PASS",
+        "checkpoint_after_global_step": 24,
+        "continuation_global_step": 25,
+        "next_segment": "backbone_finish",
+        "files_compared": 101,
+        "scope": "prefix progress, source, new tests, frozen inputs, prefix outputs, known temporary tool inputs"
+      }
+    }
+  },
+  "checkpoints": {
+    "11": {
+      "status": "PASS",
+      "template": "01a12e7c-f44d-7613-8c47-6c0686aa3cea",
+      "parent": "01a12e7c-dbd2-75b2-b0c3-deff99eb58cf",
+      "step": 11,
+      "boundary": {
+        "base_commit": "affa24ce764bd14ac087abeef0603012f5c635d6",
+        "cwd": "/testbed",
+        "completed_steps": [
+          {
+            "segment": "read_repo",
+            "step": "001",
+            "exit_code": 0
+          },
+          {
+            "segment": "read_repo",
+            "step": "002",
+            "exit_code": 127
+          },
+          {
+            "segment": "read_repo",
+            "step": "003",
+            "exit_code": 0
+          },
+          {
+            "segment": "read_repo",
+            "step": "004",
+            "exit_code": 0
+          },
+          {
+            "segment": "read_repo",
+            "step": "005",
+            "exit_code": 0
+          },
+          {
+            "segment": "read_typescript",
+            "step": "001",
+            "exit_code": 0
+          },
+          {
+            "segment": "read_typescript",
+            "step": "002",
+            "exit_code": 0
+          },
+          {
+            "segment": "read_typescript",
+            "step": "003",
+            "exit_code": 0
+          },
+          {
+            "segment": "read_typescript",
+            "step": "004",
+            "exit_code": 0
+          },
+          {
+            "segment": "read_typescript",
+            "step": "005",
+            "exit_code": 0
+          },
+          {
+            "segment": "read_typescript",
+            "step": "006",
+            "exit_code": 0
+          }
+        ],
+        "next_segment": "core_patch",
+        "git_status": " M package.json\n?? Dockerfile\n",
+        "files_sha256": {
+          "/testbed/package.json": "4e8a4fe91d327fe783bb8fb246e645176f1afe91d104bc84e0105ca4b57a9571",
+          "/testbed/src/language-js/needs-parens.js": "1eaab9df29e1d3dce64cca198974d9f1ca764736cbb5cb8683c104397a6d1f08",
+          "/tmp/t.ts": "2a6bdcb389e9e551489d43255e90e805cce1186f0c756096eef70c7f5067ed66",
+          "/workspace/artifacts/exp5/backbone/read_repo/actions.tsv": "04535e51497aad6dcee378731875876f661382b95de6b38a3dfa7574df892fa2",
+          "/workspace/artifacts/exp5/backbone/read_repo/git-status.txt": "cd3c703e891041750ce84a1138a16cbcc2c5426f932338db0eff751592eccf36",
+          "/workspace/artifacts/exp5/backbone/read_repo/guest-memory.tsv": "dd2c46bd2e3f20a0fa0b8354c66de17d235179df7c06fee86fa0e0ae50823f10",
+          "/workspace/artifacts/exp5/backbone/read_repo/guest-vmstat.tsv": "41646d0c661d47f910ab86bc36ee09220bdfc7dec8fa4c87ff69597e2dcd430f",
+          "/workspace/artifacts/exp5/backbone/read_repo/patch.diff": "5721325c7f24fc147069e055f431aa294b0762824a44056afe378955de15fa24",
+          "/workspace/artifacts/exp5/backbone/read_repo/stderr/001.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "/workspace/artifacts/exp5/backbone/read_repo/stderr/002.log": "a0733d966bb7d2b1d293736d0cbef5e1d8ea733b9110da3c293910d714e056c6",
+          "/workspace/artifacts/exp5/backbone/read_repo/stderr/003.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "/workspace/artifacts/exp5/backbone/read_repo/stderr/004.log": "25e1bfe73277919d019268af2def7c743b35ab33dadf3d34e97a5334a12f90cf",
+          "/workspace/artifacts/exp5/backbone/read_repo/stderr/005.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "/workspace/artifacts/exp5/backbone/read_repo/stdout/001.log": "6501a2f8036dd10bb254625743adf93e082e9286554e46aeccf185b956c3c63e",
+          "/workspace/artifacts/exp5/backbone/read_repo/stdout/002.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "/workspace/artifacts/exp5/backbone/read_repo/stdout/003.log": "de0e54b3627ff8906ad1776dbd4506bfc7dea8d28a58d5b2a8992dbd3cbbf77e",
+          "/workspace/artifacts/exp5/backbone/read_repo/stdout/004.log": "f58b210a175598e468dcf4bae5fe4c6d3274436876b9f188b002b0a711f564bb",
+          "/workspace/artifacts/exp5/backbone/read_repo/stdout/005.log": "25a427c2d7e62d607fa1441357e7a548ed873866020882162eb23910e86bff71",
+          "/workspace/artifacts/exp5/backbone/read_repo/steps.tsv": "92477a23154281da62109dbbaae9fe0a4865ea9fb5b9dbb7adbb131e38b98733",
+          "/workspace/artifacts/exp5/backbone/read_typescript/actions.tsv": "6abe173e35c13a1534d98d0bffaae1cf7cc495123ddcb2441e49f3cd673afa15",
+          "/workspace/artifacts/exp5/backbone/read_typescript/git-status.txt": "cd3c703e891041750ce84a1138a16cbcc2c5426f932338db0eff751592eccf36",
+          "/workspace/artifacts/exp5/backbone/read_typescript/guest-memory.tsv": "6ab10b8e5d996451c1880b4e1fd220dca5337fcf43c7df4493cf1750a0559fd0",
+          "/workspace/artifacts/exp5/backbone/read_typescript/guest-vmstat.tsv": "9f6c4cc76eabeaf30f92fbcc8e23a67142601e01f917c8dcbc93194d5e1a5664",
+          "/workspace/artifacts/exp5/backbone/read_typescript/patch.diff": "5721325c7f24fc147069e055f431aa294b0762824a44056afe378955de15fa24",
+          "/workspace/artifacts/exp5/backbone/read_typescript/stderr/001.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "/workspace/artifacts/exp5/backbone/read_typescript/stderr/002.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "/workspace/artifacts/exp5/backbone/read_typescript/stderr/003.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "/workspace/artifacts/exp5/backbone/read_typescript/stderr/004.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "/workspace/artifacts/exp5/backbone/read_typescript/stderr/005.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "/workspace/artifacts/exp5/backbone/read_typescript/stderr/006.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "/workspace/artifacts/exp5/backbone/read_typescript/stdout/001.log": "a07050b1430e815a13f0457dd72e66463dcc392428af9b2ea4474651921168ec",
+          "/workspace/artifacts/exp5/backbone/read_typescript/stdout/002.log": "480d3b9e8397a7511a3e0b24e292d13d1654361dc5cb5f910246c83d63d687e6",
+          "/workspace/artifacts/exp5/backbone/read_typescript/stdout/003.log": "b7115fa6d4f300a3296a73735349200621c9c0ed933d2297b22677c58e6f9c2c",
+          "/workspace/artifacts/exp5/backbone/read_typescript/stdout/004.log": "b9657d564d88b457a61bd476c43b9fa055dded466b8822ca756cbff1a4a43e8e",
+          "/workspace/artifacts/exp5/backbone/read_typescript/stdout/005.log": "b9c0b53d4d1624c03b378cc07e67a7e564d9b4fb5984cd1227dee29db9cd50a4",
+          "/workspace/artifacts/exp5/backbone/read_typescript/stdout/006.log": "33445e6db06c305c8d72603b65448a462643288c209522a1a8c62fa0aa8cc7eb",
+          "/workspace/artifacts/exp5/backbone/read_typescript/steps.tsv": "bf39f2679aa9fafac13248b6f7e3a8b5f094a9808b7aab62e3d9d2d21c6425e5",
+          "/workspace/mixfs-workload/agent-sampling.json": "5a8ec5da148af843cb8237a206977a270ef567a9ed8e5f2c12bfe6448b18d8e1",
+          "/workspace/mixfs-workload/guest-runner.original.sh": "8bc17248c054342d169a9bae1eea9240a39ff802e28ada8422e9df53628f544d",
+          "/workspace/mixfs-workload/guest-runner.sh": "655dc6723227c2401a3494c71396ba7fa8a9540f775be9b9fe26c81a65516498",
+          "/workspace/mixfs-workload/rollouts.json": "d4d0768ca2f533c367e7ae8d10d6b48551add797b8868cb58beb062d2c554857",
+          "/workspace/mixfs-workload/segments/backbone_finish/actions.tsv": "853d193617db0587cf957cdeee3a9f0862df74d124fadb1d498ffd95d895e2ac",
+          "/workspace/mixfs-workload/segments/core_patch/actions.tsv": "6739d180c3d07e67885ffeb4a7cfd29f3400c13cdc23bf4b47e5bb634a47fe6b",
+          "/workspace/mixfs-workload/segments/core_verify/actions.tsv": "961e077f9d10be192ccdd3e9dba2fcaffa73e9e63caa372e5c6342c57144bfeb",
+          "/workspace/mixfs-workload/segments/early_1/actions.tsv": "7a691c9a7ea6b37a5f73f81bb5d96dda611189c9e735a6c0a346c0ce81a118eb",
+          "/workspace/mixfs-workload/segments/early_1_inspect/actions.tsv": "be6664971877677760730b13f487d1a1c4b474d391de67c7fa197e13c1cec048",
+          "/workspace/mixfs-workload/segments/early_2/actions.tsv": "1514b8bc24b4e383d557c4f6b9c8e51d291a3238ee76357c9f72ba898b257b36",
+          "/workspace/mixfs-workload/segments/early_2_inspect/actions.tsv": "85b2ccf804abf47fc8812e0fc7fdf3b310cd4608cf8e1eabb78a75dda50044cc",
+          "/workspace/mixfs-workload/segments/early_3/actions.tsv": "0995211c20ba73879a3ba01214395b1c6843c932a378f640c51186df1596257f",
+          "/workspace/mixfs-workload/segments/early_3_inspect/actions.tsv": "1a44782f5a903ba1cbcd5d74ef5ca0d187a83e09e62a8b758d9444aebf0ba7ed",
+          "/workspace/mixfs-workload/segments/late_1/actions.tsv": "092f7201cc663491ce4b805078852bd902f0dd1ab4c12b053bdb75d3f33acb86",
+          "/workspace/mixfs-workload/segments/late_1_inspect/actions.tsv": "7494c8d2a00f6f7558f4236dd4d9ee2d76ed9d697690bb011a9387581b91057e",
+          "/workspace/mixfs-workload/segments/late_2/actions.tsv": "e1f4bff61bd295396cbd3b799a2ea2a35c8c0ed3c71172d4c8d4ca6b182e5149",
+          "/workspace/mixfs-workload/segments/late_2_inspect/actions.tsv": "949b9daaefbdadd6941470af51ba68e5d7ce728f50aa84057133f6d492b8efe6",
+          "/workspace/mixfs-workload/segments/late_3/actions.tsv": "68a6b101983cc5202c3ad4f75fc6e524b066efdc270acc91c96a23d915c270c4",
+          "/workspace/mixfs-workload/segments/late_3_inspect/actions.tsv": "801ad8ae2a3471468118b0afc3a133caf97ebf5aae21cb2f3447ef02064e54a9",
+          "/workspace/mixfs-workload/segments/read_repo/actions.tsv": "04535e51497aad6dcee378731875876f661382b95de6b38a3dfa7574df892fa2",
+          "/workspace/mixfs-workload/segments/read_typescript/actions.tsv": "6abe173e35c13a1534d98d0bffaae1cf7cc495123ddcb2441e49f3cd673afa15",
+          "/workspace/mixfs-workload/task.json": "1164559a49f1926ae210487bfe758ddfa74ced496f6d2600673daafa4e1c1249"
+        }
+      },
+      "process": {
+        "pid": "821",
+        "start_ticks": "325",
+        "boot_id": "8e0b5147-ed5e-4c94-aa1f-0dc106d01579",
+        "count": "20"
+      }
+    },
+    "24": {
+      "status": "PASS",
+      "template": "01a12e7d-156c-76c3-a461-76af5718f5e5",
+      "parent": "01a12e7c-dbd2-75b2-b0c3-deff99eb58cf",
+      "step": 24,
+      "boundary": {
+        "base_commit": "affa24ce764bd14ac087abeef0603012f5c635d6",
+        "cwd": "/testbed",
+        "completed_steps": [
+          {
+            "segment": "read_repo",
+            "step": "001",
+            "exit_code": 0
+          },
+          {
+            "segment": "read_repo",
+            "step": "002",
+            "exit_code": 127
+          },
+          {
+            "segment": "read_repo",
+            "step": "003",
+            "exit_code": 0
+          },
+          {
+            "segment": "read_repo",
+            "step": "004",
+            "exit_code": 0
+          },
+          {
+            "segment": "read_repo",
+            "step": "005",
+            "exit_code": 0
+          },
+          {
+            "segment": "read_typescript",
+            "step": "001",
+            "exit_code": 0
+          },
+          {
+            "segment": "read_typescript",
+            "step": "002",
+            "exit_code": 0
+          },
+          {
+            "segment": "read_typescript",
+            "step": "003",
+            "exit_code": 0
+          },
+          {
+            "segment": "read_typescript",
+            "step": "004",
+            "exit_code": 0
+          },
+          {
+            "segment": "read_typescript",
+            "step": "005",
+            "exit_code": 0
+          },
+          {
+            "segment": "read_typescript",
+            "step": "006",
+            "exit_code": 0
+          },
+          {
+            "segment": "core_patch",
+            "step": "001",
+            "exit_code": 0
+          },
+          {
+            "segment": "core_patch",
+            "step": "002",
+            "exit_code": 0
+          },
+          {
+            "segment": "core_patch",
+            "step": "003",
+            "exit_code": 0
+          },
+          {
+            "segment": "core_patch",
+            "step": "004",
+            "exit_code": 0
+          },
+          {
+            "segment": "core_patch",
+            "step": "005",
+            "exit_code": 0
+          },
+          {
+            "segment": "core_patch",
+            "step": "006",
+            "exit_code": 0
+          },
+          {
+            "segment": "core_patch",
+            "step": "007",
+            "exit_code": 0
+          },
+          {
+            "segment": "core_verify",
+            "step": "001",
+            "exit_code": 0
+          },
+          {
+            "segment": "core_verify",
+            "step": "002",
+            "exit_code": 0
+          },
+          {
+            "segment": "core_verify",
+            "step": "003",
+            "exit_code": 0
+          },
+          {
+            "segment": "core_verify",
+            "step": "004",
+            "exit_code": 0
+          },
+          {
+            "segment": "core_verify",
+            "step": "005",
+            "exit_code": 0
+          },
+          {
+            "segment": "core_verify",
+            "step": "006",
+            "exit_code": 0
+          }
+        ],
+        "next_segment": "backbone_finish",
+        "git_status": " M package.json\n M src/language-js/needs-parens.js\n?? Dockerfile\n?? tests/typescript/custom/parenthesizedType/\n",
+        "files_sha256": {
+          "/testbed/package.json": "4e8a4fe91d327fe783bb8fb246e645176f1afe91d104bc84e0105ca4b57a9571",
+          "/testbed/src/language-js/needs-parens.js": "a69ab803044886611ba112f30e0ecca881723c3de224dd43701e2a27d539333b",
+          "/testbed/tests/typescript/custom/parenthesizedType/jsfmt.spec.js": "3a09959e352e6b8aa4cb50d490848d7c353e80aa73a9e9e616747b5ec00160b8",
+          "/testbed/tests/typescript/custom/parenthesizedType/parenthesizedType.ts": "ecc97bdd1e1c9966c534e896ef8dcc6345a9c285f87b9ac3f1189c224a5aa277",
+          "/tmp/t.ts": "2a6bdcb389e9e551489d43255e90e805cce1186f0c756096eef70c7f5067ed66",
+          "/tmp/t2.ts": "4221d098a5365df4b6c42bfdb0e15aac84bc56bfd84596a503395d188d9a5045",
+          "/tmp/t3.ts": "c319b4b253c592fff6c630c8be50b137a1d1c8615c28be1a2760578cf8e79805",
+          "/workspace/artifacts/exp5/backbone/core_patch/actions.tsv": "6739d180c3d07e67885ffeb4a7cfd29f3400c13cdc23bf4b47e5bb634a47fe6b",
+          "/workspace/artifacts/exp5/backbone/core_patch/git-status.txt": "cd3c703e891041750ce84a1138a16cbcc2c5426f932338db0eff751592eccf36",
+          "/workspace/artifacts/exp5/backbone/core_patch/guest-memory.tsv": "776f7f77ae08f9941d7efa176f5283c3b2ec8243cf444a0988115484af82cc30",
+          "/workspace/artifacts/exp5/backbone/core_patch/guest-vmstat.tsv": "d582b8d1116a6fb547a6ba6fb09a49b6dcc23dd1ed061f9eacc58ed66a875ece",
+          "/workspace/artifacts/exp5/backbone/core_patch/patch.diff": "5721325c7f24fc147069e055f431aa294b0762824a44056afe378955de15fa24",
+          "/workspace/artifacts/exp5/backbone/core_patch/stderr/001.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "/workspace/artifacts/exp5/backbone/core_patch/stderr/002.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "/workspace/artifacts/exp5/backbone/core_patch/stderr/003.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "/workspace/artifacts/exp5/backbone/core_patch/stderr/004.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "/workspace/artifacts/exp5/backbone/core_patch/stderr/005.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "/workspace/artifacts/exp5/backbone/core_patch/stderr/006.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "/workspace/artifacts/exp5/backbone/core_patch/stderr/007.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "/workspace/artifacts/exp5/backbone/core_patch/stdout/001.log": "832e5ffecc3bd82934e49d37d954b99b9cf6c5e316bd264ff1c08724df51b6a3",
+          "/workspace/artifacts/exp5/backbone/core_patch/stdout/002.log": "3586986e83f9cbd49979c64531cd76066ec4d58f1eae0aa9dbe887e7c5648f98",
+          "/workspace/artifacts/exp5/backbone/core_patch/stdout/003.log": "592ebc96f93f3145f475131f3bb89210196473c67c1589c68fde114ad12539a3",
+          "/workspace/artifacts/exp5/backbone/core_patch/stdout/004.log": "14b2b2a396aac37beefe1838596e980bfc7a7f7e3614d6671184008b8d5b5eda",
+          "/workspace/artifacts/exp5/backbone/core_patch/stdout/005.log": "c996c5ba07a67bb20a42128b03c4c84d6b4232f7be7a9e023f663b673410f691",
+          "/workspace/artifacts/exp5/backbone/core_patch/stdout/006.log": "1029b51808329e3b25ede6184b65c5989967236b5166de5991a17135881e7e7b",
+          "/workspace/artifacts/exp5/backbone/core_patch/stdout/007.log": "31680206e46bdd0c307023c8b78945192b9dec9a3a8c842521bc6ae597714d0c",
+          "/workspace/artifacts/exp5/backbone/core_patch/steps.tsv": "9a5b931e88b291588bfa8ee8b2d4661262b577eaefdb3df33bbe79f5c0ff7432",
+          "/workspace/artifacts/exp5/backbone/core_verify/actions.tsv": "961e077f9d10be192ccdd3e9dba2fcaffa73e9e63caa372e5c6342c57144bfeb",
+          "/workspace/artifacts/exp5/backbone/core_verify/git-status.txt": "756bfc1e3865d64b59cf8541767cc6cf6b2bc3c2130219325a334ce0c6c41df6",
+          "/workspace/artifacts/exp5/backbone/core_verify/guest-memory.tsv": "469ddf56dc3f273d8429d124c1bd76d24c156317529b13e52e4afbf20812df75",
+          "/workspace/artifacts/exp5/backbone/core_verify/guest-vmstat.tsv": "9e261e4d0082bf44bc09e5cb5f6d3282bb687158437066b163202ce297c1370d",
+          "/workspace/artifacts/exp5/backbone/core_verify/patch.diff": "6a74b179e74a2fb00f4cf334c3cccd3405168025974c9a3b3550614cb1976de5",
+          "/workspace/artifacts/exp5/backbone/core_verify/stderr/001.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "/workspace/artifacts/exp5/backbone/core_verify/stderr/002.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "/workspace/artifacts/exp5/backbone/core_verify/stderr/003.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "/workspace/artifacts/exp5/backbone/core_verify/stderr/004.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "/workspace/artifacts/exp5/backbone/core_verify/stderr/005.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "/workspace/artifacts/exp5/backbone/core_verify/stderr/006.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "/workspace/artifacts/exp5/backbone/core_verify/stdout/001.log": "195eb9fd458ab2ff3e958534b60fb3dcd8c9d52e8178b2426fc30b011180236a",
+          "/workspace/artifacts/exp5/backbone/core_verify/stdout/002.log": "1094f4a608520e6cd87446d714acc1d2a9fab625af2e03e561bfa50639443eae",
+          "/workspace/artifacts/exp5/backbone/core_verify/stdout/003.log": "14930bc2cb11ca9b3887e3a2284b9a0ee734a594bf1b51c0559e37b450ecb919",
+          "/workspace/artifacts/exp5/backbone/core_verify/stdout/004.log": "21907bfd7e3b2d4ad2f58929f734bd1e46781937fb2c8e6c8393ab5e80087e3c",
+          "/workspace/artifacts/exp5/backbone/core_verify/stdout/005.log": "ee89d22747cfbc04d403259c709d37b87ea88bdacf94948274939e3cd1bdc659",
+          "/workspace/artifacts/exp5/backbone/core_verify/stdout/006.log": "bb230eacab5248a3927c3ccdb310876b5f2531e02f47a4ec83143e4793b11213",
+          "/workspace/artifacts/exp5/backbone/core_verify/steps.tsv": "8976cfa858e54a86ad4906ce838f8e32686c26743b5e940fe080b24545d7896b",
+          "/workspace/artifacts/exp5/backbone/read_repo/actions.tsv": "04535e51497aad6dcee378731875876f661382b95de6b38a3dfa7574df892fa2",
+          "/workspace/artifacts/exp5/backbone/read_repo/git-status.txt": "cd3c703e891041750ce84a1138a16cbcc2c5426f932338db0eff751592eccf36",
+          "/workspace/artifacts/exp5/backbone/read_repo/guest-memory.tsv": "dd2c46bd2e3f20a0fa0b8354c66de17d235179df7c06fee86fa0e0ae50823f10",
+          "/workspace/artifacts/exp5/backbone/read_repo/guest-vmstat.tsv": "41646d0c661d47f910ab86bc36ee09220bdfc7dec8fa4c87ff69597e2dcd430f",
+          "/workspace/artifacts/exp5/backbone/read_repo/patch.diff": "5721325c7f24fc147069e055f431aa294b0762824a44056afe378955de15fa24",
+          "/workspace/artifacts/exp5/backbone/read_repo/stderr/001.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "/workspace/artifacts/exp5/backbone/read_repo/stderr/002.log": "a0733d966bb7d2b1d293736d0cbef5e1d8ea733b9110da3c293910d714e056c6",
+          "/workspace/artifacts/exp5/backbone/read_repo/stderr/003.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "/workspace/artifacts/exp5/backbone/read_repo/stderr/004.log": "25e1bfe73277919d019268af2def7c743b35ab33dadf3d34e97a5334a12f90cf",
+          "/workspace/artifacts/exp5/backbone/read_repo/stderr/005.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "/workspace/artifacts/exp5/backbone/read_repo/stdout/001.log": "6501a2f8036dd10bb254625743adf93e082e9286554e46aeccf185b956c3c63e",
+          "/workspace/artifacts/exp5/backbone/read_repo/stdout/002.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "/workspace/artifacts/exp5/backbone/read_repo/stdout/003.log": "de0e54b3627ff8906ad1776dbd4506bfc7dea8d28a58d5b2a8992dbd3cbbf77e",
+          "/workspace/artifacts/exp5/backbone/read_repo/stdout/004.log": "f58b210a175598e468dcf4bae5fe4c6d3274436876b9f188b002b0a711f564bb",
+          "/workspace/artifacts/exp5/backbone/read_repo/stdout/005.log": "25a427c2d7e62d607fa1441357e7a548ed873866020882162eb23910e86bff71",
+          "/workspace/artifacts/exp5/backbone/read_repo/steps.tsv": "92477a23154281da62109dbbaae9fe0a4865ea9fb5b9dbb7adbb131e38b98733",
+          "/workspace/artifacts/exp5/backbone/read_typescript/actions.tsv": "6abe173e35c13a1534d98d0bffaae1cf7cc495123ddcb2441e49f3cd673afa15",
+          "/workspace/artifacts/exp5/backbone/read_typescript/git-status.txt": "cd3c703e891041750ce84a1138a16cbcc2c5426f932338db0eff751592eccf36",
+          "/workspace/artifacts/exp5/backbone/read_typescript/guest-memory.tsv": "6ab10b8e5d996451c1880b4e1fd220dca5337fcf43c7df4493cf1750a0559fd0",
+          "/workspace/artifacts/exp5/backbone/read_typescript/guest-vmstat.tsv": "9f6c4cc76eabeaf30f92fbcc8e23a67142601e01f917c8dcbc93194d5e1a5664",
+          "/workspace/artifacts/exp5/backbone/read_typescript/patch.diff": "5721325c7f24fc147069e055f431aa294b0762824a44056afe378955de15fa24",
+          "/workspace/artifacts/exp5/backbone/read_typescript/stderr/001.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "/workspace/artifacts/exp5/backbone/read_typescript/stderr/002.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "/workspace/artifacts/exp5/backbone/read_typescript/stderr/003.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "/workspace/artifacts/exp5/backbone/read_typescript/stderr/004.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "/workspace/artifacts/exp5/backbone/read_typescript/stderr/005.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "/workspace/artifacts/exp5/backbone/read_typescript/stderr/006.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "/workspace/artifacts/exp5/backbone/read_typescript/stdout/001.log": "a07050b1430e815a13f0457dd72e66463dcc392428af9b2ea4474651921168ec",
+          "/workspace/artifacts/exp5/backbone/read_typescript/stdout/002.log": "480d3b9e8397a7511a3e0b24e292d13d1654361dc5cb5f910246c83d63d687e6",
+          "/workspace/artifacts/exp5/backbone/read_typescript/stdout/003.log": "b7115fa6d4f300a3296a73735349200621c9c0ed933d2297b22677c58e6f9c2c",
+          "/workspace/artifacts/exp5/backbone/read_typescript/stdout/004.log": "b9657d564d88b457a61bd476c43b9fa055dded466b8822ca756cbff1a4a43e8e",
+          "/workspace/artifacts/exp5/backbone/read_typescript/stdout/005.log": "b9c0b53d4d1624c03b378cc07e67a7e564d9b4fb5984cd1227dee29db9cd50a4",
+          "/workspace/artifacts/exp5/backbone/read_typescript/stdout/006.log": "33445e6db06c305c8d72603b65448a462643288c209522a1a8c62fa0aa8cc7eb",
+          "/workspace/artifacts/exp5/backbone/read_typescript/steps.tsv": "bf39f2679aa9fafac13248b6f7e3a8b5f094a9808b7aab62e3d9d2d21c6425e5",
+          "/workspace/mixfs-workload/agent-sampling.json": "5a8ec5da148af843cb8237a206977a270ef567a9ed8e5f2c12bfe6448b18d8e1",
+          "/workspace/mixfs-workload/guest-runner.original.sh": "8bc17248c054342d169a9bae1eea9240a39ff802e28ada8422e9df53628f544d",
+          "/workspace/mixfs-workload/guest-runner.sh": "655dc6723227c2401a3494c71396ba7fa8a9540f775be9b9fe26c81a65516498",
+          "/workspace/mixfs-workload/rollouts.json": "d4d0768ca2f533c367e7ae8d10d6b48551add797b8868cb58beb062d2c554857",
+          "/workspace/mixfs-workload/segments/backbone_finish/actions.tsv": "853d193617db0587cf957cdeee3a9f0862df74d124fadb1d498ffd95d895e2ac",
+          "/workspace/mixfs-workload/segments/core_patch/actions.tsv": "6739d180c3d07e67885ffeb4a7cfd29f3400c13cdc23bf4b47e5bb634a47fe6b",
+          "/workspace/mixfs-workload/segments/core_verify/actions.tsv": "961e077f9d10be192ccdd3e9dba2fcaffa73e9e63caa372e5c6342c57144bfeb",
+          "/workspace/mixfs-workload/segments/early_1/actions.tsv": "7a691c9a7ea6b37a5f73f81bb5d96dda611189c9e735a6c0a346c0ce81a118eb",
+          "/workspace/mixfs-workload/segments/early_1_inspect/actions.tsv": "be6664971877677760730b13f487d1a1c4b474d391de67c7fa197e13c1cec048",
+          "/workspace/mixfs-workload/segments/early_2/actions.tsv": "1514b8bc24b4e383d557c4f6b9c8e51d291a3238ee76357c9f72ba898b257b36",
+          "/workspace/mixfs-workload/segments/early_2_inspect/actions.tsv": "85b2ccf804abf47fc8812e0fc7fdf3b310cd4608cf8e1eabb78a75dda50044cc",
+          "/workspace/mixfs-workload/segments/early_3/actions.tsv": "0995211c20ba73879a3ba01214395b1c6843c932a378f640c51186df1596257f",
+          "/workspace/mixfs-workload/segments/early_3_inspect/actions.tsv": "1a44782f5a903ba1cbcd5d74ef5ca0d187a83e09e62a8b758d9444aebf0ba7ed",
+          "/workspace/mixfs-workload/segments/late_1/actions.tsv": "092f7201cc663491ce4b805078852bd902f0dd1ab4c12b053bdb75d3f33acb86",
+          "/workspace/mixfs-workload/segments/late_1_inspect/actions.tsv": "7494c8d2a00f6f7558f4236dd4d9ee2d76ed9d697690bb011a9387581b91057e",
+          "/workspace/mixfs-workload/segments/late_2/actions.tsv": "e1f4bff61bd295396cbd3b799a2ea2a35c8c0ed3c71172d4c8d4ca6b182e5149",
+          "/workspace/mixfs-workload/segments/late_2_inspect/actions.tsv": "949b9daaefbdadd6941470af51ba68e5d7ce728f50aa84057133f6d492b8efe6",
+          "/workspace/mixfs-workload/segments/late_3/actions.tsv": "68a6b101983cc5202c3ad4f75fc6e524b066efdc270acc91c96a23d915c270c4",
+          "/workspace/mixfs-workload/segments/late_3_inspect/actions.tsv": "801ad8ae2a3471468118b0afc3a133caf97ebf5aae21cb2f3447ef02064e54a9",
+          "/workspace/mixfs-workload/segments/read_repo/actions.tsv": "04535e51497aad6dcee378731875876f661382b95de6b38a3dfa7574df892fa2",
+          "/workspace/mixfs-workload/segments/read_typescript/actions.tsv": "6abe173e35c13a1534d98d0bffaae1cf7cc495123ddcb2441e49f3cd673afa15",
+          "/workspace/mixfs-workload/task.json": "1164559a49f1926ae210487bfe758ddfa74ced496f6d2600673daafa4e1c1249"
+        }
+      },
+      "process": {
+        "pid": "821",
+        "start_ticks": "325",
+        "boot_id": "8e0b5147-ed5e-4c94-aa1f-0dc106d01579",
+        "count": "97"
+      }
+    }
+  },
+  "model_test_outcomes": {
+    "backbone": {
+      "status": "FAIL",
+      "passed": 0,
+      "failed": 2,
+      "patch_sha256": "73eb5f9d0c5582c5b1be464aa6915cfba621a27b80d953b69db74c6d1fa3da5a"
+    },
+    "early_1": {
+      "status": "FAIL",
+      "passed": 0,
+      "failed": 2,
+      "patch_sha256": "6a74b179e74a2fb00f4cf334c3cccd3405168025974c9a3b3550614cb1976de5"
+    },
+    "early_2": {
+      "status": "FAIL",
+      "passed": 0,
+      "failed": 2,
+      "patch_sha256": "5721325c7f24fc147069e055f431aa294b0762824a44056afe378955de15fa24"
+    },
+    "early_3": {
+      "status": "FAIL",
+      "passed": 0,
+      "failed": 2,
+      "patch_sha256": "6a74b179e74a2fb00f4cf334c3cccd3405168025974c9a3b3550614cb1976de5"
+    },
+    "late_1": {
+      "status": "FAIL",
+      "passed": 0,
+      "failed": 2,
+      "patch_sha256": "6a74b179e74a2fb00f4cf334c3cccd3405168025974c9a3b3550614cb1976de5"
+    },
+    "late_2": {
+      "status": "FAIL",
+      "passed": 0,
+      "failed": 2,
+      "patch_sha256": "6a74b179e74a2fb00f4cf334c3cccd3405168025974c9a3b3550614cb1976de5"
+    },
+    "late_3": {
+      "status": "FAIL",
+      "passed": 0,
+      "failed": 2,
+      "patch_sha256": "6a74b179e74a2fb00f4cf334c3cccd3405168025974c9a3b3550614cb1976de5"
+    }
+  },
+  "outputs_match_old_bpo": true,
+  "timing": {
+    "controller_elapsed_ns": 52642230060,
+    "cold_request_span_ns": 3002553244,
+    "cold_request_per_role_ns": {
+      "backbone": 3002553244
+    },
+    "cold_requests_overlap": null,
+    "checkpoint_call_ns": [
+      1984231031,
+      1324308896
+    ],
+    "restore_request_per_role_ns": {
+      "early_1": 306526408,
+      "early_2": 305100693,
+      "early_3": 306811536,
+      "late_1": 224969625,
+      "late_2": 221682655,
+      "late_3": 220459666
+    },
+    "frozen_tools_and_downloads_span_ns": 34897517175,
+    "frozen_tools_and_downloads_call_sum_ns": 52873059476,
+    "stages": [
+      {
+        "index": 0,
+        "stage": "0000-service-state",
+        "start_monotonic_ns": 13551527875148844,
+        "timestamp_ns": 1791781295010407455,
+        "duration_ns": 22300196,
+        "exit_code": 0
+      },
+      {
+        "index": 1,
+        "stage": "0001-service-labels",
+        "start_monotonic_ns": 13551527897515758,
+        "timestamp_ns": 1791781295032774183,
+        "duration_ns": 21873916,
+        "exit_code": 0
+      },
+      {
+        "index": 2,
+        "stage": "0002-cold-backbone",
+        "start_monotonic_ns": 13551527943094082,
+        "timestamp_ns": 1791781295078352624,
+        "duration_ns": 3002553244,
+        "exit_code": 0
+      },
+      {
+        "index": 3,
+        "stage": "0003-monitor-upload",
+        "start_monotonic_ns": 13551530947379266,
+        "timestamp_ns": 1791781298082637872,
+        "duration_ns": 35054357,
+        "exit_code": 0
+      },
+      {
+        "index": 4,
+        "stage": "0004-monitor-upload",
+        "start_monotonic_ns": 13551530982758774,
+        "timestamp_ns": 1791781298118017541,
+        "duration_ns": 35178023,
+        "exit_code": 0
+      },
+      {
+        "index": 5,
+        "stage": "0005-monitor-upload",
+        "start_monotonic_ns": 13551531018529393,
+        "timestamp_ns": 1791781298153788897,
+        "duration_ns": 32176867,
+        "exit_code": 0
+      },
+      {
+        "index": 6,
+        "stage": "0006-monitor-upload",
+        "start_monotonic_ns": 13551531051275440,
+        "timestamp_ns": 1791781298186534386,
+        "duration_ns": 30625619,
+        "exit_code": 0
+      },
+      {
+        "index": 7,
+        "stage": "0007-monitor-directory",
+        "start_monotonic_ns": 13551531082361451,
+        "timestamp_ns": 1791781298217620303,
+        "duration_ns": 34072219,
+        "exit_code": 0
+      },
+      {
+        "index": 8,
+        "stage": "0008-monitor-phase",
+        "start_monotonic_ns": 13551531116886207,
+        "timestamp_ns": 1791781298252145043,
+        "duration_ns": 44673759,
+        "exit_code": 0
+      },
+      {
+        "index": 9,
+        "stage": "0009-monitor-collect-a8acb872-6cc8-466f-a474-5bcfbefd4b86",
+        "start_monotonic_ns": 13551531162456306,
+        "timestamp_ns": 1791781298297715596,
+        "duration_ns": 4615773400,
+        "exit_code": 0
+      },
+      {
+        "index": 10,
+        "stage": "0010-monitor-ready",
+        "start_monotonic_ns": 13551531162631731,
+        "timestamp_ns": 1791781298297890667,
+        "duration_ns": 254994604,
+        "exit_code": 0
+      },
+      {
+        "index": 11,
+        "stage": "0011-source-backbone",
+        "start_monotonic_ns": 13551531454285368,
+        "timestamp_ns": 1791781298589544818,
+        "duration_ns": 901624830,
+        "exit_code": 0
+      },
+      {
+        "index": 12,
+        "stage": "0012-upload-check-backbone",
+        "start_monotonic_ns": 13551532357281144,
+        "timestamp_ns": 1791781299492540583,
+        "duration_ns": 32396401,
+        "exit_code": 0
+      },
+      {
+        "index": 13,
+        "stage": "0013-baseline-backbone",
+        "start_monotonic_ns": 13551532390368838,
+        "timestamp_ns": 1791781299525627634,
+        "duration_ns": 944087124,
+        "exit_code": 0
+      },
+      {
+        "index": 14,
+        "stage": "0014-upload-workload-backbone",
+        "start_monotonic_ns": 13551533335596629,
+        "timestamp_ns": 1791781300470855931,
+        "duration_ns": 93252545,
+        "exit_code": 0
+      },
+      {
+        "index": 15,
+        "stage": "0015-upload-boundary",
+        "start_monotonic_ns": 13551533429591157,
+        "timestamp_ns": 1791781300564849869,
+        "duration_ns": 30092040,
+        "exit_code": 0
+      },
+      {
+        "index": 16,
+        "stage": "0016-upload-process",
+        "start_monotonic_ns": 13551533460425297,
+        "timestamp_ns": 1791781300595683955,
+        "duration_ns": 27352165,
+        "exit_code": 0
+      },
+      {
+        "index": 17,
+        "stage": "0017-process-start",
+        "start_monotonic_ns": 13551533488248256,
+        "timestamp_ns": 1791781300623506791,
+        "duration_ns": 366515368,
+        "exit_code": 0
+      },
+      {
+        "index": 18,
+        "stage": "0018-controller-call",
+        "start_monotonic_ns": 13551533856415629,
+        "timestamp_ns": 1791781300991674531,
+        "duration_ns": 1028163176,
+        "exit_code": 0
+      },
+      {
+        "index": 19,
+        "stage": "0019-controller-call",
+        "start_monotonic_ns": 13551534885680658,
+        "timestamp_ns": 1791781302020939944,
+        "duration_ns": 54219076,
+        "exit_code": 0
+      },
+      {
+        "index": 20,
+        "stage": "0020-controller-call",
+        "start_monotonic_ns": 13551534942184085,
+        "timestamp_ns": 1791781302077442976,
+        "duration_ns": 396658494,
+        "exit_code": 0
+      },
+      {
+        "index": 21,
+        "stage": "0021-controller-call",
+        "start_monotonic_ns": 13551535339847091,
+        "timestamp_ns": 1791781302475106360,
+        "duration_ns": 48847431,
+        "exit_code": 0
+      },
+      {
+        "index": 22,
+        "stage": "0022-boundary-before-11",
+        "start_monotonic_ns": 13551535390232131,
+        "timestamp_ns": 1791781302525491094,
+        "duration_ns": 171611562,
+        "exit_code": 0
+      },
+      {
+        "index": 23,
+        "stage": "0023-process-before-11",
+        "start_monotonic_ns": 13551535563027386,
+        "timestamp_ns": 1791781302698286476,
+        "duration_ns": 48721386,
+        "exit_code": 0
+      },
+      {
+        "index": 24,
+        "stage": "0024-monitor-phase",
+        "start_monotonic_ns": 13551535612945335,
+        "timestamp_ns": 1791781302748204211,
+        "duration_ns": 38312262,
+        "exit_code": 0
+      },
+      {
+        "index": 25,
+        "stage": "0025-monitor-stop",
+        "start_monotonic_ns": 13551535652904758,
+        "timestamp_ns": 1791781302788163850,
+        "duration_ns": 136795587,
+        "exit_code": 0
+      },
+      {
+        "index": 26,
+        "stage": "0026-monitor-reaped",
+        "start_monotonic_ns": 13551535790376363,
+        "timestamp_ns": 1791781302925635239,
+        "duration_ns": 87484423,
+        "exit_code": 0
+      },
+      {
+        "index": 27,
+        "stage": "0027-monitor-download",
+        "start_monotonic_ns": 13551535878566838,
+        "timestamp_ns": 1791781303013825731,
+        "duration_ns": 39458528,
+        "exit_code": 0
+      },
+      {
+        "index": 28,
+        "stage": "0028-snapshot-call",
+        "start_monotonic_ns": 13551535920184664,
+        "timestamp_ns": 1791781303055443610,
+        "duration_ns": 1984231031,
+        "exit_code": 0
+      },
+      {
+        "index": 29,
+        "stage": "0029-monitor-upload",
+        "start_monotonic_ns": 13551537905579232,
+        "timestamp_ns": 1791781305040837564,
+        "duration_ns": 32400714,
+        "exit_code": 0
+      },
+      {
+        "index": 30,
+        "stage": "0030-monitor-upload",
+        "start_monotonic_ns": 13551537938156893,
+        "timestamp_ns": 1791781305073415258,
+        "duration_ns": 28086332,
+        "exit_code": 0
+      },
+      {
+        "index": 31,
+        "stage": "0031-monitor-upload",
+        "start_monotonic_ns": 13551537966402628,
+        "timestamp_ns": 1791781305101660994,
+        "duration_ns": 30798857,
+        "exit_code": 0
+      },
+      {
+        "index": 32,
+        "stage": "0032-monitor-upload",
+        "start_monotonic_ns": 13551537997356166,
+        "timestamp_ns": 1791781305132614518,
+        "duration_ns": 29401065,
+        "exit_code": 0
+      },
+      {
+        "index": 33,
+        "stage": "0033-monitor-directory",
+        "start_monotonic_ns": 13551538026910266,
+        "timestamp_ns": 1791781305162168613,
+        "duration_ns": 33115769,
+        "exit_code": 0
+      },
+      {
+        "index": 34,
+        "stage": "0034-monitor-phase",
+        "start_monotonic_ns": 13551538060195932,
+        "timestamp_ns": 1791781305195454268,
+        "duration_ns": 38842332,
+        "exit_code": 0
+      },
+      {
+        "index": 35,
+        "stage": "0035-monitor-collect-5b2e9e60-bcef-4d41-bb9f-94fa20445837",
+        "start_monotonic_ns": 13551538100105610,
+        "timestamp_ns": 1791781305235364291,
+        "duration_ns": 6072872816,
+        "exit_code": 0
+      },
+      {
+        "index": 36,
+        "stage": "0036-monitor-ready",
+        "start_monotonic_ns": 13551538100182086,
+        "timestamp_ns": 1791781305235440618,
+        "duration_ns": 146902593,
+        "exit_code": 0
+      },
+      {
+        "index": 37,
+        "stage": "0037-controller-call",
+        "start_monotonic_ns": 13551538259697131,
+        "timestamp_ns": 1791781305394956221,
+        "duration_ns": 1611253343,
+        "exit_code": 0
+      },
+      {
+        "index": 38,
+        "stage": "0038-controller-call",
+        "start_monotonic_ns": 13551539872227812,
+        "timestamp_ns": 1791781307007486814,
+        "duration_ns": 48484289,
+        "exit_code": 0
+      },
+      {
+        "index": 39,
+        "stage": "0039-controller-call",
+        "start_monotonic_ns": 13551539922670654,
+        "timestamp_ns": 1791781307057929417,
+        "duration_ns": 3895977642,
+        "exit_code": 0
+      },
+      {
+        "index": 40,
+        "stage": "0040-controller-call",
+        "start_monotonic_ns": 13551543820132625,
+        "timestamp_ns": 1791781310955391521,
+        "duration_ns": 47215074,
+        "exit_code": 0
+      },
+      {
+        "index": 41,
+        "stage": "0041-boundary-before-24",
+        "start_monotonic_ns": 13551543869038203,
+        "timestamp_ns": 1791781311004296979,
+        "duration_ns": 105913096,
+        "exit_code": 0
+      },
+      {
+        "index": 42,
+        "stage": "0042-process-before-24",
+        "start_monotonic_ns": 13551543976343313,
+        "timestamp_ns": 1791781311111602092,
+        "duration_ns": 48793432,
+        "exit_code": 0
+      },
+      {
+        "index": 43,
+        "stage": "0043-monitor-phase",
+        "start_monotonic_ns": 13551544026343930,
+        "timestamp_ns": 1791781311161602770,
+        "duration_ns": 40858370,
+        "exit_code": 0
+      },
+      {
+        "index": 44,
+        "stage": "0044-monitor-stop",
+        "start_monotonic_ns": 13551544069407262,
+        "timestamp_ns": 1791781311204666326,
+        "duration_ns": 120515929,
+        "exit_code": 0
+      },
+      {
+        "index": 45,
+        "stage": "0045-monitor-reaped",
+        "start_monotonic_ns": 13551544190891780,
+        "timestamp_ns": 1791781311326150866,
+        "duration_ns": 81894079,
+        "exit_code": 0
+      },
+      {
+        "index": 46,
+        "stage": "0046-monitor-download",
+        "start_monotonic_ns": 13551544273711991,
+        "timestamp_ns": 1791781311408970747,
+        "duration_ns": 37692949,
+        "exit_code": 0
+      },
+      {
+        "index": 47,
+        "stage": "0047-snapshot-call",
+        "start_monotonic_ns": 13551544313797441,
+        "timestamp_ns": 1791781311449056329,
+        "duration_ns": 1324308896,
+        "exit_code": 0
+      },
+      {
+        "index": 48,
+        "stage": "0048-monitor-upload",
+        "start_monotonic_ns": 13551545640716733,
+        "timestamp_ns": 1791781312775975433,
+        "duration_ns": 29979990,
+        "exit_code": 0
+      },
+      {
+        "index": 49,
+        "stage": "0049-monitor-upload",
+        "start_monotonic_ns": 13551545671610193,
+        "timestamp_ns": 1791781312806868897,
+        "duration_ns": 26988616,
+        "exit_code": 0
+      },
+      {
+        "index": 50,
+        "stage": "0050-monitor-upload",
+        "start_monotonic_ns": 13551545699499324,
+        "timestamp_ns": 1791781312834758160,
+        "duration_ns": 27430332,
+        "exit_code": 0
+      },
+      {
+        "index": 51,
+        "stage": "0051-monitor-upload",
+        "start_monotonic_ns": 13551545727836086,
+        "timestamp_ns": 1791781312863094809,
+        "duration_ns": 26735939,
+        "exit_code": 0
+      },
+      {
+        "index": 52,
+        "stage": "0052-monitor-directory",
+        "start_monotonic_ns": 13551545755519294,
+        "timestamp_ns": 1791781312890778033,
+        "duration_ns": 35184867,
+        "exit_code": 0
+      },
+      {
+        "index": 53,
+        "stage": "0053-monitor-phase",
+        "start_monotonic_ns": 13551545791656436,
+        "timestamp_ns": 1791781312926915186,
+        "duration_ns": 38536616,
+        "exit_code": 0
+      },
+      {
+        "index": 54,
+        "stage": "0054-monitor-collect-87ed67df-5be0-4b27-a681-cbe1f533b993",
+        "start_monotonic_ns": 13551545831319094,
+        "timestamp_ns": 1791781312966577853,
+        "duration_ns": 29970679587,
+        "exit_code": 0
+      },
+      {
+        "index": 55,
+        "stage": "0055-monitor-ready",
+        "start_monotonic_ns": 13551545831424465,
+        "timestamp_ns": 1791781312966683287,
+        "duration_ns": 140457953,
+        "exit_code": 0
+      },
+      {
+        "index": 56,
+        "stage": "0056-controller-call",
+        "start_monotonic_ns": 13551545987113275,
+        "timestamp_ns": 1791781313122372271,
+        "duration_ns": 7993080129,
+        "exit_code": 0
+      },
+      {
+        "index": 57,
+        "stage": "0057-controller-call",
+        "start_monotonic_ns": 13551553981831641,
+        "timestamp_ns": 1791781321117090591,
+        "duration_ns": 49138504,
+        "exit_code": 0
+      },
+      {
+        "index": 58,
+        "stage": "0058-restore-early_1",
+        "start_monotonic_ns": 13551554033306470,
+        "timestamp_ns": 1791781321168565382,
+        "duration_ns": 306526408,
+        "exit_code": 0
+      },
+      {
+        "index": 59,
+        "stage": "0059-restore-early_2",
+        "start_monotonic_ns": 13551554033512766,
+        "timestamp_ns": 1791781321168772032,
+        "duration_ns": 305100693,
+        "exit_code": 0
+      },
+      {
+        "index": 60,
+        "stage": "0060-restore-early_3",
+        "start_monotonic_ns": 13551554034447546,
+        "timestamp_ns": 1791781321169706796,
+        "duration_ns": 306811536,
+        "exit_code": 0
+      },
+      {
+        "index": 61,
+        "stage": "0061-monitor-upload",
+        "start_monotonic_ns": 13551554340451188,
+        "timestamp_ns": 1791781321475709664,
+        "duration_ns": 34412382,
+        "exit_code": 0
+      },
+      {
+        "index": 62,
+        "stage": "0062-monitor-upload",
+        "start_monotonic_ns": 13551554342934429,
+        "timestamp_ns": 1791781321478192911,
+        "duration_ns": 32576443,
+        "exit_code": 0
+      },
+      {
+        "index": 63,
+        "stage": "0063-monitor-upload",
+        "start_monotonic_ns": 13551554343844728,
+        "timestamp_ns": 1791781321479103149,
+        "duration_ns": 33721234,
+        "exit_code": 0
+      },
+      {
+        "index": 64,
+        "stage": "0064-monitor-upload",
+        "start_monotonic_ns": 13551554375334259,
+        "timestamp_ns": 1791781321510592707,
+        "duration_ns": 25953740,
+        "exit_code": 0
+      },
+      {
+        "index": 65,
+        "stage": "0065-monitor-upload",
+        "start_monotonic_ns": 13551554376136055,
+        "timestamp_ns": 1791781321511394653,
+        "duration_ns": 32116672,
+        "exit_code": 0
+      },
+      {
+        "index": 66,
+        "stage": "0066-monitor-upload",
+        "start_monotonic_ns": 13551554377915003,
+        "timestamp_ns": 1791781321513173495,
+        "duration_ns": 28387368,
+        "exit_code": 0
+      },
+      {
+        "index": 67,
+        "stage": "0067-monitor-upload",
+        "start_monotonic_ns": 13551554402131596,
+        "timestamp_ns": 1791781321537390741,
+        "duration_ns": 21650596,
+        "exit_code": 0
+      },
+      {
+        "index": 68,
+        "stage": "0068-monitor-upload",
+        "start_monotonic_ns": 13551554406610331,
+        "timestamp_ns": 1791781321541868753,
+        "duration_ns": 31091609,
+        "exit_code": 0
+      },
+      {
+        "index": 69,
+        "stage": "0069-monitor-upload",
+        "start_monotonic_ns": 13551554408813320,
+        "timestamp_ns": 1791781321544071808,
+        "duration_ns": 19869010,
+        "exit_code": 0
+      },
+      {
+        "index": 70,
+        "stage": "0070-monitor-upload",
+        "start_monotonic_ns": 13551554424118653,
+        "timestamp_ns": 1791781321559377184,
+        "duration_ns": 29262009,
+        "exit_code": 0
+      },
+      {
+        "index": 71,
+        "stage": "0071-monitor-upload",
+        "start_monotonic_ns": 13551554430103518,
+        "timestamp_ns": 1791781321565362660,
+        "duration_ns": 30527232,
+        "exit_code": 0
+      },
+      {
+        "index": 72,
+        "stage": "0072-monitor-upload",
+        "start_monotonic_ns": 13551554438070170,
+        "timestamp_ns": 1791781321573328639,
+        "duration_ns": 30880786,
+        "exit_code": 0
+      },
+      {
+        "index": 73,
+        "stage": "0073-monitor-directory",
+        "start_monotonic_ns": 13551554454710041,
+        "timestamp_ns": 1791781321589969214,
+        "duration_ns": 40697484,
+        "exit_code": 0
+      },
+      {
+        "index": 74,
+        "stage": "0074-monitor-directory",
+        "start_monotonic_ns": 13551554461849077,
+        "timestamp_ns": 1791781321597107869,
+        "duration_ns": 37372525,
+        "exit_code": 0
+      },
+      {
+        "index": 75,
+        "stage": "0075-monitor-directory",
+        "start_monotonic_ns": 13551554470211605,
+        "timestamp_ns": 1791781321605470388,
+        "duration_ns": 34672538,
+        "exit_code": 0
+      },
+      {
+        "index": 76,
+        "stage": "0076-monitor-phase",
+        "start_monotonic_ns": 13551554496617390,
+        "timestamp_ns": 1791781321631876121,
+        "duration_ns": 51486401,
+        "exit_code": 0
+      },
+      {
+        "index": 77,
+        "stage": "0077-monitor-phase",
+        "start_monotonic_ns": 13551554500482758,
+        "timestamp_ns": 1791781321635741507,
+        "duration_ns": 44864035,
+        "exit_code": 0
+      },
+      {
+        "index": 78,
+        "stage": "0078-monitor-phase",
+        "start_monotonic_ns": 13551554506164973,
+        "timestamp_ns": 1791781321641423728,
+        "duration_ns": 37146011,
+        "exit_code": 0
+      },
+      {
+        "index": 79,
+        "stage": "0079-monitor-collect-746207c2-b124-461a-aa0a-6d2c5fa905c5",
+        "start_monotonic_ns": 13551554544278153,
+        "timestamp_ns": 1791781321679536868,
+        "duration_ns": 23289879528,
+        "exit_code": 0
+      },
+      {
+        "index": 80,
+        "stage": "0080-monitor-ready",
+        "start_monotonic_ns": 13551554544364677,
+        "timestamp_ns": 1791781321679623487,
+        "duration_ns": 112828824,
+        "exit_code": 0
+      },
+      {
+        "index": 81,
+        "stage": "0081-monitor-collect-110938cd-4c8a-40b7-9d50-195500e53987",
+        "start_monotonic_ns": 13551554547319531,
+        "timestamp_ns": 1791781321682578761,
+        "duration_ns": 22608022115,
+        "exit_code": 0
+      },
+      {
+        "index": 82,
+        "stage": "0082-monitor-ready",
+        "start_monotonic_ns": 13551554547492533,
+        "timestamp_ns": 1791781321682751705,
+        "duration_ns": 203710382,
+        "exit_code": 0
+      },
+      {
+        "index": 83,
+        "stage": "0083-monitor-collect-91678fcb-38d6-4067-a8ab-fd2cfe59fda0",
+        "start_monotonic_ns": 13551554549345204,
+        "timestamp_ns": 1791781321684603942,
+        "duration_ns": 21900084163,
+        "exit_code": 0
+      },
+      {
+        "index": 84,
+        "stage": "0084-monitor-ready",
+        "start_monotonic_ns": 13551554549471701,
+        "timestamp_ns": 1791781321684730545,
+        "duration_ns": 132550501,
+        "exit_code": 0
+      },
+      {
+        "index": 85,
+        "stage": "0085-boundary-early_3",
+        "start_monotonic_ns": 13551554672012140,
+        "timestamp_ns": 1791781321807271426,
+        "duration_ns": 184287280,
+        "exit_code": 0
+      },
+      {
+        "index": 86,
+        "stage": "0086-boundary-early_2",
+        "start_monotonic_ns": 13551554696490777,
+        "timestamp_ns": 1791781321831749985,
+        "duration_ns": 238013854,
+        "exit_code": 0
+      },
+      {
+        "index": 87,
+        "stage": "0087-boundary-early_1",
+        "start_monotonic_ns": 13551554761804812,
+        "timestamp_ns": 1791781321897063491,
+        "duration_ns": 256397574,
+        "exit_code": 0
+      },
+      {
+        "index": 88,
+        "stage": "0088-process-early_3",
+        "start_monotonic_ns": 13551554858570966,
+        "timestamp_ns": 1791781321993830325,
+        "duration_ns": 360558173,
+        "exit_code": 0
+      },
+      {
+        "index": 89,
+        "stage": "0089-process-early_2",
+        "start_monotonic_ns": 13551554936648551,
+        "timestamp_ns": 1791781322071907713,
+        "duration_ns": 360416339,
+        "exit_code": 0
+      },
+      {
+        "index": 90,
+        "stage": "0090-process-early_1",
+        "start_monotonic_ns": 13551555020282570,
+        "timestamp_ns": 1791781322155541583,
+        "duration_ns": 365455591,
+        "exit_code": 0
+      },
+      {
+        "index": 91,
+        "stage": "0091-restore-late_1",
+        "start_monotonic_ns": 13551555389099263,
+        "timestamp_ns": 1791781322524358528,
+        "duration_ns": 224969625,
+        "exit_code": 0
+      },
+      {
+        "index": 92,
+        "stage": "0092-restore-late_2",
+        "start_monotonic_ns": 13551555389249981,
+        "timestamp_ns": 1791781322524509052,
+        "duration_ns": 221682655,
+        "exit_code": 0
+      },
+      {
+        "index": 93,
+        "stage": "0093-restore-late_3",
+        "start_monotonic_ns": 13551555389371170,
+        "timestamp_ns": 1791781322524630192,
+        "duration_ns": 220459666,
+        "exit_code": 0
+      },
+      {
+        "index": 94,
+        "stage": "0094-monitor-upload",
+        "start_monotonic_ns": 13551555615800715,
+        "timestamp_ns": 1791781322751059186,
+        "duration_ns": 23603412,
+        "exit_code": 0
+      },
+      {
+        "index": 95,
+        "stage": "0095-monitor-upload",
+        "start_monotonic_ns": 13551555616664820,
+        "timestamp_ns": 1791781322751923331,
+        "duration_ns": 25319072,
+        "exit_code": 0
+      },
+      {
+        "index": 96,
+        "stage": "0096-monitor-upload",
+        "start_monotonic_ns": 13551555618548367,
+        "timestamp_ns": 1791781322753807088,
+        "duration_ns": 29801414,
+        "exit_code": 0
+      },
+      {
+        "index": 97,
+        "stage": "0097-monitor-upload",
+        "start_monotonic_ns": 13551555641009911,
+        "timestamp_ns": 1791781322776268823,
+        "duration_ns": 18617309,
+        "exit_code": 0
+      },
+      {
+        "index": 98,
+        "stage": "0098-monitor-upload",
+        "start_monotonic_ns": 13551555642707861,
+        "timestamp_ns": 1791781322777966519,
+        "duration_ns": 25476163,
+        "exit_code": 0
+      },
+      {
+        "index": 99,
+        "stage": "0099-monitor-upload",
+        "start_monotonic_ns": 13551555649891830,
+        "timestamp_ns": 1791781322785150572,
+        "duration_ns": 28404415,
+        "exit_code": 0
+      },
+      {
+        "index": 100,
+        "stage": "0100-monitor-upload",
+        "start_monotonic_ns": 13551555661157908,
+        "timestamp_ns": 1791781322796416558,
+        "duration_ns": 21808773,
+        "exit_code": 0
+      },
+      {
+        "index": 101,
+        "stage": "0101-monitor-upload",
+        "start_monotonic_ns": 13551555668796190,
+        "timestamp_ns": 1791781322804054881,
+        "duration_ns": 23864246,
+        "exit_code": 0
+      },
+      {
+        "index": 102,
+        "stage": "0102-monitor-upload",
+        "start_monotonic_ns": 13551555679857432,
+        "timestamp_ns": 1791781322815116163,
+        "duration_ns": 33177090,
+        "exit_code": 0
+      },
+      {
+        "index": 103,
+        "stage": "0103-monitor-upload",
+        "start_monotonic_ns": 13551555684918809,
+        "timestamp_ns": 1791781322820177905,
+        "duration_ns": 31635866,
+        "exit_code": 0
+      },
+      {
+        "index": 104,
+        "stage": "0104-monitor-upload",
+        "start_monotonic_ns": 13551555693422558,
+        "timestamp_ns": 1791781322828681096,
+        "duration_ns": 31267273,
+        "exit_code": 0
+      },
+      {
+        "index": 105,
+        "stage": "0105-monitor-upload",
+        "start_monotonic_ns": 13551555714635221,
+        "timestamp_ns": 1791781322849894170,
+        "duration_ns": 32486460,
+        "exit_code": 0
+      },
+      {
+        "index": 106,
+        "stage": "0106-monitor-directory",
+        "start_monotonic_ns": 13551555718201886,
+        "timestamp_ns": 1791781322853461072,
+        "duration_ns": 43062475,
+        "exit_code": 0
+      },
+      {
+        "index": 107,
+        "stage": "0107-monitor-directory",
+        "start_monotonic_ns": 13551555725825533,
+        "timestamp_ns": 1791781322861084436,
+        "duration_ns": 38317661,
+        "exit_code": 0
+      },
+      {
+        "index": 108,
+        "stage": "0108-monitor-directory",
+        "start_monotonic_ns": 13551555748931581,
+        "timestamp_ns": 1791781322884190717,
+        "duration_ns": 42961287,
+        "exit_code": 0
+      },
+      {
+        "index": 109,
+        "stage": "0109-monitor-phase",
+        "start_monotonic_ns": 13551555763075103,
+        "timestamp_ns": 1791781322898334016,
+        "duration_ns": 47830556,
+        "exit_code": 0
+      },
+      {
+        "index": 110,
+        "stage": "0110-monitor-phase",
+        "start_monotonic_ns": 13551555765864122,
+        "timestamp_ns": 1791781322901123310,
+        "duration_ns": 47176583,
+        "exit_code": 0
+      },
+      {
+        "index": 111,
+        "stage": "0111-monitor-phase",
+        "start_monotonic_ns": 13551555794286534,
+        "timestamp_ns": 1791781322929545774,
+        "duration_ns": 49075190,
+        "exit_code": 0
+      },
+      {
+        "index": 112,
+        "stage": "0112-monitor-collect-043ff7af-92c2-4e94-bf18-f77e12d3a4e2",
+        "start_monotonic_ns": 13551555814657443,
+        "timestamp_ns": 1791781322949916234,
+        "duration_ns": 22812491898,
+        "exit_code": 0
+      },
+      {
+        "index": 113,
+        "stage": "0113-monitor-ready",
+        "start_monotonic_ns": 13551555814709143,
+        "timestamp_ns": 1791781322949968132,
+        "duration_ns": 163982078,
+        "exit_code": 0
+      },
+      {
+        "index": 114,
+        "stage": "0114-monitor-collect-00f61609-7a55-425d-a94b-99d33e2c14ac",
+        "start_monotonic_ns": 13551555815311284,
+        "timestamp_ns": 1791781322950570010,
+        "duration_ns": 23457924402,
+        "exit_code": 0
+      },
+      {
+        "index": 115,
+        "stage": "0115-monitor-ready",
+        "start_monotonic_ns": 13551555815782387,
+        "timestamp_ns": 1791781322951041490,
+        "duration_ns": 130754896,
+        "exit_code": 0
+      },
+      {
+        "index": 116,
+        "stage": "0116-monitor-collect-0b64f1a3-3f59-4ef2-9fe9-1fd099eafb71",
+        "start_monotonic_ns": 13551555844956302,
+        "timestamp_ns": 1791781322980215621,
+        "duration_ns": 24126236023,
+        "exit_code": 0
+      },
+      {
+        "index": 117,
+        "stage": "0117-monitor-ready",
+        "start_monotonic_ns": 13551555845118340,
+        "timestamp_ns": 1791781322980377181,
+        "duration_ns": 177762995,
+        "exit_code": 0
+      },
+      {
+        "index": 118,
+        "stage": "0118-boundary-late_2",
+        "start_monotonic_ns": 13551555965071639,
+        "timestamp_ns": 1791781323100330892,
+        "duration_ns": 219393733,
+        "exit_code": 0
+      },
+      {
+        "index": 119,
+        "stage": "0119-boundary-late_3",
+        "start_monotonic_ns": 13551555996592801,
+        "timestamp_ns": 1791781323131852131,
+        "duration_ns": 251974322,
+        "exit_code": 0
+      },
+      {
+        "index": 120,
+        "stage": "0120-boundary-late_1",
+        "start_monotonic_ns": 13551556042072674,
+        "timestamp_ns": 1791781323177332063,
+        "duration_ns": 251214920,
+        "exit_code": 0
+      },
+      {
+        "index": 121,
+        "stage": "0121-process-late_2",
+        "start_monotonic_ns": 13551556187217957,
+        "timestamp_ns": 1791781323322477023,
+        "duration_ns": 397086369,
+        "exit_code": 0
+      },
+      {
+        "index": 122,
+        "stage": "0122-process-late_3",
+        "start_monotonic_ns": 13551556251215625,
+        "timestamp_ns": 1791781323386474649,
+        "duration_ns": 360882941,
+        "exit_code": 0
+      },
+      {
+        "index": 123,
+        "stage": "0123-process-late_1",
+        "start_monotonic_ns": 13551556295946021,
+        "timestamp_ns": 1791781323431205193,
+        "duration_ns": 366657744,
+        "exit_code": 0
+      },
+      {
+        "index": 124,
+        "stage": "0124-controller-call",
+        "start_monotonic_ns": 13551556667246955,
+        "timestamp_ns": 1791781323802506215,
+        "duration_ns": 1473477693,
+        "exit_code": 0
+      },
+      {
+        "index": 125,
+        "stage": "0125-controller-call",
+        "start_monotonic_ns": 13551556668843904,
+        "timestamp_ns": 1791781323804102880,
+        "duration_ns": 1096665385,
+        "exit_code": 0
+      },
+      {
+        "index": 126,
+        "stage": "0126-controller-call",
+        "start_monotonic_ns": 13551556670231835,
+        "timestamp_ns": 1791781323805491174,
+        "duration_ns": 1730164882,
+        "exit_code": 0
+      },
+      {
+        "index": 127,
+        "stage": "0127-controller-call",
+        "start_monotonic_ns": 13551556671203104,
+        "timestamp_ns": 1791781323806462303,
+        "duration_ns": 3670162012,
+        "exit_code": 0
+      },
+      {
+        "index": 128,
+        "stage": "0128-controller-call",
+        "start_monotonic_ns": 13551556672610128,
+        "timestamp_ns": 1791781323807868920,
+        "duration_ns": 2743865917,
+        "exit_code": 0
+      },
+      {
+        "index": 129,
+        "stage": "0129-controller-call",
+        "start_monotonic_ns": 13551556673878152,
+        "timestamp_ns": 1791781323809137428,
+        "duration_ns": 1934990997,
+        "exit_code": 0
+      },
+      {
+        "index": 130,
+        "stage": "0130-controller-call",
+        "start_monotonic_ns": 13551557768064781,
+        "timestamp_ns": 1791781324903323717,
+        "duration_ns": 61696468,
+        "exit_code": 0
+      },
+      {
+        "index": 131,
+        "stage": "0131-controller-call",
+        "start_monotonic_ns": 13551557832125909,
+        "timestamp_ns": 1791781324967384628,
+        "duration_ns": 1300404905,
+        "exit_code": 0
+      },
+      {
+        "index": 132,
+        "stage": "0132-controller-call",
+        "start_monotonic_ns": 13551558142855325,
+        "timestamp_ns": 1791781325278114356,
+        "duration_ns": 51620133,
+        "exit_code": 0
+      },
+      {
+        "index": 133,
+        "stage": "0133-controller-call",
+        "start_monotonic_ns": 13551558198902831,
+        "timestamp_ns": 1791781325334161828,
+        "duration_ns": 1090631522,
+        "exit_code": 0
+      },
+      {
+        "index": 134,
+        "stage": "0134-controller-call",
+        "start_monotonic_ns": 13551558402451837,
+        "timestamp_ns": 1791781325537710884,
+        "duration_ns": 54105668,
+        "exit_code": 0
+      },
+      {
+        "index": 135,
+        "stage": "0135-controller-call",
+        "start_monotonic_ns": 13551558458692266,
+        "timestamp_ns": 1791781325593951053,
+        "duration_ns": 2513764345,
+        "exit_code": 0
+      },
+      {
+        "index": 136,
+        "stage": "0136-controller-call",
+        "start_monotonic_ns": 13551558610382027,
+        "timestamp_ns": 1791781325745640749,
+        "duration_ns": 52472690,
+        "exit_code": 0
+      },
+      {
+        "index": 137,
+        "stage": "0137-controller-call",
+        "start_monotonic_ns": 13551558665460884,
+        "timestamp_ns": 1791781325800719660,
+        "duration_ns": 8975507886,
+        "exit_code": 0
+      },
+      {
+        "index": 138,
+        "stage": "0138-controller-call",
+        "start_monotonic_ns": 13551559135157206,
+        "timestamp_ns": 1791781326270416490,
+        "duration_ns": 52156437,
+        "exit_code": 0
+      },
+      {
+        "index": 139,
+        "stage": "0139-controller-call",
+        "start_monotonic_ns": 13551559292279309,
+        "timestamp_ns": 1791781326427538075,
+        "duration_ns": 54247565,
+        "exit_code": 0
+      },
+      {
+        "index": 140,
+        "stage": "0140-controller-call",
+        "start_monotonic_ns": 13551559418201053,
+        "timestamp_ns": 1791781326553460099,
+        "duration_ns": 50322654,
+        "exit_code": 0
+      },
+      {
+        "index": 141,
+        "stage": "0141-controller-call",
+        "start_monotonic_ns": 13551559470809622,
+        "timestamp_ns": 1791781326606068407,
+        "duration_ns": 2232418567,
+        "exit_code": 0
+      },
+      {
+        "index": 142,
+        "stage": "0142-controller-call",
+        "start_monotonic_ns": 13551560343847850,
+        "timestamp_ns": 1791781327479106663,
+        "duration_ns": 52900090,
+        "exit_code": 0
+      },
+      {
+        "index": 143,
+        "stage": "0143-controller-call",
+        "start_monotonic_ns": 13551560400534430,
+        "timestamp_ns": 1791781327535793763,
+        "duration_ns": 8296322778,
+        "exit_code": 0
+      },
+      {
+        "index": 144,
+        "stage": "0144-controller-call",
+        "start_monotonic_ns": 13551560973939948,
+        "timestamp_ns": 1791781328109198883,
+        "duration_ns": 56191703,
+        "exit_code": 0
+      },
+      {
+        "index": 145,
+        "stage": "0145-controller-call",
+        "start_monotonic_ns": 13551561706148929,
+        "timestamp_ns": 1791781328841408479,
+        "duration_ns": 46945693,
+        "exit_code": 0
+      },
+      {
+        "index": 146,
+        "stage": "0146-controller-call",
+        "start_monotonic_ns": 13551567643715109,
+        "timestamp_ns": 1791781334778974109,
+        "duration_ns": 54659549,
+        "exit_code": 0
+      },
+      {
+        "index": 147,
+        "stage": "0147-controller-call",
+        "start_monotonic_ns": 13551568699606025,
+        "timestamp_ns": 1791781335834865308,
+        "duration_ns": 54326779,
+        "exit_code": 0
+      },
+      {
+        "index": 148,
+        "stage": "0148-monitor-phase",
+        "start_monotonic_ns": 13551568769763634,
+        "timestamp_ns": 1791781335905022958,
+        "duration_ns": 109085999,
+        "exit_code": 0
+      },
+      {
+        "index": 149,
+        "stage": "0149-monitor-phase",
+        "start_monotonic_ns": 13551568770233716,
+        "timestamp_ns": 1791781335905492535,
+        "duration_ns": 117890340,
+        "exit_code": 0
+      },
+      {
+        "index": 150,
+        "stage": "0150-monitor-phase",
+        "start_monotonic_ns": 13551568770951413,
+        "timestamp_ns": 1791781335906210203,
+        "duration_ns": 122079804,
+        "exit_code": 0
+      },
+      {
+        "index": 151,
+        "stage": "0151-monitor-phase",
+        "start_monotonic_ns": 13551568772437994,
+        "timestamp_ns": 1791781335907696710,
+        "duration_ns": 98346935,
+        "exit_code": 0
+      },
+      {
+        "index": 152,
+        "stage": "0152-monitor-phase",
+        "start_monotonic_ns": 13551568773115314,
+        "timestamp_ns": 1791781335908374527,
+        "duration_ns": 44673095,
+        "exit_code": 0
+      },
+      {
+        "index": 153,
+        "stage": "0153-monitor-phase",
+        "start_monotonic_ns": 13551568773772009,
+        "timestamp_ns": 1791781335909030741,
+        "duration_ns": 69770062,
+        "exit_code": 0
+      },
+      {
+        "index": 154,
+        "stage": "0154-monitor-phase",
+        "start_monotonic_ns": 13551568774711242,
+        "timestamp_ns": 1791781335909969993,
+        "duration_ns": 70217022,
+        "exit_code": 0
+      },
+      {
+        "index": 155,
+        "stage": "0155-source-diff-late_1",
+        "start_monotonic_ns": 13551568819058423,
+        "timestamp_ns": 1791781335954317042,
+        "duration_ns": 46235839,
+        "exit_code": 0
+      },
+      {
+        "index": 156,
+        "stage": "0156-source-diff-late_2",
+        "start_monotonic_ns": 13551568846314133,
+        "timestamp_ns": 1791781335981572793,
+        "duration_ns": 89533437,
+        "exit_code": 0
+      },
+      {
+        "index": 157,
+        "stage": "0157-source-diff-late_3",
+        "start_monotonic_ns": 13551568846848626,
+        "timestamp_ns": 1791781335982107250,
+        "duration_ns": 76576975,
+        "exit_code": 0
+      },
+      {
+        "index": 158,
+        "stage": "0158-oracle-late_1",
+        "start_monotonic_ns": 13551568867070792,
+        "timestamp_ns": 1791781336002329562,
+        "duration_ns": 523495116,
+        "exit_code": 0
+      },
+      {
+        "index": 159,
+        "stage": "0159-source-diff-early_3",
+        "start_monotonic_ns": 13551568872402337,
+        "timestamp_ns": 1791781336007661018,
+        "duration_ns": 70756566,
+        "exit_code": 0
+      },
+      {
+        "index": 160,
+        "stage": "0160-source-diff-backbone",
+        "start_monotonic_ns": 13551568880388132,
+        "timestamp_ns": 1791781336015646768,
+        "duration_ns": 75757287,
+        "exit_code": 0
+      },
+      {
+        "index": 161,
+        "stage": "0161-source-diff-early_1",
+        "start_monotonic_ns": 13551568890120079,
+        "timestamp_ns": 1791781336025378776,
+        "duration_ns": 75274294,
+        "exit_code": 0
+      },
+      {
+        "index": 162,
+        "stage": "0162-source-diff-early_2",
+        "start_monotonic_ns": 13551568895094608,
+        "timestamp_ns": 1791781336030353122,
+        "duration_ns": 84442911,
+        "exit_code": 0
+      },
+      {
+        "index": 163,
+        "stage": "0163-oracle-late_3",
+        "start_monotonic_ns": 13551568924708958,
+        "timestamp_ns": 1791781336059967616,
+        "duration_ns": 966398593,
+        "exit_code": 0
+      },
+      {
+        "index": 164,
+        "stage": "0164-oracle-late_2",
+        "start_monotonic_ns": 13551568938225515,
+        "timestamp_ns": 1791781336073484619,
+        "duration_ns": 1071816286,
+        "exit_code": 0
+      },
+      {
+        "index": 165,
+        "stage": "0165-oracle-early_3",
+        "start_monotonic_ns": 13551568944130815,
+        "timestamp_ns": 1791781336079389377,
+        "duration_ns": 917937879,
+        "exit_code": 0
+      },
+      {
+        "index": 166,
+        "stage": "0166-oracle-backbone",
+        "start_monotonic_ns": 13551568958495531,
+        "timestamp_ns": 1791781336093754584,
+        "duration_ns": 748349105,
+        "exit_code": 0
+      },
+      {
+        "index": 167,
+        "stage": "0167-oracle-early_1",
+        "start_monotonic_ns": 13551568966373978,
+        "timestamp_ns": 1791781336101632443,
+        "duration_ns": 967357608,
+        "exit_code": 0
+      },
+      {
+        "index": 168,
+        "stage": "0168-oracle-early_2",
+        "start_monotonic_ns": 13551568981097833,
+        "timestamp_ns": 1791781336116356454,
+        "duration_ns": 960348135,
+        "exit_code": 0
+      },
+      {
+        "index": 169,
+        "stage": "0169-upload-official-late_1",
+        "start_monotonic_ns": 13551569392871440,
+        "timestamp_ns": 1791781336528130338,
+        "duration_ns": 32928750,
+        "exit_code": 0
+      },
+      {
+        "index": 170,
+        "stage": "0170-official-late_1",
+        "start_monotonic_ns": 13551569429924636,
+        "timestamp_ns": 1791781336565183454,
+        "duration_ns": 3524275441,
+        "exit_code": 0
+      },
+      {
+        "index": 171,
+        "stage": "0171-upload-official-backbone",
+        "start_monotonic_ns": 13551569710901465,
+        "timestamp_ns": 1791781336846160426,
+        "duration_ns": 35686505,
+        "exit_code": 0
+      },
+      {
+        "index": 172,
+        "stage": "0172-official-backbone",
+        "start_monotonic_ns": 13551569751455484,
+        "timestamp_ns": 1791781336886714407,
+        "duration_ns": 4074928535,
+        "exit_code": 0
+      },
+      {
+        "index": 173,
+        "stage": "0173-upload-official-early_3",
+        "start_monotonic_ns": 13551569865466562,
+        "timestamp_ns": 1791781337000725898,
+        "duration_ns": 33826141,
+        "exit_code": 0
+      },
+      {
+        "index": 174,
+        "stage": "0174-upload-official-late_3",
+        "start_monotonic_ns": 13551569894438366,
+        "timestamp_ns": 1791781337029697462,
+        "duration_ns": 34358702,
+        "exit_code": 0
+      },
+      {
+        "index": 175,
+        "stage": "0175-official-early_3",
+        "start_monotonic_ns": 13551569903339249,
+        "timestamp_ns": 1791781337038598425,
+        "duration_ns": 5481425459,
+        "exit_code": 0
+      },
+      {
+        "index": 176,
+        "stage": "0176-official-late_3",
+        "start_monotonic_ns": 13551569932461275,
+        "timestamp_ns": 1791781337067720389,
+        "duration_ns": 4285244531,
+        "exit_code": 0
+      },
+      {
+        "index": 177,
+        "stage": "0177-upload-official-early_1",
+        "start_monotonic_ns": 13551569937069545,
+        "timestamp_ns": 1791781337072328511,
+        "duration_ns": 33710517,
+        "exit_code": 0
+      },
+      {
+        "index": 178,
+        "stage": "0178-upload-official-early_2",
+        "start_monotonic_ns": 13551569944359328,
+        "timestamp_ns": 1791781337079618224,
+        "duration_ns": 32470558,
+        "exit_code": 0
+      },
+      {
+        "index": 179,
+        "stage": "0179-official-early_1",
+        "start_monotonic_ns": 13551569974684443,
+        "timestamp_ns": 1791781337109943676,
+        "duration_ns": 4883441744,
+        "exit_code": 0
+      },
+      {
+        "index": 180,
+        "stage": "0180-official-early_2",
+        "start_monotonic_ns": 13551569979923924,
+        "timestamp_ns": 1791781337115182914,
+        "duration_ns": 5157875518,
+        "exit_code": 0
+      },
+      {
+        "index": 181,
+        "stage": "0181-upload-official-late_2",
+        "start_monotonic_ns": 13551570015244476,
+        "timestamp_ns": 1791781337150503912,
+        "duration_ns": 36181094,
+        "exit_code": 0
+      },
+      {
+        "index": 182,
+        "stage": "0182-official-late_2",
+        "start_monotonic_ns": 13551570055573360,
+        "timestamp_ns": 1791781337190832546,
+        "duration_ns": 4335369168,
+        "exit_code": 0
+      },
+      {
+        "index": 183,
+        "stage": "0183-monitor-phase",
+        "start_monotonic_ns": 13551575551031334,
+        "timestamp_ns": 1791781342686290028,
+        "duration_ns": 45760444,
+        "exit_code": 0
+      },
+      {
+        "index": 184,
+        "stage": "0184-monitor-stop",
+        "start_monotonic_ns": 13551575599313650,
+        "timestamp_ns": 1791781342734572346,
+        "duration_ns": 224848600,
+        "exit_code": 0
+      },
+      {
+        "index": 185,
+        "stage": "0185-monitor-reaped",
+        "start_monotonic_ns": 13551575826334461,
+        "timestamp_ns": 1791781342961593530,
+        "duration_ns": 126417137,
+        "exit_code": 0
+      },
+      {
+        "index": 186,
+        "stage": "0186-monitor-download",
+        "start_monotonic_ns": 13551575955481344,
+        "timestamp_ns": 1791781343090740353,
+        "duration_ns": 49998676,
+        "exit_code": 0
+      },
+      {
+        "index": 187,
+        "stage": "0187-delete-owned",
+        "start_monotonic_ns": 13551576012669914,
+        "timestamp_ns": 1791781343147929163,
+        "duration_ns": 193708244,
+        "exit_code": 0
+      },
+      {
+        "index": 188,
+        "stage": "0188-monitor-phase",
+        "start_monotonic_ns": 13551576207141185,
+        "timestamp_ns": 1791781343342399641,
+        "duration_ns": 44268124,
+        "exit_code": 0
+      },
+      {
+        "index": 189,
+        "stage": "0189-monitor-stop",
+        "start_monotonic_ns": 13551576255339649,
+        "timestamp_ns": 1791781343390599428,
+        "duration_ns": 212052894,
+        "exit_code": 0
+      },
+      {
+        "index": 190,
+        "stage": "0190-monitor-reaped",
+        "start_monotonic_ns": 13551576470127525,
+        "timestamp_ns": 1791781343605386635,
+        "duration_ns": 183720498,
+        "exit_code": 0
+      },
+      {
+        "index": 191,
+        "stage": "0191-monitor-download",
+        "start_monotonic_ns": 13551576656567725,
+        "timestamp_ns": 1791781343791826652,
+        "duration_ns": 50090795,
+        "exit_code": 0
+      },
+      {
+        "index": 192,
+        "stage": "0192-delete-owned",
+        "start_monotonic_ns": 13551576713817331,
+        "timestamp_ns": 1791781343849076424,
+        "duration_ns": 168775204,
+        "exit_code": 0
+      },
+      {
+        "index": 193,
+        "stage": "0193-monitor-phase",
+        "start_monotonic_ns": 13551576885427857,
+        "timestamp_ns": 1791781344020686688,
+        "duration_ns": 44097415,
+        "exit_code": 0
+      },
+      {
+        "index": 194,
+        "stage": "0194-monitor-stop",
+        "start_monotonic_ns": 13551576933682308,
+        "timestamp_ns": 1791781344068941204,
+        "duration_ns": 246204198,
+        "exit_code": 0
+      },
+      {
+        "index": 195,
+        "stage": "0195-monitor-reaped",
+        "start_monotonic_ns": 13551577182551097,
+        "timestamp_ns": 1791781344317809951,
+        "duration_ns": 142624422,
+        "exit_code": 0
+      },
+      {
+        "index": 196,
+        "stage": "0196-monitor-download",
+        "start_monotonic_ns": 13551577327862831,
+        "timestamp_ns": 1791781344463121657,
+        "duration_ns": 46150610,
+        "exit_code": 0
+      },
+      {
+        "index": 197,
+        "stage": "0197-delete-owned",
+        "start_monotonic_ns": 13551577378523215,
+        "timestamp_ns": 1791781344513782053,
+        "duration_ns": 172808000,
+        "exit_code": 0
+      },
+      {
+        "index": 198,
+        "stage": "0198-monitor-phase",
+        "start_monotonic_ns": 13551577552160455,
+        "timestamp_ns": 1791781344687419246,
+        "duration_ns": 59393678,
+        "exit_code": 0
+      },
+      {
+        "index": 199,
+        "stage": "0199-monitor-stop",
+        "start_monotonic_ns": 13551577613719752,
+        "timestamp_ns": 1791781344748978480,
+        "duration_ns": 243332483,
+        "exit_code": 0
+      },
+      {
+        "index": 200,
+        "stage": "0200-monitor-reaped",
+        "start_monotonic_ns": 13551577857702042,
+        "timestamp_ns": 1791781344992960610,
+        "duration_ns": 124697895,
+        "exit_code": 0
+      },
+      {
+        "index": 201,
+        "stage": "0201-monitor-download",
+        "start_monotonic_ns": 13551577983111888,
+        "timestamp_ns": 1791781345118370299,
+        "duration_ns": 48463703,
+        "exit_code": 0
+      },
+      {
+        "index": 202,
+        "stage": "0202-delete-owned",
+        "start_monotonic_ns": 13551578036289127,
+        "timestamp_ns": 1791781345171548129,
+        "duration_ns": 289995863,
+        "exit_code": 0
+      },
+      {
+        "index": 203,
+        "stage": "0203-monitor-phase",
+        "start_monotonic_ns": 13551578327059894,
+        "timestamp_ns": 1791781345462318367,
+        "duration_ns": 56367894,
+        "exit_code": 0
+      },
+      {
+        "index": 204,
+        "stage": "0204-monitor-stop",
+        "start_monotonic_ns": 13551578385495826,
+        "timestamp_ns": 1791781345520754465,
+        "duration_ns": 264993097,
+        "exit_code": 0
+      },
+      {
+        "index": 205,
+        "stage": "0205-monitor-reaped",
+        "start_monotonic_ns": 13551578653536408,
+        "timestamp_ns": 1791781345788795477,
+        "duration_ns": 120580279,
+        "exit_code": 0
+      },
+      {
+        "index": 206,
+        "stage": "0206-monitor-download",
+        "start_monotonic_ns": 13551578776987587,
+        "timestamp_ns": 1791781345912246511,
+        "duration_ns": 52102468,
+        "exit_code": 0
+      },
+      {
+        "index": 207,
+        "stage": "0207-delete-owned",
+        "start_monotonic_ns": 13551578834161757,
+        "timestamp_ns": 1791781345969420976,
+        "duration_ns": 164135643,
+        "exit_code": 0
+      },
+      {
+        "index": 208,
+        "stage": "0208-monitor-phase",
+        "start_monotonic_ns": 13551578999155730,
+        "timestamp_ns": 1791781346134414351,
+        "duration_ns": 54953415,
+        "exit_code": 0
+      },
+      {
+        "index": 209,
+        "stage": "0209-monitor-stop",
+        "start_monotonic_ns": 13551579055993131,
+        "timestamp_ns": 1791781346191251717,
+        "duration_ns": 240544556,
+        "exit_code": 0
+      },
+      {
+        "index": 210,
+        "stage": "0210-monitor-reaped",
+        "start_monotonic_ns": 13551579297254279,
+        "timestamp_ns": 1791781346432512781,
+        "duration_ns": 120275444,
+        "exit_code": 0
+      },
+      {
+        "index": 211,
+        "stage": "0211-monitor-download",
+        "start_monotonic_ns": 13551579418247711,
+        "timestamp_ns": 1791781346553506091,
+        "duration_ns": 43703790,
+        "exit_code": 0
+      },
+      {
+        "index": 212,
+        "stage": "0212-delete-owned",
+        "start_monotonic_ns": 13551579463207239,
+        "timestamp_ns": 1791781346598465668,
+        "duration_ns": 174348592,
+        "exit_code": 0
+      },
+      {
+        "index": 213,
+        "stage": "0213-monitor-phase",
+        "start_monotonic_ns": 13551579638382616,
+        "timestamp_ns": 1791781346773641076,
+        "duration_ns": 90439265,
+        "exit_code": 0
+      },
+      {
+        "index": 214,
+        "stage": "0214-monitor-stop",
+        "start_monotonic_ns": 13551579730693393,
+        "timestamp_ns": 1791781346865952019,
+        "duration_ns": 262054295,
+        "exit_code": 0
+      },
+      {
+        "index": 215,
+        "stage": "0215-monitor-reaped",
+        "start_monotonic_ns": 13551579995980963,
+        "timestamp_ns": 1791781347131239848,
+        "duration_ns": 134277579,
+        "exit_code": 0
+      },
+      {
+        "index": 216,
+        "stage": "0216-monitor-download",
+        "start_monotonic_ns": 13551580133189949,
+        "timestamp_ns": 1791781347268448782,
+        "duration_ns": 45567256,
+        "exit_code": 0
+      },
+      {
+        "index": 217,
+        "stage": "0217-delete-owned",
+        "start_monotonic_ns": 13551580183870512,
+        "timestamp_ns": 1791781347319129458,
+        "duration_ns": 288320716,
+        "exit_code": 0
+      },
+      {
+        "index": 218,
+        "stage": "0218-delete-snapshot",
+        "start_monotonic_ns": 13551580472876747,
+        "timestamp_ns": 1791781347608135348,
+        "duration_ns": 15327477,
+        "exit_code": 0
+      },
+      {
+        "index": 219,
+        "stage": "0219-delete-snapshot",
+        "start_monotonic_ns": 13551580488839939,
+        "timestamp_ns": 1791781347624098327,
+        "duration_ns": 13205089,
+        "exit_code": 0
+      },
+      {
+        "index": 220,
+        "stage": "0220-list-after",
+        "start_monotonic_ns": 13551580502671831,
+        "timestamp_ns": 1791781347637930235,
+        "duration_ns": 12552137,
+        "exit_code": 0
+      }
+    ]
+  },
+  "guest_action_sum_per_role_ns": {
+    "backbone": 13118078698,
+    "early_1": 1905833372,
+    "early_2": 1815271111,
+    "early_3": 3540422973,
+    "late_1": 11326198980,
+    "late_2": 4489361380,
+    "late_3": 10174873670
+  },
+  "guest_runtime": [
+    {
+      "sandbox_id": "01a12e7c-dbd2-75b2-b0c3-deff99eb58cf",
+      "role": "backbone",
+      "sample_count": 398,
+      "observed_nonfree_peak_bytes": 632832000,
+      "components_at_peak_bytes": {
+        "Cached": 189923328,
+        "AnonPages": 322985984,
+        "Buffers": 45314048,
+        "Shmem": 1089536,
+        "Slab": 45518848
+      },
+      "components_at_peak_percent": {
+        "Cached": 30.011650485436892,
+        "AnonPages": 51.038187702265375,
+        "Buffers": 7.160517799352751,
+        "Shmem": 0.17216828478964402,
+        "Slab": 7.1928802588996765
+      },
+      "cached_min_bytes": 8937472,
+      "cached_observed_peak_bytes": 209510400,
+      "slab_status": "MEASURED",
+      "sessions": [
+        {
+          "stop_reason": "checkpoint",
+          "status": "PASS",
+          "error": null,
+          "pid": 362,
+          "start_ticks": "92",
+          "boot_id": "8e0b5147-ed5e-4c94-aa1f-0dc106d01579",
+          "sandbox_id": "01a12e7c-dbd2-75b2-b0c3-deff99eb58cf",
+          "role": "backbone",
+          "session_id": "a8acb872-6cc8-466f-a474-5bcfbefd4b86",
+          "samples": 45,
+          "interval_seconds": 0.1,
+          "elapsed_ns": 4382033084,
+          "cpu_user_seconds": 0.134375,
+          "cpu_system_seconds": 0.046203,
+          "maxrss_kib": 16884,
+          "scope": "guest logical counters; collector maxrss is not private memory; no physical deduplication",
+          "performance_version": 1,
+          "clock_ticks": 100,
+          "performance_scope": "guest-wide CPU (guest ticks not double counted), per-device diskstats (512-byte sectors); includes sampler and other guest work"
+        },
+        {
+          "stop_reason": "checkpoint",
+          "status": "PASS",
+          "error": null,
+          "pid": 1236,
+          "start_ticks": "785",
+          "boot_id": "8e0b5147-ed5e-4c94-aa1f-0dc106d01579",
+          "sandbox_id": "01a12e7c-dbd2-75b2-b0c3-deff99eb58cf",
+          "role": "backbone",
+          "session_id": "5b2e9e60-bcef-4d41-bb9f-94fa20445837",
+          "samples": 60,
+          "interval_seconds": 0.1,
+          "elapsed_ns": 5928420146,
+          "cpu_user_seconds": 0.156379,
+          "cpu_system_seconds": 0.052134,
+          "maxrss_kib": 16840,
+          "scope": "guest logical counters; collector maxrss is not private memory; no physical deduplication",
+          "performance_version": 1,
+          "clock_ticks": 100,
+          "performance_scope": "guest-wide CPU (guest ticks not double counted), per-device diskstats (512-byte sectors); includes sampler and other guest work"
+        },
+        {
+          "stop_reason": "cleanup",
+          "status": "PASS",
+          "error": null,
+          "pid": 1793,
+          "start_ticks": "1557",
+          "boot_id": "8e0b5147-ed5e-4c94-aa1f-0dc106d01579",
+          "sandbox_id": "01a12e7c-dbd2-75b2-b0c3-deff99eb58cf",
+          "role": "backbone",
+          "session_id": "87ed67df-5be0-4b27-a681-cbe1f533b993",
+          "samples": 293,
+          "interval_seconds": 0.1,
+          "elapsed_ns": 29823634557,
+          "cpu_user_seconds": 0.594174,
+          "cpu_system_seconds": 0.148918,
+          "maxrss_kib": 16368,
+          "scope": "guest logical counters; collector maxrss is not private memory; no physical deduplication",
+          "performance_version": 1,
+          "clock_ticks": 100,
+          "performance_scope": "guest-wide CPU (guest ticks not double counted), per-device diskstats (512-byte sectors); includes sampler and other guest work"
+        }
+      ]
+    },
+    {
+      "sandbox_id": "01a12e7d-39de-7441-82f5-c60e57d1d334",
+      "role": "early_2",
+      "sample_count": 214,
+      "observed_nonfree_peak_bytes": 458715136,
+      "components_at_peak_bytes": {
+        "Cached": 127733760,
+        "AnonPages": 223891456,
+        "Buffers": 30994432,
+        "Shmem": 1089536,
+        "Slab": 46309376
+      },
+      "components_at_peak_percent": {
+        "Cached": 27.8459876240055,
+        "AnonPages": 48.808386388191906,
+        "Buffers": 6.756792956576867,
+        "Shmem": 0.23751908635515354,
+        "Slab": 10.095454098990098
+      },
+      "cached_min_bytes": 7045120,
+      "cached_observed_peak_bytes": 196009984,
+      "slab_status": "MEASURED",
+      "sessions": [
+        {
+          "stop_reason": "cleanup",
+          "status": "PASS",
+          "error": null,
+          "pid": 1206,
+          "start_ticks": "598",
+          "boot_id": "8e0b5147-ed5e-4c94-aa1f-0dc106d01579",
+          "sandbox_id": "01a12e7d-39de-7441-82f5-c60e57d1d334",
+          "role": "early_2",
+          "session_id": "91678fcb-38d6-4067-a8ab-fd2cfe59fda0",
+          "samples": 214,
+          "interval_seconds": 0.1,
+          "elapsed_ns": 21766778446,
+          "cpu_user_seconds": 0.416298,
+          "cpu_system_seconds": 0.16732999999999998,
+          "maxrss_kib": 16348,
+          "scope": "guest logical counters; collector maxrss is not private memory; no physical deduplication",
+          "performance_version": 1,
+          "clock_ticks": 100,
+          "performance_scope": "guest-wide CPU (guest ticks not double counted), per-device diskstats (512-byte sectors); includes sampler and other guest work"
+        }
+      ]
+    },
+    {
+      "sandbox_id": "01a12e7d-39dd-7270-b285-7cdf18b3b81b",
+      "role": "early_1",
+      "sample_count": 220,
+      "observed_nonfree_peak_bytes": 473894912,
+      "components_at_peak_bytes": {
+        "Cached": 150245376,
+        "AnonPages": 213467136,
+        "Buffers": 38813696,
+        "Shmem": 1089536,
+        "Slab": 46575616
+      },
+      "components_at_peak_percent": {
+        "Cached": 31.704365713890592,
+        "AnonPages": 45.04524749993517,
+        "Buffers": 8.190359300586877,
+        "Shmem": 0.22991088792276376,
+        "Slab": 9.828258295374988
+      },
+      "cached_min_bytes": 6299648,
+      "cached_observed_peak_bytes": 196067328,
+      "slab_status": "MEASURED",
+      "sessions": [
+        {
+          "stop_reason": "cleanup",
+          "status": "PASS",
+          "error": null,
+          "pid": 1206,
+          "start_ticks": "603",
+          "boot_id": "8e0b5147-ed5e-4c94-aa1f-0dc106d01579",
+          "sandbox_id": "01a12e7d-39dd-7270-b285-7cdf18b3b81b",
+          "role": "early_1",
+          "session_id": "110938cd-4c8a-40b7-9d50-195500e53987",
+          "samples": 220,
+          "interval_seconds": 0.1,
+          "elapsed_ns": 22410862788,
+          "cpu_user_seconds": 0.47193599999999997,
+          "cpu_system_seconds": 0.178774,
+          "maxrss_kib": 16292,
+          "scope": "guest logical counters; collector maxrss is not private memory; no physical deduplication",
+          "performance_version": 1,
+          "clock_ticks": 100,
+          "performance_scope": "guest-wide CPU (guest ticks not double counted), per-device diskstats (512-byte sectors); includes sampler and other guest work"
+        }
+      ]
+    },
+    {
+      "sandbox_id": "01a12e7d-39e0-7f32-a275-4b7b44f126f5",
+      "role": "early_3",
+      "sample_count": 228,
+      "observed_nonfree_peak_bytes": 473395200,
+      "components_at_peak_bytes": {
+        "Cached": 142934016,
+        "AnonPages": 215425024,
+        "Buffers": 38719488,
+        "Shmem": 1089536,
+        "Slab": 46632960
+      },
+      "components_at_peak_percent": {
+        "Cached": 30.19338092147956,
+        "AnonPages": 45.50638113778931,
+        "Buffers": 8.17910447761194,
+        "Shmem": 0.2301535799264547,
+        "Slab": 9.850746268656716
+      },
+      "cached_min_bytes": 6402048,
+      "cached_observed_peak_bytes": 196198400,
+      "slab_status": "MEASURED",
+      "sessions": [
+        {
+          "stop_reason": "cleanup",
+          "status": "PASS",
+          "error": null,
+          "pid": 1206,
+          "start_ticks": "597",
+          "boot_id": "8e0b5147-ed5e-4c94-aa1f-0dc106d01579",
+          "sandbox_id": "01a12e7d-39e0-7f32-a275-4b7b44f126f5",
+          "role": "early_3",
+          "session_id": "746207c2-b124-461a-aa0a-6d2c5fa905c5",
+          "samples": 228,
+          "interval_seconds": 0.1,
+          "elapsed_ns": 23167218461,
+          "cpu_user_seconds": 0.442818,
+          "cpu_system_seconds": 0.160829,
+          "maxrss_kib": 16940,
+          "scope": "guest logical counters; collector maxrss is not private memory; no physical deduplication",
+          "performance_version": 1,
+          "clock_ticks": 100,
+          "performance_scope": "guest-wide CPU (guest ticks not double counted), per-device diskstats (512-byte sectors); includes sampler and other guest work"
+        }
+      ]
+    },
+    {
+      "sandbox_id": "01a12e7d-3f2d-7a10-9e6c-c503c4a8f736",
+      "role": "late_3",
+      "sample_count": 223,
+      "observed_nonfree_peak_bytes": 651390976,
+      "components_at_peak_bytes": {
+        "Cached": 206008320,
+        "AnonPages": 326242304,
+        "Buffers": 41996288,
+        "Shmem": 1089536,
+        "Slab": 45957120
+      },
+      "components_at_peak_percent": {
+        "Cached": 31.625909413887857,
+        "AnonPages": 50.08394589734077,
+        "Buffers": 6.447170677415095,
+        "Shmem": 0.16726298646175902,
+        "Slab": 7.055228225943369
+      },
+      "cached_min_bytes": 22409216,
+      "cached_observed_peak_bytes": 211992576,
+      "slab_status": "MEASURED",
+      "sessions": [
+        {
+          "stop_reason": "cleanup",
+          "status": "PASS",
+          "error": null,
+          "pid": 1777,
+          "start_ticks": "1436",
+          "boot_id": "8e0b5147-ed5e-4c94-aa1f-0dc106d01579",
+          "sandbox_id": "01a12e7d-3f2d-7a10-9e6c-c503c4a8f736",
+          "role": "late_3",
+          "session_id": "043ff7af-92c2-4e94-bf18-f77e12d3a4e2",
+          "samples": 223,
+          "interval_seconds": 0.1,
+          "elapsed_ns": 22668615110,
+          "cpu_user_seconds": 0.41439699999999996,
+          "cpu_system_seconds": 0.16181199999999998,
+          "maxrss_kib": 17020,
+          "scope": "guest logical counters; collector maxrss is not private memory; no physical deduplication",
+          "performance_version": 1,
+          "clock_ticks": 100,
+          "performance_scope": "guest-wide CPU (guest ticks not double counted), per-device diskstats (512-byte sectors); includes sampler and other guest work"
+        }
+      ]
+    },
+    {
+      "sandbox_id": "01a12e7d-3f2d-7a10-9e6c-c4e912d4b9e0",
+      "role": "late_2",
+      "sample_count": 229,
+      "observed_nonfree_peak_bytes": 536821760,
+      "components_at_peak_bytes": {
+        "Cached": 211619840,
+        "AnonPages": 198799360,
+        "Buffers": 45359104,
+        "Shmem": 1089536,
+        "Slab": 45658112
+      },
+      "components_at_peak_percent": {
+        "Cached": 39.4208759346864,
+        "AnonPages": 37.032656798412944,
+        "Buffers": 8.449565084694033,
+        "Shmem": 0.20296047611780862,
+        "Slab": 8.505264764230123
+      },
+      "cached_min_bytes": 19611648,
+      "cached_observed_peak_bytes": 211824640,
+      "slab_status": "MEASURED",
+      "sessions": [
+        {
+          "stop_reason": "cleanup",
+          "status": "PASS",
+          "error": null,
+          "pid": 1777,
+          "start_ticks": "1433",
+          "boot_id": "8e0b5147-ed5e-4c94-aa1f-0dc106d01579",
+          "sandbox_id": "01a12e7d-3f2d-7a10-9e6c-c4e912d4b9e0",
+          "role": "late_2",
+          "session_id": "00f61609-7a55-425d-a94b-99d33e2c14ac",
+          "samples": 229,
+          "interval_seconds": 0.1,
+          "elapsed_ns": 23325390764,
+          "cpu_user_seconds": 0.42377499999999996,
+          "cpu_system_seconds": 0.176342,
+          "maxrss_kib": 16880,
+          "scope": "guest logical counters; collector maxrss is not private memory; no physical deduplication",
+          "performance_version": 1,
+          "clock_ticks": 100,
+          "performance_scope": "guest-wide CPU (guest ticks not double counted), per-device diskstats (512-byte sectors); includes sampler and other guest work"
+        }
+      ]
+    },
+    {
+      "sandbox_id": "01a12e7d-3f2d-7a10-9e6c-c4ff2bc92f48",
+      "role": "late_1",
+      "sample_count": 236,
+      "observed_nonfree_peak_bytes": 733851648,
+      "components_at_peak_bytes": {
+        "Cached": 211963904,
+        "AnonPages": 400596992,
+        "Buffers": 44949504,
+        "Shmem": 1089536,
+        "Slab": 45977600
+      },
+      "components_at_peak_percent": {
+        "Cached": 28.883753900079817,
+        "AnonPages": 54.58827994619425,
+        "Buffers": 6.125148607692436,
+        "Shmem": 0.14846815469711938,
+        "Slab": 6.265244498026936
+      },
+      "cached_min_bytes": 11378688,
+      "cached_observed_peak_bytes": 271974400,
+      "slab_status": "MEASURED",
+      "sessions": [
+        {
+          "stop_reason": "cleanup",
+          "status": "PASS",
+          "error": null,
+          "pid": 1778,
+          "start_ticks": "1436",
+          "boot_id": "8e0b5147-ed5e-4c94-aa1f-0dc106d01579",
+          "sandbox_id": "01a12e7d-3f2d-7a10-9e6c-c4ff2bc92f48",
+          "role": "late_1",
+          "session_id": "0b64f1a3-3f59-4ef2-9fe9-1fd099eafb71",
+          "samples": 236,
+          "interval_seconds": 0.1,
+          "elapsed_ns": 23950556782,
+          "cpu_user_seconds": 0.465474,
+          "cpu_system_seconds": 0.15040299999999998,
+          "maxrss_kib": 16940,
+          "scope": "guest logical counters; collector maxrss is not private memory; no physical deduplication",
+          "performance_version": 1,
+          "clock_ticks": 100,
+          "performance_scope": "guest-wide CPU (guest ticks not double counted), per-device diskstats (512-byte sectors); includes sampler and other guest work"
+        }
+      ]
+    }
+  ],
+  "performance": [
+    {
+      "sandbox_id": "01a12e7c-dbd2-75b2-b0c3-deff99eb58cf",
+      "role": "backbone",
+      "guest_cpu_status": "MEASURED",
+      "guest_io_status": "MEASURED",
+      "host_vmm_status": "MEASURED",
+      "guest_devices": {
+        "loop0": {
+          "major": "7",
+          "minor": "0",
+          "is_partition": "0",
+          "session_deltas": [
+            {
+              "read_bytes": 14336,
+              "write_bytes": 0
+            },
+            {
+              "read_bytes": 0,
+              "write_bytes": 0
+            },
+            {
+              "read_bytes": 0,
+              "write_bytes": 0
+            }
+          ],
+          "invalid_intervals": 0
+        },
+        "loop1": {
+          "major": "7",
+          "minor": "1",
+          "is_partition": "0",
+          "session_deltas": [
+            {
+              "read_bytes": 0,
+              "write_bytes": 0
+            },
+            {
+              "read_bytes": 0,
+              "write_bytes": 0
+            },
+            {
+              "read_bytes": 0,
+              "write_bytes": 0
+            }
+          ],
+          "invalid_intervals": 0
+        },
+        "loop2": {
+          "major": "7",
+          "minor": "2",
+          "is_partition": "0",
+          "session_deltas": [
+            {
+              "read_bytes": 0,
+              "write_bytes": 0
+            },
+            {
+              "read_bytes": 0,
+              "write_bytes": 0
+            },
+            {
+              "read_bytes": 0,
+              "write_bytes": 0
+            }
+          ],
+          "invalid_intervals": 0
+        },
+        "loop3": {
+          "major": "7",
+          "minor": "3",
+          "is_partition": "0",
+          "session_deltas": [
+            {
+              "read_bytes": 0,
+              "write_bytes": 0
+            },
+            {
+              "read_bytes": 0,
+              "write_bytes": 0
+            },
+            {
+              "read_bytes": 0,
+              "write_bytes": 0
+            }
+          ],
+          "invalid_intervals": 0
+        },
+        "loop4": {
+          "major": "7",
+          "minor": "4",
+          "is_partition": "0",
+          "session_deltas": [
+            {
+              "read_bytes": 0,
+              "write_bytes": 0
+            },
+            {
+              "read_bytes": 0,
+              "write_bytes": 0
+            },
+            {
+              "read_bytes": 0,
+              "write_bytes": 0
+            }
+          ],
+          "invalid_intervals": 0
+        },
+        "loop5": {
+          "major": "7",
+          "minor": "5",
+          "is_partition": "0",
+          "session_deltas": [
+            {
+              "read_bytes": 0,
+              "write_bytes": 0
+            },
+            {
+              "read_bytes": 0,
+              "write_bytes": 0
+            },
+            {
+              "read_bytes": 0,
+              "write_bytes": 0
+            }
+          ],
+          "invalid_intervals": 0
+        },
+        "loop6": {
+          "major": "7",
+          "minor": "6",
+          "is_partition": "0",
+          "session_deltas": [
+            {
+              "read_bytes": 0,
+              "write_bytes": 0
+            },
+            {
+              "read_bytes": 0,
+              "write_bytes": 0
+            },
+            {
+              "read_bytes": 0,
+              "write_bytes": 0
+            }
+          ],
+          "invalid_intervals": 0
+        },
+        "loop7": {
+          "major": "7",
+          "minor": "7",
+          "is_partition": "0",
+          "session_deltas": [
+            {
+              "read_bytes": 0,
+              "write_bytes": 0
+            },
+            {
+              "read_bytes": 0,
+              "write_bytes": 0
+            },
+            {
+              "read_bytes": 0,
+              "write_bytes": 0
+            }
+          ],
+          "invalid_intervals": 0
+        },
+        "vda": {
+          "major": "254",
+          "minor": "0",
+          "is_partition": "0",
+          "session_deltas": [
+            {
+              "read_bytes": 1032192,
+              "write_bytes": 0
+            },
+            {
+              "read_bytes": 0,
+              "write_bytes": 0
+            },
+            {
+              "read_bytes": 11206656,
+              "write_bytes": 0
+            }
+          ],
+          "invalid_intervals": 0
+        },
+        "vdb": {
+          "major": "254",
+          "minor": "16",
+          "is_partition": "0",
+          "session_deltas": [
+            {
+              "read_bytes": 169398272,
+              "write_bytes": 1372160
+            },
+            {
+              "read_bytes": 31358976,
+              "write_bytes": 438272
+            },
+            {
+              "read_bytes": 225574912,
+              "write_bytes": 10792960
+            }
+          ],
+          "invalid_intervals": 0
+        },
+        "vdc": {
+          "major": "254",
+          "minor": "32",
+          "is_partition": "0",
+          "session_deltas": [
+            {
+              "read_bytes": 4096,
+              "write_bytes": 0
+            },
+            {
+              "read_bytes": 0,
+              "write_bytes": 0
+            },
+            {
+              "read_bytes": 0,
+              "write_bytes": 0
+            }
+          ],
+          "invalid_intervals": 0
+        },
+        "vdd": {
+          "major": "254",
+          "minor": "48",
+          "is_partition": "0",
+          "session_deltas": [
+            {
+              "read_bytes": 4096,
+              "write_bytes": 0
+            },
+            {
+              "read_bytes": 0,
+              "write_bytes": 0
+            },
+            {
+              "read_bytes": 0,
+              "write_bytes": 0
+            }
+          ],
+          "invalid_intervals": 0
+        },
+        "vde": {
+          "major": "254",
+          "minor": "64",
+          "is_partition": "0",
+          "session_deltas": [
+            {
+              "read_bytes": 4096,
+              "write_bytes": 0
+            },
+            {
+              "read_bytes": 0,
+              "write_bytes": 0
+            },
+            {
+              "read_bytes": 0,
+              "write_bytes": 0
+            }
+          ],
+          "invalid_intervals": 0
+        },
+        "vdf": {
+          "major": "254",
+          "minor": "80",
+          "is_partition": "0",
+          "session_deltas": [
+            {
+              "read_bytes": 4096,
+              "write_bytes": 0
+            },
+            {
+              "read_bytes": 0,
+              "write_bytes": 0
+            },
+            {
+              "read_bytes": 0,
+              "write_bytes": 0
+            }
+          ],
+          "invalid_intervals": 0
+        }
+      },
+      "host_sessions": [
+        {
+          "session_id": "a8acb872-6cc8-466f-a474-5bcfbefd4b86",
+          "vmm_identity": {
+            "pid": 884621,
+            "start_ticks": "1355153007",
+            "boot_id": "84bfafc3-cdbf-465e-bebe-030c8449394e",
+            "api_socket": "/proc/884621/root/workspace/env/firecracker-work/agentenv-fc-O7AgGW/firecracker.socket",
+            "cgroup": "/system.slice/docker-099e29dd005d979978194f73c54751680c6f28348979edc112980059cdda296e.scope",
+            "binding_source": "owned service cgroup + Firecracker GET /mmds instanceID"
+          },
+          "sample_count": 43,
+          "pss_sample_count": 5,
+          "cpu_invalid_intervals": 0,
+          "io_invalid_intervals": 0,
+          "observed_rss_peak_bytes": 581750784,
+          "observed_pss_peak_bytes": 581693440,
+          "observed_cpu_peak_percent": 239.8212875747122,
+          "max_scan_duration_ns": 12694298,
+          "max_pss_scan_duration_ns": 12146062,
+          "collector_cpu_seconds": 0.075241
+        },
+        {
+          "session_id": "5b2e9e60-bcef-4d41-bb9f-94fa20445837",
+          "vmm_identity": {
+            "pid": 884621,
+            "start_ticks": "1355153007",
+            "boot_id": "84bfafc3-cdbf-465e-bebe-030c8449394e",
+            "api_socket": "/proc/884621/root/workspace/env/firecracker-work/agentenv-fc-O7AgGW/firecracker.socket",
+            "cgroup": "/system.slice/docker-099e29dd005d979978194f73c54751680c6f28348979edc112980059cdda296e.scope",
+            "binding_source": "owned service cgroup + Firecracker GET /mmds instanceID"
+          },
+          "sample_count": 60,
+          "pss_sample_count": 6,
+          "cpu_invalid_intervals": 0,
+          "io_invalid_intervals": 0,
+          "observed_rss_peak_bytes": 727207936,
+          "observed_pss_peak_bytes": 689917952,
+          "observed_cpu_peak_percent": 219.83215375396577,
+          "max_scan_duration_ns": 12438989,
+          "max_pss_scan_duration_ns": 11894571,
+          "collector_cpu_seconds": 0.092536
+        },
+        {
+          "session_id": "87ed67df-5be0-4b27-a681-cbe1f533b993",
+          "vmm_identity": {
+            "pid": 884621,
+            "start_ticks": "1355153007",
+            "boot_id": "84bfafc3-cdbf-465e-bebe-030c8449394e",
+            "api_socket": "/proc/884621/root/workspace/env/firecracker-work/agentenv-fc-O7AgGW/firecracker.socket",
+            "cgroup": "/system.slice/docker-099e29dd005d979978194f73c54751680c6f28348979edc112980059cdda296e.scope",
+            "binding_source": "owned service cgroup + Firecracker GET /mmds instanceID"
+          },
+          "sample_count": 297,
+          "pss_sample_count": 30,
+          "cpu_invalid_intervals": 0,
+          "io_invalid_intervals": 0,
+          "observed_rss_peak_bytes": 807649280,
+          "observed_pss_peak_bytes": 807591936,
+          "observed_cpu_peak_percent": 229.8173549553228,
+          "max_scan_duration_ns": 16077728,
+          "max_pss_scan_duration_ns": 15139791,
+          "collector_cpu_seconds": 0.606835
+        }
+      ],
+      "guest_cpu_invalid_intervals": 0,
+      "guest_cpu_observed_peak_percent": 100.0
+    },
+    {
+      "sandbox_id": "01a12e7d-39de-7441-82f5-c60e57d1d334",
+      "role": "early_2",
+      "guest_cpu_status": "MEASURED",
+      "guest_io_status": "MEASURED",
+      "host_vmm_status": "MEASURED",
+      "guest_devices": {
+        "loop0": {
+          "major": "7",
+          "minor": "0",
+          "is_partition": "0",
+          "session_deltas": [
+            {
+              "read_bytes": 0,
+              "write_bytes": 0
+            }
+          ],
+          "invalid_intervals": 0
+        },
+        "loop1": {
+          "major": "7",
+          "minor": "1",
+          "is_partition": "0",
+          "session_deltas": [
+            {
+              "read_bytes": 0,
+              "write_bytes": 0
+            }
+          ],
+          "invalid_intervals": 0
+        },
+        "loop2": {
+          "major": "7",
+          "minor": "2",
+          "is_partition": "0",
+          "session_deltas": [
+            {
+              "read_bytes": 0,
+              "write_bytes": 0
+            }
+          ],
+          "invalid_intervals": 0
+        },
+        "loop3": {
+          "major": "7",
+          "minor": "3",
+          "is_partition": "0",
+          "session_deltas": [
+            {
+              "read_bytes": 0,
+              "write_bytes": 0
+            }
+          ],
+          "invalid_intervals": 0
+        },
+        "loop4": {
+          "major": "7",
+          "minor": "4",
+          "is_partition": "0",
+          "session_deltas": [
+            {
+              "read_bytes": 0,
+              "write_bytes": 0
+            }
+          ],
+          "invalid_intervals": 0
+        },
+        "loop5": {
+          "major": "7",
+          "minor": "5",
+          "is_partition": "0",
+          "session_deltas": [
+            {
+              "read_bytes": 0,
+              "write_bytes": 0
+            }
+          ],
+          "invalid_intervals": 0
+        },
+        "loop6": {
+          "major": "7",
+          "minor": "6",
+          "is_partition": "0",
+          "session_deltas": [
+            {
+              "read_bytes": 0,
+              "write_bytes": 0
+            }
+          ],
+          "invalid_intervals": 0
+        },
+        "loop7": {
+          "major": "7",
+          "minor": "7",
+          "is_partition": "0",
+          "session_deltas": [
+            {
+              "read_bytes": 0,
+              "write_bytes": 0
+            }
+          ],
+          "invalid_intervals": 0
+        },
+        "vda": {
+          "major": "254",
+          "minor": "0",
+          "is_partition": "0",
+          "session_deltas": [
+            {
+              "read_bytes": 9158656,
+              "write_bytes": 0
+            }
+          ],
+          "invalid_intervals": 0
+        },
+        "vdb": {
+          "major": "254",
+          "minor": "16",
+          "is_partition": "0",
+          "session_deltas": [
+            {
+              "read_bytes": 208052224,
+              "write_bytes": 5869568
+            }
+          ],
+          "invalid_intervals": 0
+        },
+        "vdc": {
+          "major": "254",
+          "minor": "32",
+          "is_partition": "0",
+          "session_deltas": [
+            {
+              "read_bytes": 0,
+              "write_bytes": 0
+            }
+          ],
+          "invalid_intervals": 0
+        },
+        "vdd": {
+          "major": "254",
+          "minor": "48",
+          "is_partition": "0",
+          "session_deltas": [
+            {
+              "read_bytes": 0,
+              "write_bytes": 0
+            }
+          ],
+          "invalid_intervals": 0
+        },
+        "vde": {
+          "major": "254",
+          "minor": "64",
+          "is_partition": "0",
+          "session_deltas": [
+            {
+              "read_bytes": 0,
+              "write_bytes": 0
+            }
+          ],
+          "invalid_intervals": 0
+        },
+        "vdf": {
+          "major": "254",
+          "minor": "80",
+          "is_partition": "0",
+          "session_deltas": [
+            {
+              "read_bytes": 0,
+              "write_bytes": 0
+            }
+          ],
+          "invalid_intervals": 0
+        }
+      },
+      "host_sessions": [
+        {
+          "session_id": "91678fcb-38d6-4067-a8ab-fd2cfe59fda0",
+          "vmm_identity": {
+            "pid": 886476,
+            "start_ticks": "1355155423",
+            "boot_id": "84bfafc3-cdbf-465e-bebe-030c8449394e",
+            "api_socket": "/proc/886476/root/workspace/env/firecracker-work/agentenv-fc-AHliV8/firecracker.socket",
+            "cgroup": "/system.slice/docker-099e29dd005d979978194f73c54751680c6f28348979edc112980059cdda296e.scope",
+            "binding_source": "owned service cgroup + Firecracker GET /mmds instanceID"
+          },
+          "sample_count": 217,
+          "pss_sample_count": 22,
+          "cpu_invalid_intervals": 0,
+          "io_invalid_intervals": 0,
+          "observed_rss_peak_bytes": 519098368,
+          "observed_pss_peak_bytes": 456343552,
+          "observed_cpu_peak_percent": 219.81383526663598,
+          "max_scan_duration_ns": 9879141,
+          "max_pss_scan_duration_ns": 9181941,
+          "collector_cpu_seconds": 0.329612
+        }
+      ],
+      "guest_cpu_invalid_intervals": 0,
+      "guest_cpu_observed_peak_percent": 80.0
+    },
+    {
+      "sandbox_id": "01a12e7d-39dd-7270-b285-7cdf18b3b81b",
+      "role": "early_1",
+      "guest_cpu_status": "MEASURED",
+      "guest_io_status": "MEASURED",
+      "host_vmm_status": "MEASURED",
+      "guest_devices": {
+        "loop0": {
+          "major": "7",
+          "minor": "0",
+          "is_partition": "0",
+          "session_deltas": [
+            {
+              "read_bytes": 0,
+              "write_bytes": 0
+            }
+          ],
+          "invalid_intervals": 0
+        },
+        "loop1": {
+          "major": "7",
+          "minor": "1",
+          "is_partition": "0",
+          "session_deltas": [
+            {
+              "read_bytes": 0,
+              "write_bytes": 0
+            }
+          ],
+          "invalid_intervals": 0
+        },
+        "loop2": {
+          "major": "7",
+          "minor": "2",
+          "is_partition": "0",
+          "session_deltas": [
+            {
+              "read_bytes": 0,
+              "write_bytes": 0
+            }
+          ],
+          "invalid_intervals": 0
+        },
+        "loop3": {
+          "major": "7",
+          "minor": "3",
+          "is_partition": "0",
+          "session_deltas": [
+            {
+              "read_bytes": 0,
+              "write_bytes": 0
+            }
+          ],
+          "invalid_intervals": 0
+        },
+        "loop4": {
+          "major": "7",
+          "minor": "4",
+          "is_partition": "0",
+          "session_deltas": [
+            {
+              "read_bytes": 0,
+              "write_bytes": 0
+            }
+          ],
+          "invalid_intervals": 0
+        },
+        "loop5": {
+          "major": "7",
+          "minor": "5",
+          "is_partition": "0",
+          "session_deltas": [
+            {
+              "read_bytes": 0,
+              "write_bytes": 0
+            }
+          ],
+          "invalid_intervals": 0
+        },
+        "loop6": {
+          "major": "7",
+          "minor": "6",
+          "is_partition": "0",
+          "session_deltas": [
+            {
+              "read_bytes": 0,
+              "write_bytes": 0
+            }
+          ],
+          "invalid_intervals": 0
+        },
+        "loop7": {
+          "major": "7",
+          "minor": "7",
+          "is_partition": "0",
+          "session_deltas": [
+            {
+              "read_bytes": 0,
+              "write_bytes": 0
+            }
+          ],
+          "invalid_intervals": 0
+        },
+        "vda": {
+          "major": "254",
+          "minor": "0",
+          "is_partition": "0",
+          "session_deltas": [
+            {
+              "read_bytes": 9248768,
+              "write_bytes": 0
+            }
+          ],
+          "invalid_intervals": 0
+        },
+        "vdb": {
+          "major": "254",
+          "minor": "16",
+          "is_partition": "0",
+          "session_deltas": [
+            {
+              "read_bytes": 189517824,
+              "write_bytes": 5189632
+            }
+          ],
+          "invalid_intervals": 0
+        },
+        "vdc": {
+          "major": "254",
+          "minor": "32",
+          "is_partition": "0",
+          "session_deltas": [
+            {
+              "read_bytes": 0,
+              "write_bytes": 0
+            }
+          ],
+          "invalid_intervals": 0
+        },
+        "vdd": {
+          "major": "254",
+          "minor": "48",
+          "is_partition": "0",
+          "session_deltas": [
+            {
+              "read_bytes": 0,
+              "write_bytes": 0
+            }
+          ],
+          "invalid_intervals": 0
+        },
+        "vde": {
+          "major": "254",
+          "minor": "64",
+          "is_partition": "0",
+          "session_deltas": [
+            {
+              "read_bytes": 0,
+              "write_bytes": 0
+            }
+          ],
+          "invalid_intervals": 0
+        },
+        "vdf": {
+          "major": "254",
+          "minor": "80",
+          "is_partition": "0",
+          "session_deltas": [
+            {
+              "read_bytes": 0,
+              "write_bytes": 0
+            }
+          ],
+          "invalid_intervals": 0
+        }
+      },
+      "host_sessions": [
+        {
+          "session_id": "110938cd-4c8a-40b7-9d50-195500e53987",
+          "vmm_identity": {
+            "pid": 886439,
+            "start_ticks": "1355155415",
+            "boot_id": "84bfafc3-cdbf-465e-bebe-030c8449394e",
+            "api_socket": "/proc/886439/root/workspace/env/firecracker-work/agentenv-fc-TCJXpd/firecracker.socket",
+            "cgroup": "/system.slice/docker-099e29dd005d979978194f73c54751680c6f28348979edc112980059cdda296e.scope",
+            "binding_source": "owned service cgroup + Firecracker GET /mmds instanceID"
+          },
+          "sample_count": 223,
+          "pss_sample_count": 23,
+          "cpu_invalid_intervals": 0,
+          "io_invalid_intervals": 0,
+          "observed_rss_peak_bytes": 536363008,
+          "observed_pss_peak_bytes": 474150912,
+          "observed_cpu_peak_percent": 209.82399543614824,
+          "max_scan_duration_ns": 14181372,
+          "max_pss_scan_duration_ns": 13076717,
+          "collector_cpu_seconds": 0.366444
+        }
+      ],
+      "guest_cpu_invalid_intervals": 0,
+      "guest_cpu_observed_peak_percent": 89.47368421052632
+    },
+    {
+      "sandbox_id": "01a12e7d-39e0-7f32-a275-4b7b44f126f5",
+      "role": "early_3",
+      "guest_cpu_status": "MEASURED",
+      "guest_io_status": "MEASURED",
+      "host_vmm_status": "MEASURED",
+      "guest_devices": {
+        "loop0": {
+          "major": "7",
+          "minor": "0",
+          "is_partition": "0",
+          "session_deltas": [
+            {
+              "read_bytes": 0,
+              "write_bytes": 0
+            }
+          ],
+          "invalid_intervals": 0
+        },
+        "loop1": {
+          "major": "7",
+          "minor": "1",
+          "is_partition": "0",
+          "session_deltas": [
+            {
+              "read_bytes": 0,
+              "write_bytes": 0
+            }
+          ],
+          "invalid_intervals": 0
+        },
+        "loop2": {
+          "major": "7",
+          "minor": "2",
+          "is_partition": "0",
+          "session_deltas": [
+            {
+              "read_bytes": 0,
+              "write_bytes": 0
+            }
+          ],
+          "invalid_intervals": 0
+        },
+        "loop3": {
+          "major": "7",
+          "minor": "3",
+          "is_partition": "0",
+          "session_deltas": [
+            {
+              "read_bytes": 0,
+              "write_bytes": 0
+            }
+          ],
+          "invalid_intervals": 0
+        },
+        "loop4": {
+          "major": "7",
+          "minor": "4",
+          "is_partition": "0",
+          "session_deltas": [
+            {
+              "read_bytes": 0,
+              "write_bytes": 0
+            }
+          ],
+          "invalid_intervals": 0
+        },
+        "loop5": {
+          "major": "7",
+          "minor": "5",
+          "is_partition": "0",
+          "session_deltas": [
+            {
+              "read_bytes": 0,
+              "write_bytes": 0
+            }
+          ],
+          "invalid_intervals": 0
+        },
+        "loop6": {
+          "major": "7",
+          "minor": "6",
+          "is_partition": "0",
+          "session_deltas": [
+            {
+              "read_bytes": 0,
+              "write_bytes": 0
+            }
+          ],
+          "invalid_intervals": 0
+        },
+        "loop7": {
+          "major": "7",
+          "minor": "7",
+          "is_partition": "0",
+          "session_deltas": [
+            {
+              "read_bytes": 0,
+              "write_bytes": 0
+            }
+          ],
+          "invalid_intervals": 0
+        },
+        "vda": {
+          "major": "254",
+          "minor": "0",
+          "is_partition": "0",
+          "session_deltas": [
+            {
+              "read_bytes": 10330112,
+              "write_bytes": 0
+            }
+          ],
+          "invalid_intervals": 0
+        },
+        "vdb": {
+          "major": "254",
+          "minor": "16",
+          "is_partition": "0",
+          "session_deltas": [
+            {
+              "read_bytes": 200114176,
+              "write_bytes": 5214208
+            }
+          ],
+          "invalid_intervals": 0
+        },
+        "vdc": {
+          "major": "254",
+          "minor": "32",
+          "is_partition": "0",
+          "session_deltas": [
+            {
+              "read_bytes": 0,
+              "write_bytes": 0
+            }
+          ],
+          "invalid_intervals": 0
+        },
+        "vdd": {
+          "major": "254",
+          "minor": "48",
+          "is_partition": "0",
+          "session_deltas": [
+            {
+              "read_bytes": 0,
+              "write_bytes": 0
+            }
+          ],
+          "invalid_intervals": 0
+        },
+        "vde": {
+          "major": "254",
+          "minor": "64",
+          "is_partition": "0",
+          "session_deltas": [
+            {
+              "read_bytes": 0,
+              "write_bytes": 0
+            }
+          ],
+          "invalid_intervals": 0
+        },
+        "vdf": {
+          "major": "254",
+          "minor": "80",
+          "is_partition": "0",
+          "session_deltas": [
+            {
+              "read_bytes": 0,
+              "write_bytes": 0
+            }
+          ],
+          "invalid_intervals": 0
+        }
+      },
+      "host_sessions": [
+        {
+          "session_id": "746207c2-b124-461a-aa0a-6d2c5fa905c5",
+          "vmm_identity": {
+            "pid": 886478,
+            "start_ticks": "1355155423",
+            "boot_id": "84bfafc3-cdbf-465e-bebe-030c8449394e",
+            "api_socket": "/proc/886478/root/workspace/env/firecracker-work/agentenv-fc-bR21v2/firecracker.socket",
+            "cgroup": "/system.slice/docker-099e29dd005d979978194f73c54751680c6f28348979edc112980059cdda296e.scope",
+            "binding_source": "owned service cgroup + Firecracker GET /mmds instanceID"
+          },
+          "sample_count": 231,
+          "pss_sample_count": 23,
+          "cpu_invalid_intervals": 0,
+          "io_invalid_intervals": 0,
+          "observed_rss_peak_bytes": 533696512,
+          "observed_pss_peak_bytes": 471214080,
+          "observed_cpu_peak_percent": 229.75758047926053,
+          "max_scan_duration_ns": 16542457,
+          "max_pss_scan_duration_ns": 12378509,
+          "collector_cpu_seconds": 0.397713
+        }
+      ],
+      "guest_cpu_invalid_intervals": 1,
+      "guest_cpu_observed_peak_percent": 85.0
+    },
+    {
+      "sandbox_id": "01a12e7d-3f2d-7a10-9e6c-c503c4a8f736",
+      "role": "late_3",
+      "guest_cpu_status": "MEASURED",
+      "guest_io_status": "MEASURED",
+      "host_vmm_status": "MEASURED",
+      "guest_devices": {
+        "loop0": {
+          "major": "7",
+          "minor": "0",
+          "is_partition": "0",
+          "session_deltas": [
+            {
+              "read_bytes": 0,
+              "write_bytes": 0
+            }
+          ],
+          "invalid_intervals": 0
+        },
+        "loop1": {
+          "major": "7",
+          "minor": "1",
+          "is_partition": "0",
+          "session_deltas": [
+            {
+              "read_bytes": 0,
+              "write_bytes": 0
+            }
+          ],
+          "invalid_intervals": 0
+        },
+        "loop2": {
+          "major": "7",
+          "minor": "2",
+          "is_partition": "0",
+          "session_deltas": [
+            {
+              "read_bytes": 0,
+              "write_bytes": 0
+            }
+          ],
+          "invalid_intervals": 0
+        },
+        "loop3": {
+          "major": "7",
+          "minor": "3",
+          "is_partition": "0",
+          "session_deltas": [
+            {
+              "read_bytes": 0,
+              "write_bytes": 0
+            }
+          ],
+          "invalid_intervals": 0
+        },
+        "loop4": {
+          "major": "7",
+          "minor": "4",
+          "is_partition": "0",
+          "session_deltas": [
+            {
+              "read_bytes": 0,
+              "write_bytes": 0
+            }
+          ],
+          "invalid_intervals": 0
+        },
+        "loop5": {
+          "major": "7",
+          "minor": "5",
+          "is_partition": "0",
+          "session_deltas": [
+            {
+              "read_bytes": 0,
+              "write_bytes": 0
+            }
+          ],
+          "invalid_intervals": 0
+        },
+        "loop6": {
+          "major": "7",
+          "minor": "6",
+          "is_partition": "0",
+          "session_deltas": [
+            {
+              "read_bytes": 0,
+              "write_bytes": 0
+            }
+          ],
+          "invalid_intervals": 0
+        },
+        "loop7": {
+          "major": "7",
+          "minor": "7",
+          "is_partition": "0",
+          "session_deltas": [
+            {
+              "read_bytes": 0,
+              "write_bytes": 0
+            }
+          ],
+          "invalid_intervals": 0
+        },
+        "vda": {
+          "major": "254",
+          "minor": "0",
+          "is_partition": "0",
+          "session_deltas": [
+            {
+              "read_bytes": 7856128,
+              "write_bytes": 0
+            }
+          ],
+          "invalid_intervals": 0
+        },
+        "vdb": {
+          "major": "254",
+          "minor": "16",
+          "is_partition": "0",
+          "session_deltas": [
+            {
+              "read_bytes": 206557184,
+              "write_bytes": 9400320
+            }
+          ],
+          "invalid_intervals": 0
+        },
+        "vdc": {
+          "major": "254",
+          "minor": "32",
+          "is_partition": "0",
+          "session_deltas": [
+            {
+              "read_bytes": 0,
+              "write_bytes": 0
+            }
+          ],
+          "invalid_intervals": 0
+        },
+        "vdd": {
+          "major": "254",
+          "minor": "48",
+          "is_partition": "0",
+          "session_deltas": [
+            {
+              "read_bytes": 0,
+              "write_bytes": 0
+            }
+          ],
+          "invalid_intervals": 0
+        },
+        "vde": {
+          "major": "254",
+          "minor": "64",
+          "is_partition": "0",
+          "session_deltas": [
+            {
+              "read_bytes": 0,
+              "write_bytes": 0
+            }
+          ],
+          "invalid_intervals": 0
+        },
+        "vdf": {
+          "major": "254",
+          "minor": "80",
+          "is_partition": "0",
+          "session_deltas": [
+            {
+              "read_bytes": 0,
+              "write_bytes": 0
+            }
+          ],
+          "invalid_intervals": 0
+        }
+      },
+      "host_sessions": [
+        {
+          "session_id": "043ff7af-92c2-4e94-bf18-f77e12d3a4e2",
+          "vmm_identity": {
+            "pid": 886693,
+            "start_ticks": "1355155548",
+            "boot_id": "84bfafc3-cdbf-465e-bebe-030c8449394e",
+            "api_socket": "/proc/886693/root/workspace/env/firecracker-work/agentenv-fc-YGC277/firecracker.socket",
+            "cgroup": "/system.slice/docker-099e29dd005d979978194f73c54751680c6f28348979edc112980059cdda296e.scope",
+            "binding_source": "owned service cgroup + Firecracker GET /mmds instanceID"
+          },
+          "sample_count": 225,
+          "pss_sample_count": 23,
+          "cpu_invalid_intervals": 0,
+          "io_invalid_intervals": 0,
+          "observed_rss_peak_bytes": 624623616,
+          "observed_pss_peak_bytes": 506817536,
+          "observed_cpu_peak_percent": 219.80535356720213,
+          "max_scan_duration_ns": 13175774,
+          "max_pss_scan_duration_ns": 12492282,
+          "collector_cpu_seconds": 0.418964
+        }
+      ],
+      "guest_cpu_invalid_intervals": 0,
+      "guest_cpu_observed_peak_percent": 95.23809523809524
+    },
+    {
+      "sandbox_id": "01a12e7d-3f2d-7a10-9e6c-c4e912d4b9e0",
+      "role": "late_2",
+      "guest_cpu_status": "MEASURED",
+      "guest_io_status": "MEASURED",
+      "host_vmm_status": "MEASURED",
+      "guest_devices": {
+        "loop0": {
+          "major": "7",
+          "minor": "0",
+          "is_partition": "0",
+          "session_deltas": [
+            {
+              "read_bytes": 0,
+              "write_bytes": 0
+            }
+          ],
+          "invalid_intervals": 0
+        },
+        "loop1": {
+          "major": "7",
+          "minor": "1",
+          "is_partition": "0",
+          "session_deltas": [
+            {
+              "read_bytes": 0,
+              "write_bytes": 0
+            }
+          ],
+          "invalid_intervals": 0
+        },
+        "loop2": {
+          "major": "7",
+          "minor": "2",
+          "is_partition": "0",
+          "session_deltas": [
+            {
+              "read_bytes": 0,
+              "write_bytes": 0
+            }
+          ],
+          "invalid_intervals": 0
+        },
+        "loop3": {
+          "major": "7",
+          "minor": "3",
+          "is_partition": "0",
+          "session_deltas": [
+            {
+              "read_bytes": 0,
+              "write_bytes": 0
+            }
+          ],
+          "invalid_intervals": 0
+        },
+        "loop4": {
+          "major": "7",
+          "minor": "4",
+          "is_partition": "0",
+          "session_deltas": [
+            {
+              "read_bytes": 0,
+              "write_bytes": 0
+            }
+          ],
+          "invalid_intervals": 0
+        },
+        "loop5": {
+          "major": "7",
+          "minor": "5",
+          "is_partition": "0",
+          "session_deltas": [
+            {
+              "read_bytes": 0,
+              "write_bytes": 0
+            }
+          ],
+          "invalid_intervals": 0
+        },
+        "loop6": {
+          "major": "7",
+          "minor": "6",
+          "is_partition": "0",
+          "session_deltas": [
+            {
+              "read_bytes": 0,
+              "write_bytes": 0
+            }
+          ],
+          "invalid_intervals": 0
+        },
+        "loop7": {
+          "major": "7",
+          "minor": "7",
+          "is_partition": "0",
+          "session_deltas": [
+            {
+              "read_bytes": 0,
+              "write_bytes": 0
+            }
+          ],
+          "invalid_intervals": 0
+        },
+        "vda": {
+          "major": "254",
+          "minor": "0",
+          "is_partition": "0",
+          "session_deltas": [
+            {
+              "read_bytes": 5337088,
+              "write_bytes": 0
+            }
+          ],
+          "invalid_intervals": 0
+        },
+        "vdb": {
+          "major": "254",
+          "minor": "16",
+          "is_partition": "0",
+          "session_deltas": [
+            {
+              "read_bytes": 211746816,
+              "write_bytes": 12410880
+            }
+          ],
+          "invalid_intervals": 0
+        },
+        "vdc": {
+          "major": "254",
+          "minor": "32",
+          "is_partition": "0",
+          "session_deltas": [
+            {
+              "read_bytes": 0,
+              "write_bytes": 0
+            }
+          ],
+          "invalid_intervals": 0
+        },
+        "vdd": {
+          "major": "254",
+          "minor": "48",
+          "is_partition": "0",
+          "session_deltas": [
+            {
+              "read_bytes": 0,
+              "write_bytes": 0
+            }
+          ],
+          "invalid_intervals": 0
+        },
+        "vde": {
+          "major": "254",
+          "minor": "64",
+          "is_partition": "0",
+          "session_deltas": [
+            {
+              "read_bytes": 0,
+              "write_bytes": 0
+            }
+          ],
+          "invalid_intervals": 0
+        },
+        "vdf": {
+          "major": "254",
+          "minor": "80",
+          "is_partition": "0",
+          "session_deltas": [
+            {
+              "read_bytes": 0,
+              "write_bytes": 0
+            }
+          ],
+          "invalid_intervals": 0
+        }
+      },
+      "host_sessions": [
+        {
+          "session_id": "00f61609-7a55-425d-a94b-99d33e2c14ac",
+          "vmm_identity": {
+            "pid": 886730,
+            "start_ticks": "1355155555",
+            "boot_id": "84bfafc3-cdbf-465e-bebe-030c8449394e",
+            "api_socket": "/proc/886730/root/workspace/env/firecracker-work/agentenv-fc-jMNENC/firecracker.socket",
+            "cgroup": "/system.slice/docker-099e29dd005d979978194f73c54751680c6f28348979edc112980059cdda296e.scope",
+            "binding_source": "owned service cgroup + Firecracker GET /mmds instanceID"
+          },
+          "sample_count": 232,
+          "pss_sample_count": 24,
+          "cpu_invalid_intervals": 0,
+          "io_invalid_intervals": 0,
+          "observed_rss_peak_bytes": 525934592,
+          "observed_pss_peak_bytes": 470861824,
+          "observed_cpu_peak_percent": 219.81732081553625,
+          "max_scan_duration_ns": 15864597,
+          "max_pss_scan_duration_ns": 11637506,
+          "collector_cpu_seconds": 0.41378299999999996
+        }
+      ],
+      "guest_cpu_invalid_intervals": 0,
+      "guest_cpu_observed_peak_percent": 90.0
+    },
+    {
+      "sandbox_id": "01a12e7d-3f2d-7a10-9e6c-c4ff2bc92f48",
+      "role": "late_1",
+      "guest_cpu_status": "MEASURED",
+      "guest_io_status": "MEASURED",
+      "host_vmm_status": "MEASURED",
+      "guest_devices": {
+        "loop0": {
+          "major": "7",
+          "minor": "0",
+          "is_partition": "0",
+          "session_deltas": [
+            {
+              "read_bytes": 0,
+              "write_bytes": 0
+            }
+          ],
+          "invalid_intervals": 0
+        },
+        "loop1": {
+          "major": "7",
+          "minor": "1",
+          "is_partition": "0",
+          "session_deltas": [
+            {
+              "read_bytes": 0,
+              "write_bytes": 0
+            }
+          ],
+          "invalid_intervals": 0
+        },
+        "loop2": {
+          "major": "7",
+          "minor": "2",
+          "is_partition": "0",
+          "session_deltas": [
+            {
+              "read_bytes": 0,
+              "write_bytes": 0
+            }
+          ],
+          "invalid_intervals": 0
+        },
+        "loop3": {
+          "major": "7",
+          "minor": "3",
+          "is_partition": "0",
+          "session_deltas": [
+            {
+              "read_bytes": 0,
+              "write_bytes": 0
+            }
+          ],
+          "invalid_intervals": 0
+        },
+        "loop4": {
+          "major": "7",
+          "minor": "4",
+          "is_partition": "0",
+          "session_deltas": [
+            {
+              "read_bytes": 0,
+              "write_bytes": 0
+            }
+          ],
+          "invalid_intervals": 0
+        },
+        "loop5": {
+          "major": "7",
+          "minor": "5",
+          "is_partition": "0",
+          "session_deltas": [
+            {
+              "read_bytes": 0,
+              "write_bytes": 0
+            }
+          ],
+          "invalid_intervals": 0
+        },
+        "loop6": {
+          "major": "7",
+          "minor": "6",
+          "is_partition": "0",
+          "session_deltas": [
+            {
+              "read_bytes": 0,
+              "write_bytes": 0
+            }
+          ],
+          "invalid_intervals": 0
+        },
+        "loop7": {
+          "major": "7",
+          "minor": "7",
+          "is_partition": "0",
+          "session_deltas": [
+            {
+              "read_bytes": 0,
+              "write_bytes": 0
+            }
+          ],
+          "invalid_intervals": 0
+        },
+        "vda": {
+          "major": "254",
+          "minor": "0",
+          "is_partition": "0",
+          "session_deltas": [
+            {
+              "read_bytes": 8323072,
+              "write_bytes": 0
+            }
+          ],
+          "invalid_intervals": 0
+        },
+        "vdb": {
+          "major": "254",
+          "minor": "16",
+          "is_partition": "0",
+          "session_deltas": [
+            {
+              "read_bytes": 115908608,
+              "write_bytes": 12812288
+            }
+          ],
+          "invalid_intervals": 0
+        },
+        "vdc": {
+          "major": "254",
+          "minor": "32",
+          "is_partition": "0",
+          "session_deltas": [
+            {
+              "read_bytes": 0,
+              "write_bytes": 0
+            }
+          ],
+          "invalid_intervals": 0
+        },
+        "vdd": {
+          "major": "254",
+          "minor": "48",
+          "is_partition": "0",
+          "session_deltas": [
+            {
+              "read_bytes": 0,
+              "write_bytes": 0
+            }
+          ],
+          "invalid_intervals": 0
+        },
+        "vde": {
+          "major": "254",
+          "minor": "64",
+          "is_partition": "0",
+          "session_deltas": [
+            {
+              "read_bytes": 0,
+              "write_bytes": 0
+            }
+          ],
+          "invalid_intervals": 0
+        },
+        "vdf": {
+          "major": "254",
+          "minor": "80",
+          "is_partition": "0",
+          "session_deltas": [
+            {
+              "read_bytes": 0,
+              "write_bytes": 0
+            }
+          ],
+          "invalid_intervals": 0
+        }
+      },
+      "host_sessions": [
+        {
+          "session_id": "0b64f1a3-3f59-4ef2-9fe9-1fd099eafb71",
+          "vmm_identity": {
+            "pid": 886736,
+            "start_ticks": "1355155555",
+            "boot_id": "84bfafc3-cdbf-465e-bebe-030c8449394e",
+            "api_socket": "/proc/886736/root/workspace/env/firecracker-work/agentenv-fc-qJPmB5/firecracker.socket",
+            "cgroup": "/system.slice/docker-099e29dd005d979978194f73c54751680c6f28348979edc112980059cdda296e.scope",
+            "binding_source": "owned service cgroup + Firecracker GET /mmds instanceID"
+          },
+          "sample_count": 238,
+          "pss_sample_count": 24,
+          "cpu_invalid_intervals": 0,
+          "io_invalid_intervals": 0,
+          "observed_rss_peak_bytes": 698097664,
+          "observed_pss_peak_bytes": 584048640,
+          "observed_cpu_peak_percent": 199.83368042611815,
+          "max_scan_duration_ns": 21539806,
+          "max_pss_scan_duration_ns": 19943346,
+          "collector_cpu_seconds": 0.446901
+        }
+      ],
+      "guest_cpu_invalid_intervals": 0,
+      "guest_cpu_observed_peak_percent": 100.0
+    }
+  ],
+  "monitor_sessions": [
+    {
+      "sandbox_id": "01a12e7c-dbd2-75b2-b0c3-deff99eb58cf",
+      "role": "backbone",
+      "session_id": "a8acb872-6cc8-466f-a474-5bcfbefd4b86",
+      "status": "PASS",
+      "start_host_monotonic_ns": 13551530947023320,
+      "start_host_timestamp_ns": 1791781298082282816,
+      "guest_directory": "/workspace/asb-runtime-monitor/a8acb872-6cc8-466f-a474-5bcfbefd4b86",
+      "identity": {
+        "status": "STARTED",
+        "pid": 362,
+        "start_ticks": "92",
+        "boot_id": "8e0b5147-ed5e-4c94-aa1f-0dc106d01579"
+      },
+      "host_directory": "host-vmm/01a12e7c-dbd2-75b2-b0c3-deff99eb58cf/a8acb872-6cc8-466f-a474-5bcfbefd4b86",
+      "stop_reason": "checkpoint",
+      "host_receipt": {
+        "status": "PASS",
+        "error": null,
+        "sandbox_id": "01a12e7c-dbd2-75b2-b0c3-deff99eb58cf",
+        "role": "backbone",
+        "session_id": "a8acb872-6cc8-466f-a474-5bcfbefd4b86",
+        "identity": {
+          "pid": 884621,
+          "start_ticks": "1355153007",
+          "boot_id": "84bfafc3-cdbf-465e-bebe-030c8449394e",
+          "api_socket": "/proc/884621/root/workspace/env/firecracker-work/agentenv-fc-O7AgGW/firecracker.socket",
+          "cgroup": "/system.slice/docker-099e29dd005d979978194f73c54751680c6f28348979edc112980059cdda296e.scope",
+          "binding_source": "owned service cgroup + Firecracker GET /mmds instanceID"
+        },
+        "samples": 43,
+        "pss_samples": 5,
+        "interval_seconds": 0.1,
+        "pss_interval_seconds": 1,
+        "clock_ticks": 100,
+        "cpu_user_seconds": 0.02376,
+        "cpu_system_seconds": 0.051481,
+        "max_scan_duration_ns": 12694298,
+        "elapsed_ns": 4204904908,
+        "scope": "owned VMM process only; excludes shared service/block-provider processes; PSS is proportional residency, not unique physical file cache"
+      },
+      "collector_reaped": true,
+      "raw_directory": "runtime/01a12e7c-dbd2-75b2-b0c3-deff99eb58cf/a8acb872-6cc8-466f-a474-5bcfbefd4b86",
+      "receipt": {
+        "status": "PASS",
+        "error": null,
+        "pid": 362,
+        "start_ticks": "92",
+        "boot_id": "8e0b5147-ed5e-4c94-aa1f-0dc106d01579",
+        "sandbox_id": "01a12e7c-dbd2-75b2-b0c3-deff99eb58cf",
+        "role": "backbone",
+        "session_id": "a8acb872-6cc8-466f-a474-5bcfbefd4b86",
+        "samples": 45,
+        "interval_seconds": 0.1,
+        "elapsed_ns": 4382033084,
+        "cpu_user_seconds": 0.134375,
+        "cpu_system_seconds": 0.046203,
+        "maxrss_kib": 16884,
+        "scope": "guest logical counters; collector maxrss is not private memory; no physical deduplication",
+        "performance_version": 1,
+        "clock_ticks": 100,
+        "performance_scope": "guest-wide CPU (guest ticks not double counted), per-device diskstats (512-byte sectors); includes sampler and other guest work"
+      },
+      "end_host_monotonic_ns": 13551535919140953
+    },
+    {
+      "sandbox_id": "01a12e7c-dbd2-75b2-b0c3-deff99eb58cf",
+      "role": "backbone",
+      "session_id": "5b2e9e60-bcef-4d41-bb9f-94fa20445837",
+      "status": "PASS",
+      "start_host_monotonic_ns": 13551537905376935,
+      "start_host_timestamp_ns": 1791781305040636039,
+      "guest_directory": "/workspace/asb-runtime-monitor/5b2e9e60-bcef-4d41-bb9f-94fa20445837",
+      "identity": {
+        "status": "STARTED",
+        "pid": 1236,
+        "start_ticks": "785",
+        "boot_id": "8e0b5147-ed5e-4c94-aa1f-0dc106d01579"
+      },
+      "host_directory": "host-vmm/01a12e7c-dbd2-75b2-b0c3-deff99eb58cf/5b2e9e60-bcef-4d41-bb9f-94fa20445837",
+      "stop_reason": "checkpoint",
+      "host_receipt": {
+        "status": "PASS",
+        "error": null,
+        "sandbox_id": "01a12e7c-dbd2-75b2-b0c3-deff99eb58cf",
+        "role": "backbone",
+        "session_id": "5b2e9e60-bcef-4d41-bb9f-94fa20445837",
+        "identity": {
+          "pid": 884621,
+          "start_ticks": "1355153007",
+          "boot_id": "84bfafc3-cdbf-465e-bebe-030c8449394e",
+          "api_socket": "/proc/884621/root/workspace/env/firecracker-work/agentenv-fc-O7AgGW/firecracker.socket",
+          "cgroup": "/system.slice/docker-099e29dd005d979978194f73c54751680c6f28348979edc112980059cdda296e.scope",
+          "binding_source": "owned service cgroup + Firecracker GET /mmds instanceID"
+        },
+        "samples": 60,
+        "pss_samples": 6,
+        "interval_seconds": 0.1,
+        "pss_interval_seconds": 1,
+        "clock_ticks": 100,
+        "cpu_user_seconds": 0.029849999999999998,
+        "cpu_system_seconds": 0.06268599999999999,
+        "max_scan_duration_ns": 12438989,
+        "elapsed_ns": 5819216321,
+        "scope": "owned VMM process only; excludes shared service/block-provider processes; PSS is proportional residency, not unique physical file cache"
+      },
+      "collector_reaped": true,
+      "raw_directory": "runtime/01a12e7c-dbd2-75b2-b0c3-deff99eb58cf/5b2e9e60-bcef-4d41-bb9f-94fa20445837",
+      "receipt": {
+        "status": "PASS",
+        "error": null,
+        "pid": 1236,
+        "start_ticks": "785",
+        "boot_id": "8e0b5147-ed5e-4c94-aa1f-0dc106d01579",
+        "sandbox_id": "01a12e7c-dbd2-75b2-b0c3-deff99eb58cf",
+        "role": "backbone",
+        "session_id": "5b2e9e60-bcef-4d41-bb9f-94fa20445837",
+        "samples": 60,
+        "interval_seconds": 0.1,
+        "elapsed_ns": 5928420146,
+        "cpu_user_seconds": 0.156379,
+        "cpu_system_seconds": 0.052134,
+        "maxrss_kib": 16840,
+        "scope": "guest logical counters; collector maxrss is not private memory; no physical deduplication",
+        "performance_version": 1,
+        "clock_ticks": 100,
+        "performance_scope": "guest-wide CPU (guest ticks not double counted), per-device diskstats (512-byte sectors); includes sampler and other guest work"
+      },
+      "end_host_monotonic_ns": 13551544312727374
+    },
+    {
+      "sandbox_id": "01a12e7c-dbd2-75b2-b0c3-deff99eb58cf",
+      "role": "backbone",
+      "session_id": "87ed67df-5be0-4b27-a681-cbe1f533b993",
+      "status": "PASS",
+      "start_host_monotonic_ns": 13551545639854365,
+      "start_host_timestamp_ns": 1791781312775113305,
+      "guest_directory": "/workspace/asb-runtime-monitor/87ed67df-5be0-4b27-a681-cbe1f533b993",
+      "identity": {
+        "status": "STARTED",
+        "pid": 1793,
+        "start_ticks": "1557",
+        "boot_id": "8e0b5147-ed5e-4c94-aa1f-0dc106d01579"
+      },
+      "host_directory": "host-vmm/01a12e7c-dbd2-75b2-b0c3-deff99eb58cf/87ed67df-5be0-4b27-a681-cbe1f533b993",
+      "stop_reason": "cleanup",
+      "host_receipt": {
+        "status": "PASS",
+        "error": null,
+        "sandbox_id": "01a12e7c-dbd2-75b2-b0c3-deff99eb58cf",
+        "role": "backbone",
+        "session_id": "87ed67df-5be0-4b27-a681-cbe1f533b993",
+        "identity": {
+          "pid": 884621,
+          "start_ticks": "1355153007",
+          "boot_id": "84bfafc3-cdbf-465e-bebe-030c8449394e",
+          "api_socket": "/proc/884621/root/workspace/env/firecracker-work/agentenv-fc-O7AgGW/firecracker.socket",
+          "cgroup": "/system.slice/docker-099e29dd005d979978194f73c54751680c6f28348979edc112980059cdda296e.scope",
+          "binding_source": "owned service cgroup + Firecracker GET /mmds instanceID"
+        },
+        "samples": 297,
+        "pss_samples": 30,
+        "interval_seconds": 0.1,
+        "pss_interval_seconds": 1,
+        "clock_ticks": 100,
+        "cpu_user_seconds": 0.17984,
+        "cpu_system_seconds": 0.42699499999999996,
+        "max_scan_duration_ns": 16077728,
+        "elapsed_ns": 29623221490,
+        "scope": "owned VMM process only; excludes shared service/block-provider processes; PSS is proportional residency, not unique physical file cache"
+      },
+      "collector_reaped": true,
+      "raw_directory": "runtime/01a12e7c-dbd2-75b2-b0c3-deff99eb58cf/87ed67df-5be0-4b27-a681-cbe1f533b993",
+      "receipt": {
+        "status": "PASS",
+        "error": null,
+        "pid": 1793,
+        "start_ticks": "1557",
+        "boot_id": "8e0b5147-ed5e-4c94-aa1f-0dc106d01579",
+        "sandbox_id": "01a12e7c-dbd2-75b2-b0c3-deff99eb58cf",
+        "role": "backbone",
+        "session_id": "87ed67df-5be0-4b27-a681-cbe1f533b993",
+        "samples": 293,
+        "interval_seconds": 0.1,
+        "elapsed_ns": 29823634557,
+        "cpu_user_seconds": 0.594174,
+        "cpu_system_seconds": 0.148918,
+        "maxrss_kib": 16368,
+        "scope": "guest logical counters; collector maxrss is not private memory; no physical deduplication",
+        "performance_version": 1,
+        "clock_ticks": 100,
+        "performance_scope": "guest-wide CPU (guest ticks not double counted), per-device diskstats (512-byte sectors); includes sampler and other guest work"
+      },
+      "end_host_monotonic_ns": 13551576009780811
+    },
+    {
+      "sandbox_id": "01a12e7d-39de-7441-82f5-c60e57d1d334",
+      "role": "early_2",
+      "session_id": "91678fcb-38d6-4067-a8ab-fd2cfe59fda0",
+      "status": "PASS",
+      "start_host_monotonic_ns": 13551554339652637,
+      "start_host_timestamp_ns": 1791781321474911366,
+      "guest_directory": "/workspace/asb-runtime-monitor/91678fcb-38d6-4067-a8ab-fd2cfe59fda0",
+      "identity": {
+        "status": "STARTED",
+        "pid": 1206,
+        "start_ticks": "598",
+        "boot_id": "8e0b5147-ed5e-4c94-aa1f-0dc106d01579"
+      },
+      "host_directory": "host-vmm/01a12e7d-39de-7441-82f5-c60e57d1d334/91678fcb-38d6-4067-a8ab-fd2cfe59fda0",
+      "stop_reason": "cleanup",
+      "host_receipt": {
+        "status": "PASS",
+        "error": null,
+        "sandbox_id": "01a12e7d-39de-7441-82f5-c60e57d1d334",
+        "role": "early_2",
+        "session_id": "91678fcb-38d6-4067-a8ab-fd2cfe59fda0",
+        "identity": {
+          "pid": 886476,
+          "start_ticks": "1355155423",
+          "boot_id": "84bfafc3-cdbf-465e-bebe-030c8449394e",
+          "api_socket": "/proc/886476/root/workspace/env/firecracker-work/agentenv-fc-AHliV8/firecracker.socket",
+          "cgroup": "/system.slice/docker-099e29dd005d979978194f73c54751680c6f28348979edc112980059cdda296e.scope",
+          "binding_source": "owned service cgroup + Firecracker GET /mmds instanceID"
+        },
+        "samples": 217,
+        "pss_samples": 22,
+        "interval_seconds": 0.1,
+        "pss_interval_seconds": 1,
+        "clock_ticks": 100,
+        "cpu_user_seconds": 0.137507,
+        "cpu_system_seconds": 0.192105,
+        "max_scan_duration_ns": 9879141,
+        "elapsed_ns": 21564147030,
+        "scope": "owned VMM process only; excludes shared service/block-provider processes; PSS is proportional residency, not unique physical file cache"
+      },
+      "collector_reaped": true,
+      "raw_directory": "runtime/01a12e7d-39de-7441-82f5-c60e57d1d334/91678fcb-38d6-4067-a8ab-fd2cfe59fda0",
+      "receipt": {
+        "status": "PASS",
+        "error": null,
+        "pid": 1206,
+        "start_ticks": "598",
+        "boot_id": "8e0b5147-ed5e-4c94-aa1f-0dc106d01579",
+        "sandbox_id": "01a12e7d-39de-7441-82f5-c60e57d1d334",
+        "role": "early_2",
+        "session_id": "91678fcb-38d6-4067-a8ab-fd2cfe59fda0",
+        "samples": 214,
+        "interval_seconds": 0.1,
+        "elapsed_ns": 21766778446,
+        "cpu_user_seconds": 0.416298,
+        "cpu_system_seconds": 0.16732999999999998,
+        "maxrss_kib": 16348,
+        "scope": "guest logical counters; collector maxrss is not private memory; no physical deduplication",
+        "performance_version": 1,
+        "clock_ticks": 100,
+        "performance_scope": "guest-wide CPU (guest ticks not double counted), per-device diskstats (512-byte sectors); includes sampler and other guest work"
+      },
+      "end_host_monotonic_ns": 13551576711601346
+    },
+    {
+      "sandbox_id": "01a12e7d-39dd-7270-b285-7cdf18b3b81b",
+      "role": "early_1",
+      "session_id": "110938cd-4c8a-40b7-9d50-195500e53987",
+      "status": "PASS",
+      "start_host_monotonic_ns": 13551554342104704,
+      "start_host_timestamp_ns": 1791781321477363375,
+      "guest_directory": "/workspace/asb-runtime-monitor/110938cd-4c8a-40b7-9d50-195500e53987",
+      "identity": {
+        "status": "STARTED",
+        "pid": 1206,
+        "start_ticks": "603",
+        "boot_id": "8e0b5147-ed5e-4c94-aa1f-0dc106d01579"
+      },
+      "host_directory": "host-vmm/01a12e7d-39dd-7270-b285-7cdf18b3b81b/110938cd-4c8a-40b7-9d50-195500e53987",
+      "stop_reason": "cleanup",
+      "host_receipt": {
+        "status": "PASS",
+        "error": null,
+        "sandbox_id": "01a12e7d-39dd-7270-b285-7cdf18b3b81b",
+        "role": "early_1",
+        "session_id": "110938cd-4c8a-40b7-9d50-195500e53987",
+        "identity": {
+          "pid": 886439,
+          "start_ticks": "1355155415",
+          "boot_id": "84bfafc3-cdbf-465e-bebe-030c8449394e",
+          "api_socket": "/proc/886439/root/workspace/env/firecracker-work/agentenv-fc-TCJXpd/firecracker.socket",
+          "cgroup": "/system.slice/docker-099e29dd005d979978194f73c54751680c6f28348979edc112980059cdda296e.scope",
+          "binding_source": "owned service cgroup + Firecracker GET /mmds instanceID"
+        },
+        "samples": 223,
+        "pss_samples": 23,
+        "interval_seconds": 0.1,
+        "pss_interval_seconds": 1,
+        "clock_ticks": 100,
+        "cpu_user_seconds": 0.136538,
+        "cpu_system_seconds": 0.229906,
+        "max_scan_duration_ns": 14181372,
+        "elapsed_ns": 22177938910,
+        "scope": "owned VMM process only; excludes shared service/block-provider processes; PSS is proportional residency, not unique physical file cache"
+      },
+      "collector_reaped": true,
+      "raw_directory": "runtime/01a12e7d-39dd-7270-b285-7cdf18b3b81b/110938cd-4c8a-40b7-9d50-195500e53987",
+      "receipt": {
+        "status": "PASS",
+        "error": null,
+        "pid": 1206,
+        "start_ticks": "603",
+        "boot_id": "8e0b5147-ed5e-4c94-aa1f-0dc106d01579",
+        "sandbox_id": "01a12e7d-39dd-7270-b285-7cdf18b3b81b",
+        "role": "early_1",
+        "session_id": "110938cd-4c8a-40b7-9d50-195500e53987",
+        "samples": 220,
+        "interval_seconds": 0.1,
+        "elapsed_ns": 22410862788,
+        "cpu_user_seconds": 0.47193599999999997,
+        "cpu_system_seconds": 0.178774,
+        "maxrss_kib": 16292,
+        "scope": "guest logical counters; collector maxrss is not private memory; no physical deduplication",
+        "performance_version": 1,
+        "clock_ticks": 100,
+        "performance_scope": "guest-wide CPU (guest ticks not double counted), per-device diskstats (512-byte sectors); includes sampler and other guest work"
+      },
+      "end_host_monotonic_ns": 13551577377140295
+    },
+    {
+      "sandbox_id": "01a12e7d-39e0-7f32-a275-4b7b44f126f5",
+      "role": "early_3",
+      "session_id": "746207c2-b124-461a-aa0a-6d2c5fa905c5",
+      "status": "PASS",
+      "start_host_monotonic_ns": 13551554343219127,
+      "start_host_timestamp_ns": 1791781321478477998,
+      "guest_directory": "/workspace/asb-runtime-monitor/746207c2-b124-461a-aa0a-6d2c5fa905c5",
+      "identity": {
+        "status": "STARTED",
+        "pid": 1206,
+        "start_ticks": "597",
+        "boot_id": "8e0b5147-ed5e-4c94-aa1f-0dc106d01579"
+      },
+      "host_directory": "host-vmm/01a12e7d-39e0-7f32-a275-4b7b44f126f5/746207c2-b124-461a-aa0a-6d2c5fa905c5",
+      "stop_reason": "cleanup",
+      "host_receipt": {
+        "status": "PASS",
+        "error": null,
+        "sandbox_id": "01a12e7d-39e0-7f32-a275-4b7b44f126f5",
+        "role": "early_3",
+        "session_id": "746207c2-b124-461a-aa0a-6d2c5fa905c5",
+        "identity": {
+          "pid": 886478,
+          "start_ticks": "1355155423",
+          "boot_id": "84bfafc3-cdbf-465e-bebe-030c8449394e",
+          "api_socket": "/proc/886478/root/workspace/env/firecracker-work/agentenv-fc-bR21v2/firecracker.socket",
+          "cgroup": "/system.slice/docker-099e29dd005d979978194f73c54751680c6f28348979edc112980059cdda296e.scope",
+          "binding_source": "owned service cgroup + Firecracker GET /mmds instanceID"
+        },
+        "samples": 231,
+        "pss_samples": 23,
+        "interval_seconds": 0.1,
+        "pss_interval_seconds": 1,
+        "clock_ticks": 100,
+        "cpu_user_seconds": 0.155108,
+        "cpu_system_seconds": 0.242605,
+        "max_scan_duration_ns": 16542457,
+        "elapsed_ns": 22947929730,
+        "scope": "owned VMM process only; excludes shared service/block-provider processes; PSS is proportional residency, not unique physical file cache"
+      },
+      "collector_reaped": true,
+      "raw_directory": "runtime/01a12e7d-39e0-7f32-a275-4b7b44f126f5/746207c2-b124-461a-aa0a-6d2c5fa905c5",
+      "receipt": {
+        "status": "PASS",
+        "error": null,
+        "pid": 1206,
+        "start_ticks": "597",
+        "boot_id": "8e0b5147-ed5e-4c94-aa1f-0dc106d01579",
+        "sandbox_id": "01a12e7d-39e0-7f32-a275-4b7b44f126f5",
+        "role": "early_3",
+        "session_id": "746207c2-b124-461a-aa0a-6d2c5fa905c5",
+        "samples": 228,
+        "interval_seconds": 0.1,
+        "elapsed_ns": 23167218461,
+        "cpu_user_seconds": 0.442818,
+        "cpu_system_seconds": 0.160829,
+        "maxrss_kib": 16940,
+        "scope": "guest logical counters; collector maxrss is not private memory; no physical deduplication",
+        "performance_version": 1,
+        "clock_ticks": 100,
+        "performance_scope": "guest-wide CPU (guest ticks not double counted), per-device diskstats (512-byte sectors); includes sampler and other guest work"
+      },
+      "end_host_monotonic_ns": 13551578034755643
+    },
+    {
+      "sandbox_id": "01a12e7d-3f2d-7a10-9e6c-c503c4a8f736",
+      "role": "late_3",
+      "session_id": "043ff7af-92c2-4e94-bf18-f77e12d3a4e2",
+      "status": "PASS",
+      "start_host_monotonic_ns": 13551555613698740,
+      "start_host_timestamp_ns": 1791781322748957309,
+      "guest_directory": "/workspace/asb-runtime-monitor/043ff7af-92c2-4e94-bf18-f77e12d3a4e2",
+      "identity": {
+        "status": "STARTED",
+        "pid": 1777,
+        "start_ticks": "1436",
+        "boot_id": "8e0b5147-ed5e-4c94-aa1f-0dc106d01579"
+      },
+      "host_directory": "host-vmm/01a12e7d-3f2d-7a10-9e6c-c503c4a8f736/043ff7af-92c2-4e94-bf18-f77e12d3a4e2",
+      "stop_reason": "cleanup",
+      "host_receipt": {
+        "status": "PASS",
+        "error": null,
+        "sandbox_id": "01a12e7d-3f2d-7a10-9e6c-c503c4a8f736",
+        "role": "late_3",
+        "session_id": "043ff7af-92c2-4e94-bf18-f77e12d3a4e2",
+        "identity": {
+          "pid": 886693,
+          "start_ticks": "1355155548",
+          "boot_id": "84bfafc3-cdbf-465e-bebe-030c8449394e",
+          "api_socket": "/proc/886693/root/workspace/env/firecracker-work/agentenv-fc-YGC277/firecracker.socket",
+          "cgroup": "/system.slice/docker-099e29dd005d979978194f73c54751680c6f28348979edc112980059cdda296e.scope",
+          "binding_source": "owned service cgroup + Firecracker GET /mmds instanceID"
+        },
+        "samples": 225,
+        "pss_samples": 23,
+        "interval_seconds": 0.1,
+        "pss_interval_seconds": 1,
+        "clock_ticks": 100,
+        "cpu_user_seconds": 0.149123,
+        "cpu_system_seconds": 0.269841,
+        "max_scan_duration_ns": 13175774,
+        "elapsed_ns": 22394022532,
+        "scope": "owned VMM process only; excludes shared service/block-provider processes; PSS is proportional residency, not unique physical file cache"
+      },
+      "collector_reaped": true,
+      "raw_directory": "runtime/01a12e7d-3f2d-7a10-9e6c-c503c4a8f736/043ff7af-92c2-4e94-bf18-f77e12d3a4e2",
+      "receipt": {
+        "status": "PASS",
+        "error": null,
+        "pid": 1777,
+        "start_ticks": "1436",
+        "boot_id": "8e0b5147-ed5e-4c94-aa1f-0dc106d01579",
+        "sandbox_id": "01a12e7d-3f2d-7a10-9e6c-c503c4a8f736",
+        "role": "late_3",
+        "session_id": "043ff7af-92c2-4e94-bf18-f77e12d3a4e2",
+        "samples": 223,
+        "interval_seconds": 0.1,
+        "elapsed_ns": 22668615110,
+        "cpu_user_seconds": 0.41439699999999996,
+        "cpu_system_seconds": 0.16181199999999998,
+        "maxrss_kib": 17020,
+        "scope": "guest logical counters; collector maxrss is not private memory; no physical deduplication",
+        "performance_version": 1,
+        "clock_ticks": 100,
+        "performance_scope": "guest-wide CPU (guest ticks not double counted), per-device diskstats (512-byte sectors); includes sampler and other guest work"
+      },
+      "end_host_monotonic_ns": 13551578832514372
+    },
+    {
+      "sandbox_id": "01a12e7d-3f2d-7a10-9e6c-c4e912d4b9e0",
+      "role": "late_2",
+      "session_id": "00f61609-7a55-425d-a94b-99d33e2c14ac",
+      "status": "PASS",
+      "start_host_monotonic_ns": 13551555615651787,
+      "start_host_timestamp_ns": 1791781322750910432,
+      "guest_directory": "/workspace/asb-runtime-monitor/00f61609-7a55-425d-a94b-99d33e2c14ac",
+      "identity": {
+        "status": "STARTED",
+        "pid": 1777,
+        "start_ticks": "1433",
+        "boot_id": "8e0b5147-ed5e-4c94-aa1f-0dc106d01579"
+      },
+      "host_directory": "host-vmm/01a12e7d-3f2d-7a10-9e6c-c4e912d4b9e0/00f61609-7a55-425d-a94b-99d33e2c14ac",
+      "stop_reason": "cleanup",
+      "host_receipt": {
+        "status": "PASS",
+        "error": null,
+        "sandbox_id": "01a12e7d-3f2d-7a10-9e6c-c4e912d4b9e0",
+        "role": "late_2",
+        "session_id": "00f61609-7a55-425d-a94b-99d33e2c14ac",
+        "identity": {
+          "pid": 886730,
+          "start_ticks": "1355155555",
+          "boot_id": "84bfafc3-cdbf-465e-bebe-030c8449394e",
+          "api_socket": "/proc/886730/root/workspace/env/firecracker-work/agentenv-fc-jMNENC/firecracker.socket",
+          "cgroup": "/system.slice/docker-099e29dd005d979978194f73c54751680c6f28348979edc112980059cdda296e.scope",
+          "binding_source": "owned service cgroup + Firecracker GET /mmds instanceID"
+        },
+        "samples": 232,
+        "pss_samples": 24,
+        "interval_seconds": 0.1,
+        "pss_interval_seconds": 1,
+        "clock_ticks": 100,
+        "cpu_user_seconds": 0.145275,
+        "cpu_system_seconds": 0.26850799999999997,
+        "max_scan_duration_ns": 15864597,
+        "elapsed_ns": 23096059102,
+        "scope": "owned VMM process only; excludes shared service/block-provider processes; PSS is proportional residency, not unique physical file cache"
+      },
+      "collector_reaped": true,
+      "raw_directory": "runtime/01a12e7d-3f2d-7a10-9e6c-c4e912d4b9e0/00f61609-7a55-425d-a94b-99d33e2c14ac",
+      "receipt": {
+        "status": "PASS",
+        "error": null,
+        "pid": 1777,
+        "start_ticks": "1433",
+        "boot_id": "8e0b5147-ed5e-4c94-aa1f-0dc106d01579",
+        "sandbox_id": "01a12e7d-3f2d-7a10-9e6c-c4e912d4b9e0",
+        "role": "late_2",
+        "session_id": "00f61609-7a55-425d-a94b-99d33e2c14ac",
+        "samples": 229,
+        "interval_seconds": 0.1,
+        "elapsed_ns": 23325390764,
+        "cpu_user_seconds": 0.42377499999999996,
+        "cpu_system_seconds": 0.176342,
+        "maxrss_kib": 16880,
+        "scope": "guest logical counters; collector maxrss is not private memory; no physical deduplication",
+        "performance_version": 1,
+        "clock_ticks": 100,
+        "performance_scope": "guest-wide CPU (guest ticks not double counted), per-device diskstats (512-byte sectors); includes sampler and other guest work"
+      },
+      "end_host_monotonic_ns": 13551579462776974
+    },
+    {
+      "sandbox_id": "01a12e7d-3f2d-7a10-9e6c-c4ff2bc92f48",
+      "role": "late_1",
+      "session_id": "0b64f1a3-3f59-4ef2-9fe9-1fd099eafb71",
+      "status": "PASS",
+      "start_host_monotonic_ns": 13551555617455486,
+      "start_host_timestamp_ns": 1791781322752714531,
+      "guest_directory": "/workspace/asb-runtime-monitor/0b64f1a3-3f59-4ef2-9fe9-1fd099eafb71",
+      "identity": {
+        "status": "STARTED",
+        "pid": 1778,
+        "start_ticks": "1436",
+        "boot_id": "8e0b5147-ed5e-4c94-aa1f-0dc106d01579"
+      },
+      "host_directory": "host-vmm/01a12e7d-3f2d-7a10-9e6c-c4ff2bc92f48/0b64f1a3-3f59-4ef2-9fe9-1fd099eafb71",
+      "stop_reason": "cleanup",
+      "host_receipt": {
+        "status": "PASS",
+        "error": null,
+        "sandbox_id": "01a12e7d-3f2d-7a10-9e6c-c4ff2bc92f48",
+        "role": "late_1",
+        "session_id": "0b64f1a3-3f59-4ef2-9fe9-1fd099eafb71",
+        "identity": {
+          "pid": 886736,
+          "start_ticks": "1355155555",
+          "boot_id": "84bfafc3-cdbf-465e-bebe-030c8449394e",
+          "api_socket": "/proc/886736/root/workspace/env/firecracker-work/agentenv-fc-qJPmB5/firecracker.socket",
+          "cgroup": "/system.slice/docker-099e29dd005d979978194f73c54751680c6f28348979edc112980059cdda296e.scope",
+          "binding_source": "owned service cgroup + Firecracker GET /mmds instanceID"
+        },
+        "samples": 238,
+        "pss_samples": 24,
+        "interval_seconds": 0.1,
+        "pss_interval_seconds": 1,
+        "clock_ticks": 100,
+        "cpu_user_seconds": 0.158319,
+        "cpu_system_seconds": 0.288582,
+        "max_scan_duration_ns": 21539806,
+        "elapsed_ns": 23694624770,
+        "scope": "owned VMM process only; excludes shared service/block-provider processes; PSS is proportional residency, not unique physical file cache"
+      },
+      "collector_reaped": true,
+      "raw_directory": "runtime/01a12e7d-3f2d-7a10-9e6c-c4ff2bc92f48/0b64f1a3-3f59-4ef2-9fe9-1fd099eafb71",
+      "receipt": {
+        "status": "PASS",
+        "error": null,
+        "pid": 1778,
+        "start_ticks": "1436",
+        "boot_id": "8e0b5147-ed5e-4c94-aa1f-0dc106d01579",
+        "sandbox_id": "01a12e7d-3f2d-7a10-9e6c-c4ff2bc92f48",
+        "role": "late_1",
+        "session_id": "0b64f1a3-3f59-4ef2-9fe9-1fd099eafb71",
+        "samples": 236,
+        "interval_seconds": 0.1,
+        "elapsed_ns": 23950556782,
+        "cpu_user_seconds": 0.465474,
+        "cpu_system_seconds": 0.15040299999999998,
+        "maxrss_kib": 16940,
+        "scope": "guest logical counters; collector maxrss is not private memory; no physical deduplication",
+        "performance_version": 1,
+        "clock_ticks": 100,
+        "performance_scope": "guest-wide CPU (guest ticks not double counted), per-device diskstats (512-byte sectors); includes sampler and other guest work"
+      },
+      "end_host_monotonic_ns": 13551580182087540
+    }
+  ],
+  "report_files_identical": 21,
+  "raw_files_unchanged": 870,
+  "tests": {
+    "tests-grpo.log": 8,
+    "tests-platform.log": 9,
+    "tests-runtime.log": 13
+  },
+  "total_tests": 30,
+  "host": {
+    "sample_count": 475,
+    "observed_peak_bytes": 7517241344,
+    "components_at_peak_bytes": {
+      "anon": 3262087168,
+      "file": 4100661248,
+      "kernel": 137932800
+    }
+  },
+  "cleanup": {
+    "owned_container_removed": true,
+    "mount_and_loop_removed": true,
+    "successful_fixture_removed": true,
+    "original_firecracker_identities_unchanged": true,
+    "original_service_unchanged": true
+  },
+  "replay_cleanup": {
+    "sandboxes_removed": [
+      "01a12e7c-dbd2-75b2-b0c3-deff99eb58cf",
+      "01a12e7d-39de-7441-82f5-c60e57d1d334",
+      "01a12e7d-39dd-7270-b285-7cdf18b3b81b",
+      "01a12e7d-39e0-7f32-a275-4b7b44f126f5",
+      "01a12e7d-3f2d-7a10-9e6c-c503c4a8f736",
+      "01a12e7d-3f2d-7a10-9e6c-c4e912d4b9e0",
+      "01a12e7d-3f2d-7a10-9e6c-c4ff2bc92f48"
+    ],
+    "snapshots_removed": [
+      "01a12e7c-f44d-7613-8c47-6c0686aa3cea",
+      "01a12e7d-156c-76c3-a461-76af5718f5e5"
+    ],
+    "service_sandbox_list_empty": true,
+    "monitor_stopped": true
+  },
+  "ram_cache_released": true,
+  "observed_volume_used_peak_bytes": 7401467904,
+  "observed_host_available_min_bytes": 28656906240,
+  "host_available_after_cleanup_bytes": 63005974528,
+  "failure": {
+    "workflow": ".artifacts/platform-tasks/20261012T045333Z-869535",
+    "raw": ".artifacts/storage-isolated-service/20261012T045451Z-872752/prettier6604",
+    "status": "FAIL",
+    "executed_actions": 24,
+    "first_failure": "Second pre-checkpoint monitor-stop: /proc/PID/stat disappeared during read (ESRCH / ProcessLookupError). Collector receipt PASS and reaped=True; six children not executed.",
+    "prefix_audit": {
+      "status": "PASS",
+      "platform_run_status": "FAIL",
+      "path": [
+        "read_repo",
+        "read_typescript",
+        "core_patch",
+        "core_verify"
+      ],
+      "verified": {
+        "action_count": 24,
+        "guest_action_sum_ns": 6494581713,
+        "guest_observed_peak_bytes": 483409920,
+        "final_patch_sha256": "6a74b179e74a2fb00f4cf334c3cccd3405168025974c9a3b3550614cb1976de5"
+      },
+      "scope": "Only the 24 completed prefix actions; failure record and unfinished branch rollout remain FAIL"
+    },
+    "backup": {
+      "status": "PASS",
+      "source": "/home/yyxie/agentenv_experiment/.artifacts/storage-isolated-service/20261012T045451Z-872752/volume.ext4",
+      "backup": "/home/yyxie/agentenv_experiment/.artifacts/storage-isolated-service/20261012T045451Z-872752/volume.ext4.gz",
+      "source_sha256": "6d151033d1c333721033efd33f1028a605b3138aec3f5ee6bc5eba7d1ac79b59",
+      "backup_sha256": "1b4c66f709e2485c330d7a7d60d0c6e88c3e813a938b693247ddce7dbe58986a",
+      "uncompressed_bytes": 34359738368,
+      "compressed_bytes": 2418061776,
+      "source_retained": true,
+      "elapsed_ns": 70959616921,
+      "host_available_bytes": 28658171904
+    },
+    "source_volume_cleanup": {
+      "status": "PASS",
+      "authorization": "\u7528\u6237\u6301\u7eed\u6388\u6743\uff1a\u5931\u8d25\u8d44\u6e90\u56de\u6536\u4e14\u5b8c\u6574\u5907\u4efd\u89e3\u538bSHA-256\u6838\u9a8c\u540e\u81ea\u52a8\u56de\u6536\u6e90\u5377\uff1b\u53ea\u5220\u9664\u672c\u6b2132 GiB\u6e90\u5377\uff0c\u4fdd\u75592.25 GiB\u5907\u4efd\u53ca\u5168\u90e8FAIL\u3001\u914d\u7f6e\u548c\u539f\u59cb\u8bb0\u5f55\u3002",
+      "deleted": "/home/yyxie/agentenv_experiment/.artifacts/storage-isolated-service/20261012T045451Z-872752/volume.ext4",
+      "allocated_bytes": 34360590336,
+      "backup": "/home/yyxie/agentenv_experiment/.artifacts/storage-isolated-service/20261012T045451Z-872752/volume.ext4.gz",
+      "backup_sha256": "1b4c66f709e2485c330d7a7d60d0c6e88c3e813a938b693247ddce7dbe58986a",
+      "source_sha256": "6d151033d1c333721033efd33f1028a605b3138aec3f5ee6bc5eba7d1ac79b59",
+      "host_available_before_bytes": 28657958912,
+      "host_available_immediate_after_bytes": 63018549248,
+      "timestamp_ns": 1791781194140115734,
+      "scope": "only explicitly approved volume; complete backup and all other files retained"
+    }
+  },
+  "memory_chart": "docs/records/evidence/prettier6604-bpo-runtime-20261012.svg",
+  "restored_child_performance_chart": "docs/records/evidence/prettier6604-bpo-runtime-20261012-early1-performance.svg",
+  "units": "bytes/ns; MiB=2^20 bytes; GiB=2^30 bytes; CPU percentages normalized to guest/vCPU or host PID scope in runtime report",
+  "monitoring_overhead": "NOT_MEASURED_FOR_BPO",
+  "physical_cache_measurement": "NOT_RUN",
+  "cache_policy": "No host or guest drop_caches; native full VM snapshots preserve guest state. Prepared fixed image cache from existing verified RAM copy.",
+  "notes": [
+    "84 physical actions counted once; inherited prefix actions only enter logical count 189.",
+    "Guest memory, service cgroup, per-VMM PSS and physical file memory are distinct scopes; not added.",
+    "Parallel tools and restore duration sums are not elapsed time; lifecycle includes task tests and cleanup.",
+    "One functional run after a specific stop-check race fix; not a statistical scheduling comparison."
+  ]
+}

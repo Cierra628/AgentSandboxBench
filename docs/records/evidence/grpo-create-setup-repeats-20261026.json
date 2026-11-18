@@ -1,0 +1,1009 @@
+{
+  "status": "PASS_GRPO_CREATE_SETUP_REPEATS",
+  "pair_count": 3,
+  "run_count": 6,
+  "actual_actions": 1134,
+  "sample_count": 5625,
+  "definition": "Median and range of three signed (on/off-1)*100 paired changes; not a ratio of unpaired medians",
+  "scope": "Three independent create-all-before-setup GRPO pairs, guest-only .1 s vs off, default reclaim; old schedules excluded",
+  "pairs": [
+    {
+      "pair": 1,
+      "directory": ".artifacts/grpo-create-before-setup-pair-20261026",
+      "order": [
+        "off",
+        "on"
+      ],
+      "runs": [
+        {
+          "mode": "off",
+          "actual_actions": 189,
+          "official": {
+            "backbone": {
+              "passed": 0,
+              "failed": 2
+            },
+            "early_1": {
+              "passed": 0,
+              "failed": 2
+            },
+            "early_2": {
+              "passed": 0,
+              "failed": 2
+            },
+            "early_3": {
+              "passed": 0,
+              "failed": 2
+            },
+            "late_1": {
+              "passed": 0,
+              "failed": 2
+            },
+            "late_2": {
+              "passed": 0,
+              "failed": 2
+            },
+            "late_3": {
+              "passed": 0,
+              "failed": 2
+            }
+          },
+          "sessions": [],
+          "timings_ns": {
+            "tool_sum": 57763962863,
+            "frozen_tools_and_downloads_span": 16573966289,
+            "cold_request_span": 2858760666,
+            "monitor_control_call_sum": 0,
+            "monitor_control_union": 0,
+            "cleanup": 241622946,
+            "controller": 27618273965,
+            "rollout": 27174841586,
+            "created_to_controller_end_ns": 24706467708,
+            "create_to_setup_ns": 2195440758
+          },
+          "minimum_free_disk_gib": 108.3050765991211,
+          "controller_phases_ns": {
+            "before_rollout": 51906594,
+            "creation": 2859899663,
+            "preparation": 2195440758,
+            "prepared_to_first_action": 446478,
+            "actions_and_downloads": 16574884695,
+            "final_checks": 5544169992,
+            "after_checks_and_cleanup": 391525785
+          },
+          "grpo_setup_schedule": "create-all-before-setup",
+          "workflow": ".artifacts/platform-tasks/20261026T143251Z-1556005",
+          "storage": ".artifacts/storage-isolated-service/20261026T143416Z-1556966",
+          "raw": ".artifacts/storage-isolated-service/20261026T143416Z-1556966/prettier6604",
+          "report": ".artifacts/platform-tasks/report-20261026T143251Z-1556005"
+        },
+        {
+          "mode": "on",
+          "actual_actions": 189,
+          "official": {
+            "backbone": {
+              "passed": 0,
+              "failed": 2
+            },
+            "early_1": {
+              "passed": 0,
+              "failed": 2
+            },
+            "early_2": {
+              "passed": 0,
+              "failed": 2
+            },
+            "early_3": {
+              "passed": 0,
+              "failed": 2
+            },
+            "late_1": {
+              "passed": 0,
+              "failed": 2
+            },
+            "late_2": {
+              "passed": 0,
+              "failed": 2
+            },
+            "late_3": {
+              "passed": 0,
+              "failed": 2
+            }
+          },
+          "sessions": [
+            {
+              "role": "backbone",
+              "samples": 260,
+              "cpu_seconds": 0.211022,
+              "peak_rss_mib": 16.60546875,
+              "max_gap_seconds": 0.105896875
+            },
+            {
+              "role": "early_1",
+              "samples": 261,
+              "cpu_seconds": 0.212102,
+              "peak_rss_mib": 16.859375,
+              "max_gap_seconds": 0.104475361
+            },
+            {
+              "role": "early_2",
+              "samples": 261,
+              "cpu_seconds": 0.20301999999999998,
+              "peak_rss_mib": 16.3046875,
+              "max_gap_seconds": 0.101326235
+            },
+            {
+              "role": "early_3",
+              "samples": 260,
+              "cpu_seconds": 0.19071499999999997,
+              "peak_rss_mib": 16.71484375,
+              "max_gap_seconds": 0.103804295
+            },
+            {
+              "role": "late_1",
+              "samples": 260,
+              "cpu_seconds": 0.20018099999999997,
+              "peak_rss_mib": 16.5625,
+              "max_gap_seconds": 0.10792217
+            },
+            {
+              "role": "late_2",
+              "samples": 260,
+              "cpu_seconds": 0.212724,
+              "peak_rss_mib": 16.7890625,
+              "max_gap_seconds": 0.102663219
+            },
+            {
+              "role": "late_3",
+              "samples": 260,
+              "cpu_seconds": 0.17252299999999998,
+              "peak_rss_mib": 16.11328125,
+              "max_gap_seconds": 0.103299382
+            }
+          ],
+          "timings_ns": {
+            "tool_sum": 60183224658,
+            "frozen_tools_and_downloads_span": 18150502148,
+            "cold_request_span": 8025720132,
+            "monitor_control_call_sum": 4024469135,
+            "monitor_control_union": 704558198,
+            "cleanup": 541106344,
+            "controller": 34698677895,
+            "rollout": 33953475246,
+            "created_to_controller_end_ns": 26622781393,
+            "create_to_setup_ns": 2251959962
+          },
+          "minimum_free_disk_gib": 108.29999542236328,
+          "controller_phases_ns": {
+            "before_rollout": 49070661,
+            "creation": 8026825841,
+            "preparation": 2251959962,
+            "prepared_to_first_action": 455421,
+            "actions_and_downloads": 18151447872,
+            "final_checks": 5522786150,
+            "after_checks_and_cleanup": 696131988
+          },
+          "grpo_setup_schedule": "create-all-before-setup",
+          "workflow": ".artifacts/platform-tasks/20261026T143507Z-1559236",
+          "storage": ".artifacts/storage-isolated-service/20261026T143630Z-1559559",
+          "raw": ".artifacts/storage-isolated-service/20261026T143630Z-1559559/prettier6604",
+          "report": ".artifacts/platform-tasks/report-20261026T143507Z-1559236",
+          "monitor_control_breakdown": {
+            "monitor-upload-bundle": {
+              "count": 7,
+              "sum_ns": 302542012,
+              "union_ns": 59199689,
+              "max_ns": 55546166
+            },
+            "monitor-ready": {
+              "count": 7,
+              "sum_ns": 1368965620,
+              "union_ns": 285433725,
+              "max_ns": 266033041
+            },
+            "monitor-phase": {
+              "count": 7,
+              "sum_ns": 471442437,
+              "union_ns": 88853360,
+              "max_ns": 84998912
+            },
+            "monitor-finish": {
+              "count": 7,
+              "sum_ns": 1590083797,
+              "union_ns": 247520404,
+              "max_ns": 247416913
+            },
+            "monitor-download": {
+              "count": 7,
+              "sum_ns": 291435269,
+              "union_ns": 73555460,
+              "max_ns": 49620480
+            }
+          },
+          "collector_one_core_cpu_percent": [
+            0.8102410535260346,
+            0.8135576124445679,
+            0.7788920307844219,
+            0.735075221713811,
+            0.7704228232394044,
+            0.8177099238283753,
+            0.6627274193370132
+          ]
+        }
+      ],
+      "comparison": {
+        "tool_sum": {
+          "off_ns": 57763962863,
+          "on_ns": 60183224658,
+          "difference_ns": 2419261795,
+          "change_percent": 4.188185289049184
+        },
+        "frozen_tools_and_downloads_span": {
+          "off_ns": 16573966289,
+          "on_ns": 18150502148,
+          "difference_ns": 1576535859,
+          "change_percent": 9.512121790945915
+        },
+        "cold_request_span": {
+          "off_ns": 2858760666,
+          "on_ns": 8025720132,
+          "difference_ns": 5166959466,
+          "change_percent": 180.74123963758217
+        },
+        "monitor_control_call_sum": {
+          "off_ns": 0,
+          "on_ns": 4024469135,
+          "difference_ns": 4024469135,
+          "change_percent": null
+        },
+        "monitor_control_union": {
+          "off_ns": 0,
+          "on_ns": 704558198,
+          "difference_ns": 704558198,
+          "change_percent": null
+        },
+        "cleanup": {
+          "off_ns": 241622946,
+          "on_ns": 541106344,
+          "difference_ns": 299483398,
+          "change_percent": 123.94658825159759
+        },
+        "controller": {
+          "off_ns": 27618273965,
+          "on_ns": 34698677895,
+          "difference_ns": 7080403930,
+          "change_percent": 25.636663388062676
+        },
+        "rollout": {
+          "off_ns": 27174841586,
+          "on_ns": 33953475246,
+          "difference_ns": 6778633660,
+          "change_percent": 24.944519505468744
+        },
+        "created_to_controller_end_ns": {
+          "off_ns": 24706467708,
+          "on_ns": 26622781393,
+          "difference_ns": 1916313685,
+          "change_percent": 7.756324002477677
+        },
+        "create_to_setup_ns": {
+          "off_ns": 2195440758,
+          "on_ns": 2251959962,
+          "difference_ns": 56519204,
+          "change_percent": 2.574389848327674
+        }
+      },
+      "controller_phase_difference_ns": {
+        "before_rollout": -2835933,
+        "creation": 5166926178,
+        "preparation": 56519204,
+        "prepared_to_first_action": 8943,
+        "actions_and_downloads": 1576563177,
+        "final_checks": -21383842,
+        "after_checks_and_cleanup": 304606203
+      }
+    },
+    {
+      "pair": 2,
+      "directory": ".artifacts/grpo-create-setup-repeats-20261026/pair-02",
+      "order": [
+        "on",
+        "off"
+      ],
+      "runs": [
+        {
+          "mode": "on",
+          "actual_actions": 189,
+          "official": {
+            "backbone": {
+              "passed": 0,
+              "failed": 2
+            },
+            "early_1": {
+              "passed": 0,
+              "failed": 2
+            },
+            "early_2": {
+              "passed": 0,
+              "failed": 2
+            },
+            "early_3": {
+              "passed": 0,
+              "failed": 2
+            },
+            "late_1": {
+              "passed": 0,
+              "failed": 2
+            },
+            "late_2": {
+              "passed": 0,
+              "failed": 2
+            },
+            "late_3": {
+              "passed": 0,
+              "failed": 2
+            }
+          },
+          "sessions": [
+            {
+              "role": "backbone",
+              "samples": 279,
+              "cpu_seconds": 0.244062,
+              "peak_rss_mib": 16.1328125,
+              "max_gap_seconds": 0.104768732
+            },
+            {
+              "role": "early_1",
+              "samples": 279,
+              "cpu_seconds": 0.22422499999999998,
+              "peak_rss_mib": 16.3359375,
+              "max_gap_seconds": 0.105226902
+            },
+            {
+              "role": "early_2",
+              "samples": 279,
+              "cpu_seconds": 0.24045399999999997,
+              "peak_rss_mib": 16.203125,
+              "max_gap_seconds": 0.106007221
+            },
+            {
+              "role": "early_3",
+              "samples": 280,
+              "cpu_seconds": 0.18464,
+              "peak_rss_mib": 16.75390625,
+              "max_gap_seconds": 0.101384087
+            },
+            {
+              "role": "late_1",
+              "samples": 279,
+              "cpu_seconds": 0.235659,
+              "peak_rss_mib": 16.21875,
+              "max_gap_seconds": 0.106797146
+            },
+            {
+              "role": "late_2",
+              "samples": 278,
+              "cpu_seconds": 0.22178799999999999,
+              "peak_rss_mib": 16.6484375,
+              "max_gap_seconds": 0.105335618
+            },
+            {
+              "role": "late_3",
+              "samples": 279,
+              "cpu_seconds": 0.214087,
+              "peak_rss_mib": 16.6953125,
+              "max_gap_seconds": 0.104303539
+            }
+          ],
+          "timings_ns": {
+            "tool_sum": 59437150606,
+            "frozen_tools_and_downloads_span": 19817604986,
+            "cold_request_span": 4503530098,
+            "monitor_control_call_sum": 3575774693,
+            "monitor_control_union": 579533462,
+            "cleanup": 501148846,
+            "controller": 33004666670,
+            "rollout": 32302239490,
+            "created_to_controller_end_ns": 28451231116,
+            "create_to_setup_ns": 2286714885
+          },
+          "minimum_free_disk_gib": 108.29663848876953,
+          "controller_phases_ns": {
+            "before_rollout": 48489596,
+            "creation": 4504945958,
+            "preparation": 2286714885,
+            "prepared_to_first_action": 467673,
+            "actions_and_downloads": 19818550796,
+            "final_checks": 5691560178,
+            "after_checks_and_cleanup": 653937584
+          },
+          "grpo_setup_schedule": "create-all-before-setup",
+          "workflow": ".artifacts/platform-tasks/20261026T145100Z-1563546",
+          "storage": ".artifacts/storage-isolated-service/20261026T145218Z-1564452",
+          "raw": ".artifacts/storage-isolated-service/20261026T145218Z-1564452/prettier6604",
+          "report": ".artifacts/platform-tasks/report-20261026T145100Z-1563546",
+          "monitor_control_breakdown": {
+            "monitor-upload-bundle": {
+              "count": 7,
+              "sum_ns": 310239514,
+              "union_ns": 51765887,
+              "max_ns": 46013834
+            },
+            "monitor-ready": {
+              "count": 7,
+              "sum_ns": 1049765819,
+              "union_ns": 178920362,
+              "max_ns": 171731687
+            },
+            "monitor-phase": {
+              "count": 7,
+              "sum_ns": 486146686,
+              "union_ns": 85716210,
+              "max_ns": 84525873
+            },
+            "monitor-finish": {
+              "count": 7,
+              "sum_ns": 1459087668,
+              "union_ns": 237710195,
+              "max_ns": 233703998
+            },
+            "monitor-download": {
+              "count": 7,
+              "sum_ns": 270535006,
+              "union_ns": 114252764,
+              "max_ns": 45018559
+            }
+          },
+          "collector_one_core_cpu_percent": [
+            0.874178241770248,
+            0.8032585929278749,
+            0.8610243589101502,
+            0.6600384724593235,
+            0.8435596781230705,
+            0.7963648998832213,
+            0.7662749921460061
+          ]
+        },
+        {
+          "mode": "off",
+          "actual_actions": 189,
+          "official": {
+            "backbone": {
+              "passed": 0,
+              "failed": 2
+            },
+            "early_1": {
+              "passed": 0,
+              "failed": 2
+            },
+            "early_2": {
+              "passed": 0,
+              "failed": 2
+            },
+            "early_3": {
+              "passed": 0,
+              "failed": 2
+            },
+            "late_1": {
+              "passed": 0,
+              "failed": 2
+            },
+            "late_2": {
+              "passed": 0,
+              "failed": 2
+            },
+            "late_3": {
+              "passed": 0,
+              "failed": 2
+            }
+          },
+          "sessions": [],
+          "timings_ns": {
+            "tool_sum": 61413018855,
+            "frozen_tools_and_downloads_span": 18255907781,
+            "cold_request_span": 3453345627,
+            "monitor_control_call_sum": 0,
+            "monitor_control_union": 0,
+            "cleanup": 271969685,
+            "controller": 30583510980,
+            "rollout": 30108385693,
+            "created_to_controller_end_ns": 27056850774,
+            "create_to_setup_ns": 2836803190
+          },
+          "minimum_free_disk_gib": 108.28825759887695,
+          "controller_phases_ns": {
+            "before_rollout": 50152129,
+            "creation": 3476508077,
+            "preparation": 2836803190,
+            "prepared_to_first_action": 280101,
+            "actions_and_downloads": 18256531797,
+            "final_checks": 5538262528,
+            "after_checks_and_cleanup": 424973158
+          },
+          "grpo_setup_schedule": "create-all-before-setup",
+          "workflow": ".artifacts/platform-tasks/20261026T145315Z-1566759",
+          "storage": ".artifacts/storage-isolated-service/20261026T145434Z-1567016",
+          "raw": ".artifacts/storage-isolated-service/20261026T145434Z-1567016/prettier6604",
+          "report": ".artifacts/platform-tasks/report-20261026T145315Z-1566759"
+        }
+      ],
+      "comparison": {
+        "tool_sum": {
+          "off_ns": 61413018855,
+          "on_ns": 59437150606,
+          "difference_ns": -1975868249,
+          "change_percent": -3.2173442795006557
+        },
+        "frozen_tools_and_downloads_span": {
+          "off_ns": 18255907781,
+          "on_ns": 19817604986,
+          "difference_ns": 1561697205,
+          "change_percent": 8.554475755105152
+        },
+        "cold_request_span": {
+          "off_ns": 3453345627,
+          "on_ns": 4503530098,
+          "difference_ns": 1050184471,
+          "change_percent": 30.410638969616222
+        },
+        "monitor_control_call_sum": {
+          "off_ns": 0,
+          "on_ns": 3575774693,
+          "difference_ns": 3575774693,
+          "change_percent": null
+        },
+        "monitor_control_union": {
+          "off_ns": 0,
+          "on_ns": 579533462,
+          "difference_ns": 579533462,
+          "change_percent": null
+        },
+        "cleanup": {
+          "off_ns": 271969685,
+          "on_ns": 501148846,
+          "difference_ns": 229179161,
+          "change_percent": 84.26643616548661
+        },
+        "controller": {
+          "off_ns": 30583510980,
+          "on_ns": 33004666670,
+          "difference_ns": 2421155690,
+          "change_percent": 7.91653937830521
+        },
+        "rollout": {
+          "off_ns": 30108385693,
+          "on_ns": 32302239490,
+          "difference_ns": 2193853797,
+          "change_percent": 7.2865208363198875
+        },
+        "created_to_controller_end_ns": {
+          "off_ns": 27056850774,
+          "on_ns": 28451231116,
+          "difference_ns": 1394380342,
+          "change_percent": 5.153520465655648
+        },
+        "create_to_setup_ns": {
+          "off_ns": 2836803190,
+          "on_ns": 2286714885,
+          "difference_ns": -550088305,
+          "change_percent": -19.391133898153857
+        }
+      },
+      "controller_phase_difference_ns": {
+        "before_rollout": -1662533,
+        "creation": 1028437881,
+        "preparation": -550088305,
+        "prepared_to_first_action": 187572,
+        "actions_and_downloads": 1562018999,
+        "final_checks": 153297650,
+        "after_checks_and_cleanup": 228964426
+      }
+    },
+    {
+      "pair": 3,
+      "directory": ".artifacts/grpo-create-setup-repeats-20261026/pair-03",
+      "order": [
+        "off",
+        "on"
+      ],
+      "runs": [
+        {
+          "mode": "off",
+          "actual_actions": 189,
+          "official": {
+            "backbone": {
+              "passed": 0,
+              "failed": 2
+            },
+            "early_1": {
+              "passed": 0,
+              "failed": 2
+            },
+            "early_2": {
+              "passed": 0,
+              "failed": 2
+            },
+            "early_3": {
+              "passed": 0,
+              "failed": 2
+            },
+            "late_1": {
+              "passed": 0,
+              "failed": 2
+            },
+            "late_2": {
+              "passed": 0,
+              "failed": 2
+            },
+            "late_3": {
+              "passed": 0,
+              "failed": 2
+            }
+          },
+          "sessions": [],
+          "timings_ns": {
+            "tool_sum": 58303734381,
+            "frozen_tools_and_downloads_span": 17177738977,
+            "cold_request_span": 2715549169,
+            "monitor_control_call_sum": 0,
+            "monitor_control_union": 0,
+            "cleanup": 283634826,
+            "controller": 27729278665,
+            "rollout": 27241269875,
+            "created_to_controller_end_ns": 24956538416,
+            "create_to_setup_ns": 2079967577
+          },
+          "minimum_free_disk_gib": 108.28345108032227,
+          "controller_phases_ns": {
+            "before_rollout": 55844672,
+            "creation": 2716895577,
+            "preparation": 2079967577,
+            "prepared_to_first_action": 430025,
+            "actions_and_downloads": 17178675738,
+            "final_checks": 5265300958,
+            "after_checks_and_cleanup": 432164118
+          },
+          "grpo_setup_schedule": "create-all-before-setup",
+          "workflow": ".artifacts/platform-tasks/20261026T145528Z-1569666",
+          "storage": ".artifacts/storage-isolated-service/20261026T145647Z-1570528",
+          "raw": ".artifacts/storage-isolated-service/20261026T145647Z-1570528/prettier6604",
+          "report": ".artifacts/platform-tasks/report-20261026T145528Z-1569666"
+        },
+        {
+          "mode": "on",
+          "actual_actions": 189,
+          "official": {
+            "backbone": {
+              "passed": 0,
+              "failed": 2
+            },
+            "early_1": {
+              "passed": 0,
+              "failed": 2
+            },
+            "early_2": {
+              "passed": 0,
+              "failed": 2
+            },
+            "early_3": {
+              "passed": 0,
+              "failed": 2
+            },
+            "late_1": {
+              "passed": 0,
+              "failed": 2
+            },
+            "late_2": {
+              "passed": 0,
+              "failed": 2
+            },
+            "late_3": {
+              "passed": 0,
+              "failed": 2
+            }
+          },
+          "sessions": [
+            {
+              "role": "early_1",
+              "samples": 261,
+              "cpu_seconds": 0.23119299999999998,
+              "peak_rss_mib": 16.625,
+              "max_gap_seconds": 0.100949966
+            },
+            {
+              "role": "early_2",
+              "samples": 261,
+              "cpu_seconds": 0.23315599999999997,
+              "peak_rss_mib": 16.8125,
+              "max_gap_seconds": 0.102246823
+            },
+            {
+              "role": "early_3",
+              "samples": 262,
+              "cpu_seconds": 0.223125,
+              "peak_rss_mib": 16.76171875,
+              "max_gap_seconds": 0.104415438
+            },
+            {
+              "role": "late_1",
+              "samples": 261,
+              "cpu_seconds": 0.235029,
+              "peak_rss_mib": 16.14453125,
+              "max_gap_seconds": 0.104342425
+            },
+            {
+              "role": "backbone",
+              "samples": 272,
+              "cpu_seconds": 0.178554,
+              "peak_rss_mib": 16.125,
+              "max_gap_seconds": 0.104586261
+            },
+            {
+              "role": "late_2",
+              "samples": 262,
+              "cpu_seconds": 0.24916299999999997,
+              "peak_rss_mib": 16.66796875,
+              "max_gap_seconds": 0.101148347
+            },
+            {
+              "role": "late_3",
+              "samples": 271,
+              "cpu_seconds": 0.223032,
+              "peak_rss_mib": 16.78125,
+              "max_gap_seconds": 0.113420092
+            }
+          ],
+          "timings_ns": {
+            "tool_sum": 61178161569,
+            "frozen_tools_and_downloads_span": 18115383327,
+            "cold_request_span": 3418639567,
+            "monitor_control_call_sum": 8846532725,
+            "monitor_control_union": 1656669467,
+            "cleanup": 530061014,
+            "controller": 31219820116,
+            "rollout": 30503600167,
+            "created_to_controller_end_ns": 27755758849,
+            "create_to_setup_ns": 3224456112
+          },
+          "minimum_free_disk_gib": 108.27848815917969,
+          "controller_phases_ns": {
+            "before_rollout": 44355500,
+            "creation": 3419705767,
+            "preparation": 3224456112,
+            "prepared_to_first_action": 465911,
+            "actions_and_downloads": 18116209204,
+            "final_checks": 5742763173,
+            "after_checks_and_cleanup": 671864449
+          },
+          "grpo_setup_schedule": "create-all-before-setup",
+          "workflow": ".artifacts/platform-tasks/20261026T145737Z-1572614",
+          "storage": ".artifacts/storage-isolated-service/20261026T145854Z-1573034",
+          "raw": ".artifacts/storage-isolated-service/20261026T145854Z-1573034/prettier6604",
+          "report": ".artifacts/platform-tasks/report-20261026T145737Z-1572614",
+          "monitor_control_breakdown": {
+            "monitor-upload-bundle": {
+              "count": 7,
+              "sum_ns": 4494913454,
+              "union_ns": 1097012578,
+              "max_ns": 1095830884
+            },
+            "monitor-ready": {
+              "count": 7,
+              "sum_ns": 2195202377,
+              "union_ns": 1238479052,
+              "max_ns": 1168949468
+            },
+            "monitor-phase": {
+              "count": 7,
+              "sum_ns": 393415883,
+              "union_ns": 75425478,
+              "max_ns": 72398463
+            },
+            "monitor-finish": {
+              "count": 7,
+              "sum_ns": 1482285358,
+              "union_ns": 255393290,
+              "max_ns": 252685329
+            },
+            "monitor-download": {
+              "count": 7,
+              "sum_ns": 280715653,
+              "union_ns": 138391697,
+              "max_ns": 42363195
+            }
+          },
+          "collector_one_core_cpu_percent": [
+            0.8847818863051766,
+            0.8927837509181439,
+            0.8522698362289018,
+            0.8988965886207524,
+            0.6569970993329695,
+            0.9525720256486977,
+            0.8211591371403069
+          ]
+        }
+      ],
+      "comparison": {
+        "tool_sum": {
+          "off_ns": 58303734381,
+          "on_ns": 61178161569,
+          "difference_ns": 2874427188,
+          "change_percent": 4.930091045654739
+        },
+        "frozen_tools_and_downloads_span": {
+          "off_ns": 17177738977,
+          "on_ns": 18115383327,
+          "difference_ns": 937644350,
+          "change_percent": 5.45848525964594
+        },
+        "cold_request_span": {
+          "off_ns": 2715549169,
+          "on_ns": 3418639567,
+          "difference_ns": 703090398,
+          "change_percent": 25.89127849446795
+        },
+        "monitor_control_call_sum": {
+          "off_ns": 0,
+          "on_ns": 8846532725,
+          "difference_ns": 8846532725,
+          "change_percent": null
+        },
+        "monitor_control_union": {
+          "off_ns": 0,
+          "on_ns": 1656669467,
+          "difference_ns": 1656669467,
+          "change_percent": null
+        },
+        "cleanup": {
+          "off_ns": 283634826,
+          "on_ns": 530061014,
+          "difference_ns": 246426188,
+          "change_percent": 86.8814988184843
+        },
+        "controller": {
+          "off_ns": 27729278665,
+          "on_ns": 31219820116,
+          "difference_ns": 3490541451,
+          "change_percent": 12.587927342681926
+        },
+        "rollout": {
+          "off_ns": 27241269875,
+          "on_ns": 30503600167,
+          "difference_ns": 3262330292,
+          "change_percent": 11.975690953357221
+        },
+        "created_to_controller_end_ns": {
+          "off_ns": 24956538416,
+          "on_ns": 27755758849,
+          "difference_ns": 2799220433,
+          "change_percent": 11.216380999399256
+        },
+        "create_to_setup_ns": {
+          "off_ns": 2079967577,
+          "on_ns": 3224456112,
+          "difference_ns": 1144488535,
+          "change_percent": 55.024344978046734
+        }
+      },
+      "controller_phase_difference_ns": {
+        "before_rollout": -11489172,
+        "creation": 702810190,
+        "preparation": 1144488535,
+        "prepared_to_first_action": 35886,
+        "actions_and_downloads": 937533466,
+        "final_checks": 477462215,
+        "after_checks_and_cleanup": 239700331
+      }
+    }
+  ],
+  "statistics": {
+    "tool_sum": {
+      "off_median_ns": 58303734381,
+      "on_median_ns": 60183224658,
+      "paired_difference_median_ns": 2419261795,
+      "paired_change_median_percent": 4.188185289049184,
+      "paired_change_range_percent": [
+        -3.2173442795006557,
+        4.930091045654739
+      ]
+    },
+    "frozen_tools_and_downloads_span": {
+      "off_median_ns": 17177738977,
+      "on_median_ns": 18150502148,
+      "paired_difference_median_ns": 1561697205,
+      "paired_change_median_percent": 8.554475755105152,
+      "paired_change_range_percent": [
+        5.45848525964594,
+        9.512121790945915
+      ]
+    },
+    "cold_request_span": {
+      "off_median_ns": 2858760666,
+      "on_median_ns": 4503530098,
+      "paired_difference_median_ns": 1050184471,
+      "paired_change_median_percent": 30.410638969616222,
+      "paired_change_range_percent": [
+        25.89127849446795,
+        180.74123963758217
+      ]
+    },
+    "monitor_control_call_sum": {
+      "off_median_ns": 0,
+      "on_median_ns": 4024469135,
+      "paired_difference_median_ns": 4024469135,
+      "paired_change_median_percent": null,
+      "paired_change_range_percent": null
+    },
+    "monitor_control_union": {
+      "off_median_ns": 0,
+      "on_median_ns": 704558198,
+      "paired_difference_median_ns": 704558198,
+      "paired_change_median_percent": null,
+      "paired_change_range_percent": null
+    },
+    "cleanup": {
+      "off_median_ns": 271969685,
+      "on_median_ns": 530061014,
+      "paired_difference_median_ns": 246426188,
+      "paired_change_median_percent": 86.8814988184843,
+      "paired_change_range_percent": [
+        84.26643616548661,
+        123.94658825159759
+      ]
+    },
+    "controller": {
+      "off_median_ns": 27729278665,
+      "on_median_ns": 33004666670,
+      "paired_difference_median_ns": 3490541451,
+      "paired_change_median_percent": 12.587927342681926,
+      "paired_change_range_percent": [
+        7.91653937830521,
+        25.636663388062676
+      ]
+    },
+    "rollout": {
+      "off_median_ns": 27241269875,
+      "on_median_ns": 32302239490,
+      "paired_difference_median_ns": 3262330292,
+      "paired_change_median_percent": 11.975690953357221,
+      "paired_change_range_percent": [
+        7.2865208363198875,
+        24.944519505468744
+      ]
+    },
+    "created_to_controller_end_ns": {
+      "off_median_ns": 24956538416,
+      "on_median_ns": 27755758849,
+      "paired_difference_median_ns": 1916313685,
+      "paired_change_median_percent": 7.756324002477677,
+      "paired_change_range_percent": [
+        5.153520465655648,
+        11.216380999399256
+      ]
+    },
+    "create_to_setup_ns": {
+      "off_median_ns": 2195440758,
+      "on_median_ns": 2286714885,
+      "paired_difference_median_ns": 56519204,
+      "paired_change_median_percent": 2.574389848327674,
+      "paired_change_range_percent": [
+        -19.391133898153857,
+        55.024344978046734
+      ]
+    }
+  },
+  "new_live_actions": 0,
+  "grpo_setup_schedule": "create-all-before-setup",
+  "guest_count": 42,
+  "additional_actions_after_first_pair": 756,
+  "additional_guests_after_first_pair": 28,
+  "code_consistency": "PASS_PAIR_AND_ACTUAL_EXECUTION_SNAPSHOTS",
+  "files": {
+    "timing_plot": "results/sampling-overhead/grpo-create-setup-repeats-20261026/paired-times.png",
+    "timing_table": "results/sampling-overhead/grpo-create-setup-repeats-20261026/timings.tsv"
+  },
+  "offline_report_tests": {
+    "passed": 4,
+    "failed": 0
+  }
+}

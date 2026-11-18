@@ -55,6 +55,14 @@ class ColdStartTests(unittest.TestCase):
             with self.assertRaises(ValueError):create(self.home,'http://127.0.0.1:18000','image')
             build.assert_not_called()
 
+    def test_explicit_proxy_clear_does_not_change_network_policy_or_defaults(self):
+        opener=self.response()
+        with patch('agentenv_cold_start.urllib.request.build_opener',return_value=opener):
+            create(self.home,self.url,'fixture',memory_mib=8192,allow_8gib=True,clean_guest_proxy=True)
+        body=json.loads(opener.open.call_args.args[0].data)
+        self.assertEqual(body['envVars'],{key:'' for key in ('HTTP_PROXY','HTTPS_PROXY','ALL_PROXY','http_proxy','https_proxy','all_proxy')})
+        self.assertNotIn('allowInternetAccess',body)
+
     def test_smoke_memory_is_explicit_and_default_remains_4096(self):
         opener=self.response()
         with patch('agentenv_cold_start.urllib.request.build_opener',return_value=opener):

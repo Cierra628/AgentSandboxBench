@@ -1,0 +1,104 @@
+{
+  "date": "2026-10-31",
+  "status": "PASS",
+  "stage": "Xarray local-no-proxy offline implementation",
+  "scope": "New explicit task dispatch, toy-file/mocked regressions, local Shell and fixed KB-scale manifest export only",
+  "task_id": "pydata__xarray-6992",
+  "mode": "--persistent-input --local-no-proxy",
+  "code_files": [
+    "scripts/prettier_no_proxy.py",
+    "scripts/agentenv_cold_start.py",
+    "scripts/run_host_file_workflow.py",
+    "scripts/run_xarray6992.py",
+    "scripts/validate_isolated_agentenv.py",
+    "tests/test_sphinx_no_proxy.py",
+    "tests/test_host_persistent_tasks.py",
+    "tests/test_xarray_no_proxy.py"
+  ],
+  "tests": [
+    {
+      "log": ".artifacts/xarray-no-proxy-implementation-20261031/xarray-local-tests.log",
+      "count": 9,
+      "seconds": 0.139,
+      "status": "PASS"
+    },
+    {
+      "log": ".artifacts/xarray-no-proxy-implementation-20261031/prettier-tests.log",
+      "count": 17,
+      "seconds": 0.096,
+      "status": "PASS"
+    },
+    {
+      "log": ".artifacts/xarray-no-proxy-implementation-20261031/sphinx-local-tests.log",
+      "count": 11,
+      "seconds": 0.102,
+      "status": "PASS"
+    },
+    {
+      "log": ".artifacts/xarray-no-proxy-implementation-20261031/persistent-tests.log",
+      "count": 31,
+      "seconds": 0.209,
+      "status": "PASS"
+    },
+    {
+      "log": ".artifacts/xarray-no-proxy-implementation-20261031/xarray-policy-tests.log",
+      "count": 9,
+      "seconds": 0.048,
+      "status": "PASS"
+    },
+    {
+      "log": ".artifacts/xarray-no-proxy-implementation-20261031/sphinx-policy-tests.log",
+      "count": 14,
+      "seconds": 0.028,
+      "status": "PASS"
+    }
+  ],
+  "test_total": 91,
+  "static_validation": {
+    "status": "PASS",
+    "syntax_files": 8,
+    "help_entries": 2,
+    "task_id": "pydata__xarray-6992",
+    "manifest_bytes": 3043,
+    "manifest_pin": "sha256:c05101ef7105599eca1b7d15279a2928ac5453876cd2b83008deb9165d752655",
+    "layer_count": 13,
+    "raw_config_exported": false,
+    "docker_invoked": false,
+    "network_invoked": false,
+    "real_cache_validation": "NOT_RUN",
+    "real_binary_version_validation": "NOT_RUN",
+    "service_started": false,
+    "guest_started": false
+  },
+  "accepted_requests": [
+    "exact version",
+    "exact pinned Xarray manifest get --format raw-body"
+  ],
+  "rejected_requests_exit_code": 78,
+  "raw_config_required": false,
+  "original_regctl_fallback": false,
+  "proxy": "Six proxy variables cleared; allowInternetAccess=false request retains default DNS exception",
+  "preserved": [
+    "Prettier defaults and explicit mode",
+    "Sphinx explicit mode",
+    "old requests when option disabled",
+    "original Xarray 35 commands and frozen base/testbed environment roles",
+    "xarray-approved-sigpipe exact command/output rule only",
+    "original reset_index negative and final invariant controls",
+    "957 official case selection, prior 945 pass/12 fail reference",
+    "strict replay FAIL separate from diagnostic/official outcomes",
+    "input query/report/release order and failed input preservation"
+  ],
+  "real_cache_and_regctl_real": "NOT_VERIFIED; require future normal restore/import and actual version check",
+  "real_service_and_guest": "NOT_RUN",
+  "performance": "NOT_MEASURED",
+  "network_requests": "NOT_SENT",
+  "deletion": "NOT_PERFORMED",
+  "disk": {
+    "available_bytes": 65476407296,
+    "available_gib": 60.98,
+    "required_gib_strictly_above": 62,
+    "ready": false
+  },
+  "next_step": "After separate confirmation and resources: one original Xarray 35-action run and 957 selected tests, no extra creation-only or four-run control"
+}

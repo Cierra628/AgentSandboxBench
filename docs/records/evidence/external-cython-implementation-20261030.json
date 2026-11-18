@@ -1,0 +1,94 @@
+{
+  "status": "OFFLINE_IMPLEMENTATION_PASS",
+  "date": "2026-10-30",
+  "task_id": "build-cython-ext",
+  "upstream_revision": "cbe767b2aa23ceb59875b1cb0a7a6141c749312a",
+  "input_checks": {
+    "build-cython-ext": {
+      "actions": 83,
+      "original_input_files": 105,
+      "script_and_helpers_match": true,
+      "shell_syntax": "PASS",
+      "generated_runner_matches_before": "NOT_APPLICABLE_NEW_TASK",
+      "original_extension_command_matches": true,
+      "budgets": {
+        "replay": 900,
+        "controller": 1800,
+        "native": 2100,
+        "workflow": 2400
+      }
+    },
+    "reshard-c4-data": {
+      "actions": 36,
+      "original_input_files": 45,
+      "script_and_helpers_match": true,
+      "shell_syntax": "PASS",
+      "generated_runner_matches_before": true,
+      "original_extension_command_matches": null,
+      "budgets": {
+        "replay": 240,
+        "controller": 720,
+        "native": 1050,
+        "workflow": 1200
+      }
+    },
+    "django__django-16819": {
+      "actions": 28,
+      "original_input_files": 28,
+      "script_and_helpers_match": true,
+      "shell_syntax": "PASS",
+      "generated_runner_matches_before": true,
+      "original_extension_command_matches": null,
+      "budgets": {
+        "replay": 240,
+        "controller": 720,
+        "native": 1050,
+        "workflow": 1200
+      }
+    }
+  },
+  "tests": {
+    "cython": 11,
+    "existing_external": 13,
+    "isolated_storage": 27,
+    "total": 51
+  },
+  "proxy": {
+    "implementation": "Pinned upstream scripts/agentenv_workload_proxy.py; new owned lifecycle helper",
+    "listener": "An unused documented test address from 192.0.2.17, 198.51.100.17, 203.0.113.17; temporary /32 on lo, removed after own process stops",
+    "upstream": "Existing unauthenticated HTTP proxy on host 127.0.0.1; environment values not printed",
+    "peer_acl": "Upstream relay allows only 10.211.0.0/16, 10.212.0.0/16, 169.254.0.20/30",
+    "policy_evidence": "Saved effective private-service network.egress.always_denied_cidrs blocks RFC1918; static policy rejects precede user allows. Retain these rules and use the original dedicated-address proxy pattern, not a docker0 listener.",
+    "readiness": "Owned process readiness then guest HEAD checks to GitHub repository page and PyPI pip index before sampling; no clone, install or data warmup",
+    "cleanup": "Outer workflow owns relay outside private volume: native controller failure/timeout still closes relay in outer finally. Terminate/wait or kill only own child, remove only successfully allocated /32; failures fail result",
+    "live_guest_network": "NOT_VERIFIED"
+  },
+  "functional_checks": [
+    "83 reference exits and valid time ordering",
+    "Step 76 snippet and NumPy 2.3.0 evidence",
+    "Step 82 exactly one 18-passed summary in each original context, no failure/error trace",
+    "Original postrun command asserts all three compiled .so paths; records source commit",
+    "NumPy final version exactly 2.3.0"
+  ],
+  "result_schema": {
+    "new_pass": "Task functional_validation/test_validation/extension_validation = PASS; outer workflow owned_guest_proxy_stopped = true",
+    "syntax_validation": "NOT_REQUESTED_ORIGINAL_EXTENSION_CHECK",
+    "official_tests": "NOT_RUN_ORIGINAL_18_TESTS_TWICE_AND_EXTENSION_CHECK"
+  },
+  "fixed_fixture_gib": 32,
+  "required_disk_available_gib_strictly_greater_than": 58,
+  "required_mem_available_gib_strictly_greater_than": 64,
+  "sampling": "Existing 0.1s host/guest light profile and original reclaim, no PSS, freeze, root scan or periodic mincore",
+  "actual_task": "NOT_RUN",
+  "curves": "NOT_COLLECTED",
+  "operations": {
+    "services_started": false,
+    "guests_started": false,
+    "addresses_added": false,
+    "network_requests": false,
+    "dependencies_installed": false,
+    "task_commands_executed": false
+  },
+  "evidence_directory": ".artifacts/external-cython-implementation-20261030",
+  "next": "Verify fixed image and resources, run one new 8 GiB guest through network preflight and all 83 commands; preserve failure evidence and do not weaken reference results."
+}

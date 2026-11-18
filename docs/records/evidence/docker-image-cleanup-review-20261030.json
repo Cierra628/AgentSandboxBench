@@ -1,0 +1,108 @@
+{
+  "status": "CANDIDATES_AWAITING_EXPLICIT_APPROVAL",
+  "date": "2026-10-30",
+  "scope": "Read-only Docker metadata, allocated file metadata and remote base manifests; no layer contents read, pull, build, deletion, service or task start",
+  "candidates": [
+    {
+      "profile": "sphinx7590",
+      "id": "sha256:a192b6897ba1955ed39d8c8884e748ffb5522006afde18118d3d62bced84c670",
+      "tag": "mixfs/sphinx-7590-exp5-trenvx:577ebfcce825",
+      "declared_logical_bytes": 1918924730,
+      "container_references": 0,
+      "registry_digest_for_derived_image": null,
+      "base_reference": "ghcr.io/epoch-research/swe-bench.eval.x86_64.sphinx-doc__sphinx-7590@sha256:577ebfcce825e4c9621e066dc1c8375443be94bbc6de30b9368e422b8f123731",
+      "base_manifest_status": "PASS",
+      "base_manifest_check_scope": "Manifest only; no local image pull, container or task",
+      "retained_dockerfile": "IncrementalDAX_moti/motivation/experiments/exp3-RL-fork/systems/trenvx/Dockerfile",
+      "retained_workload": "IncrementalDAX_moti/motivation/experiments/exp3-RL-fork/workloads/sphinx-7590-rl-fork",
+      "rebuild_commands": [
+        [
+          "python3",
+          "IncrementalDAX_moti/motivation/experiments/exp3-RL-fork/workloads/sphinx-7590-rl-fork/plan.py"
+        ],
+        [
+          "docker",
+          "build",
+          "--file",
+          "IncrementalDAX_moti/motivation/experiments/exp3-RL-fork/systems/trenvx/Dockerfile",
+          "--build-arg",
+          "WORKLOAD_IMAGE=ghcr.io/epoch-research/swe-bench.eval.x86_64.sphinx-doc__sphinx-7590@sha256:577ebfcce825e4c9621e066dc1c8375443be94bbc6de30b9368e422b8f123731",
+          "--build-arg",
+          "WORKLOAD_NAME=sphinx-7590-rl-fork",
+          "--tag",
+          "mixfs/sphinx-7590-exp5-trenvx:577ebfcce825",
+          "IncrementalDAX_moti/motivation/experiments/exp3-RL-fork"
+        ]
+      ],
+      "rebuilding_tested": false,
+      "exact_old_image_id_recreation": "NOT_ESTABLISHED",
+      "impact": "Existing local TrEnv-X Sphinx/Xarray replay requires these tags; rebuild before using those old entries. Current AgentENV tasks use verified input archives and the separate source-service image."
+    },
+    {
+      "profile": "xarray6992",
+      "id": "sha256:f24d8f7685f353cc1fac9d1a16c0daa611e79e2b6c511dfbe5fb19635dcf9ead",
+      "tag": "mixfs/xarray-6992-exp5-trenvx:c05101ef7105",
+      "declared_logical_bytes": 3672097345,
+      "container_references": 0,
+      "registry_digest_for_derived_image": null,
+      "base_reference": "ghcr.io/epoch-research/swe-bench.eval.x86_64.pydata__xarray-6992@sha256:c05101ef7105599eca1b7d15279a2928ac5453876cd2b83008deb9165d752655",
+      "base_manifest_status": "PASS",
+      "base_manifest_check_scope": "Manifest only; no local image pull, container or task",
+      "retained_dockerfile": "IncrementalDAX_moti/motivation/experiments/exp3-RL-fork/systems/trenvx/Dockerfile",
+      "retained_workload": "IncrementalDAX_moti/motivation/experiments/exp3-RL-fork/workloads/xarray-6992-rl-fork",
+      "rebuild_commands": [
+        [
+          "python3",
+          "IncrementalDAX_moti/motivation/experiments/exp3-RL-fork/workloads/xarray-6992-rl-fork/plan.py"
+        ],
+        [
+          "docker",
+          "build",
+          "--file",
+          "IncrementalDAX_moti/motivation/experiments/exp3-RL-fork/systems/trenvx/Dockerfile",
+          "--build-arg",
+          "WORKLOAD_IMAGE=ghcr.io/epoch-research/swe-bench.eval.x86_64.pydata__xarray-6992@sha256:c05101ef7105599eca1b7d15279a2928ac5453876cd2b83008deb9165d752655",
+          "--build-arg",
+          "WORKLOAD_NAME=xarray-6992-rl-fork",
+          "--tag",
+          "mixfs/xarray-6992-exp5-trenvx:c05101ef7105",
+          "IncrementalDAX_moti/motivation/experiments/exp3-RL-fork"
+        ]
+      ],
+      "rebuilding_tested": false,
+      "exact_old_image_id_recreation": "NOT_ESTABLISHED",
+      "impact": "Existing local TrEnv-X Sphinx/Xarray replay requires these tags; rebuild before using those old entries. Current AgentENV tasks use verified input archives and the separate source-service image."
+    }
+  ],
+  "all_local_images_checked": 88,
+  "exclusive_layer_count": 24,
+  "unique_inode_count": 157585,
+  "exclusive_inode_allocated_bytes": 4600598528,
+  "exclusive_inode_allocated_gib": 4.284641265869141,
+  "outside_hardlink_allocated_bytes": 0,
+  "free_before_bytes": 63025762304,
+  "free_before_gib": 58.69731521606445,
+  "estimated_free_after_gib": 62.981956481933594,
+  "estimate_condition": "Both selected images removed without keeping a new local image export; current image references unchanged; final reclaimed space must be measured after removal.",
+  "current_source_image_preserved": "sha256:db9eb044ae3d85f9b276b9d2e5dea28cb0be95263d217ea4989f095e1d828681",
+  "original_services_and_all_containers_preserved": true,
+  "excluded": {
+    "unknown_ownership_image": "public.ecr.aws/firecracker/fcuvm:v93",
+    "other_images": "Not selected; includes all other local projects, retained Prettier variants and source service."
+  },
+  "recovery": "Retained task recipe and pinned base manifests verified readable. No pull or rebuild run; old local derived image IDs are not guaranteed after rebuilding. Export first if exact old images must be retained; net benefit then needs measurement.",
+  "proposed_removal_command": [
+    "docker",
+    "image",
+    "rm",
+    "--no-prune",
+    "sha256:a192b6897ba1955ed39d8c8884e748ffb5522006afde18118d3d62bced84c670",
+    "sha256:f24d8f7685f353cc1fac9d1a16c0daa611e79e2b6c511dfbe5fb19635dcf9ead"
+  ],
+  "deleted_images": 0,
+  "new_images": 0,
+  "new_containers": 0,
+  "new_guests": 0,
+  "new_task_actions": 0,
+  "next": "Await approval for these two exact images and the stated rebuild requirement; then recheck references and tags, remove only them without force/prune and measure free disk. No automatic Xarray launch."
+}

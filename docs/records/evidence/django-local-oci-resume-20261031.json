@@ -1,0 +1,49 @@
+{
+  "status": "PASS_OFFLINE_CHECKER_REPAIR",
+  "live_workflow": "FAIL_CHECKER_AFTER_SUCCESSFUL_CREATIONS",
+  "download": "PASS",
+  "resumed_input_bytes": 327155712,
+  "verified_input_bytes": 1242121418,
+  "download_resume_seconds": 337.160211139,
+  "download_cumulative_seconds": 653.902856531,
+  "new_guests_created": 2,
+  "preparation_create_seconds": 37.251947603,
+  "preparation_success": "PASS",
+  "local_oci_read_only_bind": true,
+  "first_off_create_seconds": 6.033571895,
+  "first_off_create_exit": 0,
+  "first_off_log_audit": {
+    "status": "PASS",
+    "converted_layer_copy_started": false,
+    "resolution_log": "ABSENT_CACHE_IMAGE_CONFIRMED",
+    "server_lines": {
+      "creating": 1,
+      "launched": 3
+    },
+    "phases_wall_ns": {
+      "before_creating": 5388102858,
+      "creating_to_launched": 635630000,
+      "launch_to_client_return": 9839304
+    },
+    "client_wall_minus_monotonic_duration_ns": 267,
+    "scope": "No new missing-layer copy; metadata resolution may still access a registry"
+  },
+  "first_off_baseline_and_after_counters": "NOT_SAVED_BY_OLD_CHECKER_PATH",
+  "completed_control_pairs": 0,
+  "remaining_three_creations": "NOT_RUN",
+  "cleanup": {
+    "owned_container_removed": true,
+    "mount_and_loop_removed": true,
+    "failed_fixture_retained": true,
+    "original_firecracker_identities_unchanged": true,
+    "original_service_unchanged": true
+  },
+  "source_returned_stopped": true,
+  "failure_volume": ".artifacts/storage-isolated-service/20261030T164306Z-2749831/volume.ext4",
+  "failure_volume_bytes": 34359738368,
+  "no_mount_loop_or_users": true,
+  "source_directory": ".artifacts/django-local-creation-resume-20261031",
+  "storage_directory": ".artifacts/storage-isolated-service/20261030T164306Z-2749831",
+  "fix": "Prepared cache-hit path needs matching in-window platform image-ready event instead of a mandatory resolver conversion log. Raw observations now saved before phase checks.",
+  "next": "Approval for specific 32 GiB retained volume deletion, then a fresh same-service full four-call comparison. Reuse verified input; no download retry or Django business replay."
+}

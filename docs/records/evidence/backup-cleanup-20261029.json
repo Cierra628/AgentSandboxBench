@@ -1,0 +1,131 @@
+{
+  "status": "PASS",
+  "cutoff": "2026-10-22 00:00 Asia/Shanghai",
+  "deleted_volume_backup_count": 22,
+  "deleted_volume_backups": [
+    {
+      "path": ".artifacts/storage-isolated-service/20261009T030913Z-3874825/volume.ext4.gz",
+      "allocated_bytes": 84119552
+    },
+    {
+      "path": ".artifacts/storage-isolated-service/20261009T032655Z-3886078/volume.ext4.gz",
+      "allocated_bytes": 84975616
+    },
+    {
+      "path": ".artifacts/storage-isolated-service/20261009T064541Z-3980552/volume.ext4.gz",
+      "allocated_bytes": 84013056
+    },
+    {
+      "path": ".artifacts/storage-isolated-service/20261009T090435Z-4026236/volume.ext4.gz",
+      "allocated_bytes": 51281920
+    },
+    {
+      "path": ".artifacts/storage-isolated-service/20261010T044006Z-98974/volume.ext4.gz",
+      "allocated_bytes": 83988480
+    },
+    {
+      "path": ".artifacts/storage-isolated-service/20261010T050818Z-133209/volume.ext4.gz",
+      "allocated_bytes": 83976192
+    },
+    {
+      "path": ".artifacts/storage-isolated-service/20261010T052658Z-148862/volume.ext4.gz",
+      "allocated_bytes": 83959808
+    },
+    {
+      "path": ".artifacts/storage-isolated-service/20261011T063624Z-457525/volume.ext4.gz",
+      "allocated_bytes": 101142528
+    },
+    {
+      "path": ".artifacts/storage-isolated-service/20261011T063913Z-461848/volume.ext4.gz",
+      "allocated_bytes": 101142528
+    },
+    {
+      "path": ".artifacts/storage-isolated-service/20261012T085754Z-1011905/volume.ext4.gz",
+      "allocated_bytes": 84062208
+    },
+    {
+      "path": ".artifacts/storage-isolated-service/20261012T091029Z-1026197/volume.ext4.gz",
+      "allocated_bytes": 83558400
+    },
+    {
+      "path": ".artifacts/storage-isolated-service/20261012T092027Z-1036037/volume.ext4.gz",
+      "allocated_bytes": 84185088
+    },
+    {
+      "path": ".artifacts/storage-isolated-service/20261012T103756Z-1073044/volume.ext4.gz",
+      "allocated_bytes": 122470400
+    },
+    {
+      "path": ".artifacts/storage-isolated-service/20261012T104130Z-1075868/volume.ext4.gz",
+      "allocated_bytes": 124735488
+    },
+    {
+      "path": ".artifacts/storage-isolated-service/20261012T104919Z-1082361/volume.ext4.gz",
+      "allocated_bytes": 132071424
+    },
+    {
+      "path": ".artifacts/storage-isolated-service/20261012T110946Z-1102369/volume.ext4.gz",
+      "allocated_bytes": 123813888
+    },
+    {
+      "path": ".artifacts/storage-isolated-service/20261012T111518Z-1107710/volume.ext4.gz",
+      "allocated_bytes": 123109376
+    },
+    {
+      "path": ".artifacts/storage-isolated-service/20261013T040738Z-1258832/volume.ext4.gz",
+      "allocated_bytes": 124743680
+    },
+    {
+      "path": ".artifacts/storage-isolated-service/20261013T045237Z-1288423/volume.ext4.gz",
+      "allocated_bytes": 124960768
+    },
+    {
+      "path": ".artifacts/storage-isolated-service/20261015T032538Z-1704709/volume.ext4.gz",
+      "allocated_bytes": 113680384
+    },
+    {
+      "path": ".artifacts/storage-isolated-service/20261015T154910Z-2037403/volume.ext4.gz",
+      "allocated_bytes": 1947054080
+    },
+    {
+      "path": ".artifacts/storage-isolated-service/20261018T040255Z-2612260/volume.ext4.gz",
+      "allocated_bytes": 2432471040
+    }
+  ],
+  "deleted_volume_backup_bytes": 6379515904,
+  "raw_metadata_files_archived": 2434,
+  "raw_metadata_original_allocated_bytes": 12519841792,
+  "archive_path": ".artifacts/backup-cleanup-20261029/old-page-metadata.tar.gz",
+  "archive_allocated_bytes": 1445638144,
+  "archive_verification": "GNU tar --compare with gzip integrity checking",
+  "compression_net_saved_bytes": 11074203648,
+  "selected_net_saved_bytes": 17453719552,
+  "free_before_bytes": 41316585472,
+  "free_after_bytes": 58769469440,
+  "free_at_delivery_bytes": 58772783104,
+  "persistent_input_disk_ready": true,
+  "required_task_inputs_preserved": [
+    {
+      "path": ".artifacts/storage-isolated-service/20261008T102942Z-3642885/volume.ext4.gz",
+      "size_bytes": 2245185148
+    },
+    {
+      "path": ".artifacts/storage-isolated-service/20261008T165515Z-3834076/volume.ext4.gz",
+      "size_bytes": 3644879815
+    },
+    {
+      "path": ".artifacts/storage-isolated-service/20261009T050703Z-3934019/volume.ext4.gz",
+      "size_bytes": 2862171516
+    }
+  ],
+  "protected_light_backup": ".artifacts/light-measurement-backup-20261021T064910Z",
+  "retention_markers_honored": true,
+  "recent_result_files_deleted": 0,
+  "original_raw_volumes_deleted": 0,
+  "services_started": 0,
+  "new_guests": 0,
+  "use_change": "Old archived page-metadata paths require restore-one.sh before running analyses that read those raw files; reports, logs and recent results remain in place.",
+  "recovery": "bash .artifacts/backup-cleanup-20261029/restore-one.sh <exact member path from plan.json>",
+  "evidence": ".artifacts/backup-cleanup-20261029/",
+  "next": "One original two-guest/22-action persistent-input short validation after fresh resource checks and authorization; no experiment started by cleanup"
+}

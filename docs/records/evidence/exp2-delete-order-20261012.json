@@ -1,0 +1,421 @@
+{
+  "status": "PASS",
+  "scope": "One delete-order diagnostic (two VMs), followed by one original four-round TrEnv-X Exp2 replay with close-before-delete. AgentENV not rerun.",
+  "command": "bash scripts/validate-isolated-trenvx.sh --automatic-window --mode exp2 --diagnose-exp2-delete",
+  "storage_result_dir": ".artifacts/storage-isolated-trenvx/20261012T041534Z-845285",
+  "raw": ".artifacts/storage-isolated-trenvx/20261012T041534Z-845285/raw/20261012T041535Z-845300/replay",
+  "diagnostic": {
+    "status": "PASS",
+    "runs": [
+      {
+        "sandbox_id": "e8aeb5b9-9b5c-4f5f-9409-077b08c61b31",
+        "close_first": false,
+        "tool_marker": "delete-order-tool-ok",
+        "native_list_empty": true,
+        "owned_cgroup_empty": true
+      },
+      {
+        "sandbox_id": "92c8b0f9-8cc8-4433-9e7c-17c5597054e0",
+        "close_first": true,
+        "tool_marker": "delete-order-tool-ok",
+        "native_list_empty": true,
+        "owned_cgroup_empty": true
+      }
+    ]
+  },
+  "delete_phase_timings": [
+    {
+      "sandbox_id": "e8aeb5b9-9b5c-4f5f-9409-077b08c61b31",
+      "close_first": false,
+      "timings": [
+        {
+          "stage": "delete-rpc",
+          "duration_ns": 3760473
+        },
+        {
+          "stage": "cleanup-wait",
+          "duration_ns": 1501682934
+        },
+        {
+          "stage": "sdk-close",
+          "duration_ns": 15015814804
+        }
+      ]
+    },
+    {
+      "sandbox_id": "92c8b0f9-8cc8-4433-9e7c-17c5597054e0",
+      "close_first": true,
+      "timings": [
+        {
+          "stage": "sdk-close",
+          "duration_ns": 2818930
+        },
+        {
+          "stage": "delete-rpc",
+          "duration_ns": 4479391
+        },
+        {
+          "stage": "cleanup-wait",
+          "duration_ns": 1501717254
+        }
+      ]
+    },
+    {
+      "sandbox_id": "11a1794f-5714-4162-ac7a-ca1494c3e6b4",
+      "close_first": true,
+      "timings": [
+        {
+          "stage": "sdk-close",
+          "duration_ns": 2049965
+        },
+        {
+          "stage": "delete-rpc",
+          "duration_ns": 2422812
+        },
+        {
+          "stage": "cleanup-wait",
+          "duration_ns": 1501720052
+        }
+      ]
+    },
+    {
+      "sandbox_id": "e2d5acf7-c6e9-4fbf-89b3-2f7848720464",
+      "close_first": true,
+      "timings": [
+        {
+          "stage": "sdk-close",
+          "duration_ns": 16554097
+        },
+        {
+          "stage": "delete-rpc",
+          "duration_ns": 2661491
+        },
+        {
+          "stage": "cleanup-wait",
+          "duration_ns": 1501711474
+        }
+      ]
+    },
+    {
+      "sandbox_id": "5f60632a-f1d7-4909-bf31-22f0366b30ec",
+      "close_first": true,
+      "timings": [
+        {
+          "stage": "sdk-close",
+          "duration_ns": 2273546
+        },
+        {
+          "stage": "delete-rpc",
+          "duration_ns": 2500943
+        },
+        {
+          "stage": "cleanup-wait",
+          "duration_ns": 1501713002
+        }
+      ]
+    },
+    {
+      "sandbox_id": "da625f4f-c8c2-486a-8608-5ea85032217e",
+      "close_first": true,
+      "timings": [
+        {
+          "stage": "sdk-close",
+          "duration_ns": 2216565
+        },
+        {
+          "stage": "delete-rpc",
+          "duration_ns": 2967805
+        },
+        {
+          "stage": "cleanup-wait",
+          "duration_ns": 1501720380
+        }
+      ]
+    },
+    {
+      "sandbox_id": "6d4693cb-ecb8-4f01-aef1-80ccb9ae366e",
+      "close_first": true,
+      "timings": [
+        {
+          "stage": "sdk-close",
+          "duration_ns": 2322623
+        },
+        {
+          "stage": "delete-rpc",
+          "duration_ns": 4123760
+        },
+        {
+          "stage": "cleanup-wait",
+          "duration_ns": 1501698830
+        }
+      ]
+    }
+  ],
+  "baseline": {
+    "raw": ".artifacts/storage-isolated-trenvx/20261012T033825Z-822338/raw/20261012T033825Z-822353/replay",
+    "controller_elapsed_ns": 274197798423,
+    "guest_action_sum_ns": 7762667210,
+    "serial_call_breakdown": {
+      "other": {
+        "calls": 71,
+        "duration_ns": 100485566476
+      },
+      "monitor-control": {
+        "calls": 55,
+        "duration_ns": 72389792835
+      },
+      "round-runner-call": {
+        "calls": 4,
+        "duration_ns": 18227163589
+      },
+      "vm-delete-and-sdk-close": {
+        "calls": 5,
+        "duration_ns": 82591494109
+      }
+    }
+  },
+  "replay": {
+    "action_count": 32,
+    "checkpoint_count": 4,
+    "restore_count": 4,
+    "guest_action_sum_ns": 7692680055,
+    "controller_elapsed_ns": 193849154015,
+    "transitions": [
+      {
+        "after_round": 1,
+        "checkpoint_ns": 1595336232,
+        "restore_ns": 3631632412,
+        "image_rebuild_ns": 1719011512,
+        "state_verification_ns": 3257733071,
+        "guest_cache_clear_ns": 2428416006
+      },
+      {
+        "after_round": 2,
+        "checkpoint_ns": 1804292683,
+        "restore_ns": 3616927292,
+        "image_rebuild_ns": 1605585652,
+        "state_verification_ns": 3183605906,
+        "guest_cache_clear_ns": 2485976327
+      },
+      {
+        "after_round": 3,
+        "checkpoint_ns": 1807536066,
+        "restore_ns": 3651575104,
+        "image_rebuild_ns": 1678224653,
+        "state_verification_ns": 3143152139,
+        "guest_cache_clear_ns": 2376497207
+      },
+      {
+        "after_round": 4,
+        "checkpoint_ns": 1836648825,
+        "restore_ns": 2741258608,
+        "image_rebuild_ns": 1561303752,
+        "state_verification_ns": 2627043644,
+        "guest_cache_clear_ns": 2442772272
+      }
+    ],
+    "boundary_memory": [
+      {
+        "round": 1,
+        "runner_baseline_nonfree_bytes": 236638208,
+        "runner_baseline_file_cache_estimate_bytes": 22016000,
+        "before_drop_cached_bytes": 5439488,
+        "at_snapshot_cached_bytes": 2957312,
+        "immediate_restored_cached_bytes": 3026944
+      },
+      {
+        "round": 2,
+        "runner_baseline_nonfree_bytes": 214228992,
+        "runner_baseline_file_cache_estimate_bytes": 16089088,
+        "before_drop_cached_bytes": 4415488,
+        "at_snapshot_cached_bytes": 3072000,
+        "immediate_restored_cached_bytes": 3076096
+      },
+      {
+        "round": 3,
+        "runner_baseline_nonfree_bytes": 201547776,
+        "runner_baseline_file_cache_estimate_bytes": 16015360,
+        "before_drop_cached_bytes": 4866048,
+        "at_snapshot_cached_bytes": 3039232,
+        "immediate_restored_cached_bytes": 3043328
+      },
+      {
+        "round": 4,
+        "runner_baseline_nonfree_bytes": 188469248,
+        "runner_baseline_file_cache_estimate_bytes": 16261120,
+        "before_drop_cached_bytes": 4939776,
+        "at_snapshot_cached_bytes": 3080192,
+        "immediate_restored_cached_bytes": 3084288
+      }
+    ],
+    "focused_tests": [
+      {
+        "round": 3,
+        "step": "008",
+        "passed": 1,
+        "total": 1
+      },
+      {
+        "round": 4,
+        "step": "006",
+        "passed": 6,
+        "total": 6
+      }
+    ],
+    "final_source_sha256": "123b5e6c1be804ff1c7649b217a64576fb41ed3beb1185f2b8c728f49741829f",
+    "final_patch_sha256": "1f8f98afa26eb3164c584a015fc0d40356af8d5363254e6a578b30074caf8da2",
+    "serial_call_breakdown": {
+      "other": {
+        "calls": 71,
+        "duration_ns": 94702072409
+      },
+      "monitor-control": {
+        "calls": 55,
+        "duration_ns": 73213997098
+      },
+      "round-runner-call": {
+        "calls": 4,
+        "duration_ns": 17843658456
+      },
+      "vm-delete-and-sdk-close": {
+        "calls": 5,
+        "duration_ns": 7555551624
+      }
+    },
+    "sdk_close_sum_ns": 25416796,
+    "guest_runtime": [
+      {
+        "role": "round-1",
+        "sample_count": 100,
+        "observed_nonfree_peak_bytes": 320765952,
+        "cached_observed_peak_bytes": 5406720
+      },
+      {
+        "role": "round-2",
+        "sample_count": 113,
+        "observed_nonfree_peak_bytes": 272326656,
+        "cached_observed_peak_bytes": 4382720
+      },
+      {
+        "role": "round-3",
+        "sample_count": 107,
+        "observed_nonfree_peak_bytes": 347586560,
+        "cached_observed_peak_bytes": 4833280
+      },
+      {
+        "role": "round-4",
+        "sample_count": 118,
+        "observed_nonfree_peak_bytes": 308199424,
+        "cached_observed_peak_bytes": 4911104
+      },
+      {
+        "role": "final-restored",
+        "sample_count": 52,
+        "observed_nonfree_peak_bytes": 205484032,
+        "cached_observed_peak_bytes": 4325376
+      }
+    ],
+    "performance": [
+      {
+        "role": "round-1",
+        "guest_cpu_status": "MEASURED",
+        "guest_io_status": "MEASURED",
+        "host_vmm_status": "MEASURED",
+        "host_pss_observed_peak_bytes": 470193152
+      },
+      {
+        "role": "round-2",
+        "guest_cpu_status": "MEASURED",
+        "guest_io_status": "MEASURED",
+        "host_vmm_status": "MEASURED",
+        "host_pss_observed_peak_bytes": 369783808
+      },
+      {
+        "role": "round-3",
+        "guest_cpu_status": "MEASURED",
+        "guest_io_status": "MEASURED",
+        "host_vmm_status": "MEASURED",
+        "host_pss_observed_peak_bytes": 483595264
+      },
+      {
+        "role": "round-4",
+        "guest_cpu_status": "MEASURED",
+        "guest_io_status": "MEASURED",
+        "host_vmm_status": "MEASURED",
+        "host_pss_observed_peak_bytes": 414671872
+      },
+      {
+        "role": "final-restored",
+        "guest_cpu_status": "MEASURED",
+        "guest_io_status": "MEASURED",
+        "host_vmm_status": "MEASURED",
+        "host_pss_observed_peak_bytes": 226690048
+      }
+    ],
+    "cleanup": {
+      "owned_vms_removed": true,
+      "owned_snapshots_removed": true,
+      "collector_sessions_complete": true,
+      "service_sandbox_list_empty": true
+    }
+  },
+  "report_files_identical": 16,
+  "raw_files_unchanged": 508,
+  "reports": [
+    ".artifacts/exp2-delete-order-review-20261012/report-1",
+    ".artifacts/exp2-delete-order-review-20261012/report-2"
+  ],
+  "final_outputs_match_baseline": true,
+  "source_template_hashes_unchanged": true,
+  "cleanup": {
+    "mount_and_loop_removed": true,
+    "successful_fixture_removed": true,
+    "original_firecracker_identities_unchanged": true
+  },
+  "observed_volume_used_peak_bytes": 18488221696,
+  "observed_host_available_min_bytes": 31069507584,
+  "host_available_after_cleanup_bytes": 65463005184,
+  "memory_chart": "docs/records/evidence/exp2-trenvx-close-first-memory-20261012.svg",
+  "units": "ns and bytes; MiB=2^20 bytes; GiB=2^30 bytes",
+  "monitoring_overhead": "NOT_MEASURED_FOR_EXP2",
+  "physical_cache_measurement": "NOT_RUN",
+  "independent_task_tests": "NOT_RUN",
+  "attribution": "Diagnostic directly isolates close-before-delete. Full-run before/after are single sequential observations; other stage differences are not attributed to the ordering change.",
+  "outer_invocation_elapsed_seconds": 359.24797352962196,
+  "archive_elapsed_seconds": 113.443,
+  "backend_checks": {
+    "private_template_prepare": "PASS",
+    "delete_order_diagnostic": "PASS",
+    "exp2_four_rounds_restore_state_and_continuation": "PASS",
+    "sdk_cleanup": "PASS",
+    "service_shutdown": "PASS",
+    "data_archive": "PASS"
+  },
+  "host_cleanup": {
+    "cgroup_removed": true,
+    "loop_query_exit_code": 0,
+    "owned_loop_backings": []
+  },
+  "archive_verification": {
+    "archive_bytes": 1570421045,
+    "archive_sha256": "1469d3742f35197d0ba0e547a11081b15dbe8bb11db8c0679e45ea30265d281d",
+    "gzip_test": "PASS",
+    "tar_compare": "PASS",
+    "source_removed": true
+  },
+  "checks": {
+    "status": "PASS",
+    "syntax": [
+      "scripts/run_exp2_trenvx.py",
+      "scripts/validate_isolated_trenvx.py",
+      "tests/test_exp2_trenvx.py"
+    ],
+    "tests": {
+      "tests-exp2.log": 5,
+      "tests-platform.log": 9,
+      "tests-storage.log": 25,
+      "tests-trenvx.log": 6
+    },
+    "total_tests": 45
+  }
+}

@@ -1,0 +1,1136 @@
+{
+  "status": "PASS_TWO_DIRECT_BOUNDARY_VMSTAT_PAIRS",
+  "date": "2026-10-27",
+  "pairs": [
+    {
+      "pair": 1,
+      "order": [
+        "retain",
+        "skip"
+      ],
+      "result_dir": ".artifacts/light-boundary-vmstat-direct-pair-20261027",
+      "sample_count": 3663,
+      "comparison": {
+        "tool_sum": {
+          "retain_ns": 63329988978,
+          "skip_ns": 60594261543,
+          "difference_ns": -2735727435,
+          "change_percent": -4.319797743767739
+        },
+        "frozen_tools_and_downloads_span": {
+          "retain_ns": 19555991521,
+          "skip_ns": 16908378760,
+          "difference_ns": -2647612761,
+          "change_percent": -13.538627065556296
+        },
+        "cold_request_span": {
+          "retain_ns": 9731222243,
+          "skip_ns": 3159003207,
+          "difference_ns": -6572219036,
+          "change_percent": -67.53744670385697
+        },
+        "monitor_control_call_sum": {
+          "retain_ns": 3708197475,
+          "skip_ns": 3987579082,
+          "difference_ns": 279381607,
+          "change_percent": 7.534162052683024
+        },
+        "monitor_control_union": {
+          "retain_ns": 707243712,
+          "skip_ns": 684925974,
+          "difference_ns": -22317738,
+          "change_percent": -3.1555936972402554
+        },
+        "cleanup": {
+          "retain_ns": 527579984,
+          "skip_ns": 506210838,
+          "difference_ns": -21369146,
+          "change_percent": -4.05040878123989
+        },
+        "controller": {
+          "retain_ns": 38049000242,
+          "skip_ns": 28504709232,
+          "difference_ns": -9544291010,
+          "change_percent": -25.08420970142766
+        },
+        "rollout": {
+          "retain_ns": 37315371893,
+          "skip_ns": 27801899053,
+          "difference_ns": -9513472840,
+          "change_percent": -25.49478233066903
+        },
+        "created_to_controller_end_ns": {
+          "retain_ns": 28265851551,
+          "skip_ns": 25302710345,
+          "difference_ns": -2963141206,
+          "change_percent": -10.483113168034619
+        },
+        "create_to_setup_ns": {
+          "retain_ns": 2304174718,
+          "skip_ns": 2196320418,
+          "difference_ns": -107854300,
+          "change_percent": -4.680821257062329
+        }
+      },
+      "runs": [
+        {
+          "group": "retain",
+          "mode": "on",
+          "actual_actions": 189,
+          "grpo_setup_schedule": "create-all-before-setup",
+          "sessions": [
+            {
+              "role": "backbone",
+              "samples": 277,
+              "cpu_seconds": 0.2108,
+              "peak_rss_mib": 16.44140625,
+              "max_gap_seconds": 0.105091971
+            },
+            {
+              "role": "early_2",
+              "samples": 277,
+              "cpu_seconds": 0.23354899999999998,
+              "peak_rss_mib": 16.703125,
+              "max_gap_seconds": 0.105122976
+            },
+            {
+              "role": "early_3",
+              "samples": 277,
+              "cpu_seconds": 0.19893899999999998,
+              "peak_rss_mib": 16.7109375,
+              "max_gap_seconds": 0.104319369
+            },
+            {
+              "role": "early_1",
+              "samples": 277,
+              "cpu_seconds": 0.201617,
+              "peak_rss_mib": 16.74609375,
+              "max_gap_seconds": 0.103572672
+            },
+            {
+              "role": "late_1",
+              "samples": 275,
+              "cpu_seconds": 0.21970699999999999,
+              "peak_rss_mib": 16.203125,
+              "max_gap_seconds": 0.104548796
+            },
+            {
+              "role": "late_2",
+              "samples": 277,
+              "cpu_seconds": 0.18556599999999998,
+              "peak_rss_mib": 16.1328125,
+              "max_gap_seconds": 0.105106141
+            },
+            {
+              "role": "late_3",
+              "samples": 276,
+              "cpu_seconds": 0.21814599999999998,
+              "peak_rss_mib": 16.67578125,
+              "max_gap_seconds": 0.107111288
+            }
+          ],
+          "timings_ns": {
+            "tool_sum": 63329988978,
+            "frozen_tools_and_downloads_span": 19555991521,
+            "cold_request_span": 9731222243,
+            "monitor_control_call_sum": 3708197475,
+            "monitor_control_union": 707243712,
+            "cleanup": 527579984,
+            "controller": 38049000242,
+            "rollout": 37315371893,
+            "created_to_controller_end_ns": 28265851551,
+            "create_to_setup_ns": 2304174718
+          },
+          "minimum_free_disk_gib": 108.11553192138672,
+          "official": {
+            "backbone": {
+              "passed": 0,
+              "failed": 2
+            },
+            "early_1": {
+              "passed": 0,
+              "failed": 2
+            },
+            "early_2": {
+              "passed": 0,
+              "failed": 2
+            },
+            "early_3": {
+              "passed": 0,
+              "failed": 2
+            },
+            "late_1": {
+              "passed": 0,
+              "failed": 2
+            },
+            "late_2": {
+              "passed": 0,
+              "failed": 2
+            },
+            "late_3": {
+              "passed": 0,
+              "failed": 2
+            }
+          },
+          "boundary_rows": {
+            "guest-memory.tsv": 448,
+            "guest-vmstat.tsv": 448
+          },
+          "light_skip_boundary_vmstat": false,
+          "controller_phases_ns": {
+            "before_rollout": 50999836,
+            "creation": 9732148855,
+            "preparation": 2304174718,
+            "prepared_to_first_action": 249225,
+            "actions_and_downloads": 19556462812,
+            "final_checks": 5722336283,
+            "after_checks_and_cleanup": 682628513
+          },
+          "monitor_control_breakdown": {
+            "monitor-upload-bundle": {
+              "count": 7,
+              "sum_ns": 303916917,
+              "union_ns": 50746208,
+              "max_ns": 46407080
+            },
+            "monitor-ready": {
+              "count": 7,
+              "sum_ns": 1251059930,
+              "union_ns": 299114459,
+              "max_ns": 294670726
+            },
+            "monitor-phase": {
+              "count": 7,
+              "sum_ns": 466845369,
+              "union_ns": 89145722,
+              "max_ns": 86158313
+            },
+            "monitor-finish": {
+              "count": 7,
+              "sum_ns": 1395256855,
+              "union_ns": 233614219,
+              "max_ns": 230512867
+            },
+            "monitor-download": {
+              "count": 7,
+              "sum_ns": 291118404,
+              "union_ns": 94537638,
+              "max_ns": 43932549
+            }
+          },
+          "collector_one_core_cpu_percent": [
+            0.7615076738624036,
+            0.8440054249582074,
+            0.717406054681298,
+            0.7277652254065572,
+            0.7977089309781993,
+            0.6697607178692396,
+            0.7884532430199565
+          ],
+          "collector_cpu_seconds": 1.468324,
+          "sample_count": 1936,
+          "paths": [
+            {
+              "role": "backbone",
+              "actions": 29,
+              "boundary_memory_rows": 68,
+              "boundary_vmstat_rows": 68
+            },
+            {
+              "role": "early_1",
+              "actions": 21,
+              "boundary_memory_rows": 50,
+              "boundary_vmstat_rows": 50
+            },
+            {
+              "role": "early_2",
+              "actions": 21,
+              "boundary_memory_rows": 50,
+              "boundary_vmstat_rows": 50
+            },
+            {
+              "role": "early_3",
+              "actions": 21,
+              "boundary_memory_rows": 50,
+              "boundary_vmstat_rows": 50
+            },
+            {
+              "role": "late_1",
+              "actions": 32,
+              "boundary_memory_rows": 76,
+              "boundary_vmstat_rows": 76
+            },
+            {
+              "role": "late_2",
+              "actions": 32,
+              "boundary_memory_rows": 76,
+              "boundary_vmstat_rows": 76
+            },
+            {
+              "role": "late_3",
+              "actions": 33,
+              "boundary_memory_rows": 78,
+              "boundary_vmstat_rows": 78
+            }
+          ],
+          "workflow": ".artifacts/platform-tasks/20261027T025412Z-1679907",
+          "storage": ".artifacts/storage-isolated-service/20261027T025531Z-1681616",
+          "raw": ".artifacts/storage-isolated-service/20261027T025531Z-1681616/prettier6604",
+          "report": ".artifacts/platform-tasks/report-20261027T025412Z-1679907"
+        },
+        {
+          "group": "skip",
+          "mode": "on",
+          "actual_actions": 189,
+          "grpo_setup_schedule": "create-all-before-setup",
+          "sessions": [
+            {
+              "role": "backbone",
+              "samples": 246,
+              "cpu_seconds": 0.20975,
+              "peak_rss_mib": 16.6484375,
+              "max_gap_seconds": 0.104491577
+            },
+            {
+              "role": "early_1",
+              "samples": 247,
+              "cpu_seconds": 0.183472,
+              "peak_rss_mib": 16.73828125,
+              "max_gap_seconds": 0.101872399
+            },
+            {
+              "role": "early_2",
+              "samples": 247,
+              "cpu_seconds": 0.222747,
+              "peak_rss_mib": 16.22265625,
+              "max_gap_seconds": 0.103884232
+            },
+            {
+              "role": "early_3",
+              "samples": 247,
+              "cpu_seconds": 0.182448,
+              "peak_rss_mib": 16.21484375,
+              "max_gap_seconds": 0.102273409
+            },
+            {
+              "role": "late_1",
+              "samples": 246,
+              "cpu_seconds": 0.181132,
+              "peak_rss_mib": 16.0703125,
+              "max_gap_seconds": 0.105436625
+            },
+            {
+              "role": "late_2",
+              "samples": 247,
+              "cpu_seconds": 0.226846,
+              "peak_rss_mib": 16.6484375,
+              "max_gap_seconds": 0.104999607
+            },
+            {
+              "role": "late_3",
+              "samples": 247,
+              "cpu_seconds": 0.19178699999999999,
+              "peak_rss_mib": 16.72265625,
+              "max_gap_seconds": 0.105013407
+            }
+          ],
+          "timings_ns": {
+            "tool_sum": 60594261543,
+            "frozen_tools_and_downloads_span": 16908378760,
+            "cold_request_span": 3159003207,
+            "monitor_control_call_sum": 3987579082,
+            "monitor_control_union": 684925974,
+            "cleanup": 506210838,
+            "controller": 28504709232,
+            "rollout": 27801899053,
+            "created_to_controller_end_ns": 25302710345,
+            "create_to_setup_ns": 2196320418
+          },
+          "minimum_free_disk_gib": 108.10791397094727,
+          "official": {
+            "backbone": {
+              "passed": 0,
+              "failed": 2
+            },
+            "early_1": {
+              "passed": 0,
+              "failed": 2
+            },
+            "early_2": {
+              "passed": 0,
+              "failed": 2
+            },
+            "early_3": {
+              "passed": 0,
+              "failed": 2
+            },
+            "late_1": {
+              "passed": 0,
+              "failed": 2
+            },
+            "late_2": {
+              "passed": 0,
+              "failed": 2
+            },
+            "late_3": {
+              "passed": 0,
+              "failed": 2
+            }
+          },
+          "boundary_rows": {
+            "guest-memory.tsv": 448,
+            "guest-vmstat.tsv": 0
+          },
+          "light_skip_boundary_vmstat": true,
+          "controller_phases_ns": {
+            "before_rollout": 41782738,
+            "creation": 3160216149,
+            "preparation": 2196320418,
+            "prepared_to_first_action": 450232,
+            "actions_and_downloads": 16909335166,
+            "final_checks": 5535577088,
+            "after_checks_and_cleanup": 661027441
+          },
+          "monitor_control_breakdown": {
+            "monitor-upload-bundle": {
+              "count": 7,
+              "sum_ns": 303696285,
+              "union_ns": 55282953,
+              "max_ns": 49987084
+            },
+            "monitor-ready": {
+              "count": 7,
+              "sum_ns": 1592761704,
+              "union_ns": 286733664,
+              "max_ns": 277728660
+            },
+            "monitor-phase": {
+              "count": 7,
+              "sum_ns": 444378408,
+              "union_ns": 85686489,
+              "max_ns": 82097322
+            },
+            "monitor-finish": {
+              "count": 7,
+              "sum_ns": 1373916599,
+              "union_ns": 234867445,
+              "max_ns": 234803843
+            },
+            "monitor-download": {
+              "count": 7,
+              "sum_ns": 272826086,
+              "union_ns": 132381434,
+              "max_ns": 41365108
+            }
+          },
+          "collector_one_core_cpu_percent": [
+            0.8510792691028797,
+            0.7432148365916764,
+            0.9011558638445393,
+            0.7405490204548445,
+            0.735429738779928,
+            0.9180292337044479,
+            0.7763982672796006
+          ],
+          "collector_cpu_seconds": 1.398182,
+          "sample_count": 1727,
+          "paths": [
+            {
+              "role": "backbone",
+              "actions": 29,
+              "boundary_memory_rows": 68,
+              "boundary_vmstat_rows": 0
+            },
+            {
+              "role": "early_1",
+              "actions": 21,
+              "boundary_memory_rows": 50,
+              "boundary_vmstat_rows": 0
+            },
+            {
+              "role": "early_2",
+              "actions": 21,
+              "boundary_memory_rows": 50,
+              "boundary_vmstat_rows": 0
+            },
+            {
+              "role": "early_3",
+              "actions": 21,
+              "boundary_memory_rows": 50,
+              "boundary_vmstat_rows": 0
+            },
+            {
+              "role": "late_1",
+              "actions": 32,
+              "boundary_memory_rows": 76,
+              "boundary_vmstat_rows": 0
+            },
+            {
+              "role": "late_2",
+              "actions": 32,
+              "boundary_memory_rows": 76,
+              "boundary_vmstat_rows": 0
+            },
+            {
+              "role": "late_3",
+              "actions": 33,
+              "boundary_memory_rows": 78,
+              "boundary_vmstat_rows": 0
+            }
+          ],
+          "boundary_vmstat": {
+            "status": "NOT_MEASURED",
+            "reason": "explicitly skipped boundary vmstat",
+            "row_count": 0,
+            "boundary_memory_rows": 448
+          },
+          "workflow": ".artifacts/platform-tasks/20261027T025632Z-1684576",
+          "storage": ".artifacts/storage-isolated-service/20261027T025749Z-1686520",
+          "raw": ".artifacts/storage-isolated-service/20261027T025749Z-1686520/prettier6604",
+          "report": ".artifacts/platform-tasks/report-20261027T025632Z-1684576"
+        }
+      ],
+      "source_returned_to_stopped": true
+    },
+    {
+      "pair": 2,
+      "order": [
+        "skip",
+        "retain"
+      ],
+      "result_dir": ".artifacts/light-boundary-vmstat-reverse-pair-20261027",
+      "sample_count": 3762,
+      "comparison": {
+        "tool_sum": {
+          "retain_ns": 62199946426,
+          "skip_ns": 60382390632,
+          "difference_ns": -1817555794,
+          "change_percent": -2.922117941311042
+        },
+        "frozen_tools_and_downloads_span": {
+          "retain_ns": 19429218551,
+          "skip_ns": 17433194094,
+          "difference_ns": -1996024457,
+          "change_percent": -10.273313112210925
+        },
+        "cold_request_span": {
+          "retain_ns": 9552146532,
+          "skip_ns": 3219958623,
+          "difference_ns": -6332187909,
+          "change_percent": -66.29073253626257
+        },
+        "monitor_control_call_sum": {
+          "retain_ns": 3700254433,
+          "skip_ns": 3799213761,
+          "difference_ns": 98959328,
+          "change_percent": 2.6743925260233503
+        },
+        "monitor_control_union": {
+          "retain_ns": 596947303,
+          "skip_ns": 665736285,
+          "difference_ns": 68788982,
+          "change_percent": 11.523459718185535
+        },
+        "cleanup": {
+          "retain_ns": 543036502,
+          "skip_ns": 532027065,
+          "difference_ns": -11009437,
+          "change_percent": -2.0273843396258484
+        },
+        "controller": {
+          "retain_ns": 37688567145,
+          "skip_ns": 30113050721,
+          "difference_ns": -7575516424,
+          "change_percent": -20.100303614235482
+        },
+        "rollout": {
+          "retain_ns": 36943658000,
+          "skip_ns": 29383938924,
+          "difference_ns": -7559719076,
+          "change_percent": -20.4628330957373
+        },
+        "created_to_controller_end_ns": {
+          "retain_ns": 28090219393,
+          "skip_ns": 26845640876,
+          "difference_ns": -1244578517,
+          "change_percent": -4.430647192845161
+        },
+        "create_to_setup_ns": {
+          "retain_ns": 2339679793,
+          "skip_ns": 3301192732,
+          "difference_ns": 961512939,
+          "change_percent": 41.09592012875927
+        }
+      },
+      "runs": [
+        {
+          "group": "skip",
+          "mode": "on",
+          "actual_actions": 189,
+          "grpo_setup_schedule": "create-all-before-setup",
+          "sessions": [
+            {
+              "role": "backbone",
+              "samples": 262,
+              "cpu_seconds": 0.212411,
+              "peak_rss_mib": 16.7421875,
+              "max_gap_seconds": 0.104216476
+            },
+            {
+              "role": "early_1",
+              "samples": 262,
+              "cpu_seconds": 0.18686799999999998,
+              "peak_rss_mib": 16.74609375,
+              "max_gap_seconds": 0.10214005
+            },
+            {
+              "role": "early_2",
+              "samples": 263,
+              "cpu_seconds": 0.20191699999999999,
+              "peak_rss_mib": 16.6953125,
+              "max_gap_seconds": 0.102160655
+            },
+            {
+              "role": "late_1",
+              "samples": 261,
+              "cpu_seconds": 0.239128,
+              "peak_rss_mib": 16.578125,
+              "max_gap_seconds": 0.109028499
+            },
+            {
+              "role": "late_3",
+              "samples": 263,
+              "cpu_seconds": 0.194658,
+              "peak_rss_mib": 16.76953125,
+              "max_gap_seconds": 0.105795517
+            },
+            {
+              "role": "early_3",
+              "samples": 263,
+              "cpu_seconds": 0.18942,
+              "peak_rss_mib": 16.54296875,
+              "max_gap_seconds": 0.103355941
+            },
+            {
+              "role": "late_2",
+              "samples": 262,
+              "cpu_seconds": 0.219269,
+              "peak_rss_mib": 16.16796875,
+              "max_gap_seconds": 0.105535629
+            }
+          ],
+          "timings_ns": {
+            "tool_sum": 60382390632,
+            "frozen_tools_and_downloads_span": 17433194094,
+            "cold_request_span": 3219958623,
+            "monitor_control_call_sum": 3799213761,
+            "monitor_control_union": 665736285,
+            "cleanup": 532027065,
+            "controller": 30113050721,
+            "rollout": 29383938924,
+            "created_to_controller_end_ns": 26845640876,
+            "create_to_setup_ns": 3301192732
+          },
+          "minimum_free_disk_gib": 108.09313201904297,
+          "official": {
+            "backbone": {
+              "passed": 0,
+              "failed": 2
+            },
+            "early_1": {
+              "passed": 0,
+              "failed": 2
+            },
+            "early_2": {
+              "passed": 0,
+              "failed": 2
+            },
+            "early_3": {
+              "passed": 0,
+              "failed": 2
+            },
+            "late_1": {
+              "passed": 0,
+              "failed": 2
+            },
+            "late_2": {
+              "passed": 0,
+              "failed": 2
+            },
+            "late_3": {
+              "passed": 0,
+              "failed": 2
+            }
+          },
+          "boundary_rows": {
+            "guest-memory.tsv": 448,
+            "guest-vmstat.tsv": 0
+          },
+          "light_skip_boundary_vmstat": true,
+          "controller_phases_ns": {
+            "before_rollout": 46240382,
+            "creation": 3221169463,
+            "preparation": 3301192732,
+            "prepared_to_first_action": 472447,
+            "actions_and_downloads": 17434132794,
+            "final_checks": 5426971488,
+            "after_checks_and_cleanup": 682871415
+          },
+          "monitor_control_breakdown": {
+            "monitor-upload-bundle": {
+              "count": 7,
+              "sum_ns": 280465881,
+              "union_ns": 54457327,
+              "max_ns": 53514699
+            },
+            "monitor-ready": {
+              "count": 7,
+              "sum_ns": 1412483131,
+              "union_ns": 295561192,
+              "max_ns": 295561192
+            },
+            "monitor-phase": {
+              "count": 7,
+              "sum_ns": 423865233,
+              "union_ns": 75761239,
+              "max_ns": 74548938
+            },
+            "monitor-finish": {
+              "count": 7,
+              "sum_ns": 1384470722,
+              "union_ns": 214152315,
+              "max_ns": 211866228
+            },
+            "monitor-download": {
+              "count": 7,
+              "sum_ns": 297928794,
+              "union_ns": 95623065,
+              "max_ns": 44547027
+            }
+          },
+          "collector_one_core_cpu_percent": [
+            0.8099623206105004,
+            0.7143885461805008,
+            0.7683756216318015,
+            0.9156383923962277,
+            0.7400318066071939,
+            0.7209561848909675,
+            0.835359364539164
+          ],
+          "collector_cpu_seconds": 1.443671,
+          "sample_count": 1836,
+          "paths": [
+            {
+              "role": "backbone",
+              "actions": 29,
+              "boundary_memory_rows": 68,
+              "boundary_vmstat_rows": 0
+            },
+            {
+              "role": "early_1",
+              "actions": 21,
+              "boundary_memory_rows": 50,
+              "boundary_vmstat_rows": 0
+            },
+            {
+              "role": "early_2",
+              "actions": 21,
+              "boundary_memory_rows": 50,
+              "boundary_vmstat_rows": 0
+            },
+            {
+              "role": "early_3",
+              "actions": 21,
+              "boundary_memory_rows": 50,
+              "boundary_vmstat_rows": 0
+            },
+            {
+              "role": "late_1",
+              "actions": 32,
+              "boundary_memory_rows": 76,
+              "boundary_vmstat_rows": 0
+            },
+            {
+              "role": "late_2",
+              "actions": 32,
+              "boundary_memory_rows": 76,
+              "boundary_vmstat_rows": 0
+            },
+            {
+              "role": "late_3",
+              "actions": 33,
+              "boundary_memory_rows": 78,
+              "boundary_vmstat_rows": 0
+            }
+          ],
+          "boundary_vmstat": {
+            "status": "NOT_MEASURED",
+            "reason": "explicitly skipped boundary vmstat",
+            "row_count": 0,
+            "boundary_memory_rows": 448
+          },
+          "workflow": ".artifacts/platform-tasks/20261027T031439Z-1705633",
+          "storage": ".artifacts/storage-isolated-service/20261027T031558Z-1706652",
+          "raw": ".artifacts/storage-isolated-service/20261027T031558Z-1706652/prettier6604",
+          "report": ".artifacts/platform-tasks/report-20261027T031439Z-1705633"
+        },
+        {
+          "group": "retain",
+          "mode": "on",
+          "actual_actions": 189,
+          "grpo_setup_schedule": "create-all-before-setup",
+          "sessions": [
+            {
+              "role": "backbone",
+              "samples": 275,
+              "cpu_seconds": 0.261457,
+              "peak_rss_mib": 16.6171875,
+              "max_gap_seconds": 0.105443285
+            },
+            {
+              "role": "early_1",
+              "samples": 275,
+              "cpu_seconds": 0.22425099999999998,
+              "peak_rss_mib": 16.70703125,
+              "max_gap_seconds": 0.104031703
+            },
+            {
+              "role": "early_2",
+              "samples": 275,
+              "cpu_seconds": 0.228325,
+              "peak_rss_mib": 16.86328125,
+              "max_gap_seconds": 0.102470503
+            },
+            {
+              "role": "early_3",
+              "samples": 276,
+              "cpu_seconds": 0.180259,
+              "peak_rss_mib": 16.82421875,
+              "max_gap_seconds": 0.104435155
+            },
+            {
+              "role": "late_1",
+              "samples": 275,
+              "cpu_seconds": 0.217688,
+              "peak_rss_mib": 16.66015625,
+              "max_gap_seconds": 0.11892011
+            },
+            {
+              "role": "late_2",
+              "samples": 275,
+              "cpu_seconds": 0.23166499999999998,
+              "peak_rss_mib": 16.26953125,
+              "max_gap_seconds": 0.106888196
+            },
+            {
+              "role": "late_3",
+              "samples": 275,
+              "cpu_seconds": 0.248079,
+              "peak_rss_mib": 16.171875,
+              "max_gap_seconds": 0.106676608
+            }
+          ],
+          "timings_ns": {
+            "tool_sum": 62199946426,
+            "frozen_tools_and_downloads_span": 19429218551,
+            "cold_request_span": 9552146532,
+            "monitor_control_call_sum": 3700254433,
+            "monitor_control_union": 596947303,
+            "cleanup": 543036502,
+            "controller": 37688567145,
+            "rollout": 36943658000,
+            "created_to_controller_end_ns": 28090219393,
+            "create_to_setup_ns": 2339679793
+          },
+          "minimum_free_disk_gib": 108.08515167236328,
+          "official": {
+            "backbone": {
+              "passed": 0,
+              "failed": 2
+            },
+            "early_1": {
+              "passed": 0,
+              "failed": 2
+            },
+            "early_2": {
+              "passed": 0,
+              "failed": 2
+            },
+            "early_3": {
+              "passed": 0,
+              "failed": 2
+            },
+            "late_1": {
+              "passed": 0,
+              "failed": 2
+            },
+            "late_2": {
+              "passed": 0,
+              "failed": 2
+            },
+            "late_3": {
+              "passed": 0,
+              "failed": 2
+            }
+          },
+          "boundary_rows": {
+            "guest-memory.tsv": 448,
+            "guest-vmstat.tsv": 448
+          },
+          "light_skip_boundary_vmstat": false,
+          "controller_phases_ns": {
+            "before_rollout": 44833056,
+            "creation": 9553514696,
+            "preparation": 2339679793,
+            "prepared_to_first_action": 446700,
+            "actions_and_downloads": 19430155043,
+            "final_checks": 5619861768,
+            "after_checks_and_cleanup": 700076089
+          },
+          "monitor_control_breakdown": {
+            "monitor-upload-bundle": {
+              "count": 7,
+              "sum_ns": 289780539,
+              "union_ns": 51422411,
+              "max_ns": 47297680
+            },
+            "monitor-ready": {
+              "count": 7,
+              "sum_ns": 1090671292,
+              "union_ns": 184133818,
+              "max_ns": 177055108
+            },
+            "monitor-phase": {
+              "count": 7,
+              "sum_ns": 479447227,
+              "union_ns": 84449719,
+              "max_ns": 84449719
+            },
+            "monitor-finish": {
+              "count": 7,
+              "sum_ns": 1553588501,
+              "union_ns": 248557800,
+              "max_ns": 244087343
+            },
+            "monitor-download": {
+              "count": 7,
+              "sum_ns": 286766874,
+              "union_ns": 93864779,
+              "max_ns": 46360242
+            }
+          },
+          "collector_one_core_cpu_percent": [
+            0.949472855437477,
+            0.815368848317123,
+            0.8297833813822703,
+            0.6536584299490847,
+            0.7908867781683537,
+            0.8416500893146038,
+            0.9010238965862724
+          ],
+          "collector_cpu_seconds": 1.591724,
+          "sample_count": 1926,
+          "paths": [
+            {
+              "role": "backbone",
+              "actions": 29,
+              "boundary_memory_rows": 68,
+              "boundary_vmstat_rows": 68
+            },
+            {
+              "role": "early_1",
+              "actions": 21,
+              "boundary_memory_rows": 50,
+              "boundary_vmstat_rows": 50
+            },
+            {
+              "role": "early_2",
+              "actions": 21,
+              "boundary_memory_rows": 50,
+              "boundary_vmstat_rows": 50
+            },
+            {
+              "role": "early_3",
+              "actions": 21,
+              "boundary_memory_rows": 50,
+              "boundary_vmstat_rows": 50
+            },
+            {
+              "role": "late_1",
+              "actions": 32,
+              "boundary_memory_rows": 76,
+              "boundary_vmstat_rows": 76
+            },
+            {
+              "role": "late_2",
+              "actions": 32,
+              "boundary_memory_rows": 76,
+              "boundary_vmstat_rows": 76
+            },
+            {
+              "role": "late_3",
+              "actions": 33,
+              "boundary_memory_rows": 78,
+              "boundary_vmstat_rows": 78
+            }
+          ],
+          "workflow": ".artifacts/platform-tasks/20261027T031651Z-1709368",
+          "storage": ".artifacts/storage-isolated-service/20261027T031809Z-1710397",
+          "raw": ".artifacts/storage-isolated-service/20261027T031809Z-1710397/prettier6604",
+          "report": ".artifacts/platform-tasks/report-20261027T031651Z-1709368"
+        }
+      ],
+      "source_returned_to_stopped": true
+    }
+  ],
+  "summary": {
+    "tool_sum": {
+      "pair_change_percent": [
+        -4.319797743767739,
+        -2.922117941311042
+      ],
+      "min_change_percent": -4.319797743767739,
+      "max_change_percent": -2.922117941311042,
+      "pair_difference_ns": [
+        -2735727435,
+        -1817555794
+      ],
+      "min_difference_ns": -2735727435,
+      "max_difference_ns": -1817555794
+    },
+    "frozen_tools_and_downloads_span": {
+      "pair_change_percent": [
+        -13.538627065556296,
+        -10.273313112210925
+      ],
+      "min_change_percent": -13.538627065556296,
+      "max_change_percent": -10.273313112210925,
+      "pair_difference_ns": [
+        -2647612761,
+        -1996024457
+      ],
+      "min_difference_ns": -2647612761,
+      "max_difference_ns": -1996024457
+    },
+    "cold_request_span": {
+      "pair_change_percent": [
+        -67.53744670385697,
+        -66.29073253626257
+      ],
+      "min_change_percent": -67.53744670385697,
+      "max_change_percent": -66.29073253626257,
+      "pair_difference_ns": [
+        -6572219036,
+        -6332187909
+      ],
+      "min_difference_ns": -6572219036,
+      "max_difference_ns": -6332187909
+    },
+    "monitor_control_call_sum": {
+      "pair_change_percent": [
+        7.534162052683024,
+        2.6743925260233503
+      ],
+      "min_change_percent": 2.6743925260233503,
+      "max_change_percent": 7.534162052683024,
+      "pair_difference_ns": [
+        279381607,
+        98959328
+      ],
+      "min_difference_ns": 98959328,
+      "max_difference_ns": 279381607
+    },
+    "monitor_control_union": {
+      "pair_change_percent": [
+        -3.1555936972402554,
+        11.523459718185535
+      ],
+      "min_change_percent": -3.1555936972402554,
+      "max_change_percent": 11.523459718185535,
+      "pair_difference_ns": [
+        -22317738,
+        68788982
+      ],
+      "min_difference_ns": -22317738,
+      "max_difference_ns": 68788982
+    },
+    "cleanup": {
+      "pair_change_percent": [
+        -4.05040878123989,
+        -2.0273843396258484
+      ],
+      "min_change_percent": -4.05040878123989,
+      "max_change_percent": -2.0273843396258484,
+      "pair_difference_ns": [
+        -21369146,
+        -11009437
+      ],
+      "min_difference_ns": -21369146,
+      "max_difference_ns": -11009437
+    },
+    "controller": {
+      "pair_change_percent": [
+        -25.08420970142766,
+        -20.100303614235482
+      ],
+      "min_change_percent": -25.08420970142766,
+      "max_change_percent": -20.100303614235482,
+      "pair_difference_ns": [
+        -9544291010,
+        -7575516424
+      ],
+      "min_difference_ns": -9544291010,
+      "max_difference_ns": -7575516424
+    },
+    "rollout": {
+      "pair_change_percent": [
+        -25.49478233066903,
+        -20.4628330957373
+      ],
+      "min_change_percent": -25.49478233066903,
+      "max_change_percent": -20.4628330957373,
+      "pair_difference_ns": [
+        -9513472840,
+        -7559719076
+      ],
+      "min_difference_ns": -9513472840,
+      "max_difference_ns": -7559719076
+    },
+    "created_to_controller_end_ns": {
+      "pair_change_percent": [
+        -10.483113168034619,
+        -4.430647192845161
+      ],
+      "min_change_percent": -10.483113168034619,
+      "max_change_percent": -4.430647192845161,
+      "pair_difference_ns": [
+        -2963141206,
+        -1244578517
+      ],
+      "min_difference_ns": -2963141206,
+      "max_difference_ns": -1244578517
+    },
+    "create_to_setup_ns": {
+      "pair_change_percent": [
+        -4.680821257062329,
+        41.09592012875927
+      ],
+      "min_change_percent": -4.680821257062329,
+      "max_change_percent": 41.09592012875927,
+      "pair_difference_ns": [
+        -107854300,
+        961512939
+      ],
+      "min_difference_ns": -107854300,
+      "max_difference_ns": 961512939
+    }
+  },
+  "actual_actions": 756,
+  "new_guests": 28,
+  "sample_count": 7425,
+  "task_reruns": 0,
+  "source_snapshots_match": true,
+  "task_paths_patches_official_match": true,
+  "unique_guest_identities": 28,
+  "scope": "Two opposite-order direct vmstat-option pairs; both sampled at 0.1 s; previous off/on experiments excluded"
+}

@@ -1,0 +1,84 @@
+{
+  "date": "2026-10-28",
+  "status": "OFFLINE_IMPLEMENTED_LIVE_NOT_RUN",
+  "target": {
+    "prefix_actions": 11,
+    "target_global_index": 12,
+    "target_segment": "trace_cpp_parser",
+    "target_step": "006",
+    "target_command": "cd /testbed && ls /opt/miniconda3/envs 2>/dev/null; /opt/miniconda3/bin/conda env list 2>/dev/null; pip list 2>/dev/null | grep -i -E \"docutils|sphinx|pytest\"",
+    "expected_target_exit": 1,
+    "scope": "Shortest contiguous original prefix before first target use; no claim that all eleven actions are functional dependencies"
+  },
+  "modes": {
+    "whole": "11 original prefix actions, one unchanged compound command",
+    "split": "11 original prefix actions, one target decomposed into three commands"
+  },
+  "default_legacy": "13 original actions, 6 warm repetitions and 4 pip-version-check controls unchanged",
+  "timers": {
+    "clock": "time.monotonic_ns",
+    "parts": "child shell wall time; CPU and fault counters from waited children",
+    "accounting": "elapsed_ns = parts_elapsed_sum_ns + between_parts_ns",
+    "shells": {
+      "whole": 1,
+      "split": 3
+    },
+    "timeout_seconds": 90
+  },
+  "scope": {
+    "new_services": 0,
+    "new_guests": 0,
+    "real_task_actions": 0,
+    "task_sampling": "off in separate diagnostic",
+    "host_sampling": "not requested",
+    "formal_35_action_task": "unchanged",
+    "default_reclaim": "unchanged",
+    "pip_version_check": "inherited, not disabled",
+    "process_scans": false
+  },
+  "validation": {
+    "status": "PASS",
+    "tests": 35,
+    "suites": {
+      "test_sphinx_env_timing": 9,
+      "test_sphinx7590": 14,
+      "test_sphinx_command_diagnostic_report": 3,
+      "test_sphinx_find_diagnostic_report": 3,
+      "test_guest_command_diagnostic": 6
+    },
+    "actual_check_only_modes": [
+      "whole",
+      "split",
+      "legacy",
+      "find"
+    ],
+    "log": ".artifacts/sphinx-env-timing-offline-20261028/regression-tests.log",
+    "source_snapshot": ".artifacts/sphinx-env-timing-offline-20261028/tested-code"
+  },
+  "existing_evidence": {
+    "source": "docs/records/evidence/sandbox-runtime-command-diagnostic-20261009.json",
+    "default_seconds": [
+      1.991101581,
+      1.778026359
+    ],
+    "disabled_seconds": [
+      0.60861682,
+      0.60222769
+    ],
+    "meaning": "Prior warm diagnostic showed a pip version-check networking cost; does not identify the current 7.178 s call"
+  },
+  "next_proposed": {
+    "new_guests": 2,
+    "order": [
+      "whole",
+      "split"
+    ],
+    "original_prefix_actions_each": 11,
+    "target_invocations_each": 1,
+    "shell_components_in_split_target": 3,
+    "volume_gib": 8,
+    "minimum_start_free_gib_exclusive": 34,
+    "automatic_launch": false,
+    "stop": "Finish after one observation per mode, including if the long call does not recur"
+  }
+}

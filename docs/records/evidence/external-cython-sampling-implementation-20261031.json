@@ -1,0 +1,42 @@
+{
+  "status": "PASS",
+  "scope": "offline implementation only",
+  "source_identity_from_saved_run": {
+    "source_commit": "441c807dbec2ee32e1da572e24e58d52a4eb7afa",
+    "gcc": "(Debian 12.2.0-14+deb12u1) 12.2.0",
+    "Cython": "3.3.0 | sympy 1.14.0 | pytest 9.2.0",
+    "vispy": "0.17.0",
+    "networkx": "3.7",
+    "peewee": "4.5.3",
+    "appdirs": "1.4.4",
+    "requests": "2.34.2",
+    "tqdm": "4.70.1",
+    "matplotlib": "3.11.2",
+    "planarity": "1.0.0",
+    "setuptools": "84.2.1"
+  },
+  "old_saved_comparisons_unchanged": [
+    "external-c4-sampling-controls-20261030",
+    "external-django-sampling-controls-20261030"
+  ],
+  "syntax_files": 5,
+  "live_runs": 0,
+  "tests": {
+    "status": "PASS",
+    "count": 48,
+    "command": "python3 -B -m unittest discover -s tests -p 'test_external*.py'",
+    "log": ".artifacts/external-cython-sampling-implementation-20261031/tests-final.log"
+  },
+  "help": {
+    "status": "PASS",
+    "task_selector": "cython"
+  },
+  "runtime_files": [
+    "scripts/run_external_workload.py",
+    "scripts/run_host_external_workload.py",
+    "scripts/validate_isolated_agentenv.py",
+    "scripts/run_c4_sampling_controls.py",
+    "scripts/report_c4_sampling_controls.py"
+  ],
+  "verification_scope": "CLI/service/network/collector mutations replaced in tests; saved original logs read offline; no live sampler toggle or slowdown measurement."
+}

@@ -1,0 +1,3034 @@
+{
+  "status": "PASS",
+  "date": "2026-10-16",
+  "input_run": "20261016T133007Z-2338631",
+  "configuration": {
+    "guest_vcpu": 2,
+    "guest_memory_mib": 4096,
+    "page_size": 4096,
+    "volume_gib": 24,
+    "kernel": "6.1.175-asb-cache-v3",
+    "get_data": true,
+    "sampling_interval_seconds": 1,
+    "bpf_batch_lookup": true,
+    "metadata_mapped_bytes": 196608,
+    "metadata_read_bytes_per_point": 528384
+  },
+  "sample_counts": {
+    "parent": 3,
+    "restored": 10
+  },
+  "cost_breakdown": {
+    "schema": 1,
+    "sessions": {
+      "parent": {
+        "status": "PASS",
+        "samples": 3,
+        "points": [
+          {
+            "point": 0,
+            "categories": {
+              "guest_publication_read": {
+                "cpu_ns": 2396150,
+                "elapsed_ns": 27761021
+              },
+              "vmm_pagemap": {
+                "cpu_ns": 39428433,
+                "elapsed_ns": 39433205
+              },
+              "decode_rows": {
+                "cpu_ns": 2919270,
+                "elapsed_ns": 3269088
+              },
+              "accounting": {
+                "cpu_ns": 5076542,
+                "elapsed_ns": 5077655
+              },
+              "unmeasured": {
+                "cpu_ns": 376980,
+                "elapsed_ns": 363549
+              }
+            },
+            "stages": {
+              "guest_before": {
+                "cpu_ns": 1347176,
+                "elapsed_ns": 16605476
+              },
+              "decode_before": {
+                "cpu_ns": 349544,
+                "elapsed_ns": 351054
+              },
+              "vmm_first": {
+                "cpu_ns": 14157747,
+                "elapsed_ns": 14159133
+              },
+              "vmm_middle": {
+                "cpu_ns": 13279504,
+                "elapsed_ns": 13280736
+              },
+              "guest_after": {
+                "cpu_ns": 1048974,
+                "elapsed_ns": 11155545
+              },
+              "decode_after": {
+                "cpu_ns": 201359,
+                "elapsed_ns": 202080
+              },
+              "vmm_last": {
+                "cpu_ns": 11991182,
+                "elapsed_ns": 11993336
+              },
+              "host_rows": {
+                "cpu_ns": 2368367,
+                "elapsed_ns": 2715954
+              },
+              "vmm_account": {
+                "cpu_ns": 5076542,
+                "elapsed_ns": 5077655
+              }
+            },
+            "host_thread_cpu_ns": 50197375,
+            "host_elapsed_ns": 75904518
+          },
+          {
+            "point": 1,
+            "categories": {
+              "guest_publication_read": {
+                "cpu_ns": 4813657,
+                "elapsed_ns": 30079719
+              },
+              "vmm_pagemap": {
+                "cpu_ns": 70505269,
+                "elapsed_ns": 70527958
+              },
+              "decode_rows": {
+                "cpu_ns": 4303527,
+                "elapsed_ns": 4308957
+              },
+              "accounting": {
+                "cpu_ns": 8560707,
+                "elapsed_ns": 8562662
+              },
+              "unmeasured": {
+                "cpu_ns": 3482222,
+                "elapsed_ns": 3464833
+              }
+            },
+            "stages": {
+              "guest_before": {
+                "cpu_ns": 2999815,
+                "elapsed_ns": 23212986
+              },
+              "decode_before": {
+                "cpu_ns": 518494,
+                "elapsed_ns": 520487
+              },
+              "vmm_first": {
+                "cpu_ns": 26115136,
+                "elapsed_ns": 26117723
+              },
+              "vmm_middle": {
+                "cpu_ns": 25481953,
+                "elapsed_ns": 25500505
+              },
+              "guest_after": {
+                "cpu_ns": 1813842,
+                "elapsed_ns": 6866733
+              },
+              "decode_after": {
+                "cpu_ns": 363341,
+                "elapsed_ns": 364674
+              },
+              "vmm_last": {
+                "cpu_ns": 18908180,
+                "elapsed_ns": 18909730
+              },
+              "host_rows": {
+                "cpu_ns": 3421692,
+                "elapsed_ns": 3423796
+              },
+              "vmm_account": {
+                "cpu_ns": 8560707,
+                "elapsed_ns": 8562662
+              }
+            },
+            "host_thread_cpu_ns": 91665382,
+            "host_elapsed_ns": 116944129
+          },
+          {
+            "point": 2,
+            "categories": {
+              "guest_publication_read": {
+                "cpu_ns": 2501006,
+                "elapsed_ns": 22714217
+              },
+              "vmm_pagemap": {
+                "cpu_ns": 65646433,
+                "elapsed_ns": 65731081
+              },
+              "decode_rows": {
+                "cpu_ns": 4933093,
+                "elapsed_ns": 5078272
+              },
+              "accounting": {
+                "cpu_ns": 9984262,
+                "elapsed_ns": 9986393
+              },
+              "unmeasured": {
+                "cpu_ns": 1730334,
+                "elapsed_ns": 1710542
+              }
+            },
+            "stages": {
+              "guest_before": {
+                "cpu_ns": 1567549,
+                "elapsed_ns": 11673090
+              },
+              "decode_before": {
+                "cpu_ns": 496527,
+                "elapsed_ns": 498471
+              },
+              "vmm_first": {
+                "cpu_ns": 24838759,
+                "elapsed_ns": 24919377
+              },
+              "vmm_middle": {
+                "cpu_ns": 23040591,
+                "elapsed_ns": 23042353
+              },
+              "guest_after": {
+                "cpu_ns": 933457,
+                "elapsed_ns": 11041127
+              },
+              "decode_after": {
+                "cpu_ns": 487626,
+                "elapsed_ns": 489257
+              },
+              "vmm_last": {
+                "cpu_ns": 17767083,
+                "elapsed_ns": 17769351
+              },
+              "host_rows": {
+                "cpu_ns": 3948940,
+                "elapsed_ns": 4090544
+              },
+              "vmm_account": {
+                "cpu_ns": 9984262,
+                "elapsed_ns": 9986393
+              }
+            },
+            "host_thread_cpu_ns": 84795128,
+            "host_elapsed_ns": 105220505
+          }
+        ],
+        "category_means": {
+          "guest_publication_read": {
+            "cpu_ns": 3236937.6666666665,
+            "elapsed_ns": 26851652.333333332
+          },
+          "vmm_pagemap": {
+            "cpu_ns": 58526711.666666664,
+            "elapsed_ns": 58564081.333333336
+          },
+          "decode_rows": {
+            "cpu_ns": 4051963.3333333335,
+            "elapsed_ns": 4218772.333333333
+          },
+          "accounting": {
+            "cpu_ns": 7873837,
+            "elapsed_ns": 7875570
+          },
+          "unmeasured": {
+            "cpu_ns": 1863178.6666666667,
+            "elapsed_ns": 1846308
+          }
+        },
+        "stage_means": {
+          "guest_before": {
+            "cpu_ns": 1971513.3333333333,
+            "elapsed_ns": 17163850.666666668
+          },
+          "decode_before": {
+            "cpu_ns": 454855,
+            "elapsed_ns": 456670.6666666667
+          },
+          "vmm_first": {
+            "cpu_ns": 21703880.666666668,
+            "elapsed_ns": 21732077.666666668
+          },
+          "vmm_middle": {
+            "cpu_ns": 20600682.666666668,
+            "elapsed_ns": 20607864.666666668
+          },
+          "guest_after": {
+            "cpu_ns": 1265424.3333333333,
+            "elapsed_ns": 9687801.666666666
+          },
+          "decode_after": {
+            "cpu_ns": 350775.3333333333,
+            "elapsed_ns": 352003.6666666667
+          },
+          "vmm_last": {
+            "cpu_ns": 16222148.333333334,
+            "elapsed_ns": 16224139
+          },
+          "host_rows": {
+            "cpu_ns": 3246333,
+            "elapsed_ns": 3410098
+          },
+          "vmm_account": {
+            "cpu_ns": 7873837,
+            "elapsed_ns": 7875570
+          }
+        },
+        "point_cpu_mean_ns": 75552628.33333333,
+        "point_elapsed_mean_ns": 99356384,
+        "session_thread_cpu_ns": 231558751,
+        "outside_point_cpu_total_ns": 4900866
+      },
+      "restored": {
+        "status": "PASS",
+        "samples": 10,
+        "points": [
+          {
+            "point": 0,
+            "categories": {
+              "guest_publication_read": {
+                "cpu_ns": 1332980,
+                "elapsed_ns": 46876381
+              },
+              "vmm_pagemap": {
+                "cpu_ns": 22391227,
+                "elapsed_ns": 22507789
+              },
+              "maps_read": {
+                "cpu_ns": 931006,
+                "elapsed_ns": 932546
+              },
+              "offset_translation": {
+                "cpu_ns": 24313650,
+                "elapsed_ns": 24665351
+              },
+              "backend_query": {
+                "cpu_ns": 149295357,
+                "elapsed_ns": 150113706
+              },
+              "lower_query": {
+                "cpu_ns": 116870297,
+                "elapsed_ns": 121237956
+              },
+              "provider_query": {
+                "cpu_ns": 2870917,
+                "elapsed_ns": 2871754
+              },
+              "decode_rows": {
+                "cpu_ns": 1613560,
+                "elapsed_ns": 1618184
+              },
+              "accounting": {
+                "cpu_ns": 58753115,
+                "elapsed_ns": 58846719
+              },
+              "unmeasured": {
+                "cpu_ns": 404741,
+                "elapsed_ns": 379260
+              }
+            },
+            "stages": {
+              "guest_before": {
+                "cpu_ns": 854258,
+                "elapsed_ns": 21124867
+              },
+              "decode_before": {
+                "cpu_ns": 224266,
+                "elapsed_ns": 225975
+              },
+              "vmm_first": {
+                "cpu_ns": 9831565,
+                "elapsed_ns": 9832772
+              },
+              "maps_before": {
+                "cpu_ns": 599069,
+                "elapsed_ns": 600078
+              },
+              "backend_offsets_before": {
+                "cpu_ns": 8096816,
+                "elapsed_ns": 8445762
+              },
+              "backend_query_first": {
+                "cpu_ns": 86036918,
+                "elapsed_ns": 86742954
+              },
+              "lower_offsets": {
+                "cpu_ns": 12941142,
+                "elapsed_ns": 12942064
+              },
+              "lower_query_first": {
+                "cpu_ns": 69378876,
+                "elapsed_ns": 73736832
+              },
+              "provider_first": {
+                "cpu_ns": 1466492,
+                "elapsed_ns": 1466880
+              },
+              "vmm_middle": {
+                "cpu_ns": 5640431,
+                "elapsed_ns": 5689195
+              },
+              "provider_last": {
+                "cpu_ns": 1404425,
+                "elapsed_ns": 1404874
+              },
+              "guest_after": {
+                "cpu_ns": 478722,
+                "elapsed_ns": 25751514
+              },
+              "decode_after": {
+                "cpu_ns": 114942,
+                "elapsed_ns": 115478
+              },
+              "backend_query_last": {
+                "cpu_ns": 63258439,
+                "elapsed_ns": 63370752
+              },
+              "lower_query_last": {
+                "cpu_ns": 47491421,
+                "elapsed_ns": 47501124
+              },
+              "vmm_last": {
+                "cpu_ns": 6919231,
+                "elapsed_ns": 6985822
+              },
+              "maps_after": {
+                "cpu_ns": 331937,
+                "elapsed_ns": 332468
+              },
+              "backend_offsets_after": {
+                "cpu_ns": 3275692,
+                "elapsed_ns": 3277525
+              },
+              "host_rows": {
+                "cpu_ns": 977520,
+                "elapsed_ns": 978477
+              },
+              "vmm_account": {
+                "cpu_ns": 2052799,
+                "elapsed_ns": 2053698
+              },
+              "backend_rows": {
+                "cpu_ns": 198396,
+                "elapsed_ns": 198943
+              },
+              "backend_account": {
+                "cpu_ns": 6011064,
+                "elapsed_ns": 6011784
+              },
+              "lower_rows": {
+                "cpu_ns": 98436,
+                "elapsed_ns": 99311
+              },
+              "lower_account": {
+                "cpu_ns": 9471913,
+                "elapsed_ns": 9472585
+              },
+              "provider_account": {
+                "cpu_ns": 41217339,
+                "elapsed_ns": 41308652
+              }
+            },
+            "host_thread_cpu_ns": 378776850,
+            "host_elapsed_ns": 430049646
+          },
+          {
+            "point": 1,
+            "categories": {
+              "guest_publication_read": {
+                "cpu_ns": 1065731,
+                "elapsed_ns": 16224410
+              },
+              "vmm_pagemap": {
+                "cpu_ns": 19495583,
+                "elapsed_ns": 19505924
+              },
+              "maps_read": {
+                "cpu_ns": 808881,
+                "elapsed_ns": 810367
+              },
+              "offset_translation": {
+                "cpu_ns": 16873884,
+                "elapsed_ns": 16997513
+              },
+              "backend_query": {
+                "cpu_ns": 137244325,
+                "elapsed_ns": 138484019
+              },
+              "lower_query": {
+                "cpu_ns": 102724362,
+                "elapsed_ns": 102932826
+              },
+              "provider_query": {
+                "cpu_ns": 3392645,
+                "elapsed_ns": 3393417
+              },
+              "decode_rows": {
+                "cpu_ns": 1291675,
+                "elapsed_ns": 1294965
+              },
+              "accounting": {
+                "cpu_ns": 47900341,
+                "elapsed_ns": 47903308
+              },
+              "unmeasured": {
+                "cpu_ns": 1789140,
+                "elapsed_ns": 1766083
+              }
+            },
+            "stages": {
+              "guest_before": {
+                "cpu_ns": 690460,
+                "elapsed_ns": 10794899
+              },
+              "decode_before": {
+                "cpu_ns": 187061,
+                "elapsed_ns": 187848
+              },
+              "vmm_first": {
+                "cpu_ns": 8038526,
+                "elapsed_ns": 8046856
+              },
+              "maps_before": {
+                "cpu_ns": 454515,
+                "elapsed_ns": 455449
+              },
+              "backend_offsets_before": {
+                "cpu_ns": 6213536,
+                "elapsed_ns": 6214531
+              },
+              "backend_query_first": {
+                "cpu_ns": 86645951,
+                "elapsed_ns": 87787588
+              },
+              "lower_offsets": {
+                "cpu_ns": 7374631,
+                "elapsed_ns": 7375369
+              },
+              "lower_query_first": {
+                "cpu_ns": 54639838,
+                "elapsed_ns": 54730061
+              },
+              "provider_first": {
+                "cpu_ns": 2160972,
+                "elapsed_ns": 2161337
+              },
+              "vmm_middle": {
+                "cpu_ns": 5985913,
+                "elapsed_ns": 5987176
+              },
+              "provider_last": {
+                "cpu_ns": 1231673,
+                "elapsed_ns": 1232080
+              },
+              "guest_after": {
+                "cpu_ns": 375271,
+                "elapsed_ns": 5429511
+              },
+              "decode_after": {
+                "cpu_ns": 99540,
+                "elapsed_ns": 99936
+              },
+              "backend_query_last": {
+                "cpu_ns": 50598374,
+                "elapsed_ns": 50696431
+              },
+              "lower_query_last": {
+                "cpu_ns": 48084524,
+                "elapsed_ns": 48202765
+              },
+              "vmm_last": {
+                "cpu_ns": 5471144,
+                "elapsed_ns": 5471892
+              },
+              "maps_after": {
+                "cpu_ns": 354366,
+                "elapsed_ns": 354918
+              },
+              "backend_offsets_after": {
+                "cpu_ns": 3285717,
+                "elapsed_ns": 3407613
+              },
+              "host_rows": {
+                "cpu_ns": 809425,
+                "elapsed_ns": 810308
+              },
+              "vmm_account": {
+                "cpu_ns": 1901417,
+                "elapsed_ns": 1902229
+              },
+              "backend_rows": {
+                "cpu_ns": 114411,
+                "elapsed_ns": 114986
+              },
+              "backend_account": {
+                "cpu_ns": 5624339,
+                "elapsed_ns": 5624946
+              },
+              "lower_rows": {
+                "cpu_ns": 81238,
+                "elapsed_ns": 81887
+              },
+              "lower_account": {
+                "cpu_ns": 8278592,
+                "elapsed_ns": 8279332
+              },
+              "provider_account": {
+                "cpu_ns": 32095993,
+                "elapsed_ns": 32096801
+              }
+            },
+            "host_thread_cpu_ns": 332586567,
+            "host_elapsed_ns": 349312832
+          },
+          {
+            "point": 2,
+            "categories": {
+              "guest_publication_read": {
+                "cpu_ns": 1412304,
+                "elapsed_ns": 26678029
+              },
+              "vmm_pagemap": {
+                "cpu_ns": 21841796,
+                "elapsed_ns": 21859309
+              },
+              "maps_read": {
+                "cpu_ns": 925449,
+                "elapsed_ns": 927161
+              },
+              "offset_translation": {
+                "cpu_ns": 19125704,
+                "elapsed_ns": 19128371
+              },
+              "backend_query": {
+                "cpu_ns": 146389559,
+                "elapsed_ns": 146680755
+              },
+              "lower_query": {
+                "cpu_ns": 101740494,
+                "elapsed_ns": 101931644
+              },
+              "provider_query": {
+                "cpu_ns": 11281039,
+                "elapsed_ns": 11290857
+              },
+              "decode_rows": {
+                "cpu_ns": 1332343,
+                "elapsed_ns": 1335749
+              },
+              "accounting": {
+                "cpu_ns": 47476312,
+                "elapsed_ns": 47479720
+              },
+              "unmeasured": {
+                "cpu_ns": 1783819,
+                "elapsed_ns": 1763340
+              }
+            },
+            "stages": {
+              "guest_before": {
+                "cpu_ns": 1020919,
+                "elapsed_ns": 16177097
+              },
+              "decode_before": {
+                "cpu_ns": 229308,
+                "elapsed_ns": 230251
+              },
+              "vmm_first": {
+                "cpu_ns": 10175122,
+                "elapsed_ns": 10176558
+              },
+              "maps_before": {
+                "cpu_ns": 578521,
+                "elapsed_ns": 579674
+              },
+              "backend_offsets_before": {
+                "cpu_ns": 8387677,
+                "elapsed_ns": 8388958
+              },
+              "backend_query_first": {
+                "cpu_ns": 95772452,
+                "elapsed_ns": 95804018
+              },
+              "lower_offsets": {
+                "cpu_ns": 7428092,
+                "elapsed_ns": 7428757
+              },
+              "lower_query_first": {
+                "cpu_ns": 53583355,
+                "elapsed_ns": 53583709
+              },
+              "provider_first": {
+                "cpu_ns": 10080210,
+                "elapsed_ns": 10089589
+              },
+              "vmm_middle": {
+                "cpu_ns": 5792660,
+                "elapsed_ns": 5793612
+              },
+              "provider_last": {
+                "cpu_ns": 1200829,
+                "elapsed_ns": 1201268
+              },
+              "guest_after": {
+                "cpu_ns": 391385,
+                "elapsed_ns": 10500932
+              },
+              "decode_after": {
+                "cpu_ns": 99565,
+                "elapsed_ns": 99976
+              },
+              "backend_query_last": {
+                "cpu_ns": 50617107,
+                "elapsed_ns": 50876737
+              },
+              "lower_query_last": {
+                "cpu_ns": 48157139,
+                "elapsed_ns": 48347935
+              },
+              "vmm_last": {
+                "cpu_ns": 5874014,
+                "elapsed_ns": 5889139
+              },
+              "maps_after": {
+                "cpu_ns": 346928,
+                "elapsed_ns": 347487
+              },
+              "backend_offsets_after": {
+                "cpu_ns": 3309935,
+                "elapsed_ns": 3310656
+              },
+              "host_rows": {
+                "cpu_ns": 814896,
+                "elapsed_ns": 815774
+              },
+              "vmm_account": {
+                "cpu_ns": 1903429,
+                "elapsed_ns": 1904309
+              },
+              "backend_rows": {
+                "cpu_ns": 91994,
+                "elapsed_ns": 92528
+              },
+              "backend_account": {
+                "cpu_ns": 5536229,
+                "elapsed_ns": 5536977
+              },
+              "lower_rows": {
+                "cpu_ns": 96580,
+                "elapsed_ns": 97220
+              },
+              "lower_account": {
+                "cpu_ns": 8119844,
+                "elapsed_ns": 8120687
+              },
+              "provider_account": {
+                "cpu_ns": 31916810,
+                "elapsed_ns": 31917747
+              }
+            },
+            "host_thread_cpu_ns": 353308819,
+            "host_elapsed_ns": 379074935
+          },
+          {
+            "point": 3,
+            "categories": {
+              "guest_publication_read": {
+                "cpu_ns": 754666,
+                "elapsed_ns": 20941613
+              },
+              "vmm_pagemap": {
+                "cpu_ns": 18153104,
+                "elapsed_ns": 18269178
+              },
+              "maps_read": {
+                "cpu_ns": 741049,
+                "elapsed_ns": 742339
+              },
+              "offset_translation": {
+                "cpu_ns": 15386484,
+                "elapsed_ns": 15504422
+              },
+              "backend_query": {
+                "cpu_ns": 115907679,
+                "elapsed_ns": 117203401
+              },
+              "lower_query": {
+                "cpu_ns": 99103760,
+                "elapsed_ns": 99146051
+              },
+              "provider_query": {
+                "cpu_ns": 4035741,
+                "elapsed_ns": 4149533
+              },
+              "decode_rows": {
+                "cpu_ns": 1230359,
+                "elapsed_ns": 1233652
+              },
+              "accounting": {
+                "cpu_ns": 52649298,
+                "elapsed_ns": 52752300
+              },
+              "unmeasured": {
+                "cpu_ns": 1560461,
+                "elapsed_ns": 1537766
+              }
+            },
+            "stages": {
+              "guest_before": {
+                "cpu_ns": 374216,
+                "elapsed_ns": 5428977
+              },
+              "decode_before": {
+                "cpu_ns": 99105,
+                "elapsed_ns": 99581
+              },
+              "vmm_first": {
+                "cpu_ns": 6815356,
+                "elapsed_ns": 6816024
+              },
+              "maps_before": {
+                "cpu_ns": 360129,
+                "elapsed_ns": 360869
+              },
+              "backend_offsets_before": {
+                "cpu_ns": 4794849,
+                "elapsed_ns": 4795729
+              },
+              "backend_query_first": {
+                "cpu_ns": 67067193,
+                "elapsed_ns": 67689767
+              },
+              "lower_offsets": {
+                "cpu_ns": 7282762,
+                "elapsed_ns": 7399060
+              },
+              "lower_query_first": {
+                "cpu_ns": 50364934,
+                "elapsed_ns": 50406366
+              },
+              "provider_first": {
+                "cpu_ns": 2851728,
+                "elapsed_ns": 2852115
+              },
+              "vmm_middle": {
+                "cpu_ns": 5646984,
+                "elapsed_ns": 5648092
+              },
+              "provider_last": {
+                "cpu_ns": 1184013,
+                "elapsed_ns": 1297418
+              },
+              "guest_after": {
+                "cpu_ns": 380450,
+                "elapsed_ns": 15512636
+              },
+              "decode_after": {
+                "cpu_ns": 98009,
+                "elapsed_ns": 98425
+              },
+              "backend_query_last": {
+                "cpu_ns": 48840486,
+                "elapsed_ns": 49513634
+              },
+              "lower_query_last": {
+                "cpu_ns": 48738826,
+                "elapsed_ns": 48739685
+              },
+              "vmm_last": {
+                "cpu_ns": 5690764,
+                "elapsed_ns": 5805062
+              },
+              "maps_after": {
+                "cpu_ns": 380920,
+                "elapsed_ns": 381470
+              },
+              "backend_offsets_after": {
+                "cpu_ns": 3308873,
+                "elapsed_ns": 3309633
+              },
+              "host_rows": {
+                "cpu_ns": 820283,
+                "elapsed_ns": 821285
+              },
+              "vmm_account": {
+                "cpu_ns": 1918920,
+                "elapsed_ns": 1919647
+              },
+              "backend_rows": {
+                "cpu_ns": 124712,
+                "elapsed_ns": 125403
+              },
+              "backend_account": {
+                "cpu_ns": 5474576,
+                "elapsed_ns": 5575080
+              },
+              "lower_rows": {
+                "cpu_ns": 88250,
+                "elapsed_ns": 88958
+              },
+              "lower_account": {
+                "cpu_ns": 7876197,
+                "elapsed_ns": 7877036
+              },
+              "provider_account": {
+                "cpu_ns": 37379605,
+                "elapsed_ns": 37380537
+              }
+            },
+            "host_thread_cpu_ns": 309522601,
+            "host_elapsed_ns": 331480255
+          },
+          {
+            "point": 4,
+            "categories": {
+              "guest_publication_read": {
+                "cpu_ns": 460543,
+                "elapsed_ns": 15622432
+              },
+              "vmm_pagemap": {
+                "cpu_ns": 16611905,
+                "elapsed_ns": 16613904
+              },
+              "maps_read": {
+                "cpu_ns": 500663,
+                "elapsed_ns": 501604
+              },
+              "offset_translation": {
+                "cpu_ns": 3640769,
+                "elapsed_ns": 3642407
+              },
+              "backend_query": {
+                "cpu_ns": 48638634,
+                "elapsed_ns": 48726477
+              },
+              "lower_query": {
+                "cpu_ns": 45374375,
+                "elapsed_ns": 45410751
+              },
+              "provider_query": {
+                "cpu_ns": 4177067,
+                "elapsed_ns": 4177947
+              },
+              "decode_rows": {
+                "cpu_ns": 453717,
+                "elapsed_ns": 456283
+              },
+              "accounting": {
+                "cpu_ns": 15330195,
+                "elapsed_ns": 15332942
+              },
+              "unmeasured": {
+                "cpu_ns": 1410169,
+                "elapsed_ns": 1394133
+              }
+            },
+            "stages": {
+              "guest_before": {
+                "cpu_ns": 247424,
+                "elapsed_ns": 5301123
+              },
+              "decode_before": {
+                "cpu_ns": 53427,
+                "elapsed_ns": 53845
+              },
+              "vmm_first": {
+                "cpu_ns": 5702716,
+                "elapsed_ns": 5703292
+              },
+              "maps_before": {
+                "cpu_ns": 260609,
+                "elapsed_ns": 261026
+              },
+              "backend_offsets_before": {
+                "cpu_ns": 957393,
+                "elapsed_ns": 957955
+              },
+              "backend_query_first": {
+                "cpu_ns": 27125616,
+                "elapsed_ns": 27173523
+              },
+              "lower_offsets": {
+                "cpu_ns": 1720282,
+                "elapsed_ns": 1720754
+              },
+              "lower_query_first": {
+                "cpu_ns": 24840161,
+                "elapsed_ns": 24857066
+              },
+              "provider_first": {
+                "cpu_ns": 2900244,
+                "elapsed_ns": 2900683
+              },
+              "vmm_middle": {
+                "cpu_ns": 5912212,
+                "elapsed_ns": 5912967
+              },
+              "provider_last": {
+                "cpu_ns": 1276823,
+                "elapsed_ns": 1277264
+              },
+              "guest_after": {
+                "cpu_ns": 213119,
+                "elapsed_ns": 10321309
+              },
+              "decode_after": {
+                "cpu_ns": 46317,
+                "elapsed_ns": 46771
+              },
+              "backend_query_last": {
+                "cpu_ns": 21513018,
+                "elapsed_ns": 21552954
+              },
+              "lower_query_last": {
+                "cpu_ns": 20534214,
+                "elapsed_ns": 20553685
+              },
+              "vmm_last": {
+                "cpu_ns": 4996977,
+                "elapsed_ns": 4997645
+              },
+              "maps_after": {
+                "cpu_ns": 240054,
+                "elapsed_ns": 240578
+              },
+              "backend_offsets_after": {
+                "cpu_ns": 963094,
+                "elapsed_ns": 963698
+              },
+              "host_rows": {
+                "cpu_ns": 299539,
+                "elapsed_ns": 300224
+              },
+              "vmm_account": {
+                "cpu_ns": 506777,
+                "elapsed_ns": 507316
+              },
+              "backend_rows": {
+                "cpu_ns": 25910,
+                "elapsed_ns": 26416
+              },
+              "backend_account": {
+                "cpu_ns": 2141894,
+                "elapsed_ns": 2142522
+              },
+              "lower_rows": {
+                "cpu_ns": 28524,
+                "elapsed_ns": 29027
+              },
+              "lower_account": {
+                "cpu_ns": 2151796,
+                "elapsed_ns": 2152441
+              },
+              "provider_account": {
+                "cpu_ns": 10529728,
+                "elapsed_ns": 10530663
+              }
+            },
+            "host_thread_cpu_ns": 136598037,
+            "host_elapsed_ns": 151878880
+          },
+          {
+            "point": 5,
+            "categories": {
+              "guest_publication_read": {
+                "cpu_ns": 789128,
+                "elapsed_ns": 15952581
+              },
+              "vmm_pagemap": {
+                "cpu_ns": 19502827,
+                "elapsed_ns": 19506715
+              },
+              "maps_read": {
+                "cpu_ns": 755109,
+                "elapsed_ns": 756822
+              },
+              "offset_translation": {
+                "cpu_ns": 7738890,
+                "elapsed_ns": 7741362
+              },
+              "backend_query": {
+                "cpu_ns": 79169869,
+                "elapsed_ns": 79534924
+              },
+              "lower_query": {
+                "cpu_ns": 61861979,
+                "elapsed_ns": 61863793
+              },
+              "provider_query": {
+                "cpu_ns": 2615712,
+                "elapsed_ns": 2616672
+              },
+              "decode_rows": {
+                "cpu_ns": 559140,
+                "elapsed_ns": 562132
+              },
+              "accounting": {
+                "cpu_ns": 24802645,
+                "elapsed_ns": 24909758
+              },
+              "unmeasured": {
+                "cpu_ns": 1944197,
+                "elapsed_ns": 1920443
+              }
+            },
+            "stages": {
+              "guest_before": {
+                "cpu_ns": 586660,
+                "elapsed_ns": 10695579
+              },
+              "decode_before": {
+                "cpu_ns": 104610,
+                "elapsed_ns": 105531
+              },
+              "vmm_first": {
+                "cpu_ns": 8327726,
+                "elapsed_ns": 8330004
+              },
+              "maps_before": {
+                "cpu_ns": 510164,
+                "elapsed_ns": 511335
+              },
+              "backend_offsets_before": {
+                "cpu_ns": 2544665,
+                "elapsed_ns": 2545753
+              },
+              "backend_query_first": {
+                "cpu_ns": 53544324,
+                "elapsed_ns": 53706399
+              },
+              "lower_offsets": {
+                "cpu_ns": 4004546,
+                "elapsed_ns": 4005381
+              },
+              "lower_query_first": {
+                "cpu_ns": 37008184,
+                "elapsed_ns": 37009130
+              },
+              "provider_first": {
+                "cpu_ns": 1431182,
+                "elapsed_ns": 1431674
+              },
+              "vmm_middle": {
+                "cpu_ns": 6495751,
+                "elapsed_ns": 6496630
+              },
+              "provider_last": {
+                "cpu_ns": 1184530,
+                "elapsed_ns": 1184998
+              },
+              "guest_after": {
+                "cpu_ns": 202468,
+                "elapsed_ns": 5257002
+              },
+              "decode_after": {
+                "cpu_ns": 52515,
+                "elapsed_ns": 52929
+              },
+              "backend_query_last": {
+                "cpu_ns": 25625545,
+                "elapsed_ns": 25828525
+              },
+              "lower_query_last": {
+                "cpu_ns": 24853795,
+                "elapsed_ns": 24854663
+              },
+              "vmm_last": {
+                "cpu_ns": 4679350,
+                "elapsed_ns": 4680081
+              },
+              "maps_after": {
+                "cpu_ns": 244945,
+                "elapsed_ns": 245487
+              },
+              "backend_offsets_after": {
+                "cpu_ns": 1189679,
+                "elapsed_ns": 1190228
+              },
+              "host_rows": {
+                "cpu_ns": 335559,
+                "elapsed_ns": 336256
+              },
+              "vmm_account": {
+                "cpu_ns": 635479,
+                "elapsed_ns": 636025
+              },
+              "backend_rows": {
+                "cpu_ns": 32950,
+                "elapsed_ns": 33467
+              },
+              "backend_account": {
+                "cpu_ns": 2882141,
+                "elapsed_ns": 2882869
+              },
+              "lower_rows": {
+                "cpu_ns": 33506,
+                "elapsed_ns": 33949
+              },
+              "lower_account": {
+                "cpu_ns": 2680565,
+                "elapsed_ns": 2681420
+              },
+              "provider_account": {
+                "cpu_ns": 18604460,
+                "elapsed_ns": 18709444
+              }
+            },
+            "host_thread_cpu_ns": 199739496,
+            "host_elapsed_ns": 215365202
+          },
+          {
+            "point": 6,
+            "categories": {
+              "guest_publication_read": {
+                "cpu_ns": 879117,
+                "elapsed_ns": 31201939
+              },
+              "vmm_pagemap": {
+                "cpu_ns": 22294424,
+                "elapsed_ns": 22307185
+              },
+              "maps_read": {
+                "cpu_ns": 892292,
+                "elapsed_ns": 894307
+              },
+              "offset_translation": {
+                "cpu_ns": 7463493,
+                "elapsed_ns": 7466394
+              },
+              "backend_query": {
+                "cpu_ns": 97995109,
+                "elapsed_ns": 98439866
+              },
+              "lower_query": {
+                "cpu_ns": 68685533,
+                "elapsed_ns": 68756041
+              },
+              "provider_query": {
+                "cpu_ns": 3527261,
+                "elapsed_ns": 3528305
+              },
+              "decode_rows": {
+                "cpu_ns": 542994,
+                "elapsed_ns": 546395
+              },
+              "accounting": {
+                "cpu_ns": 15993066,
+                "elapsed_ns": 16034715
+              },
+              "unmeasured": {
+                "cpu_ns": 1233767,
+                "elapsed_ns": 1210802
+              }
+            },
+            "stages": {
+              "guest_before": {
+                "cpu_ns": 590288,
+                "elapsed_ns": 15750423
+              },
+              "decode_before": {
+                "cpu_ns": 105735,
+                "elapsed_ns": 106670
+              },
+              "vmm_first": {
+                "cpu_ns": 11009219,
+                "elapsed_ns": 11020179
+              },
+              "maps_before": {
+                "cpu_ns": 615048,
+                "elapsed_ns": 616270
+              },
+              "backend_offsets_before": {
+                "cpu_ns": 2881521,
+                "elapsed_ns": 2882984
+              },
+              "backend_query_first": {
+                "cpu_ns": 60024793,
+                "elapsed_ns": 60176861
+              },
+              "lower_offsets": {
+                "cpu_ns": 3526662,
+                "elapsed_ns": 3527547
+              },
+              "lower_query_first": {
+                "cpu_ns": 37492087,
+                "elapsed_ns": 37506164
+              },
+              "provider_first": {
+                "cpu_ns": 2192981,
+                "elapsed_ns": 2193573
+              },
+              "vmm_middle": {
+                "cpu_ns": 5909137,
+                "elapsed_ns": 5910200
+              },
+              "provider_last": {
+                "cpu_ns": 1334280,
+                "elapsed_ns": 1334732
+              },
+              "guest_after": {
+                "cpu_ns": 288829,
+                "elapsed_ns": 15451516
+              },
+              "decode_after": {
+                "cpu_ns": 75688,
+                "elapsed_ns": 76498
+              },
+              "backend_query_last": {
+                "cpu_ns": 37970316,
+                "elapsed_ns": 38263005
+              },
+              "lower_query_last": {
+                "cpu_ns": 31193446,
+                "elapsed_ns": 31249877
+              },
+              "vmm_last": {
+                "cpu_ns": 5376068,
+                "elapsed_ns": 5376806
+              },
+              "maps_after": {
+                "cpu_ns": 277244,
+                "elapsed_ns": 278037
+              },
+              "backend_offsets_after": {
+                "cpu_ns": 1055310,
+                "elapsed_ns": 1055863
+              },
+              "host_rows": {
+                "cpu_ns": 304751,
+                "elapsed_ns": 305496
+              },
+              "vmm_account": {
+                "cpu_ns": 537610,
+                "elapsed_ns": 538037
+              },
+              "backend_rows": {
+                "cpu_ns": 28344,
+                "elapsed_ns": 28762
+              },
+              "backend_account": {
+                "cpu_ns": 2219069,
+                "elapsed_ns": 2219744
+              },
+              "lower_rows": {
+                "cpu_ns": 28476,
+                "elapsed_ns": 28969
+              },
+              "lower_account": {
+                "cpu_ns": 2140460,
+                "elapsed_ns": 2141238
+              },
+              "provider_account": {
+                "cpu_ns": 11095927,
+                "elapsed_ns": 11135696
+              }
+            },
+            "host_thread_cpu_ns": 219507056,
+            "host_elapsed_ns": 250385949
+          },
+          {
+            "point": 7,
+            "categories": {
+              "guest_publication_read": {
+                "cpu_ns": 604822,
+                "elapsed_ns": 20822903
+              },
+              "vmm_pagemap": {
+                "cpu_ns": 19735870,
+                "elapsed_ns": 19738229
+              },
+              "maps_read": {
+                "cpu_ns": 687449,
+                "elapsed_ns": 688669
+              },
+              "offset_translation": {
+                "cpu_ns": 9462349,
+                "elapsed_ns": 9501201
+              },
+              "backend_query": {
+                "cpu_ns": 93224113,
+                "elapsed_ns": 93666110
+              },
+              "lower_query": {
+                "cpu_ns": 72456408,
+                "elapsed_ns": 72457997
+              },
+              "provider_query": {
+                "cpu_ns": 3197220,
+                "elapsed_ns": 3302638
+              },
+              "decode_rows": {
+                "cpu_ns": 722984,
+                "elapsed_ns": 730975
+              },
+              "accounting": {
+                "cpu_ns": 22704981,
+                "elapsed_ns": 22751835
+              },
+              "unmeasured": {
+                "cpu_ns": 1125239,
+                "elapsed_ns": 1105667
+              }
+            },
+            "stages": {
+              "guest_before": {
+                "cpu_ns": 312871,
+                "elapsed_ns": 5367795
+              },
+              "decode_before": {
+                "cpu_ns": 87158,
+                "elapsed_ns": 92732
+              },
+              "vmm_first": {
+                "cpu_ns": 7775504,
+                "elapsed_ns": 7776228
+              },
+              "maps_before": {
+                "cpu_ns": 420022,
+                "elapsed_ns": 420748
+              },
+              "backend_offsets_before": {
+                "cpu_ns": 2820507,
+                "elapsed_ns": 2857621
+              },
+              "backend_query_first": {
+                "cpu_ns": 57512182,
+                "elapsed_ns": 57953475
+              },
+              "lower_offsets": {
+                "cpu_ns": 4791472,
+                "elapsed_ns": 4792487
+              },
+              "lower_query_first": {
+                "cpu_ns": 39406591,
+                "elapsed_ns": 39407425
+              },
+              "provider_first": {
+                "cpu_ns": 1759653,
+                "elapsed_ns": 1864653
+              },
+              "vmm_middle": {
+                "cpu_ns": 6052487,
+                "elapsed_ns": 6053479
+              },
+              "provider_last": {
+                "cpu_ns": 1437567,
+                "elapsed_ns": 1437985
+              },
+              "guest_after": {
+                "cpu_ns": 291951,
+                "elapsed_ns": 15455108
+              },
+              "decode_after": {
+                "cpu_ns": 67960,
+                "elapsed_ns": 68522
+              },
+              "backend_query_last": {
+                "cpu_ns": 35711931,
+                "elapsed_ns": 35712635
+              },
+              "lower_query_last": {
+                "cpu_ns": 33049817,
+                "elapsed_ns": 33050572
+              },
+              "vmm_last": {
+                "cpu_ns": 5907879,
+                "elapsed_ns": 5908522
+              },
+              "maps_after": {
+                "cpu_ns": 267427,
+                "elapsed_ns": 267921
+              },
+              "backend_offsets_after": {
+                "cpu_ns": 1850370,
+                "elapsed_ns": 1851093
+              },
+              "host_rows": {
+                "cpu_ns": 456790,
+                "elapsed_ns": 457542
+              },
+              "vmm_account": {
+                "cpu_ns": 940628,
+                "elapsed_ns": 941197
+              },
+              "backend_rows": {
+                "cpu_ns": 58258,
+                "elapsed_ns": 58758
+              },
+              "backend_account": {
+                "cpu_ns": 3945272,
+                "elapsed_ns": 3990018
+              },
+              "lower_rows": {
+                "cpu_ns": 52818,
+                "elapsed_ns": 53421
+              },
+              "lower_account": {
+                "cpu_ns": 3589749,
+                "elapsed_ns": 3590519
+              },
+              "provider_account": {
+                "cpu_ns": 14229332,
+                "elapsed_ns": 14230101
+              }
+            },
+            "host_thread_cpu_ns": 223921435,
+            "host_elapsed_ns": 244766224
+          },
+          {
+            "point": 8,
+            "categories": {
+              "guest_publication_read": {
+                "cpu_ns": 586998,
+                "elapsed_ns": 20802221
+              },
+              "vmm_pagemap": {
+                "cpu_ns": 17865873,
+                "elapsed_ns": 18056233
+              },
+              "maps_read": {
+                "cpu_ns": 600209,
+                "elapsed_ns": 601458
+              },
+              "offset_translation": {
+                "cpu_ns": 9289639,
+                "elapsed_ns": 9292225
+              },
+              "backend_query": {
+                "cpu_ns": 82624141,
+                "elapsed_ns": 82638155
+              },
+              "lower_query": {
+                "cpu_ns": 71683736,
+                "elapsed_ns": 71685269
+              },
+              "provider_query": {
+                "cpu_ns": 2885403,
+                "elapsed_ns": 2886322
+              },
+              "decode_rows": {
+                "cpu_ns": 725121,
+                "elapsed_ns": 727969
+              },
+              "accounting": {
+                "cpu_ns": 28883375,
+                "elapsed_ns": 28886671
+              },
+              "unmeasured": {
+                "cpu_ns": 1140638,
+                "elapsed_ns": 1120075
+              }
+            },
+            "stages": {
+              "guest_before": {
+                "cpu_ns": 307844,
+                "elapsed_ns": 10415026
+              },
+              "decode_before": {
+                "cpu_ns": 87135,
+                "elapsed_ns": 87720
+              },
+              "vmm_first": {
+                "cpu_ns": 7011494,
+                "elapsed_ns": 7083663
+              },
+              "maps_before": {
+                "cpu_ns": 352062,
+                "elapsed_ns": 352775
+              },
+              "backend_offsets_before": {
+                "cpu_ns": 2557184,
+                "elapsed_ns": 2558142
+              },
+              "backend_query_first": {
+                "cpu_ns": 49390493,
+                "elapsed_ns": 49391561
+              },
+              "lower_offsets": {
+                "cpu_ns": 5011130,
+                "elapsed_ns": 5012135
+              },
+              "lower_query_first": {
+                "cpu_ns": 39781133,
+                "elapsed_ns": 39781872
+              },
+              "provider_first": {
+                "cpu_ns": 1653656,
+                "elapsed_ns": 1654144
+              },
+              "vmm_middle": {
+                "cpu_ns": 5563442,
+                "elapsed_ns": 5680888
+              },
+              "provider_last": {
+                "cpu_ns": 1231747,
+                "elapsed_ns": 1232178
+              },
+              "guest_after": {
+                "cpu_ns": 279154,
+                "elapsed_ns": 10387195
+              },
+              "decode_after": {
+                "cpu_ns": 63386,
+                "elapsed_ns": 63812
+              },
+              "backend_query_last": {
+                "cpu_ns": 33233648,
+                "elapsed_ns": 33246594
+              },
+              "lower_query_last": {
+                "cpu_ns": 31902603,
+                "elapsed_ns": 31903397
+              },
+              "vmm_last": {
+                "cpu_ns": 5290937,
+                "elapsed_ns": 5291682
+              },
+              "maps_after": {
+                "cpu_ns": 248147,
+                "elapsed_ns": 248683
+              },
+              "backend_offsets_after": {
+                "cpu_ns": 1721325,
+                "elapsed_ns": 1721948
+              },
+              "host_rows": {
+                "cpu_ns": 468846,
+                "elapsed_ns": 469586
+              },
+              "vmm_account": {
+                "cpu_ns": 997098,
+                "elapsed_ns": 997726
+              },
+              "backend_rows": {
+                "cpu_ns": 63708,
+                "elapsed_ns": 64336
+              },
+              "backend_account": {
+                "cpu_ns": 3986234,
+                "elapsed_ns": 3987141
+              },
+              "lower_rows": {
+                "cpu_ns": 42046,
+                "elapsed_ns": 42515
+              },
+              "lower_account": {
+                "cpu_ns": 3550572,
+                "elapsed_ns": 3551470
+              },
+              "provider_account": {
+                "cpu_ns": 20349471,
+                "elapsed_ns": 20350334
+              }
+            },
+            "host_thread_cpu_ns": 216285133,
+            "host_elapsed_ns": 236696598
+          },
+          {
+            "point": 9,
+            "categories": {
+              "guest_publication_read": {
+                "cpu_ns": 825823,
+                "elapsed_ns": 36200246
+              },
+              "vmm_pagemap": {
+                "cpu_ns": 20227008,
+                "elapsed_ns": 20229541
+              },
+              "maps_read": {
+                "cpu_ns": 774405,
+                "elapsed_ns": 776085
+              },
+              "offset_translation": {
+                "cpu_ns": 11520853,
+                "elapsed_ns": 11728485
+              },
+              "backend_query": {
+                "cpu_ns": 130486513,
+                "elapsed_ns": 130665215
+              },
+              "lower_query": {
+                "cpu_ns": 77775527,
+                "elapsed_ns": 77777124
+              },
+              "provider_query": {
+                "cpu_ns": 2850618,
+                "elapsed_ns": 2851665
+              },
+              "decode_rows": {
+                "cpu_ns": 750258,
+                "elapsed_ns": 753711
+              },
+              "accounting": {
+                "cpu_ns": 22705755,
+                "elapsed_ns": 22923579
+              },
+              "unmeasured": {
+                "cpu_ns": 1132103,
+                "elapsed_ns": 1109111
+              }
+            },
+            "stages": {
+              "guest_before": {
+                "cpu_ns": 380297,
+                "elapsed_ns": 15542390
+              },
+              "decode_before": {
+                "cpu_ns": 118634,
+                "elapsed_ns": 119497
+              },
+              "vmm_first": {
+                "cpu_ns": 9994993,
+                "elapsed_ns": 9996105
+              },
+              "maps_before": {
+                "cpu_ns": 530806,
+                "elapsed_ns": 531994
+              },
+              "backend_offsets_before": {
+                "cpu_ns": 4394248,
+                "elapsed_ns": 4395743
+              },
+              "backend_query_first": {
+                "cpu_ns": 72831055,
+                "elapsed_ns": 72955289
+              },
+              "lower_offsets": {
+                "cpu_ns": 5414571,
+                "elapsed_ns": 5620109
+              },
+              "lower_query_first": {
+                "cpu_ns": 40535273,
+                "elapsed_ns": 40536049
+              },
+              "provider_first": {
+                "cpu_ns": 1723483,
+                "elapsed_ns": 1723989
+              },
+              "vmm_middle": {
+                "cpu_ns": 5419369,
+                "elapsed_ns": 5420165
+              },
+              "provider_last": {
+                "cpu_ns": 1127135,
+                "elapsed_ns": 1127676
+              },
+              "guest_after": {
+                "cpu_ns": 445526,
+                "elapsed_ns": 20657856
+              },
+              "decode_after": {
+                "cpu_ns": 98193,
+                "elapsed_ns": 98859
+              },
+              "backend_query_last": {
+                "cpu_ns": 57655458,
+                "elapsed_ns": 57709926
+              },
+              "lower_query_last": {
+                "cpu_ns": 37240254,
+                "elapsed_ns": 37241075
+              },
+              "vmm_last": {
+                "cpu_ns": 4812646,
+                "elapsed_ns": 4813271
+              },
+              "maps_after": {
+                "cpu_ns": 243599,
+                "elapsed_ns": 244091
+              },
+              "backend_offsets_after": {
+                "cpu_ns": 1712034,
+                "elapsed_ns": 1712633
+              },
+              "host_rows": {
+                "cpu_ns": 426908,
+                "elapsed_ns": 427748
+              },
+              "vmm_account": {
+                "cpu_ns": 940717,
+                "elapsed_ns": 941561
+              },
+              "backend_rows": {
+                "cpu_ns": 58644,
+                "elapsed_ns": 59210
+              },
+              "backend_account": {
+                "cpu_ns": 3992316,
+                "elapsed_ns": 3993102
+              },
+              "lower_rows": {
+                "cpu_ns": 47879,
+                "elapsed_ns": 48397
+              },
+              "lower_account": {
+                "cpu_ns": 3573881,
+                "elapsed_ns": 3574654
+              },
+              "provider_account": {
+                "cpu_ns": 14198841,
+                "elapsed_ns": 14414262
+              }
+            },
+            "host_thread_cpu_ns": 269048863,
+            "host_elapsed_ns": 305014762
+          }
+        ],
+        "category_means": {
+          "guest_publication_read": {
+            "cpu_ns": 871211.2,
+            "elapsed_ns": 25132275.5
+          },
+          "vmm_pagemap": {
+            "cpu_ns": 19811961.7,
+            "elapsed_ns": 19859400.7
+          },
+          "maps_read": {
+            "cpu_ns": 761651.2,
+            "elapsed_ns": 763135.8
+          },
+          "offset_translation": {
+            "cpu_ns": 12481571.5,
+            "elapsed_ns": 12566773.1
+          },
+          "backend_query": {
+            "cpu_ns": 108097529.9,
+            "elapsed_ns": 108615262.8
+          },
+          "lower_query": {
+            "cpu_ns": 81827647.1,
+            "elapsed_ns": 82319945.2
+          },
+          "provider_query": {
+            "cpu_ns": 4083362.3,
+            "elapsed_ns": 4106911
+          },
+          "decode_rows": {
+            "cpu_ns": 922215.1,
+            "elapsed_ns": 926001.5
+          },
+          "accounting": {
+            "cpu_ns": 33719908.3,
+            "elapsed_ns": 33782154.7
+          },
+          "unmeasured": {
+            "cpu_ns": 1352427.4,
+            "elapsed_ns": 1330668
+          }
+        },
+        "stage_means": {
+          "guest_before": {
+            "cpu_ns": 536523.7,
+            "elapsed_ns": 11659817.6
+          },
+          "decode_before": {
+            "cpu_ns": 129643.9,
+            "elapsed_ns": 130965
+          },
+          "vmm_first": {
+            "cpu_ns": 8468222.1,
+            "elapsed_ns": 8478168.1
+          },
+          "maps_before": {
+            "cpu_ns": 468094.5,
+            "elapsed_ns": 469021.8
+          },
+          "backend_offsets_before": {
+            "cpu_ns": 4364839.6,
+            "elapsed_ns": 4404317.8
+          },
+          "backend_query_first": {
+            "cpu_ns": 65595097.7,
+            "elapsed_ns": 65938143.5
+          },
+          "lower_offsets": {
+            "cpu_ns": 5949529,
+            "elapsed_ns": 5982366.3
+          },
+          "lower_query_first": {
+            "cpu_ns": 44703043.2,
+            "elapsed_ns": 45155467.4
+          },
+          "provider_first": {
+            "cpu_ns": 2822060.1,
+            "elapsed_ns": 2833863.7
+          },
+          "vmm_middle": {
+            "cpu_ns": 5841838.6,
+            "elapsed_ns": 5859240.4
+          },
+          "provider_last": {
+            "cpu_ns": 1261302.2,
+            "elapsed_ns": 1273047.3
+          },
+          "guest_after": {
+            "cpu_ns": 334687.5,
+            "elapsed_ns": 13472457.9
+          },
+          "decode_after": {
+            "cpu_ns": 81611.5,
+            "elapsed_ns": 82120.6
+          },
+          "backend_query_last": {
+            "cpu_ns": 42502432.2,
+            "elapsed_ns": 42677119.3
+          },
+          "lower_query_last": {
+            "cpu_ns": 37124603.9,
+            "elapsed_ns": 37164477.8
+          },
+          "vmm_last": {
+            "cpu_ns": 5501901,
+            "elapsed_ns": 5521992.2
+          },
+          "maps_after": {
+            "cpu_ns": 293556.7,
+            "elapsed_ns": 294114
+          },
+          "backend_offsets_after": {
+            "cpu_ns": 2167202.9,
+            "elapsed_ns": 2180089
+          },
+          "host_rows": {
+            "cpu_ns": 571451.7,
+            "elapsed_ns": 572269.6
+          },
+          "vmm_account": {
+            "cpu_ns": 1233487.4,
+            "elapsed_ns": 1234174.5
+          },
+          "backend_rows": {
+            "cpu_ns": 79732.7,
+            "elapsed_ns": 80280.9
+          },
+          "backend_account": {
+            "cpu_ns": 4181313.4,
+            "elapsed_ns": 4196418.3
+          },
+          "lower_rows": {
+            "cpu_ns": 59775.3,
+            "elapsed_ns": 60365.4
+          },
+          "lower_account": {
+            "cpu_ns": 5143356.9,
+            "elapsed_ns": 5144138.2
+          },
+          "provider_account": {
+            "cpu_ns": 23161750.6,
+            "elapsed_ns": 23207423.7
+          }
+        },
+        "point_cpu_mean_ns": 263929485.7,
+        "point_elapsed_mean_ns": 289402528.3,
+        "session_thread_cpu_ns": 2720150940,
+        "outside_point_cpu_total_ns": 80856083
+      }
+    },
+    "scope": "Host collection thread through accounting; encoding/output, helper processes and guest CPU separate.",
+    "unmeasured": "Point total minus nonoverlapping recorded stages; includes timer/loop overhead, imports and unstaged checks."
+  },
+  "batch_queries": {
+    "backend": {
+      "map_info": {
+        "type": "hash",
+        "flags": 0,
+        "bytes_key": 8,
+        "bytes_value": 16,
+        "max_entries": 131072,
+        "bytes_memlock": 11549504
+      },
+      "receive_buffer_bytes": 3145728,
+      "queries": [
+        {
+          "query": 1,
+          "requested_pages": 23079,
+          "missing_kernel_results": 0,
+          "mincore_resident_pages": 13677,
+          "confirmed_pfn_pages": 13677,
+          "no_file_mapping_pages": 0,
+          "bpf_lookup": {
+            "mode": "batch",
+            "returncode": -2,
+            "returned_entries": 23079
+          }
+        },
+        {
+          "query": 2,
+          "requested_pages": 23079,
+          "missing_kernel_results": 0,
+          "mincore_resident_pages": 13902,
+          "confirmed_pfn_pages": 13902,
+          "no_file_mapping_pages": 0,
+          "bpf_lookup": {
+            "mode": "batch",
+            "returncode": -2,
+            "returned_entries": 45871
+          }
+        },
+        {
+          "query": 3,
+          "requested_pages": 23155,
+          "missing_kernel_results": 0,
+          "mincore_resident_pages": 14027,
+          "confirmed_pfn_pages": 14027,
+          "no_file_mapping_pages": 0,
+          "bpf_lookup": {
+            "mode": "batch",
+            "returncode": -2,
+            "returned_entries": 46421
+          }
+        },
+        {
+          "query": 4,
+          "requested_pages": 23155,
+          "missing_kernel_results": 0,
+          "mincore_resident_pages": 14039,
+          "confirmed_pfn_pages": 14039,
+          "no_file_mapping_pages": 0,
+          "bpf_lookup": {
+            "mode": "batch",
+            "returncode": -2,
+            "returned_entries": 46971
+          }
+        },
+        {
+          "query": 5,
+          "requested_pages": 23155,
+          "missing_kernel_results": 0,
+          "mincore_resident_pages": 14148,
+          "confirmed_pfn_pages": 14148,
+          "no_file_mapping_pages": 0,
+          "bpf_lookup": {
+            "mode": "batch",
+            "returncode": -2,
+            "returned_entries": 46971
+          }
+        },
+        {
+          "query": 6,
+          "requested_pages": 23155,
+          "missing_kernel_results": 0,
+          "mincore_resident_pages": 14168,
+          "confirmed_pfn_pages": 14168,
+          "no_file_mapping_pages": 0,
+          "bpf_lookup": {
+            "mode": "batch",
+            "returncode": -2,
+            "returned_entries": 46971
+          }
+        },
+        {
+          "query": 7,
+          "requested_pages": 23156,
+          "missing_kernel_results": 0,
+          "mincore_resident_pages": 14194,
+          "confirmed_pfn_pages": 14194,
+          "no_file_mapping_pages": 0,
+          "bpf_lookup": {
+            "mode": "batch",
+            "returncode": -2,
+            "returned_entries": 46971
+          }
+        },
+        {
+          "query": 8,
+          "requested_pages": 23156,
+          "missing_kernel_results": 0,
+          "mincore_resident_pages": 14194,
+          "confirmed_pfn_pages": 14194,
+          "no_file_mapping_pages": 0,
+          "bpf_lookup": {
+            "mode": "batch",
+            "returncode": -2,
+            "returned_entries": 46971
+          }
+        },
+        {
+          "query": 9,
+          "requested_pages": 5452,
+          "missing_kernel_results": 0,
+          "mincore_resident_pages": 5273,
+          "confirmed_pfn_pages": 5273,
+          "no_file_mapping_pages": 0,
+          "bpf_lookup": {
+            "mode": "batch",
+            "returncode": -2,
+            "returned_entries": 47393
+          }
+        },
+        {
+          "query": 10,
+          "requested_pages": 5452,
+          "missing_kernel_results": 0,
+          "mincore_resident_pages": 5273,
+          "confirmed_pfn_pages": 5273,
+          "no_file_mapping_pages": 0,
+          "bpf_lookup": {
+            "mode": "batch",
+            "returncode": -2,
+            "returned_entries": 47815
+          }
+        },
+        {
+          "query": 11,
+          "requested_pages": 7318,
+          "missing_kernel_results": 0,
+          "mincore_resident_pages": 7140,
+          "confirmed_pfn_pages": 7140,
+          "no_file_mapping_pages": 0,
+          "bpf_lookup": {
+            "mode": "batch",
+            "returncode": -2,
+            "returned_entries": 48921
+          }
+        },
+        {
+          "query": 12,
+          "requested_pages": 7318,
+          "missing_kernel_results": 0,
+          "mincore_resident_pages": 7140,
+          "confirmed_pfn_pages": 7140,
+          "no_file_mapping_pages": 0,
+          "bpf_lookup": {
+            "mode": "batch",
+            "returncode": -2,
+            "returned_entries": 50027
+          }
+        },
+        {
+          "query": 13,
+          "requested_pages": 6108,
+          "missing_kernel_results": 0,
+          "mincore_resident_pages": 5930,
+          "confirmed_pfn_pages": 5930,
+          "no_file_mapping_pages": 0,
+          "bpf_lookup": {
+            "mode": "batch",
+            "returncode": -2,
+            "returned_entries": 50084
+          }
+        },
+        {
+          "query": 14,
+          "requested_pages": 6108,
+          "missing_kernel_results": 0,
+          "mincore_resident_pages": 5930,
+          "confirmed_pfn_pages": 5930,
+          "no_file_mapping_pages": 0,
+          "bpf_lookup": {
+            "mode": "batch",
+            "returncode": -2,
+            "returned_entries": 50141
+          }
+        },
+        {
+          "query": 15,
+          "requested_pages": 10998,
+          "missing_kernel_results": 0,
+          "mincore_resident_pages": 10820,
+          "confirmed_pfn_pages": 10820,
+          "no_file_mapping_pages": 0,
+          "bpf_lookup": {
+            "mode": "batch",
+            "returncode": -2,
+            "returned_entries": 51176
+          }
+        },
+        {
+          "query": 16,
+          "requested_pages": 10998,
+          "missing_kernel_results": 0,
+          "mincore_resident_pages": 10820,
+          "confirmed_pfn_pages": 10820,
+          "no_file_mapping_pages": 0,
+          "bpf_lookup": {
+            "mode": "batch",
+            "returncode": -2,
+            "returned_entries": 52211
+          }
+        },
+        {
+          "query": 17,
+          "requested_pages": 10998,
+          "missing_kernel_results": 0,
+          "mincore_resident_pages": 10820,
+          "confirmed_pfn_pages": 10820,
+          "no_file_mapping_pages": 0,
+          "bpf_lookup": {
+            "mode": "batch",
+            "returncode": -2,
+            "returned_entries": 52211
+          }
+        },
+        {
+          "query": 18,
+          "requested_pages": 10998,
+          "missing_kernel_results": 0,
+          "mincore_resident_pages": 10820,
+          "confirmed_pfn_pages": 10820,
+          "no_file_mapping_pages": 0,
+          "bpf_lookup": {
+            "mode": "batch",
+            "returncode": -2,
+            "returned_entries": 52211
+          }
+        },
+        {
+          "query": 19,
+          "requested_pages": 11158,
+          "missing_kernel_results": 0,
+          "mincore_resident_pages": 10980,
+          "confirmed_pfn_pages": 10980,
+          "no_file_mapping_pages": 0,
+          "bpf_lookup": {
+            "mode": "batch",
+            "returncode": -2,
+            "returned_entries": 52534
+          }
+        },
+        {
+          "query": 20,
+          "requested_pages": 11158,
+          "missing_kernel_results": 0,
+          "mincore_resident_pages": 10980,
+          "confirmed_pfn_pages": 10980,
+          "no_file_mapping_pages": 0,
+          "bpf_lookup": {
+            "mode": "batch",
+            "returncode": -2,
+            "returned_entries": 52857
+          }
+        }
+      ]
+    },
+    "lower": {
+      "map_info": {
+        "type": "hash",
+        "flags": 0,
+        "bytes_key": 8,
+        "bytes_value": 16,
+        "max_entries": 131072,
+        "bytes_memlock": 11549504
+      },
+      "receive_buffer_bytes": 3145728,
+      "queries": [
+        {
+          "query": 1,
+          "requested_pages": 22792,
+          "missing_kernel_results": 0,
+          "mincore_resident_pages": 22792,
+          "confirmed_pfn_pages": 22792,
+          "no_file_mapping_pages": 287,
+          "bpf_lookup": {
+            "mode": "batch",
+            "returncode": -2,
+            "returned_entries": 45871
+          }
+        },
+        {
+          "query": 2,
+          "requested_pages": 22792,
+          "missing_kernel_results": 0,
+          "mincore_resident_pages": 22792,
+          "confirmed_pfn_pages": 22792,
+          "no_file_mapping_pages": 287,
+          "bpf_lookup": {
+            "mode": "batch",
+            "returncode": -2,
+            "returned_entries": 45871
+          }
+        },
+        {
+          "query": 3,
+          "requested_pages": 23145,
+          "missing_kernel_results": 0,
+          "mincore_resident_pages": 23145,
+          "confirmed_pfn_pages": 23145,
+          "no_file_mapping_pages": 10,
+          "bpf_lookup": {
+            "mode": "batch",
+            "returncode": -2,
+            "returned_entries": 46971
+          }
+        },
+        {
+          "query": 4,
+          "requested_pages": 23145,
+          "missing_kernel_results": 0,
+          "mincore_resident_pages": 23145,
+          "confirmed_pfn_pages": 23145,
+          "no_file_mapping_pages": 10,
+          "bpf_lookup": {
+            "mode": "batch",
+            "returncode": -2,
+            "returned_entries": 46971
+          }
+        },
+        {
+          "query": 5,
+          "requested_pages": 23145,
+          "missing_kernel_results": 0,
+          "mincore_resident_pages": 23145,
+          "confirmed_pfn_pages": 23145,
+          "no_file_mapping_pages": 10,
+          "bpf_lookup": {
+            "mode": "batch",
+            "returncode": -2,
+            "returned_entries": 46971
+          }
+        },
+        {
+          "query": 6,
+          "requested_pages": 23145,
+          "missing_kernel_results": 0,
+          "mincore_resident_pages": 23145,
+          "confirmed_pfn_pages": 23145,
+          "no_file_mapping_pages": 10,
+          "bpf_lookup": {
+            "mode": "batch",
+            "returncode": -2,
+            "returned_entries": 46971
+          }
+        },
+        {
+          "query": 7,
+          "requested_pages": 23146,
+          "missing_kernel_results": 0,
+          "mincore_resident_pages": 23146,
+          "confirmed_pfn_pages": 23146,
+          "no_file_mapping_pages": 10,
+          "bpf_lookup": {
+            "mode": "batch",
+            "returncode": -2,
+            "returned_entries": 46971
+          }
+        },
+        {
+          "query": 8,
+          "requested_pages": 23146,
+          "missing_kernel_results": 0,
+          "mincore_resident_pages": 23146,
+          "confirmed_pfn_pages": 23146,
+          "no_file_mapping_pages": 10,
+          "bpf_lookup": {
+            "mode": "batch",
+            "returncode": -2,
+            "returned_entries": 46971
+          }
+        },
+        {
+          "query": 9,
+          "requested_pages": 5448,
+          "missing_kernel_results": 0,
+          "mincore_resident_pages": 5448,
+          "confirmed_pfn_pages": 5448,
+          "no_file_mapping_pages": 4,
+          "bpf_lookup": {
+            "mode": "batch",
+            "returncode": -2,
+            "returned_entries": 47815
+          }
+        },
+        {
+          "query": 10,
+          "requested_pages": 5448,
+          "missing_kernel_results": 0,
+          "mincore_resident_pages": 5448,
+          "confirmed_pfn_pages": 5448,
+          "no_file_mapping_pages": 4,
+          "bpf_lookup": {
+            "mode": "batch",
+            "returncode": -2,
+            "returned_entries": 47815
+          }
+        },
+        {
+          "query": 11,
+          "requested_pages": 7313,
+          "missing_kernel_results": 0,
+          "mincore_resident_pages": 7313,
+          "confirmed_pfn_pages": 7313,
+          "no_file_mapping_pages": 5,
+          "bpf_lookup": {
+            "mode": "batch",
+            "returncode": -2,
+            "returned_entries": 50027
+          }
+        },
+        {
+          "query": 12,
+          "requested_pages": 7313,
+          "missing_kernel_results": 0,
+          "mincore_resident_pages": 7313,
+          "confirmed_pfn_pages": 7313,
+          "no_file_mapping_pages": 5,
+          "bpf_lookup": {
+            "mode": "batch",
+            "returncode": -2,
+            "returned_entries": 50027
+          }
+        },
+        {
+          "query": 13,
+          "requested_pages": 6103,
+          "missing_kernel_results": 0,
+          "mincore_resident_pages": 6103,
+          "confirmed_pfn_pages": 6103,
+          "no_file_mapping_pages": 5,
+          "bpf_lookup": {
+            "mode": "batch",
+            "returncode": -2,
+            "returned_entries": 50141
+          }
+        },
+        {
+          "query": 14,
+          "requested_pages": 6103,
+          "missing_kernel_results": 0,
+          "mincore_resident_pages": 6103,
+          "confirmed_pfn_pages": 6103,
+          "no_file_mapping_pages": 5,
+          "bpf_lookup": {
+            "mode": "batch",
+            "returncode": -2,
+            "returned_entries": 50141
+          }
+        },
+        {
+          "query": 15,
+          "requested_pages": 10992,
+          "missing_kernel_results": 0,
+          "mincore_resident_pages": 10992,
+          "confirmed_pfn_pages": 10992,
+          "no_file_mapping_pages": 6,
+          "bpf_lookup": {
+            "mode": "batch",
+            "returncode": -2,
+            "returned_entries": 52211
+          }
+        },
+        {
+          "query": 16,
+          "requested_pages": 10992,
+          "missing_kernel_results": 0,
+          "mincore_resident_pages": 10992,
+          "confirmed_pfn_pages": 10992,
+          "no_file_mapping_pages": 6,
+          "bpf_lookup": {
+            "mode": "batch",
+            "returncode": -2,
+            "returned_entries": 52211
+          }
+        },
+        {
+          "query": 17,
+          "requested_pages": 10992,
+          "missing_kernel_results": 0,
+          "mincore_resident_pages": 10992,
+          "confirmed_pfn_pages": 10992,
+          "no_file_mapping_pages": 6,
+          "bpf_lookup": {
+            "mode": "batch",
+            "returncode": -2,
+            "returned_entries": 52211
+          }
+        },
+        {
+          "query": 18,
+          "requested_pages": 10992,
+          "missing_kernel_results": 0,
+          "mincore_resident_pages": 10992,
+          "confirmed_pfn_pages": 10992,
+          "no_file_mapping_pages": 6,
+          "bpf_lookup": {
+            "mode": "batch",
+            "returncode": -2,
+            "returned_entries": 52211
+          }
+        },
+        {
+          "query": 19,
+          "requested_pages": 11152,
+          "missing_kernel_results": 0,
+          "mincore_resident_pages": 11152,
+          "confirmed_pfn_pages": 11152,
+          "no_file_mapping_pages": 6,
+          "bpf_lookup": {
+            "mode": "batch",
+            "returncode": -2,
+            "returned_entries": 52857
+          }
+        },
+        {
+          "query": 20,
+          "requested_pages": 11152,
+          "missing_kernel_results": 0,
+          "mincore_resident_pages": 11152,
+          "confirmed_pfn_pages": 11152,
+          "no_file_mapping_pages": 6,
+          "bpf_lookup": {
+            "mode": "batch",
+            "returncode": -2,
+            "returned_entries": 52857
+          }
+        }
+      ]
+    }
+  },
+  "query_shapes": {
+    "backend": {
+      "points": [
+        {
+          "requested_rows": 23079,
+          "file_rows": 23079,
+          "unique_file_offsets": 23079,
+          "contiguous_runs": 2014
+        },
+        {
+          "requested_rows": 23155,
+          "file_rows": 23155,
+          "unique_file_offsets": 23155,
+          "contiguous_runs": 1899
+        },
+        {
+          "requested_rows": 23155,
+          "file_rows": 23155,
+          "unique_file_offsets": 23155,
+          "contiguous_runs": 1899
+        },
+        {
+          "requested_rows": 23156,
+          "file_rows": 23156,
+          "unique_file_offsets": 23156,
+          "contiguous_runs": 1900
+        },
+        {
+          "requested_rows": 5452,
+          "file_rows": 5452,
+          "unique_file_offsets": 5452,
+          "contiguous_runs": 1904
+        },
+        {
+          "requested_rows": 7318,
+          "file_rows": 7318,
+          "unique_file_offsets": 7318,
+          "contiguous_runs": 2325
+        },
+        {
+          "requested_rows": 6108,
+          "file_rows": 6108,
+          "unique_file_offsets": 6108,
+          "contiguous_runs": 2079
+        },
+        {
+          "requested_rows": 10998,
+          "file_rows": 10998,
+          "unique_file_offsets": 10998,
+          "contiguous_runs": 2583
+        },
+        {
+          "requested_rows": 10998,
+          "file_rows": 10998,
+          "unique_file_offsets": 10998,
+          "contiguous_runs": 2583
+        },
+        {
+          "requested_rows": 11158,
+          "file_rows": 11158,
+          "unique_file_offsets": 11158,
+          "contiguous_runs": 2573
+        }
+      ],
+      "batch_calls": 20,
+      "equivalent_scalar_calls": 289154,
+      "mincore_calls": 43518
+    },
+    "lower": {
+      "points": [
+        {
+          "requested_rows": 23079,
+          "file_rows": 22792,
+          "unique_file_offsets": 22792,
+          "contiguous_runs": 2013
+        },
+        {
+          "requested_rows": 23155,
+          "file_rows": 23145,
+          "unique_file_offsets": 23145,
+          "contiguous_runs": 1905
+        },
+        {
+          "requested_rows": 23155,
+          "file_rows": 23145,
+          "unique_file_offsets": 23145,
+          "contiguous_runs": 1905
+        },
+        {
+          "requested_rows": 23156,
+          "file_rows": 23146,
+          "unique_file_offsets": 23146,
+          "contiguous_runs": 1906
+        },
+        {
+          "requested_rows": 5452,
+          "file_rows": 5448,
+          "unique_file_offsets": 5448,
+          "contiguous_runs": 1904
+        },
+        {
+          "requested_rows": 7318,
+          "file_rows": 7313,
+          "unique_file_offsets": 7313,
+          "contiguous_runs": 2325
+        },
+        {
+          "requested_rows": 6108,
+          "file_rows": 6103,
+          "unique_file_offsets": 6103,
+          "contiguous_runs": 2079
+        },
+        {
+          "requested_rows": 10998,
+          "file_rows": 10992,
+          "unique_file_offsets": 10992,
+          "contiguous_runs": 2583
+        },
+        {
+          "requested_rows": 10998,
+          "file_rows": 10992,
+          "unique_file_offsets": 10992,
+          "contiguous_runs": 2583
+        },
+        {
+          "requested_rows": 11158,
+          "file_rows": 11152,
+          "unique_file_offsets": 11152,
+          "contiguous_runs": 2573
+        }
+      ],
+      "batch_calls": 20,
+      "equivalent_scalar_calls": 288456,
+      "mincore_calls": 43552
+    }
+  },
+  "batch_receive_memory": [
+    {
+      "receive_capacity_bytes": 6291456,
+      "covered_virtual_pages": 1537,
+      "resident_virtual_pages": 543,
+      "whole_resident_virtual_pages": 538,
+      "resident_physical_union_bytes": 2224128,
+      "whole_resident_physical_bytes": 2203648,
+      "boundary_only_resident_physical_bytes": 20480,
+      "controller_process_rss_bytes": 99110912,
+      "cpu_ns": 922712,
+      "elapsed_ns": 923686
+    },
+    {
+      "receive_capacity_bytes": 6291456,
+      "covered_virtual_pages": 1537,
+      "resident_virtual_pages": 557,
+      "whole_resident_virtual_pages": 552,
+      "resident_physical_union_bytes": 2281472,
+      "whole_resident_physical_bytes": 2260992,
+      "boundary_only_resident_physical_bytes": 20480,
+      "controller_process_rss_bytes": 105713664,
+      "cpu_ns": 915700,
+      "elapsed_ns": 916652
+    },
+    {
+      "receive_capacity_bytes": 6291456,
+      "covered_virtual_pages": 1537,
+      "resident_virtual_pages": 557,
+      "whole_resident_virtual_pages": 552,
+      "resident_physical_union_bytes": 2281472,
+      "whole_resident_physical_bytes": 2260992,
+      "boundary_only_resident_physical_bytes": 20480,
+      "controller_process_rss_bytes": 109547520,
+      "cpu_ns": 909429,
+      "elapsed_ns": 909949
+    },
+    {
+      "receive_capacity_bytes": 6291456,
+      "covered_virtual_pages": 1537,
+      "resident_virtual_pages": 557,
+      "whole_resident_virtual_pages": 552,
+      "resident_physical_union_bytes": 2281472,
+      "whole_resident_physical_bytes": 2260992,
+      "boundary_only_resident_physical_bytes": 20480,
+      "controller_process_rss_bytes": 110485504,
+      "cpu_ns": 918446,
+      "elapsed_ns": 919218
+    },
+    {
+      "receive_capacity_bytes": 6291456,
+      "covered_virtual_pages": 1537,
+      "resident_virtual_pages": 567,
+      "whole_resident_virtual_pages": 562,
+      "resident_physical_union_bytes": 2322432,
+      "whole_resident_physical_bytes": 2301952,
+      "boundary_only_resident_physical_bytes": 20480,
+      "controller_process_rss_bytes": 110530560,
+      "cpu_ns": 882757,
+      "elapsed_ns": 883382
+    },
+    {
+      "receive_capacity_bytes": 6291456,
+      "covered_virtual_pages": 1537,
+      "resident_virtual_pages": 593,
+      "whole_resident_virtual_pages": 588,
+      "resident_physical_union_bytes": 2428928,
+      "whole_resident_physical_bytes": 2408448,
+      "boundary_only_resident_physical_bytes": 20480,
+      "controller_process_rss_bytes": 101806080,
+      "cpu_ns": 885547,
+      "elapsed_ns": 886182
+    },
+    {
+      "receive_capacity_bytes": 6291456,
+      "covered_virtual_pages": 1537,
+      "resident_virtual_pages": 593,
+      "whole_resident_virtual_pages": 588,
+      "resident_physical_union_bytes": 2428928,
+      "whole_resident_physical_bytes": 2408448,
+      "boundary_only_resident_physical_bytes": 20480,
+      "controller_process_rss_bytes": 101810176,
+      "cpu_ns": 896943,
+      "elapsed_ns": 897497
+    },
+    {
+      "receive_capacity_bytes": 6291456,
+      "covered_virtual_pages": 1537,
+      "resident_virtual_pages": 617,
+      "whole_resident_virtual_pages": 612,
+      "resident_physical_union_bytes": 2527232,
+      "whole_resident_physical_bytes": 2506752,
+      "boundary_only_resident_physical_bytes": 20480,
+      "controller_process_rss_bytes": 101908480,
+      "cpu_ns": 917262,
+      "elapsed_ns": 917824
+    },
+    {
+      "receive_capacity_bytes": 6291456,
+      "covered_virtual_pages": 1537,
+      "resident_virtual_pages": 617,
+      "whole_resident_virtual_pages": 612,
+      "resident_physical_union_bytes": 2527232,
+      "whole_resident_physical_bytes": 2506752,
+      "boundary_only_resident_physical_bytes": 20480,
+      "controller_process_rss_bytes": 101912576,
+      "cpu_ns": 892162,
+      "elapsed_ns": 892967
+    },
+    {
+      "receive_capacity_bytes": 6291456,
+      "covered_virtual_pages": 1537,
+      "resident_virtual_pages": 625,
+      "whole_resident_virtual_pages": 620,
+      "resident_physical_union_bytes": 2560000,
+      "whole_resident_physical_bytes": 2539520,
+      "boundary_only_resident_physical_bytes": 20480,
+      "controller_process_rss_bytes": 101945344,
+      "cpu_ns": 894275,
+      "elapsed_ns": 894921
+    }
+  ],
+  "memory_scope": "Receive-array covered-page PFN union at observation time; whole pages and mixed boundaries separate. Controller process RSS is not an isolated increment. Memory observation is outside the original point timer, inside total collector-thread CPU.",
+  "query_helper_cpu_ns": {
+    "backend": 490000000,
+    "lower": 450000000
+  },
+  "provider_pair_elapsed_mean_ns": 10301655.6,
+  "native_checkpoint_pause_bounds_ns": [
+    332775936,
+    333286302
+  ],
+  "observation_gap_ns": 8589496720,
+  "metadata_counters": {
+    "duplicate_adds": 0,
+    "missing_removes": 0,
+    "out_of_range": 0,
+    "moved_pages": 0,
+    "stale_records": 0
+  },
+  "fixture_checks": {
+    "file_contents": "PASS",
+    "process_continuity": "PASS",
+    "guest_page_identity_recorded": "PASS",
+    "checkpoint_restore": "PASS"
+  },
+  "points": [
+    {
+      "point": 0,
+      "guest_logical_cache_bytes": 94842880,
+      "guest_cached_bytes": 94830592,
+      "host_four_segment_current_union_bytes": 142102528,
+      "host_four_segment_unconfirmed_guest_capacity_bytes": 2461696,
+      "host_provider_combined_current_bytes": 962560,
+      "host_provider_combined_old_snapshot_bytes": 8192,
+      "host_provider_segment_added_current_bytes": 692224,
+      "provider_segment_resolved_guest_pages": 0,
+      "provider_segment_unattributed_resident_bytes": 3162112,
+      "provider_pair_elapsed_ns": 8559625,
+      "host_thread_cpu_ns": 378776850,
+      "host_elapsed_ns": 430049646,
+      "current_cache_bytes": 962560,
+      "old_snapshot_only_bytes": 8192,
+      "unused_allocation_bytes": 1433600,
+      "source_absent_both_bytes": 1433600,
+      "mixed_sources_bytes": 192512,
+      "unresolved_bytes": 102400,
+      "whole_resident_bytes": 4132864,
+      "boundary_pages": 22
+    },
+    {
+      "point": 1,
+      "guest_logical_cache_bytes": 94842880,
+      "guest_cached_bytes": 94842880,
+      "host_four_segment_current_union_bytes": 145670144,
+      "host_four_segment_unconfirmed_guest_capacity_bytes": 8192,
+      "host_provider_combined_current_bytes": 954368,
+      "host_provider_combined_old_snapshot_bytes": 8192,
+      "host_provider_segment_added_current_bytes": 774144,
+      "provider_segment_resolved_guest_pages": 0,
+      "provider_segment_unattributed_resident_bytes": 3170304,
+      "provider_pair_elapsed_ns": 9722005,
+      "host_thread_cpu_ns": 332586567,
+      "host_elapsed_ns": 349312832,
+      "current_cache_bytes": 954368,
+      "old_snapshot_only_bytes": 8192,
+      "unused_allocation_bytes": 1433600,
+      "source_absent_both_bytes": 1478656,
+      "mixed_sources_bytes": 172032,
+      "unresolved_bytes": 86016,
+      "whole_resident_bytes": 4132864,
+      "boundary_pages": 22
+    },
+    {
+      "point": 2,
+      "guest_logical_cache_bytes": 94846976,
+      "guest_cached_bytes": 94842880,
+      "host_four_segment_current_union_bytes": 146141184,
+      "host_four_segment_unconfirmed_guest_capacity_bytes": 65536,
+      "host_provider_combined_current_bytes": 1036288,
+      "host_provider_combined_old_snapshot_bytes": 4096,
+      "host_provider_segment_added_current_bytes": 692224,
+      "provider_segment_resolved_guest_pages": 0,
+      "provider_segment_unattributed_resident_bytes": 3092480,
+      "provider_pair_elapsed_ns": 17429016,
+      "host_thread_cpu_ns": 353308819,
+      "host_elapsed_ns": 379074935,
+      "current_cache_bytes": 1036288,
+      "old_snapshot_only_bytes": 4096,
+      "unused_allocation_bytes": 1433600,
+      "source_absent_both_bytes": 1368064,
+      "mixed_sources_bytes": 180224,
+      "unresolved_bytes": 110592,
+      "whole_resident_bytes": 4132864,
+      "boundary_pages": 22
+    },
+    {
+      "point": 3,
+      "guest_logical_cache_bytes": 94846976,
+      "guest_cached_bytes": 94846976,
+      "host_four_segment_current_union_bytes": 136351744,
+      "host_four_segment_unconfirmed_guest_capacity_bytes": 6283264,
+      "host_provider_combined_current_bytes": 970752,
+      "host_provider_combined_old_snapshot_bytes": 4096,
+      "host_provider_segment_added_current_bytes": 618496,
+      "provider_segment_resolved_guest_pages": 0,
+      "provider_segment_unattributed_resident_bytes": 3158016,
+      "provider_pair_elapsed_ns": 10143581,
+      "host_thread_cpu_ns": 309522601,
+      "host_elapsed_ns": 331480255,
+      "current_cache_bytes": 970752,
+      "old_snapshot_only_bytes": 4096,
+      "unused_allocation_bytes": 1433600,
+      "source_absent_both_bytes": 1421312,
+      "mixed_sources_bytes": 184320,
+      "unresolved_bytes": 118784,
+      "whole_resident_bytes": 4132864,
+      "boundary_pages": 22
+    },
+    {
+      "point": 4,
+      "guest_logical_cache_bytes": 22331392,
+      "guest_cached_bytes": 22331392,
+      "host_four_segment_current_union_bytes": 30584832,
+      "host_four_segment_unconfirmed_guest_capacity_bytes": 0,
+      "host_provider_combined_current_bytes": 0,
+      "host_provider_combined_old_snapshot_bytes": 53248,
+      "host_provider_segment_added_current_bytes": 0,
+      "provider_segment_resolved_guest_pages": 0,
+      "provider_segment_unattributed_resident_bytes": 4079616,
+      "provider_pair_elapsed_ns": 10469501,
+      "host_thread_cpu_ns": 136598037,
+      "host_elapsed_ns": 151878880,
+      "current_cache_bytes": 0,
+      "old_snapshot_only_bytes": 53248,
+      "unused_allocation_bytes": 1433600,
+      "source_absent_both_bytes": 2457600,
+      "mixed_sources_bytes": 131072,
+      "unresolved_bytes": 57344,
+      "whole_resident_bytes": 4132864,
+      "boundary_pages": 22
+    },
+    {
+      "point": 5,
+      "guest_logical_cache_bytes": 29974528,
+      "guest_cached_bytes": 29974528,
+      "host_four_segment_current_union_bytes": 38232064,
+      "host_four_segment_unconfirmed_guest_capacity_bytes": 0,
+      "host_provider_combined_current_bytes": 0,
+      "host_provider_combined_old_snapshot_bytes": 110592,
+      "host_provider_segment_added_current_bytes": 0,
+      "provider_segment_resolved_guest_pages": 0,
+      "provider_segment_unattributed_resident_bytes": 4022272,
+      "provider_pair_elapsed_ns": 9459158,
+      "host_thread_cpu_ns": 199739496,
+      "host_elapsed_ns": 215365202,
+      "current_cache_bytes": 0,
+      "old_snapshot_only_bytes": 110592,
+      "unused_allocation_bytes": 1433600,
+      "source_absent_both_bytes": 2347008,
+      "mixed_sources_bytes": 184320,
+      "unresolved_bytes": 57344,
+      "whole_resident_bytes": 4132864,
+      "boundary_pages": 22
+    },
+    {
+      "point": 6,
+      "guest_logical_cache_bytes": 25018368,
+      "guest_cached_bytes": 25018368,
+      "host_four_segment_current_union_bytes": 30613504,
+      "host_four_segment_unconfirmed_guest_capacity_bytes": 212992,
+      "host_provider_combined_current_bytes": 0,
+      "host_provider_combined_old_snapshot_bytes": 69632,
+      "host_provider_segment_added_current_bytes": 0,
+      "provider_segment_resolved_guest_pages": 0,
+      "provider_segment_unattributed_resident_bytes": 4063232,
+      "provider_pair_elapsed_ns": 9917473,
+      "host_thread_cpu_ns": 219507056,
+      "host_elapsed_ns": 250385949,
+      "current_cache_bytes": 0,
+      "old_snapshot_only_bytes": 69632,
+      "unused_allocation_bytes": 1433600,
+      "source_absent_both_bytes": 2416640,
+      "mixed_sources_bytes": 155648,
+      "unresolved_bytes": 57344,
+      "whole_resident_bytes": 4132864,
+      "boundary_pages": 22
+    },
+    {
+      "point": 7,
+      "guest_logical_cache_bytes": 45047808,
+      "guest_cached_bytes": 45047808,
+      "host_four_segment_current_union_bytes": 50851840,
+      "host_four_segment_unconfirmed_guest_capacity_bytes": 0,
+      "host_provider_combined_current_bytes": 0,
+      "host_provider_combined_old_snapshot_bytes": 249856,
+      "host_provider_segment_added_current_bytes": 0,
+      "provider_segment_resolved_guest_pages": 0,
+      "provider_segment_unattributed_resident_bytes": 3883008,
+      "provider_pair_elapsed_ns": 9781739,
+      "host_thread_cpu_ns": 223921435,
+      "host_elapsed_ns": 244766224,
+      "current_cache_bytes": 0,
+      "old_snapshot_only_bytes": 249856,
+      "unused_allocation_bytes": 1433600,
+      "source_absent_both_bytes": 2158592,
+      "mixed_sources_bytes": 229376,
+      "unresolved_bytes": 61440,
+      "whole_resident_bytes": 4132864,
+      "boundary_pages": 22
+    },
+    {
+      "point": 8,
+      "guest_logical_cache_bytes": 46501888,
+      "guest_cached_bytes": 46473216,
+      "host_four_segment_current_union_bytes": 50851840,
+      "host_four_segment_unconfirmed_guest_capacity_bytes": 1454080,
+      "host_provider_combined_current_bytes": 0,
+      "host_provider_combined_old_snapshot_bytes": 237568,
+      "host_provider_segment_added_current_bytes": 0,
+      "provider_segment_resolved_guest_pages": 0,
+      "provider_segment_unattributed_resident_bytes": 3895296,
+      "provider_pair_elapsed_ns": 8925043,
+      "host_thread_cpu_ns": 216285133,
+      "host_elapsed_ns": 236696598,
+      "current_cache_bytes": 0,
+      "old_snapshot_only_bytes": 237568,
+      "unused_allocation_bytes": 1433600,
+      "source_absent_both_bytes": 2179072,
+      "mixed_sources_bytes": 217088,
+      "unresolved_bytes": 65536,
+      "whole_resident_bytes": 4132864,
+      "boundary_pages": 22
+    },
+    {
+      "point": 9,
+      "guest_logical_cache_bytes": 45703168,
+      "guest_cached_bytes": 45703168,
+      "host_four_segment_current_union_bytes": 51507200,
+      "host_four_segment_unconfirmed_guest_capacity_bytes": 0,
+      "host_provider_combined_current_bytes": 0,
+      "host_provider_combined_old_snapshot_bytes": 241664,
+      "host_provider_segment_added_current_bytes": 0,
+      "provider_segment_resolved_guest_pages": 0,
+      "provider_segment_unattributed_resident_bytes": 3891200,
+      "provider_pair_elapsed_ns": 8609415,
+      "host_thread_cpu_ns": 269048863,
+      "host_elapsed_ns": 305014762,
+      "current_cache_bytes": 0,
+      "old_snapshot_only_bytes": 241664,
+      "unused_allocation_bytes": 1433600,
+      "source_absent_both_bytes": 2179072,
+      "mixed_sources_bytes": 217088,
+      "unresolved_bytes": 61440,
+      "whole_resident_bytes": 4132864,
+      "boundary_pages": 22
+    }
+  ],
+  "disk": {
+    "start_available_bytes": 59826970624,
+    "minimum_available_bytes": 34055630848,
+    "after_cleanup_available_bytes": 59792367616
+  },
+  "verification": {
+    "status": "PASS",
+    "sample_counts": {
+      "parent": 3,
+      "restored": 10
+    },
+    "independent_physical_sets_equal": true,
+    "stage_coverage_points": 13,
+    "stage_boundary_and_sum_checks": 13,
+    "compact_provider_order_points": 10,
+    "missing_kernel_results": 0,
+    "old_capture_compatible_points": 13,
+    "tests_passed": 76,
+    "captured_source_matches": true,
+    "original_service_and_vmm_unchanged": true,
+    "owned_resources_released": true,
+    "batch_layouts_verified": 2,
+    "complete_batch_queries": 40,
+    "receive_memory_observations": 10,
+    "original_point_timer_preserved": true
+  },
+  "cleanup": {
+    "owned_container_removed": true,
+    "mount_and_loop_removed": true,
+    "successful_fixture_removed": true,
+    "original_firecracker_identities_unchanged": true,
+    "original_service_unchanged": true
+  },
+  "scope": "One short restore; host collection thread through accounting. Separate output overhead, helper processes, guest CPU, old copies and unknowns.",
+  "next_question": "Offline check of what remaining query work can be reconstructed from saved inputs; no new sandbox run."
+}

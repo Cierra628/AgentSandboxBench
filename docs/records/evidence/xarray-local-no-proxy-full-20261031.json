@@ -1,0 +1,166 @@
+{
+  "date": "2026-10-31",
+  "status": "PASS",
+  "task_id": "pydata__xarray-6992",
+  "mode": "single; persistent input; local-no-proxy; light 0.1 seconds; default reclaim",
+  "correctness": {
+    "original_actions": 35,
+    "diagnostic_status": "PASS",
+    "strict_replay_status": "FAIL",
+    "replay_policy": "xarray-approved-sigpipe",
+    "observed_exit_codes_status": "PASS",
+    "exit_differences": [],
+    "original_last_two_test_calls": [
+      {
+        "passed": 3,
+        "failed": 1
+      },
+      {
+        "passed": 129,
+        "failed": 1
+      }
+    ],
+    "negative_control": "PASS",
+    "final_invariant": "PASS",
+    "official": {
+      "status": "FAIL",
+      "exit_code": 1,
+      "passed": 945,
+      "failed": 12,
+      "skipped": 0,
+      "failed_tests": [
+        "xarray/tests/test_dataarray.py::TestDataArray::test_reset_index",
+        "xarray/tests/test_dataset.py::TestDataset::test_reset_index",
+        "xarray/tests/test_dataset.py::TestDataset::test_reset_index_drop_dims",
+        "xarray/tests/test_dataset.py::TestDataset::test_reset_index_drop_convert[foo-False-dropped0-converted0-renamed0]",
+        "xarray/tests/test_dataset.py::TestDataset::test_reset_index_drop_convert[foo-True-dropped1-converted1-renamed1]",
+        "xarray/tests/test_dataset.py::TestDataset::test_reset_index_drop_convert[x-False-dropped2-converted2-renamed2]",
+        "xarray/tests/test_dataset.py::TestDataset::test_reset_index_drop_convert[x-True-dropped3-converted3-renamed3]",
+        "xarray/tests/test_dataset.py::TestDataset::test_reset_index_drop_convert[arg4-False-dropped4-converted4-renamed4]",
+        "xarray/tests/test_dataset.py::TestDataset::test_reset_index_drop_convert[arg5-True-dropped5-converted5-renamed5]",
+        "xarray/tests/test_dataset.py::TestDataset::test_reset_index_drop_convert[arg6-False-dropped6-converted6-renamed6]",
+        "xarray/tests/test_dataset.py::TestDataset::test_reset_index_drop_convert[arg7-True-dropped7-converted7-renamed7]",
+        "xarray/tests/test_groupby.py::test_groupby_drops_nans"
+      ],
+      "skipped_tests": [],
+      "F2P_passed": 0,
+      "F2P_total": 12,
+      "P2P_passed": 945,
+      "P2P_total": 945,
+      "scope": "SWE-bench test patch and exact F2P/P2P case selection; direct image pytest, not full official Docker harness"
+    },
+    "write_boundary": "PASS",
+    "readonly_root": "PASS",
+    "fixed_volume": "PASS",
+    "cleanup": "PASS"
+  },
+  "timing_seconds": {
+    "original_35_tool_sum": 35.335200308,
+    "frozen_replay": 38.055729274,
+    "task_controller": 88.20761772,
+    "grouped_workflow": 131.685977257,
+    "archive_preparation": 151.288027909,
+    "input_import": 31.606651265,
+    "guest_creation": 0.854736108,
+    "official_test_call": 42.511931812
+  },
+  "memory_bytes": {
+    "host_current_before_guest": 11596808192,
+    "host_current_peak": 12790730752,
+    "host_peak_increase_from_before_guest": 1193922560,
+    "host_file_peak": 11260174336,
+    "guest_memory_peak": 753602560,
+    "guest_cached_peak": 324186112
+  },
+  "sampling": {
+    "host_samples": 1300,
+    "guest_samples": 862,
+    "interval_seconds": 0.1,
+    "host_sample_window_seconds": 129.994968876,
+    "host_direct_thread_cpu_seconds": 0.385679905,
+    "host_single_cpu_percent": 0.29668833212144813,
+    "host_maximum_sample_gap_seconds": 0.100119614,
+    "guest_collector_elapsed_seconds": 86.421819349,
+    "guest_direct_process_cpu_seconds": 0.41321299999999994,
+    "guest_single_cpu_percent": 0.47813503940632013,
+    "guest_collector_maxrss_kib": 17444,
+    "guest_maximum_sample_gap_seconds": 0.117383039,
+    "blocking_management_calls": 5,
+    "blocking_management_total_seconds": 0.630319615,
+    "blocking_management_events": [
+      {
+        "stage": "monitor-upload-bundle",
+        "seconds": 0.036818657
+      },
+      {
+        "stage": "monitor-ready",
+        "seconds": 0.150300016
+      },
+      {
+        "stage": "monitor-phase",
+        "seconds": 0.163165796
+      },
+      {
+        "stage": "monitor-finish",
+        "seconds": 0.241261795
+      },
+      {
+        "stage": "monitor-download",
+        "seconds": 0.038773351
+      }
+    ],
+    "pss": "NOT_REQUESTED",
+    "slowdown_control": "NOT_RUN_THIS_ROUND"
+  },
+  "final_input_residency": {
+    "status": "PASS",
+    "files": 116,
+    "resident_bytes": 10893279232,
+    "group_file_before_bytes": 10898493440,
+    "group_file_after_bytes": 10898493440,
+    "shortfall_bytes": 0,
+    "query_elapsed_seconds": 0.190878254,
+    "query_thread_cpu_seconds": 0.189351775,
+    "ownership": "NOT_QUERIED",
+    "scope": "Imported input files only; sequential, not atomic; fresh-inode provenance plus residency cross-check, not whole-host coverage."
+  },
+  "proxy": {
+    "guest_check": "PASS",
+    "outer_proxy_removed": true,
+    "private_service_proxy_explicitly_empty": true,
+    "registry_commands": [
+      "version",
+      "manifest"
+    ],
+    "image_or_dependency_download_log_entries": 0,
+    "network_policy": "allowInternetAccess=false; default DNS exception retained",
+    "traffic_volume": "NOT_MEASURED"
+  },
+  "cleanup": {
+    "approved_deletion": ".artifacts/backup-cleanup-20261029/old-page-metadata.tar.gz",
+    "old_page_archive_deleted": true,
+    "old_page_archive_recoverable": false,
+    "successful_runtime_volume_removed": true,
+    "new_input_released": true,
+    "temporary_source_removed": true,
+    "source_service_stopped": true,
+    "running_containers": 0,
+    "firecrackers": 0,
+    "disk_available_after_bytes": 66907942912
+  },
+  "scopes": {
+    "host": "memory.current of measurement group: imported inputs, controller, private service and guest; excludes outside charges",
+    "guest_memory": "MemTotal - MemAvailable",
+    "guest_cache": "Cached including Shmem",
+    "baseline_increase": "Includes guest and subsequent service/control work; not guest alone",
+    "collector_cpu": "Direct sampler CPU, not task slowdown; no new off/on pair",
+    "mincore": "Once after isolated runtime cleanup; imported inputs only, not runtime physical union"
+  },
+  "raw_paths": {
+    "workflow": ".artifacts/platform-tasks/20261031T112336Z-2885271",
+    "native": ".artifacts/storage-isolated-service/20261031T112408Z-2885572",
+    "report": ".artifacts/platform-tasks/report-20261031T112336Z-2885271"
+  },
+  "driver_directory": ".artifacts/xarray-local-no-proxy-full-20261031",
+  "result_directory": "results/xarray-local-no-proxy-20261031"
+}

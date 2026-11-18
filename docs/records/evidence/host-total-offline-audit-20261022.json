@@ -1,0 +1,240 @@
+{
+  "status": "PASS_OFFLINE_SCOPE_AUDIT",
+  "scope": "仅核对保存的元数据和源码；未执行采集器、探针、服务、沙箱或读取负载内容",
+  "independent_owner_observation": {
+    "raw": ".artifacts/host-existing-cache-archive-20261021T135517Z/result.json",
+    "identity": {
+      "device": 64512,
+      "inode": 51275667,
+      "size": 1830927484,
+      "mtime_ns": 1792552887509551732
+    },
+    "reference_group": "/asbhost.slice",
+    "resident_bytes": 1830928384,
+    "inside_bytes": 0,
+    "outside_bytes": 1830928384,
+    "unknown_bytes": 0,
+    "query_ns": 414660801,
+    "total_ns": 5266816384,
+    "original_query_start_ns": null,
+    "original_query_end_ns": null,
+    "historical_backfill": false
+  },
+  "saved_detail_groups": [
+    {
+      "sandboxes": 1,
+      "storage": ".artifacts/storage-isolated-service/20261021T110800Z-31817",
+      "ordinary_observations": [
+        {
+          "phase": "before_restore",
+          "start_ns": 14351185829325426,
+          "end_ns": 14351187801572374,
+          "archive_resident_bytes": 1830928384,
+          "net_shortfall_bytes": 1831194624,
+          "signed_inventory_minus_file_bytes": 1831194624,
+          "signed_difference_minus_archive_bytes": 266240,
+          "meaning": "不同统计范围和时段的容量诊断；不是组外容量或剩余误差上限"
+        },
+        {
+          "phase": "live_endpoint",
+          "start_ns": 14351191724640947,
+          "end_ns": 14351193693707860,
+          "archive_resident_bytes": 1830928384,
+          "net_shortfall_bytes": 1394860032,
+          "signed_inventory_minus_file_bytes": 1394860032,
+          "signed_difference_minus_archive_bytes": -436068352,
+          "meaning": "不同统计范围和时段的容量诊断；不是组外容量或剩余误差上限"
+        },
+        {
+          "phase": "final",
+          "start_ns": 14351204632920911,
+          "end_ns": 14351206677293265,
+          "archive_resident_bytes": 1830928384,
+          "net_shortfall_bytes": 1832878080,
+          "signed_inventory_minus_file_bytes": 1832878080,
+          "signed_difference_minus_archive_bytes": 1949696,
+          "meaning": "不同统计范围和时段的容量诊断；不是组外容量或剩余误差上限"
+        }
+      ],
+      "archive_owner_baseline": "NOT_MEASURED",
+      "archive_owner_endpoint": "NOT_MEASURED",
+      "ublkc_baseline_allocation_bytes": null,
+      "ublkc_endpoint_allocation_bytes": 12288,
+      "ublkc_increment_bytes": null,
+      "ublkc_endpoint_devices": 3,
+      "deleted_backing_cache_bytes": 4096,
+      "deleted_backing_charge_owner": "NOT_MEASURED",
+      "mapped_coverage": "INCOMPLETE",
+      "compact_window_ns": 2228781394,
+      "all_query_window_ns": 5348650858,
+      "current_change_during_queries_bytes": 8777728,
+      "anonymous_pss_change_during_compact_bytes": -2691072,
+      "whole_physical_total": null,
+      "whole_physical_savings": null
+    },
+    {
+      "sandboxes": 2,
+      "storage": ".artifacts/storage-isolated-service/20261021T110935Z-34418",
+      "ordinary_observations": [
+        {
+          "phase": "before_restore",
+          "start_ns": 14351273489899023,
+          "end_ns": 14351275485614343,
+          "archive_resident_bytes": 1830928384,
+          "net_shortfall_bytes": 1826033664,
+          "signed_inventory_minus_file_bytes": 1826033664,
+          "signed_difference_minus_archive_bytes": -4894720,
+          "meaning": "不同统计范围和时段的容量诊断；不是组外容量或剩余误差上限"
+        },
+        {
+          "phase": "live_endpoint",
+          "start_ns": 14351280321189916,
+          "end_ns": 14351282277885118,
+          "archive_resident_bytes": 1830928384,
+          "net_shortfall_bytes": 1371869184,
+          "signed_inventory_minus_file_bytes": 1371869184,
+          "signed_difference_minus_archive_bytes": -459059200,
+          "meaning": "不同统计范围和时段的容量诊断；不是组外容量或剩余误差上限"
+        },
+        {
+          "phase": "final",
+          "start_ns": 14351295655218551,
+          "end_ns": 14351297611577053,
+          "archive_resident_bytes": 1830928384,
+          "net_shortfall_bytes": 1824903168,
+          "signed_inventory_minus_file_bytes": 1824903168,
+          "signed_difference_minus_archive_bytes": -6025216,
+          "meaning": "不同统计范围和时段的容量诊断；不是组外容量或剩余误差上限"
+        }
+      ],
+      "archive_owner_baseline": "NOT_MEASURED",
+      "archive_owner_endpoint": "NOT_MEASURED",
+      "ublkc_baseline_allocation_bytes": null,
+      "ublkc_endpoint_allocation_bytes": 16384,
+      "ublkc_increment_bytes": null,
+      "ublkc_endpoint_devices": 4,
+      "deleted_backing_cache_bytes": 8192,
+      "deleted_backing_charge_owner": "NOT_MEASURED",
+      "mapped_coverage": "INCOMPLETE",
+      "compact_window_ns": 2256695190,
+      "all_query_window_ns": 6875118267,
+      "current_change_during_queries_bytes": 42606592,
+      "anonymous_pss_change_during_compact_bytes": 8806400,
+      "whole_physical_total": null,
+      "whole_physical_savings": null
+    }
+  ],
+  "latest_short_groups": [
+    {
+      "sandboxes": 1,
+      "storage": ".artifacts/storage-isolated-service/20261022T075345Z-190933",
+      "counters_baseline": {
+        "current": 23987175424,
+        "file": 23579799552,
+        "anon": 103464960,
+        "shmem": 7604273152,
+        "kernel": 276680704,
+        "file_mapped": 339968,
+        "file_dirty": 4203266048,
+        "file_writeback": 0
+      },
+      "counters_endpoint": {
+        "current": 24586166272,
+        "file": 23594299392,
+        "anon": 679841792,
+        "shmem": 7604281344,
+        "kernel": 284872704,
+        "file_mapped": 3276800,
+        "file_dirty": 4204888064,
+        "file_writeback": 0
+      },
+      "delta": {
+        "current": 598990848,
+        "file": 14499840,
+        "anon": 576376832,
+        "shmem": 8192,
+        "kernel": 8192000,
+        "file_mapped": 2936832,
+        "file_dirty": 1622016,
+        "file_writeback": 0
+      },
+      "readonly_input_file_count": 31,
+      "readonly_input_resident_before_bytes": 7178346496,
+      "readonly_input_resident_after_bytes": 7178346496,
+      "shared_rootfs_cache_bytes": 13115392,
+      "initial_rootfs_cache": "NOT_OBSERVED_BEFORE_DEVICE_CREATION",
+      "object_ownership_baseline": "NOT_MEASURED",
+      "object_ownership_endpoint": "NOT_MEASURED",
+      "query_window_ns": 1852274057,
+      "query_current_change_bytes": 14135296,
+      "query_file_change_bytes": 4661248
+    },
+    {
+      "sandboxes": 7,
+      "storage": ".artifacts/storage-isolated-service/20261022T075546Z-193473",
+      "counters_baseline": {
+        "current": 23948591104,
+        "file": 23543820288,
+        "anon": 103440384,
+        "shmem": 7604273152,
+        "kernel": 275443712,
+        "file_mapped": 339968,
+        "file_dirty": 4239253504,
+        "file_writeback": 0
+      },
+      "counters_endpoint": {
+        "current": 28056719360,
+        "file": 23621906432,
+        "anon": 4074418176,
+        "shmem": 7604330496,
+        "kernel": 328462336,
+        "file_mapped": 3964928,
+        "file_dirty": 4302761984,
+        "file_writeback": 0
+      },
+      "delta": {
+        "current": 4108128256,
+        "file": 78086144,
+        "anon": 3970977792,
+        "shmem": 57344,
+        "kernel": 53018624,
+        "file_mapped": 3624960,
+        "file_dirty": 63508480,
+        "file_writeback": 0
+      },
+      "readonly_input_file_count": 31,
+      "readonly_input_resident_before_bytes": 7178346496,
+      "readonly_input_resident_after_bytes": 7178346496,
+      "shared_rootfs_cache_bytes": 13103104,
+      "initial_rootfs_cache": "NOT_OBSERVED_BEFORE_DEVICE_CREATION",
+      "object_ownership_baseline": "NOT_MEASURED",
+      "object_ownership_endpoint": "NOT_MEASURED",
+      "query_window_ns": 1874390645,
+      "query_current_change_bytes": -48357376,
+      "query_file_change_bytes": 4366336
+    }
+  ],
+  "code_evidence": {
+    "owner_call_path": "scripts/host_file_matched_task.py",
+    "owner_call_line": 95,
+    "target": "导入归档repository.tar.gz，仅任务后，位于原文件/设备观察之后",
+    "baseline_owner_call": false,
+    "owner_query_accepts": "普通文件；不是通用块设备或匿名页归属查询",
+    "owner_query_bracketed_current": false,
+    "periodic_stat_current_atomic": false,
+    "swap_and_hugetlb_coverage": "默认轻量采样未建立，不能用PSS或file证明不存在"
+  },
+  "addition_rules": {
+    "current": "组内总记账基础，不再加file、anon、kernel、PSS",
+    "outside_cache": "仅在同轮同参考组和同一比较阶段、对象及页范围去重、时差明确时，补充已确认组外驻留；当前不计算",
+    "uncharged_allocation": "仅源码与实际配置共同确认的未记账分配；基线/端点均需查明，不推广为全部内核容量",
+    "mincore": "只给对象全局驻留；整份驻留不能作为加项",
+    "unknown": "保留null；有符号差额不是未知容量上限"
+  },
+  "whole_physical_total": null,
+  "whole_physical_savings": "NOT_MEASURED",
+  "augmented_same_phase_accounting": "NOT_COMPUTABLE_FROM_SAVED_DATA",
+  "new_sandbox_actions": 0,
+  "new_live_cache_queries": 0,
+  "historical_results_modified": false
+}

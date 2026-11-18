@@ -1,0 +1,45 @@
+{
+  "status": "DELETION_PASS_SPACE_NOT_MET",
+  "date": "2026-10-30",
+  "authorization": "用户允许删除前一轮明确列出的两份旧TrEnv-X镜像",
+  "targets": {
+    "sha256:a192b6897ba1955ed39d8c8884e748ffb5522006afde18118d3d62bced84c670": "mixfs/sphinx-7590-exp5-trenvx:577ebfcce825",
+    "sha256:f24d8f7685f353cc1fac9d1a16c0daa611e79e2b6c511dfbe5fb19635dcf9ead": "mixfs/xarray-6992-exp5-trenvx:c05101ef7105"
+  },
+  "command": [
+    "docker",
+    "image",
+    "rm",
+    "--no-prune",
+    "sha256:a192b6897ba1955ed39d8c8884e748ffb5522006afde18118d3d62bced84c670",
+    "sha256:f24d8f7685f353cc1fac9d1a16c0daa611e79e2b6c511dfbe5fb19635dcf9ead"
+  ],
+  "removal_exit_code": 0,
+  "removed_image_ids": [
+    "sha256:a192b6897ba1955ed39d8c8884e748ffb5522006afde18118d3d62bced84c670",
+    "sha256:f24d8f7685f353cc1fac9d1a16c0daa611e79e2b6c511dfbe5fb19635dcf9ead"
+  ],
+  "image_count_before": 88,
+  "image_count_after": 86,
+  "other_images_unchanged": true,
+  "containers_unchanged": true,
+  "source_image_preserved": true,
+  "disk_before_bytes": 63021043712,
+  "disk_immediate_after_bytes": 63021072384,
+  "observed_available_increase_bytes": 28672,
+  "disk_final_available_bytes": 63018844160,
+  "xarray_disk_threshold_bytes": 66571993088,
+  "xarray_disk_threshold_met": false,
+  "reviewed_layer_count": 24,
+  "reviewed_layerdb_remaining": 24,
+  "reviewed_layer_directories_remaining": 24,
+  "related_build_cache_records": 22,
+  "cause_evidence": "删除后24层的layerdb和diff目录全部仍在；构建缓存中有两任务COPY记录及父记录。尚未完成缓存记录到24层的逐项映射，不能将全部保留原因确定为构建缓存。",
+  "estimate_correction": "4.285 GiB仅为无其他本地镜像引用的文件分配，漏查Docker其他保留关系，不能作为仅删除镜像的预计释放量。",
+  "new_tasks": 0,
+  "new_guests": 0,
+  "new_services": 0,
+  "build_cache_deleted": false,
+  "local_evidence": ".artifacts/docker-image-cleanup-20261030",
+  "next": "只读确定24层的实际保留关系与可定向清理范围；不自动清理构建缓存或启动Xarray。"
+}

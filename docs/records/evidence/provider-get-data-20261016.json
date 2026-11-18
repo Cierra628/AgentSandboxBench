@@ -1,0 +1,360 @@
+{
+  "status": "PASS",
+  "device": {
+    "status": "PASS",
+    "kernel_copy_counts": {
+      "(1, 1, 4)": 40,
+      "(1, 0, 4)": 32,
+      "(2, 1, 3)": 40,
+      "(2, 0, 4)": 32
+    },
+    "modes": {
+      "default": {
+        "negotiated_flags": 24642,
+        "content_validity": "before_fetch",
+        "write_operations": 32,
+        "read_median_ns": 36215.5,
+        "write_median_ns": 36911.0,
+        "checks": {
+          "read_read": "PASS",
+          "read_write_read": "PASS",
+          "error_then_read": "PASS"
+        },
+        "released_invalid": true
+      },
+      "get-data": {
+        "negotiated_flags": 24646,
+        "content_validity": "before_overwrite",
+        "write_operations": 32,
+        "read_median_ns": 42761.5,
+        "write_median_ns": 56815.0,
+        "checks": {
+          "read_read": "PASS",
+          "read_write_read": "PASS",
+          "error_then_read": "PASS"
+        },
+        "released_invalid": true
+      }
+    }
+  },
+  "restore": {
+    "status": "PASS",
+    "storage_run": "20261016T033725Z-2170673",
+    "sample_counts": {
+      "parent": 3,
+      "restored": 10
+    },
+    "coverage": "POSITIVE",
+    "negotiated_flags": [
+      24646
+    ],
+    "complete_reads_after_release": 3748,
+    "first_guest_cached_bytes": 105906176,
+    "points": [
+      {
+        "point": 0,
+        "host_lower_current_bytes": 100143104,
+        "host_three_current_union_bytes": 171876352,
+        "host_lower_intersection_with_vmm_device_bytes": 0,
+        "host_lower_old_snapshot_bytes": 5595136,
+        "lower_resolved_guest_pages": 8309,
+        "host_three_unconfirmed_guest_capacity_bytes": 262144,
+        "host_provider_current_bytes": 131072,
+        "host_provider_old_snapshot_bytes": 0,
+        "host_provider_intersection_three_bytes": 0,
+        "host_four_current_union_bytes": 172007424,
+        "host_four_unconfirmed_guest_capacity_bytes": 262144,
+        "provider_resolved_guest_pages": 0,
+        "provider_stable_slots": 11,
+        "provider_valid_slots": 11,
+        "provider_whole_allocation_resident_bytes": 4132864,
+        "provider_unattributed_resident_bytes": 4001792,
+        "provider_mixed_or_edge_resident_pages": 22
+      },
+      {
+        "point": 1,
+        "host_lower_current_bytes": 36753408,
+        "host_three_current_union_bytes": 73412608,
+        "host_lower_intersection_with_vmm_device_bytes": 0,
+        "host_lower_old_snapshot_bytes": 5324800,
+        "lower_resolved_guest_pages": 1327,
+        "host_three_unconfirmed_guest_capacity_bytes": 0,
+        "host_provider_current_bytes": 102400,
+        "host_provider_old_snapshot_bytes": 8192,
+        "host_provider_intersection_three_bytes": 0,
+        "host_four_current_union_bytes": 73515008,
+        "host_four_unconfirmed_guest_capacity_bytes": 0,
+        "provider_resolved_guest_pages": 0,
+        "provider_stable_slots": 13,
+        "provider_valid_slots": 13,
+        "provider_whole_allocation_resident_bytes": 4132864,
+        "provider_unattributed_resident_bytes": 4022272,
+        "provider_mixed_or_edge_resident_pages": 25
+      },
+      {
+        "point": 2,
+        "host_lower_current_bytes": 36753408,
+        "host_three_current_union_bytes": 73478144,
+        "host_lower_intersection_with_vmm_device_bytes": 0,
+        "host_lower_old_snapshot_bytes": 5328896,
+        "lower_resolved_guest_pages": 1312,
+        "host_three_unconfirmed_guest_capacity_bytes": 0,
+        "host_provider_current_bytes": 57344,
+        "host_provider_old_snapshot_bytes": 0,
+        "host_provider_intersection_three_bytes": 0,
+        "host_four_current_union_bytes": 73535488,
+        "host_four_unconfirmed_guest_capacity_bytes": 0,
+        "provider_resolved_guest_pages": 0,
+        "provider_stable_slots": 16,
+        "provider_valid_slots": 16,
+        "provider_whole_allocation_resident_bytes": 4132864,
+        "provider_unattributed_resident_bytes": 4075520,
+        "provider_mixed_or_edge_resident_pages": 22
+      },
+      {
+        "point": 3,
+        "host_lower_current_bytes": 36474880,
+        "host_three_current_union_bytes": 73498624,
+        "host_lower_intersection_with_vmm_device_bytes": 0,
+        "host_lower_old_snapshot_bytes": 5459968,
+        "lower_resolved_guest_pages": 1203,
+        "host_three_unconfirmed_guest_capacity_bytes": 278528,
+        "host_provider_current_bytes": 0,
+        "host_provider_old_snapshot_bytes": 0,
+        "host_provider_intersection_three_bytes": 0,
+        "host_four_current_union_bytes": 73498624,
+        "host_four_unconfirmed_guest_capacity_bytes": 278528,
+        "provider_resolved_guest_pages": 0,
+        "provider_stable_slots": 4,
+        "provider_valid_slots": 4,
+        "provider_whole_allocation_resident_bytes": 4132864,
+        "provider_unattributed_resident_bytes": 4132864,
+        "provider_mixed_or_edge_resident_pages": 22
+      },
+      {
+        "point": 4,
+        "host_lower_current_bytes": 36048896,
+        "host_three_current_union_bytes": 86978560,
+        "host_lower_intersection_with_vmm_device_bytes": 0,
+        "host_lower_old_snapshot_bytes": 17096704,
+        "lower_resolved_guest_pages": 547,
+        "host_three_unconfirmed_guest_capacity_bytes": 671744,
+        "host_provider_current_bytes": 45056,
+        "host_provider_old_snapshot_bytes": 36864,
+        "host_provider_intersection_three_bytes": 0,
+        "host_four_current_union_bytes": 87023616,
+        "host_four_unconfirmed_guest_capacity_bytes": 671744,
+        "provider_resolved_guest_pages": 0,
+        "provider_stable_slots": 12,
+        "provider_valid_slots": 12,
+        "provider_whole_allocation_resident_bytes": 4132864,
+        "provider_unattributed_resident_bytes": 4050944,
+        "provider_mixed_or_edge_resident_pages": 22
+      },
+      {
+        "point": 5,
+        "host_lower_current_bytes": 8724480,
+        "host_three_current_union_bytes": 30289920,
+        "host_lower_intersection_with_vmm_device_bytes": 0,
+        "host_lower_old_snapshot_bytes": 13541376,
+        "lower_resolved_guest_pages": 175,
+        "host_three_unconfirmed_guest_capacity_bytes": 0,
+        "host_provider_current_bytes": 0,
+        "host_provider_old_snapshot_bytes": 24576,
+        "host_provider_intersection_three_bytes": 0,
+        "host_four_current_union_bytes": 30289920,
+        "host_four_unconfirmed_guest_capacity_bytes": 0,
+        "provider_resolved_guest_pages": 0,
+        "provider_stable_slots": 16,
+        "provider_valid_slots": 16,
+        "provider_whole_allocation_resident_bytes": 4132864,
+        "provider_unattributed_resident_bytes": 4108288,
+        "provider_mixed_or_edge_resident_pages": 22
+      },
+      {
+        "point": 6,
+        "host_lower_current_bytes": 8011776,
+        "host_three_current_union_bytes": 29011968,
+        "host_lower_intersection_with_vmm_device_bytes": 0,
+        "host_lower_old_snapshot_bytes": 13672448,
+        "lower_resolved_guest_pages": 171,
+        "host_three_unconfirmed_guest_capacity_bytes": 0,
+        "host_provider_current_bytes": 12288,
+        "host_provider_old_snapshot_bytes": 24576,
+        "host_provider_intersection_three_bytes": 0,
+        "host_four_current_union_bytes": 29024256,
+        "host_four_unconfirmed_guest_capacity_bytes": 0,
+        "provider_resolved_guest_pages": 0,
+        "provider_stable_slots": 11,
+        "provider_valid_slots": 11,
+        "provider_whole_allocation_resident_bytes": 4132864,
+        "provider_unattributed_resident_bytes": 4096000,
+        "provider_mixed_or_edge_resident_pages": 22
+      },
+      {
+        "point": 7,
+        "host_lower_current_bytes": 8007680,
+        "host_three_current_union_bytes": 50892800,
+        "host_lower_intersection_with_vmm_device_bytes": 0,
+        "host_lower_old_snapshot_bytes": 35557376,
+        "lower_resolved_guest_pages": 171,
+        "host_three_unconfirmed_guest_capacity_bytes": 0,
+        "host_provider_current_bytes": 0,
+        "host_provider_old_snapshot_bytes": 28672,
+        "host_provider_intersection_three_bytes": 0,
+        "host_four_current_union_bytes": 50892800,
+        "host_four_unconfirmed_guest_capacity_bytes": 0,
+        "provider_resolved_guest_pages": 0,
+        "provider_stable_slots": 16,
+        "provider_valid_slots": 16,
+        "provider_whole_allocation_resident_bytes": 4132864,
+        "provider_unattributed_resident_bytes": 4104192,
+        "provider_mixed_or_edge_resident_pages": 22
+      },
+      {
+        "point": 8,
+        "host_lower_current_bytes": 7872512,
+        "host_three_current_union_bytes": 49975296,
+        "host_lower_intersection_with_vmm_device_bytes": 0,
+        "host_lower_old_snapshot_bytes": 34910208,
+        "lower_resolved_guest_pages": 171,
+        "host_three_unconfirmed_guest_capacity_bytes": 1855488,
+        "host_provider_current_bytes": 0,
+        "host_provider_old_snapshot_bytes": 0,
+        "host_provider_intersection_three_bytes": 0,
+        "host_four_current_union_bytes": 49975296,
+        "host_four_unconfirmed_guest_capacity_bytes": 1855488,
+        "provider_resolved_guest_pages": 0,
+        "provider_stable_slots": 12,
+        "provider_valid_slots": 12,
+        "provider_whole_allocation_resident_bytes": 4132864,
+        "provider_unattributed_resident_bytes": 4132864,
+        "provider_mixed_or_edge_resident_pages": 22
+      },
+      {
+        "point": 9,
+        "host_lower_current_bytes": 6651904,
+        "host_three_current_union_bytes": 30789632,
+        "host_lower_intersection_with_vmm_device_bytes": 0,
+        "host_lower_old_snapshot_bytes": 18173952,
+        "lower_resolved_guest_pages": 171,
+        "host_three_unconfirmed_guest_capacity_bytes": 0,
+        "host_provider_current_bytes": 0,
+        "host_provider_old_snapshot_bytes": 4096,
+        "host_provider_intersection_three_bytes": 0,
+        "host_four_current_union_bytes": 30789632,
+        "host_four_unconfirmed_guest_capacity_bytes": 0,
+        "provider_resolved_guest_pages": 0,
+        "provider_stable_slots": 16,
+        "provider_valid_slots": 16,
+        "provider_whole_allocation_resident_bytes": 4132864,
+        "provider_unattributed_resident_bytes": 4128768,
+        "provider_mixed_or_edge_resident_pages": 22
+      }
+    ],
+    "phase_points": {
+      "waiting": [
+        1,
+        2,
+        3
+      ],
+      "read-done": [
+        4,
+        5,
+        6
+      ],
+      "write-done": [
+        7,
+        8,
+        9
+      ]
+    },
+    "fixture_checks": {
+      "file_contents": "PASS",
+      "process_continuity": "PASS",
+      "guest_page_identity_recorded": "PASS",
+      "checkpoint_restore": "PASS"
+    },
+    "metadata_counters": {
+      "duplicate_adds": 0,
+      "missing_removes": 0,
+      "out_of_range": 0,
+      "moved_pages": 0,
+      "stale_records": 0
+    },
+    "native_checkpoint_pause_bounds_ns": [
+      331506503,
+      332055193
+    ],
+    "checkpoint_interface_ns": 3198193262,
+    "observation_gap_ns": 8478984104,
+    "costs": {
+      "provider_query_cpu_mean_ns": 600227.9,
+      "provider_query_elapsed_mean_ns": 601560.7,
+      "restored_pair_cpu_mean_ns": 296913002.9,
+      "restored_pair_elapsed_mean_ns": 325083242.2,
+      "session_thread_cpu_ns": {
+        "parent": 228751007,
+        "restored": 2979112803
+      }
+    },
+    "storage_budget": {
+      "ready": true,
+      "available_bytes": 59768852480,
+      "required_available_bytes": 53687091200,
+      "capacity_bytes": 25769803776,
+      "host_reserve_bytes": 21474836480,
+      "host_margin_bytes": 6442450944,
+      "checkpoint_archive_reserved_bytes": 0,
+      "actual_host_available_bytes": 59768852480
+    },
+    "host_available_min_bytes": 33998061568,
+    "cleanup": {
+      "owned_container_removed": true,
+      "mount_and_loop_removed": true,
+      "successful_fixture_removed": true,
+      "original_firecracker_identities_unchanged": true,
+      "original_service_unchanged": true
+    },
+    "all_slots_released_invalid": true,
+    "monitoring_impact": "NOT_CONTROLLED; one short restore, dev daemon"
+  },
+  "scope": "one real-device comparison and one short restore calibration",
+  "raw_evidence": ".artifacts/provider-get-data-20261016/",
+  "build": {
+    "base_commit": "2f48c9c78ec58e4d73c49aa07cb81d984a4a4184",
+    "profile": "dev, debug=0, incremental=0, offline, jobs=8",
+    "binary_sha256": "bfed41393c1cc279ecef101ac1770d086ab076378535b146ad550caa282a3360",
+    "source_patch": "patches/agentenv-provider-slot-observation.patch then patches/agentenv-provider-get-data.patch"
+  },
+  "verification": {
+    "status": "PASS",
+    "scope": "one real-device comparison and one short restore calibration",
+    "unit_checks": {
+      "rust_slot_lifecycle": 3,
+      "python_provider": 7,
+      "python_isolated_storage": 27
+    },
+    "build": "PASS; non-root; dev, debug=0, incremental=0, offline, jobs=8",
+    "clippy": "PASS with existing async_trait double_must_use exception; dependency warning retained",
+    "positive_live_attribution": "PASS",
+    "independent_byte_range_recount": "PASS; page-index checker error fixed offline; failure log retained",
+    "report_files_equal": 3,
+    "plot_inspected": true,
+    "no_extra_sampling_pause": true,
+    "original_service_and_vmm_identities_unchanged": true,
+    "private_devices_released": true,
+    "private_service_vm_volume_loop_released": true,
+    "build_tmpfs_unmounted": true,
+    "original_slot_patch_preserved": true,
+    "free_bytes": 59743776768,
+    "monitoring_slowdown": "NOT_CONTROLLED",
+    "full_tasks": "REUSED, NOT_RERUN",
+    "failures": [
+      "format preparation and example clippy fixed before real execution",
+      "two tracer launcher argument failures before device creation",
+      "independent checker divided page index by page size; fixed from saved raw, no rerun"
+    ],
+    "invalidation_before_kernel_copy": "PASS"
+  }
+}

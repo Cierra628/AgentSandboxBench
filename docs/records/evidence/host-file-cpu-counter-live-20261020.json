@@ -1,0 +1,118 @@
+{
+  "status": "PASS_TARGET_DEVICE_VALIDATION",
+  "workflow": ".artifacts/host-file-traced-dual-task/20261020T134821Z-3833153",
+  "storage": ".artifacts/storage-isolated-service/20261020T134931Z-3836053",
+  "actual_actions": 31,
+  "logical_actions": 42,
+  "suffix_actions": 20,
+  "task_status": "PASS",
+  "original_official_result": {
+    "passed": 0,
+    "failed": 2,
+    "per_instance": true
+  },
+  "trace": {
+    "status": "PASS",
+    "format": 2,
+    "event_counts": {
+      "1": 206792,
+      "2": 100991,
+      "3": 318,
+      "4": 170
+    },
+    "folio_events": 307783,
+    "cpu_entries": 1443,
+    "original_file_bins": 1178,
+    "file_event_cpu_ids": 87,
+    "per_cpu_event_keys_checked": 132,
+    "per_cpu_cross_check": "PASS",
+    "reported_lost_events": 0,
+    "log_bytes": 216183,
+    "scope": "Measurement owners, private-volume files, explicit backing image and all block-device cache owners. Only actual target device selected for endpoint coverage."
+  },
+  "device_coverage": {
+    "rdev": 271581186,
+    "resident_bytes": 456916992,
+    "initial_bytes": 0,
+    "query_start_ns": 14274443351254720,
+    "query_end_ns": 14274443458905114,
+    "event_delta_lower_bytes": 456916992,
+    "event_delta_upper_bytes": 456916992,
+    "unknown_owner_add_bytes": 0,
+    "unknown_owner_del_bytes": 0,
+    "ownership_status": "RECORDED_OWNERS_KNOWN",
+    "meaning": "Event deltas exclude initial cache. Boundary bins are bounds, not interpolated events; unknown-owner bytes are event totals, not current residency.",
+    "query_lower_bytes": 456916992,
+    "query_upper_bytes": 456916992,
+    "unexplained_resident_bytes": 0,
+    "event_excess_bytes": 0,
+    "status": "MATCHES_QUERY_BOUNDS",
+    "sandboxes": 2,
+    "initial_basis": "ABSENT_BEFORE_READY_RESTORED_AFTER_READY"
+  },
+  "device_net_bytes_at_query": {
+    "measurement_owned": 455847936,
+    "udev": 1069056,
+    "root": 0
+  },
+  "device_whole_recorded_lifetime_net_bytes": 0,
+  "task_duration_ns": 3164260892,
+  "task_host_samples": 32,
+  "complete_task_pss_count": 3,
+  "task_counter_delta_ranges_bytes": {
+    "file": [
+      340533248,
+      466755584
+    ],
+    "anon": [
+      135114752,
+      332214272
+    ],
+    "current": [
+      485261312,
+      807395328
+    ],
+    "shmem": [
+      8192,
+      8192
+    ]
+  },
+  "endpoint_vmm_pss_bytes": {
+    "pss": 562724864,
+    "pss_anon": 325251072,
+    "pss_file": 237465600
+  },
+  "final_inventory": {
+    "files": 187,
+    "roots": 11,
+    "resident_bytes": 28964458496,
+    "cgroup_file_bytes": 28962996224,
+    "net_shortfall_bytes": 1462272,
+    "accounting": "SHORTFALL_REQUIRES_RESOLUTION"
+  },
+  "collector": {
+    "status": "PASS",
+    "error": null,
+    "cgroup": "/sys/fs/cgroup/asbhost.slice/asbhost-20261020t1348213833073.slice",
+    "samples": 1230,
+    "interval_seconds": 0.1,
+    "pss_interval_seconds": 1,
+    "thread_cpu_ns": 1505437036,
+    "counter_read_total_ns": 387795730,
+    "scope": "Fresh rollout slice: input preparation, controller, private service and all its descendants; host file includes shmem, not guest Cached."
+  },
+  "probe_cpu_cost": "NOT_SEPARATELY_MEASURED_NO_TASK_SLOWDOWN_CONTROL",
+  "cleanup": {
+    "host_file_residency_captured": true,
+    "owned_container_removed": true,
+    "mount_and_loop_removed": true,
+    "successful_fixture_removed": true,
+    "original_firecracker_identities_unchanged": true,
+    "original_service_unchanged": true
+  },
+  "disk_min_available_bytes": 32196132864,
+  "whole_host_physical_savings": "NOT_MEASURED",
+  "guest_cache_physical_attribution": "NOT_MEASURED",
+  "acceptance": "Per-CPU aggregation and actual shared memory-device global cache residency/ownership verified in this one trial. Device cache includes guest RAM content, not only guest Cached. No new N=1 or no-sharing baseline.",
+  "previous_failure": "RETAINED_NOT_REWRITTEN_OR_CAUSALLY_PROVEN_FIXED"
+}

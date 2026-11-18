@@ -1,0 +1,5551 @@
+{
+  "status": "PASS_THREE_TARGET_FILE_PAIRS",
+  "planned_pairs": 3,
+  "completed_pairs": 3,
+  "new_actions": 88,
+  "total_actions": 132,
+  "orders": [
+    [
+      "shared",
+      "private"
+    ],
+    [
+      "private",
+      "shared"
+    ],
+    [
+      "shared",
+      "private"
+    ]
+  ],
+  "differences": {
+    "preparation_difference_bytes": {
+      "n": 3,
+      "mean": 4418736128,
+      "sd": 0.0,
+      "values": [
+        4418736128,
+        4418736128,
+        4418736128
+      ]
+    },
+    "endpoint_difference_bytes": {
+      "n": 3,
+      "mean": 4419454293.333333,
+      "sd": 114712.37836141893,
+      "values": [
+        4419338240,
+        4419567616,
+        4419457024
+      ]
+    },
+    "difference_change_bytes": {
+      "n": 3,
+      "mean": 718165.3333333334,
+      "sd": 114712.37836141893,
+      "values": [
+        602112,
+        831488,
+        720896
+      ]
+    },
+    "shared_runtime_change_bytes": {
+      "n": 3,
+      "mean": 957098.6666666666,
+      "sd": 2364.826702600707,
+      "values": [
+        958464,
+        954368,
+        958464
+      ]
+    },
+    "private_runtime_change_bytes": {
+      "n": 3,
+      "mean": 1675264,
+      "sd": 112695.84070408277,
+      "values": [
+        1560576,
+        1785856,
+        1679360
+      ]
+    },
+    "endpoint_reduction_fraction": {
+      "n": 3,
+      "mean": 0.4999864843117014,
+      "sd": 6.603865246541286e-06,
+      "values": [
+        0.49997984213845714,
+        0.49999304919041604,
+        0.49998656160623095
+      ],
+      "all_values": [
+        0.49997984213845714,
+        0.49999304919041604,
+        0.49998656160623095
+      ],
+      "defined_count": 3
+    }
+  },
+  "modes": {
+    "shared": {
+      "phases": {
+        "P0": {
+          "resident_bytes": {
+            "n": 3,
+            "mean": 4418736128,
+            "sd": 0.0,
+            "values": [
+              4418736128,
+              4418736128,
+              4418736128
+            ]
+          },
+          "object_count": {
+            "n": 3,
+            "mean": 19,
+            "sd": 0.0,
+            "values": [
+              19,
+              19,
+              19
+            ]
+          },
+          "query_ns": {
+            "n": 3,
+            "mean": 261540199.33333334,
+            "sd": 11482743.544051236,
+            "values": [
+              273535838,
+              250650357,
+              260434403
+            ]
+          },
+          "query_cpu_ns": {
+            "n": 3,
+            "mean": 260782009.66666666,
+            "sd": 11388344.091659784,
+            "values": [
+              272742400,
+              250068298,
+              259535331
+            ]
+          }
+        },
+        "P1": {
+          "resident_bytes": {
+            "n": 3,
+            "mean": 4419693226.666667,
+            "sd": 2364.826702600707,
+            "values": [
+              4419694592,
+              4419690496,
+              4419694592
+            ]
+          },
+          "object_count": {
+            "n": 3,
+            "mean": 19,
+            "sd": 0.0,
+            "values": [
+              19,
+              19,
+              19
+            ]
+          },
+          "query_ns": {
+            "n": 3,
+            "mean": 207831478.33333334,
+            "sd": 7256456.650067602,
+            "values": [
+              216203572,
+              203350137,
+              203940726
+            ]
+          },
+          "query_cpu_ns": {
+            "n": 3,
+            "mean": 207534693.66666666,
+            "sd": 7197713.1467449665,
+            "values": [
+              215837961,
+              203068595,
+              203697525
+            ]
+          }
+        }
+      },
+      "costs": {
+        "query_total_ns": {
+          "n": 3,
+          "mean": 469371677.6666667,
+          "sd": 18385909.09222441,
+          "values": [
+            489739410,
+            454000494,
+            464375129
+          ]
+        },
+        "P1_metadata_ns": {
+          "n": 3,
+          "mean": 97267824,
+          "sd": 3183943.2617000258,
+          "values": [
+            94577149,
+            100782884,
+            96443439
+          ]
+        },
+        "tool_ns": {
+          "n": 3,
+          "mean": 1831256145,
+          "sd": 112036672.24552485,
+          "values": [
+            1849114915,
+            1711362738,
+            1933290782
+          ]
+        },
+        "creation_and_prefix_ns": {
+          "n": 3,
+          "mean": 15135219558,
+          "sd": 2665499094.790758,
+          "values": [
+            18177211588,
+            13208515777,
+            14019931309
+          ]
+        }
+      },
+      "P0_metadata_exact_ns": {
+        "n": 2,
+        "mean": 4139687,
+        "sd": 111949.1455974542,
+        "values": [
+          4218847,
+          4060527
+        ],
+        "all_values": [
+          null,
+          4218847,
+          4060527
+        ]
+      },
+      "P0_metadata_upper_bound_ns": {
+        "n": 3,
+        "mean": 4176024.3333333335,
+        "sd": 89505.0452339606,
+        "values": [
+          4225248,
+          4230114,
+          4072711
+        ]
+      },
+      "host_sampler_cpu_ns": {
+        "n": 3,
+        "mean": 405035339.6666667,
+        "sd": 39379123.31624509,
+        "values": [
+          450245925,
+          386639273,
+          378220821
+        ]
+      },
+      "P0_file_dirty_bytes": {
+        "n": 3,
+        "mean": 338676394.6666667,
+        "sd": 581790237.997098,
+        "values": [
+          1010462720,
+          5472256,
+          94208
+        ]
+      },
+      "original_group_statuses": [
+        "FAIL",
+        "PASS",
+        "PASS"
+      ]
+    },
+    "private": {
+      "phases": {
+        "P0": {
+          "resident_bytes": {
+            "n": 3,
+            "mean": 8837472256,
+            "sd": 0.0,
+            "values": [
+              8837472256,
+              8837472256,
+              8837472256
+            ]
+          },
+          "object_count": {
+            "n": 3,
+            "mean": 38,
+            "sd": 0.0,
+            "values": [
+              38,
+              38,
+              38
+            ]
+          },
+          "query_ns": {
+            "n": 3,
+            "mean": 388308320.6666667,
+            "sd": 52810805.43074651,
+            "values": [
+              397418078,
+              435971642,
+              331535242
+            ]
+          },
+          "query_cpu_ns": {
+            "n": 3,
+            "mean": 386533152.3333333,
+            "sd": 52520698.41929342,
+            "values": [
+              395344223,
+              434091042,
+              330164192
+            ]
+          }
+        },
+        "P1": {
+          "resident_bytes": {
+            "n": 3,
+            "mean": 8839147520,
+            "sd": 112695.84070408277,
+            "values": [
+              8839032832,
+              8839258112,
+              8839151616
+            ]
+          },
+          "object_count": {
+            "n": 3,
+            "mean": 38,
+            "sd": 0.0,
+            "values": [
+              38,
+              38,
+              38
+            ]
+          },
+          "query_ns": {
+            "n": 3,
+            "mean": 376787685.3333333,
+            "sd": 8241729.29423051,
+            "values": [
+              380385490,
+              382618852,
+              367358714
+            ]
+          },
+          "query_cpu_ns": {
+            "n": 3,
+            "mean": 375253600.3333333,
+            "sd": 7215520.724367739,
+            "values": [
+              379819856,
+              379005845,
+              366935100
+            ]
+          }
+        }
+      },
+      "costs": {
+        "query_total_ns": {
+          "n": 3,
+          "mean": 765096006,
+          "sd": 60851679.52722623,
+          "values": [
+            777803568,
+            818590494,
+            698893956
+          ]
+        },
+        "P1_metadata_ns": {
+          "n": 3,
+          "mean": 96816590,
+          "sd": 2235304.387158044,
+          "values": [
+            98937498,
+            97030066,
+            94482206
+          ]
+        },
+        "tool_ns": {
+          "n": 3,
+          "mean": 1897459063.6666667,
+          "sd": 116746718.05197926,
+          "values": [
+            1825796871,
+            2032174910,
+            1834405410
+          ]
+        },
+        "creation_and_prefix_ns": {
+          "n": 3,
+          "mean": 14109337616.666666,
+          "sd": 867357654.1220498,
+          "values": [
+            14941885698,
+            13210925557,
+            14175201595
+          ]
+        }
+      },
+      "P0_metadata_exact_ns": {
+        "n": 2,
+        "mean": 2678992,
+        "sd": 2222027.905549793,
+        "values": [
+          4250203,
+          1107781
+        ],
+        "all_values": [
+          null,
+          4250203,
+          1107781
+        ]
+      },
+      "P0_metadata_upper_bound_ns": {
+        "n": 3,
+        "mean": 3187512,
+        "sd": 1797077.6243075868,
+        "values": [
+          4188495,
+          4261191,
+          1112850
+        ]
+      },
+      "host_sampler_cpu_ns": {
+        "n": 3,
+        "mean": 475142049.6666667,
+        "sd": 13776571.370450862,
+        "values": [
+          479784414,
+          485997751,
+          459643984
+        ]
+      },
+      "P0_file_dirty_bytes": {
+        "n": 3,
+        "mean": 319488,
+        "sd": 322805.341616275,
+        "values": [
+          131072,
+          135168,
+          692224
+        ]
+      },
+      "original_group_statuses": [
+        "PASS",
+        "PASS",
+        "PASS"
+      ]
+    }
+  },
+  "pairs": [
+    {
+      "round": 1,
+      "order": [
+        "shared",
+        "private"
+      ],
+      "pair_result": ".artifacts/host-private-file-pairs/20261024T141118Z-836377",
+      "original_pair_status": "PASS_TARGET_MEASUREMENT_WITH_REPORT_RECOVERY",
+      "actual_actions": 44,
+      "groups": [
+        {
+          "mode": "shared",
+          "result_dir": ".artifacts/host-private-files/20261024T140421Z-shared-830229",
+          "original_group_status": "FAIL",
+          "phases": {
+            "P0": {
+              "resident_bytes": 4418736128,
+              "object_count": 19,
+              "objects": [
+                {
+                  "identity": [
+                    1795,
+                    655502,
+                    159992832
+                  ],
+                  "relative": "sha256-9bf15ea9d4d121232a9a606e719968c4000f78461bdb489d37d441a7aa66080b/overlaybd.commit",
+                  "users": [
+                    "0",
+                    "1"
+                  ],
+                  "resident_bytes": 98914304
+                },
+                {
+                  "identity": [
+                    1795,
+                    655468,
+                    910349312
+                  ],
+                  "relative": "sha256-0d9411f394ec828afca47d8a60fbb8e86a036d277d44189d81fe25794e3f1650/overlaybd.commit",
+                  "users": [
+                    "0",
+                    "1"
+                  ],
+                  "resident_bytes": 849022976
+                },
+                {
+                  "identity": [
+                    1795,
+                    655470,
+                    67556352
+                  ],
+                  "relative": "sha256-20c91c8603bb0951d635d85cf8bedb0919e91a51c8626a71a8423869554aa935/overlaybd.commit",
+                  "users": [
+                    "0",
+                    "1"
+                  ],
+                  "resident_bytes": 7417856
+                },
+                {
+                  "identity": [
+                    1795,
+                    655466,
+                    206099456
+                  ],
+                  "relative": "sha256-09530519512597bcf958afd56607f97b7b9c9721746babe0588a599e34759602/overlaybd.commit",
+                  "users": [
+                    "0",
+                    "1"
+                  ],
+                  "resident_bytes": 144445440
+                },
+                {
+                  "identity": [
+                    1795,
+                    655474,
+                    768267264
+                  ],
+                  "relative": "sha256-313eb616335e4079e746fc5a5c479cda5c1d979b22823a71e0c2b54bd0c092e1/overlaybd.commit",
+                  "users": [
+                    "0",
+                    "1"
+                  ],
+                  "resident_bytes": 703496192
+                },
+                {
+                  "identity": [
+                    1795,
+                    655518,
+                    67818496
+                  ],
+                  "relative": "sha256-e8a9843b7d1969e4252a4ac60b556e179a13780e30ab4ff65d274b6422cbace4/overlaybd.commit",
+                  "users": [
+                    "0",
+                    "1"
+                  ],
+                  "resident_bytes": 8032256
+                },
+                {
+                  "identity": [
+                    1795,
+                    655498,
+                    282514432
+                  ],
+                  "relative": "sha256-90528ddd158f6a8ce28a947aac9d3e559a447ce22b2b2f62ad14e569e5a36d7e/overlaybd.commit",
+                  "users": [
+                    "0",
+                    "1"
+                  ],
+                  "resident_bytes": 219877376
+                },
+                {
+                  "identity": [
+                    1795,
+                    655514,
+                    360109056
+                  ],
+                  "relative": "sha256-e306bbd39def34c85d8e9e50491f5dd8228b9ed7db2b3a2a39eb5164174dae0e/overlaybd.commit",
+                  "users": [
+                    "0",
+                    "1"
+                  ],
+                  "resident_bytes": 300171264
+                },
+                {
+                  "identity": [
+                    1795,
+                    655486,
+                    289199104
+                  ],
+                  "relative": "sha256-55c76efbf5e02626eb341d1836a52654c1bc4db867a450669c030201c60930d3/overlaybd.commit",
+                  "users": [
+                    "0",
+                    "1"
+                  ],
+                  "resident_bytes": 229355520
+                },
+                {
+                  "identity": [
+                    1795,
+                    655504,
+                    934466560
+                  ],
+                  "relative": "sha256-a0e974d7f57fdc848c70252679b4d6ee1c8e2414ff91bf90080f49fdacf9ac52/overlaybd.commit",
+                  "users": [
+                    "0",
+                    "1"
+                  ],
+                  "resident_bytes": 869945344
+                },
+                {
+                  "identity": [
+                    1795,
+                    655512,
+                    69522432
+                  ],
+                  "relative": "sha256-e2aa361b4bcb13568c742c9598b9012950cf750a47989454a5dcfd9802e70e96/overlaybd.commit",
+                  "users": [
+                    "0",
+                    "1"
+                  ],
+                  "resident_bytes": 9523200
+                },
+                {
+                  "identity": [
+                    1795,
+                    655476,
+                    67425280
+                  ],
+                  "relative": "sha256-3dcb39acedaca178a1c58adef3d2b757084677bd739a1393882d27e629aeb26b/overlaybd.commit",
+                  "users": [
+                    "0",
+                    "1"
+                  ],
+                  "resident_bytes": 7757824
+                },
+                {
+                  "identity": [
+                    1795,
+                    655478,
+                    271504384
+                  ],
+                  "relative": "sha256-4409233ba7e0a45b5182d3d6cd0f79e8f83f8663daa6432608876779bedee4fe/overlaybd.commit",
+                  "users": [
+                    "0",
+                    "1"
+                  ],
+                  "resident_bytes": 211730432
+                },
+                {
+                  "identity": [
+                    1795,
+                    655510,
+                    738120704
+                  ],
+                  "relative": "sha256-ccdf2b43bef118a40ad35630c83f84a56f68d08d6957f3939f0cf5b5da1218e8/overlaybd.commit",
+                  "users": [
+                    "0",
+                    "1"
+                  ],
+                  "resident_bytes": 679305216
+                },
+                {
+                  "identity": [
+                    1795,
+                    655524,
+                    67818496
+                  ],
+                  "relative": "sha256-f98aea01c738a6fd26fad029db859cf15b6b3bffaee2caf68aa6acd49683241d/overlaybd.commit",
+                  "users": [
+                    "0",
+                    "1"
+                  ],
+                  "resident_bytes": 9183232
+                },
+                {
+                  "identity": [
+                    1795,
+                    655482,
+                    67818496
+                  ],
+                  "relative": "sha256-49a811f5f45403abadf9adfbe39ab63893ab6ab38d56921afc349d4f2e24ce86/overlaybd.commit",
+                  "users": [
+                    "0",
+                    "1"
+                  ],
+                  "resident_bytes": 9183232
+                },
+                {
+                  "identity": [
+                    1795,
+                    655490,
+                    67556352
+                  ],
+                  "relative": "sha256-6822268b9eb0dee1b6602de0b6ae6d4e261d4f7c170be5bcff93788505bcc961/overlaybd.commit",
+                  "users": [
+                    "0",
+                    "1"
+                  ],
+                  "resident_bytes": 8962048
+                },
+                {
+                  "identity": [
+                    1795,
+                    655508,
+                    101766144
+                  ],
+                  "relative": "sha256-c5f820e8afe1a6ca4e8b48e0f9273816715bb139021eace2f73999bb552b5530/overlaybd.commit",
+                  "users": [
+                    "0",
+                    "1"
+                  ],
+                  "resident_bytes": 43098112
+                },
+                {
+                  "identity": [
+                    1795,
+                    655484,
+                    67949568
+                  ],
+                  "relative": "sha256-51837fa7934cf000da18c91fab488b8bccdedf72879499a34cddbb38c9767421/overlaybd.commit",
+                  "users": [
+                    "0",
+                    "1"
+                  ],
+                  "resident_bytes": 9314304
+                }
+              ],
+              "start_monotonic_ns": 14620996523108730,
+              "end_monotonic_ns": 14620996796644568,
+              "query_ns": 273535838,
+              "query_cpu_ns": 272742400,
+              "counters_before": {
+                "current": 28649168896,
+                "file": 27255312384,
+                "anon": 136802304,
+                "shmem": 7604273152,
+                "kernel": 442789888,
+                "file_mapped": 679936,
+                "file_dirty": 1010462720,
+                "file_writeback": 11567104
+              },
+              "counters_after": {
+                "current": 28648902656,
+                "file": 27255312384,
+                "anon": 136802304,
+                "shmem": 7604273152,
+                "kernel": 442789888,
+                "file_mapped": 679936,
+                "file_dirty": 1010462720,
+                "file_writeback": 11567104
+              }
+            },
+            "P1": {
+              "resident_bytes": 4419694592,
+              "object_count": 19,
+              "objects": [
+                {
+                  "identity": [
+                    1795,
+                    655502,
+                    159992832
+                  ],
+                  "relative": "sha256-9bf15ea9d4d121232a9a606e719968c4000f78461bdb489d37d441a7aa66080b/overlaybd.commit",
+                  "users": [
+                    "0",
+                    "1"
+                  ],
+                  "resident_bytes": 98918400
+                },
+                {
+                  "identity": [
+                    1795,
+                    655468,
+                    910349312
+                  ],
+                  "relative": "sha256-0d9411f394ec828afca47d8a60fbb8e86a036d277d44189d81fe25794e3f1650/overlaybd.commit",
+                  "users": [
+                    "0",
+                    "1"
+                  ],
+                  "resident_bytes": 849051648
+                },
+                {
+                  "identity": [
+                    1795,
+                    655470,
+                    67556352
+                  ],
+                  "relative": "sha256-20c91c8603bb0951d635d85cf8bedb0919e91a51c8626a71a8423869554aa935/overlaybd.commit",
+                  "users": [
+                    "0",
+                    "1"
+                  ],
+                  "resident_bytes": 7421952
+                },
+                {
+                  "identity": [
+                    1795,
+                    655466,
+                    206099456
+                  ],
+                  "relative": "sha256-09530519512597bcf958afd56607f97b7b9c9721746babe0588a599e34759602/overlaybd.commit",
+                  "users": [
+                    "0",
+                    "1"
+                  ],
+                  "resident_bytes": 144449536
+                },
+                {
+                  "identity": [
+                    1795,
+                    655474,
+                    768267264
+                  ],
+                  "relative": "sha256-313eb616335e4079e746fc5a5c479cda5c1d979b22823a71e0c2b54bd0c092e1/overlaybd.commit",
+                  "users": [
+                    "0",
+                    "1"
+                  ],
+                  "resident_bytes": 703500288
+                },
+                {
+                  "identity": [
+                    1795,
+                    655518,
+                    67818496
+                  ],
+                  "relative": "sha256-e8a9843b7d1969e4252a4ac60b556e179a13780e30ab4ff65d274b6422cbace4/overlaybd.commit",
+                  "users": [
+                    "0",
+                    "1"
+                  ],
+                  "resident_bytes": 8036352
+                },
+                {
+                  "identity": [
+                    1795,
+                    655498,
+                    282514432
+                  ],
+                  "relative": "sha256-90528ddd158f6a8ce28a947aac9d3e559a447ce22b2b2f62ad14e569e5a36d7e/overlaybd.commit",
+                  "users": [
+                    "0",
+                    "1"
+                  ],
+                  "resident_bytes": 220307456
+                },
+                {
+                  "identity": [
+                    1795,
+                    655514,
+                    360109056
+                  ],
+                  "relative": "sha256-e306bbd39def34c85d8e9e50491f5dd8228b9ed7db2b3a2a39eb5164174dae0e/overlaybd.commit",
+                  "users": [
+                    "0",
+                    "1"
+                  ],
+                  "resident_bytes": 300175360
+                },
+                {
+                  "identity": [
+                    1795,
+                    655486,
+                    289199104
+                  ],
+                  "relative": "sha256-55c76efbf5e02626eb341d1836a52654c1bc4db867a450669c030201c60930d3/overlaybd.commit",
+                  "users": [
+                    "0",
+                    "1"
+                  ],
+                  "resident_bytes": 229359616
+                },
+                {
+                  "identity": [
+                    1795,
+                    655504,
+                    934466560
+                  ],
+                  "relative": "sha256-a0e974d7f57fdc848c70252679b4d6ee1c8e2414ff91bf90080f49fdacf9ac52/overlaybd.commit",
+                  "users": [
+                    "0",
+                    "1"
+                  ],
+                  "resident_bytes": 869949440
+                },
+                {
+                  "identity": [
+                    1795,
+                    655512,
+                    69522432
+                  ],
+                  "relative": "sha256-e2aa361b4bcb13568c742c9598b9012950cf750a47989454a5dcfd9802e70e96/overlaybd.commit",
+                  "users": [
+                    "0",
+                    "1"
+                  ],
+                  "resident_bytes": 9527296
+                },
+                {
+                  "identity": [
+                    1795,
+                    655476,
+                    67425280
+                  ],
+                  "relative": "sha256-3dcb39acedaca178a1c58adef3d2b757084677bd739a1393882d27e629aeb26b/overlaybd.commit",
+                  "users": [
+                    "0",
+                    "1"
+                  ],
+                  "resident_bytes": 7761920
+                },
+                {
+                  "identity": [
+                    1795,
+                    655478,
+                    271504384
+                  ],
+                  "relative": "sha256-4409233ba7e0a45b5182d3d6cd0f79e8f83f8663daa6432608876779bedee4fe/overlaybd.commit",
+                  "users": [
+                    "0",
+                    "1"
+                  ],
+                  "resident_bytes": 211771392
+                },
+                {
+                  "identity": [
+                    1795,
+                    655510,
+                    738120704
+                  ],
+                  "relative": "sha256-ccdf2b43bef118a40ad35630c83f84a56f68d08d6957f3939f0cf5b5da1218e8/overlaybd.commit",
+                  "users": [
+                    "0",
+                    "1"
+                  ],
+                  "resident_bytes": 679346176
+                },
+                {
+                  "identity": [
+                    1795,
+                    655524,
+                    67818496
+                  ],
+                  "relative": "sha256-f98aea01c738a6fd26fad029db859cf15b6b3bffaee2caf68aa6acd49683241d/overlaybd.commit",
+                  "users": [
+                    "0",
+                    "1"
+                  ],
+                  "resident_bytes": 9187328
+                },
+                {
+                  "identity": [
+                    1795,
+                    655482,
+                    67818496
+                  ],
+                  "relative": "sha256-49a811f5f45403abadf9adfbe39ab63893ab6ab38d56921afc349d4f2e24ce86/overlaybd.commit",
+                  "users": [
+                    "0",
+                    "1"
+                  ],
+                  "resident_bytes": 9187328
+                },
+                {
+                  "identity": [
+                    1795,
+                    655490,
+                    67556352
+                  ],
+                  "relative": "sha256-6822268b9eb0dee1b6602de0b6ae6d4e261d4f7c170be5bcff93788505bcc961/overlaybd.commit",
+                  "users": [
+                    "0",
+                    "1"
+                  ],
+                  "resident_bytes": 8966144
+                },
+                {
+                  "identity": [
+                    1795,
+                    655508,
+                    101766144
+                  ],
+                  "relative": "sha256-c5f820e8afe1a6ca4e8b48e0f9273816715bb139021eace2f73999bb552b5530/overlaybd.commit",
+                  "users": [
+                    "0",
+                    "1"
+                  ],
+                  "resident_bytes": 43220992
+                },
+                {
+                  "identity": [
+                    1795,
+                    655484,
+                    67949568
+                  ],
+                  "relative": "sha256-51837fa7934cf000da18c91fab488b8bccdedf72879499a34cddbb38c9767421/overlaybd.commit",
+                  "users": [
+                    "0",
+                    "1"
+                  ],
+                  "resident_bytes": 9555968
+                }
+              ],
+              "start_monotonic_ns": 14621015109335033,
+              "end_monotonic_ns": 14621015325538605,
+              "query_ns": 216203572,
+              "query_cpu_ns": 215837961,
+              "counters_before": {
+                "current": 29912125440,
+                "file": 28067106816,
+                "anon": 1323126784,
+                "shmem": 7604289536,
+                "kernel": 483872768,
+                "file_mapped": 6553600,
+                "file_dirty": 16642048,
+                "file_writeback": 0
+              },
+              "counters_after": {
+                "current": 29902397440,
+                "file": 28070674432,
+                "anon": 1313067008,
+                "shmem": 7604289536,
+                "kernel": 482959360,
+                "file_mapped": 6553600,
+                "file_dirty": 20209664,
+                "file_writeback": 0
+              }
+            }
+          },
+          "stages": {
+            "P0": {
+              "resident_bytes": 4418736128
+            },
+            "P1": {
+              "resident_bytes": 4419694592
+            }
+          },
+          "prefixes": [
+            {
+              "slot": 0,
+              "storage": ".artifacts/storage-isolated-service/20261024T140541Z-831053",
+              "task_check": {
+                "status": "PASS",
+                "actual_actions": 11,
+                "official_evaluation": "NOT_RUN_PREFIX_ONLY",
+                "tool_ns": 985057847,
+                "scope": "Original actions, order, expected exits, output and cleanup; P0/P1 cache observations are in the group coordinator, not old prefix_before/after fields"
+              },
+              "original_outer_status": "FAIL",
+              "cleanup": {
+                "owned_container_removed": true,
+                "mount_and_loop_removed": true,
+                "failed_fixture_retained": true,
+                "original_firecracker_identities_unchanged": true,
+                "original_source_firecracker_identities_unchanged": true,
+                "original_service_unchanged": true
+              },
+              "live_write_boundary_audit": "NOT_RUN_AFTER_REPORT_FAILURE"
+            },
+            {
+              "slot": 1,
+              "storage": ".artifacts/storage-isolated-service/20261024T140550Z-831831",
+              "task_check": {
+                "status": "PASS",
+                "actual_actions": 11,
+                "official_evaluation": "NOT_RUN_PREFIX_ONLY",
+                "tool_ns": 864057068,
+                "scope": "Original actions, order, expected exits, output and cleanup; P0/P1 cache observations are in the group coordinator, not old prefix_before/after fields"
+              },
+              "original_outer_status": "FAIL",
+              "cleanup": {
+                "owned_container_removed": true,
+                "mount_and_loop_removed": true,
+                "failed_fixture_retained": true,
+                "original_firecracker_identities_unchanged": false,
+                "original_source_firecracker_identities_unchanged": true,
+                "original_service_unchanged": true
+              },
+              "live_write_boundary_audit": "NOT_RUN_AFTER_REPORT_FAILURE"
+            }
+          ],
+          "tool_ns": 1849114915,
+          "creation_and_prefix_ns": 18177211588,
+          "query_total_ns": 489739410,
+          "P1_metadata_ns": 94577149,
+          "P0_metadata_exact_ns": null,
+          "P0_metadata_upper_bound_ns": 4225248,
+          "collector": {
+            "status": "PASS",
+            "error": null,
+            "cgroup": "/sys/fs/cgroup/asbhost.slice/asbhost-20261024t140421830145.slice",
+            "samples": 1248,
+            "interval_seconds": 0.1,
+            "pss_interval_seconds": null,
+            "thread_cpu_ns": 450245925,
+            "counter_read_total_ns": 364488000,
+            "scope": "Fresh rollout slice: input preparation, controller, private service and all its descendants; host file includes shmem, not guest Cached."
+          }
+        },
+        {
+          "mode": "private",
+          "result_dir": ".artifacts/host-private-files/20261024T141120Z-private-836854",
+          "original_group_status": "PASS",
+          "phases": {
+            "P0": {
+              "resident_bytes": 8837472256,
+              "object_count": 38,
+              "objects": [
+                {
+                  "identity": [
+                    1795,
+                    131214,
+                    159992832
+                  ],
+                  "relative": "sha256-9bf15ea9d4d121232a9a606e719968c4000f78461bdb489d37d441a7aa66080b/overlaybd.commit",
+                  "users": [
+                    "0"
+                  ],
+                  "resident_bytes": 98914304
+                },
+                {
+                  "identity": [
+                    1795,
+                    131180,
+                    910349312
+                  ],
+                  "relative": "sha256-0d9411f394ec828afca47d8a60fbb8e86a036d277d44189d81fe25794e3f1650/overlaybd.commit",
+                  "users": [
+                    "0"
+                  ],
+                  "resident_bytes": 849022976
+                },
+                {
+                  "identity": [
+                    1795,
+                    131182,
+                    67556352
+                  ],
+                  "relative": "sha256-20c91c8603bb0951d635d85cf8bedb0919e91a51c8626a71a8423869554aa935/overlaybd.commit",
+                  "users": [
+                    "0"
+                  ],
+                  "resident_bytes": 7417856
+                },
+                {
+                  "identity": [
+                    1795,
+                    131178,
+                    206099456
+                  ],
+                  "relative": "sha256-09530519512597bcf958afd56607f97b7b9c9721746babe0588a599e34759602/overlaybd.commit",
+                  "users": [
+                    "0"
+                  ],
+                  "resident_bytes": 144445440
+                },
+                {
+                  "identity": [
+                    1795,
+                    131186,
+                    768267264
+                  ],
+                  "relative": "sha256-313eb616335e4079e746fc5a5c479cda5c1d979b22823a71e0c2b54bd0c092e1/overlaybd.commit",
+                  "users": [
+                    "0"
+                  ],
+                  "resident_bytes": 703496192
+                },
+                {
+                  "identity": [
+                    1795,
+                    131230,
+                    67818496
+                  ],
+                  "relative": "sha256-e8a9843b7d1969e4252a4ac60b556e179a13780e30ab4ff65d274b6422cbace4/overlaybd.commit",
+                  "users": [
+                    "0"
+                  ],
+                  "resident_bytes": 8032256
+                },
+                {
+                  "identity": [
+                    1795,
+                    131210,
+                    282514432
+                  ],
+                  "relative": "sha256-90528ddd158f6a8ce28a947aac9d3e559a447ce22b2b2f62ad14e569e5a36d7e/overlaybd.commit",
+                  "users": [
+                    "0"
+                  ],
+                  "resident_bytes": 219877376
+                },
+                {
+                  "identity": [
+                    1795,
+                    131226,
+                    360109056
+                  ],
+                  "relative": "sha256-e306bbd39def34c85d8e9e50491f5dd8228b9ed7db2b3a2a39eb5164174dae0e/overlaybd.commit",
+                  "users": [
+                    "0"
+                  ],
+                  "resident_bytes": 300171264
+                },
+                {
+                  "identity": [
+                    1795,
+                    131198,
+                    289199104
+                  ],
+                  "relative": "sha256-55c76efbf5e02626eb341d1836a52654c1bc4db867a450669c030201c60930d3/overlaybd.commit",
+                  "users": [
+                    "0"
+                  ],
+                  "resident_bytes": 229355520
+                },
+                {
+                  "identity": [
+                    1795,
+                    131216,
+                    934466560
+                  ],
+                  "relative": "sha256-a0e974d7f57fdc848c70252679b4d6ee1c8e2414ff91bf90080f49fdacf9ac52/overlaybd.commit",
+                  "users": [
+                    "0"
+                  ],
+                  "resident_bytes": 869945344
+                },
+                {
+                  "identity": [
+                    1795,
+                    131224,
+                    69522432
+                  ],
+                  "relative": "sha256-e2aa361b4bcb13568c742c9598b9012950cf750a47989454a5dcfd9802e70e96/overlaybd.commit",
+                  "users": [
+                    "0"
+                  ],
+                  "resident_bytes": 9523200
+                },
+                {
+                  "identity": [
+                    1795,
+                    131188,
+                    67425280
+                  ],
+                  "relative": "sha256-3dcb39acedaca178a1c58adef3d2b757084677bd739a1393882d27e629aeb26b/overlaybd.commit",
+                  "users": [
+                    "0"
+                  ],
+                  "resident_bytes": 7757824
+                },
+                {
+                  "identity": [
+                    1795,
+                    131190,
+                    271504384
+                  ],
+                  "relative": "sha256-4409233ba7e0a45b5182d3d6cd0f79e8f83f8663daa6432608876779bedee4fe/overlaybd.commit",
+                  "users": [
+                    "0"
+                  ],
+                  "resident_bytes": 211730432
+                },
+                {
+                  "identity": [
+                    1795,
+                    131222,
+                    738120704
+                  ],
+                  "relative": "sha256-ccdf2b43bef118a40ad35630c83f84a56f68d08d6957f3939f0cf5b5da1218e8/overlaybd.commit",
+                  "users": [
+                    "0"
+                  ],
+                  "resident_bytes": 679305216
+                },
+                {
+                  "identity": [
+                    1795,
+                    131236,
+                    67818496
+                  ],
+                  "relative": "sha256-f98aea01c738a6fd26fad029db859cf15b6b3bffaee2caf68aa6acd49683241d/overlaybd.commit",
+                  "users": [
+                    "0"
+                  ],
+                  "resident_bytes": 9183232
+                },
+                {
+                  "identity": [
+                    1795,
+                    131194,
+                    67818496
+                  ],
+                  "relative": "sha256-49a811f5f45403abadf9adfbe39ab63893ab6ab38d56921afc349d4f2e24ce86/overlaybd.commit",
+                  "users": [
+                    "0"
+                  ],
+                  "resident_bytes": 9183232
+                },
+                {
+                  "identity": [
+                    1795,
+                    131202,
+                    67556352
+                  ],
+                  "relative": "sha256-6822268b9eb0dee1b6602de0b6ae6d4e261d4f7c170be5bcff93788505bcc961/overlaybd.commit",
+                  "users": [
+                    "0"
+                  ],
+                  "resident_bytes": 8962048
+                },
+                {
+                  "identity": [
+                    1795,
+                    131220,
+                    101766144
+                  ],
+                  "relative": "sha256-c5f820e8afe1a6ca4e8b48e0f9273816715bb139021eace2f73999bb552b5530/overlaybd.commit",
+                  "users": [
+                    "0"
+                  ],
+                  "resident_bytes": 43098112
+                },
+                {
+                  "identity": [
+                    1795,
+                    131196,
+                    67949568
+                  ],
+                  "relative": "sha256-51837fa7934cf000da18c91fab488b8bccdedf72879499a34cddbb38c9767421/overlaybd.commit",
+                  "users": [
+                    "0"
+                  ],
+                  "resident_bytes": 9314304
+                },
+                {
+                  "identity": [
+                    1801,
+                    262286,
+                    159992832
+                  ],
+                  "relative": "sha256-9bf15ea9d4d121232a9a606e719968c4000f78461bdb489d37d441a7aa66080b/overlaybd.commit",
+                  "users": [
+                    "1"
+                  ],
+                  "resident_bytes": 98914304
+                },
+                {
+                  "identity": [
+                    1801,
+                    262252,
+                    910349312
+                  ],
+                  "relative": "sha256-0d9411f394ec828afca47d8a60fbb8e86a036d277d44189d81fe25794e3f1650/overlaybd.commit",
+                  "users": [
+                    "1"
+                  ],
+                  "resident_bytes": 849022976
+                },
+                {
+                  "identity": [
+                    1801,
+                    262254,
+                    67556352
+                  ],
+                  "relative": "sha256-20c91c8603bb0951d635d85cf8bedb0919e91a51c8626a71a8423869554aa935/overlaybd.commit",
+                  "users": [
+                    "1"
+                  ],
+                  "resident_bytes": 7417856
+                },
+                {
+                  "identity": [
+                    1801,
+                    262250,
+                    206099456
+                  ],
+                  "relative": "sha256-09530519512597bcf958afd56607f97b7b9c9721746babe0588a599e34759602/overlaybd.commit",
+                  "users": [
+                    "1"
+                  ],
+                  "resident_bytes": 144445440
+                },
+                {
+                  "identity": [
+                    1801,
+                    262258,
+                    768267264
+                  ],
+                  "relative": "sha256-313eb616335e4079e746fc5a5c479cda5c1d979b22823a71e0c2b54bd0c092e1/overlaybd.commit",
+                  "users": [
+                    "1"
+                  ],
+                  "resident_bytes": 703496192
+                },
+                {
+                  "identity": [
+                    1801,
+                    262302,
+                    67818496
+                  ],
+                  "relative": "sha256-e8a9843b7d1969e4252a4ac60b556e179a13780e30ab4ff65d274b6422cbace4/overlaybd.commit",
+                  "users": [
+                    "1"
+                  ],
+                  "resident_bytes": 8032256
+                },
+                {
+                  "identity": [
+                    1801,
+                    262282,
+                    282514432
+                  ],
+                  "relative": "sha256-90528ddd158f6a8ce28a947aac9d3e559a447ce22b2b2f62ad14e569e5a36d7e/overlaybd.commit",
+                  "users": [
+                    "1"
+                  ],
+                  "resident_bytes": 219877376
+                },
+                {
+                  "identity": [
+                    1801,
+                    262298,
+                    360109056
+                  ],
+                  "relative": "sha256-e306bbd39def34c85d8e9e50491f5dd8228b9ed7db2b3a2a39eb5164174dae0e/overlaybd.commit",
+                  "users": [
+                    "1"
+                  ],
+                  "resident_bytes": 300171264
+                },
+                {
+                  "identity": [
+                    1801,
+                    262270,
+                    289199104
+                  ],
+                  "relative": "sha256-55c76efbf5e02626eb341d1836a52654c1bc4db867a450669c030201c60930d3/overlaybd.commit",
+                  "users": [
+                    "1"
+                  ],
+                  "resident_bytes": 229355520
+                },
+                {
+                  "identity": [
+                    1801,
+                    262288,
+                    934466560
+                  ],
+                  "relative": "sha256-a0e974d7f57fdc848c70252679b4d6ee1c8e2414ff91bf90080f49fdacf9ac52/overlaybd.commit",
+                  "users": [
+                    "1"
+                  ],
+                  "resident_bytes": 869945344
+                },
+                {
+                  "identity": [
+                    1801,
+                    262296,
+                    69522432
+                  ],
+                  "relative": "sha256-e2aa361b4bcb13568c742c9598b9012950cf750a47989454a5dcfd9802e70e96/overlaybd.commit",
+                  "users": [
+                    "1"
+                  ],
+                  "resident_bytes": 9523200
+                },
+                {
+                  "identity": [
+                    1801,
+                    262260,
+                    67425280
+                  ],
+                  "relative": "sha256-3dcb39acedaca178a1c58adef3d2b757084677bd739a1393882d27e629aeb26b/overlaybd.commit",
+                  "users": [
+                    "1"
+                  ],
+                  "resident_bytes": 7757824
+                },
+                {
+                  "identity": [
+                    1801,
+                    262262,
+                    271504384
+                  ],
+                  "relative": "sha256-4409233ba7e0a45b5182d3d6cd0f79e8f83f8663daa6432608876779bedee4fe/overlaybd.commit",
+                  "users": [
+                    "1"
+                  ],
+                  "resident_bytes": 211730432
+                },
+                {
+                  "identity": [
+                    1801,
+                    262294,
+                    738120704
+                  ],
+                  "relative": "sha256-ccdf2b43bef118a40ad35630c83f84a56f68d08d6957f3939f0cf5b5da1218e8/overlaybd.commit",
+                  "users": [
+                    "1"
+                  ],
+                  "resident_bytes": 679305216
+                },
+                {
+                  "identity": [
+                    1801,
+                    262308,
+                    67818496
+                  ],
+                  "relative": "sha256-f98aea01c738a6fd26fad029db859cf15b6b3bffaee2caf68aa6acd49683241d/overlaybd.commit",
+                  "users": [
+                    "1"
+                  ],
+                  "resident_bytes": 9183232
+                },
+                {
+                  "identity": [
+                    1801,
+                    262266,
+                    67818496
+                  ],
+                  "relative": "sha256-49a811f5f45403abadf9adfbe39ab63893ab6ab38d56921afc349d4f2e24ce86/overlaybd.commit",
+                  "users": [
+                    "1"
+                  ],
+                  "resident_bytes": 9183232
+                },
+                {
+                  "identity": [
+                    1801,
+                    262274,
+                    67556352
+                  ],
+                  "relative": "sha256-6822268b9eb0dee1b6602de0b6ae6d4e261d4f7c170be5bcff93788505bcc961/overlaybd.commit",
+                  "users": [
+                    "1"
+                  ],
+                  "resident_bytes": 8962048
+                },
+                {
+                  "identity": [
+                    1801,
+                    262292,
+                    101766144
+                  ],
+                  "relative": "sha256-c5f820e8afe1a6ca4e8b48e0f9273816715bb139021eace2f73999bb552b5530/overlaybd.commit",
+                  "users": [
+                    "1"
+                  ],
+                  "resident_bytes": 43098112
+                },
+                {
+                  "identity": [
+                    1801,
+                    262268,
+                    67949568
+                  ],
+                  "relative": "sha256-51837fa7934cf000da18c91fab488b8bccdedf72879499a34cddbb38c9767421/overlaybd.commit",
+                  "users": [
+                    "1"
+                  ],
+                  "resident_bytes": 9314304
+                }
+              ],
+              "start_monotonic_ns": 14621428933219976,
+              "end_monotonic_ns": 14621429330638054,
+              "query_ns": 397418078,
+              "query_cpu_ns": 395344223,
+              "counters_before": {
+                "current": 37741527040,
+                "file": 36861407232,
+                "anon": 136622080,
+                "shmem": 7604273152,
+                "kernel": 723353600,
+                "file_mapped": 679936,
+                "file_dirty": 131072,
+                "file_writeback": 0
+              },
+              "counters_after": {
+                "current": 37741252608,
+                "file": 36861407232,
+                "anon": 136622080,
+                "shmem": 7604273152,
+                "kernel": 723353600,
+                "file_mapped": 679936,
+                "file_dirty": 131072,
+                "file_writeback": 0
+              }
+            },
+            "P1": {
+              "resident_bytes": 8839032832,
+              "object_count": 38,
+              "objects": [
+                {
+                  "identity": [
+                    1795,
+                    131214,
+                    159992832
+                  ],
+                  "relative": "sha256-9bf15ea9d4d121232a9a606e719968c4000f78461bdb489d37d441a7aa66080b/overlaybd.commit",
+                  "users": [
+                    "0"
+                  ],
+                  "resident_bytes": 98918400
+                },
+                {
+                  "identity": [
+                    1795,
+                    131180,
+                    910349312
+                  ],
+                  "relative": "sha256-0d9411f394ec828afca47d8a60fbb8e86a036d277d44189d81fe25794e3f1650/overlaybd.commit",
+                  "users": [
+                    "0"
+                  ],
+                  "resident_bytes": 849051648
+                },
+                {
+                  "identity": [
+                    1795,
+                    131182,
+                    67556352
+                  ],
+                  "relative": "sha256-20c91c8603bb0951d635d85cf8bedb0919e91a51c8626a71a8423869554aa935/overlaybd.commit",
+                  "users": [
+                    "0"
+                  ],
+                  "resident_bytes": 7421952
+                },
+                {
+                  "identity": [
+                    1795,
+                    131178,
+                    206099456
+                  ],
+                  "relative": "sha256-09530519512597bcf958afd56607f97b7b9c9721746babe0588a599e34759602/overlaybd.commit",
+                  "users": [
+                    "0"
+                  ],
+                  "resident_bytes": 144449536
+                },
+                {
+                  "identity": [
+                    1795,
+                    131186,
+                    768267264
+                  ],
+                  "relative": "sha256-313eb616335e4079e746fc5a5c479cda5c1d979b22823a71e0c2b54bd0c092e1/overlaybd.commit",
+                  "users": [
+                    "0"
+                  ],
+                  "resident_bytes": 703500288
+                },
+                {
+                  "identity": [
+                    1795,
+                    131230,
+                    67818496
+                  ],
+                  "relative": "sha256-e8a9843b7d1969e4252a4ac60b556e179a13780e30ab4ff65d274b6422cbace4/overlaybd.commit",
+                  "users": [
+                    "0"
+                  ],
+                  "resident_bytes": 8036352
+                },
+                {
+                  "identity": [
+                    1795,
+                    131210,
+                    282514432
+                  ],
+                  "relative": "sha256-90528ddd158f6a8ce28a947aac9d3e559a447ce22b2b2f62ad14e569e5a36d7e/overlaybd.commit",
+                  "users": [
+                    "0"
+                  ],
+                  "resident_bytes": 220307456
+                },
+                {
+                  "identity": [
+                    1795,
+                    131226,
+                    360109056
+                  ],
+                  "relative": "sha256-e306bbd39def34c85d8e9e50491f5dd8228b9ed7db2b3a2a39eb5164174dae0e/overlaybd.commit",
+                  "users": [
+                    "0"
+                  ],
+                  "resident_bytes": 300175360
+                },
+                {
+                  "identity": [
+                    1795,
+                    131198,
+                    289199104
+                  ],
+                  "relative": "sha256-55c76efbf5e02626eb341d1836a52654c1bc4db867a450669c030201c60930d3/overlaybd.commit",
+                  "users": [
+                    "0"
+                  ],
+                  "resident_bytes": 229359616
+                },
+                {
+                  "identity": [
+                    1795,
+                    131216,
+                    934466560
+                  ],
+                  "relative": "sha256-a0e974d7f57fdc848c70252679b4d6ee1c8e2414ff91bf90080f49fdacf9ac52/overlaybd.commit",
+                  "users": [
+                    "0"
+                  ],
+                  "resident_bytes": 869949440
+                },
+                {
+                  "identity": [
+                    1795,
+                    131224,
+                    69522432
+                  ],
+                  "relative": "sha256-e2aa361b4bcb13568c742c9598b9012950cf750a47989454a5dcfd9802e70e96/overlaybd.commit",
+                  "users": [
+                    "0"
+                  ],
+                  "resident_bytes": 9527296
+                },
+                {
+                  "identity": [
+                    1795,
+                    131188,
+                    67425280
+                  ],
+                  "relative": "sha256-3dcb39acedaca178a1c58adef3d2b757084677bd739a1393882d27e629aeb26b/overlaybd.commit",
+                  "users": [
+                    "0"
+                  ],
+                  "resident_bytes": 7761920
+                },
+                {
+                  "identity": [
+                    1795,
+                    131190,
+                    271504384
+                  ],
+                  "relative": "sha256-4409233ba7e0a45b5182d3d6cd0f79e8f83f8663daa6432608876779bedee4fe/overlaybd.commit",
+                  "users": [
+                    "0"
+                  ],
+                  "resident_bytes": 211771392
+                },
+                {
+                  "identity": [
+                    1795,
+                    131222,
+                    738120704
+                  ],
+                  "relative": "sha256-ccdf2b43bef118a40ad35630c83f84a56f68d08d6957f3939f0cf5b5da1218e8/overlaybd.commit",
+                  "users": [
+                    "0"
+                  ],
+                  "resident_bytes": 679346176
+                },
+                {
+                  "identity": [
+                    1795,
+                    131236,
+                    67818496
+                  ],
+                  "relative": "sha256-f98aea01c738a6fd26fad029db859cf15b6b3bffaee2caf68aa6acd49683241d/overlaybd.commit",
+                  "users": [
+                    "0"
+                  ],
+                  "resident_bytes": 9187328
+                },
+                {
+                  "identity": [
+                    1795,
+                    131194,
+                    67818496
+                  ],
+                  "relative": "sha256-49a811f5f45403abadf9adfbe39ab63893ab6ab38d56921afc349d4f2e24ce86/overlaybd.commit",
+                  "users": [
+                    "0"
+                  ],
+                  "resident_bytes": 9187328
+                },
+                {
+                  "identity": [
+                    1795,
+                    131202,
+                    67556352
+                  ],
+                  "relative": "sha256-6822268b9eb0dee1b6602de0b6ae6d4e261d4f7c170be5bcff93788505bcc961/overlaybd.commit",
+                  "users": [
+                    "0"
+                  ],
+                  "resident_bytes": 8966144
+                },
+                {
+                  "identity": [
+                    1795,
+                    131220,
+                    101766144
+                  ],
+                  "relative": "sha256-c5f820e8afe1a6ca4e8b48e0f9273816715bb139021eace2f73999bb552b5530/overlaybd.commit",
+                  "users": [
+                    "0"
+                  ],
+                  "resident_bytes": 43220992
+                },
+                {
+                  "identity": [
+                    1795,
+                    131196,
+                    67949568
+                  ],
+                  "relative": "sha256-51837fa7934cf000da18c91fab488b8bccdedf72879499a34cddbb38c9767421/overlaybd.commit",
+                  "users": [
+                    "0"
+                  ],
+                  "resident_bytes": 9437184
+                },
+                {
+                  "identity": [
+                    1801,
+                    262286,
+                    159992832
+                  ],
+                  "relative": "sha256-9bf15ea9d4d121232a9a606e719968c4000f78461bdb489d37d441a7aa66080b/overlaybd.commit",
+                  "users": [
+                    "1"
+                  ],
+                  "resident_bytes": 98918400
+                },
+                {
+                  "identity": [
+                    1801,
+                    262252,
+                    910349312
+                  ],
+                  "relative": "sha256-0d9411f394ec828afca47d8a60fbb8e86a036d277d44189d81fe25794e3f1650/overlaybd.commit",
+                  "users": [
+                    "1"
+                  ],
+                  "resident_bytes": 849051648
+                },
+                {
+                  "identity": [
+                    1801,
+                    262254,
+                    67556352
+                  ],
+                  "relative": "sha256-20c91c8603bb0951d635d85cf8bedb0919e91a51c8626a71a8423869554aa935/overlaybd.commit",
+                  "users": [
+                    "1"
+                  ],
+                  "resident_bytes": 7421952
+                },
+                {
+                  "identity": [
+                    1801,
+                    262250,
+                    206099456
+                  ],
+                  "relative": "sha256-09530519512597bcf958afd56607f97b7b9c9721746babe0588a599e34759602/overlaybd.commit",
+                  "users": [
+                    "1"
+                  ],
+                  "resident_bytes": 144449536
+                },
+                {
+                  "identity": [
+                    1801,
+                    262258,
+                    768267264
+                  ],
+                  "relative": "sha256-313eb616335e4079e746fc5a5c479cda5c1d979b22823a71e0c2b54bd0c092e1/overlaybd.commit",
+                  "users": [
+                    "1"
+                  ],
+                  "resident_bytes": 703500288
+                },
+                {
+                  "identity": [
+                    1801,
+                    262302,
+                    67818496
+                  ],
+                  "relative": "sha256-e8a9843b7d1969e4252a4ac60b556e179a13780e30ab4ff65d274b6422cbace4/overlaybd.commit",
+                  "users": [
+                    "1"
+                  ],
+                  "resident_bytes": 8036352
+                },
+                {
+                  "identity": [
+                    1801,
+                    262282,
+                    282514432
+                  ],
+                  "relative": "sha256-90528ddd158f6a8ce28a947aac9d3e559a447ce22b2b2f62ad14e569e5a36d7e/overlaybd.commit",
+                  "users": [
+                    "1"
+                  ],
+                  "resident_bytes": 220307456
+                },
+                {
+                  "identity": [
+                    1801,
+                    262298,
+                    360109056
+                  ],
+                  "relative": "sha256-e306bbd39def34c85d8e9e50491f5dd8228b9ed7db2b3a2a39eb5164174dae0e/overlaybd.commit",
+                  "users": [
+                    "1"
+                  ],
+                  "resident_bytes": 300175360
+                },
+                {
+                  "identity": [
+                    1801,
+                    262270,
+                    289199104
+                  ],
+                  "relative": "sha256-55c76efbf5e02626eb341d1836a52654c1bc4db867a450669c030201c60930d3/overlaybd.commit",
+                  "users": [
+                    "1"
+                  ],
+                  "resident_bytes": 229359616
+                },
+                {
+                  "identity": [
+                    1801,
+                    262288,
+                    934466560
+                  ],
+                  "relative": "sha256-a0e974d7f57fdc848c70252679b4d6ee1c8e2414ff91bf90080f49fdacf9ac52/overlaybd.commit",
+                  "users": [
+                    "1"
+                  ],
+                  "resident_bytes": 869949440
+                },
+                {
+                  "identity": [
+                    1801,
+                    262296,
+                    69522432
+                  ],
+                  "relative": "sha256-e2aa361b4bcb13568c742c9598b9012950cf750a47989454a5dcfd9802e70e96/overlaybd.commit",
+                  "users": [
+                    "1"
+                  ],
+                  "resident_bytes": 9527296
+                },
+                {
+                  "identity": [
+                    1801,
+                    262260,
+                    67425280
+                  ],
+                  "relative": "sha256-3dcb39acedaca178a1c58adef3d2b757084677bd739a1393882d27e629aeb26b/overlaybd.commit",
+                  "users": [
+                    "1"
+                  ],
+                  "resident_bytes": 7761920
+                },
+                {
+                  "identity": [
+                    1801,
+                    262262,
+                    271504384
+                  ],
+                  "relative": "sha256-4409233ba7e0a45b5182d3d6cd0f79e8f83f8663daa6432608876779bedee4fe/overlaybd.commit",
+                  "users": [
+                    "1"
+                  ],
+                  "resident_bytes": 211771392
+                },
+                {
+                  "identity": [
+                    1801,
+                    262294,
+                    738120704
+                  ],
+                  "relative": "sha256-ccdf2b43bef118a40ad35630c83f84a56f68d08d6957f3939f0cf5b5da1218e8/overlaybd.commit",
+                  "users": [
+                    "1"
+                  ],
+                  "resident_bytes": 679346176
+                },
+                {
+                  "identity": [
+                    1801,
+                    262308,
+                    67818496
+                  ],
+                  "relative": "sha256-f98aea01c738a6fd26fad029db859cf15b6b3bffaee2caf68aa6acd49683241d/overlaybd.commit",
+                  "users": [
+                    "1"
+                  ],
+                  "resident_bytes": 9187328
+                },
+                {
+                  "identity": [
+                    1801,
+                    262266,
+                    67818496
+                  ],
+                  "relative": "sha256-49a811f5f45403abadf9adfbe39ab63893ab6ab38d56921afc349d4f2e24ce86/overlaybd.commit",
+                  "users": [
+                    "1"
+                  ],
+                  "resident_bytes": 9187328
+                },
+                {
+                  "identity": [
+                    1801,
+                    262274,
+                    67556352
+                  ],
+                  "relative": "sha256-6822268b9eb0dee1b6602de0b6ae6d4e261d4f7c170be5bcff93788505bcc961/overlaybd.commit",
+                  "users": [
+                    "1"
+                  ],
+                  "resident_bytes": 8966144
+                },
+                {
+                  "identity": [
+                    1801,
+                    262292,
+                    101766144
+                  ],
+                  "relative": "sha256-c5f820e8afe1a6ca4e8b48e0f9273816715bb139021eace2f73999bb552b5530/overlaybd.commit",
+                  "users": [
+                    "1"
+                  ],
+                  "resident_bytes": 43220992
+                },
+                {
+                  "identity": [
+                    1801,
+                    262268,
+                    67949568
+                  ],
+                  "relative": "sha256-51837fa7934cf000da18c91fab488b8bccdedf72879499a34cddbb38c9767421/overlaybd.commit",
+                  "users": [
+                    "1"
+                  ],
+                  "resident_bytes": 9318400
+                }
+              ],
+              "start_monotonic_ns": 14621444446034639,
+              "end_monotonic_ns": 14621444826420129,
+              "query_ns": 380385490,
+              "query_cpu_ns": 379819856,
+              "counters_before": {
+                "current": 38997012480,
+                "file": 36901777408,
+                "anon": 1319841792,
+                "shmem": 7604289536,
+                "kernel": 742600704,
+                "file_mapped": 6553600,
+                "file_dirty": 12668928,
+                "file_writeback": 0
+              },
+              "counters_after": {
+                "current": 38987075584,
+                "file": 36901847040,
+                "anon": 1305387008,
+                "shmem": 7604289536,
+                "kernel": 740655104,
+                "file_mapped": 6553600,
+                "file_dirty": 12738560,
+                "file_writeback": 0
+              }
+            }
+          },
+          "stages": {
+            "P0": {
+              "resident_bytes": 8837472256
+            },
+            "P1": {
+              "resident_bytes": 8839032832
+            }
+          },
+          "prefixes": [
+            {
+              "slot": 0,
+              "storage": ".artifacts/storage-isolated-service/20261024T141237Z-837682",
+              "task_check": {
+                "status": "PASS",
+                "actual_actions": 11,
+                "official_evaluation": "NOT_RUN_PREFIX_ONLY",
+                "tool_ns": 984699123,
+                "scope": "Original actions, order, expected exits, output and cleanup; P0/P1 cache observations are in the group coordinator, not old prefix_before/after fields"
+              },
+              "original_outer_status": "PASS",
+              "cleanup": {
+                "owned_container_removed": true,
+                "mount_and_loop_removed": true,
+                "successful_fixture_removed": true,
+                "original_firecracker_identities_unchanged": true,
+                "original_source_firecracker_identities_unchanged": true,
+                "original_service_unchanged": true
+              },
+              "live_write_boundary_audit": "PASS"
+            },
+            {
+              "slot": 1,
+              "storage": ".artifacts/storage-isolated-service/20261024T141246Z-838473",
+              "task_check": {
+                "status": "PASS",
+                "actual_actions": 11,
+                "official_evaluation": "NOT_RUN_PREFIX_ONLY",
+                "tool_ns": 841097748,
+                "scope": "Original actions, order, expected exits, output and cleanup; P0/P1 cache observations are in the group coordinator, not old prefix_before/after fields"
+              },
+              "original_outer_status": "PASS",
+              "cleanup": {
+                "owned_container_removed": true,
+                "mount_and_loop_removed": true,
+                "successful_fixture_removed": true,
+                "original_firecracker_identities_unchanged": false,
+                "original_source_firecracker_identities_unchanged": true,
+                "original_service_unchanged": true
+              },
+              "live_write_boundary_audit": "PASS"
+            }
+          ],
+          "tool_ns": 1825796871,
+          "creation_and_prefix_ns": 14941885698,
+          "query_total_ns": 777803568,
+          "P1_metadata_ns": 98937498,
+          "P0_metadata_exact_ns": null,
+          "P0_metadata_upper_bound_ns": 4188495,
+          "collector": {
+            "status": "PASS",
+            "error": null,
+            "cgroup": "/sys/fs/cgroup/asbhost.slice/asbhost-20261024t141119836772.slice",
+            "samples": 1369,
+            "interval_seconds": 0.1,
+            "pss_interval_seconds": null,
+            "thread_cpu_ns": 479784414,
+            "counter_read_total_ns": 388049200,
+            "scope": "Fresh rollout slice: input preparation, controller, private service and all its descendants; host file includes shmem, not guest Cached."
+          }
+        }
+      ],
+      "comparison": {
+        "preparation_difference_bytes": 4418736128,
+        "endpoint_difference_bytes": 4419338240,
+        "endpoint_reduction_fraction": 0.49997984213845714,
+        "shared_runtime_change_bytes": 958464,
+        "private_runtime_change_bytes": 1560576,
+        "difference_change_bytes": 602112,
+        "scope": "Direct two-service/two-guest pinned-file comparison; preparation included; no linear extrapolation or whole-RAM claim"
+      }
+    },
+    {
+      "round": 2,
+      "order": [
+        "private",
+        "shared"
+      ],
+      "pair_result": ".artifacts/host-private-file-pairs/20261024T142511Z-846428",
+      "original_pair_status": "PASS",
+      "actual_actions": 44,
+      "groups": [
+        {
+          "mode": "private",
+          "result_dir": ".artifacts/host-private-files/20261024T142513Z-private-846929",
+          "original_group_status": "PASS",
+          "phases": {
+            "P0": {
+              "resident_bytes": 8837472256,
+              "object_count": 38,
+              "objects": [
+                {
+                  "identity": [
+                    1795,
+                    262286,
+                    159992832
+                  ],
+                  "relative": "sha256-9bf15ea9d4d121232a9a606e719968c4000f78461bdb489d37d441a7aa66080b/overlaybd.commit",
+                  "users": [
+                    "0"
+                  ],
+                  "resident_bytes": 98914304
+                },
+                {
+                  "identity": [
+                    1795,
+                    262252,
+                    910349312
+                  ],
+                  "relative": "sha256-0d9411f394ec828afca47d8a60fbb8e86a036d277d44189d81fe25794e3f1650/overlaybd.commit",
+                  "users": [
+                    "0"
+                  ],
+                  "resident_bytes": 849022976
+                },
+                {
+                  "identity": [
+                    1795,
+                    262254,
+                    67556352
+                  ],
+                  "relative": "sha256-20c91c8603bb0951d635d85cf8bedb0919e91a51c8626a71a8423869554aa935/overlaybd.commit",
+                  "users": [
+                    "0"
+                  ],
+                  "resident_bytes": 7417856
+                },
+                {
+                  "identity": [
+                    1795,
+                    262250,
+                    206099456
+                  ],
+                  "relative": "sha256-09530519512597bcf958afd56607f97b7b9c9721746babe0588a599e34759602/overlaybd.commit",
+                  "users": [
+                    "0"
+                  ],
+                  "resident_bytes": 144445440
+                },
+                {
+                  "identity": [
+                    1795,
+                    262258,
+                    768267264
+                  ],
+                  "relative": "sha256-313eb616335e4079e746fc5a5c479cda5c1d979b22823a71e0c2b54bd0c092e1/overlaybd.commit",
+                  "users": [
+                    "0"
+                  ],
+                  "resident_bytes": 703496192
+                },
+                {
+                  "identity": [
+                    1795,
+                    262302,
+                    67818496
+                  ],
+                  "relative": "sha256-e8a9843b7d1969e4252a4ac60b556e179a13780e30ab4ff65d274b6422cbace4/overlaybd.commit",
+                  "users": [
+                    "0"
+                  ],
+                  "resident_bytes": 8032256
+                },
+                {
+                  "identity": [
+                    1795,
+                    262282,
+                    282514432
+                  ],
+                  "relative": "sha256-90528ddd158f6a8ce28a947aac9d3e559a447ce22b2b2f62ad14e569e5a36d7e/overlaybd.commit",
+                  "users": [
+                    "0"
+                  ],
+                  "resident_bytes": 219877376
+                },
+                {
+                  "identity": [
+                    1795,
+                    262298,
+                    360109056
+                  ],
+                  "relative": "sha256-e306bbd39def34c85d8e9e50491f5dd8228b9ed7db2b3a2a39eb5164174dae0e/overlaybd.commit",
+                  "users": [
+                    "0"
+                  ],
+                  "resident_bytes": 300171264
+                },
+                {
+                  "identity": [
+                    1795,
+                    262270,
+                    289199104
+                  ],
+                  "relative": "sha256-55c76efbf5e02626eb341d1836a52654c1bc4db867a450669c030201c60930d3/overlaybd.commit",
+                  "users": [
+                    "0"
+                  ],
+                  "resident_bytes": 229355520
+                },
+                {
+                  "identity": [
+                    1795,
+                    262288,
+                    934466560
+                  ],
+                  "relative": "sha256-a0e974d7f57fdc848c70252679b4d6ee1c8e2414ff91bf90080f49fdacf9ac52/overlaybd.commit",
+                  "users": [
+                    "0"
+                  ],
+                  "resident_bytes": 869945344
+                },
+                {
+                  "identity": [
+                    1795,
+                    262296,
+                    69522432
+                  ],
+                  "relative": "sha256-e2aa361b4bcb13568c742c9598b9012950cf750a47989454a5dcfd9802e70e96/overlaybd.commit",
+                  "users": [
+                    "0"
+                  ],
+                  "resident_bytes": 9523200
+                },
+                {
+                  "identity": [
+                    1795,
+                    262260,
+                    67425280
+                  ],
+                  "relative": "sha256-3dcb39acedaca178a1c58adef3d2b757084677bd739a1393882d27e629aeb26b/overlaybd.commit",
+                  "users": [
+                    "0"
+                  ],
+                  "resident_bytes": 7757824
+                },
+                {
+                  "identity": [
+                    1795,
+                    262262,
+                    271504384
+                  ],
+                  "relative": "sha256-4409233ba7e0a45b5182d3d6cd0f79e8f83f8663daa6432608876779bedee4fe/overlaybd.commit",
+                  "users": [
+                    "0"
+                  ],
+                  "resident_bytes": 211730432
+                },
+                {
+                  "identity": [
+                    1795,
+                    262294,
+                    738120704
+                  ],
+                  "relative": "sha256-ccdf2b43bef118a40ad35630c83f84a56f68d08d6957f3939f0cf5b5da1218e8/overlaybd.commit",
+                  "users": [
+                    "0"
+                  ],
+                  "resident_bytes": 679305216
+                },
+                {
+                  "identity": [
+                    1795,
+                    262308,
+                    67818496
+                  ],
+                  "relative": "sha256-f98aea01c738a6fd26fad029db859cf15b6b3bffaee2caf68aa6acd49683241d/overlaybd.commit",
+                  "users": [
+                    "0"
+                  ],
+                  "resident_bytes": 9183232
+                },
+                {
+                  "identity": [
+                    1795,
+                    262266,
+                    67818496
+                  ],
+                  "relative": "sha256-49a811f5f45403abadf9adfbe39ab63893ab6ab38d56921afc349d4f2e24ce86/overlaybd.commit",
+                  "users": [
+                    "0"
+                  ],
+                  "resident_bytes": 9183232
+                },
+                {
+                  "identity": [
+                    1795,
+                    262274,
+                    67556352
+                  ],
+                  "relative": "sha256-6822268b9eb0dee1b6602de0b6ae6d4e261d4f7c170be5bcff93788505bcc961/overlaybd.commit",
+                  "users": [
+                    "0"
+                  ],
+                  "resident_bytes": 8962048
+                },
+                {
+                  "identity": [
+                    1795,
+                    262292,
+                    101766144
+                  ],
+                  "relative": "sha256-c5f820e8afe1a6ca4e8b48e0f9273816715bb139021eace2f73999bb552b5530/overlaybd.commit",
+                  "users": [
+                    "0"
+                  ],
+                  "resident_bytes": 43098112
+                },
+                {
+                  "identity": [
+                    1795,
+                    262268,
+                    67949568
+                  ],
+                  "relative": "sha256-51837fa7934cf000da18c91fab488b8bccdedf72879499a34cddbb38c9767421/overlaybd.commit",
+                  "users": [
+                    "0"
+                  ],
+                  "resident_bytes": 9314304
+                },
+                {
+                  "identity": [
+                    1801,
+                    786574,
+                    159992832
+                  ],
+                  "relative": "sha256-9bf15ea9d4d121232a9a606e719968c4000f78461bdb489d37d441a7aa66080b/overlaybd.commit",
+                  "users": [
+                    "1"
+                  ],
+                  "resident_bytes": 98914304
+                },
+                {
+                  "identity": [
+                    1801,
+                    786540,
+                    910349312
+                  ],
+                  "relative": "sha256-0d9411f394ec828afca47d8a60fbb8e86a036d277d44189d81fe25794e3f1650/overlaybd.commit",
+                  "users": [
+                    "1"
+                  ],
+                  "resident_bytes": 849022976
+                },
+                {
+                  "identity": [
+                    1801,
+                    786542,
+                    67556352
+                  ],
+                  "relative": "sha256-20c91c8603bb0951d635d85cf8bedb0919e91a51c8626a71a8423869554aa935/overlaybd.commit",
+                  "users": [
+                    "1"
+                  ],
+                  "resident_bytes": 7417856
+                },
+                {
+                  "identity": [
+                    1801,
+                    786538,
+                    206099456
+                  ],
+                  "relative": "sha256-09530519512597bcf958afd56607f97b7b9c9721746babe0588a599e34759602/overlaybd.commit",
+                  "users": [
+                    "1"
+                  ],
+                  "resident_bytes": 144445440
+                },
+                {
+                  "identity": [
+                    1801,
+                    786546,
+                    768267264
+                  ],
+                  "relative": "sha256-313eb616335e4079e746fc5a5c479cda5c1d979b22823a71e0c2b54bd0c092e1/overlaybd.commit",
+                  "users": [
+                    "1"
+                  ],
+                  "resident_bytes": 703496192
+                },
+                {
+                  "identity": [
+                    1801,
+                    786590,
+                    67818496
+                  ],
+                  "relative": "sha256-e8a9843b7d1969e4252a4ac60b556e179a13780e30ab4ff65d274b6422cbace4/overlaybd.commit",
+                  "users": [
+                    "1"
+                  ],
+                  "resident_bytes": 8032256
+                },
+                {
+                  "identity": [
+                    1801,
+                    786570,
+                    282514432
+                  ],
+                  "relative": "sha256-90528ddd158f6a8ce28a947aac9d3e559a447ce22b2b2f62ad14e569e5a36d7e/overlaybd.commit",
+                  "users": [
+                    "1"
+                  ],
+                  "resident_bytes": 219877376
+                },
+                {
+                  "identity": [
+                    1801,
+                    786586,
+                    360109056
+                  ],
+                  "relative": "sha256-e306bbd39def34c85d8e9e50491f5dd8228b9ed7db2b3a2a39eb5164174dae0e/overlaybd.commit",
+                  "users": [
+                    "1"
+                  ],
+                  "resident_bytes": 300171264
+                },
+                {
+                  "identity": [
+                    1801,
+                    786558,
+                    289199104
+                  ],
+                  "relative": "sha256-55c76efbf5e02626eb341d1836a52654c1bc4db867a450669c030201c60930d3/overlaybd.commit",
+                  "users": [
+                    "1"
+                  ],
+                  "resident_bytes": 229355520
+                },
+                {
+                  "identity": [
+                    1801,
+                    786576,
+                    934466560
+                  ],
+                  "relative": "sha256-a0e974d7f57fdc848c70252679b4d6ee1c8e2414ff91bf90080f49fdacf9ac52/overlaybd.commit",
+                  "users": [
+                    "1"
+                  ],
+                  "resident_bytes": 869945344
+                },
+                {
+                  "identity": [
+                    1801,
+                    786584,
+                    69522432
+                  ],
+                  "relative": "sha256-e2aa361b4bcb13568c742c9598b9012950cf750a47989454a5dcfd9802e70e96/overlaybd.commit",
+                  "users": [
+                    "1"
+                  ],
+                  "resident_bytes": 9523200
+                },
+                {
+                  "identity": [
+                    1801,
+                    786548,
+                    67425280
+                  ],
+                  "relative": "sha256-3dcb39acedaca178a1c58adef3d2b757084677bd739a1393882d27e629aeb26b/overlaybd.commit",
+                  "users": [
+                    "1"
+                  ],
+                  "resident_bytes": 7757824
+                },
+                {
+                  "identity": [
+                    1801,
+                    786550,
+                    271504384
+                  ],
+                  "relative": "sha256-4409233ba7e0a45b5182d3d6cd0f79e8f83f8663daa6432608876779bedee4fe/overlaybd.commit",
+                  "users": [
+                    "1"
+                  ],
+                  "resident_bytes": 211730432
+                },
+                {
+                  "identity": [
+                    1801,
+                    786582,
+                    738120704
+                  ],
+                  "relative": "sha256-ccdf2b43bef118a40ad35630c83f84a56f68d08d6957f3939f0cf5b5da1218e8/overlaybd.commit",
+                  "users": [
+                    "1"
+                  ],
+                  "resident_bytes": 679305216
+                },
+                {
+                  "identity": [
+                    1801,
+                    786596,
+                    67818496
+                  ],
+                  "relative": "sha256-f98aea01c738a6fd26fad029db859cf15b6b3bffaee2caf68aa6acd49683241d/overlaybd.commit",
+                  "users": [
+                    "1"
+                  ],
+                  "resident_bytes": 9183232
+                },
+                {
+                  "identity": [
+                    1801,
+                    786554,
+                    67818496
+                  ],
+                  "relative": "sha256-49a811f5f45403abadf9adfbe39ab63893ab6ab38d56921afc349d4f2e24ce86/overlaybd.commit",
+                  "users": [
+                    "1"
+                  ],
+                  "resident_bytes": 9183232
+                },
+                {
+                  "identity": [
+                    1801,
+                    786562,
+                    67556352
+                  ],
+                  "relative": "sha256-6822268b9eb0dee1b6602de0b6ae6d4e261d4f7c170be5bcff93788505bcc961/overlaybd.commit",
+                  "users": [
+                    "1"
+                  ],
+                  "resident_bytes": 8962048
+                },
+                {
+                  "identity": [
+                    1801,
+                    786580,
+                    101766144
+                  ],
+                  "relative": "sha256-c5f820e8afe1a6ca4e8b48e0f9273816715bb139021eace2f73999bb552b5530/overlaybd.commit",
+                  "users": [
+                    "1"
+                  ],
+                  "resident_bytes": 43098112
+                },
+                {
+                  "identity": [
+                    1801,
+                    786556,
+                    67949568
+                  ],
+                  "relative": "sha256-51837fa7934cf000da18c91fab488b8bccdedf72879499a34cddbb38c9767421/overlaybd.commit",
+                  "users": [
+                    "1"
+                  ],
+                  "resident_bytes": 9314304
+                }
+              ],
+              "start_monotonic_ns": 14622262607872147,
+              "end_monotonic_ns": 14622263043843789,
+              "query_ns": 435971642,
+              "query_cpu_ns": 434091042,
+              "counters_before": {
+                "current": 37742108672,
+                "file": 36861095936,
+                "anon": 136146944,
+                "shmem": 7604273152,
+                "kernel": 723324928,
+                "file_mapped": 679936,
+                "file_dirty": 135168,
+                "file_writeback": 0
+              },
+              "counters_after": {
+                "current": 37742108672,
+                "file": 36861095936,
+                "anon": 136146944,
+                "shmem": 7604273152,
+                "kernel": 723324928,
+                "file_mapped": 679936,
+                "file_dirty": 135168,
+                "file_writeback": 0
+              }
+            },
+            "P1": {
+              "resident_bytes": 8839258112,
+              "object_count": 38,
+              "objects": [
+                {
+                  "identity": [
+                    1795,
+                    262286,
+                    159992832
+                  ],
+                  "relative": "sha256-9bf15ea9d4d121232a9a606e719968c4000f78461bdb489d37d441a7aa66080b/overlaybd.commit",
+                  "users": [
+                    "0"
+                  ],
+                  "resident_bytes": 98918400
+                },
+                {
+                  "identity": [
+                    1795,
+                    262252,
+                    910349312
+                  ],
+                  "relative": "sha256-0d9411f394ec828afca47d8a60fbb8e86a036d277d44189d81fe25794e3f1650/overlaybd.commit",
+                  "users": [
+                    "0"
+                  ],
+                  "resident_bytes": 849051648
+                },
+                {
+                  "identity": [
+                    1795,
+                    262254,
+                    67556352
+                  ],
+                  "relative": "sha256-20c91c8603bb0951d635d85cf8bedb0919e91a51c8626a71a8423869554aa935/overlaybd.commit",
+                  "users": [
+                    "0"
+                  ],
+                  "resident_bytes": 7421952
+                },
+                {
+                  "identity": [
+                    1795,
+                    262250,
+                    206099456
+                  ],
+                  "relative": "sha256-09530519512597bcf958afd56607f97b7b9c9721746babe0588a599e34759602/overlaybd.commit",
+                  "users": [
+                    "0"
+                  ],
+                  "resident_bytes": 144449536
+                },
+                {
+                  "identity": [
+                    1795,
+                    262258,
+                    768267264
+                  ],
+                  "relative": "sha256-313eb616335e4079e746fc5a5c479cda5c1d979b22823a71e0c2b54bd0c092e1/overlaybd.commit",
+                  "users": [
+                    "0"
+                  ],
+                  "resident_bytes": 703500288
+                },
+                {
+                  "identity": [
+                    1795,
+                    262302,
+                    67818496
+                  ],
+                  "relative": "sha256-e8a9843b7d1969e4252a4ac60b556e179a13780e30ab4ff65d274b6422cbace4/overlaybd.commit",
+                  "users": [
+                    "0"
+                  ],
+                  "resident_bytes": 8036352
+                },
+                {
+                  "identity": [
+                    1795,
+                    262282,
+                    282514432
+                  ],
+                  "relative": "sha256-90528ddd158f6a8ce28a947aac9d3e559a447ce22b2b2f62ad14e569e5a36d7e/overlaybd.commit",
+                  "users": [
+                    "0"
+                  ],
+                  "resident_bytes": 220307456
+                },
+                {
+                  "identity": [
+                    1795,
+                    262298,
+                    360109056
+                  ],
+                  "relative": "sha256-e306bbd39def34c85d8e9e50491f5dd8228b9ed7db2b3a2a39eb5164174dae0e/overlaybd.commit",
+                  "users": [
+                    "0"
+                  ],
+                  "resident_bytes": 300175360
+                },
+                {
+                  "identity": [
+                    1795,
+                    262270,
+                    289199104
+                  ],
+                  "relative": "sha256-55c76efbf5e02626eb341d1836a52654c1bc4db867a450669c030201c60930d3/overlaybd.commit",
+                  "users": [
+                    "0"
+                  ],
+                  "resident_bytes": 229359616
+                },
+                {
+                  "identity": [
+                    1795,
+                    262288,
+                    934466560
+                  ],
+                  "relative": "sha256-a0e974d7f57fdc848c70252679b4d6ee1c8e2414ff91bf90080f49fdacf9ac52/overlaybd.commit",
+                  "users": [
+                    "0"
+                  ],
+                  "resident_bytes": 869949440
+                },
+                {
+                  "identity": [
+                    1795,
+                    262296,
+                    69522432
+                  ],
+                  "relative": "sha256-e2aa361b4bcb13568c742c9598b9012950cf750a47989454a5dcfd9802e70e96/overlaybd.commit",
+                  "users": [
+                    "0"
+                  ],
+                  "resident_bytes": 9527296
+                },
+                {
+                  "identity": [
+                    1795,
+                    262260,
+                    67425280
+                  ],
+                  "relative": "sha256-3dcb39acedaca178a1c58adef3d2b757084677bd739a1393882d27e629aeb26b/overlaybd.commit",
+                  "users": [
+                    "0"
+                  ],
+                  "resident_bytes": 7761920
+                },
+                {
+                  "identity": [
+                    1795,
+                    262262,
+                    271504384
+                  ],
+                  "relative": "sha256-4409233ba7e0a45b5182d3d6cd0f79e8f83f8663daa6432608876779bedee4fe/overlaybd.commit",
+                  "users": [
+                    "0"
+                  ],
+                  "resident_bytes": 211771392
+                },
+                {
+                  "identity": [
+                    1795,
+                    262294,
+                    738120704
+                  ],
+                  "relative": "sha256-ccdf2b43bef118a40ad35630c83f84a56f68d08d6957f3939f0cf5b5da1218e8/overlaybd.commit",
+                  "users": [
+                    "0"
+                  ],
+                  "resident_bytes": 679346176
+                },
+                {
+                  "identity": [
+                    1795,
+                    262308,
+                    67818496
+                  ],
+                  "relative": "sha256-f98aea01c738a6fd26fad029db859cf15b6b3bffaee2caf68aa6acd49683241d/overlaybd.commit",
+                  "users": [
+                    "0"
+                  ],
+                  "resident_bytes": 9187328
+                },
+                {
+                  "identity": [
+                    1795,
+                    262266,
+                    67818496
+                  ],
+                  "relative": "sha256-49a811f5f45403abadf9adfbe39ab63893ab6ab38d56921afc349d4f2e24ce86/overlaybd.commit",
+                  "users": [
+                    "0"
+                  ],
+                  "resident_bytes": 9187328
+                },
+                {
+                  "identity": [
+                    1795,
+                    262274,
+                    67556352
+                  ],
+                  "relative": "sha256-6822268b9eb0dee1b6602de0b6ae6d4e261d4f7c170be5bcff93788505bcc961/overlaybd.commit",
+                  "users": [
+                    "0"
+                  ],
+                  "resident_bytes": 8966144
+                },
+                {
+                  "identity": [
+                    1795,
+                    262292,
+                    101766144
+                  ],
+                  "relative": "sha256-c5f820e8afe1a6ca4e8b48e0f9273816715bb139021eace2f73999bb552b5530/overlaybd.commit",
+                  "users": [
+                    "0"
+                  ],
+                  "resident_bytes": 43220992
+                },
+                {
+                  "identity": [
+                    1795,
+                    262268,
+                    67949568
+                  ],
+                  "relative": "sha256-51837fa7934cf000da18c91fab488b8bccdedf72879499a34cddbb38c9767421/overlaybd.commit",
+                  "users": [
+                    "0"
+                  ],
+                  "resident_bytes": 9662464
+                },
+                {
+                  "identity": [
+                    1801,
+                    786574,
+                    159992832
+                  ],
+                  "relative": "sha256-9bf15ea9d4d121232a9a606e719968c4000f78461bdb489d37d441a7aa66080b/overlaybd.commit",
+                  "users": [
+                    "1"
+                  ],
+                  "resident_bytes": 98918400
+                },
+                {
+                  "identity": [
+                    1801,
+                    786540,
+                    910349312
+                  ],
+                  "relative": "sha256-0d9411f394ec828afca47d8a60fbb8e86a036d277d44189d81fe25794e3f1650/overlaybd.commit",
+                  "users": [
+                    "1"
+                  ],
+                  "resident_bytes": 849051648
+                },
+                {
+                  "identity": [
+                    1801,
+                    786542,
+                    67556352
+                  ],
+                  "relative": "sha256-20c91c8603bb0951d635d85cf8bedb0919e91a51c8626a71a8423869554aa935/overlaybd.commit",
+                  "users": [
+                    "1"
+                  ],
+                  "resident_bytes": 7421952
+                },
+                {
+                  "identity": [
+                    1801,
+                    786538,
+                    206099456
+                  ],
+                  "relative": "sha256-09530519512597bcf958afd56607f97b7b9c9721746babe0588a599e34759602/overlaybd.commit",
+                  "users": [
+                    "1"
+                  ],
+                  "resident_bytes": 144449536
+                },
+                {
+                  "identity": [
+                    1801,
+                    786546,
+                    768267264
+                  ],
+                  "relative": "sha256-313eb616335e4079e746fc5a5c479cda5c1d979b22823a71e0c2b54bd0c092e1/overlaybd.commit",
+                  "users": [
+                    "1"
+                  ],
+                  "resident_bytes": 703500288
+                },
+                {
+                  "identity": [
+                    1801,
+                    786590,
+                    67818496
+                  ],
+                  "relative": "sha256-e8a9843b7d1969e4252a4ac60b556e179a13780e30ab4ff65d274b6422cbace4/overlaybd.commit",
+                  "users": [
+                    "1"
+                  ],
+                  "resident_bytes": 8036352
+                },
+                {
+                  "identity": [
+                    1801,
+                    786570,
+                    282514432
+                  ],
+                  "relative": "sha256-90528ddd158f6a8ce28a947aac9d3e559a447ce22b2b2f62ad14e569e5a36d7e/overlaybd.commit",
+                  "users": [
+                    "1"
+                  ],
+                  "resident_bytes": 220307456
+                },
+                {
+                  "identity": [
+                    1801,
+                    786586,
+                    360109056
+                  ],
+                  "relative": "sha256-e306bbd39def34c85d8e9e50491f5dd8228b9ed7db2b3a2a39eb5164174dae0e/overlaybd.commit",
+                  "users": [
+                    "1"
+                  ],
+                  "resident_bytes": 300175360
+                },
+                {
+                  "identity": [
+                    1801,
+                    786558,
+                    289199104
+                  ],
+                  "relative": "sha256-55c76efbf5e02626eb341d1836a52654c1bc4db867a450669c030201c60930d3/overlaybd.commit",
+                  "users": [
+                    "1"
+                  ],
+                  "resident_bytes": 229359616
+                },
+                {
+                  "identity": [
+                    1801,
+                    786576,
+                    934466560
+                  ],
+                  "relative": "sha256-a0e974d7f57fdc848c70252679b4d6ee1c8e2414ff91bf90080f49fdacf9ac52/overlaybd.commit",
+                  "users": [
+                    "1"
+                  ],
+                  "resident_bytes": 869949440
+                },
+                {
+                  "identity": [
+                    1801,
+                    786584,
+                    69522432
+                  ],
+                  "relative": "sha256-e2aa361b4bcb13568c742c9598b9012950cf750a47989454a5dcfd9802e70e96/overlaybd.commit",
+                  "users": [
+                    "1"
+                  ],
+                  "resident_bytes": 9527296
+                },
+                {
+                  "identity": [
+                    1801,
+                    786548,
+                    67425280
+                  ],
+                  "relative": "sha256-3dcb39acedaca178a1c58adef3d2b757084677bd739a1393882d27e629aeb26b/overlaybd.commit",
+                  "users": [
+                    "1"
+                  ],
+                  "resident_bytes": 7761920
+                },
+                {
+                  "identity": [
+                    1801,
+                    786550,
+                    271504384
+                  ],
+                  "relative": "sha256-4409233ba7e0a45b5182d3d6cd0f79e8f83f8663daa6432608876779bedee4fe/overlaybd.commit",
+                  "users": [
+                    "1"
+                  ],
+                  "resident_bytes": 211771392
+                },
+                {
+                  "identity": [
+                    1801,
+                    786582,
+                    738120704
+                  ],
+                  "relative": "sha256-ccdf2b43bef118a40ad35630c83f84a56f68d08d6957f3939f0cf5b5da1218e8/overlaybd.commit",
+                  "users": [
+                    "1"
+                  ],
+                  "resident_bytes": 679346176
+                },
+                {
+                  "identity": [
+                    1801,
+                    786596,
+                    67818496
+                  ],
+                  "relative": "sha256-f98aea01c738a6fd26fad029db859cf15b6b3bffaee2caf68aa6acd49683241d/overlaybd.commit",
+                  "users": [
+                    "1"
+                  ],
+                  "resident_bytes": 9187328
+                },
+                {
+                  "identity": [
+                    1801,
+                    786554,
+                    67818496
+                  ],
+                  "relative": "sha256-49a811f5f45403abadf9adfbe39ab63893ab6ab38d56921afc349d4f2e24ce86/overlaybd.commit",
+                  "users": [
+                    "1"
+                  ],
+                  "resident_bytes": 9187328
+                },
+                {
+                  "identity": [
+                    1801,
+                    786562,
+                    67556352
+                  ],
+                  "relative": "sha256-6822268b9eb0dee1b6602de0b6ae6d4e261d4f7c170be5bcff93788505bcc961/overlaybd.commit",
+                  "users": [
+                    "1"
+                  ],
+                  "resident_bytes": 8966144
+                },
+                {
+                  "identity": [
+                    1801,
+                    786580,
+                    101766144
+                  ],
+                  "relative": "sha256-c5f820e8afe1a6ca4e8b48e0f9273816715bb139021eace2f73999bb552b5530/overlaybd.commit",
+                  "users": [
+                    "1"
+                  ],
+                  "resident_bytes": 43220992
+                },
+                {
+                  "identity": [
+                    1801,
+                    786556,
+                    67949568
+                  ],
+                  "relative": "sha256-51837fa7934cf000da18c91fab488b8bccdedf72879499a34cddbb38c9767421/overlaybd.commit",
+                  "users": [
+                    "1"
+                  ],
+                  "resident_bytes": 9318400
+                }
+              ],
+              "start_monotonic_ns": 14622276358782735,
+              "end_monotonic_ns": 14622276741401587,
+              "query_ns": 382618852,
+              "query_cpu_ns": 379005845,
+              "counters_before": {
+                "current": 39014936576,
+                "file": 36905603072,
+                "anon": 1331302400,
+                "shmem": 7604289536,
+                "kernel": 742469632,
+                "file_mapped": 6553600,
+                "file_dirty": 16723968,
+                "file_writeback": 0
+              },
+              "counters_after": {
+                "current": 39005646848,
+                "file": 36905603072,
+                "anon": 1319079936,
+                "shmem": 7604289536,
+                "kernel": 741105664,
+                "file_mapped": 6553600,
+                "file_dirty": 16723968,
+                "file_writeback": 0
+              }
+            }
+          },
+          "stages": {
+            "P0": {
+              "resident_bytes": 8837472256
+            },
+            "P1": {
+              "resident_bytes": 8839258112
+            }
+          },
+          "prefixes": [
+            {
+              "slot": 0,
+              "storage": ".artifacts/storage-isolated-service/20261024T142631Z-847785",
+              "task_check": {
+                "status": "PASS",
+                "actual_actions": 11,
+                "official_evaluation": "NOT_RUN_PREFIX_ONLY",
+                "tool_ns": 1113083624,
+                "scope": "Original actions, order, expected exits, output and cleanup; P0/P1 cache observations are in the group coordinator, not old prefix_before/after fields"
+              },
+              "original_outer_status": "PASS",
+              "cleanup": {
+                "owned_container_removed": true,
+                "mount_and_loop_removed": true,
+                "successful_fixture_removed": true,
+                "original_firecracker_identities_unchanged": true,
+                "original_source_firecracker_identities_unchanged": true,
+                "original_service_unchanged": true
+              },
+              "live_write_boundary_audit": "PASS"
+            },
+            {
+              "slot": 1,
+              "storage": ".artifacts/storage-isolated-service/20261024T142640Z-848599",
+              "task_check": {
+                "status": "PASS",
+                "actual_actions": 11,
+                "official_evaluation": "NOT_RUN_PREFIX_ONLY",
+                "tool_ns": 919091286,
+                "scope": "Original actions, order, expected exits, output and cleanup; P0/P1 cache observations are in the group coordinator, not old prefix_before/after fields"
+              },
+              "original_outer_status": "PASS",
+              "cleanup": {
+                "owned_container_removed": true,
+                "mount_and_loop_removed": true,
+                "successful_fixture_removed": true,
+                "original_firecracker_identities_unchanged": false,
+                "original_source_firecracker_identities_unchanged": true,
+                "original_service_unchanged": true
+              },
+              "live_write_boundary_audit": "PASS"
+            }
+          ],
+          "tool_ns": 2032174910,
+          "creation_and_prefix_ns": 13210925557,
+          "query_total_ns": 818590494,
+          "P1_metadata_ns": 97030066,
+          "P0_metadata_exact_ns": 4250203,
+          "P0_metadata_upper_bound_ns": 4261191,
+          "collector": {
+            "status": "PASS",
+            "error": null,
+            "cgroup": "/sys/fs/cgroup/asbhost.slice/asbhost-20261024t142513846833.slice",
+            "samples": 1354,
+            "interval_seconds": 0.1,
+            "pss_interval_seconds": null,
+            "thread_cpu_ns": 485997751,
+            "counter_read_total_ns": 398572649,
+            "scope": "Fresh rollout slice: input preparation, controller, private service and all its descendants; host file includes shmem, not guest Cached."
+          }
+        },
+        {
+          "mode": "shared",
+          "result_dir": ".artifacts/host-private-files/20261024T142730Z-shared-850962",
+          "original_group_status": "PASS",
+          "phases": {
+            "P0": {
+              "resident_bytes": 4418736128,
+              "object_count": 19,
+              "objects": [
+                {
+                  "identity": [
+                    1795,
+                    655502,
+                    159992832
+                  ],
+                  "relative": "sha256-9bf15ea9d4d121232a9a606e719968c4000f78461bdb489d37d441a7aa66080b/overlaybd.commit",
+                  "users": [
+                    "0",
+                    "1"
+                  ],
+                  "resident_bytes": 98914304
+                },
+                {
+                  "identity": [
+                    1795,
+                    655468,
+                    910349312
+                  ],
+                  "relative": "sha256-0d9411f394ec828afca47d8a60fbb8e86a036d277d44189d81fe25794e3f1650/overlaybd.commit",
+                  "users": [
+                    "0",
+                    "1"
+                  ],
+                  "resident_bytes": 849022976
+                },
+                {
+                  "identity": [
+                    1795,
+                    655470,
+                    67556352
+                  ],
+                  "relative": "sha256-20c91c8603bb0951d635d85cf8bedb0919e91a51c8626a71a8423869554aa935/overlaybd.commit",
+                  "users": [
+                    "0",
+                    "1"
+                  ],
+                  "resident_bytes": 7417856
+                },
+                {
+                  "identity": [
+                    1795,
+                    655466,
+                    206099456
+                  ],
+                  "relative": "sha256-09530519512597bcf958afd56607f97b7b9c9721746babe0588a599e34759602/overlaybd.commit",
+                  "users": [
+                    "0",
+                    "1"
+                  ],
+                  "resident_bytes": 144445440
+                },
+                {
+                  "identity": [
+                    1795,
+                    655474,
+                    768267264
+                  ],
+                  "relative": "sha256-313eb616335e4079e746fc5a5c479cda5c1d979b22823a71e0c2b54bd0c092e1/overlaybd.commit",
+                  "users": [
+                    "0",
+                    "1"
+                  ],
+                  "resident_bytes": 703496192
+                },
+                {
+                  "identity": [
+                    1795,
+                    655518,
+                    67818496
+                  ],
+                  "relative": "sha256-e8a9843b7d1969e4252a4ac60b556e179a13780e30ab4ff65d274b6422cbace4/overlaybd.commit",
+                  "users": [
+                    "0",
+                    "1"
+                  ],
+                  "resident_bytes": 8032256
+                },
+                {
+                  "identity": [
+                    1795,
+                    655498,
+                    282514432
+                  ],
+                  "relative": "sha256-90528ddd158f6a8ce28a947aac9d3e559a447ce22b2b2f62ad14e569e5a36d7e/overlaybd.commit",
+                  "users": [
+                    "0",
+                    "1"
+                  ],
+                  "resident_bytes": 219877376
+                },
+                {
+                  "identity": [
+                    1795,
+                    655514,
+                    360109056
+                  ],
+                  "relative": "sha256-e306bbd39def34c85d8e9e50491f5dd8228b9ed7db2b3a2a39eb5164174dae0e/overlaybd.commit",
+                  "users": [
+                    "0",
+                    "1"
+                  ],
+                  "resident_bytes": 300171264
+                },
+                {
+                  "identity": [
+                    1795,
+                    655486,
+                    289199104
+                  ],
+                  "relative": "sha256-55c76efbf5e02626eb341d1836a52654c1bc4db867a450669c030201c60930d3/overlaybd.commit",
+                  "users": [
+                    "0",
+                    "1"
+                  ],
+                  "resident_bytes": 229355520
+                },
+                {
+                  "identity": [
+                    1795,
+                    655504,
+                    934466560
+                  ],
+                  "relative": "sha256-a0e974d7f57fdc848c70252679b4d6ee1c8e2414ff91bf90080f49fdacf9ac52/overlaybd.commit",
+                  "users": [
+                    "0",
+                    "1"
+                  ],
+                  "resident_bytes": 869945344
+                },
+                {
+                  "identity": [
+                    1795,
+                    655512,
+                    69522432
+                  ],
+                  "relative": "sha256-e2aa361b4bcb13568c742c9598b9012950cf750a47989454a5dcfd9802e70e96/overlaybd.commit",
+                  "users": [
+                    "0",
+                    "1"
+                  ],
+                  "resident_bytes": 9523200
+                },
+                {
+                  "identity": [
+                    1795,
+                    655476,
+                    67425280
+                  ],
+                  "relative": "sha256-3dcb39acedaca178a1c58adef3d2b757084677bd739a1393882d27e629aeb26b/overlaybd.commit",
+                  "users": [
+                    "0",
+                    "1"
+                  ],
+                  "resident_bytes": 7757824
+                },
+                {
+                  "identity": [
+                    1795,
+                    655478,
+                    271504384
+                  ],
+                  "relative": "sha256-4409233ba7e0a45b5182d3d6cd0f79e8f83f8663daa6432608876779bedee4fe/overlaybd.commit",
+                  "users": [
+                    "0",
+                    "1"
+                  ],
+                  "resident_bytes": 211730432
+                },
+                {
+                  "identity": [
+                    1795,
+                    655510,
+                    738120704
+                  ],
+                  "relative": "sha256-ccdf2b43bef118a40ad35630c83f84a56f68d08d6957f3939f0cf5b5da1218e8/overlaybd.commit",
+                  "users": [
+                    "0",
+                    "1"
+                  ],
+                  "resident_bytes": 679305216
+                },
+                {
+                  "identity": [
+                    1795,
+                    655524,
+                    67818496
+                  ],
+                  "relative": "sha256-f98aea01c738a6fd26fad029db859cf15b6b3bffaee2caf68aa6acd49683241d/overlaybd.commit",
+                  "users": [
+                    "0",
+                    "1"
+                  ],
+                  "resident_bytes": 9183232
+                },
+                {
+                  "identity": [
+                    1795,
+                    655482,
+                    67818496
+                  ],
+                  "relative": "sha256-49a811f5f45403abadf9adfbe39ab63893ab6ab38d56921afc349d4f2e24ce86/overlaybd.commit",
+                  "users": [
+                    "0",
+                    "1"
+                  ],
+                  "resident_bytes": 9183232
+                },
+                {
+                  "identity": [
+                    1795,
+                    655490,
+                    67556352
+                  ],
+                  "relative": "sha256-6822268b9eb0dee1b6602de0b6ae6d4e261d4f7c170be5bcff93788505bcc961/overlaybd.commit",
+                  "users": [
+                    "0",
+                    "1"
+                  ],
+                  "resident_bytes": 8962048
+                },
+                {
+                  "identity": [
+                    1795,
+                    655508,
+                    101766144
+                  ],
+                  "relative": "sha256-c5f820e8afe1a6ca4e8b48e0f9273816715bb139021eace2f73999bb552b5530/overlaybd.commit",
+                  "users": [
+                    "0",
+                    "1"
+                  ],
+                  "resident_bytes": 43098112
+                },
+                {
+                  "identity": [
+                    1795,
+                    655484,
+                    67949568
+                  ],
+                  "relative": "sha256-51837fa7934cf000da18c91fab488b8bccdedf72879499a34cddbb38c9767421/overlaybd.commit",
+                  "users": [
+                    "0",
+                    "1"
+                  ],
+                  "resident_bytes": 9314304
+                }
+              ],
+              "start_monotonic_ns": 14622382926080861,
+              "end_monotonic_ns": 14622383176731218,
+              "query_ns": 250650357,
+              "query_cpu_ns": 250068298,
+              "counters_before": {
+                "current": 28651704320,
+                "file": 28023529472,
+                "anon": 136564736,
+                "shmem": 7604273152,
+                "kernel": 464982016,
+                "file_mapped": 679936,
+                "file_dirty": 5472256,
+                "file_writeback": 172032
+              },
+              "counters_after": {
+                "current": 28651941888,
+                "file": 28023529472,
+                "anon": 136564736,
+                "shmem": 7604273152,
+                "kernel": 464982016,
+                "file_mapped": 679936,
+                "file_dirty": 5472256,
+                "file_writeback": 172032
+              }
+            },
+            "P1": {
+              "resident_bytes": 4419690496,
+              "object_count": 19,
+              "objects": [
+                {
+                  "identity": [
+                    1795,
+                    655502,
+                    159992832
+                  ],
+                  "relative": "sha256-9bf15ea9d4d121232a9a606e719968c4000f78461bdb489d37d441a7aa66080b/overlaybd.commit",
+                  "users": [
+                    "0",
+                    "1"
+                  ],
+                  "resident_bytes": 98918400
+                },
+                {
+                  "identity": [
+                    1795,
+                    655468,
+                    910349312
+                  ],
+                  "relative": "sha256-0d9411f394ec828afca47d8a60fbb8e86a036d277d44189d81fe25794e3f1650/overlaybd.commit",
+                  "users": [
+                    "0",
+                    "1"
+                  ],
+                  "resident_bytes": 849051648
+                },
+                {
+                  "identity": [
+                    1795,
+                    655470,
+                    67556352
+                  ],
+                  "relative": "sha256-20c91c8603bb0951d635d85cf8bedb0919e91a51c8626a71a8423869554aa935/overlaybd.commit",
+                  "users": [
+                    "0",
+                    "1"
+                  ],
+                  "resident_bytes": 7421952
+                },
+                {
+                  "identity": [
+                    1795,
+                    655466,
+                    206099456
+                  ],
+                  "relative": "sha256-09530519512597bcf958afd56607f97b7b9c9721746babe0588a599e34759602/overlaybd.commit",
+                  "users": [
+                    "0",
+                    "1"
+                  ],
+                  "resident_bytes": 144449536
+                },
+                {
+                  "identity": [
+                    1795,
+                    655474,
+                    768267264
+                  ],
+                  "relative": "sha256-313eb616335e4079e746fc5a5c479cda5c1d979b22823a71e0c2b54bd0c092e1/overlaybd.commit",
+                  "users": [
+                    "0",
+                    "1"
+                  ],
+                  "resident_bytes": 703500288
+                },
+                {
+                  "identity": [
+                    1795,
+                    655518,
+                    67818496
+                  ],
+                  "relative": "sha256-e8a9843b7d1969e4252a4ac60b556e179a13780e30ab4ff65d274b6422cbace4/overlaybd.commit",
+                  "users": [
+                    "0",
+                    "1"
+                  ],
+                  "resident_bytes": 8036352
+                },
+                {
+                  "identity": [
+                    1795,
+                    655498,
+                    282514432
+                  ],
+                  "relative": "sha256-90528ddd158f6a8ce28a947aac9d3e559a447ce22b2b2f62ad14e569e5a36d7e/overlaybd.commit",
+                  "users": [
+                    "0",
+                    "1"
+                  ],
+                  "resident_bytes": 220307456
+                },
+                {
+                  "identity": [
+                    1795,
+                    655514,
+                    360109056
+                  ],
+                  "relative": "sha256-e306bbd39def34c85d8e9e50491f5dd8228b9ed7db2b3a2a39eb5164174dae0e/overlaybd.commit",
+                  "users": [
+                    "0",
+                    "1"
+                  ],
+                  "resident_bytes": 300175360
+                },
+                {
+                  "identity": [
+                    1795,
+                    655486,
+                    289199104
+                  ],
+                  "relative": "sha256-55c76efbf5e02626eb341d1836a52654c1bc4db867a450669c030201c60930d3/overlaybd.commit",
+                  "users": [
+                    "0",
+                    "1"
+                  ],
+                  "resident_bytes": 229359616
+                },
+                {
+                  "identity": [
+                    1795,
+                    655504,
+                    934466560
+                  ],
+                  "relative": "sha256-a0e974d7f57fdc848c70252679b4d6ee1c8e2414ff91bf90080f49fdacf9ac52/overlaybd.commit",
+                  "users": [
+                    "0",
+                    "1"
+                  ],
+                  "resident_bytes": 869949440
+                },
+                {
+                  "identity": [
+                    1795,
+                    655512,
+                    69522432
+                  ],
+                  "relative": "sha256-e2aa361b4bcb13568c742c9598b9012950cf750a47989454a5dcfd9802e70e96/overlaybd.commit",
+                  "users": [
+                    "0",
+                    "1"
+                  ],
+                  "resident_bytes": 9527296
+                },
+                {
+                  "identity": [
+                    1795,
+                    655476,
+                    67425280
+                  ],
+                  "relative": "sha256-3dcb39acedaca178a1c58adef3d2b757084677bd739a1393882d27e629aeb26b/overlaybd.commit",
+                  "users": [
+                    "0",
+                    "1"
+                  ],
+                  "resident_bytes": 7761920
+                },
+                {
+                  "identity": [
+                    1795,
+                    655478,
+                    271504384
+                  ],
+                  "relative": "sha256-4409233ba7e0a45b5182d3d6cd0f79e8f83f8663daa6432608876779bedee4fe/overlaybd.commit",
+                  "users": [
+                    "0",
+                    "1"
+                  ],
+                  "resident_bytes": 211771392
+                },
+                {
+                  "identity": [
+                    1795,
+                    655510,
+                    738120704
+                  ],
+                  "relative": "sha256-ccdf2b43bef118a40ad35630c83f84a56f68d08d6957f3939f0cf5b5da1218e8/overlaybd.commit",
+                  "users": [
+                    "0",
+                    "1"
+                  ],
+                  "resident_bytes": 679346176
+                },
+                {
+                  "identity": [
+                    1795,
+                    655524,
+                    67818496
+                  ],
+                  "relative": "sha256-f98aea01c738a6fd26fad029db859cf15b6b3bffaee2caf68aa6acd49683241d/overlaybd.commit",
+                  "users": [
+                    "0",
+                    "1"
+                  ],
+                  "resident_bytes": 9187328
+                },
+                {
+                  "identity": [
+                    1795,
+                    655482,
+                    67818496
+                  ],
+                  "relative": "sha256-49a811f5f45403abadf9adfbe39ab63893ab6ab38d56921afc349d4f2e24ce86/overlaybd.commit",
+                  "users": [
+                    "0",
+                    "1"
+                  ],
+                  "resident_bytes": 9187328
+                },
+                {
+                  "identity": [
+                    1795,
+                    655490,
+                    67556352
+                  ],
+                  "relative": "sha256-6822268b9eb0dee1b6602de0b6ae6d4e261d4f7c170be5bcff93788505bcc961/overlaybd.commit",
+                  "users": [
+                    "0",
+                    "1"
+                  ],
+                  "resident_bytes": 8966144
+                },
+                {
+                  "identity": [
+                    1795,
+                    655508,
+                    101766144
+                  ],
+                  "relative": "sha256-c5f820e8afe1a6ca4e8b48e0f9273816715bb139021eace2f73999bb552b5530/overlaybd.commit",
+                  "users": [
+                    "0",
+                    "1"
+                  ],
+                  "resident_bytes": 43220992
+                },
+                {
+                  "identity": [
+                    1795,
+                    655484,
+                    67949568
+                  ],
+                  "relative": "sha256-51837fa7934cf000da18c91fab488b8bccdedf72879499a34cddbb38c9767421/overlaybd.commit",
+                  "users": [
+                    "0",
+                    "1"
+                  ],
+                  "resident_bytes": 9551872
+                }
+              ],
+              "start_monotonic_ns": 14622396492692043,
+              "end_monotonic_ns": 14622396696042180,
+              "query_ns": 203350137,
+              "query_cpu_ns": 203068595,
+              "counters_before": {
+                "current": 29921243136,
+                "file": 28063166464,
+                "anon": 1338667008,
+                "shmem": 7604289536,
+                "kernel": 484139008,
+                "file_mapped": 6553600,
+                "file_dirty": 12849152,
+                "file_writeback": 0
+              },
+              "counters_after": {
+                "current": 29906579456,
+                "file": 28063166464,
+                "anon": 1324261376,
+                "shmem": 7604289536,
+                "kernel": 482349056,
+                "file_mapped": 6553600,
+                "file_dirty": 12849152,
+                "file_writeback": 0
+              }
+            }
+          },
+          "stages": {
+            "P0": {
+              "resident_bytes": 4418736128
+            },
+            "P1": {
+              "resident_bytes": 4419690496
+            }
+          },
+          "prefixes": [
+            {
+              "slot": 0,
+              "storage": ".artifacts/storage-isolated-service/20261024T142848Z-851798",
+              "task_check": {
+                "status": "PASS",
+                "actual_actions": 11,
+                "official_evaluation": "NOT_RUN_PREFIX_ONLY",
+                "tool_ns": 991159351,
+                "scope": "Original actions, order, expected exits, output and cleanup; P0/P1 cache observations are in the group coordinator, not old prefix_before/after fields"
+              },
+              "original_outer_status": "PASS",
+              "cleanup": {
+                "owned_container_removed": true,
+                "mount_and_loop_removed": true,
+                "successful_fixture_removed": true,
+                "original_firecracker_identities_unchanged": true,
+                "original_source_firecracker_identities_unchanged": true,
+                "original_service_unchanged": true
+              },
+              "live_write_boundary_audit": "PASS"
+            },
+            {
+              "slot": 1,
+              "storage": ".artifacts/storage-isolated-service/20261024T142857Z-852583",
+              "task_check": {
+                "status": "PASS",
+                "actual_actions": 11,
+                "official_evaluation": "NOT_RUN_PREFIX_ONLY",
+                "tool_ns": 720203387,
+                "scope": "Original actions, order, expected exits, output and cleanup; P0/P1 cache observations are in the group coordinator, not old prefix_before/after fields"
+              },
+              "original_outer_status": "PASS",
+              "cleanup": {
+                "owned_container_removed": true,
+                "mount_and_loop_removed": true,
+                "successful_fixture_removed": true,
+                "original_firecracker_identities_unchanged": false,
+                "original_source_firecracker_identities_unchanged": true,
+                "original_service_unchanged": true
+              },
+              "live_write_boundary_audit": "PASS"
+            }
+          ],
+          "tool_ns": 1711362738,
+          "creation_and_prefix_ns": 13208515777,
+          "query_total_ns": 454000494,
+          "P1_metadata_ns": 100782884,
+          "P0_metadata_exact_ns": 4218847,
+          "P0_metadata_upper_bound_ns": 4230114,
+          "collector": {
+            "status": "PASS",
+            "error": null,
+            "cgroup": "/sys/fs/cgroup/asbhost.slice/asbhost-20261024t142730850879.slice",
+            "samples": 1184,
+            "interval_seconds": 0.1,
+            "pss_interval_seconds": null,
+            "thread_cpu_ns": 386639273,
+            "counter_read_total_ns": 314162099,
+            "scope": "Fresh rollout slice: input preparation, controller, private service and all its descendants; host file includes shmem, not guest Cached."
+          }
+        }
+      ],
+      "comparison": {
+        "preparation_difference_bytes": 4418736128,
+        "endpoint_difference_bytes": 4419567616,
+        "endpoint_reduction_fraction": 0.49999304919041604,
+        "shared_runtime_change_bytes": 954368,
+        "private_runtime_change_bytes": 1785856,
+        "difference_change_bytes": 831488,
+        "scope": "Direct two-service/two-guest pinned-file comparison; preparation included; no linear extrapolation or whole-RAM claim"
+      }
+    },
+    {
+      "round": 3,
+      "order": [
+        "shared",
+        "private"
+      ],
+      "pair_result": ".artifacts/host-private-file-pairs/20261024T142929Z-854827",
+      "original_pair_status": "PASS",
+      "actual_actions": 44,
+      "groups": [
+        {
+          "mode": "shared",
+          "result_dir": ".artifacts/host-private-files/20261024T142931Z-shared-855294",
+          "original_group_status": "PASS",
+          "phases": {
+            "P0": {
+              "resident_bytes": 4418736128,
+              "object_count": 19,
+              "objects": [
+                {
+                  "identity": [
+                    1795,
+                    262286,
+                    159992832
+                  ],
+                  "relative": "sha256-9bf15ea9d4d121232a9a606e719968c4000f78461bdb489d37d441a7aa66080b/overlaybd.commit",
+                  "users": [
+                    "0",
+                    "1"
+                  ],
+                  "resident_bytes": 98914304
+                },
+                {
+                  "identity": [
+                    1795,
+                    262252,
+                    910349312
+                  ],
+                  "relative": "sha256-0d9411f394ec828afca47d8a60fbb8e86a036d277d44189d81fe25794e3f1650/overlaybd.commit",
+                  "users": [
+                    "0",
+                    "1"
+                  ],
+                  "resident_bytes": 849022976
+                },
+                {
+                  "identity": [
+                    1795,
+                    262254,
+                    67556352
+                  ],
+                  "relative": "sha256-20c91c8603bb0951d635d85cf8bedb0919e91a51c8626a71a8423869554aa935/overlaybd.commit",
+                  "users": [
+                    "0",
+                    "1"
+                  ],
+                  "resident_bytes": 7417856
+                },
+                {
+                  "identity": [
+                    1795,
+                    262250,
+                    206099456
+                  ],
+                  "relative": "sha256-09530519512597bcf958afd56607f97b7b9c9721746babe0588a599e34759602/overlaybd.commit",
+                  "users": [
+                    "0",
+                    "1"
+                  ],
+                  "resident_bytes": 144445440
+                },
+                {
+                  "identity": [
+                    1795,
+                    262258,
+                    768267264
+                  ],
+                  "relative": "sha256-313eb616335e4079e746fc5a5c479cda5c1d979b22823a71e0c2b54bd0c092e1/overlaybd.commit",
+                  "users": [
+                    "0",
+                    "1"
+                  ],
+                  "resident_bytes": 703496192
+                },
+                {
+                  "identity": [
+                    1795,
+                    262302,
+                    67818496
+                  ],
+                  "relative": "sha256-e8a9843b7d1969e4252a4ac60b556e179a13780e30ab4ff65d274b6422cbace4/overlaybd.commit",
+                  "users": [
+                    "0",
+                    "1"
+                  ],
+                  "resident_bytes": 8032256
+                },
+                {
+                  "identity": [
+                    1795,
+                    262282,
+                    282514432
+                  ],
+                  "relative": "sha256-90528ddd158f6a8ce28a947aac9d3e559a447ce22b2b2f62ad14e569e5a36d7e/overlaybd.commit",
+                  "users": [
+                    "0",
+                    "1"
+                  ],
+                  "resident_bytes": 219877376
+                },
+                {
+                  "identity": [
+                    1795,
+                    262298,
+                    360109056
+                  ],
+                  "relative": "sha256-e306bbd39def34c85d8e9e50491f5dd8228b9ed7db2b3a2a39eb5164174dae0e/overlaybd.commit",
+                  "users": [
+                    "0",
+                    "1"
+                  ],
+                  "resident_bytes": 300171264
+                },
+                {
+                  "identity": [
+                    1795,
+                    262270,
+                    289199104
+                  ],
+                  "relative": "sha256-55c76efbf5e02626eb341d1836a52654c1bc4db867a450669c030201c60930d3/overlaybd.commit",
+                  "users": [
+                    "0",
+                    "1"
+                  ],
+                  "resident_bytes": 229355520
+                },
+                {
+                  "identity": [
+                    1795,
+                    262288,
+                    934466560
+                  ],
+                  "relative": "sha256-a0e974d7f57fdc848c70252679b4d6ee1c8e2414ff91bf90080f49fdacf9ac52/overlaybd.commit",
+                  "users": [
+                    "0",
+                    "1"
+                  ],
+                  "resident_bytes": 869945344
+                },
+                {
+                  "identity": [
+                    1795,
+                    262296,
+                    69522432
+                  ],
+                  "relative": "sha256-e2aa361b4bcb13568c742c9598b9012950cf750a47989454a5dcfd9802e70e96/overlaybd.commit",
+                  "users": [
+                    "0",
+                    "1"
+                  ],
+                  "resident_bytes": 9523200
+                },
+                {
+                  "identity": [
+                    1795,
+                    262260,
+                    67425280
+                  ],
+                  "relative": "sha256-3dcb39acedaca178a1c58adef3d2b757084677bd739a1393882d27e629aeb26b/overlaybd.commit",
+                  "users": [
+                    "0",
+                    "1"
+                  ],
+                  "resident_bytes": 7757824
+                },
+                {
+                  "identity": [
+                    1795,
+                    262262,
+                    271504384
+                  ],
+                  "relative": "sha256-4409233ba7e0a45b5182d3d6cd0f79e8f83f8663daa6432608876779bedee4fe/overlaybd.commit",
+                  "users": [
+                    "0",
+                    "1"
+                  ],
+                  "resident_bytes": 211730432
+                },
+                {
+                  "identity": [
+                    1795,
+                    262294,
+                    738120704
+                  ],
+                  "relative": "sha256-ccdf2b43bef118a40ad35630c83f84a56f68d08d6957f3939f0cf5b5da1218e8/overlaybd.commit",
+                  "users": [
+                    "0",
+                    "1"
+                  ],
+                  "resident_bytes": 679305216
+                },
+                {
+                  "identity": [
+                    1795,
+                    262308,
+                    67818496
+                  ],
+                  "relative": "sha256-f98aea01c738a6fd26fad029db859cf15b6b3bffaee2caf68aa6acd49683241d/overlaybd.commit",
+                  "users": [
+                    "0",
+                    "1"
+                  ],
+                  "resident_bytes": 9183232
+                },
+                {
+                  "identity": [
+                    1795,
+                    262266,
+                    67818496
+                  ],
+                  "relative": "sha256-49a811f5f45403abadf9adfbe39ab63893ab6ab38d56921afc349d4f2e24ce86/overlaybd.commit",
+                  "users": [
+                    "0",
+                    "1"
+                  ],
+                  "resident_bytes": 9183232
+                },
+                {
+                  "identity": [
+                    1795,
+                    262274,
+                    67556352
+                  ],
+                  "relative": "sha256-6822268b9eb0dee1b6602de0b6ae6d4e261d4f7c170be5bcff93788505bcc961/overlaybd.commit",
+                  "users": [
+                    "0",
+                    "1"
+                  ],
+                  "resident_bytes": 8962048
+                },
+                {
+                  "identity": [
+                    1795,
+                    262292,
+                    101766144
+                  ],
+                  "relative": "sha256-c5f820e8afe1a6ca4e8b48e0f9273816715bb139021eace2f73999bb552b5530/overlaybd.commit",
+                  "users": [
+                    "0",
+                    "1"
+                  ],
+                  "resident_bytes": 43098112
+                },
+                {
+                  "identity": [
+                    1795,
+                    262268,
+                    67949568
+                  ],
+                  "relative": "sha256-51837fa7934cf000da18c91fab488b8bccdedf72879499a34cddbb38c9767421/overlaybd.commit",
+                  "users": [
+                    "0",
+                    "1"
+                  ],
+                  "resident_bytes": 9314304
+                }
+              ],
+              "start_monotonic_ns": 14622503122974312,
+              "end_monotonic_ns": 14622503383408715,
+              "query_ns": 260434403,
+              "query_cpu_ns": 259535331,
+              "counters_before": {
+                "current": 28652507136,
+                "file": 28023545856,
+                "anon": 136376320,
+                "shmem": 7604273152,
+                "kernel": 464887808,
+                "file_mapped": 679936,
+                "file_dirty": 94208,
+                "file_writeback": 0
+              },
+              "counters_after": {
+                "current": 28652503040,
+                "file": 28023545856,
+                "anon": 136376320,
+                "shmem": 7604273152,
+                "kernel": 464887808,
+                "file_mapped": 679936,
+                "file_dirty": 94208,
+                "file_writeback": 0
+              }
+            },
+            "P1": {
+              "resident_bytes": 4419694592,
+              "object_count": 19,
+              "objects": [
+                {
+                  "identity": [
+                    1795,
+                    262286,
+                    159992832
+                  ],
+                  "relative": "sha256-9bf15ea9d4d121232a9a606e719968c4000f78461bdb489d37d441a7aa66080b/overlaybd.commit",
+                  "users": [
+                    "0",
+                    "1"
+                  ],
+                  "resident_bytes": 98918400
+                },
+                {
+                  "identity": [
+                    1795,
+                    262252,
+                    910349312
+                  ],
+                  "relative": "sha256-0d9411f394ec828afca47d8a60fbb8e86a036d277d44189d81fe25794e3f1650/overlaybd.commit",
+                  "users": [
+                    "0",
+                    "1"
+                  ],
+                  "resident_bytes": 849051648
+                },
+                {
+                  "identity": [
+                    1795,
+                    262254,
+                    67556352
+                  ],
+                  "relative": "sha256-20c91c8603bb0951d635d85cf8bedb0919e91a51c8626a71a8423869554aa935/overlaybd.commit",
+                  "users": [
+                    "0",
+                    "1"
+                  ],
+                  "resident_bytes": 7421952
+                },
+                {
+                  "identity": [
+                    1795,
+                    262250,
+                    206099456
+                  ],
+                  "relative": "sha256-09530519512597bcf958afd56607f97b7b9c9721746babe0588a599e34759602/overlaybd.commit",
+                  "users": [
+                    "0",
+                    "1"
+                  ],
+                  "resident_bytes": 144449536
+                },
+                {
+                  "identity": [
+                    1795,
+                    262258,
+                    768267264
+                  ],
+                  "relative": "sha256-313eb616335e4079e746fc5a5c479cda5c1d979b22823a71e0c2b54bd0c092e1/overlaybd.commit",
+                  "users": [
+                    "0",
+                    "1"
+                  ],
+                  "resident_bytes": 703500288
+                },
+                {
+                  "identity": [
+                    1795,
+                    262302,
+                    67818496
+                  ],
+                  "relative": "sha256-e8a9843b7d1969e4252a4ac60b556e179a13780e30ab4ff65d274b6422cbace4/overlaybd.commit",
+                  "users": [
+                    "0",
+                    "1"
+                  ],
+                  "resident_bytes": 8036352
+                },
+                {
+                  "identity": [
+                    1795,
+                    262282,
+                    282514432
+                  ],
+                  "relative": "sha256-90528ddd158f6a8ce28a947aac9d3e559a447ce22b2b2f62ad14e569e5a36d7e/overlaybd.commit",
+                  "users": [
+                    "0",
+                    "1"
+                  ],
+                  "resident_bytes": 220307456
+                },
+                {
+                  "identity": [
+                    1795,
+                    262298,
+                    360109056
+                  ],
+                  "relative": "sha256-e306bbd39def34c85d8e9e50491f5dd8228b9ed7db2b3a2a39eb5164174dae0e/overlaybd.commit",
+                  "users": [
+                    "0",
+                    "1"
+                  ],
+                  "resident_bytes": 300175360
+                },
+                {
+                  "identity": [
+                    1795,
+                    262270,
+                    289199104
+                  ],
+                  "relative": "sha256-55c76efbf5e02626eb341d1836a52654c1bc4db867a450669c030201c60930d3/overlaybd.commit",
+                  "users": [
+                    "0",
+                    "1"
+                  ],
+                  "resident_bytes": 229359616
+                },
+                {
+                  "identity": [
+                    1795,
+                    262288,
+                    934466560
+                  ],
+                  "relative": "sha256-a0e974d7f57fdc848c70252679b4d6ee1c8e2414ff91bf90080f49fdacf9ac52/overlaybd.commit",
+                  "users": [
+                    "0",
+                    "1"
+                  ],
+                  "resident_bytes": 869949440
+                },
+                {
+                  "identity": [
+                    1795,
+                    262296,
+                    69522432
+                  ],
+                  "relative": "sha256-e2aa361b4bcb13568c742c9598b9012950cf750a47989454a5dcfd9802e70e96/overlaybd.commit",
+                  "users": [
+                    "0",
+                    "1"
+                  ],
+                  "resident_bytes": 9527296
+                },
+                {
+                  "identity": [
+                    1795,
+                    262260,
+                    67425280
+                  ],
+                  "relative": "sha256-3dcb39acedaca178a1c58adef3d2b757084677bd739a1393882d27e629aeb26b/overlaybd.commit",
+                  "users": [
+                    "0",
+                    "1"
+                  ],
+                  "resident_bytes": 7761920
+                },
+                {
+                  "identity": [
+                    1795,
+                    262262,
+                    271504384
+                  ],
+                  "relative": "sha256-4409233ba7e0a45b5182d3d6cd0f79e8f83f8663daa6432608876779bedee4fe/overlaybd.commit",
+                  "users": [
+                    "0",
+                    "1"
+                  ],
+                  "resident_bytes": 211771392
+                },
+                {
+                  "identity": [
+                    1795,
+                    262294,
+                    738120704
+                  ],
+                  "relative": "sha256-ccdf2b43bef118a40ad35630c83f84a56f68d08d6957f3939f0cf5b5da1218e8/overlaybd.commit",
+                  "users": [
+                    "0",
+                    "1"
+                  ],
+                  "resident_bytes": 679346176
+                },
+                {
+                  "identity": [
+                    1795,
+                    262308,
+                    67818496
+                  ],
+                  "relative": "sha256-f98aea01c738a6fd26fad029db859cf15b6b3bffaee2caf68aa6acd49683241d/overlaybd.commit",
+                  "users": [
+                    "0",
+                    "1"
+                  ],
+                  "resident_bytes": 9187328
+                },
+                {
+                  "identity": [
+                    1795,
+                    262266,
+                    67818496
+                  ],
+                  "relative": "sha256-49a811f5f45403abadf9adfbe39ab63893ab6ab38d56921afc349d4f2e24ce86/overlaybd.commit",
+                  "users": [
+                    "0",
+                    "1"
+                  ],
+                  "resident_bytes": 9187328
+                },
+                {
+                  "identity": [
+                    1795,
+                    262274,
+                    67556352
+                  ],
+                  "relative": "sha256-6822268b9eb0dee1b6602de0b6ae6d4e261d4f7c170be5bcff93788505bcc961/overlaybd.commit",
+                  "users": [
+                    "0",
+                    "1"
+                  ],
+                  "resident_bytes": 8966144
+                },
+                {
+                  "identity": [
+                    1795,
+                    262292,
+                    101766144
+                  ],
+                  "relative": "sha256-c5f820e8afe1a6ca4e8b48e0f9273816715bb139021eace2f73999bb552b5530/overlaybd.commit",
+                  "users": [
+                    "0",
+                    "1"
+                  ],
+                  "resident_bytes": 43220992
+                },
+                {
+                  "identity": [
+                    1795,
+                    262268,
+                    67949568
+                  ],
+                  "relative": "sha256-51837fa7934cf000da18c91fab488b8bccdedf72879499a34cddbb38c9767421/overlaybd.commit",
+                  "users": [
+                    "0",
+                    "1"
+                  ],
+                  "resident_bytes": 9555968
+                }
+              ],
+              "start_monotonic_ns": 14622517594025995,
+              "end_monotonic_ns": 14622517797966721,
+              "query_ns": 203940726,
+              "query_cpu_ns": 203697525,
+              "counters_before": {
+                "current": 29919240192,
+                "file": 28067094528,
+                "anon": 1333649408,
+                "shmem": 7604289536,
+                "kernel": 484032512,
+                "file_mapped": 6553600,
+                "file_dirty": 16793600,
+                "file_writeback": 0
+              },
+              "counters_after": {
+                "current": 29904068608,
+                "file": 28067094528,
+                "anon": 1319071744,
+                "shmem": 7604289536,
+                "kernel": 482205696,
+                "file_mapped": 6553600,
+                "file_dirty": 16793600,
+                "file_writeback": 0
+              }
+            }
+          },
+          "stages": {
+            "P0": {
+              "resident_bytes": 4418736128
+            },
+            "P1": {
+              "resident_bytes": 4419694592
+            }
+          },
+          "prefixes": [
+            {
+              "slot": 0,
+              "storage": ".artifacts/storage-isolated-service/20261024T143048Z-856309",
+              "task_check": {
+                "status": "PASS",
+                "actual_actions": 11,
+                "official_evaluation": "NOT_RUN_PREFIX_ONLY",
+                "tool_ns": 1011778921,
+                "scope": "Original actions, order, expected exits, output and cleanup; P0/P1 cache observations are in the group coordinator, not old prefix_before/after fields"
+              },
+              "original_outer_status": "PASS",
+              "cleanup": {
+                "owned_container_removed": true,
+                "mount_and_loop_removed": true,
+                "successful_fixture_removed": true,
+                "original_firecracker_identities_unchanged": true,
+                "original_source_firecracker_identities_unchanged": true,
+                "original_service_unchanged": true
+              },
+              "live_write_boundary_audit": "PASS"
+            },
+            {
+              "slot": 1,
+              "storage": ".artifacts/storage-isolated-service/20261024T143057Z-857086",
+              "task_check": {
+                "status": "PASS",
+                "actual_actions": 11,
+                "official_evaluation": "NOT_RUN_PREFIX_ONLY",
+                "tool_ns": 921511861,
+                "scope": "Original actions, order, expected exits, output and cleanup; P0/P1 cache observations are in the group coordinator, not old prefix_before/after fields"
+              },
+              "original_outer_status": "PASS",
+              "cleanup": {
+                "owned_container_removed": true,
+                "mount_and_loop_removed": true,
+                "successful_fixture_removed": true,
+                "original_firecracker_identities_unchanged": false,
+                "original_source_firecracker_identities_unchanged": true,
+                "original_service_unchanged": true
+              },
+              "live_write_boundary_audit": "PASS"
+            }
+          ],
+          "tool_ns": 1933290782,
+          "creation_and_prefix_ns": 14019931309,
+          "query_total_ns": 464375129,
+          "P1_metadata_ns": 96443439,
+          "P0_metadata_exact_ns": 4060527,
+          "P0_metadata_upper_bound_ns": 4072711,
+          "collector": {
+            "status": "PASS",
+            "error": null,
+            "cgroup": "/sys/fs/cgroup/asbhost.slice/asbhost-20261024t142931855210.slice",
+            "samples": 1184,
+            "interval_seconds": 0.1,
+            "pss_interval_seconds": null,
+            "thread_cpu_ns": 378220821,
+            "counter_read_total_ns": 303631650,
+            "scope": "Fresh rollout slice: input preparation, controller, private service and all its descendants; host file includes shmem, not guest Cached."
+          }
+        },
+        {
+          "mode": "private",
+          "result_dir": ".artifacts/host-private-files/20261024T143131Z-private-859255",
+          "original_group_status": "PASS",
+          "phases": {
+            "P0": {
+              "resident_bytes": 8837472256,
+              "object_count": 38,
+              "objects": [
+                {
+                  "identity": [
+                    1795,
+                    655502,
+                    159992832
+                  ],
+                  "relative": "sha256-9bf15ea9d4d121232a9a606e719968c4000f78461bdb489d37d441a7aa66080b/overlaybd.commit",
+                  "users": [
+                    "0"
+                  ],
+                  "resident_bytes": 98914304
+                },
+                {
+                  "identity": [
+                    1795,
+                    655468,
+                    910349312
+                  ],
+                  "relative": "sha256-0d9411f394ec828afca47d8a60fbb8e86a036d277d44189d81fe25794e3f1650/overlaybd.commit",
+                  "users": [
+                    "0"
+                  ],
+                  "resident_bytes": 849022976
+                },
+                {
+                  "identity": [
+                    1795,
+                    655470,
+                    67556352
+                  ],
+                  "relative": "sha256-20c91c8603bb0951d635d85cf8bedb0919e91a51c8626a71a8423869554aa935/overlaybd.commit",
+                  "users": [
+                    "0"
+                  ],
+                  "resident_bytes": 7417856
+                },
+                {
+                  "identity": [
+                    1795,
+                    655466,
+                    206099456
+                  ],
+                  "relative": "sha256-09530519512597bcf958afd56607f97b7b9c9721746babe0588a599e34759602/overlaybd.commit",
+                  "users": [
+                    "0"
+                  ],
+                  "resident_bytes": 144445440
+                },
+                {
+                  "identity": [
+                    1795,
+                    655474,
+                    768267264
+                  ],
+                  "relative": "sha256-313eb616335e4079e746fc5a5c479cda5c1d979b22823a71e0c2b54bd0c092e1/overlaybd.commit",
+                  "users": [
+                    "0"
+                  ],
+                  "resident_bytes": 703496192
+                },
+                {
+                  "identity": [
+                    1795,
+                    655518,
+                    67818496
+                  ],
+                  "relative": "sha256-e8a9843b7d1969e4252a4ac60b556e179a13780e30ab4ff65d274b6422cbace4/overlaybd.commit",
+                  "users": [
+                    "0"
+                  ],
+                  "resident_bytes": 8032256
+                },
+                {
+                  "identity": [
+                    1795,
+                    655498,
+                    282514432
+                  ],
+                  "relative": "sha256-90528ddd158f6a8ce28a947aac9d3e559a447ce22b2b2f62ad14e569e5a36d7e/overlaybd.commit",
+                  "users": [
+                    "0"
+                  ],
+                  "resident_bytes": 219877376
+                },
+                {
+                  "identity": [
+                    1795,
+                    655514,
+                    360109056
+                  ],
+                  "relative": "sha256-e306bbd39def34c85d8e9e50491f5dd8228b9ed7db2b3a2a39eb5164174dae0e/overlaybd.commit",
+                  "users": [
+                    "0"
+                  ],
+                  "resident_bytes": 300171264
+                },
+                {
+                  "identity": [
+                    1795,
+                    655486,
+                    289199104
+                  ],
+                  "relative": "sha256-55c76efbf5e02626eb341d1836a52654c1bc4db867a450669c030201c60930d3/overlaybd.commit",
+                  "users": [
+                    "0"
+                  ],
+                  "resident_bytes": 229355520
+                },
+                {
+                  "identity": [
+                    1795,
+                    655504,
+                    934466560
+                  ],
+                  "relative": "sha256-a0e974d7f57fdc848c70252679b4d6ee1c8e2414ff91bf90080f49fdacf9ac52/overlaybd.commit",
+                  "users": [
+                    "0"
+                  ],
+                  "resident_bytes": 869945344
+                },
+                {
+                  "identity": [
+                    1795,
+                    655512,
+                    69522432
+                  ],
+                  "relative": "sha256-e2aa361b4bcb13568c742c9598b9012950cf750a47989454a5dcfd9802e70e96/overlaybd.commit",
+                  "users": [
+                    "0"
+                  ],
+                  "resident_bytes": 9523200
+                },
+                {
+                  "identity": [
+                    1795,
+                    655476,
+                    67425280
+                  ],
+                  "relative": "sha256-3dcb39acedaca178a1c58adef3d2b757084677bd739a1393882d27e629aeb26b/overlaybd.commit",
+                  "users": [
+                    "0"
+                  ],
+                  "resident_bytes": 7757824
+                },
+                {
+                  "identity": [
+                    1795,
+                    655478,
+                    271504384
+                  ],
+                  "relative": "sha256-4409233ba7e0a45b5182d3d6cd0f79e8f83f8663daa6432608876779bedee4fe/overlaybd.commit",
+                  "users": [
+                    "0"
+                  ],
+                  "resident_bytes": 211730432
+                },
+                {
+                  "identity": [
+                    1795,
+                    655510,
+                    738120704
+                  ],
+                  "relative": "sha256-ccdf2b43bef118a40ad35630c83f84a56f68d08d6957f3939f0cf5b5da1218e8/overlaybd.commit",
+                  "users": [
+                    "0"
+                  ],
+                  "resident_bytes": 679305216
+                },
+                {
+                  "identity": [
+                    1795,
+                    655524,
+                    67818496
+                  ],
+                  "relative": "sha256-f98aea01c738a6fd26fad029db859cf15b6b3bffaee2caf68aa6acd49683241d/overlaybd.commit",
+                  "users": [
+                    "0"
+                  ],
+                  "resident_bytes": 9183232
+                },
+                {
+                  "identity": [
+                    1795,
+                    655482,
+                    67818496
+                  ],
+                  "relative": "sha256-49a811f5f45403abadf9adfbe39ab63893ab6ab38d56921afc349d4f2e24ce86/overlaybd.commit",
+                  "users": [
+                    "0"
+                  ],
+                  "resident_bytes": 9183232
+                },
+                {
+                  "identity": [
+                    1795,
+                    655490,
+                    67556352
+                  ],
+                  "relative": "sha256-6822268b9eb0dee1b6602de0b6ae6d4e261d4f7c170be5bcff93788505bcc961/overlaybd.commit",
+                  "users": [
+                    "0"
+                  ],
+                  "resident_bytes": 8962048
+                },
+                {
+                  "identity": [
+                    1795,
+                    655508,
+                    101766144
+                  ],
+                  "relative": "sha256-c5f820e8afe1a6ca4e8b48e0f9273816715bb139021eace2f73999bb552b5530/overlaybd.commit",
+                  "users": [
+                    "0"
+                  ],
+                  "resident_bytes": 43098112
+                },
+                {
+                  "identity": [
+                    1795,
+                    655484,
+                    67949568
+                  ],
+                  "relative": "sha256-51837fa7934cf000da18c91fab488b8bccdedf72879499a34cddbb38c9767421/overlaybd.commit",
+                  "users": [
+                    "0"
+                  ],
+                  "resident_bytes": 9314304
+                },
+                {
+                  "identity": [
+                    1801,
+                    655502,
+                    159992832
+                  ],
+                  "relative": "sha256-9bf15ea9d4d121232a9a606e719968c4000f78461bdb489d37d441a7aa66080b/overlaybd.commit",
+                  "users": [
+                    "1"
+                  ],
+                  "resident_bytes": 98914304
+                },
+                {
+                  "identity": [
+                    1801,
+                    655468,
+                    910349312
+                  ],
+                  "relative": "sha256-0d9411f394ec828afca47d8a60fbb8e86a036d277d44189d81fe25794e3f1650/overlaybd.commit",
+                  "users": [
+                    "1"
+                  ],
+                  "resident_bytes": 849022976
+                },
+                {
+                  "identity": [
+                    1801,
+                    655470,
+                    67556352
+                  ],
+                  "relative": "sha256-20c91c8603bb0951d635d85cf8bedb0919e91a51c8626a71a8423869554aa935/overlaybd.commit",
+                  "users": [
+                    "1"
+                  ],
+                  "resident_bytes": 7417856
+                },
+                {
+                  "identity": [
+                    1801,
+                    655466,
+                    206099456
+                  ],
+                  "relative": "sha256-09530519512597bcf958afd56607f97b7b9c9721746babe0588a599e34759602/overlaybd.commit",
+                  "users": [
+                    "1"
+                  ],
+                  "resident_bytes": 144445440
+                },
+                {
+                  "identity": [
+                    1801,
+                    655474,
+                    768267264
+                  ],
+                  "relative": "sha256-313eb616335e4079e746fc5a5c479cda5c1d979b22823a71e0c2b54bd0c092e1/overlaybd.commit",
+                  "users": [
+                    "1"
+                  ],
+                  "resident_bytes": 703496192
+                },
+                {
+                  "identity": [
+                    1801,
+                    655518,
+                    67818496
+                  ],
+                  "relative": "sha256-e8a9843b7d1969e4252a4ac60b556e179a13780e30ab4ff65d274b6422cbace4/overlaybd.commit",
+                  "users": [
+                    "1"
+                  ],
+                  "resident_bytes": 8032256
+                },
+                {
+                  "identity": [
+                    1801,
+                    655498,
+                    282514432
+                  ],
+                  "relative": "sha256-90528ddd158f6a8ce28a947aac9d3e559a447ce22b2b2f62ad14e569e5a36d7e/overlaybd.commit",
+                  "users": [
+                    "1"
+                  ],
+                  "resident_bytes": 219877376
+                },
+                {
+                  "identity": [
+                    1801,
+                    655514,
+                    360109056
+                  ],
+                  "relative": "sha256-e306bbd39def34c85d8e9e50491f5dd8228b9ed7db2b3a2a39eb5164174dae0e/overlaybd.commit",
+                  "users": [
+                    "1"
+                  ],
+                  "resident_bytes": 300171264
+                },
+                {
+                  "identity": [
+                    1801,
+                    655486,
+                    289199104
+                  ],
+                  "relative": "sha256-55c76efbf5e02626eb341d1836a52654c1bc4db867a450669c030201c60930d3/overlaybd.commit",
+                  "users": [
+                    "1"
+                  ],
+                  "resident_bytes": 229355520
+                },
+                {
+                  "identity": [
+                    1801,
+                    655504,
+                    934466560
+                  ],
+                  "relative": "sha256-a0e974d7f57fdc848c70252679b4d6ee1c8e2414ff91bf90080f49fdacf9ac52/overlaybd.commit",
+                  "users": [
+                    "1"
+                  ],
+                  "resident_bytes": 869945344
+                },
+                {
+                  "identity": [
+                    1801,
+                    655512,
+                    69522432
+                  ],
+                  "relative": "sha256-e2aa361b4bcb13568c742c9598b9012950cf750a47989454a5dcfd9802e70e96/overlaybd.commit",
+                  "users": [
+                    "1"
+                  ],
+                  "resident_bytes": 9523200
+                },
+                {
+                  "identity": [
+                    1801,
+                    655476,
+                    67425280
+                  ],
+                  "relative": "sha256-3dcb39acedaca178a1c58adef3d2b757084677bd739a1393882d27e629aeb26b/overlaybd.commit",
+                  "users": [
+                    "1"
+                  ],
+                  "resident_bytes": 7757824
+                },
+                {
+                  "identity": [
+                    1801,
+                    655478,
+                    271504384
+                  ],
+                  "relative": "sha256-4409233ba7e0a45b5182d3d6cd0f79e8f83f8663daa6432608876779bedee4fe/overlaybd.commit",
+                  "users": [
+                    "1"
+                  ],
+                  "resident_bytes": 211730432
+                },
+                {
+                  "identity": [
+                    1801,
+                    655510,
+                    738120704
+                  ],
+                  "relative": "sha256-ccdf2b43bef118a40ad35630c83f84a56f68d08d6957f3939f0cf5b5da1218e8/overlaybd.commit",
+                  "users": [
+                    "1"
+                  ],
+                  "resident_bytes": 679305216
+                },
+                {
+                  "identity": [
+                    1801,
+                    655524,
+                    67818496
+                  ],
+                  "relative": "sha256-f98aea01c738a6fd26fad029db859cf15b6b3bffaee2caf68aa6acd49683241d/overlaybd.commit",
+                  "users": [
+                    "1"
+                  ],
+                  "resident_bytes": 9183232
+                },
+                {
+                  "identity": [
+                    1801,
+                    655482,
+                    67818496
+                  ],
+                  "relative": "sha256-49a811f5f45403abadf9adfbe39ab63893ab6ab38d56921afc349d4f2e24ce86/overlaybd.commit",
+                  "users": [
+                    "1"
+                  ],
+                  "resident_bytes": 9183232
+                },
+                {
+                  "identity": [
+                    1801,
+                    655490,
+                    67556352
+                  ],
+                  "relative": "sha256-6822268b9eb0dee1b6602de0b6ae6d4e261d4f7c170be5bcff93788505bcc961/overlaybd.commit",
+                  "users": [
+                    "1"
+                  ],
+                  "resident_bytes": 8962048
+                },
+                {
+                  "identity": [
+                    1801,
+                    655508,
+                    101766144
+                  ],
+                  "relative": "sha256-c5f820e8afe1a6ca4e8b48e0f9273816715bb139021eace2f73999bb552b5530/overlaybd.commit",
+                  "users": [
+                    "1"
+                  ],
+                  "resident_bytes": 43098112
+                },
+                {
+                  "identity": [
+                    1801,
+                    655484,
+                    67949568
+                  ],
+                  "relative": "sha256-51837fa7934cf000da18c91fab488b8bccdedf72879499a34cddbb38c9767421/overlaybd.commit",
+                  "users": [
+                    "1"
+                  ],
+                  "resident_bytes": 9314304
+                }
+              ],
+              "start_monotonic_ns": 14622639382175281,
+              "end_monotonic_ns": 14622639713710523,
+              "query_ns": 331535242,
+              "query_cpu_ns": 330164192,
+              "counters_before": {
+                "current": 37745754112,
+                "file": 36862001152,
+                "anon": 136114176,
+                "shmem": 7604273152,
+                "kernel": 723243008,
+                "file_mapped": 679936,
+                "file_dirty": 692224,
+                "file_writeback": 0
+              },
+              "counters_after": {
+                "current": 37745754112,
+                "file": 36862001152,
+                "anon": 136114176,
+                "shmem": 7604273152,
+                "kernel": 723243008,
+                "file_mapped": 679936,
+                "file_dirty": 692224,
+                "file_writeback": 0
+              }
+            },
+            "P1": {
+              "resident_bytes": 8839151616,
+              "object_count": 38,
+              "objects": [
+                {
+                  "identity": [
+                    1795,
+                    655502,
+                    159992832
+                  ],
+                  "relative": "sha256-9bf15ea9d4d121232a9a606e719968c4000f78461bdb489d37d441a7aa66080b/overlaybd.commit",
+                  "users": [
+                    "0"
+                  ],
+                  "resident_bytes": 98918400
+                },
+                {
+                  "identity": [
+                    1795,
+                    655468,
+                    910349312
+                  ],
+                  "relative": "sha256-0d9411f394ec828afca47d8a60fbb8e86a036d277d44189d81fe25794e3f1650/overlaybd.commit",
+                  "users": [
+                    "0"
+                  ],
+                  "resident_bytes": 849051648
+                },
+                {
+                  "identity": [
+                    1795,
+                    655470,
+                    67556352
+                  ],
+                  "relative": "sha256-20c91c8603bb0951d635d85cf8bedb0919e91a51c8626a71a8423869554aa935/overlaybd.commit",
+                  "users": [
+                    "0"
+                  ],
+                  "resident_bytes": 7421952
+                },
+                {
+                  "identity": [
+                    1795,
+                    655466,
+                    206099456
+                  ],
+                  "relative": "sha256-09530519512597bcf958afd56607f97b7b9c9721746babe0588a599e34759602/overlaybd.commit",
+                  "users": [
+                    "0"
+                  ],
+                  "resident_bytes": 144449536
+                },
+                {
+                  "identity": [
+                    1795,
+                    655474,
+                    768267264
+                  ],
+                  "relative": "sha256-313eb616335e4079e746fc5a5c479cda5c1d979b22823a71e0c2b54bd0c092e1/overlaybd.commit",
+                  "users": [
+                    "0"
+                  ],
+                  "resident_bytes": 703500288
+                },
+                {
+                  "identity": [
+                    1795,
+                    655518,
+                    67818496
+                  ],
+                  "relative": "sha256-e8a9843b7d1969e4252a4ac60b556e179a13780e30ab4ff65d274b6422cbace4/overlaybd.commit",
+                  "users": [
+                    "0"
+                  ],
+                  "resident_bytes": 8036352
+                },
+                {
+                  "identity": [
+                    1795,
+                    655498,
+                    282514432
+                  ],
+                  "relative": "sha256-90528ddd158f6a8ce28a947aac9d3e559a447ce22b2b2f62ad14e569e5a36d7e/overlaybd.commit",
+                  "users": [
+                    "0"
+                  ],
+                  "resident_bytes": 220307456
+                },
+                {
+                  "identity": [
+                    1795,
+                    655514,
+                    360109056
+                  ],
+                  "relative": "sha256-e306bbd39def34c85d8e9e50491f5dd8228b9ed7db2b3a2a39eb5164174dae0e/overlaybd.commit",
+                  "users": [
+                    "0"
+                  ],
+                  "resident_bytes": 300175360
+                },
+                {
+                  "identity": [
+                    1795,
+                    655486,
+                    289199104
+                  ],
+                  "relative": "sha256-55c76efbf5e02626eb341d1836a52654c1bc4db867a450669c030201c60930d3/overlaybd.commit",
+                  "users": [
+                    "0"
+                  ],
+                  "resident_bytes": 229359616
+                },
+                {
+                  "identity": [
+                    1795,
+                    655504,
+                    934466560
+                  ],
+                  "relative": "sha256-a0e974d7f57fdc848c70252679b4d6ee1c8e2414ff91bf90080f49fdacf9ac52/overlaybd.commit",
+                  "users": [
+                    "0"
+                  ],
+                  "resident_bytes": 869949440
+                },
+                {
+                  "identity": [
+                    1795,
+                    655512,
+                    69522432
+                  ],
+                  "relative": "sha256-e2aa361b4bcb13568c742c9598b9012950cf750a47989454a5dcfd9802e70e96/overlaybd.commit",
+                  "users": [
+                    "0"
+                  ],
+                  "resident_bytes": 9527296
+                },
+                {
+                  "identity": [
+                    1795,
+                    655476,
+                    67425280
+                  ],
+                  "relative": "sha256-3dcb39acedaca178a1c58adef3d2b757084677bd739a1393882d27e629aeb26b/overlaybd.commit",
+                  "users": [
+                    "0"
+                  ],
+                  "resident_bytes": 7761920
+                },
+                {
+                  "identity": [
+                    1795,
+                    655478,
+                    271504384
+                  ],
+                  "relative": "sha256-4409233ba7e0a45b5182d3d6cd0f79e8f83f8663daa6432608876779bedee4fe/overlaybd.commit",
+                  "users": [
+                    "0"
+                  ],
+                  "resident_bytes": 211771392
+                },
+                {
+                  "identity": [
+                    1795,
+                    655510,
+                    738120704
+                  ],
+                  "relative": "sha256-ccdf2b43bef118a40ad35630c83f84a56f68d08d6957f3939f0cf5b5da1218e8/overlaybd.commit",
+                  "users": [
+                    "0"
+                  ],
+                  "resident_bytes": 679346176
+                },
+                {
+                  "identity": [
+                    1795,
+                    655524,
+                    67818496
+                  ],
+                  "relative": "sha256-f98aea01c738a6fd26fad029db859cf15b6b3bffaee2caf68aa6acd49683241d/overlaybd.commit",
+                  "users": [
+                    "0"
+                  ],
+                  "resident_bytes": 9187328
+                },
+                {
+                  "identity": [
+                    1795,
+                    655482,
+                    67818496
+                  ],
+                  "relative": "sha256-49a811f5f45403abadf9adfbe39ab63893ab6ab38d56921afc349d4f2e24ce86/overlaybd.commit",
+                  "users": [
+                    "0"
+                  ],
+                  "resident_bytes": 9187328
+                },
+                {
+                  "identity": [
+                    1795,
+                    655490,
+                    67556352
+                  ],
+                  "relative": "sha256-6822268b9eb0dee1b6602de0b6ae6d4e261d4f7c170be5bcff93788505bcc961/overlaybd.commit",
+                  "users": [
+                    "0"
+                  ],
+                  "resident_bytes": 8966144
+                },
+                {
+                  "identity": [
+                    1795,
+                    655508,
+                    101766144
+                  ],
+                  "relative": "sha256-c5f820e8afe1a6ca4e8b48e0f9273816715bb139021eace2f73999bb552b5530/overlaybd.commit",
+                  "users": [
+                    "0"
+                  ],
+                  "resident_bytes": 43220992
+                },
+                {
+                  "identity": [
+                    1795,
+                    655484,
+                    67949568
+                  ],
+                  "relative": "sha256-51837fa7934cf000da18c91fab488b8bccdedf72879499a34cddbb38c9767421/overlaybd.commit",
+                  "users": [
+                    "0"
+                  ],
+                  "resident_bytes": 9555968
+                },
+                {
+                  "identity": [
+                    1801,
+                    655502,
+                    159992832
+                  ],
+                  "relative": "sha256-9bf15ea9d4d121232a9a606e719968c4000f78461bdb489d37d441a7aa66080b/overlaybd.commit",
+                  "users": [
+                    "1"
+                  ],
+                  "resident_bytes": 98918400
+                },
+                {
+                  "identity": [
+                    1801,
+                    655468,
+                    910349312
+                  ],
+                  "relative": "sha256-0d9411f394ec828afca47d8a60fbb8e86a036d277d44189d81fe25794e3f1650/overlaybd.commit",
+                  "users": [
+                    "1"
+                  ],
+                  "resident_bytes": 849051648
+                },
+                {
+                  "identity": [
+                    1801,
+                    655470,
+                    67556352
+                  ],
+                  "relative": "sha256-20c91c8603bb0951d635d85cf8bedb0919e91a51c8626a71a8423869554aa935/overlaybd.commit",
+                  "users": [
+                    "1"
+                  ],
+                  "resident_bytes": 7421952
+                },
+                {
+                  "identity": [
+                    1801,
+                    655466,
+                    206099456
+                  ],
+                  "relative": "sha256-09530519512597bcf958afd56607f97b7b9c9721746babe0588a599e34759602/overlaybd.commit",
+                  "users": [
+                    "1"
+                  ],
+                  "resident_bytes": 144449536
+                },
+                {
+                  "identity": [
+                    1801,
+                    655474,
+                    768267264
+                  ],
+                  "relative": "sha256-313eb616335e4079e746fc5a5c479cda5c1d979b22823a71e0c2b54bd0c092e1/overlaybd.commit",
+                  "users": [
+                    "1"
+                  ],
+                  "resident_bytes": 703500288
+                },
+                {
+                  "identity": [
+                    1801,
+                    655518,
+                    67818496
+                  ],
+                  "relative": "sha256-e8a9843b7d1969e4252a4ac60b556e179a13780e30ab4ff65d274b6422cbace4/overlaybd.commit",
+                  "users": [
+                    "1"
+                  ],
+                  "resident_bytes": 8036352
+                },
+                {
+                  "identity": [
+                    1801,
+                    655498,
+                    282514432
+                  ],
+                  "relative": "sha256-90528ddd158f6a8ce28a947aac9d3e559a447ce22b2b2f62ad14e569e5a36d7e/overlaybd.commit",
+                  "users": [
+                    "1"
+                  ],
+                  "resident_bytes": 220307456
+                },
+                {
+                  "identity": [
+                    1801,
+                    655514,
+                    360109056
+                  ],
+                  "relative": "sha256-e306bbd39def34c85d8e9e50491f5dd8228b9ed7db2b3a2a39eb5164174dae0e/overlaybd.commit",
+                  "users": [
+                    "1"
+                  ],
+                  "resident_bytes": 300175360
+                },
+                {
+                  "identity": [
+                    1801,
+                    655486,
+                    289199104
+                  ],
+                  "relative": "sha256-55c76efbf5e02626eb341d1836a52654c1bc4db867a450669c030201c60930d3/overlaybd.commit",
+                  "users": [
+                    "1"
+                  ],
+                  "resident_bytes": 229359616
+                },
+                {
+                  "identity": [
+                    1801,
+                    655504,
+                    934466560
+                  ],
+                  "relative": "sha256-a0e974d7f57fdc848c70252679b4d6ee1c8e2414ff91bf90080f49fdacf9ac52/overlaybd.commit",
+                  "users": [
+                    "1"
+                  ],
+                  "resident_bytes": 869949440
+                },
+                {
+                  "identity": [
+                    1801,
+                    655512,
+                    69522432
+                  ],
+                  "relative": "sha256-e2aa361b4bcb13568c742c9598b9012950cf750a47989454a5dcfd9802e70e96/overlaybd.commit",
+                  "users": [
+                    "1"
+                  ],
+                  "resident_bytes": 9527296
+                },
+                {
+                  "identity": [
+                    1801,
+                    655476,
+                    67425280
+                  ],
+                  "relative": "sha256-3dcb39acedaca178a1c58adef3d2b757084677bd739a1393882d27e629aeb26b/overlaybd.commit",
+                  "users": [
+                    "1"
+                  ],
+                  "resident_bytes": 7761920
+                },
+                {
+                  "identity": [
+                    1801,
+                    655478,
+                    271504384
+                  ],
+                  "relative": "sha256-4409233ba7e0a45b5182d3d6cd0f79e8f83f8663daa6432608876779bedee4fe/overlaybd.commit",
+                  "users": [
+                    "1"
+                  ],
+                  "resident_bytes": 211771392
+                },
+                {
+                  "identity": [
+                    1801,
+                    655510,
+                    738120704
+                  ],
+                  "relative": "sha256-ccdf2b43bef118a40ad35630c83f84a56f68d08d6957f3939f0cf5b5da1218e8/overlaybd.commit",
+                  "users": [
+                    "1"
+                  ],
+                  "resident_bytes": 679346176
+                },
+                {
+                  "identity": [
+                    1801,
+                    655524,
+                    67818496
+                  ],
+                  "relative": "sha256-f98aea01c738a6fd26fad029db859cf15b6b3bffaee2caf68aa6acd49683241d/overlaybd.commit",
+                  "users": [
+                    "1"
+                  ],
+                  "resident_bytes": 9187328
+                },
+                {
+                  "identity": [
+                    1801,
+                    655482,
+                    67818496
+                  ],
+                  "relative": "sha256-49a811f5f45403abadf9adfbe39ab63893ab6ab38d56921afc349d4f2e24ce86/overlaybd.commit",
+                  "users": [
+                    "1"
+                  ],
+                  "resident_bytes": 9187328
+                },
+                {
+                  "identity": [
+                    1801,
+                    655490,
+                    67556352
+                  ],
+                  "relative": "sha256-6822268b9eb0dee1b6602de0b6ae6d4e261d4f7c170be5bcff93788505bcc961/overlaybd.commit",
+                  "users": [
+                    "1"
+                  ],
+                  "resident_bytes": 8966144
+                },
+                {
+                  "identity": [
+                    1801,
+                    655508,
+                    101766144
+                  ],
+                  "relative": "sha256-c5f820e8afe1a6ca4e8b48e0f9273816715bb139021eace2f73999bb552b5530/overlaybd.commit",
+                  "users": [
+                    "1"
+                  ],
+                  "resident_bytes": 43220992
+                },
+                {
+                  "identity": [
+                    1801,
+                    655484,
+                    67949568
+                  ],
+                  "relative": "sha256-51837fa7934cf000da18c91fab488b8bccdedf72879499a34cddbb38c9767421/overlaybd.commit",
+                  "users": [
+                    "1"
+                  ],
+                  "resident_bytes": 9318400
+                }
+              ],
+              "start_monotonic_ns": 14622654023720014,
+              "end_monotonic_ns": 14622654391078728,
+              "query_ns": 367358714,
+              "query_cpu_ns": 366935100,
+              "counters_before": {
+                "current": 39005462528,
+                "file": 36902268928,
+                "anon": 1325449216,
+                "shmem": 7604289536,
+                "kernel": 743251968,
+                "file_mapped": 6553600,
+                "file_dirty": 12533760,
+                "file_writeback": 0
+              },
+              "counters_after": {
+                "current": 38995980288,
+                "file": 36902338560,
+                "anon": 1313345536,
+                "shmem": 7604289536,
+                "kernel": 741105664,
+                "file_mapped": 6553600,
+                "file_dirty": 12603392,
+                "file_writeback": 0
+              }
+            }
+          },
+          "stages": {
+            "P0": {
+              "resident_bytes": 8837472256
+            },
+            "P1": {
+              "resident_bytes": 8839151616
+            }
+          },
+          "prefixes": [
+            {
+              "slot": 0,
+              "storage": ".artifacts/storage-isolated-service/20261024T143248Z-860142",
+              "task_check": {
+                "status": "PASS",
+                "actual_actions": 11,
+                "official_evaluation": "NOT_RUN_PREFIX_ONLY",
+                "tool_ns": 1205070619,
+                "scope": "Original actions, order, expected exits, output and cleanup; P0/P1 cache observations are in the group coordinator, not old prefix_before/after fields"
+              },
+              "original_outer_status": "PASS",
+              "cleanup": {
+                "owned_container_removed": true,
+                "mount_and_loop_removed": true,
+                "successful_fixture_removed": true,
+                "original_firecracker_identities_unchanged": true,
+                "original_source_firecracker_identities_unchanged": true,
+                "original_service_unchanged": true
+              },
+              "live_write_boundary_audit": "PASS"
+            },
+            {
+              "slot": 1,
+              "storage": ".artifacts/storage-isolated-service/20261024T143257Z-860934",
+              "task_check": {
+                "status": "PASS",
+                "actual_actions": 11,
+                "official_evaluation": "NOT_RUN_PREFIX_ONLY",
+                "tool_ns": 629334791,
+                "scope": "Original actions, order, expected exits, output and cleanup; P0/P1 cache observations are in the group coordinator, not old prefix_before/after fields"
+              },
+              "original_outer_status": "PASS",
+              "cleanup": {
+                "owned_container_removed": true,
+                "mount_and_loop_removed": true,
+                "successful_fixture_removed": true,
+                "original_firecracker_identities_unchanged": false,
+                "original_source_firecracker_identities_unchanged": true,
+                "original_service_unchanged": true
+              },
+              "live_write_boundary_audit": "PASS"
+            }
+          ],
+          "tool_ns": 1834405410,
+          "creation_and_prefix_ns": 14175201595,
+          "query_total_ns": 698893956,
+          "P1_metadata_ns": 94482206,
+          "P0_metadata_exact_ns": 1107781,
+          "P0_metadata_upper_bound_ns": 1112850,
+          "collector": {
+            "status": "PASS",
+            "error": null,
+            "cgroup": "/sys/fs/cgroup/asbhost.slice/asbhost-20261024t143130859180.slice",
+            "samples": 1357,
+            "interval_seconds": 0.1,
+            "pss_interval_seconds": null,
+            "thread_cpu_ns": 459643984,
+            "counter_read_total_ns": 371836287,
+            "scope": "Fresh rollout slice: input preparation, controller, private service and all its descendants; host file includes shmem, not guest Cached."
+          }
+        }
+      ],
+      "comparison": {
+        "preparation_difference_bytes": 4418736128,
+        "endpoint_difference_bytes": 4419457024,
+        "endpoint_reduction_fraction": 0.49998656160623095,
+        "shared_runtime_change_bytes": 958464,
+        "private_runtime_change_bytes": 1679360,
+        "difference_change_bytes": 720896,
+        "scope": "Direct two-service/two-guest pinned-file comparison; preparation included; no linear extrapolation or whole-RAM claim"
+      }
+    }
+  ],
+  "statistics": "Per-pair signed U-S and (U-S)/U, then arithmetic mean and sample SD (n-1). Undefined ratios remain None; no outlier removal or added runs.",
+  "scope": "Two services and two guests per group, fixed 19 lower files, default reclaim and 0.1s sampling with PSS off. Preparation included. First shared outer FAIL/report recovery and skipped later write audit retained; no total RAM or pure tool-phase savings.",
+  "retained_volume": ".artifacts/storage-isolated-service/20261024T140541Z-831053/volume.ext4"
+}

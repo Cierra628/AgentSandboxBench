@@ -21,9 +21,9 @@ def mapping_line(line):
                 device=os.makedev(int(major,16),int(minor,16)),inode=int(inode),mapping_path=name or '')
 
 
-def attach_smaps(root,regions):
+def attach_smaps(root,regions,*,text=None):
     wanted={(r['start'],r['end']):r for r in regions};current=None
-    for line in (root/'smaps').read_text().splitlines():
+    for line in (text if text is not None else (root/'smaps').read_text()).splitlines():
         header=mapping_line(line)
         if header is not None:
             current=wanted.get((header['start'],header['end']))

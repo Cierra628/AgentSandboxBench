@@ -1,0 +1,194 @@
+{
+  "status": "PASS",
+  "source": ".artifacts/grpo-local-vmstat-controls-20261101",
+  "report": "results/grpo-local-vmstat-controls-20261101",
+  "new_guests": 28,
+  "actual_actions": 756,
+  "host_samples": 3061,
+  "guest_samples": 13078,
+  "saved_rows_and_curves_match": true,
+  "links_checked": 20,
+  "figures": 13,
+  "visual_review": "timings and four-run plot sheet; candidate guest plot at full size",
+  "maximum_guest_gap_seconds": 0.109819117,
+  "candidate_status": "PASS_TASK_AND_MEASUREMENT",
+  "performance_conclusion": "No consistent wall-clock improvement across two pairs; retain default",
+  "pairs": [
+    {
+      "pair": 1,
+      "order": [
+        "keep",
+        "skip"
+      ],
+      "timings": {
+        "tool_sum": {
+          "keep_seconds": 59.699548462,
+          "skip_seconds": 62.36792484,
+          "change_seconds": 2.668376378,
+          "change_percent": 4.469675980377774
+        },
+        "frozen_tools_and_downloads_span": {
+          "keep_seconds": 18.021084388,
+          "skip_seconds": 18.913029959,
+          "change_seconds": 0.891945571,
+          "change_percent": 4.949455603204078
+        },
+        "cold_request_span": {
+          "keep_seconds": 1.165695956,
+          "skip_seconds": 1.21804142,
+          "change_seconds": 0.052345464,
+          "change_percent": 4.49049031444011
+        },
+        "monitor_control_call_sum": {
+          "keep_seconds": 3.396987252,
+          "skip_seconds": 3.585177539,
+          "change_seconds": 0.188190287,
+          "change_percent": 5.539917374997549
+        },
+        "monitor_control_union": {
+          "keep_seconds": 0.810260536,
+          "skip_seconds": 0.743005358,
+          "change_seconds": -0.067255178,
+          "change_percent": -8.300438564121304
+        },
+        "cleanup": {
+          "keep_seconds": 0.517064401,
+          "skip_seconds": 0.498604084,
+          "change_seconds": -0.018460317,
+          "change_percent": -3.5702161982719804
+        },
+        "controller": {
+          "keep_seconds": 47.693553889,
+          "skip_seconds": 48.912991905,
+          "change_seconds": 1.219438016,
+          "change_percent": 2.556819353068285
+        },
+        "rollout": {
+          "keep_seconds": 46.974826162,
+          "skip_seconds": 48.214221146,
+          "change_seconds": 1.239394984,
+          "change_percent": 2.638423779846999
+        },
+        "grouped_workflow": {
+          "keep_seconds": 76.941516986,
+          "skip_seconds": 78.699189756,
+          "change_seconds": 1.75767277,
+          "change_percent": 2.284426976296583
+        },
+        "archive_preparation": {
+          "keep_seconds": 100.340835674,
+          "skip_seconds": 106.599890776,
+          "change_seconds": 6.259055102,
+          "change_percent": 6.2377944731646595
+        },
+        "input_import": {
+          "keep_seconds": 17.309467762,
+          "skip_seconds": 17.858756739,
+          "change_seconds": 0.549288977,
+          "change_percent": 3.1733441175231913
+        },
+        "final_input_query": {
+          "keep_seconds": 0.145486267,
+          "skip_seconds": 0.167240812,
+          "change_seconds": 0.021754545,
+          "change_percent": 14.952988655623422
+        }
+      }
+    },
+    {
+      "pair": 2,
+      "order": [
+        "skip",
+        "keep"
+      ],
+      "timings": {
+        "tool_sum": {
+          "keep_seconds": 60.805386521,
+          "skip_seconds": 61.621289426,
+          "change_seconds": 0.815902905,
+          "change_percent": 1.341826689512482
+        },
+        "frozen_tools_and_downloads_span": {
+          "keep_seconds": 19.272477803,
+          "skip_seconds": 18.92062477,
+          "change_seconds": -0.351853033,
+          "change_percent": -1.825676161605072
+        },
+        "cold_request_span": {
+          "keep_seconds": 1.288062956,
+          "skip_seconds": 1.189837599,
+          "change_seconds": -0.098225357,
+          "change_percent": -7.625819572129666
+        },
+        "monitor_control_call_sum": {
+          "keep_seconds": 3.644330152,
+          "skip_seconds": 3.489295944,
+          "change_seconds": -0.155034208,
+          "change_percent": -4.254120826976049
+        },
+        "monitor_control_union": {
+          "keep_seconds": 0.896174254,
+          "skip_seconds": 0.852511585,
+          "change_seconds": -0.043662669,
+          "change_percent": -4.872118207493159
+        },
+        "cleanup": {
+          "keep_seconds": 0.502976709,
+          "skip_seconds": 0.497989015,
+          "change_seconds": -0.004987694,
+          "change_percent": -0.9916351812624402
+        },
+        "controller": {
+          "keep_seconds": 49.296490827,
+          "skip_seconds": 48.544525731,
+          "change_seconds": -0.751965096,
+          "change_percent": -1.5253927478102391
+        },
+        "rollout": {
+          "keep_seconds": 48.588364987,
+          "skip_seconds": 47.885804338,
+          "change_seconds": -0.702560649,
+          "change_percent": -1.4459442074002182
+        },
+        "grouped_workflow": {
+          "keep_seconds": 79.178912071,
+          "skip_seconds": 78.354903098,
+          "change_seconds": -0.824008973,
+          "change_percent": -1.0406924665258166
+        },
+        "archive_preparation": {
+          "keep_seconds": 103.960520336,
+          "skip_seconds": 107.530629718,
+          "change_seconds": 3.570109382,
+          "change_percent": 3.4341011092108964
+        },
+        "input_import": {
+          "keep_seconds": 17.732672756,
+          "skip_seconds": 17.675670826,
+          "change_seconds": -0.05700193,
+          "change_percent": -0.3214514291463133
+        },
+        "final_input_query": {
+          "keep_seconds": 0.151472291,
+          "skip_seconds": 0.153846319,
+          "change_seconds": 0.002374028,
+          "change_percent": 1.5673018374033898
+        }
+      }
+    }
+  ],
+  "source_restored_stopped": true,
+  "remaining_firecrackers": [],
+  "remaining_running_containers": [],
+  "disk_available_after_gib": 57.16562271118164,
+  "scope": "Both sampled at 0.1s; only boundary vmstat differs; default reclaim; seven fresh guests per run; no proxy fallback",
+  "input_resident_mib": [
+    7026.6953125,
+    7026.6953125,
+    7026.6953125,
+    7026.6953125
+  ],
+  "input_ownership": "NOT_QUERIED",
+  "official_result": "Original 0 passed / 2 failed per guest retained; task replay/checks pass",
+  "default_changed": false
+}

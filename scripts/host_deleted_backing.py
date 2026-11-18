@@ -21,13 +21,16 @@ class CacheStat(ctypes.Structure):
     _fields_=[(k,ctypes.c_uint64) for k in ('nr_cache','nr_dirty','nr_writeback','nr_evicted','nr_recently_evicted')]
 
 
-def cachestat(fd):
+def cachestat(fd, *, offset=0, length=0):
+    if (type(offset) is not int or type(length) is not int or offset<0 or length<0 or
+            offset>=2**64 or length>=2**64 or offset+length>=2**64):
+        raise ValueError('cachestat range must fit unsigned 64-bit bytes without overflow')
     if platform.machine()!='x86_64':
         raise NotImplementedError('cachestat syscall number is verified only for x86_64')
     libc=ctypes.CDLL(None,use_errno=True)
     libc.syscall.restype=ctypes.c_long
     libc.syscall.argtypes=[ctypes.c_long,ctypes.c_uint,ctypes.POINTER(CacheRange),ctypes.POINTER(CacheStat),ctypes.c_uint]
-    bounds=CacheRange(0,0);value=CacheStat()
+    bounds=CacheRange(offset,length);value=CacheStat()
     if libc.syscall(451,fd,ctypes.byref(bounds),ctypes.byref(value),0):
         error=ctypes.get_errno();raise OSError(error,os.strerror(error))
     return {key:getattr(value,key) for key,_ in value._fields_}
@@ -46,11 +49,21 @@ def _validate_region(proc,region):
     root=proc/str(region['pid'])
     ticks=(root/'stat').read_text().rsplit(')',1)[1].split()[19]
     if ticks!=str(region['start_ticks']):raise ProcessLookupError('PID start identity changed')
-    found=next((r for line in (root/'maps').read_text().splitlines()
+    lines=(root/'maps').read_text().splitlines()
+    found=next((r for line in lines
                 if (r:=mapping_line(line)) is not None and
                 (r['start'],r['end'])==(region['start'],region['end'])),None)
     if found is None or any(found[k]!=region[k] for k in found):
-        raise ValueError('source mapping identity changed')
+        # Use this same maps read, never retry to find a more convenient match.
+        overlaps=[r for line in lines if (r:=mapping_line(line)) is not None
+                  and r['start']<region['end'] and region['start']<r['end']] if found is None else []
+        changed=({k:dict(expected=region[k],observed=found[k]) for k in found if found[k]!=region[k]}
+                 if found is not None else dict(range=dict(expected=[region['start'],region['end']],observed=None)))
+        error=ValueError('source mapping identity changed')
+        error.mapping_diagnostic=dict(reason='EXACT_RANGE_MISSING' if found is None else 'FIELDS_CHANGED',
+            maps_source=str(root/'maps'),expected=dict(region),observed=found,
+            changed_fields=changed,overlapping_regions=overlaps)
+        raise error
 
 
 def query_deleted_backing(region,*,proc=Path('/proc')):
@@ -90,13 +103,14 @@ def query_deleted_backing(region,*,proc=Path('/proc')):
     except (OSError,ValueError,NotImplementedError) as error:
         value.update(status='UNKNOWN',error=repr(error),errno=getattr(error,'errno',None),
                      cached_bytes=None,whole_backing_cache_bytes=None)
+        if hasattr(error,'mapping_diagnostic'):value['mapping_diagnostic']=error.mapping_diagnostic
     finally:value['end_monotonic_ns']=time.monotonic_ns()
     return value
 
 
 def query_deleted_backings(regions,*,proc=Path('/proc')):
     """Once per backing device/inode; failed first identity stays unknown."""
-    unique={}
+    cpu=time.process_time_ns();unique={}
     for region in regions:unique.setdefault((region['device'],region['inode']),[]).append(region)
     objects=[]
     for entries in unique.values():
@@ -104,17 +118,17 @@ def query_deleted_backings(regions,*,proc=Path('/proc')):
         value['mapping_count']=len(entries);objects.append(value)
     complete=bool(objects) and all(v['status']=='OBSERVED' for v in objects)
     return dict(status='OBSERVED' if complete else 'INCOMPLETE' if objects else 'NOT_REQUESTED',
-                objects=objects,whole_backing_cache_bytes=sum(v['whole_backing_cache_bytes'] for v in objects) if complete else None,
+                objects=objects,worker_cpu_ns=time.process_time_ns()-cpu,whole_backing_cache_bytes=sum(v['whole_backing_cache_bytes'] for v in objects) if complete else None,
                 page_charge_owner='NOT_MEASURED')
 
 
 def query_deleted_backings_bounded(regions,*,timeout=4):
     """One owned worker, killed and reaped on timeout; never signal the target."""
-    begin=time.monotonic_ns()
+    begin=time.monotonic_ns();cpu=time.thread_time_ns()
     result=dict(status='NOT_REQUESTED' if not regions else 'ERROR',objects=[],
         whole_backing_cache_bytes=None,page_charge_owner='NOT_MEASURED',
         start_monotonic_ns=begin,timeout_seconds=timeout,worker_pid=None,
-        worker_returncode=None,worker_reaped=None)
+        worker_returncode=None,worker_reaped=None,worker_cpu_ns=None)
     try:
         if not regions:return result
         with subprocess.Popen([sys.executable,'-B',str(Path(__file__).resolve()),'--worker'],
@@ -141,7 +155,9 @@ def query_deleted_backings_bounded(regions,*,timeout=4):
                 result.update(worker_returncode=worker.returncode,worker_reaped=worker.returncode is not None)
     except (OSError,ValueError,KeyError,TypeError) as error:
         result.update(status='ERROR',error=repr(error),objects=[],whole_backing_cache_bytes=None)
-    finally:result['end_monotonic_ns']=time.monotonic_ns()
+    finally:
+        result['end_monotonic_ns']=time.monotonic_ns()
+        result['cpu_ns']=time.thread_time_ns()-cpu
     return result
 
 

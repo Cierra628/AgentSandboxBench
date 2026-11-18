@@ -1,0 +1,149 @@
+{
+  "status": "PASS_OFFLINE_ASSESSMENT",
+  "candidate_runtime_status": "NOT_SUPPORTED",
+  "runtime_changes": false,
+  "new_live_guests": 0,
+  "new_live_actions": 0,
+  "checks": [
+    {
+      "name": "current_local_sampled_config_accepted",
+      "status": "PASS"
+    },
+    {
+      "name": "platform_configuration",
+      "status": "PASS",
+      "currently_rejected": true,
+      "error_type": "ValueError",
+      "message": "light_skip_boundary_vmstat requires create-before-setup light GRPO with sampling enabled"
+    },
+    {
+      "name": "persistent_config_predicate_rejects_candidate",
+      "status": "PASS",
+      "currently_rejected": true
+    },
+    {
+      "name": "persistent_input_guard",
+      "status": "PASS",
+      "currently_rejected": true,
+      "error_type": "ValueError",
+      "message": "persistent input requires a complete sampled current-only task or local sampling-off control, with default reclaim"
+    },
+    {
+      "name": "local_no_proxy_guard",
+      "status": "PASS",
+      "currently_rejected": true,
+      "error_type": "ValueError",
+      "message": "local-no-proxy requires a persistent complete light current-only task or sampling-off control"
+    },
+    {
+      "name": "existing_argument_builder_already_forwards_one_flag",
+      "status": "PASS",
+      "scope": "Pure commands builder, persistent_input=False; not acceptance of persistent runtime"
+    },
+    {
+      "name": "native_current_predicate_rejects_candidate",
+      "status": "PASS",
+      "currently_rejected": true
+    },
+    {
+      "name": "native_persistent_guard",
+      "status": "PASS",
+      "currently_rejected": true,
+      "error_type": "ValueError",
+      "message": "persistent cache requires a sampled current pair/full task or local sampling-off control, default reclaim and no RAM seed"
+    },
+    {
+      "name": "native_skip_option_guard",
+      "status": "PASS",
+      "currently_rejected": true,
+      "error_type": "ValueError",
+      "message": "skip boundary vmstat requires create-all-before-setup light GRPO with sampling enabled"
+    },
+    {
+      "name": "replay_skip_option_guard",
+      "status": "PASS",
+      "currently_rejected": true,
+      "error_type": "ValueError",
+      "message": "skip boundary vmstat requires create-all-before-setup light GRPO with sampling enabled"
+    },
+    {
+      "name": "legacy_create_all_skip_still_accepted",
+      "status": "PASS"
+    },
+    {
+      "name": "only_vmstat_function_body_changes",
+      "status": "PASS",
+      "saved_normal_runs_matched": 2,
+      "other_script_text_unchanged": true
+    },
+    {
+      "name": "counts_reuse_saved_four_runs",
+      "status": "PASS",
+      "normal_memory_rows": 448,
+      "normal_vmstat_rows": 448,
+      "critical_each_rows": 76,
+      "expected_candidate_memory_rows": 448,
+      "expected_candidate_vmstat_data_rows": 0,
+      "avoided_vmstat_reads_per_run": 448,
+      "avoided_date_awk_invocations_per_run": 896
+    },
+    {
+      "name": "task_report_scope_guard",
+      "status": "PASS",
+      "currently_rejected": true,
+      "error_type": "AssertionError",
+      "message": ""
+    },
+    {
+      "name": "shared_pair_inspector_scope_guard",
+      "status": "PASS",
+      "currently_rejected": true,
+      "error_type": "AssertionError",
+      "message": ""
+    },
+    {
+      "name": "current_driver_requires_both_448_rows",
+      "status": "PASS",
+      "currently_rejected": true,
+      "error_type": "AssertionError",
+      "message": ""
+    },
+    {
+      "name": "current_comparison_does_not_accept_two_sampled_variants",
+      "status": "PASS",
+      "currently_rejected": true,
+      "error_type": "StopIteration",
+      "message": ""
+    },
+    {
+      "name": "existing_deep_path_analysis_rejects_missing_vmstat",
+      "status": "PASS",
+      "currently_rejected": true,
+      "error_type": "AssertionError",
+      "message": ""
+    },
+    {
+      "name": "native_check_and_live_forwarding_already_present",
+      "status": "PASS",
+      "native_forwarding_sites": 2
+    },
+    {
+      "name": "no_external_process_invoked",
+      "status": "PASS"
+    }
+  ],
+  "check_count": 20,
+  "source": ".artifacts/prettier-grpo-local-no-proxy-controls-20261101/live-3/result.json",
+  "preferred_comparison": "Both sides sampled; retain versus skip boundary vmstat, keep/skip then skip/keep; four fresh runs, 756 actions",
+  "expected_counts": {
+    "memory_rows": 448,
+    "vmstat_rows": 0,
+    "vmstat": "NOT_MEASURED",
+    "periodic_interval_seconds": 0.1
+  },
+  "performance_effect": "NOT_MEASURED_FOR_THIS_CANDIDATE",
+  "artifacts": ".artifacts/grpo-local-vmstat-offline-20261101",
+  "preview_shell_syntax": "PASS; bash -n only, not executed",
+  "rejection_count": 13,
+  "report_guard_scope": "Only actual guard nodes executed with saved layout metadata; no full task audit or candidate task run"
+}

@@ -1,0 +1,212 @@
+{
+  "status": "PASS",
+  "scope": "Offline saved JSON and metadata only; no guest, backing read or residency query.",
+  "sources": {
+    "loop": ".artifacts/host-loop-accounting/20261020T050139Z-3362298",
+    "restore": ".artifacts/storage-isolated-service/20261020T072019Z-3416420"
+  },
+  "loops": [
+    {
+      "io_accounting": "no",
+      "phases": {
+        "baseline": {
+          "resident_bytes": 1298432,
+          "file_bytes": 139264,
+          "signed_gap_bytes": 1159168,
+          "outer_minus_inner_after_bytes": 0,
+          "file_change_during_query_bytes": 0
+        },
+        "immediate": {
+          "resident_bytes": 135516160,
+          "file_bytes": 67289088,
+          "signed_gap_bytes": 68227072,
+          "outer_minus_inner_after_bytes": 67108864,
+          "file_change_during_query_bytes": 0
+        },
+        "settled": {
+          "resident_bytes": 135516160,
+          "file_bytes": 67293184,
+          "signed_gap_bytes": 68222976,
+          "outer_minus_inner_after_bytes": 67108864,
+          "file_change_during_query_bytes": 0
+        }
+      },
+      "resident_growth_bytes": 134217728,
+      "file_growth_bytes": 67153920,
+      "signed_gap_change_bytes": 67063808,
+      "initialization_classification": "PRESENT_BEFORE_PAYLOAD_OWNERSHIP_AND_TIMING_UNRESOLVED",
+      "payload_accounting_classification": "POSITIVE_INCREMENTAL_SHORTFALL"
+    },
+    {
+      "io_accounting": "yes",
+      "phases": {
+        "baseline": {
+          "resident_bytes": 1331200,
+          "file_bytes": 135168,
+          "signed_gap_bytes": 1196032,
+          "outer_minus_inner_after_bytes": 0,
+          "file_change_during_query_bytes": 0
+        },
+        "immediate": {
+          "resident_bytes": 135548928,
+          "file_bytes": 134369280,
+          "signed_gap_bytes": 1179648,
+          "outer_minus_inner_after_bytes": 0,
+          "file_change_during_query_bytes": 0
+        },
+        "settled": {
+          "resident_bytes": 135548928,
+          "file_bytes": 134369280,
+          "signed_gap_bytes": 1179648,
+          "outer_minus_inner_after_bytes": 0,
+          "file_change_during_query_bytes": 0
+        }
+      },
+      "resident_growth_bytes": 134217728,
+      "file_growth_bytes": 134234112,
+      "signed_gap_change_bytes": -16384,
+      "initialization_classification": "PRESENT_BEFORE_PAYLOAD_OWNERSHIP_AND_TIMING_UNRESOLVED",
+      "payload_accounting_classification": "NO_POSITIVE_INCREMENTAL_SHORTFALL"
+    }
+  ],
+  "final_inventory": {
+    "file_count": 138,
+    "page_size": 4096,
+    "resident_bytes": 28585512960,
+    "cgroup_file_before_bytes": 28961972224,
+    "cgroup_file_after_bytes": 28961976320,
+    "file_minus_inventory_bytes": 376463360,
+    "cgroup_shmem_before_bytes": 7604273152,
+    "cgroup_shmem_after_bytes": 7604273152,
+    "input_ram_image_resident_bytes": 7604273152,
+    "categories": {
+      "input-commits": {
+        "file_count": 31,
+        "resident_bytes": 7178346496
+      },
+      "private-image-cache": {
+        "file_count": 101,
+        "resident_bytes": 7179067392
+      },
+      "private-loop-image": {
+        "file_count": 1,
+        "resident_bytes": 6035787776
+      },
+      "input-ram-loop-image": {
+        "file_count": 1,
+        "resident_bytes": 7604273152
+      },
+      "snapshot-store": {
+        "file_count": 2,
+        "resident_bytes": 588021760
+      },
+      "snapshot-runtime": {
+        "file_count": 2,
+        "resident_bytes": 16384
+      }
+    },
+    "omitted_writable_paths": [
+      {
+        "path": "logs/server.log",
+        "observed_size_bytes": 11576
+      },
+      {
+        "path": "persisted-sandboxes/records.db/LOG",
+        "observed_size_bytes": 31038
+      },
+      {
+        "path": "persisted-sandboxes/records.db/LOCK",
+        "observed_size_bytes": 0
+      },
+      {
+        "path": "persisted-sandboxes/records.db/000004.log",
+        "observed_size_bytes": 228
+      },
+      {
+        "path": "persisted-sandboxes/records.db/MANIFEST-000005",
+        "observed_size_bytes": 116
+      },
+      {
+        "path": "template-builds/LOG",
+        "observed_size_bytes": 30979
+      },
+      {
+        "path": "template-builds/LOCK",
+        "observed_size_bytes": 0
+      },
+      {
+        "path": "template-builds/000004.log",
+        "observed_size_bytes": 0
+      },
+      {
+        "path": "template-builds/MANIFEST-000005",
+        "observed_size_bytes": 116
+      },
+      {
+        "path": "logs/ublk-daemon.log",
+        "observed_size_bytes": 34529
+      }
+    ],
+    "omitted_paths_observed_size_bytes": 108582,
+    "omitted_paths_page_rounded_size_bytes": 126976,
+    "omitted_deps_manifest": {
+      "file_count_per_tree": 12,
+      "logical_size_per_tree_bytes": 189056180,
+      "page_rounded_size_per_tree_bytes": 189087744,
+      "omitted_trees": [
+        "input-readonly/env/deps",
+        "private-volume/env/deps"
+      ],
+      "two_trees_logical_size_bytes": 378112360
+    },
+    "omitted_size_meaning": "Saved logical lengths only, not measured residency or a final-time upper bound; paths are not inode identities.",
+    "accounting_validation": "AGGREGATES_DO_NOT_RESOLVE_OWNERSHIP"
+  },
+  "live_inventory": [
+    {
+      "sandboxes": 1,
+      "categories": {
+        "other-owned-block-device": {
+          "file_count": 2,
+          "resident_bytes": 13029376
+        },
+        "memory-device": {
+          "file_count": 1,
+          "resident_bytes": 333131776
+        },
+        "raw-memory-layer": {
+          "file_count": 1,
+          "resident_bytes": 578535424
+        }
+      },
+      "raw_layers_also_in_final_inventory": 1,
+      "comparison": "Different time windows; do not add live and final residency."
+    },
+    {
+      "sandboxes": 2,
+      "categories": {
+        "other-owned-block-device": {
+          "file_count": 3,
+          "resident_bytes": 13135872
+        },
+        "memory-device": {
+          "file_count": 1,
+          "resident_bytes": 336273408
+        },
+        "raw-memory-layer": {
+          "file_count": 1,
+          "resident_bytes": 578535424
+        }
+      },
+      "raw_layers_also_in_final_inventory": 1,
+      "comparison": "Different time windows; do not add live and final residency."
+    }
+  ],
+  "unresolved": {
+    "initialization_charge_owner": true,
+    "initialization_stats_timing": true,
+    "final_extra_file_composition": true,
+    "masked_external_charge": true
+  },
+  "savings_ratio": null
+}

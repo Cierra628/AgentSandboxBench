@@ -1,0 +1,94 @@
+{
+  "status": "OFFLINE_PLAN_COMPLETE",
+  "scope": "No runtime code modification, service, guest, network, package installation, residency query or business execution.",
+  "task_id": "django__django-16819",
+  "source_revision": "cbe767b2aa23ceb59875b1cb0a7a6141c749312a",
+  "image": "docker.io/swebench/sweb.eval.x86_64.django_1776_django-16819@sha256:6c46d22aaf692840f16209fe29b1d0c940bed043fce8047eb12169215222f044",
+  "source_blob": "967a91fdc89c3d1d3ec38ab155e461fe5b23b3c5",
+  "actions_per_run": 28,
+  "inputs": 28,
+  "published_files": 29,
+  "original_session_harness": "session-server.sh is an upstream transport helper, not an extra business step or payload; current validated persistent runner replaces it.",
+  "expected_nonzero_exits": {
+    "17": 1
+  },
+  "shell": "One persistent Bash sourcing all 28 original scripts, /testbed and original safe.directory; unlike C4 independent shells.",
+  "original_validation": "Pinned source blob and ancestry, original 28 exits and final syntax check only; not full Django tests or validation of a Django bug fix.",
+  "input_preparation": "Existing source identity check reads its specified source file in both modes; retain it without claiming an empty cache or adding business pre-read.",
+  "published_input_and_saved_runner": "BYTE_IDENTICAL",
+  "explicit_package_install_or_clone_in_original_scripts": false,
+  "prior_valid_run": {
+    "tool_sum_seconds": 10.81164892,
+    "replay_cli_seconds": 11.048629962,
+    "cold_create_seconds": 210.777208753,
+    "controller_seconds": 224.754802657,
+    "controller_minus_cold_seconds": 13.977593904000003,
+    "monitor_blocking_seconds": 0.355940046,
+    "monitor_blocking_calls": 4,
+    "managed_collector_request_seconds": 11.319494005,
+    "host_cpu_seconds": 0.654368591,
+    "guest_cpu_seconds": 0.147417,
+    "host_single_core_cpu_percent": 0.2849708920861903,
+    "guest_single_core_cpu_percent": 1.320992959656561
+  },
+  "current_off_support": {
+    "guest": "REJECTED_BEFORE_CLI",
+    "host": "REJECTED_BEFORE_CLI",
+    "native": "REJECTED_BY_TASK_GUARD"
+  },
+  "coordinator_gaps": [
+    "C4 fixed config and identity",
+    "36 actions / 9 payloads / /probe/input; Django needs only 28 business scripts, not original session-server.sh",
+    "C4 roundtrip and 9898 sample evidence",
+    "C4-only previous manifest fields and 9-layer check",
+    "C4 task id and plot titles in summary/report"
+  ],
+  "recommended_schedule": [
+    {
+      "pair": 1,
+      "mode": "off"
+    },
+    {
+      "pair": 1,
+      "mode": "on"
+    },
+    {
+      "pair": 2,
+      "mode": "on"
+    },
+    {
+      "pair": 2,
+      "mode": "off"
+    }
+  ],
+  "runs": 4,
+  "pairs": 2,
+  "total_actions": 112,
+  "guest_per_run": 1,
+  "memory_mib": 8192,
+  "cpu": 2,
+  "min_available_strict_gib": 58,
+  "min_mem_available_strict_gib": 64,
+  "volume_gib": 32,
+  "serial": true,
+  "timeouts_seconds": {
+    "replay": 240,
+    "controller": 720,
+    "native": 1050,
+    "workflow": 1200
+  },
+  "current_resources": {
+    "available_bytes": 67724374016,
+    "disk_ready": true,
+    "mem_available_bytes": 514602438656,
+    "load_average": [
+      0.2822265625,
+      0.2236328125,
+      0.25244140625
+    ]
+  },
+  "proposed_implementation": "Extend the explicit supported-off tasks to C4 and this pinned Django task in the three existing entry scripts. Reuse the existing series/report with an explicit Django profile; keep existing C4 entry/default and saved-result meaning.",
+  "old_single_run": "Feasibility, identity and timing decomposition only; never pooled as one of the new paired on runs.",
+  "completion": "Original shell/input/baseline/exits/syntax/timing kept; off has no memory collector, code or samples; on .1s covers all tools with cost receipt; four fresh guests/groups, volume boundary and complete cleanup; stop after two pairs.",
+  "next_stage": "Await user confirmation of two pairs/four runs, then implement minimum profile changes and offline regressions before the first formal off run."
+}

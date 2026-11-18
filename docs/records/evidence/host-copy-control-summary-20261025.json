@@ -1,0 +1,124 @@
+{
+  "status": "PASS_OFFLINE_COPY_SUMMARY",
+  "scope": "Initial 19 lower-file cache only; actual shared/private comparison within each schedule; preparation included",
+  "total_accepted_actions": 546,
+  "schedules": [
+    {
+      "schedule": "grpo",
+      "source": "/home/yyxie/agentenv_experiment/docs/records/evidence/host-full-grpo-private-20261025.json",
+      "pair": ".artifacts/host-full-grpo-resume-20261025",
+      "actual_actions": 378,
+      "page_size_bytes": 4096,
+      "groups": {
+        "shared": {
+          "P0": 4418736128,
+          "P1": 4419899392,
+          "objects": 19,
+          "users_per_object": 7,
+          "runtime_change_bytes": 1163264,
+          "main_query_ns": 346159185,
+          "total_query_ns": 346159185,
+          "generated_layers": null,
+          "storage": ".artifacts/storage-isolated-service/20261025T033849Z-931236",
+          "task_actions": 189
+        },
+        "private": {
+          "P0": 30931152896,
+          "P1": 30936666112,
+          "objects": 133,
+          "users_per_object": 1,
+          "runtime_change_bytes": 5513216,
+          "main_query_ns": 2337044720,
+          "total_query_ns": 2337044720,
+          "generated_layers": null,
+          "storage": ".artifacts/storage-isolated-service/20261025T035223Z-938973",
+          "task_actions": 189
+        }
+      },
+      "P0_difference_bytes": 26512416768,
+      "P1_difference_bytes": 26516766720,
+      "runtime_difference_change_bytes": 4349952,
+      "reduction_fraction": 0.8571307142146914,
+      "accepted_pairs": 1,
+      "standard_deviation": null
+    },
+    {
+      "schedule": "bpo",
+      "source": "/home/yyxie/agentenv_experiment/docs/records/evidence/host-bpo-copy-live-20261025.json",
+      "pair": ".artifacts/host-full-rootfs-pairs/20261025T042632Z-951259",
+      "actual_actions": 168,
+      "page_size_bytes": 4096,
+      "groups": {
+        "shared": {
+          "P0": 4418736128,
+          "P1": 4419870720,
+          "objects": 19,
+          "users_per_object": 7,
+          "runtime_change_bytes": 1134592,
+          "main_query_ns": 377248143,
+          "total_query_ns": 377868365,
+          "generated_layers": {
+            "query_ns": 620222,
+            "layers": [
+              {
+                "step": 11,
+                "size": 9625600,
+                "resident_bytes": 9625600,
+                "users": 7
+              },
+              {
+                "step": 24,
+                "size": 577536,
+                "resident_bytes": 577536,
+                "users": 4
+              }
+            ]
+          },
+          "storage": ".artifacts/storage-isolated-service/20261025T042752Z-952495",
+          "task_actions": 84
+        },
+        "private": {
+          "P0": 30931152896,
+          "P1": 30934609920,
+          "objects": 133,
+          "users_per_object": 1,
+          "runtime_change_bytes": 3457024,
+          "main_query_ns": 2304143565,
+          "total_query_ns": 2304801347,
+          "generated_layers": {
+            "query_ns": 657782,
+            "layers": [
+              {
+                "step": 11,
+                "size": 9445376,
+                "resident_bytes": 9445376,
+                "users": 7
+              },
+              {
+                "step": 24,
+                "size": 610304,
+                "resident_bytes": 610304,
+                "users": 4
+              }
+            ]
+          },
+          "storage": ".artifacts/storage-isolated-service/20261025T043037Z-956058",
+          "task_actions": 84
+        }
+      },
+      "P0_difference_bytes": 26512416768,
+      "P1_difference_bytes": 26514739200,
+      "runtime_difference_change_bytes": 2322432,
+      "reduction_fraction": 0.8571221446971458,
+      "accepted_pairs": 1,
+      "standard_deviation": null
+    }
+  ],
+  "excluded": [
+    "Whole host RAM",
+    "Guest Cached physical attribution",
+    "BPO generated layers from main savings",
+    "GRPO versus BPO causal performance or memory advantage"
+  ],
+  "new_live_actions": 0
+}

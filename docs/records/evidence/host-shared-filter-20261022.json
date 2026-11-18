@@ -1,0 +1,100 @@
+{
+  "status": "PASS_OFFLINE_SELECTION_REPLAY",
+  "source": ".artifacts/host-shared-restore-20261022/result.json",
+  "stages": [
+    {
+      "sandboxes": 1,
+      "old_queried_objects": 4,
+      "selected_queried_objects": 3,
+      "old_queried_block_devices": 3,
+      "selected_block_devices": 2,
+      "excluded_devices": 1,
+      "excluded_residency_status": "NOT_REQUESTED",
+      "excluded_resident_bytes": null,
+      "shared_objects_unchanged": true,
+      "categories": [
+        {
+          "category": "snapshot_memory_device",
+          "object_key": [
+            "block",
+            66306
+          ],
+          "mapping_length": 4294967296,
+          "saved_resident_bytes": 428195840
+        },
+        {
+          "category": "shared_readonly_backing",
+          "object_key": [
+            "block",
+            66304
+          ],
+          "mapping_length": 68719476736,
+          "saved_resident_bytes": 344064
+        },
+        {
+          "category": "snapshot_memory_layer",
+          "object_key": [
+            "regular",
+            1795,
+            1048783
+          ],
+          "mapping_length": 582438912,
+          "saved_resident_bytes": 582438912
+        }
+      ]
+    },
+    {
+      "sandboxes": 7,
+      "old_queried_objects": 10,
+      "selected_queried_objects": 3,
+      "old_queried_block_devices": 9,
+      "selected_block_devices": 2,
+      "excluded_devices": 7,
+      "excluded_residency_status": "NOT_REQUESTED",
+      "excluded_resident_bytes": null,
+      "shared_objects_unchanged": true,
+      "categories": [
+        {
+          "category": "snapshot_memory_device",
+          "object_key": [
+            "block",
+            66306
+          ],
+          "mapping_length": 4294967296,
+          "saved_resident_bytes": 454332416
+        },
+        {
+          "category": "shared_readonly_backing",
+          "object_key": [
+            "block",
+            66304
+          ],
+          "mapping_length": 68719476736,
+          "saved_resident_bytes": 10579968
+        },
+        {
+          "category": "snapshot_memory_layer",
+          "object_key": [
+            "regular",
+            1795,
+            1048783
+          ],
+          "mapping_length": 582438912,
+          "saved_resident_bytes": 582438912
+        }
+      ]
+    }
+  ],
+  "live_cache_queries": 0,
+  "new_sandbox_actions": 0,
+  "performance_after_filter": "NOT_MEASURED",
+  "scope": "Only saved metadata replay. Saved resident values prove selection preserved the same objects, not current residency or new timing. Old raw observations and zero-residency private-device results are unchanged; new skipped fields are null.",
+  "tests": {
+    "new_shared_filter": 4,
+    "legacy_restore": 7,
+    "scaling": 12,
+    "file_focus": 8,
+    "total": 31
+  },
+  "legacy_default_scope": "UNCHANGED_ALL_OWNED_BLOCK_DEVICES"
+}

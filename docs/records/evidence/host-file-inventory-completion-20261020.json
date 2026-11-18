@@ -1,0 +1,30 @@
+{
+  "status": "PASS",
+  "scope": "Entry implementation and offline regression only; no sandbox, loop or new real backing residency.",
+  "original_restore_roots": 6,
+  "expanded_restore_roots": 11,
+  "added_roots": [
+    "input/env/deps",
+    "private/env/deps",
+    "private/env/logs",
+    "private/env/persisted-sandboxes",
+    "private/env/template-builds"
+  ],
+  "original_root_prefix_preserved": true,
+  "saved_writable_distinct_paths": 14,
+  "saved_writable_paths_outside_old_roots": 10,
+  "saved_writable_paths_outside_expanded_roots": 0,
+  "saved_deps_manifest_files_per_tree": 12,
+  "deps_candidates_covered_by_new_paths": 24,
+  "old_saved_coverage_audit_unchanged": true,
+  "regression_tests": 21,
+  "test_logs": {
+    "host-monitor-tests.log": 12,
+    "coverage-tests.log": 4,
+    "restore-tests.log": 5
+  },
+  "missing_root_handling": "Existing FileNotFoundError retained; entry records host_file_residency_error and marks cleanup unsuccessful, not zero residency.",
+  "real_new_residency_measured": false,
+  "old_residual_recalculated": false,
+  "savings_ratio": null
+}

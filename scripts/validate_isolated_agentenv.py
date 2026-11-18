@@ -21,6 +21,7 @@ import urllib.request
 from experiment_disk_guard import writer_lock
 from isolated_storage import GIB, HOST_RESERVE, available, capacity_budget, mount_identity, write_mounts, verify_container_boundary, execution_window
 from probe_storage_boundary import identities
+from host_sandbox_monitor import validate_pss_interval
 
 ROOT = Path(__file__).resolve().parents[1]
 SERVICE = os.environ.get('ASB_AGENTENV_SOURCE_SERVICE', 'agentenv-smoke-20260922T114006Z-1387374')
@@ -28,6 +29,21 @@ if not re.fullmatch(r'[A-Za-z0-9][A-Za-z0-9_.-]*', SERVICE):
     raise ValueError('invalid explicit AgentENV source service name')
 IMAGE = 'sha256:db9eb044ae3d85f9b276b9d2e5dea28cb0be95263d217ea4989f095e1d828681'
 CAPACITY = 20*GIB
+
+
+def finish_fixture(image,success,receipt,cleanup,*,retain_for_final_acceptance=False):
+    """Opt-in private calibration keeps the unmounted volume even on inner PASS."""
+    if retain_for_final_acceptance:
+        if not image.is_file():raise FileNotFoundError('private fixture missing before final acceptance')
+        receipt['fixture_retention']=dict(policy='retain_until_explicit_cleanup_after_final_acceptance',
+            path=str(image),status='PENDING_FINAL_ACCEPTANCE' if success else 'RETAINED_AFTER_INNER_FAIL')
+        cleanup['fixture_retained_for_final_acceptance']=True
+        if not success:cleanup['failed_fixture_retained']=True
+    elif success:
+        receipt['fixture_allocated_before_remove_bytes']=image.stat().st_blocks*512
+        image.unlink();cleanup['successful_fixture_removed']=True
+        receipt['failure_fixture_retained']=False
+    else:cleanup['failed_fixture_retained']=image.exists()
 
 
 def config_value(text, section, key, value):
@@ -148,6 +164,13 @@ def ordinary_current_only(args, *, monitor_mode='continuous'):
 def main(args):
     os.umask(0o077)
     if os.geteuid()!=0: raise RuntimeError('root required')
+    diagnostic_server=getattr(args,'diagnostic_server_binary',None)
+    if diagnostic_server:
+        if not ((getattr(args,'guest_cache_light_restore_one',False) or getattr(args,'guest_cache_rollout_sessions',False) or getattr(args,'light_rollout',False)) and os.environ.get('ASB_VMM_CHILD_CGROUP_CHECK')):
+            raise ValueError('diagnostic server requires explicit child-cgroup light restore')
+        diagnostic_server=Path(diagnostic_server).resolve()
+        if not diagnostic_server.is_relative_to(ROOT/'.artifacts') or not diagnostic_server.is_file() or not os.access(diagnostic_server,os.X_OK):
+            raise ValueError('invalid diagnostic server binary')
     density_path=getattr(args,'density_request',None)
     density=None
     if density_path:
@@ -156,14 +179,49 @@ def main(args):
     platform_cfg=None
     external_config=getattr(args,'external_workload_config',None)
     external_upstream=getattr(args,'external_workload_upstream',None)
+    django_schedule=getattr(args,'django_schedule',None)
+    django_schedule_inputs=getattr(args,'django_schedule_inputs',None)
+    c4_schedule=getattr(args,'c4_schedule',None)
+    c4_schedule_inputs=getattr(args,'c4_schedule_inputs',None)
+    cython_schedule=getattr(args,'cython_schedule',None)
+    cython_schedule_inputs=getattr(args,'cython_schedule_inputs',None)
+    if bool(cython_schedule)!=bool(cython_schedule_inputs):raise ValueError('Cython schedule requires explicit prepared inputs')
+    text_editing_schedule=getattr(args,'text_editing_schedule',None)
+    text_editing_schedule_inputs=getattr(args,'text_editing_schedule_inputs',None)
+    if bool(text_editing_schedule)!=bool(text_editing_schedule_inputs):raise ValueError('Text editing schedule requires explicit prepared inputs')
+    matplotlib_schedule=getattr(args,'matplotlib_schedule',None)
+    matplotlib_schedule_inputs=getattr(args,'matplotlib_schedule_inputs',None)
+    if bool(matplotlib_schedule)!=bool(matplotlib_schedule_inputs):raise ValueError('Matplotlib schedule requires explicit prepared inputs')
+    if bool(c4_schedule)!=bool(c4_schedule_inputs):raise ValueError('C4 schedule requires explicit prepared inputs')
+    if sum(bool(s) for s in (c4_schedule,django_schedule,matplotlib_schedule,text_editing_schedule,cython_schedule))>1:raise ValueError('Only one external schedule task at a time')
+    if getattr(args,'experiment_memory_standard',False) and not any((c4_schedule,django_schedule,matplotlib_schedule,text_editing_schedule,cython_schedule)):
+        raise ValueError('experiment memory acceptance requires an explicit external schedule')
+    if bool(django_schedule)!=bool(django_schedule_inputs):raise ValueError('Django schedule requires explicit prepared inputs')
     if bool(external_config)!=bool(external_upstream):raise ValueError('external workload requires config and pinned upstream')
     external_sampling=getattr(args,'external_workload_sampling','on')
     if external_sampling not in ('on','off') or external_sampling=='off' and not external_config:raise ValueError('external sampling off requires an explicit supported config')
     external_off=bool(external_config) and external_sampling=='off'
+    task_endpoint_metrics=getattr(args,'task_endpoint_metrics',False)
+    external_oci_input=getattr(args,'external_workload_oci_input',None)
+    external_oci_layout=None
+    if external_oci_input and not external_config:raise ValueError('external OCI requires a fixed external workload')
+    if c4_schedule and not (external_config and external_oci_input and not any((external_off,task_endpoint_metrics,density))):
+        raise ValueError('C4 schedule requires its complete sampled config and local OCI, without other modes')
+    if matplotlib_schedule and not (external_config and external_oci_input and not any((external_off,task_endpoint_metrics,density))):
+        raise ValueError('Matplotlib schedule requires its complete sampled config and local OCI, without other modes')
+    if text_editing_schedule and not (external_config and external_oci_input and not any((external_off,task_endpoint_metrics,density))):
+        raise ValueError('Text editing schedule requires its complete sampled config and local OCI, without other modes')
+    if cython_schedule and not (external_config and external_oci_input and not any((external_off,task_endpoint_metrics,density))):
+        raise ValueError('Cython schedule requires its complete sampled config and local OCI, without other modes')
     creation_only=getattr(args,'external_creation_controls',False)
+    vmm_pss_interval=validate_pss_interval(getattr(args,'vmm_pss_interval_seconds',1))
+    if vmm_pss_interval!=1 and not (external_config and not external_off and not creation_only and not density):
+        raise ValueError('non-default PSS interval requires a complete sampled external task')
     django_oci_input=getattr(args,'external_creation_oci_input',None)
     django_oci_state=django_oci_layout=None
-    if django_oci_input and not creation_only:raise ValueError('local Django OCI requires explicit creation controls')
+    if django_oci_input and not (creation_only or django_schedule):raise ValueError('local Django OCI requires explicit creation controls or Django schedule')
+    if django_schedule and not (external_config and django_oci_input and not any((external_off,creation_only,task_endpoint_metrics,external_oci_input))):
+        raise ValueError('Django schedule requires its complete sampled external config and local Django OCI')
     if creation_only and not external_off:raise ValueError('creation controls require an explicit external config and periodic sampling off outside each creation')
     startup_sampling=getattr(args,'startup_sampling',None)
     if getattr(args,'startup_server_metrics',False) and not startup_sampling:
@@ -232,14 +290,68 @@ def main(args):
         provider_binary=provider_binary.resolve()
         assert provider_binary.is_relative_to(ROOT/'.artifacts') and provider_binary.is_file()
         assert provider_binary.open('rb').read(4)==b'\x7fELF'
-    lower_cache_probe=getattr(args,'snapshot_lower_cache_calibration',False) or pair_cache_probe or bool(provider_binary) and not prettier_cache_pair
+    lower_cache_probe=getattr(args,'snapshot_lower_cache_calibration',False) or pair_cache_probe or bool(provider_binary) and not prettier_cache_pair and not getattr(args,'guest_cache_rollout_sessions',False)
     cache_restore_probe=getattr(args,'snapshot_cache_calibration',False) or lower_cache_probe
-    cache_metadata_probe=getattr(args,'guest_cache_metadata_probe',False) or cache_restore_probe or capacity_probe
+    child_cache_probe=getattr(args,'guest_cache_child_calibration',False)
+    child_cache_count=getattr(args,'guest_cache_child_count',1)
+    dynamic_file_cache=getattr(args,'guest_cache_dynamic_file',False)
+    ram_page_evidence=getattr(args,'guest_cache_ram_page_evidence',False)
+    vmm_page_evidence=getattr(args,'guest_cache_vmm_page_evidence',False)
+    io_uring_page_evidence=getattr(args,'guest_cache_io_uring_page_evidence',False)
+    if io_uring_page_evidence and not vmm_page_evidence:
+        raise ValueError('io_uring evidence requires explicit VMM and RAM evidence')
+    if vmm_page_evidence and not (child_cache_probe and ram_page_evidence):
+        raise ValueError('VMM mapping evidence requires private child calibration and explicit RAM evidence')
+    host_backing_evidence=getattr(args,'guest_cache_host_backing_evidence',False)
+    host_backing_pfn_evidence=getattr(args,'guest_cache_host_backing_pfn_evidence',False)
+    host_backing_full_pfn_evidence=getattr(args,'guest_cache_host_backing_full_pfn_evidence',False)
+    host_backing_charge_evidence=getattr(args,'guest_cache_host_backing_charge_evidence',False)
+    if host_backing_charge_evidence and not host_backing_full_pfn_evidence:
+        raise ValueError('page charge evidence requires explicit full-list PFNs')
+    cache_sessions=getattr(args,'guest_cache_rollout_sessions',False)
+    seven_restored=getattr(args,'seven_restored',False)
+    restored_lower=getattr(args,'guest_cache_restored_lower',False)
+    if cache_sessions and provider_binary and not (restored_lower and provider_get_data):raise ValueError('cache sessions provider requires restored lower and GET_DATA')
+    if restored_lower and not cache_sessions:raise ValueError('restored lower requires cache sessions')
+    unified_cache_rounds=getattr(args,'guest_cache_unified_rounds',False)
+    if unified_cache_rounds and not cache_sessions:raise ValueError('unified rounds requires cache sessions')
+    immediate=getattr(args,"immediate_restores",False)
+    if immediate and not seven_restored:raise ValueError("immediate restores requires seven restored branches")
+    if seven_restored and not (cache_sessions and restored_lower and provider_binary and provider_get_data and unified_cache_rounds and child_cache_count==7):
+        raise ValueError('seven-restored requires explicit restored provider sessions')
+    if cache_sessions and not (child_cache_probe and child_cache_count==(7 if seven_restored else 2) and diagnostic_server and os.environ.get('ASB_VMM_CHILD_CGROUP_CHECK')):raise ValueError('cache sessions requires two owned guests and private server')
+    light_memory=getattr(args,'guest_cache_light_memory',False)
+    light_restore=getattr(args,'guest_cache_light_restore_one',False)
+    if cache_sessions and any((light_memory,light_restore,dynamic_file_cache,ram_page_evidence,vmm_page_evidence,io_uring_page_evidence,host_backing_evidence,host_backing_pfn_evidence,host_backing_full_pfn_evidence,host_backing_charge_evidence)):raise ValueError('cache sessions cannot combine other probes')
+    if light_restore and not (light_memory and child_cache_count==7):raise ValueError('restore-one requires seven light guests')
+    if light_memory and (not child_cache_probe or child_cache_count not in (2,7) or any((dynamic_file_cache,ram_page_evidence,vmm_page_evidence,io_uring_page_evidence,host_backing_evidence))):
+        raise ValueError('light memory requires two or seven private guests and no heavy evidence')
+    retain_fixture=getattr(args,'retain_fixture_for_final_acceptance',False)
+    if retain_fixture and not host_backing_full_pfn_evidence:
+        raise ValueError('fixture retention for final acceptance requires explicit private full-list calibration')
+    if host_backing_full_pfn_evidence and not (child_cache_probe and host_backing_evidence and child_cache_count==1 and not host_backing_pfn_evidence):
+        raise ValueError('full-list PFNs require one private guest, backing inventory, and no single-range option')
+    if host_backing_pfn_evidence and not (child_cache_probe and host_backing_evidence and child_cache_count==1):
+        raise ValueError('host backing PFNs require explicit backing evidence and one private guest')
+    if host_backing_evidence and not child_cache_probe:
+        raise ValueError('host backing evidence requires explicit private child calibration')
+    if ram_page_evidence and not child_cache_probe:
+        raise ValueError('full RAM evidence requires explicit private child calibration')
+    if dynamic_file_cache and not (child_cache_probe and child_cache_count in (1,2)):
+        raise ValueError('dynamic file cache requires explicit private child calibration')
+    if child_cache_count not in (1,2,7) or child_cache_count!=1 and not child_cache_probe or child_cache_count==7 and not (light_memory or seven_restored):
+        raise ValueError('two private cache guests require the explicit child calibration')
+    if child_cache_probe and any((getattr(args,'guest_cache_metadata_probe',False),cache_restore_probe,capacity_probe)):
+        raise ValueError('child cache calibration is a separate private-guest workflow')
+    cache_metadata_probe=getattr(args,'guest_cache_metadata_probe',False) or cache_restore_probe or capacity_probe or child_cache_probe
     diagnostic_kernel=getattr(args,'diagnostic_guest_kernel',None)
     live_task_cache=getattr(args,'prettier6604_live_cache',False)
     if cache_metadata_probe and not diagnostic_kernel:
         raise ValueError('guest cache metadata probe requires an explicit diagnostic kernel')
     if diagnostic_kernel:
+        if getattr(args,'light_rollout',False):
+            from light_prettier_rollout import diagnostic_kernel_args
+            diagnostic_kernel_args(diagnostic_kernel)
         diagnostic_kernel=diagnostic_kernel.resolve()
         assert diagnostic_kernel.is_relative_to(ROOT/'.artifacts') and diagnostic_kernel.is_file()
         assert diagnostic_kernel.open('rb').read(4)==b'\x7fELF', 'diagnostic kernel must be a local ELF'
@@ -347,9 +459,21 @@ def main(args):
             raise ValueError('Prettier monitor-off requires complete readonly backbone or ordinary seven-guest GRPO')
     cache_seed=getattr(args,'immutable_cache_seed',None)
     schedule_smoke=False
-    if getattr(args,'schedule_smoke_metrics',False):
+    if getattr(args,'schedule_smoke_metrics',False) or getattr(args,'schedule_expanded_files',False) or getattr(args,'schedule_cache_layers',False) or getattr(args,'schedule_block_cache_method',None) is not None or getattr(args,'schedule_split_ram_cache',False) or getattr(args,'schedule_memory_backing_links',False):
         from schedule_smoke_metrics import options as smoke_options
         schedule_smoke=smoke_options(args,native=True)
+    from light_prettier_rollout import options as light_rollout_options
+    light_rollout=light_rollout_options(args,native=True)
+    vmm_check=os.environ.get('ASB_VMM_CHILD_CGROUP_CHECK')
+    if light_rollout and not (vmm_check and diagnostic_server):raise ValueError('light rollout requires owned VMM groups and patched private server')
+    vmm_sampler=None
+    if vmm_check:
+        vmm_check=Path(vmm_check).resolve()
+        assert (schedule_smoke and getattr(args,'prettier6604_schedule','grpo')=='grpo') or child_cache_probe or light_rollout, 'VMM cgroups require full GRPO smoke or explicit private-guest cache calibration'
+        assert vmm_check.is_relative_to(ROOT/'.artifacts') and (vmm_check/'vmm-cgroup-launcher').is_file()
+    if child_cache_probe:
+        assert vmm_check and cache_seed and os.environ.get('ASB_VMM_REQUIRE_IO')=='on', 'child calibration requires owned launcher, local seed and I/O accounting'
+        assert not os.environ.get('ASB_VMM_ACCOUNTING_ONLY'), 'seven-guest accounting acceptance is not a private-guest calibration check'
     persistent_seed=getattr(args,'persistent_cache_seed',None)
     local_no_proxy=os.environ.get('ASB_LOCAL_NO_PROXY')=='on'
     local_no_proxy_check=getattr(args,'local_no_proxy_check',False)
@@ -368,7 +492,17 @@ def main(args):
         native_option(args)
         cache_seed=persistent_seed
     python_inputs=getattr(args,'python_backbone_inputs',None)
+    python_schedule=getattr(args,'python_schedule',None)
     python_profile=getattr(args,'python_task_profile','xarray6992')
+    python_branch_policy=getattr(args,'python_branch_pipeline_policy','original')
+    python_schedule_find=getattr(args,'python_schedule_find_exit_diagnostic',False)
+    python_schedule_xarray_find=getattr(args,'python_schedule_xarray_find_exit_diagnostic',False)
+    if python_schedule_xarray_find and not (python_schedule and python_profile=='xarray6992'):
+        raise ValueError('Xarray find exit policy requires explicit Xarray seven-role schedule')
+    if python_schedule_find and not (python_schedule and python_profile=='sphinx7590'):
+        raise ValueError('find exit policy requires explicit Sphinx seven-role schedule')
+    if python_branch_policy!='original' and not (python_schedule and python_profile=='sphinx7590'):
+        raise ValueError('early2 policy requires explicit Sphinx seven-role schedule')
     sphinx=python_profile=='sphinx7590'
     if sphinx and not python_inputs:raise ValueError('Sphinx profile requires prepared Python task inputs')
     python_oci=getattr(args,'python_backbone_oci',None)
@@ -432,6 +566,12 @@ def main(args):
     if sum(map(bool,(python_runtime_smoke,python_cache_smoke,python_command_diagnostic,python_tool_capture,python_durable)))>1:
         raise ValueError('choose one short Python validation mode')
     python_short=python_cache_smoke or python_runtime_smoke or python_command_diagnostic or python_tool_capture or python_durable
+    if python_schedule and not (python_inputs and cache_seed and python_readonly_replay and python_persistent and
+            python_monitor_mode=='continuous' and not any((python_short,python_checkpoint,python_expected,
+            python_diagnostic,python_evaluation,python_physical,python_live_cache,light_monitor,task_endpoint_metrics,
+            persistent_seed,local_no_proxy,schedule_smoke)) and
+            (sphinx and sphinx_pipeline and pipeline_version==2 or not sphinx and python_continuation)):
+        raise ValueError('Python schedule requires explicit original seven-role full monitoring and pinned diagnostic policy')
     if python_live_cache and not (diagnostic_kernel and python_inputs and python_readonly_replay and python_persistent and
                                  python_monitor_mode=='continuous' and not (python_checkpoint or python_short or python_diagnostic or python_evaluation or python_physical or cache_metadata_probe or live_task_cache)):
         raise ValueError('live Python cache requires diagnostic kernel and one complete continuous readonly replay')
@@ -479,7 +619,7 @@ def main(args):
         raise ValueError('Prettier paths require task, official reference, and no checkpoint option')
     if exp2_mode and (not cache_seed or prettier6604 or python_inputs or args.exp1_checkpoint or platform_cfg is not None):
         raise ValueError('Exp2 requires verified Prettier cache and no other workload')
-    if cache_seed and not (exp1_light or online_task or exp2_mode or prettier_export or prettier_readonly or prettier_checkpoint or python_diagnostic or python_readonly_replay or python_evaluation):
+    if cache_seed and not (exp1_light or online_task or exp2_mode or prettier_export or prettier_readonly or prettier_checkpoint or python_diagnostic or python_readonly_replay or python_evaluation or child_cache_probe):
         raise ValueError('extra cache seed is limited to corrected Prettier paths')
     seed_value=None
     if persistent_seed:
@@ -523,6 +663,15 @@ def main(args):
             raise ValueError('external workload requires a separate complete light current-only run')
         from external_workload import load as load_external,budgets as external_budgets
         external_value,_,_=load_external(external_config,external_upstream)
+        if vmm_pss_interval!=1 and not (task_endpoint_metrics or external_value['task_id'] in ('matplotlib__matplotlib-24177','large-scale-text-editing')):
+            raise ValueError('non-default PSS interval requires external endpoint metrics')
+        if external_oci_input:
+            if c4_schedule:
+                from c4_density_input import validate as validate_c4_oci
+                external_oci_state,external_oci_layout,_=validate_c4_oci(external_oci_input)
+            else:
+                from external_oci import validate as validate_external_oci
+                external_oci_state,external_oci_layout,_=validate_external_oci(external_oci_input,external_value)
         if external_off and external_value['task_id'] not in ('reshard-c4-data','django__django-16819','build-cython-ext'):raise ValueError('sampling off is limited to the explicit C4/Django/Cython controls')
         if creation_only and external_value['task_id']!='django__django-16819':raise ValueError('creation controls are limited to the fixed Django image')
         if django_oci_input:
@@ -533,10 +682,42 @@ def main(args):
             if external_value['task_id']!='reshard-c4-data' or density['task']!='c4':raise ValueError('density external task differs')
             capacity=80*GIB
         else:capacity=32*GIB
+        if django_schedule:
+            from django_schedule_inputs import task_plan as django_plan,volume_gib as django_volume_gib
+            if external_value['task_id']!='django__django-16819':raise ValueError('Django schedule task differs')
+            django_plan(django_schedule_inputs)
+            capacity=django_volume_gib(django_schedule)*GIB
+        if c4_schedule:
+            from c4_schedule_inputs import task_plan as c4_plan,volume_gib as c4_volume_gib
+            if external_value['task_id']!='reshard-c4-data':raise ValueError('C4 schedule task differs')
+            c4_plan(c4_schedule_inputs)
+            capacity=c4_volume_gib(c4_schedule)*GIB
+        if matplotlib_schedule:
+            from matplotlib_schedule_inputs import task_plan as matplotlib_plan,volume_gib as matplotlib_volume_gib,START_MARGIN_BYTES
+            if external_value['task_id']!='matplotlib__matplotlib-24177':raise ValueError('Matplotlib schedule task differs')
+            matplotlib_plan(matplotlib_schedule_inputs)
+            capacity=matplotlib_volume_gib(matplotlib_schedule)*GIB
+        if text_editing_schedule:
+            from text_editing_schedule_inputs import task_plan as text_plan,volume_gib as text_volume_gib
+            if external_value['task_id']!='large-scale-text-editing':raise ValueError('Text editing schedule task differs')
+            text_plan(text_editing_schedule_inputs)
+            capacity=text_volume_gib(text_editing_schedule)*GIB
+        if cython_schedule:
+            from cython_schedule_inputs import task_plan as cython_plan,volume_gib as cython_volume_gib
+            if external_value['task_id']!='build-cython-ext':raise ValueError('Cython schedule task differs')
+            cython_plan(cython_schedule_inputs)
+            capacity=cython_volume_gib(cython_schedule)*GIB
+    if getattr(args,'external_workload_relay',False) and not (external_config and external_value['task_id']=='build-cython-ext' and (task_endpoint_metrics or cython_schedule)):
+        raise ValueError('explicit relay requires upgraded Cython')
+    if getattr(args,'external_delete_trace',False) and not (external_config and getattr(args,'external_guest_count',1)==2 and getattr(args,'external_sampling_control',False)):raise ValueError('delete trace requires explicit two-guest C4 control')
+    if getattr(args,'external_guest_count',1)!=1 and not (getattr(args,'external_guest_count',1)==2 and external_config and external_value['task_id']=='reshard-c4-data' and getattr(args,'external_sampling_control',False)):raise ValueError('two guests require explicit C4 sampling control')
+    if getattr(args,'external_sampling_control',False) and not (external_config and external_value['task_id']=='reshard-c4-data' and not creation_only):raise ValueError('sampling control requires complete C4')
+    if task_endpoint_metrics and not (external_config and not external_off and not creation_only or python_inputs and light_monitor and host_current_only and python_persistent and not (python_checkpoint or python_short or python_diagnostic or python_evaluation)):
+        raise ValueError('endpoint metrics require a complete sampled external or light Python task')
     if cache_metadata_probe:
         if prettier6604 or python_inputs or exp2_mode or args.exp1_checkpoint or platform_cfg:
             raise ValueError('guest cache metadata probe is a separate short workflow')
-        capacity=(22 if pair_cache_probe else 24 if cache_restore_probe else 12)*GIB
+        capacity=(64 if seven_restored else 24 if cache_sessions else 40 if light_restore else 24 if light_memory and child_cache_count==7 else 22 if pair_cache_probe else 24 if cache_restore_probe else 16 if child_cache_probe and child_cache_count==2 else 12)*GIB
     if exp2_mode:
         capacity=32*GIB
         subprocess.run([sys.executable,'-B',ROOT/'scripts/run_exp2.py','--cache-mode',exp2_mode,'--check-only'],check=True,capture_output=True,timeout=15)
@@ -548,6 +729,7 @@ def main(args):
         # Use the already verified Sphinx restore volume, even for small smoke VMs.
         if python_runtime_smoke:capacity=16*GIB
         if python_checkpoint:capacity=16*GIB
+        if python_schedule:capacity=(40 if python_schedule=='grpo' else 56 if sphinx else 64)*GIB
         if python_oci:
             from prepare_xarray6992_image import validate as validate_oci
             if sphinx:
@@ -564,6 +746,12 @@ def main(args):
             check_command+=['--monitor-mode','off']
             if python_continuation:check_command+=['--diagnostic-continuation','--persistent-sampling']
         if light_monitor:check_command+=['--light-monitor']
+        if python_schedule:
+            check_command=[sys.executable,'-B',str(ROOT/'scripts/run_python_schedule.py'),'--inputs',str(python_inputs),
+                '--task-profile',python_profile,'--schedule',python_schedule,'--check-only']
+            if python_branch_policy!='original':check_command+=['--branch-pipeline-policy',python_branch_policy]
+            if python_schedule_find:check_command+=['--find-exit-diagnostic']
+            if python_schedule_xarray_find:check_command+=['--xarray-find-exit-diagnostic']
         subprocess.run(check_command,check=True,capture_output=True,timeout=30)
     if prettier6604 and (args.exp1_checkpoint or platform_cfg is not None):
         raise ValueError('Prettier6604 entry cannot be combined with Exp1 config')
@@ -592,6 +780,12 @@ def main(args):
             if light_monitor:check_args+=['--light-monitor']
             if full_shared:check_args+=['--host-shared-files']
             if schedule_smoke:check_args+=['--schedule-smoke-metrics']
+            if getattr(args,'schedule_expanded_files',False):check_args+=['--schedule-expanded-files']
+            if getattr(args,'schedule_cache_layers',False):check_args+=['--schedule-cache-layers']
+            if getattr(args,'schedule_block_cache_method',None) is not None:check_args+=['--schedule-block-cache-method',args.schedule_block_cache_method]
+            if getattr(args,'schedule_split_ram_cache',False):check_args+=['--schedule-split-ram-cache']
+            if getattr(args,'schedule_memory_backing_links',False):check_args+=['--schedule-memory-backing-links']
+            if getattr(args,'schedule_sampling_control',False):check_args+=['--schedule-sampling-control']
             if full_rootfs_mode:check_args+=['--host-full-rootfs-mode',full_rootfs_mode]
             if full_rootfs_residency=='off':check_args+=['--host-full-rootfs-residency','off']
             if full_rootfs_cold_read:check_args+=['--host-full-rootfs-cold-read']
@@ -658,6 +852,36 @@ def main(args):
         if capacity_probe:
             for name in ('run_guest_cache_capacity.py','guest_cache_capacity.py','live_task_cache.py','guest_cache_exporter.py','fast_cache_metadata.py'):
                 shutil.copy2(ROOT/'scripts'/name,out/'code'/name)
+        if child_cache_probe:
+            if seven_restored:shutil.copy2(ROOT/'scripts/seven_restored_pages.py',out/'code/seven_restored_pages.py')
+            if cache_sessions:
+                for name in ('provider_slot_cache.py','snapshot_cache_residency.py','snapshot_lower_owner.py','snapshot_layer_metadata.py','cache_round_clock.py','run_rollout_cache_calibration.py','rollout_cache_sessions.py','light_prettier_rollout.py','run_guest_light_memory.py','light_memory_round.py'):
+                    shutil.copy2(ROOT/'scripts'/name,out/'code'/name)
+            if light_memory:
+                for name in ('run_guest_light_memory.py','light_memory_round.py','host_sandbox_monitor.py'):
+                    shutil.copy2(ROOT/'scripts'/name,out/'code'/name)
+            for name in ('run_guest_cache_child.py','guest_cache_child_fixture.py','live_task_cache.py','guest_cache_exporter.py','fast_cache_metadata.py','prettier_no_proxy.py'):
+                shutil.copy2(ROOT/'scripts'/name,out/'code'/name)
+            if dynamic_file_cache:
+                for name in ('guest_file_cache_query.py','file_cache_metadata.py','report_dynamic_file_cache.py','report_dynamic_file_calibration.py','report_dynamic_two_child_cache.py'):
+                    shutil.copy2(ROOT/'scripts'/name,out/'code'/name)
+            if ram_page_evidence:
+                shutil.copy2(ROOT/'scripts/ram_page_evidence.py',out/'code/ram_page_evidence.py')
+            if vmm_page_evidence:
+                for name in ('vmm_page_evidence.py','host_special_metadata.py','host_schedule_files.py'):
+                    shutil.copy2(ROOT/'scripts'/name,out/'code'/name)
+            if host_backing_evidence:
+                from host_backing_evidence import CODE_FILES
+                for name in CODE_FILES:shutil.copy2(ROOT/'scripts'/name,out/'code'/name)
+            if host_backing_pfn_evidence:
+                from host_backing_pfn_live import CODE_FILES
+                for name in CODE_FILES:shutil.copy2(ROOT/'scripts'/name,out/'code'/name)
+            if host_backing_full_pfn_evidence:
+                from host_backing_pfn_batch import CODE_FILES
+                for name in CODE_FILES:shutil.copy2(ROOT/'scripts'/name,out/'code'/name)
+            if child_cache_count==2:
+                for name in ('run_guest_cache_two_children.py','report_two_child_cache.py','report_live_child_calibration.py'):
+                    shutil.copy2(ROOT/'scripts'/name,out/'code'/name)
         (out/'source-sha256.json').write_text(json.dumps(immutable_manifest(out/'code'),indent=2)+'\n')
     if exp2_mode:
         for name in ('run_exp2.py','report_exp2.py','agentenv_cold_start.py','guest_checkpoint_probe.py'):
@@ -665,6 +889,11 @@ def main(args):
         shutil.copy2(ROOT/'configs/exp2-prettier6604.json',out/'code/exp2-prettier6604.json')
         (out/'source-sha256.json').write_text(json.dumps(immutable_manifest(out/'code'),indent=2)+'\n')
     if python_inputs:
+        if python_schedule:
+            for name in ('run_python_schedule.py','prepare_python_schedule_matrix.py','schedule_smoke_metrics.py',
+                         'host_schedule_files.py','host_schedule_cache_layers.py','host_deleted_backing.py',
+                         'host_file_monitor.py','experiment_memory.py','sandbox_runtime_monitor.py','host_sandbox_monitor.py'):
+                shutil.copy2(ROOT/'scripts'/name,out/'code'/name)
         for name in ('run_xarray6992.py','xarray6992_inputs.py','xarray6992_check.py','xarray6992_test_ids.py','agentenv_cold_start.py',
                      'run_prettier6604_grpo.py','prepare_prettier6604_rollouts.py','prettier6604_inputs.py'):
             shutil.copy2(ROOT/'scripts'/name,out/'code'/name)
@@ -722,11 +951,13 @@ def main(args):
     image=out/'volume.ext4'; mount=out/'mount'; mount.mkdir()
     container=None; device=None; mounted=False; success=False; sid=None; stage='preflight'; creation_attempted=False
     host_group=host_slice=None
+    delete_trace=None
     host_trace=None
     if getattr(args,'host_file_monitor',False):
         from host_file_monitor import measurement_group
         host_group,host_slice=measurement_group()
         shutil.copy2(ROOT/'scripts/host_file_monitor.py',out/'code/host_file_monitor.py')
+        shutil.copy2(ROOT/'scripts/experiment_memory.py',out/'code/experiment_memory.py')
         if host_pair_smoke:shutil.copy2(ROOT/'scripts/run_host_file_pair.py',out/'code/run_host_file_pair.py')
         if host_restore:shutil.copy2(ROOT/'scripts/run_host_file_restore.py',out/'code/run_host_file_restore.py')
         if host_matched:shutil.copy2(ROOT/'scripts/host_file_matched_task.py',out/'code/host_file_matched_task.py')
@@ -759,7 +990,9 @@ def main(args):
                     sampler_stop.wait(.25)
         except Exception as exc:sample_errors.append(repr(exc))
     env=dict(os.environ,PYTHONDONTWRITEBYTECODE='1')
-    if local_no_proxy or schedule_smoke:
+    if external_config and (external_value['task_id'] in ('matplotlib__matplotlib-24177','large-scale-text-editing') or cython_schedule or task_endpoint_metrics or getattr(args,'external_sampling_control',False)):
+        env.update({key:'' for key in ('HTTP_PROXY','HTTPS_PROXY','ALL_PROXY','http_proxy','https_proxy','all_proxy')})
+    if local_no_proxy or schedule_smoke or python_schedule:
         from prettier_no_proxy import clean_environment
         env=clean_environment(env)
     env['NO_PROXY']=env.get('NO_PROXY','')+',localhost,127.0.0.1,::1'
@@ -790,7 +1023,9 @@ def main(args):
             # Host receipts are bounded; bulk server logs stay inside the volume.
             (out/(label+'.stdout')).write_bytes(r.stdout[:1024**2])
             (out/(label+'.stderr')).write_bytes(r.stderr[:1024**2])
-        commands.append(dict(stage=label,exit_code=r.returncode,duration_ns=time.monotonic_ns()-start))
+        ended=time.monotonic_ns()
+        commands.append(dict(stage=label,exit_code=r.returncode,duration_ns=ended-start,
+            start_monotonic_ns=start,end_monotonic_ns=ended))
         (out/'commands.json').write_text(json.dumps(commands,indent=2)+'\n')
         if r.returncode: raise RuntimeError(label+': exit '+str(r.returncode)+'; inspect private logs')
         return r.stdout.decode().strip()
@@ -808,7 +1043,7 @@ def main(args):
         receipt['source_service_name']=SERVICE
         receipt['source_service_kind']=original['Config']['Labels'].get('agentenv.experiment')
         receipt['original_service']={k:original['State'][k] for k in ['Pid','StartedAt','Running']}
-        if online_agent or online_task or rootfs_short or private_control or full_rootfs_mode:receipt['original_service_cgroup']=Path('/proc',str(original['State']['Pid']),'cgroup').read_text()
+        if online_agent or online_task or rootfs_short or private_control or full_rootfs_mode or os.environ.get('ASB_ISOLATED_UNUSED_NETWORK_POOLS')=='on':receipt['original_service_cgroup']=Path('/proc',str(original['State']['Pid']),'cgroup').read_text()
         source=Path('/proc')/str(original['State']['Pid'])/'root/workspace/env'
         if readonly_fixture:
             readonly_fixture=readonly_fixture.resolve()
@@ -836,7 +1071,7 @@ def main(args):
         if python_durable and not durable_bundle or independent_phase=='capture':
             from native_checkpoint_bundle import ARCHIVE_LIMIT
             archive_reserve=ARCHIVE_LIMIT
-        budget=capacity_budget(available(ROOT)-archive_reserve,capacity)
+        budget=capacity_budget(available(ROOT)-archive_reserve,capacity,**(dict(margin=START_MARGIN_BYTES) if matplotlib_schedule else dict(margin=4*GIB) if c4_schedule else {}))
         budget['checkpoint_archive_reserved_bytes']=archive_reserve
         budget['actual_host_available_bytes']=available(ROOT)
         receipt['budget']=budget
@@ -910,14 +1145,79 @@ def main(args):
             receipt['density_preparation']=prepare_density(mount,density,call)
             shutil.copy2(density['daemon'],mount/'env/deps/rootfs-copy-daemon')
         receipt['volume_available_after_copy_bytes']=available(mount)
+        if django_schedule or c4_schedule:
+            # Seven 4 GiB writable allowances; two 8 GiB RAM snapshots; three
+            # 4 GiB image-layer allowances (original plus two copies), scratch
+            # and margin. These are disk reservations, not measured memory.
+            components=dict(writable_workload=28,ram_snapshots=0 if (django_schedule or c4_schedule)=='grpo' else 16,
+                image_layers=4 if (django_schedule or c4_schedule)=='grpo' else 12,restore_scratch=0 if (django_schedule or c4_schedule)=='grpo' else 4,
+                margin=4,cleanup_reserve=.5)
+            required=sum(components.values())*GIB
+            receipt['c4_schedule_storage_budget' if c4_schedule else 'django_schedule_storage_budget']=dict(capacity_bytes=capacity,
+                remaining_after_copy_bytes=available(mount),components_gib=components,required_remaining_bytes=required)
+            assert available(mount)>required,'External seven-guest disk reservation insufficient'
+        if cython_schedule:
+            from cython_schedule_inputs import storage_components as cython_storage_components
+            components=cython_storage_components(cython_schedule);required=sum(components.values())*GIB
+            receipt['cython_schedule_storage_budget']=dict(capacity_bytes=capacity,remaining_after_copy_bytes=available(mount),components_gib=components,required_remaining_bytes=required)
+            assert available(mount)>required,'Cython seven-guest disk reservation insufficient'
+        if text_editing_schedule:
+            from text_editing_schedule_inputs import storage_components as text_storage_components
+            components=text_storage_components(text_editing_schedule);required=sum(components.values())*GIB
+            receipt['text_editing_schedule_storage_budget']=dict(capacity_bytes=capacity,remaining_after_copy_bytes=available(mount),
+                components_gib=components,required_remaining_bytes=required)
+            assert available(mount)>required,'Text editing seven-guest disk reservation insufficient'
+        if matplotlib_schedule:
+            from matplotlib_schedule_inputs import storage_components
+            components=storage_components(matplotlib_schedule);required=sum(components.values())*GIB
+            receipt['matplotlib_schedule_storage_budget']=dict(capacity_bytes=capacity,remaining_after_copy_bytes=available(mount),
+                components_gib=components,required_remaining_bytes=required,
+                launch_rule='User approved displayed ~104 GiB (103.950 GiB observed); integer rounding gives 103.5 GiB floor, 20 GiB runtime reserve unchanged')
+            assert available(mount)>required,'Matplotlib seven-guest disk reservation insufficient'
         assert receipt['volume_available_after_copy_bytes']>(4*GIB if cache_metadata_probe else 14*GIB if python_runtime_smoke else GIB if python_diagnostic or python_evaluation else 6*GIB if python_readonly_replay or prettier_readonly or current_pair else 8*GIB)
+        if python_schedule:
+            from prettier_no_proxy import check_cache as check_python_cache
+            task_id='sphinx-doc__sphinx-7590' if sphinx else 'pydata__xarray-6992'
+            initial=check_python_cache(seed_root,task_id=task_id)
+            lower_bytes=sum((seed_root/name).stat().st_size for name in initial['local_files'])
+            restoring=python_schedule!='grpo'
+            ram_budget=8*GIB if restoring else 0
+            layer_budget=2*lower_bytes if restoring else 0
+            scratch_budget=4*GIB if restoring else 0
+            required=28*GIB+ram_budget+layer_budget+scratch_budget+4*GIB+GIB//2
+            receipt['python_schedule_storage_budget']=dict(capacity_bytes=capacity,remaining_after_copy_bytes=available(mount),
+                guest_count=7,writable_workload_budget_bytes=28*GIB,two_ram_snapshot_bytes=ram_budget,
+                two_managed_layer_copy_bytes=layer_budget,restore_scratch_bytes=scratch_budget,
+                margin_bytes=4*GIB,cleanup_reserve_bytes=GIB//2,required_remaining_bytes=required,
+                scope='Conservative allocation budget, not observed writes or physical memory; source immutable commits are RAM-backed read-only inputs')
+            assert available(mount)>required,'seven-role Python snapshot/workload budget insufficient'
         if cache_metadata_probe:
+            if seven_restored:
+                receipt['seven_restored_budget']=dict(volume_bytes=64*GIB,required_remaining_bytes=55*GIB,
+                    source_snapshot=4*GIB,managed_layer=6*GIB,restore_workspaces=28*GIB,
+                    workload=7*GIB,page_evidence=7*GIB,margin=3*GIB)
+                assert receipt['volume_available_after_copy_bytes']>55*GIB,'seven restore workspace headroom insufficient'
+            elif cache_sessions:
+                assert receipt['volume_available_after_copy_bytes']>14*GIB, 'cache sessions snapshot headroom insufficient'
+                receipt['cache_sessions_budget']=dict(volume_bytes=24*GIB,required_remaining_bytes=14*GIB,ram_snapshot_bytes=4*GIB,restore_scratch_bytes=4*GIB,managed_layer_allowance_bytes=4*GIB,margin_bytes=2*GIB)
             if cache_restore_probe:
                 assert receipt['volume_available_after_copy_bytes'] > 14*GIB, 'snapshot calibration headroom insufficient'
             receipt['guest_cache_storage_budget']=dict(capacity_bytes=capacity,remaining_after_input_copy_bytes=receipt['volume_available_after_copy_bytes'],
                 workload_write_budget_bytes=GIB,margin_bytes=3*GIB,
                 vm_memory_snapshot_bytes=4*GIB if cache_restore_probe else 0,
                 scope='one short snapshot cache calibration' if cache_restore_probe else 'one short cache probe, copied native cached layers, no snapshots or full task writes')
+            if light_restore:
+                assert receipt['volume_available_after_copy_bytes']>24*GIB, 'light restore requires >24 GiB after input copy'
+                receipt['light_restore_budget']=dict(required_remaining_bytes=24*GIB,ram_snapshot_bytes=4*GIB,
+                    managed_layer_copy_allowance_bytes=6*GIB,restore_scratch_bytes=4*GIB,workload_bytes=7*GIB,margin_bytes=3*GIB)
+            if light_memory and child_cache_count==7:
+                assert receipt['volume_available_after_copy_bytes']>10*GIB, 'seven light guests require 7 GiB write allowance plus 3 GiB margin'
+                receipt['guest_cache_storage_budget'].update(guest_count=7,workload_write_budget_bytes=7*GIB,
+                    scope='seven light guests; 16 MiB each, no snapshots; conservative 7 GiB writes plus 3 GiB margin')
+            if child_cache_probe and child_cache_count==2:
+                assert receipt['volume_available_after_copy_bytes']>5*GIB, 'two private cache guests require 2 GiB writes plus 3 GiB margin'
+                receipt['guest_cache_storage_budget'].update(guest_count=2,workload_write_budget_bytes=2*GIB,
+                    scope='two private cache guests; 16 MiB per guest, no snapshots; conservative 2 GiB write allowance plus 3 GiB margin')
             if pair_cache_probe:
                 receipt['guest_cache_storage_budget'].update(vm_memory_snapshot_bytes=4*GIB,
                     workload_write_budget_bytes=2*GIB,restore_scratch_budget_bytes=4*GIB,margin_bytes=2*GIB,
@@ -957,6 +1257,7 @@ def main(args):
             receipt['readonly_replay_budget']=dict(capacity_bytes=capacity,writable_workload_budget_bytes=4*GIB,
                 margin_bytes=2*GIB,cleanup_reserve_bytes=GIB//2,immutable_commits='external verified read-only RAM cache')
             if persistent_seed:receipt['readonly_replay_budget']['immutable_commits']='external verified read-only fresh plain files'
+            if python_schedule:receipt.pop('readonly_replay_budget',None)
         if durable_bundle:
             receipt['readonly_replay_budget']=dict(capacity_bytes=capacity,cleanup_reserve_bytes=GIB//2,immutable_commits='NOT_MOUNTED; native repository plus fixed deps only')
         if python_oci and not python_diagnostic:
@@ -984,13 +1285,23 @@ def main(args):
             stage='sync-persistent-input-preparation'
             receipt['persistent_input_preparation_sync']=sync_preparation(call,mount,**({'timeout':300} if density else {}))
         elif external_config:
+            if external_oci_input:
+                if c4_schedule:
+                    from c4_density_input import install as install_c4_schedule_oci
+                    receipt['external_oci_transport']=install_c4_schedule_oci(mount,external_oci_input)
+                    shutil.copy2(ROOT/'scripts/c4_density_input.py',out/'code/c4_density_input.py')
+                else:
+                    from external_oci import install as install_external_oci
+                    receipt['external_oci_transport']=install_external_oci(mount,external_oci_input,external_value)
+                shutil.copy2(ROOT/'scripts/external_oci.py',out/'code/external_oci.py')
             if density:
                 from c4_density_input import install as install_c4_input
                 receipt['c4_oci_input']=install_c4_input(mount,density['oci_input'])
                 shutil.copy2(density['daemon'],mount/'env/deps/rootfs-copy-daemon')
             if django_oci_input:
                 from django_oci import install as install_django_oci
-                receipt['django_oci_input']['entrypoint']=install_django_oci(mount)
+                receipt['django_oci_input']['entrypoint']=install_django_oci(mount,
+                    **({'local_metadata_layout':django_oci_layout} if django_schedule else {}))
             from host_scaling import sync_preparation
             receipt['external_workload_preparation_sync']=sync_preparation(call,mount)
         if full_shared or rootfs_short or full_rootfs_mode:
@@ -1025,7 +1336,7 @@ def main(args):
             receipt['provider_binary']=dict(source=str(provider_binary),sha256=digest,scope='owned service only')
         # Separate network pools avoid overlap with the existing host-network service.
         routes=call('routes',['ip','-j','route','show','table','all'],10)
-        if rootfs_short or private_control or full_rootfs_mode or density:
+        if rootfs_short or private_control or full_rootfs_mode or density or os.environ.get('ASB_ISOLATED_UNUSED_NETWORK_POOLS')=='on':
             from isolated_storage import rootfs_network_pools
             pair=rootfs_network_pools(routes) if not private_control else private_control['network_pools']
             if private_control:
@@ -1035,6 +1346,9 @@ def main(args):
                 assert not any(a.overlaps(b) for a in assigned for b in occupied if a.version==b.version), 'private network pools overlap'
             overrides=[(s,k,json.dumps(pair[0] if k=='host_interaction_cidr' else pair[1])) if s=='network.internal' else (s,k,v) for s,k,v in overrides]
             receipt['rootfs_network_pools']=pair
+            if getattr(args,'external_workload_relay',False) and os.environ.get('ASB_ISOLATED_UNUSED_NETWORK_POOLS')=='on':
+                proxy_network=Path(os.environ['ASB_EXTERNAL_GUEST_RELAY_STATE'])/'guest-proxy-network.json'
+                assert json.loads(proxy_network.read_text())['pools']==pair,'relay and native private pools changed during preparation'
         else:assert '10.211.' not in routes and '10.212.' not in routes, 'candidate network pools already in use'
         for section,key,value in overrides:config=config_value(config,section,key,value)
         if density and density['task']=='c4':
@@ -1043,6 +1357,12 @@ def main(args):
         if python_durable:
             assert 'posix_fs' not in tomllib.loads(config).get('backend',{})
             config+='\n[backend.posix_fs]\nsnapshot_store = \"/workspace/env/snapshot-store\"\n'
+        if vmm_check:
+            assert 'binary_path' not in tomllib.loads(config)['firecracker']
+            config=config.replace('[firecracker]\n','[firecracker]\nbinary_path = "/workspace/env/deps/vmm-cgroup-launcher"\n',1)
+            shutil.copy2(vmm_check/'vmm-cgroup-launcher',mount/'env/deps/vmm-cgroup-launcher')
+            for filename in ('vmm_cgroup_launcher.c','vmm_child_cgroup_check.py','host_existing_cache_owner.py','host_sandbox_monitor.py','host_file_monitor.py','experiment_memory.py'):
+                shutil.copy2(ROOT/'scripts'/filename,out/'code'/filename)
         tomllib.loads(config)
         (out/'isolated-config.toml').write_text(config)
         receipt['config_overrides']=[section+'.'+key+'='+value for section,key,value in overrides]
@@ -1055,12 +1375,26 @@ def main(args):
               '--network','host','--ulimit','memlock=-1:-1',
               '--mount','type=bind,src=/dev,dst=/dev',
               '--mount','type=bind,src='+str(out/'isolated-config.toml')+',dst=/workspace/config/default.toml,readonly']
+        if diagnostic_server:
+            server_copy=out/'diagnostic-server'
+            shutil.copy2(diagnostic_server,server_copy)
+            argv+=['--mount','type=bind,src='+str(server_copy)+',dst=/server,readonly']
+            receipt['diagnostic_server']=dict(source=str(diagnostic_server),private_copy=str(server_copy),size_bytes=server_copy.stat().st_size)
         if host_slice:argv+=['--cgroup-parent',host_slice]
+        if vmm_check:
+            assert not host_slice
+            parent=Path(os.environ['ASB_VMM_CGROUP_PARENT'])
+            assert parent.is_relative_to('/sys/fs/cgroup') and parent.name.startswith('asbvmm')
+            argv+=['--cgroupns','host','--cgroup-parent',parent.name,'--label','asb.vmm-child-cgroup=on',
+                   '--label','asb.vmm-parent='+str(parent),'--env','ASB_VMM_CGROUP_PARENT='+str(parent)]
         for src,dst in write_mounts(mount).items():argv+=['--mount','type=bind,src='+src+',dst='+dst]
         if external_config:
             # Forward approved proxy variables by name; values never enter commands/receipts.
-            for key in ('HTTP_PROXY','HTTPS_PROXY','http_proxy','https_proxy'):
-                if key in os.environ:argv+=['--env',key]
+            if (external_value['task_id'] in ('matplotlib__matplotlib-24177','large-scale-text-editing') or cython_schedule or task_endpoint_metrics or getattr(args,'external_sampling_control',False)):
+                argv+=[item for key in ('HTTP_PROXY','HTTPS_PROXY','ALL_PROXY','http_proxy','https_proxy','all_proxy') for item in ('--env',key+'=')]
+            else:
+                for key in ('HTTP_PROXY','HTTPS_PROXY','http_proxy','https_proxy'):
+                    if key in os.environ:argv+=['--env',key]
             argv+=['--env','NO_PROXY=127.0.0.1,localhost,::1,10.0.0.0/8,172.16.0.0/12,192.168.0.0/16,169.254.0.0/16',
                    '--env','no_proxy=127.0.0.1,localhost,::1,10.0.0.0/8,172.16.0.0/12,192.168.0.0/16,169.254.0.0/16']
         if private_control:
@@ -1076,6 +1410,8 @@ def main(args):
             argv+=['--mount','type=bind,src='+str(c4_layout)+',dst=/asb-c4-oci,readonly']
         if django_oci_input:
             argv+=['--mount','type=bind,src='+str(django_oci_layout)+',dst=/asb-django-oci,readonly']
+        if external_oci_input:
+            argv+=['--mount','type=bind,src='+str(external_oci_layout)+(',dst=/asb-c4-oci,readonly' if c4_schedule else ',dst=/asb-external-oci,readonly')]
         # Only these path variables are copied; no credentials or source-service state.
         original_env=dict(e.split('=',1) for e in original['Config']['Env'] if '=' in e)
         for key in ['AENV_CONFIG_PATH','AENV_HOME_PATH','AENV_UBLK_DAEMON_BINARY_PATH']:
@@ -1091,18 +1427,37 @@ def main(args):
         if schedule_smoke:
             from schedule_smoke_metrics import install_offline
             receipt['schedule_smoke_offline']=install_offline(mount,out)
-            for name in ('schedule_smoke_metrics.py','prettier_no_proxy.py'):
+            for name in ('schedule_smoke_metrics.py','prettier_no_proxy.py',*
+                         (('host_schedule_files.py','host_file_monitor.py','experiment_memory.py','host_special_metadata.py') if getattr(args,'schedule_expanded_files',False) else ())):
                 shutil.copy2(ROOT/'scripts'/name,out/'code'/name)
-        if (prettier6604 or python_inputs) and not (local_no_proxy or schedule_smoke):
+            if getattr(args,'schedule_cache_layers',False):
+                for name in ('host_schedule_cache_layers.py','host_deleted_backing.py','isolated_storage.py','host_memory_backing_links.py'):
+                    shutil.copy2(ROOT/'scripts'/name,out/'code'/name)
+        if python_schedule:
+            from prettier_no_proxy import prepare_metadata as prepare_local_metadata, install as install_python_local
+            local_input=out/'python-schedule-local-input';local_input.mkdir()
+            task_id='sphinx-doc__sphinx-7590' if sphinx else 'pydata__xarray-6992'
+            prepare_local_metadata(local_input/'local-no-proxy-metadata',task_id=task_id)
+            receipt['python_schedule_offline']=install_python_local(local_input,mount,task_id=task_id,cache_root=seed_root)
+        if child_cache_probe:
+            from prettier_no_proxy import prepare_metadata, install
+            local_input=out/'child-cache-local-input';local_input.mkdir()
+            prepare_metadata(local_input/'local-no-proxy-metadata')
+            receipt['child_cache_offline']=install(local_input,mount,cache_root=seed_root)
+        if (prettier6604 or python_inputs) and not (local_no_proxy or schedule_smoke or python_schedule):
             for key in ('HTTP_PROXY','HTTPS_PROXY','http_proxy','https_proxy'):
                 argv+=['-e',key+'=http://127.0.0.1:17891']
             bypass='localhost,127.0.0.1,::1,10.211.0.0/16,10.212.0.0/16'
             if rootfs_short or private_control or full_rootfs_mode:bypass='localhost,127.0.0.1,::1,'+','.join(receipt['rootfs_network_pools'])
             for key in ('NO_PROXY','no_proxy'):
                 argv+=['-e',key+'='+bypass]
-        if local_no_proxy or schedule_smoke or density and density['task']=='c4':
+        if local_no_proxy or schedule_smoke or python_schedule or child_cache_probe or density and density['task']=='c4':
             from prettier_no_proxy import container_environment
             argv+=container_environment()
+        if getattr(args,'external_delete_trace',False):
+            from private_delete_trace import LOG_FILTER
+            argv+=['--env','RUST_LOG='+LOG_FILTER,'--env','AENV_LOG_SPAN_EVENTS=close']
+            shutil.copy2(ROOT/'scripts/private_delete_trace.py',out/'code/private_delete_trace.py')
         argv+=['-e','API_ADDR=127.0.0.1:'+str(port),'-e','AENV_FIRECRACKER_SERIAL_DIR=/workspace/env/logs/serial',
                '--entrypoint','/bin/sh',IMAGE,'-c','exec /server >>/workspace/env/logs/server.log 2>&1']
         stage='isolated-server-start'
@@ -1110,10 +1465,17 @@ def main(args):
         container=call('create-server',argv,60)
         receipt['container_id']=container
         receipt['boundary']=verify_container_boundary(inspect(container),mount,device)
+        if diagnostic_server:
+            server_mounts=[m for m in inspect(container)['Mounts'] if m['Destination']=='/server']
+            assert len(server_mounts)==1 and server_mounts[0]['Source']==str(server_copy) and not server_mounts[0]['RW'], 'private server read-only mount mismatch'
+            receipt['diagnostic_server']['read_only_mount_verified']=True
         if django_oci_input:
             from django_oci import verify_mount as verify_django_oci_mount
             verify_django_oci_mount(inspect(container),django_oci_layout)
             receipt['django_oci_input']['read_only_bind_verified']=True
+        if c4_schedule:
+            assert any(m['Type']=='bind' and m['Source']==str(external_oci_layout) and m['Destination']=='/asb-c4-oci' and not m['RW'] for m in inspect(container)['Mounts'])
+            receipt['c4_oci_read_only_bind_verified']=True
         if private_control:
             from host_private_files import verify_mounts
             verify_mounts(inspect(container),receipt['private_target_mounts'])
@@ -1127,6 +1489,14 @@ def main(args):
                     if response.status in (200,204):break
             except Exception:time.sleep(1)
         else:raise TimeoutError('isolated server did not become healthy')
+        if vmm_check:
+            from vmm_child_cgroup_check import setup_service
+            stage='vmm-cgroup-setup'
+            vmm_sampler=setup_service(info,mount,out)
+            receipt['vmm_child_cgroups']=json.loads((out/'vmm-cgroup-setup.json').read_text())
+        if getattr(args,'external_delete_trace',False):
+            from private_delete_trace import DeleteTrace
+            delete_trace=DeleteTrace(container,info['State']['Pid'],out/'delete-trace')
         key=call('private-key',['docker','exec',container,'cat','/workspace/env/secrets/api-key'],sensitive=True)
         credentials=mount/'controller/config/aenv/credentials'
         credentials.write_text('url = '+json.dumps(receipt['address'])+'\napi_key = '+json.dumps(key)+'\n')
@@ -1181,22 +1551,117 @@ def main(args):
             assert created['cleanup']['service_sandbox_list_empty'] and created['cleanup']['known_guests_deleted']
             receipt['external_creation_result']=created
             receipt['checks']['host_only_creation_controls']='PASS'
+        elif c4_schedule:
+            stage='c4-schedule-'+c4_schedule;replay=mount/'controller/external-workload'
+            for name in ('run_python_schedule.py','c4_schedule_inputs.py','schedule_smoke_metrics.py','host_schedule_files.py',
+                         'host_schedule_cache_layers.py','sandbox_runtime_monitor.py','host_sandbox_monitor.py','host_file_monitor.py','experiment_memory.py'):
+                shutil.copy2(ROOT/'scripts'/name,out/'code'/name)
+            call(stage,[sys.executable,'-B',ROOT/'scripts/run_python_schedule.py','--inputs',c4_schedule_inputs,
+                '--task-profile','c4','--schedule',c4_schedule,'--output',replay,
+                '--container',container,'--config-home',mount/'controller/config','--service-url',receipt['address']],1200,environment=env)
+            external_result=json.loads((replay/'result.json').read_text())
+            assert external_result['status']=='PASS' and external_result['actual_action_count']==(252 if c4_schedule=='grpo' else 93)
+            assert external_result['task_id']=='reshard-c4-data' and external_result['strict_replay_status']=='PASS'
+            assert external_result['checks']['endpoint_identity_and_queries']=='PASS' and all(external_result['cleanup'].values())
+            receipt['external_workload_result']=external_result
+            receipt['checks']['c4_original_path_prefix_reuse_and_metrics']='PASS'
+            receipt['scope']='Controlled seven-guest C4 original-path prefix reuse; original 9898-file roundtrip/constraints/syntax, no hidden verifier'
+        elif cython_schedule:
+            stage='cython-schedule-'+cython_schedule;replay=mount/'controller/external-workload'
+            for name in ('run_python_schedule.py','cython_schedule_inputs.py','cython_schedule_proxy.py','external_guest_proxy.py','schedule_smoke_metrics.py','host_schedule_files.py',
+                         'host_schedule_cache_layers.py','report_python_schedule_matrix.py','external_workload.py'):
+                shutil.copy2(ROOT/'scripts'/name,out/'code'/name)
+            if getattr(args,'external_workload_relay',False):
+                assert receipt.get('rootfs_network_pools')
+                env['ASB_EXTERNAL_GUEST_RELAY_POOL']=receipt['rootfs_network_pools'][0]
+            call(stage,[sys.executable,'-B',ROOT/'scripts/run_python_schedule.py','--inputs',cython_schedule_inputs,
+                '--task-profile','cython','--schedule',cython_schedule,'--output',replay,
+                '--container',container,'--config-home',mount/'controller/config','--service-url',receipt['address'],
+                *(['--guest-relay'] if getattr(args,'external_workload_relay',False) else [])],1800,environment=env)
+            external_result=json.loads((replay/'result.json').read_text())
+            assert external_result['status']=='PASS' and external_result['actual_action_count']==(581 if cython_schedule=='grpo' else 176)
+            assert external_result['logical_action_count']==581 and external_result['functional_validation']==external_result['strict_replay_status']=='PASS'
+            assert external_result['checks']['endpoint_identity_and_queries']=='PASS' and all(external_result['cleanup'].values())
+            receipt['external_workload_result']=external_result
+            receipt['checks']['cython_original_path_prefix_reuse_and_metrics']='PASS'
+            receipt['scope']='Controlled seven-guest original Cython path; original NumPy snippet, two 18-test contexts, compiled imports and tracked patch; no hidden verifier'
+        elif text_editing_schedule:
+            stage='text-editing-schedule-'+text_editing_schedule;replay=mount/'controller/external-workload'
+            for name in ('run_python_schedule.py','text_editing_schedule_inputs.py','schedule_smoke_metrics.py','host_schedule_files.py',
+                         'host_schedule_cache_layers.py','report_python_schedule_matrix.py','external_workload.py'):
+                shutil.copy2(ROOT/'scripts'/name,out/'code'/name)
+            call(stage,[sys.executable,'-B',ROOT/'scripts/run_python_schedule.py','--inputs',text_editing_schedule_inputs,
+                '--task-profile','text_editing','--schedule',text_editing_schedule,'--output',replay,
+                '--container',container,'--config-home',mount/'controller/config','--service-url',receipt['address']],1800,environment=env)
+            external_result=json.loads((replay/'result.json').read_text())
+            assert external_result['status']=='PASS' and external_result['actual_action_count']==(350 if text_editing_schedule=='grpo' else 113)
+            assert external_result['logical_action_count']==350 and external_result['functional_validation']==external_result['strict_replay_status']=='PASS'
+            assert external_result['checks']['endpoint_identity_and_queries']=='PASS' and all(external_result['cleanup'].values())
+            receipt['external_workload_result']=external_result
+            receipt['checks']['text_editing_original_path_prefix_reuse_and_metrics']='PASS'
+            receipt['scope']='Controlled seven-guest original text editing path; byte-exact output and both solve variants; no hidden verifier'
+        elif matplotlib_schedule:
+            stage='matplotlib-schedule-'+matplotlib_schedule;replay=mount/'controller/external-workload'
+            for name in ('run_python_schedule.py','matplotlib_schedule_inputs.py','schedule_smoke_metrics.py','host_schedule_files.py',
+                         'host_schedule_cache_layers.py','report_python_schedule_matrix.py','external_workload.py'):
+                shutil.copy2(ROOT/'scripts'/name,out/'code'/name)
+            call(stage,[sys.executable,'-B',ROOT/'scripts/run_python_schedule.py','--inputs',matplotlib_schedule_inputs,
+                '--task-profile','matplotlib24177','--schedule',matplotlib_schedule,'--output',replay,
+                '--container',container,'--config-home',mount/'controller/config','--service-url',receipt['address']],1800,environment=env)
+            external_result=json.loads((replay/'result.json').read_text())
+            assert external_result['status']=='PASS' and external_result['actual_action_count']==(665 if matplotlib_schedule=='grpo' else 185)
+            assert external_result['logical_action_count']==665 and external_result['functional_validation']==external_result['strict_replay_status']=='PASS'
+            assert external_result['checks']['endpoint_identity_and_queries']=='PASS' and all(external_result['cleanup'].values())
+            receipt['external_workload_result']=external_result
+            receipt['checks']['matplotlib_original_path_prefix_reuse_and_metrics']='PASS'
+            receipt['scope']='Controlled seven-guest Matplotlib original path; original two 60-pass histogram tests, full staged patch and imports; no hidden verifier'
+        elif django_schedule:
+            stage='django-schedule-'+django_schedule;replay=mount/'controller/external-workload'
+            for name in ('run_python_schedule.py','prepare_python_schedule_matrix.py','django_schedule_inputs.py',
+                         'schedule_smoke_metrics.py','host_schedule_files.py','host_schedule_cache_layers.py',
+                         'sandbox_runtime_monitor.py','host_sandbox_monitor.py','host_file_monitor.py','experiment_memory.py'):
+                shutil.copy2(ROOT/'scripts'/name,out/'code'/name)
+            call(stage,[sys.executable,'-B',ROOT/'scripts/run_python_schedule.py','--inputs',django_schedule_inputs,
+                '--task-profile','django16819','--schedule',django_schedule,'--output',replay,
+                '--container',container,'--config-home',mount/'controller/config','--service-url',receipt['address']],1200,environment=env)
+            external_result=json.loads((replay/'result.json').read_text())
+            expected=196 if django_schedule=='grpo' else 64
+            assert external_result['status']=='PASS' and external_result['actual_action_count']==expected
+            assert external_result['task_id']=='django__django-16819' and external_result['strict_replay_status']=='PASS'
+            assert external_result['checks']['endpoint_identity_and_queries']=='PASS'
+            assert all(external_result['cleanup'].values())
+            receipt['external_workload_result']=external_result
+            receipt['checks']['django_original_path_prefix_reuse_and_metrics']='PASS'
+            receipt['scope']='Controlled seven-guest Django original-path prefix reuse, not native seven branches; syntax and fixed patch only, no official Django suite'
         elif external_config:
             stage='external-workload';replay=mount/'controller/external-workload'
+            if getattr(args,'external_workload_relay',False) and receipt.get('rootfs_network_pools'):
+                env['ASB_EXTERNAL_GUEST_RELAY_POOL']=receipt['rootfs_network_pools'][0]
             for name in ('external_workload.py','external_guest_proxy.py','run_external_workload.py','agentenv_cold_start.py'):
                 shutil.copy2(ROOT/'scripts'/name,out/'code'/name)
-            call(stage,[sys.executable,'-B',ROOT/'scripts/run_external_workload.py','--config',external_config,
+            if (external_value['task_id'] in ('matplotlib__matplotlib-24177','large-scale-text-editing') or task_endpoint_metrics):
+                from external_task_metrics import SNAPSHOT_FILES
+                for name in SNAPSHOT_FILES:shutil.copy2(ROOT/'scripts'/name,out/'code'/name)
+            if getattr(args,'external_guest_count',1)==2:shutil.copy2(ROOT/'scripts/run_c4_parallel.py',out/'code/run_c4_parallel.py')
+            call(stage,[sys.executable,'-B',ROOT/'scripts'/('run_c4_parallel.py' if getattr(args,'external_guest_count',1)==2 else 'run_external_workload.py'),'--config',external_config,
                 '--upstream',external_upstream,'--output',replay,'--container',container,
                 '--config-home',mount/'controller/config','--service-url',receipt['address'],
-                *(['--sampling','off'] if external_off else [])],external_budgets(external_value['task_id'])['controller'],environment=env)
+                *(['--sampling','off'] if external_off else []),*(['--endpoint-metrics'] if task_endpoint_metrics else []),*(['--vmm-pss-interval-seconds',str(vmm_pss_interval)] if vmm_pss_interval!=1 else []),*(['--guest-relay'] if getattr(args,'external_workload_relay',False) else []),*(['--sampling-control'] if getattr(args,'external_sampling_control',False) else [])],external_budgets(external_value['task_id'])['controller'],environment=env)
             external_result=json.loads((replay/'result.json').read_text())
-            assert external_result['status']=='PASS' and external_result['actions']==external_value['actions'] and external_result['task_id']==external_value['task_id'] and external_result['strict_exit_match']
+            assert external_result['status']=='PASS' and external_result['actions']==getattr(args,'external_guest_count',1)*external_value['actions'] and external_result['task_id']==external_value['task_id'] and external_result['strict_exit_match']
             if external_value['task_id']=='reshard-c4-data':assert external_result['roundtrip_validation']=='PASS'
             if external_value['task_id']=='build-cython-ext':assert external_result['functional_validation']=='PASS'
+            if (external_value['task_id'] in ('matplotlib__matplotlib-24177','large-scale-text-editing') or task_endpoint_metrics):
+                from external_task_metrics import validate_result
+                if getattr(args,'external_guest_count',1)==2:
+                    from run_c4_parallel import validate_parallel
+                    validate_parallel(external_result,'off' if external_off else 'on',pss_interval_seconds=vmm_pss_interval)
+                else:validate_result(external_result,pss_interval_seconds=vmm_pss_interval)
             assert external_result['cleanup']['sandbox_removed'] and external_result['cleanup']['service_sandbox_list_empty']
             if external_off:assert external_result['sampling']=='off' and external_result['memory']=='NOT_MEASURED' and external_result['cleanup']['memory_sampling_disabled']
             receipt['external_workload_result']=external_result
             key='external_fixed_tools_and_extensions_and_tests' if external_value['task_id']=='build-cython-ext' else 'external_frozen_tools_and_original_syntax_check'
+            if (external_value['task_id'] in ('matplotlib__matplotlib-24177','large-scale-text-editing') or task_endpoint_metrics):key='external_fixed_tools_original_function_and_endpoint_metrics'
             receipt['checks'][key]='PASS'
         elif host_pair_smoke:
             stage='host-file-pair-smoke';replay=mount/'controller/host-file-pair'
@@ -1211,14 +1676,20 @@ def main(args):
             receipt['scope']=pair_result['scope']
         elif cache_metadata_probe:
             stage='guest-cache-metadata-probe';replay=mount/'controller/guest-cache'
-            runner='run_guest_cache_capacity.py' if capacity_probe else 'run_snapshot_cache_pair.py' if pair_cache_probe else 'run_snapshot_cache_calibration.py' if cache_restore_probe else 'run_guest_cache_metadata.py'
+            runner=('run_guest_cache_two_children.py' if child_cache_count==2 else 'run_guest_cache_child.py') if child_cache_probe else 'run_guest_cache_capacity.py' if capacity_probe else 'run_snapshot_cache_pair.py' if pair_cache_probe else 'run_snapshot_cache_calibration.py' if cache_restore_probe else 'run_guest_cache_metadata.py'
+            if light_memory:runner='run_guest_light_memory.py'
+            if cache_sessions:runner='run_rollout_cache_calibration.py'
             call(stage,[sys.executable,'-B',ROOT/'scripts'/runner,'--container',container,
-                '--config-home',mount/'controller/config','--service-url',receipt['address'],'--output',replay,*(['--lower-cache'] if lower_cache_probe and not pair_cache_probe else []),*(['--provider-cache'] if provider_binary else []),*(['--batch-lookup'] if batch_lookup else [])],420 if cache_restore_probe else 240,environment=env)
+                '--config-home',mount/'controller/config','--service-url',receipt['address'],'--output',replay,*(['--seven-restored'] if seven_restored else []),*(['--immediate-restores'] if immediate else []),*(['--restored-lower'] if restored_lower else []),*(['--unified-rounds'] if unified_cache_rounds else []),*(['--guests',str(child_cache_count)] if light_memory else []),*(['--restore-one'] if light_restore else []),*(['--lower-cache'] if lower_cache_probe and not pair_cache_probe else []),*(['--provider-cache'] if provider_binary else []),*(['--batch-lookup'] if batch_lookup else []),*(['--dynamic-file'] if dynamic_file_cache else []),*(['--ram-page-evidence'] if ram_page_evidence else []),*(['--vmm-page-evidence'] if vmm_page_evidence else []),*(['--io-uring-page-evidence'] if io_uring_page_evidence else []),*(['--host-backing-evidence'] if host_backing_evidence else []),*(['--host-backing-pfn-evidence'] if host_backing_pfn_evidence else []),*(['--host-backing-full-pfn-evidence'] if host_backing_full_pfn_evidence else []),*(['--host-backing-charge-evidence'] if host_backing_charge_evidence else [])],900 if seven_restored else 480 if light_restore else 420 if cache_restore_probe else 240,environment=env)
             measured=json.loads((replay/'result.json').read_text())
             assert measured['status']=='PASS'
             receipt['guest_cache_metadata']=measured
             receipt['checks']['guest_cache_metadata_without_pause']='PASS'
             receipt['scope']='private diagnostic guest kernel; one snapshot cache restore calibration; native checkpoint pause only' if cache_restore_probe else 'private diagnostic guest kernel; whole-cache metadata to host residency; no VM pause or trajectory replay'
+            if cache_sessions:receipt['scope']=measured['scope']
+            if light_memory:
+                receipt['scope']=measured['scope']
+                receipt['checks']['light_memory_rounds']='PASS'
             if capacity_probe:receipt['scope']='one owned guest; clean regular-file cache periodic reclamation, two targets, synthetic file demand; VMM residency only, no snapshot or full task'
         elif online_task:
             stage='online-task-tools';replay=mount/'controller/prettier6604'
@@ -1248,9 +1719,24 @@ def main(args):
             if python_cache_baseline:task_command+=['--cache-baseline']
             if python_cache_target is not None:task_command+=['--cache-target-mib',str(python_cache_target)]
             if light_monitor:task_command+=['--light-monitor']
+            if task_endpoint_metrics:
+                from external_task_metrics import SNAPSHOT_FILES
+                for name in SNAPSHOT_FILES:shutil.copy2(ROOT/'scripts'/name,out/'code'/name)
+                task_command+=['--endpoint-metrics']
+            if python_schedule:
+                stage=python_profile+'-'+python_schedule
+                task_command=[sys.executable,'-B',ROOT/'scripts/run_python_schedule.py','--inputs',python_inputs,
+                    '--task-profile',python_profile,'--schedule',python_schedule,'--container',container,
+                    '--config-home',mount/'controller/config','--service-url',receipt['address'],'--output',replay]
+                if python_branch_policy!='original':task_command+=['--branch-pipeline-policy',python_branch_policy]
+                if python_schedule_find:task_command+=['--find-exit-diagnostic']
+                if python_schedule_xarray_find:task_command+=['--xarray-find-exit-diagnostic']
             call(stage,task_command,900,environment=env)
             task_result=json.loads((replay/'result.json').read_text())
             assert task_result['status']=='PASS'
+            if task_endpoint_metrics:
+                from external_task_metrics import validate_result
+                validate_result(task_result)
             if local_no_proxy:
                 assert task_result['local_no_proxy']=='PASS'
                 receipt['local_no_proxy']['guest_check']='PASS'
@@ -1282,6 +1768,9 @@ def main(args):
             elif python_cache_smoke:assert task_result['cache_metrics_smoke'] and task_result['checks']['exact_kernel_physical_cache']=='PASS'
             elif python_evaluation:assert task_result['evaluation_only'] and task_result['checks']['complete_benchmark_results_and_source_unchanged']=='PASS'
             elif python_diagnostic:assert task_result['checks']['find_diagnostic_capture']=='PASS'
+            elif python_schedule:
+                assert task_result['schedule']==python_schedule and task_result['actual_action_count']==(230 if python_schedule=='grpo' else 104)
+                assert task_result['checks']['endpoint_identity_and_queries']=='PASS'
             else:assert task_result['replay']['action_count']==35
             assert task_result['cleanup']['service_sandbox_list_empty']
             if python_live_cache:
@@ -1318,6 +1807,11 @@ def main(args):
             if sphinx:receipt['scope']='Sphinx step-29 full VM restore and steps 30-35; strict replay and original task failure preserved' if python_checkpoint else 'one strict frozen Sphinx backbone; task evaluation separate; not physical cache or performance comparison'
             if sphinx_pipeline:receipt['scope']='complete Sphinx diagnostic variant; only exact read_repo/001 output permits 141 or 0; historical strict FAIL retained; task tests separate'
             if sphinx_pipeline and pipeline_version==2:receipt['scope']='complete Sphinx diagnostic policy v2; only exact read_repo/001 and core_patch/001 output/patch permits 141 or 0; historical strict FAIL retained; task tests separate'
+            if python_schedule:
+                receipt['scope']='Original seven-role Python task; explicit '+python_schedule+' scheduling, branch results and service-cgroup physical metrics'
+                receipt['python_schedule']=python_schedule
+                receipt['checks'].pop('xarray6992_backbone_and_separate_tests',None)
+                receipt['checks']['python_seven_role_schedule_and_metrics']='PASS'
             if python_physical:receipt['scope']+='; paused physical cache points and continuous curves, analysis cost included'
             if python_live_cache:receipt['scope']+='; no-pause whole guest cache and confirmed host residency with unknown pages separate'
             if python_durable:
@@ -1428,6 +1922,13 @@ def main(args):
                 if light_monitor:task_args+=['--light-monitor']
                 if full_shared:task_args+=['--host-shared-files']
                 if schedule_smoke:task_args+=['--schedule-smoke-metrics']
+                if light_rollout:task_args+=['--light-rollout']
+                if getattr(args,'schedule_expanded_files',False):task_args+=['--schedule-expanded-files']
+                if getattr(args,'schedule_cache_layers',False):task_args+=['--schedule-cache-layers']
+                if getattr(args,'schedule_block_cache_method',None) is not None:task_args+=['--schedule-block-cache-method',args.schedule_block_cache_method]
+                if getattr(args,'schedule_split_ram_cache',False):task_args+=['--schedule-split-ram-cache']
+                if getattr(args,'schedule_memory_backing_links',False):task_args+=['--schedule-memory-backing-links']
+                if getattr(args,'schedule_sampling_control',False):task_args+=['--schedule-sampling-control']
                 if full_rootfs_mode:task_args+=['--host-full-rootfs-mode',full_rootfs_mode]
                 if full_rootfs_residency=='off':task_args+=['--host-full-rootfs-residency','off']
                 if full_rootfs_cold_read:task_args+=['--host-full-rootfs-cold-read']
@@ -1657,7 +2158,11 @@ def main(args):
         for proc in Path('/proc').iterdir():
             if not proc.name.isdigit():continue
             try:
-                if (proc/'cgroup').read_text()!=cg:continue
+                membership=(proc/'cgroup').read_text()
+                if vmm_check:
+                    parent=receipt['vmm_child_cgroups']['parent'].removeprefix('/sys/fs/cgroup')
+                    if membership!=cg and not any(l.startswith('0::'+parent+'/vmm-') for l in membership.splitlines()):continue
+                elif membership!=cg:continue
                 for fd in (proc/'fd').iterdir():
                     try:
                         flags=next(l.split()[1] for l in (proc/'fdinfo'/fd.name).read_text().splitlines() if l.startswith('flags:'))
@@ -1683,6 +2188,15 @@ def main(args):
         assert image.stat().st_size==capacity and image.stat().st_blocks*512>=capacity
         assert available(ROOT)>HOST_RESERVE
         receipt['checks']['fixed_backing_allocation']='PASS'
+        if vmm_check and os.environ.get('ASB_VMM_ACCOUNTING_ONLY')=='on' and not light_rollout:
+            from vmm_child_cgroup_check import accounting_acceptance
+            stage='experiment-memory-closure-acceptance'
+            series=Path(os.environ['ASB_EXPERIMENT_MEMORY_SERIES'])
+            with series.open() as stream:
+                samples=[json.loads(line) for line in stream if line.endswith('\n')]
+            metrics=json.loads((mount/'controller/prettier6604/schedule-smoke-metrics.json').read_text())
+            receipt['experiment_memory_acceptance']=accounting_acceptance(metrics,samples)
+            assert receipt['experiment_memory_acceptance']['status']=='PASS', 'experiment memory closure failed; retain volume'
         success=True
     except BaseException as exc:
         receipt['error']=repr(exc);receipt['failed_stage']=stage
@@ -1692,6 +2206,14 @@ def main(args):
         for sig in [signal.SIGTERM,signal.SIGINT]:signal.signal(sig,signal.SIG_IGN)
         cleaning=True
         cleanup={}
+        if vmm_sampler is not None:
+            try:receipt['vmm_cgroup_sampling']=vmm_sampler.stop()
+            except Exception as error:cleanup['vmm_cgroup_sampler_error']=repr(error);success=False
+        if delete_trace is not None:
+            try:
+                receipt['delete_trace']=delete_trace.stop()
+                if receipt['delete_trace']['status']!='PASS':success=False
+            except Exception as error:cleanup['delete_trace_error']=repr(error);success=False
         if host_trace is not None:
             try:
                 receipt['host_file_trace']=host_trace.stop(matched=mount/'controller/prettier6604/host-matched.json')
@@ -1826,18 +2348,29 @@ def main(args):
             if readonly_fixture:
                 assert (readonly_fixture/'volume.ext4').stat().st_mtime_ns==receipt['readonly_source']['image_mtime_ns']
                 cleanup['readonly_source_unmounted_and_unchanged']=True
-            if success:
-                receipt['fixture_allocated_before_remove_bytes']=image.stat().st_blocks*512
-                image.unlink();cleanup['successful_fixture_removed']=True
-                receipt['failure_fixture_retained']=False
-            else:cleanup['failed_fixture_retained']=image.exists()
+            if success and getattr(args,'experiment_memory_standard',False):
+                # Validate saved measurements before removing a successful volume.
+                # Failure retains the now-unmounted fixture, not live guests.
+                try:
+                    from report_experiment_schedule import collect_parent
+                    checked=collect_parent(out,creation_receipt=receipt)
+                    receipt['experiment_memory_acceptance']=checked
+                    if checked['experiment_scope_validation']!='PASS':
+                        success=False
+                        receipt['failed_stage']='experiment-memory-acceptance'
+                        receipt['error']=str(checked['experiment_scope_errors'])
+                except Exception as error:
+                    success=False
+                    receipt['failed_stage']='experiment-memory-acceptance'
+                    receipt['error']=repr(error)
+            finish_fixture(image,success,receipt,cleanup,retain_for_final_acceptance=retain_fixture)
         except BaseException as exc:
             cleanup['error']=repr(exc);success=False
         after=identities()
         (out/'firecracker-after.json').write_text(json.dumps(after,indent=2)+'\n')
         cleanup['original_firecracker_identities_unchanged']=before==after
-        if online_agent or online_task or rootfs_short or private_control or full_rootfs_mode:
-            options=dict(allow_empty=True) if rootfs_short or private_control or full_rootfs_mode else {}
+        if online_agent or online_task or rootfs_short or private_control or full_rootfs_mode or os.environ.get('ASB_ISOLATED_UNUSED_NETWORK_POOLS')=='on':
+            options=dict(allow_empty=True) if rootfs_short or private_control or full_rootfs_mode or os.environ.get('ASB_ISOLATED_UNUSED_NETWORK_POOLS')=='on' else {}
             cleanup['original_source_firecracker_identities_unchanged']=source_vm_identities_unchanged(before,after,receipt.get('original_service_cgroup','UNAVAILABLE'),**options)
             receipt['external_firecracker_changes']={'removed':[v for v in before if v not in after],
                 'added':[v for v in after if v not in before],
@@ -1863,11 +2396,31 @@ def main(args):
 
 if __name__=='__main__':
     parser=argparse.ArgumentParser(description=__doc__)
+    parser.add_argument('--light-rollout',action='store_true',help='Explicit BPO light rounds, closure diagnostic only')
+    parser.add_argument('--diagnostic-server-binary',type=Path,help='Explicit child-cgroup light restore only; read-only private /server override')
     parser.add_argument('--window-start-utc',help='Optional runtime start with timezone; provide together with end')
     parser.add_argument('--window-end-utc',help='Optional runtime end; by default use a new bounded 20-minute runtime')
     parser.add_argument('--platform-config',type=Path,help='Validated unified isolated Exp1 config')
     parser.add_argument('--diagnostic-guest-kernel',type=Path,help='Local experimental ELF copied only into the new private service')
     parser.add_argument('--guest-cache-metadata-probe',action='store_true',help='12 GiB private volume; whole-cache metadata short validation, no checkpoint or VM pause')
+    parser.add_argument('--guest-cache-restored-lower',action='store_true',help='Explicit restored cache session lower-layer query')
+    parser.add_argument('--guest-cache-unified-rounds',action='store_true',help='Explicit cache-session shared clock only')
+    parser.add_argument('--immediate-restores',action='store_true')
+    parser.add_argument('--seven-restored',action='store_true')
+    parser.add_argument('--guest-cache-rollout-sessions',action='store_true',help='One source plus one restored guest with page-cache sessions, explicit only')
+    parser.add_argument('--guest-cache-light-restore-one',action='store_true',help='Explicit seven-light-guest single save/restore')
+    parser.add_argument('--guest-cache-light-memory',action='store_true',help='Explicit two-guest light memory rounds; no page probes')
+    parser.add_argument('--guest-cache-child-calibration',action='store_true',help='Explicit private-VMM child-cgroup calibration; local Prettier image, unlocked file, no checkpoint or pause')
+    parser.add_argument('--guest-cache-child-count',type=int,choices=(1,2,7),default=1,help='Explicit private cache calibration only; two guests use 16 GiB, default one guest unchanged')
+    parser.add_argument('--guest-cache-dynamic-file',action='store_true',help='Private children only: current file cache write/evict/reread calibration; ordinary paths unchanged')
+    parser.add_argument('--guest-cache-ram-page-evidence',action='store_true',help='Explicit private child calibration only: persist already-read full RAM pagemap triples; default off')
+    parser.add_argument('--guest-cache-vmm-page-evidence',action='store_true',help='Explicit private child calibration with RAM evidence only: full VMM maps/smaps and non-RAM pagemap triples; default off')
+    parser.add_argument('--guest-cache-io-uring-page-evidence',action='store_true',help='Explicit VMM/RAM evidence only: restricted io_uring mixed mappings; default off')
+    parser.add_argument('--guest-cache-host-backing-charge-evidence',action='store_true',help='Explicit private page charge attribution; default off')
+    parser.add_argument('--guest-cache-host-backing-full-pfn-evidence',action='store_true',help='Explicit one-private-guest full-list PFNs; default off')
+    parser.add_argument('--retain-fixture-for-final-acceptance',action='store_true',help='Private full-list calibration only: retain the unmounted volume for final acceptance and explicit later cleanup')
+    parser.add_argument('--guest-cache-host-backing-pfn-evidence',action='store_true',help='One private guest only: fixed bounded first-lower PFN query; default off')
+    parser.add_argument('--guest-cache-host-backing-evidence',action='store_true',help='Explicit private child calibration only: endpoint host objects and references, default off')
     parser.add_argument('--guest-cache-capacity-probe',action='store_true',help='12 GiB private volume; one guest, 128/64/128 MiB periodic clean-file reclaim targets; diagnostic reclaim kernel required')
     parser.add_argument('--snapshot-cache-pair',action='store_true',help='One two-guest shared snapshot / divergent write calibration')
     parser.add_argument('--snapshot-lower-cache-calibration',action='store_true',help='One raw snapshot-layer residency calibration, metadata reads only')
@@ -1894,10 +2447,28 @@ if __name__=='__main__':
     parser.add_argument('--host-current-pair',action='store_true')
     parser.add_argument('--host-file-monitor',action='store_true',help='Fresh host workflow slice; file main curve, PSS and pre-cleanup backing mincore')
     parser.add_argument('--host-current-only',action='store_true',help='Explicit light full task, frozen tool replay or Exp1: skip final backing residency inventory')
+    parser.add_argument('--experiment-memory-standard',action='store_true',help='Check saved slice closure before deleting the successful private volume')
     parser.add_argument('--external-creation-controls',action='store_true',help='Fixed Django: one preparation and four host-only creation controls in one service; no workload')
     parser.add_argument('--external-creation-oci-input',type=Path,help='Explicit creation controls only: complete fixed Django disk OCI input, mounted read-only')
+    parser.add_argument('--external-delete-trace',action='store_true',help='Same binary, private two-guest C4 deletion diagnostics')
+    parser.add_argument('--external-guest-count',type=int,choices=(1,2),default=1,help='Explicit concurrent C4 sampling control')
+    parser.add_argument('--external-sampling-control',action='store_true',help='Explicit C4 sampling on/off comparison')
+    parser.add_argument('--external-workload-relay',action='store_true',help='Explicit upgraded Cython owned relay')
+    parser.add_argument('--task-endpoint-metrics',action='store_true',help='Complete single Python/external task: VMM PSS, lower P1 and task window')
+    parser.add_argument('--vmm-pss-interval-seconds',type=validate_pss_interval,default=1,help='External endpoint metrics only: periodic VMM PSS interval; default 1s')
     parser.add_argument('--external-workload-config',type=Path,help='Pinned public Django fixed-tool replay; separate 32 GiB private service volume')
+    parser.add_argument('--c4-schedule',choices=('grpo','bpo','tvcache'),help='Approved C4 same-path seven-instance prefix reuse; 104 GiB gate for this mode only')
+    parser.add_argument('--c4-schedule-inputs',type=Path)
+    parser.add_argument('--matplotlib-schedule',choices=('grpo','bpo','tvcache'),help='Approved Matplotlib 73/87 prefix reuse, seven guests; displayed ~104 GiB gate')
+    parser.add_argument('--matplotlib-schedule-inputs',type=Path)
+    parser.add_argument('--cython-schedule',choices=('grpo','bpo','tvcache'),help='Approved original Cython 60/75 prefix reuse; seven guests, 64 GiB volume')
+    parser.add_argument('--cython-schedule-inputs',type=Path)
+    parser.add_argument('--text-editing-schedule',choices=('grpo','bpo','tvcache'),help='Approved original text editing 33/46 prefix reuse; seven guests, 64 GiB volume')
+    parser.add_argument('--text-editing-schedule-inputs',type=Path)
+    parser.add_argument('--django-schedule',choices=('grpo','bpo','tvcache'),help='Explicit approved Django original-path prefix reuse, seven guests')
+    parser.add_argument('--django-schedule-inputs',type=Path,help='Prepared pinned Django original scripts and declared prefix boundaries')
     parser.add_argument('--external-workload-upstream',type=Path,help='Checked-out pinned AgentSandboxWorkloadResults repository')
+    parser.add_argument('--external-workload-oci-input',type=Path,help='Two new tasks only: fixed local OCI layout, mounted read-only')
     parser.add_argument('--external-workload-sampling',choices=('on','off'),default='on',help='C4/Django/Cython explicit host and guest memory sampling control')
     parser.add_argument('--exp1-light',action='store_true',help='Explicit full Exp1 light sampler and host current; old Exp1 remains unchanged')
     parser.add_argument('--host-shared-files',action='store_true',help='Full light GRPO/BPO: selected shared-file query before official checks')
@@ -1928,6 +2499,13 @@ if __name__=='__main__':
     parser.add_argument('--python-backbone-oci',type=Path,help='Verified read-only local OCI cache; native conversion unchanged')
     parser.add_argument('--python-backbone-capacity-gib',type=int,choices=[18,20,22,24,28,32],default=32,help='Adjusted native volume requires verified OCI tar-size budget; 18/20/22 only for Sphinx')
     parser.add_argument('--python-task-profile',choices=['xarray6992','sphinx7590'],default='xarray6992')
+    parser.add_argument('--python-schedule',choices=['grpo','bpo','tvcache'],help='Explicit original seven-role Python matrix; ordinary backbone unchanged')
+    parser.add_argument('--python-branch-pipeline-policy',choices=['original','early2-dual-output-v1'],default='original',
+                        help='User-approved Sphinx early_2_inspect/004 exact conditional-output policy; ordinary default unchanged')
+    parser.add_argument('--python-schedule-find-exit-diagnostic',action='store_true',
+                        help='Explicit Sphinx seven-role trace_cpp_parser/005 exact-output 0/1 policy; strict FAIL retained')
+    parser.add_argument('--python-schedule-xarray-find-exit-diagnostic',action='store_true',
+                        help='Explicit Xarray seven-role trace_index_state/001 exact-output 0/1 policy; strict FAIL retained')
     parser.add_argument('--python-live-cache',action='store_true',help='No-pause whole-cache collection during complete Python task replay')
     parser.add_argument('--python-cache-baseline',action='store_true',help='Live Python replay only; disable owned DAMON, observe without reclaim and restore original state')
     parser.add_argument('--python-cache-target-mib',type=int,help='Explicit complete live Python replay only; positive periodic clean-file target in MiB')
@@ -1964,6 +2542,12 @@ if __name__=='__main__':
     parser.add_argument('--prettier6604-export',type=Path,help='Role-specific frozen export; run GRPO, BPO or TVCache paths')
     parser.add_argument('--prettier6604-role',choices=['early_1','early_2','early_3','late_1','late_2','late_3'],help='GRPO branch 20 GiB, BPO/TVCache early_1 restore smoke 24 GiB; omit for full 32 GiB schedule')
     parser.add_argument('--prettier6604-schedule',choices=['grpo','bpo','tvcache'],default='grpo',help='BPO/TVCache uses 24 GiB restore smoke or 32 GiB full schedule')
+    parser.add_argument('--schedule-sampling-control',action='store_true',help='Explicit GRPO sampling pair, same local-only backend')
+    parser.add_argument('--schedule-block-cache-method',choices=('mincore','cachestat','compare'),help='Explicit block cache method; default mincore; compare queries both per pinned object; requires cache layers')
+    parser.add_argument('--schedule-memory-backing-links',action='store_true',help='Opt-in saved memory config and lower identity/query links; requires cache layers')
+    parser.add_argument('--schedule-split-ram-cache',action='store_true',help='Extra preplanned RAM cachestat; requires schedule cache layers and explicit cachestat')
+    parser.add_argument('--schedule-cache-layers',action='store_true',help='Opt-in block/RAM, deleted TMPFS, private run/tmp and outer loop caches; requires expanded schedule files')
+    parser.add_argument('--schedule-expanded-files',action='store_true',help='Opt-in endpoint regular-file inventory with explicit unknowns; requires schedule smoke metrics')
     parser.add_argument('--schedule-smoke-metrics',action='store_true',help='Explicit full-profile local-only three-schedule smoke; ordinary defaults unchanged')
     parser.add_argument('--prettier6604-grpo-capacity-gib',type=int,choices=[16,32],default=32,help='16 GiB only for seven GRPO roots using verified converted seed; retains host reserve and >8 GiB post-copy headroom')
     parser.add_argument('--immutable-cache-seed',type=Path,help='Verified read-only local backup cache for Prettier, Xarray or Sphinx paths')

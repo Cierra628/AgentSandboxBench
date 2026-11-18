@@ -4,13 +4,13 @@ import json
 import os
 from pathlib import Path
 import shutil
+import shlex
 import struct
 import threading
 import time
 import traceback
 import numpy as np
 
-from agentenv_whole_cache import bind_vm
 from guest_cache_exporter import PAGE, REQUEST, PUBLICATION, CONTROL, STOP
 from kernel_cache_metadata import decode_header, PHYSICAL_MASK, PRESENT, MASK
 from fast_cache_metadata import decode_array, join_arrays
@@ -69,15 +69,42 @@ def _batch_memory(queries):
 
 
 class LiveTaskCache:
-    def __init__(self, out, container, cli, interval=1.0, *, session=None, lower_cache=False, provider_cache=False, batch_lookup=False, expected_kernel='6.1.175-asb-cache-v3'):
-        assert session in (None, 'parent', 'restored', 'child-a', 'child-b')
+    def __init__(self, out, container, cli, interval=1.0, *, session=None, lower_cache=False, provider_cache=False, batch_lookup=False, expected_kernel='6.1.175-asb-cache-v3', file_cache_path=None, ram_page_evidence=False, vmm_page_evidence=False, io_uring_page_evidence=False, session_name=None, capture=None, expected_binding=None, round_clock=None, event_windows=False):
+        if io_uring_page_evidence and not vmm_page_evidence:
+            raise ValueError('io_uring evidence requires explicit VMM and RAM evidence')
+        if vmm_page_evidence and not (ram_page_evidence and session in (None,'private-a','private-b') and not (lower_cache or provider_cache)):
+            raise ValueError('VMM mapping evidence requires private calibration and explicit RAM evidence')
+        assert session in (None, 'parent', 'restored', 'child-a', 'child-b', 'private-a', 'private-b')
+        if session_name is not None:
+            import re
+            if not re.fullmatch(r'[a-zA-Z0-9_-]+', session_name):
+                raise ValueError('invalid cache session name')
+        if event_windows and (round_clock is None or round_clock.period_ns != 10**9 or interval != 1):
+            raise ValueError("event windows require the shared one-second clock")
+        self.event_windows = event_windows
+        self.round_clock = round_clock
+        self.session_name = session_name
+        self.expected_binding = expected_binding
+        self.owns_capture = capture is None
         self.directory = out/'live-cache'
-        if session:
-            self.directory = self.directory/session
+        if session_name or session:
+            self.directory = self.directory/(session_name or session)
         self.directory.mkdir(parents=True)
         self.cli, self.interval = cli, interval
         self.session = session
         self.expected_kernel = expected_kernel
+        self.file_cache_path = file_cache_path
+        self.ram_page_evidence = ram_page_evidence
+        self.ram_evidence_bytes = 0
+        self.vmm_page_evidence = vmm_page_evidence
+        self.io_uring_page_evidence = io_uring_page_evidence
+        self.vmm_evidence = None
+        self.vmm_evidence_bytes = 0
+        if ram_page_evidence:
+            assert session in (None,'private-a','private-b') and not (lower_cache or provider_cache), 'full RAM evidence currently supports private calibration only'
+        if file_cache_path is not None:
+            assert Path(file_cache_path).is_absolute()
+            assert session in (None, 'private-a', 'private-b'), 'named-file query currently supports private calibration only'
         self.backend = None
         self.lower_query = None
         self.lower_cache = lower_cache
@@ -87,44 +114,78 @@ class LiveTaskCache:
         self.provider = None
         self.out = out
         # The existing attestation checks the owning controller/run directory.
-        self.capture = TaskPhysicalCache(out, container, cli,
-            directory=self.directory/'capture' if session else None)
+        self.capture = capture if capture is not None else TaskPhysicalCache(out, container, cli,
+            directory=self.directory/'capture' if session_name or session else None)
         self.stop_event = threading.Event()
         self.thread = self.sid = self.error = None
         self.samples = []
         self.request = self.raw_bytes = 0
         code = self.directory/'code'; code.mkdir()
-        for name in ('live_task_cache.py', 'guest_cache_exporter.py', 'kernel_cache_metadata.py', 'fast_cache_metadata.py', 'snapshot_cache_residency.py', 'snapshot_layer_metadata.py', 'provider_slot_cache.py'):
+        for name in ('live_task_cache.py', 'guest_cache_exporter.py', 'kernel_cache_metadata.py', 'fast_cache_metadata.py', 'snapshot_cache_residency.py', 'snapshot_layer_metadata.py', 'provider_slot_cache.py', 'cache_round_clock.py', 'snapshot_lower_owner.py'):
             shutil.copy2(ROOT/'scripts'/name, code/name)
+        if file_cache_path is not None:
+            for name in ('guest_file_cache_query.py', 'file_cache_metadata.py', 'report_dynamic_file_cache.py'):
+                shutil.copy2(ROOT/'scripts'/name, code/name)
+        if ram_page_evidence:
+            shutil.copy2(ROOT/'scripts/ram_page_evidence.py',code/'ram_page_evidence.py')
+        if vmm_page_evidence:
+            for name in ('vmm_page_evidence.py','host_special_metadata.py','host_schedule_files.py'):
+                shutil.copy2(ROOT/'scripts'/name,code/name)
         (self.directory/'source-sha256.json').write_text(json.dumps({p.name: hashlib.sha256(p.read_bytes()).hexdigest()
                                                                   for p in code.iterdir()}, indent=2)+'\n')
 
-    def start(self, sid):
+    def _start_guest_exporter(self, sid):
         self.sid = sid
-        self.capture.ready()
         tools = self.directory/'code'
         self.cli('live-cache-upload', 'upload', sid, tools, '/workspace/asb-export-tools')
-        self.guest = '/dev/shm/asb-export-' + sid
+        self.guest = '/dev/shm/asb-export-' + sid + (('-'+self.session_name) if self.session_name else '')
+        extra = '' if self.file_cache_path is None else ' --file-cache-path ' + shlex.quote(str(self.file_cache_path))
         self.cli('live-cache-start', 'exec', sid, 'bash', '-lc',
-                 f'nohup timeout 930 python3 -B /workspace/asb-export-tools/guest_cache_exporter.py {sid} {self.guest} >/tmp/asb-export.log 2>&1 </dev/null &')
+                 f'nohup timeout 930 python3 -B /workspace/asb-export-tools/guest_cache_exporter.py {sid} {self.guest}{extra} >/tmp/asb-export.log 2>&1 </dev/null &')
         self.cli('live-cache-ready', 'exec', sid, 'bash', '-lc',
                  f'for i in $(seq 1 100); do test -f {self.guest}/bootstrap.json && exit 0; test ! -f {self.guest}/failure.txt || break; sleep 0.1; done; cat /tmp/asb-export.log; exit 1', timeout=15)
         self.bootstrap = json.loads(self.cli('live-cache-bootstrap', 'exec', sid, 'cat', self.guest+'/bootstrap.json'))
-        assert self.bootstrap['kernel'] == self.expected_kernel
+        if self.bootstrap['kernel'] != self.expected_kernel:
+            raise ValueError(f"guest kernel {self.bootstrap['kernel']} != expected {self.expected_kernel}")
         (self.directory/'marker.json').write_text(json.dumps(self.bootstrap)+'\n')
         (self.directory/'iomem.txt').write_text(self.bootstrap['iomem'])
+    def start(self, sid, *, coordinated=False):
+        self.capture.ready()
+        if self.sid is None:self._start_guest_exporter(sid)
+        elif self.sid != sid or not hasattr(self,'bootstrap'):raise ValueError('guest exporter identity or bootstrap missing')
         shutil.copy2(self.capture.directory/'kvm-slots.tsv', self.directory/'kvm-slots.tsv')
-        pids = [int(p) for p in self.capture.cgpath.joinpath('cgroup.procs').read_text().split()
-                if Path('/proc', p, 'comm').read_text().strip() == 'firecracker']
-        self.vm, self.proof = bind_vm(self.directory, pids, self.capture.cgroup,
-                                     os.readlink('/proc/'+str(pids[0])+'/exe'), sid)
+        self.vm, self.proof = self.capture.bind(self.directory, sid)
+        self._check_rollout_binding()
+        if getattr(self,'ram_page_evidence',False):
+            from ram_page_evidence import manifest
+            self.ram_manifest=manifest(sid,self.bootstrap['boot_id'],self.vm,self.proof['slots'])
+            with (self.directory/'ram-page-manifest.json').open('x') as output:
+                json.dump(self.ram_manifest,output,indent=2);output.write('\n')
         proc = identity(self.vm, Path('/proc'), Path('/sys/fs/cgroup'))
         self.pm = (proc/'pagemap').open('rb', buffering=0)
         self.memory = (proc/'mem').open('r+b', buffering=0)
+        if getattr(self,'vmm_page_evidence',False):
+            from vmm_page_evidence import VmmPageEvidence
+            assert self.capture.child_scope, 'VMM evidence requires attested private child cgroup'
+            binding=json.loads((self.directory/'vmm-child-binding.json').read_text())
+            self.vmm_evidence=VmmPageEvidence(self.ram_manifest,binding['vmm_binding']['boot_id'],
+                **(dict(io_uring=True) if self.io_uring_page_evidence else {}))
         self.addresses = [ram_address(p, self.proof['slots']) for p in self.bootstrap['export_pfns']]
         self._start_snapshot_queries(proc)
+        if coordinated or self.event_windows:
+            return  # The lifecycle hook, not a background timer, requests each point.
         self.thread = threading.Thread(target=self._run, name='live-task-cache', daemon=True)
         self.thread.start()
+
+    def _check_rollout_binding(self):
+        if self.expected_binding is not None:
+            expected = self.expected_binding
+            if (self.vm['pid'], str(self.vm['start_time_ticks']), self.vm['sandbox_id'], self.vm['cgroup']) != (
+                    expected['pid'], str(expected['start_ticks']), expected['sandbox_id'], expected['actual_cgroup']):
+                raise ValueError('cache RAM binding differs from rollout identity')
+            receipt = json.loads((self.directory/'vmm-child-binding.json').read_text())
+            if receipt['vmm_binding']['boot_id'] != expected['boot_id']:
+                raise ValueError('cache host boot identity differs')
 
     def _start_snapshot_queries(self, proc):
         if self.session in ('restored', 'child-a', 'child-b'):
@@ -133,12 +194,20 @@ class LiveTaskCache:
             self.backend = SnapshotCache(proc, self.proof['slots'], self.directory, **query_options)
             if self.lower_cache:
                 from snapshot_layer_metadata import owned_memory_layer
-                self.lower_layer = owned_memory_layer(self.out, proc, self.directory/'lower-metadata')
+                owner_options = {}
+                if self.capture.child_scope:
+                    receipt = json.loads((self.directory/'vmm-child-binding.json').read_text())
+                    from snapshot_lower_owner import lower_vm_identity
+                    bound = lower_vm_identity(receipt, self.vm, self.sid)
+                    paths = {r['path'] for r in self.backend.regions if r['path'].startswith('/dev/ublkb')}
+                    assert len(paths)==1
+                    owner_options = dict(binding=self.capture.binding, vm=bound, device_path=paths.pop())
+                self.lower_layer = owned_memory_layer(self.out, proc, self.directory/'lower-metadata', **owner_options)
                 query_dir=self.directory/'lower-query';query_dir.mkdir()
                 self.lower_query=SnapshotCache(proc, [], query_dir, file_path=self.lower_layer.path, **query_options)
                 if self.provider_cache:
                     from provider_slot_cache import ProviderCache
-                    self.provider=ProviderCache(self.out,proc,self.directory/'provider')
+                    self.provider=ProviderCache(self.out,proc,self.directory/'provider',**owner_options)
     def _read(self, offset, size):
         result = bytearray()
         while size:
@@ -202,64 +271,97 @@ class LiveTaskCache:
             raise ValueError('cache page outside attested RAM')
         return result
 
-    def _run(self):
+    def window_point(self):
+        if not self.event_windows or self.stop_event.is_set() or self.error:
+            raise RuntimeError(self.error or 'no active event-window session')
+        count = len(self.samples)
+        self._run(one_point=True)
+        if self.error or len(self.samples) != count+1:
+            raise RuntimeError(self.error or 'missing completed point')
+        return self.samples[-1]['shared_round']
+
+    def _run(self, *, one_point=False, scheduled_ticket=None, deadline_ns=None):
+        timed=_timed
+        if deadline_ns is not None:
+            def timed(costs,name,fn,*args,**kwargs):
+                if time.monotonic_ns()>=deadline_ns:raise TimeoutError('adaptive observation deadline')
+                return _timed(costs,name,fn,*args,**kwargs)
         total_cpu = time.thread_time_ns()
+        clock = getattr(self, 'round_clock', None)
+        previous_round = self.samples[-1]['shared_round']['round'] if one_point and self.samples else None
+        ticket = None
         try:
             while not self.stop_event.is_set():
+                ticket = scheduled_ticket if scheduled_ticket is not None else clock.wait_next(previous_round, self.stop_event) if clock else None
+                if clock and ticket is None:break
+                if ticket is not None:previous_round = ticket['round']
                 started = time.monotonic_ns(); cpu = time.thread_time_ns(); wall = time.time_ns()
                 stages = {}
-                before, info_before = _timed(stages, 'guest_before', self._snapshot)
-                decoded_before = _timed(stages, 'decode_before', decode_array, before)
+                before, info_before = timed(stages, 'guest_before', self._snapshot)
+                decoded_before = timed(stages, 'decode_before', decode_array, before)
                 pages = decoded_before[1]
                 pfns = pages[pages[:, 1] != 0, 0]
-                first = _timed(stages, 'vmm_first', self._bulk)
+                vmm=getattr(self,'vmm_evidence',None)
+                if vmm:
+                    timed(stages,'vmm_mapping_before',vmm.begin,
+                        remaining_bytes=2**30-self.raw_bytes-self.ram_manifest['bytes_per_sample'])
+                first = timed(stages, 'vmm_first', self._bulk)
+                if vmm:timed(stages,'nonram_first',vmm.read,0,self.pm)
+                shared = getattr(self,'device_round',None)
                 compact_provider = bool(self.provider and self.provider.segmented)
-                if self.provider and not compact_provider:provider_first=_timed(stages, 'provider_first', self.provider.snapshot)
+                if self.provider and not compact_provider:provider_first=timed(stages, 'provider_first', self.provider.snapshot)
                 if self.backend:
-                    self.backend.regions = _timed(stages, 'maps_before', self.backend.ram_regions)
+                    self.backend.regions = timed(stages, 'maps_before', self.backend.ram_regions)
                     maps_before = self.backend.regions
-                    offsets = _timed(stages, 'backend_offsets_before', self.backend.offsets, pfns)
-                    backing_first = _timed(stages, 'backend_query_first', self.backend.query, offsets)
+                    offsets = timed(stages, 'backend_offsets_before', self.backend.offsets, pfns)
+                    backing_first = timed(stages, 'backend_query_first', self.backend.query, offsets)
                     if self.lower_query:
-                        lower_offsets=_timed(stages, 'lower_offsets', self.lower_layer.offsets, offsets)
-                        lower_first=_timed(stages, 'lower_query_first', self.lower_query.query, lower_offsets)
-                if compact_provider:provider_first=_timed(stages, 'provider_first', self.provider.snapshot)
-                middle = _timed(stages, 'vmm_middle', self._bulk)
-                if compact_provider:provider_last=_timed(stages, 'provider_last', self.provider.snapshot)
-                after, info_after = _timed(stages, 'guest_after', self._snapshot)
-                decoded_after = _timed(stages, 'decode_after', decode_array, after)
+                        lower_offsets=timed(stages, 'lower_offsets', self.lower_layer.offsets, offsets)
+                        lower_first=timed(stages, 'lower_query_first', self.lower_query.query, lower_offsets)
+                if shared:provider_first=timed(stages,'provider_first',shared.frame,self.session_name,0)
+                if compact_provider:provider_first=timed(stages, 'provider_first', self.provider.snapshot)
+                middle = timed(stages, 'vmm_middle', self._bulk)
+                if vmm:timed(stages,'nonram_middle',vmm.read,1,self.pm)
+                if shared:provider_last=timed(stages,'provider_last',shared.frame,self.session_name,1)
+                if compact_provider:provider_last=timed(stages, 'provider_last', self.provider.snapshot)
+                after, info_after = timed(stages, 'guest_after', self._snapshot)
+                decoded_after = timed(stages, 'decode_after', decode_array, after)
                 if self.backend:
-                    backing_last = _timed(stages, 'backend_query_last', self.backend.query, offsets)
+                    backing_last = timed(stages, 'backend_query_last', self.backend.query, offsets)
                     if self.lower_query:
-                        lower_last=_timed(stages, 'lower_query_last', self.lower_query.query, lower_offsets)
-                final = _timed(stages, 'vmm_last', self._bulk)
-                if self.provider and not compact_provider:provider_last=_timed(stages, 'provider_last', self.provider.snapshot)
+                        lower_last=timed(stages, 'lower_query_last', self.lower_query.query, lower_offsets)
+                final = timed(stages, 'vmm_last', self._bulk)
+                if vmm:timed(stages,'nonram_last',vmm.read,2,self.pm)
+                if self.provider and not compact_provider:provider_last=timed(stages, 'provider_last', self.provider.snapshot)
                 if self.backend:
-                    self.backend.regions = _timed(stages, 'maps_after', self.backend.ram_regions)
+                    self.backend.regions = timed(stages, 'maps_after', self.backend.ram_regions)
                     maps_after = self.backend.regions
-                    last_offsets = _timed(stages, 'backend_offsets_after', self.backend.offsets, pfns)
+                    last_offsets = timed(stages, 'backend_offsets_after', self.backend.offsets, pfns)
                     backing_last[last_offsets != offsets] = 0
                     if self.lower_query:
                         lower_last[last_offsets != offsets] = 0
-                rows = _timed(stages, 'host_rows', lambda: np.column_stack((pfns,
+                rows = timed(stages, 'host_rows', lambda: np.column_stack((pfns,
                     self._entries(pfns, first), self._entries(pfns, middle),
                     self._entries(pfns, final))).astype('<u8', copy=False))
-                point = _timed(stages, 'vmm_account', join_arrays, decoded_before, decoded_after, rows)
+                point = timed(stages, 'vmm_account', join_arrays, decoded_before, decoded_after, rows)
                 backing = None
                 lower = None
                 if self.backend:
                     from snapshot_cache_residency import account
-                    backing = _timed(stages, 'backend_rows', lambda:
+                    backing = timed(stages, 'backend_rows', lambda:
                         np.column_stack((pfns, offsets, backing_first, backing_last)).astype('<u8', copy=False))
-                    point.update(_timed(stages, 'backend_account', account, decoded_before, decoded_after, rows, backing))
+                    point.update(timed(stages, 'backend_account', account, decoded_before, decoded_after, rows, backing))
                     if self.lower_query:
                         from snapshot_layer_metadata import account_layers
-                        lower=_timed(stages, 'lower_rows', lambda:
+                        lower=timed(stages, 'lower_rows', lambda:
                             np.column_stack((pfns,lower_offsets,lower_first,lower_last)).astype('<u8',copy=False))
-                        point.update(_timed(stages, 'lower_account', account_layers, decoded_before,decoded_after,rows,backing,lower))
+                        point.update(timed(stages, 'lower_account', account_layers, decoded_before,decoded_after,rows,backing,lower))
+                        if shared:
+                            point['four_source_union_pages']=timed(stages,'provider_account',shared.match,self.session_name,
+                                before,after,rows,backing,lower,decoded_before,decoded_after)
                         if self.provider:
                             from provider_slot_cache import account_observed_provider
-                            measured,_=_timed(stages, 'provider_account', account_observed_provider,
+                            measured,_=timed(stages, 'provider_account', account_observed_provider,
                                 before,after,rows,backing,lower,provider_first,provider_last,
                                 decoded=(decoded_before,decoded_after))
                             point.update(measured)
@@ -291,17 +393,42 @@ class LiveTaskCache:
                     Path(str(prefix)+'-backend.bin').write_bytes(backing.tobytes())
                     Path(str(prefix)+'-maps.json').write_text(json.dumps(dict(before=maps_before, after=maps_after))+'\n')
                 assert self.raw_bytes < 2**30, 'live cache raw data exceeded 1 GiB budget'
+                if self.ram_page_evidence:
+                    from ram_page_evidence import save
+                    point['ram_page_evidence']=timed(stages,'ram_evidence_save',save,prefix,
+                        self.ram_manifest,first,middle,final,remaining_bytes=2**30-self.raw_bytes)
+                    used=point['ram_page_evidence']['raw_bytes']
+                    self.ram_evidence_bytes+=used;self.raw_bytes+=used
+                if vmm:
+                    point['vmm_page_evidence']=timed(stages,'vmm_evidence_save',vmm.save,prefix,
+                        first,middle,final,remaining_bytes=2**30-self.raw_bytes)
+                    used=point['vmm_page_evidence']['raw_bytes']
+                    self.vmm_evidence_bytes+=used;self.raw_bytes+=used
                 for suffix, data in [('-before.bin', before), ('-after.bin', after), ('-host.bin', host)]:
                     Path(str(prefix)+suffix).write_bytes(data)
+                if ticket is not None:
+                    from cache_round_clock import finish_ticket
+                    point['shared_round'] = finish_ticket(ticket, started, started+point['host_elapsed_ns'])
                 self.samples.append(point)
                 with (self.directory/'samples.jsonl').open('a') as log:
                     log.write(json.dumps(point)+'\n')
-                self.stop_event.wait(max(0, self.interval-(time.monotonic_ns()-started)/1e9))
+                if one_point:break  # after both publications, raw files and samples.jsonl
+                if clock is None:
+                    self.stop_event.wait(max(0, self.interval-(time.monotonic_ns()-started)/1e9))
         except BaseException as exc:
             self.error = repr(exc)
+            if ticket is not None:
+                (self.directory/'failed-round.json').write_text(json.dumps(dict(ticket, status='INCOMPLETE', error=self.error))+'\n')
             (self.directory/'failure.txt').write_text(traceback.format_exc())
         finally:
-            self.thread_total_cpu_ns = time.thread_time_ns() - total_cpu
+            self.thread_total_cpu_ns = (getattr(self, "thread_total_cpu_ns", 0) if one_point else 0) + time.thread_time_ns() - total_cpu
+
+    def _download_file_queries(self):
+        destination = self.directory/'file-query-download'
+        destination.mkdir()
+        self.cli('live-file-query-download', 'download', self.sid,
+                 self.guest+'/file-query', destination, timeout=30)
+        return destination/'file-query'
 
     def close(self):
         self.stop_event.set()
@@ -311,15 +438,33 @@ class LiveTaskCache:
                 assert not self.thread.is_alive(), 'host cache collector did not stop'
             if hasattr(self, 'memory'):
                 os.pwrite(self.memory.fileno(), struct.pack('<Q', STOP), self.addresses[0]+REQUEST)
-                self.cli('live-cache-done', 'exec', self.sid, 'bash', '-lc',
-                         f'for i in $(seq 1 100); do test -f {self.guest}/done && exit 0; test ! -f {self.guest}/failure.txt || break; sleep 0.1; done; cat /tmp/asb-export.log; exit 1', timeout=15)
+                try:
+                    self.cli('live-cache-done', 'exec', self.sid, 'bash', '-lc',
+                             f'for i in $(seq 1 100); do test -f {self.guest}/done && exit 0; test ! -f {self.guest}/failure.txt || break; sleep 0.1; done; cat /tmp/asb-export.log; exit 1', timeout=15)
+                except BaseException as error:
+                    if self.file_cache_path is not None:
+                        try:
+                            self._download_file_queries()
+                        except Exception as download_error:
+                            error.add_note('file-query evidence download also failed: '+repr(download_error))
+                    raise
                 guest = json.loads(self.cli('live-cache-result', 'exec', self.sid, 'cat', self.guest+'/result.json'))
                 assert guest['status'] == 'PASS'
                 (self.directory/'guest-result.json').write_text(json.dumps(guest, indent=2)+'\n')
                 identity(self.vm, Path('/proc'), Path('/sys/fs/cgroup'))
+                if self.file_cache_path is not None:
+                    destination = self._download_file_queries()
+                    from report_dynamic_file_cache import analyze
+                    named = analyze(self.directory, destination)
+                    (self.directory/'dynamic-file-cache.json').write_text(json.dumps(named, indent=2)+'\n')
+                    assert named['status'] != 'UNAVAILABLE', 'named-file sidecars missing'
+            if self.event_windows and (self.error or not self.samples):
+                result = dict(status='UNKNOWN', samples=len(self.samples), error=self.error or 'no complete window')
+                (self.directory/'result.json').write_text(json.dumps(result, indent=2)+'\n')
+                return
             assert not self.error, self.error
-            assert len(self.samples) >= 2, 'no repeated live cache samples'
-            (self.directory/'result.json').write_text(json.dumps(dict(status='PASS', vm_pause=False,
+            assert len(self.samples) >= (1 if self.event_windows or self.interval is None else 2), 'insufficient live cache samples'
+            result=dict(status='PASS', vm_pause=False,
                 samples=len(self.samples), raw_bytes=self.raw_bytes, interval_seconds=self.interval,
                 sandbox_id=self.sid, host_identity=self.vm, guest_boot_id=self.bootstrap['boot_id'],
                 first_sample_ns=self.samples[0]['timestamp_ns'], last_sample_ns=self.samples[-1]['timestamp_ns'],
@@ -328,17 +473,42 @@ class LiveTaskCache:
                 host_thread_total_cpu_ns=self.thread_total_cpu_ns,
                 collector_version=('snapshot-provider-segment-pfn-union-v6' if self.provider and self.provider.segmented else 'snapshot-provider-slot-pfn-union-v5') if self.provider_cache else 'snapshot-raw-layer-pfn-union-v4' if self.lower_cache else 'snapshot-mincore-pfn-union-v3',
                 scope='whole guest ordinary/shmem cache; VMM PFNs plus direct File-backend current PFNs; unresolved pages and old snapshot versions separate',
-                monitoring_impact='NOT_CONTROLLED'), indent=2)+'\n')
+                monitoring_impact='NOT_CONTROLLED')
+            if self.ram_page_evidence:
+                from ram_page_evidence import analyze
+                ram_costs={}
+                ram=_timed(ram_costs,'offline_ram_analysis',analyze,self.directory,collector=result)
+                assert ram['status']=='OBSERVED','full RAM evidence incomplete'
+                (self.directory/'ram-page-analysis.json').write_text(json.dumps(ram,indent=2)+'\n')
+                result['ram_page_evidence']=dict(version=ram['version'],raw_bytes=self.ram_evidence_bytes,
+                    analysis='ram-page-analysis.json',status=ram['status'],analysis_cost=ram_costs['offline_ram_analysis'],
+                    scope='attested RAM only; not total VMM or complete sandbox')
+            if getattr(self,'vmm_page_evidence',False):
+                from vmm_page_evidence import analyze
+                vmm_costs={}
+                measured=_timed(vmm_costs,'offline_vmm_analysis',analyze,self.directory,collector=result)
+                assert measured['status']=='OBSERVED_EVIDENCE','full VMM evidence missing'
+                (self.directory/'vmm-page-analysis.json').write_text(json.dumps(measured,indent=2)+'\n')
+                result['vmm_page_evidence']=dict(version=measured['version'],raw_bytes=self.vmm_evidence_bytes,
+                    analysis='vmm-page-analysis.json',status=measured['status'],coverage=measured['coverage'],
+                    analysis_cost=vmm_costs['offline_vmm_analysis'],scope='ordinary mapped PFN union; not complete sandbox cost')
+                if getattr(self,'io_uring_page_evidence',False):
+                    result['vmm_page_evidence'].update(io_uring_policy=measured['io_uring_policy'],
+                        host_kernel_identity=measured['host_kernel_identity'],
+                        scope='ordinary and restricted io_uring mapped PFN union; not complete sandbox cost')
+            (self.directory/'result.json').write_text(json.dumps(result,indent=2)+'\n')
         finally:
             if self.provider:
-                self.provider.close()
+                if self.event_windows:self.provider.close(final_snapshot=False)
+                else:self.provider.close()
             if self.lower_query:
                 self.lower_query.close()
             if self.backend:
                 self.backend.close()
             for name in ('memory', 'pm'):
                 if hasattr(self, name): getattr(self, name).close()
-            self.capture.close()
+            if getattr(self, 'owns_capture', True):
+                self.capture.close()
 
 
 def session_index(sessions, gap):

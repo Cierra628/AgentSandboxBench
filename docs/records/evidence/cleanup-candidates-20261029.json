@@ -1,0 +1,73 @@
+{
+  "status": "PREPARED_AWAITING_USER_APPROVAL",
+  "operation_proposed": "Lossless archive and full-content comparison, then remove listed originals only if separately authorized",
+  "file_count": 7738,
+  "run_dates": {
+    "20261018": 5403,
+    "20261016": 531,
+    "20261015": 962,
+    "20261019": 474,
+    "20261017": 368
+  },
+  "allocated_bytes": 5477752832,
+  "allocated_gib": 5.101554870605469,
+  "groups": {
+    "pair-N-before.bin": {
+      "count": 2760,
+      "allocated_bytes": 1966096384
+    },
+    "pair-N-after.bin": {
+      "count": 2760,
+      "allocated_bytes": 1967075328
+    },
+    "pair-N-host.bin": {
+      "count": 1057,
+      "allocated_bytes": 673525760
+    },
+    "pair-N-lower.bin": {
+      "count": 568,
+      "allocated_bytes": 425754624
+    },
+    "pair-N-backend.bin": {
+      "count": 593,
+      "allocated_bytes": 445300736
+    }
+  },
+  "available_bytes": 58782203904,
+  "available_gib": 54.74519348144531,
+  "maximum_after_direct_removal_gib": 59.84674835205078,
+  "target_minimum_gib": 62,
+  "shortfall_even_after_direct_removal_gib": 2.1532516479492188,
+  "archive_net_reclaimed_bytes": "NOT_MEASURED; archive not created, retained archive uses space",
+  "usage_check": "PASS_NO_FILE_USERS",
+  "file_identity_check": "PASS_UNCHANGED",
+  "loop_check": "NO_CANDIDATE_BACKING",
+  "excluded_protected_count": 0,
+  "protected_roots": [
+    ".artifacts/backup-cleanup-20261029",
+    ".artifacts/light-measurement-backup-20261021T064910Z",
+    ".artifacts/platform-tasks/20261011T115548Z-690247",
+    ".artifacts/platform-tasks/durable-20261011T124238Z-706272",
+    ".artifacts/source-service-rebuilt-20261018T160925Z-2726362",
+    ".artifacts/storage-isolated-service/20261008T102942Z-3642885",
+    ".artifacts/storage-isolated-service/20261008T165515Z-3834076",
+    ".artifacts/storage-isolated-service/20261009T050703Z-3934019",
+    ".artifacts/storage-isolated-service/20261011T115714Z-690913",
+    ".artifacts/storage-isolated-service/20261011T123631Z-703748"
+  ],
+  "legacy_container": {
+    "name": "agentenv-smoke-20260922T113346Z-1364951",
+    "docker_reported_logical_bytes": 68799880990,
+    "actual_file_allocated_bytes": 80506880,
+    "sparse_placeholder_bytes": 68719476736,
+    "decision": "EXCLUDED; logical size is misleading, not enough physical disk space; original service retained"
+  },
+  "current_source_service": "asb-source-rebuilt-20261018T160925Z-2726362",
+  "impact": "Without the new archive, deleting these originals prevents re-running their old per-page analyses. Saved reports, JSON summaries, tool logs, task outcomes, patches and recent results are outside this list.",
+  "deleted_files": 0,
+  "archives_created": 0,
+  "new_services": 0,
+  "new_guests": 0,
+  "next": "User approval for the exact list and lossless archive operation; recheck identities, users, mounts, loops and space before any removal. Do not prune Docker or delete protected inputs.",
+  "mount_check": "NO_SUBMOUNTS_IN_CANDIDATE_PATHS"
+}

@@ -1,0 +1,694 @@
+{
+  "status": "PASS",
+  "scope": "All three original Exp2 configurations once each; 96 actions, 12 restored boundaries, original focused tests; no statistical speed or memory saving claim",
+  "runs": [
+    {
+      "mode": "agentenv-preserve",
+      "workflow": ".artifacts/platform-tasks/20261012T030341Z-800232",
+      "raw": ".artifacts/storage-isolated-service/20261012T030459Z-800877/prettier6604",
+      "reports": [
+        ".artifacts/platform-tasks/exp2-three-config-recomputed-a/agentenv-preserve",
+        ".artifacts/platform-tasks/exp2-three-config-recomputed-b/agentenv-preserve"
+      ],
+      "report_files_identical": 17,
+      "raw_files_unchanged": 451,
+      "action_count": 32,
+      "checkpoint_count": 4,
+      "restore_count": 4,
+      "guest_action_sum_ns": 8425589453,
+      "controller_elapsed_ns": 28033349490,
+      "transitions": [
+        {
+          "after_round": 1,
+          "checkpoint_ns": 2040817620,
+          "restore_ns": 250367185,
+          "image_rebuild_ns": 0,
+          "state_verification_ns": 252378500,
+          "guest_cache_clear_ns": 0
+        },
+        {
+          "after_round": 2,
+          "checkpoint_ns": 455024321,
+          "restore_ns": 254843522,
+          "image_rebuild_ns": 0,
+          "state_verification_ns": 187875364,
+          "guest_cache_clear_ns": 0
+        },
+        {
+          "after_round": 3,
+          "checkpoint_ns": 565019006,
+          "restore_ns": 279479307,
+          "image_rebuild_ns": 0,
+          "state_verification_ns": 251833101,
+          "guest_cache_clear_ns": 0
+        },
+        {
+          "after_round": 4,
+          "checkpoint_ns": 469709162,
+          "restore_ns": 289866300,
+          "image_rebuild_ns": 0,
+          "state_verification_ns": 256563263,
+          "guest_cache_clear_ns": 0
+        }
+      ],
+      "boundary_memory": [
+        {
+          "round": 1,
+          "runner_baseline_nonfree_bytes": 302981120,
+          "runner_baseline_file_cache_estimate_bytes": 163090432,
+          "before_drop_cached_bytes": 192233472,
+          "at_snapshot_cached_bytes": 192233472,
+          "immediate_restored_cached_bytes": 193462272
+        },
+        {
+          "round": 2,
+          "runner_baseline_nonfree_bytes": 358895616,
+          "runner_baseline_file_cache_estimate_bytes": 225333248,
+          "before_drop_cached_bytes": 203415552,
+          "at_snapshot_cached_bytes": 203415552,
+          "immediate_restored_cached_bytes": 205164544
+        },
+        {
+          "round": 3,
+          "runner_baseline_nonfree_bytes": 348405760,
+          "runner_baseline_file_cache_estimate_bytes": 237387776,
+          "before_drop_cached_bytes": 208330752,
+          "at_snapshot_cached_bytes": 208330752,
+          "immediate_restored_cached_bytes": 209764352
+        },
+        {
+          "round": 4,
+          "runner_baseline_nonfree_bytes": 375287808,
+          "runner_baseline_file_cache_estimate_bytes": 256446464,
+          "before_drop_cached_bytes": 211103744,
+          "at_snapshot_cached_bytes": 211193856,
+          "immediate_restored_cached_bytes": 212422656
+        }
+      ],
+      "final_patch_sha256": "1f8f98afa26eb3164c584a015fc0d40356af8d5363254e6a578b30074caf8da2",
+      "final_source_sha256": "123b5e6c1be804ff1c7649b217a64576fb41ed3beb1185f2b8c728f49741829f",
+      "focused_tests": [
+        {
+          "round": 3,
+          "step": "008",
+          "passed": 1,
+          "total": 1
+        },
+        {
+          "round": 4,
+          "step": "006",
+          "passed": 6,
+          "total": 6
+        }
+      ],
+      "guest_runtime": [
+        {
+          "role": "round-1",
+          "sample_count": 32,
+          "observed_nonfree_peak_bytes": 426614784,
+          "cached_observed_peak_bytes": 192204800
+        },
+        {
+          "role": "round-2",
+          "sample_count": 20,
+          "observed_nonfree_peak_bytes": 416497664,
+          "cached_observed_peak_bytes": 203300864
+        },
+        {
+          "role": "round-3",
+          "sample_count": 31,
+          "observed_nonfree_peak_bytes": 486404096,
+          "cached_observed_peak_bytes": 208318464
+        },
+        {
+          "role": "round-4",
+          "sample_count": 31,
+          "observed_nonfree_peak_bytes": 447074304,
+          "cached_observed_peak_bytes": 212426752
+        },
+        {
+          "role": "final-restored",
+          "sample_count": 8,
+          "observed_nonfree_peak_bytes": 370946048,
+          "cached_observed_peak_bytes": 198594560
+        }
+      ],
+      "performance": [
+        {
+          "role": "round-1",
+          "guest_cpu_status": "MEASURED",
+          "guest_io_status": "MEASURED",
+          "host_vmm_status": "MEASURED",
+          "host_rss_observed_peak_bytes": 594415616,
+          "host_pss_observed_peak_bytes": 554622976
+        },
+        {
+          "role": "round-2",
+          "guest_cpu_status": "MEASURED",
+          "guest_io_status": "MEASURED",
+          "host_vmm_status": "MEASURED",
+          "host_rss_observed_peak_bytes": 378187776,
+          "host_pss_observed_peak_bytes": 343461888
+        },
+        {
+          "role": "round-3",
+          "guest_cpu_status": "MEASURED",
+          "guest_io_status": "MEASURED",
+          "host_vmm_status": "MEASURED",
+          "host_rss_observed_peak_bytes": 461950976,
+          "host_pss_observed_peak_bytes": 383832064
+        },
+        {
+          "role": "round-4",
+          "guest_cpu_status": "MEASURED",
+          "guest_io_status": "MEASURED",
+          "host_vmm_status": "MEASURED",
+          "host_rss_observed_peak_bytes": 386052096,
+          "host_pss_observed_peak_bytes": 376930304
+        },
+        {
+          "role": "final-restored",
+          "guest_cpu_status": "MEASURED",
+          "guest_io_status": "MEASURED",
+          "host_vmm_status": "MEASURED",
+          "host_rss_observed_peak_bytes": 243240960,
+          "host_pss_observed_peak_bytes": 225865728
+        }
+      ],
+      "serial_call_breakdown": {
+        "other": {
+          "calls": 64,
+          "duration_ns": 12980366887
+        },
+        "monitor-control": {
+          "calls": 55,
+          "duration_ns": 3378661498
+        },
+        "round-runner-call": {
+          "calls": 4,
+          "duration_ns": 9916432833
+        },
+        "vm-delete-and-sdk-close": {
+          "calls": 5,
+          "duration_ns": 1220704972
+        }
+      },
+      "observed_volume_used_peak_bytes": 7093112832,
+      "observed_host_available_min_bytes": 29027975168,
+      "cleanup": {
+        "owned_container_removed": true,
+        "mount_and_loop_removed": true,
+        "successful_fixture_removed": true,
+        "original_firecracker_identities_unchanged": true,
+        "original_service_unchanged": true
+      },
+      "memory_chart": "docs/records/evidence/exp2-preserve-memory-20261012.svg"
+    },
+    {
+      "mode": "agentenv-drop",
+      "workflow": ".artifacts/platform-tasks/20261012T030636Z-803055",
+      "raw": ".artifacts/storage-isolated-service/20261012T030755Z-804092/prettier6604",
+      "reports": [
+        ".artifacts/platform-tasks/exp2-three-config-recomputed-a/agentenv-drop",
+        ".artifacts/platform-tasks/exp2-three-config-recomputed-b/agentenv-drop"
+      ],
+      "report_files_identical": 17,
+      "raw_files_unchanged": 459,
+      "action_count": 32,
+      "checkpoint_count": 4,
+      "restore_count": 4,
+      "guest_action_sum_ns": 12371774599,
+      "controller_elapsed_ns": 33592876753,
+      "transitions": [
+        {
+          "after_round": 1,
+          "checkpoint_ns": 2473027519,
+          "restore_ns": 273098442,
+          "image_rebuild_ns": 0,
+          "state_verification_ns": 408432970,
+          "guest_cache_clear_ns": 156608919
+        },
+        {
+          "after_round": 2,
+          "checkpoint_ns": 547738537,
+          "restore_ns": 269936372,
+          "image_rebuild_ns": 0,
+          "state_verification_ns": 386080354,
+          "guest_cache_clear_ns": 112734244
+        },
+        {
+          "after_round": 3,
+          "checkpoint_ns": 733603492,
+          "restore_ns": 319438370,
+          "image_rebuild_ns": 0,
+          "state_verification_ns": 405167322,
+          "guest_cache_clear_ns": 97078451
+        },
+        {
+          "after_round": 4,
+          "checkpoint_ns": 593292671,
+          "restore_ns": 277805401,
+          "image_rebuild_ns": 0,
+          "state_verification_ns": 451406097,
+          "guest_cache_clear_ns": 106978838
+        }
+      ],
+      "boundary_memory": [
+        {
+          "round": 1,
+          "runner_baseline_nonfree_bytes": 300478464,
+          "runner_baseline_file_cache_estimate_bytes": 163295232,
+          "before_drop_cached_bytes": 192532480,
+          "at_snapshot_cached_bytes": 61468672,
+          "immediate_restored_cached_bytes": 65343488
+        },
+        {
+          "round": 2,
+          "runner_baseline_nonfree_bytes": 200482816,
+          "runner_baseline_file_cache_estimate_bytes": 85340160,
+          "before_drop_cached_bytes": 112685056,
+          "at_snapshot_cached_bytes": 40828928,
+          "immediate_restored_cached_bytes": 44105728
+        },
+        {
+          "round": 3,
+          "runner_baseline_nonfree_bytes": 167792640,
+          "runner_baseline_file_cache_estimate_bytes": 65114112,
+          "before_drop_cached_bytes": 122712064,
+          "at_snapshot_cached_bytes": 35332096,
+          "immediate_restored_cached_bytes": 40374272
+        },
+        {
+          "round": 4,
+          "runner_baseline_nonfree_bytes": 140189696,
+          "runner_baseline_file_cache_estimate_bytes": 37294080,
+          "before_drop_cached_bytes": 83808256,
+          "at_snapshot_cached_bytes": 25149440,
+          "immediate_restored_cached_bytes": 28995584
+        }
+      ],
+      "final_patch_sha256": "1f8f98afa26eb3164c584a015fc0d40356af8d5363254e6a578b30074caf8da2",
+      "final_source_sha256": "123b5e6c1be804ff1c7649b217a64576fb41ed3beb1185f2b8c728f49741829f",
+      "focused_tests": [
+        {
+          "round": 3,
+          "step": "008",
+          "passed": 1,
+          "total": 1
+        },
+        {
+          "round": 4,
+          "step": "006",
+          "passed": 6,
+          "total": 6
+        }
+      ],
+      "guest_runtime": [
+        {
+          "role": "round-1",
+          "sample_count": 34,
+          "observed_nonfree_peak_bytes": 420270080,
+          "cached_observed_peak_bytes": 192507904
+        },
+        {
+          "role": "round-2",
+          "sample_count": 30,
+          "observed_nonfree_peak_bytes": 289001472,
+          "cached_observed_peak_bytes": 134295552
+        },
+        {
+          "role": "round-3",
+          "sample_count": 47,
+          "observed_nonfree_peak_bytes": 381673472,
+          "cached_observed_peak_bytes": 123817984
+        },
+        {
+          "role": "round-4",
+          "sample_count": 45,
+          "observed_nonfree_peak_bytes": 302174208,
+          "cached_observed_peak_bytes": 86999040
+        },
+        {
+          "role": "final-restored",
+          "sample_count": 7,
+          "observed_nonfree_peak_bytes": 156852224,
+          "cached_observed_peak_bytes": 40873984
+        }
+      ],
+      "performance": [
+        {
+          "role": "round-1",
+          "guest_cpu_status": "MEASURED",
+          "guest_io_status": "MEASURED",
+          "host_vmm_status": "MEASURED",
+          "host_rss_observed_peak_bytes": 585670656,
+          "host_pss_observed_peak_bytes": 585613312
+        },
+        {
+          "role": "round-2",
+          "guest_cpu_status": "MEASURED",
+          "guest_io_status": "MEASURED",
+          "host_vmm_status": "MEASURED",
+          "host_rss_observed_peak_bytes": 317358080,
+          "host_pss_observed_peak_bytes": 310538240
+        },
+        {
+          "role": "round-3",
+          "guest_cpu_status": "MEASURED",
+          "guest_io_status": "MEASURED",
+          "host_vmm_status": "MEASURED",
+          "host_rss_observed_peak_bytes": 419713024,
+          "host_pss_observed_peak_bytes": 362549248
+        },
+        {
+          "role": "round-4",
+          "guest_cpu_status": "MEASURED",
+          "guest_io_status": "MEASURED",
+          "host_vmm_status": "MEASURED",
+          "host_rss_observed_peak_bytes": 351498240,
+          "host_pss_observed_peak_bytes": 350969856
+        },
+        {
+          "role": "final-restored",
+          "guest_cpu_status": "MEASURED",
+          "guest_io_status": "MEASURED",
+          "host_vmm_status": "MEASURED",
+          "host_rss_observed_peak_bytes": 216682496,
+          "host_pss_observed_peak_bytes": 209739776
+        }
+      ],
+      "serial_call_breakdown": {
+        "other": {
+          "calls": 68,
+          "duration_ns": 14567359760
+        },
+        "monitor-control": {
+          "calls": 55,
+          "duration_ns": 3347423377
+        },
+        "round-runner-call": {
+          "calls": 4,
+          "duration_ns": 14023020384
+        },
+        "vm-delete-and-sdk-close": {
+          "calls": 5,
+          "duration_ns": 1102307883
+        }
+      },
+      "observed_volume_used_peak_bytes": 7353241600,
+      "observed_host_available_min_bytes": 29022707712,
+      "cleanup": {
+        "owned_container_removed": true,
+        "mount_and_loop_removed": true,
+        "successful_fixture_removed": true,
+        "original_firecracker_identities_unchanged": true,
+        "original_service_unchanged": true
+      },
+      "memory_chart": "docs/records/evidence/exp2-drop-memory-20261012.svg"
+    },
+    {
+      "mode": "trenvx-drop",
+      "workflow": ".artifacts/platform-tasks/20261012T033825Z-822322",
+      "raw": ".artifacts/storage-isolated-trenvx/20261012T033825Z-822338/raw/20261012T033825Z-822353/replay",
+      "reports": [
+        ".artifacts/platform-tasks/exp2-three-config-recomputed-a/trenvx-drop",
+        ".artifacts/platform-tasks/exp2-three-config-recomputed-b/trenvx-drop"
+      ],
+      "report_files_identical": 17,
+      "raw_files_unchanged": 465,
+      "action_count": 32,
+      "checkpoint_count": 4,
+      "restore_count": 4,
+      "guest_action_sum_ns": 7762667210,
+      "controller_elapsed_ns": 274197798423,
+      "transitions": [
+        {
+          "after_round": 1,
+          "checkpoint_ns": 1585679989,
+          "restore_ns": 3636927004,
+          "image_rebuild_ns": 1726655884,
+          "state_verification_ns": 4486448895,
+          "guest_cache_clear_ns": 2642557556
+        },
+        {
+          "after_round": 2,
+          "checkpoint_ns": 1891132143,
+          "restore_ns": 3664530704,
+          "image_rebuild_ns": 1935735458,
+          "state_verification_ns": 3078950461,
+          "guest_cache_clear_ns": 2444938615
+        },
+        {
+          "after_round": 3,
+          "checkpoint_ns": 1778726586,
+          "restore_ns": 3681222006,
+          "image_rebuild_ns": 1848304507,
+          "state_verification_ns": 3250364756,
+          "guest_cache_clear_ns": 1728018349
+        },
+        {
+          "after_round": 4,
+          "checkpoint_ns": 1825157222,
+          "restore_ns": 3804426197,
+          "image_rebuild_ns": 1777178781,
+          "state_verification_ns": 3164036034,
+          "guest_cache_clear_ns": 2485224235
+        }
+      ],
+      "boundary_memory": [
+        {
+          "round": 1,
+          "runner_baseline_nonfree_bytes": 225218560,
+          "runner_baseline_file_cache_estimate_bytes": 22061056,
+          "before_drop_cached_bytes": 5459968,
+          "at_snapshot_cached_bytes": 2957312,
+          "immediate_restored_cached_bytes": 2961408
+        },
+        {
+          "round": 2,
+          "runner_baseline_nonfree_bytes": 200605696,
+          "runner_baseline_file_cache_estimate_bytes": 16089088,
+          "before_drop_cached_bytes": 4419584,
+          "at_snapshot_cached_bytes": 2928640,
+          "immediate_restored_cached_bytes": 3014656
+        },
+        {
+          "round": 3,
+          "runner_baseline_nonfree_bytes": 196427776,
+          "runner_baseline_file_cache_estimate_bytes": 16019456,
+          "before_drop_cached_bytes": 4890624,
+          "at_snapshot_cached_bytes": 3043328,
+          "immediate_restored_cached_bytes": 3112960
+        },
+        {
+          "round": 4,
+          "runner_baseline_nonfree_bytes": 199110656,
+          "runner_baseline_file_cache_estimate_bytes": 16424960,
+          "before_drop_cached_bytes": 5091328,
+          "at_snapshot_cached_bytes": 3059712,
+          "immediate_restored_cached_bytes": 3170304
+        }
+      ],
+      "final_patch_sha256": "1f8f98afa26eb3164c584a015fc0d40356af8d5363254e6a578b30074caf8da2",
+      "final_source_sha256": "123b5e6c1be804ff1c7649b217a64576fb41ed3beb1185f2b8c728f49741829f",
+      "focused_tests": [
+        {
+          "round": 3,
+          "step": "008",
+          "passed": 1,
+          "total": 1
+        },
+        {
+          "round": 4,
+          "step": "006",
+          "passed": 6,
+          "total": 6
+        }
+      ],
+      "guest_runtime": [
+        {
+          "role": "round-1",
+          "sample_count": 106,
+          "observed_nonfree_peak_bytes": 310042624,
+          "cached_observed_peak_bytes": 5414912
+        },
+        {
+          "role": "round-2",
+          "sample_count": 110,
+          "observed_nonfree_peak_bytes": 257441792,
+          "cached_observed_peak_bytes": 4395008
+        },
+        {
+          "role": "round-3",
+          "sample_count": 118,
+          "observed_nonfree_peak_bytes": 350142464,
+          "cached_observed_peak_bytes": 4849664
+        },
+        {
+          "role": "round-4",
+          "sample_count": 123,
+          "observed_nonfree_peak_bytes": 311287808,
+          "cached_observed_peak_bytes": 5062656
+        },
+        {
+          "role": "final-restored",
+          "sample_count": 48,
+          "observed_nonfree_peak_bytes": 205070336,
+          "cached_observed_peak_bytes": 4444160
+        }
+      ],
+      "performance": [
+        {
+          "role": "round-1",
+          "guest_cpu_status": "MEASURED",
+          "guest_io_status": "MEASURED",
+          "host_vmm_status": "MEASURED",
+          "host_rss_observed_peak_bytes": 470310912,
+          "host_pss_observed_peak_bytes": 468420608
+        },
+        {
+          "role": "round-2",
+          "guest_cpu_status": "MEASURED",
+          "guest_io_status": "MEASURED",
+          "host_vmm_status": "MEASURED",
+          "host_rss_observed_peak_bytes": 352505856,
+          "host_pss_observed_peak_bytes": 350611456
+        },
+        {
+          "role": "round-3",
+          "guest_cpu_status": "MEASURED",
+          "guest_io_status": "MEASURED",
+          "host_vmm_status": "MEASURED",
+          "host_rss_observed_peak_bytes": 486621184,
+          "host_pss_observed_peak_bytes": 484739072
+        },
+        {
+          "role": "round-4",
+          "guest_cpu_status": "MEASURED",
+          "guest_io_status": "MEASURED",
+          "host_vmm_status": "MEASURED",
+          "host_rss_observed_peak_bytes": 419676160,
+          "host_pss_observed_peak_bytes": 417794048
+        },
+        {
+          "role": "final-restored",
+          "guest_cpu_status": "MEASURED",
+          "guest_io_status": "MEASURED",
+          "host_vmm_status": "MEASURED",
+          "host_rss_observed_peak_bytes": 226828288,
+          "host_pss_observed_peak_bytes": 224928768
+        }
+      ],
+      "serial_call_breakdown": {
+        "other": {
+          "calls": 71,
+          "duration_ns": 100485566476
+        },
+        "monitor-control": {
+          "calls": 55,
+          "duration_ns": 72389792835
+        },
+        "round-runner-call": {
+          "calls": 4,
+          "duration_ns": 18227163589
+        },
+        "vm-delete-and-sdk-close": {
+          "calls": 5,
+          "duration_ns": 82591494109
+        }
+      },
+      "observed_volume_used_peak_bytes": 19387162624,
+      "observed_host_available_min_bytes": 31159562240,
+      "cleanup": {
+        "mount_and_loop_removed": true,
+        "successful_fixture_removed": true,
+        "original_firecracker_identities_unchanged": true
+      },
+      "template_provenance": {
+        "scenario": "exp2",
+        "seed": "/var/lib/trenvx/templates/prettier-6604-exp2-ch-dax/image/rootfs.ext4",
+        "seed_sha256": "9a0ed756475124614af25daba0e2ef587937dbc12da97eda83171b6e5691f838",
+        "source_template": "/var/lib/trenvx/templates/prettier-6604-exp2-ch-dax",
+        "source_files": {
+          "writable-rootfs.ext4": "6e5ac14db8add82a0114d4bf5251a7efa8f34ce38676c76fc4a00cb3df909827",
+          "rootfs.ext4": "9a0ed756475124614af25daba0e2ef587937dbc12da97eda83171b6e5691f838",
+          "vmlinux": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "memory-ranges": "85acd3d95f9262b0baa3466bfece6e5c9a799d9c82bddb8ad35c976249e4d982",
+          "state.json": "990661627a73e21187ece10715f74f29a260ae36b309d1b6b514f4e16beff26a",
+          "config.json": "c5ca3eb300c963a926b6a2316f0025dee5c44305a5adb646c9407bef53391c27"
+        },
+        "promoter_sha256": "467dfd178c3afd09bfec37e34d4a6ccdc7386bbc1530f9fbe0e21201bebe18ec",
+        "source_image": "ghcr.io/timesler/swe-polybench.eval.x86_64.prettier__prettier-6604@sha256:8159d38fcbd6d5f09402d93d3e15cf2a891058ddd835a224f1d6b3357a87cc94",
+        "ch_sha256": "244c0113a64d40efa2c6ccd886deb9135153869cfacca0a50647e8ed844d1fb9",
+        "kernel_sha256": "a50bbc107954f603fce3c8eb8105c6c65290dbe2224402061acc022c95968730",
+        "source_revisions": {
+          "AgentENV": {
+            "url": "https://github.com/kvcache-ai/AgentENV.git",
+            "commit": "2f48c9c78ec58e4d73c49aa07cb81d984a4a4184"
+          },
+          "IncrementalDAX_moti": {
+            "url": "https://github.com/132ash/IncrementalDAX_moti.git",
+            "commit": "a9bc7deadb68a6e24b7242eab343dfedf953ea38",
+            "submodules": {
+              "baselines/AgentENV": "6c67f92afb8e697bd4d5eb1715864119c1e10c5d",
+              "baselines/TrEnv-X": "53041d8c924514fca27e363cce7f5af8079267ce"
+            }
+          }
+        },
+        "scope": "existing pinned local Exp2 template copied and hash-checked; original derived Docker tag, not a new digest rebuild; sparse copies and shared immutable base on private ext4"
+      },
+      "immutable_dax_rootfs_mapping_capacity_bytes": 3990880256,
+      "delete_rpc_server_duration_ms": [
+        0.066,
+        0.109,
+        0.088,
+        0.072,
+        0.085
+      ],
+      "resource_list_scope": "Completed replay used SDK client tracking for its list field; wrapper independently confirmed service shutdown, empty owned cgroup and detached loops. Native List query corrected afterwards and separately verified on an empty private service without VMs.",
+      "process_continuity": [
+        {
+          "pid": 5429,
+          "start_ticks": "2271",
+          "boot_id": "d0f98fab-25ce-4d90-976f-031bc31bbb05",
+          "anonymous_sha256": "f9aa4e92037b7c532d38b6a36d31b2188137723cb136a75e724c076a7d956d89",
+          "open_fd_sha256": "1191d45bf005580697597147cfc1381b6b1998195bbfaea120389f378282e43c"
+        },
+        {
+          "pid": 5429,
+          "start_ticks": "2271",
+          "boot_id": "d0f98fab-25ce-4d90-976f-031bc31bbb05",
+          "anonymous_sha256": "f9aa4e92037b7c532d38b6a36d31b2188137723cb136a75e724c076a7d956d89",
+          "open_fd_sha256": "1191d45bf005580697597147cfc1381b6b1998195bbfaea120389f378282e43c"
+        },
+        {
+          "pid": 5429,
+          "start_ticks": "2271",
+          "boot_id": "d0f98fab-25ce-4d90-976f-031bc31bbb05",
+          "anonymous_sha256": "f9aa4e92037b7c532d38b6a36d31b2188137723cb136a75e724c076a7d956d89",
+          "open_fd_sha256": "1191d45bf005580697597147cfc1381b6b1998195bbfaea120389f378282e43c"
+        },
+        {
+          "pid": 5429,
+          "start_ticks": "2271",
+          "boot_id": "d0f98fab-25ce-4d90-976f-031bc31bbb05",
+          "anonymous_sha256": "f9aa4e92037b7c532d38b6a36d31b2188137723cb136a75e724c076a7d956d89",
+          "open_fd_sha256": "1191d45bf005580697597147cfc1381b6b1998195bbfaea120389f378282e43c"
+        }
+      ],
+      "memory_chart": "docs/records/evidence/exp2-trenvx-drop-memory-20261012.svg"
+    }
+  ],
+  "units": "bytes/ns, MiB=2^20 bytes; RPC diagnostic is ms",
+  "raw_files_unchanged": 1375,
+  "final_source_and_patch_match": true,
+  "monitoring_overhead": "NOT_MEASURED_FOR_EXP2",
+  "physical_cache_measurement": "NOT_RUN",
+  "independent_task_tests": "NOT_RUN",
+  "host_available_bytes": 65432707072,
+  "native_list_verification": {
+    "status": "PASS",
+    "sandbox_created": false,
+    "owned_service_stopped": true
+  }
+}

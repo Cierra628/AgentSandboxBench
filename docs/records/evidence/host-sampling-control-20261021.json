@@ -1,0 +1,124 @@
+{
+  "status": "PASS_SINGLE_ON_OFF_COMPARISON",
+  "new_trials": 1,
+  "reference_trials_reused": 1,
+  "actual_actions_new": 41,
+  "toggled": "New host periodic counters/PSS, endpoint PSS/device/regular-file queries and final mincore. Guest sampling/accounting/resources/identity/task checks unchanged.",
+  "original_official_result": {
+    "passed": 0,
+    "failed": 2,
+    "per_instance": true
+  },
+  "runs": {
+    "on": {
+      "workflow": ".artifacts/host-file-matched-task/20261020T160934Z-3868127",
+      "storage": ".artifacts/storage-isolated-service/20261020T161052Z-3868819",
+      "actual_actions": 41,
+      "actual_tool_ns": 5645008883,
+      "controller_elapsed_ns": 46022630729,
+      "groups": [
+        {
+          "sandboxes": 1,
+          "wall_ns": 2405942524,
+          "tools": {
+            "N1-a": 1723412029
+          }
+        },
+        {
+          "sandboxes": 2,
+          "wall_ns": 2440049819,
+          "tools": {
+            "N2-a": 1714165363,
+            "N2-b": 1513811062
+          }
+        }
+      ],
+      "post_task_host_queries_within_controller_ns": 11632981701,
+      "final_query_outside_controller_ns": 1760158081,
+      "guest_profile": {
+        "profile": "light",
+        "interval_seconds": 0.1,
+        "collector_lifecycle_version": 2,
+        "guest_launch_mode": "envd-managed foreground command, waited for and reaped before snapshot",
+        "control_batching": false,
+        "host_vmm_requested": false
+      }
+    },
+    "off": {
+      "workflow": ".artifacts/host-file-matched-task/20261020T163034Z-3876654",
+      "storage": ".artifacts/storage-isolated-service/20261020T163200Z-3877517",
+      "actual_actions": 41,
+      "actual_tool_ns": 5716447659,
+      "controller_elapsed_ns": 32397223869,
+      "groups": [
+        {
+          "sandboxes": 1,
+          "wall_ns": 2613069284,
+          "tools": {
+            "N1-a": 1844154674
+          }
+        },
+        {
+          "sandboxes": 2,
+          "wall_ns": 2793755675,
+          "tools": {
+            "N2-a": 1921689490,
+            "N2-b": 1271755973
+          }
+        }
+      ],
+      "post_task_host_queries_within_controller_ns": null,
+      "final_query_outside_controller_ns": null,
+      "guest_profile": {
+        "profile": "light",
+        "interval_seconds": 0.1,
+        "collector_lifecycle_version": 2,
+        "guest_launch_mode": "envd-managed foreground command, waited for and reaped before snapshot",
+        "control_batching": false,
+        "host_vmm_requested": false
+      }
+    }
+  },
+  "comparisons": {
+    "actual_tool_total": {
+      "on_ns": 5645008883,
+      "off_ns": 5716447659,
+      "on_minus_off_ns": -71438776,
+      "on_relative_to_off": -0.012497057659143662
+    },
+    "task_controller": {
+      "on_ns": 46022630729,
+      "off_ns": 32397223869,
+      "on_minus_off_ns": 13625406860,
+      "on_relative_to_off": 0.42057328476955624
+    },
+    "suffix_wall": [
+      {
+        "sandboxes": 1,
+        "on_ns": 2405942524,
+        "off_ns": 2613069284,
+        "on_minus_off_ns": -207126760,
+        "on_relative_to_off": -0.07926569772499004
+      },
+      {
+        "sandboxes": 2,
+        "on_ns": 2440049819,
+        "off_ns": 2793755675,
+        "on_minus_off_ns": -353705856,
+        "on_relative_to_off": -0.1266058657760042
+      }
+    ]
+  },
+  "original_action_manifests_and_exits": "MATCH",
+  "guest_sampling_profile": "MATCH",
+  "repeated_sampling": "On then off, one trial each; these are observed changes, not a repeated-trial mean or causal slowdown estimate.",
+  "outside_controller_queries": "Final mincore is separate from task-controller wall; off queries were deliberately not requested, not zero-valued memory.",
+  "disk_min_available_bytes": 36207161344,
+  "cleanup": {
+    "owned_container_removed": true,
+    "mount_and_loop_removed": true,
+    "successful_fixture_removed": true,
+    "original_firecracker_identities_unchanged": true,
+    "original_service_unchanged": true
+  }
+}

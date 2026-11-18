@@ -38,7 +38,7 @@ def current_statistics(rows, creation):
         components='anon/file/kernel explain current; shmem is part of file. Counters are sequential and may lag: do not add them to current or label their residual unaccounted memory.')
 
 
-def report(source, residency_path, output, *, allow_incomplete_inventory=False, creation_path=None):
+def report(source, residency_path, output, *, allow_incomplete_inventory=False, creation_path=None, explicit_axes=False):
     source, output = Path(source), Path(output)
     receipt=json.loads((source/'result.json').read_text())
     if receipt['status']!='PASS': raise ValueError('host sampling failed or incomplete')
@@ -113,6 +113,8 @@ def report(source, residency_path, output, *, allow_incomplete_inventory=False, 
             axes[2].plot(ptimes,[row[key]/2**20 if row['status']=='OBSERVED' and row[key] is not None else float('nan') for row in pss],label=label)
         axes[2].set_title('Independent PSS breakdown: mapped pages only')
     for ax in axes:ax.set_ylabel('MiB');ax.grid(alpha=.2);ax.legend();ax.set_ylim(bottom=0)
+    if explicit_axes:
+        for ax,label in zip(axes,('Group memory.current, MiB','Group memory.stat components, MiB','Mapped PSS, MiB')):ax.set_ylabel(label)
     axes[-1].set_xlabel('Host monotonic elapsed seconds; preparation and task verification included')
     fig.text(.5,.012,'Current excludes outside-group charges and unaccounted allocations. Host file is not guest Cached. Do not add mincore/PSS.',ha='center',fontsize=8)
     fig.tight_layout(rect=(0,.025,1,1));fig.savefig(output/'overview.png',dpi=150);fig.savefig(output/'overview.svg');plt.close(fig)
@@ -124,6 +126,7 @@ def report(source, residency_path, output, *, allow_incomplete_inventory=False, 
             [(row['current']-(base if base is not None else 0))/2**20 for row in active],color='#2563eb')
     ax.axhline(0,color='#94a3b8',linestyle=':');ax.grid(alpha=.2)
     ax.set_ylabel('MiB above before-guest baseline' if base is not None else 'MiB (absolute; baseline not measured)')
+    if explicit_axes:ax.set_ylabel('Group memory.current above baseline, MiB' if base is not None else 'Group memory.current (absolute), MiB')
     ax.set_title('Host memory.current after service ready; control and cleanup included')
     ax.set_xlabel('Monotonic seconds since before-guest marker')
     fig.tight_layout();fig.savefig(output/'after-service-ready.png',dpi=150);fig.savefig(output/'after-service-ready.svg');plt.close(fig)
