@@ -1,0 +1,430 @@
+{
+  "status": "PASS",
+  "scope": "single paused restored VMM, four sources, two guest exports outside timed window",
+  "page_bytes": 4096,
+  "samples": [],
+  "events": {
+    "restore_start": 853436441660174,
+    "restore_return": 853436656617904,
+    "pause_request": 853445147753600,
+    "pause_response": 853445148557644,
+    "host_start": 853445149064401,
+    "host_end": 853445357094595,
+    "resumed": 853445359040762
+  },
+  "cleanup": {
+    "provider": "PASS",
+    "lower": "PASS",
+    "backend": "PASS",
+    "memory": "PASS",
+    "pagemap": "PASS",
+    "capture": "PASS",
+    "restored": "PASS",
+    "snapshot": "PASS"
+  },
+  "objects": {
+    "device": "/dev/ublkb2",
+    "maps": 8,
+    "lower": "sha256_d41e79469f75481d2e06ed49daadb28f458ec531403262f6065f354b2912685f.overlaybd.commit",
+    "slots": [
+      "141-2-0-0.bin",
+      "141-2-0-1.bin",
+      "141-2-0-10.bin",
+      "141-2-0-11.bin",
+      "141-2-0-12.bin",
+      "141-2-0-13.bin",
+      "141-2-0-14.bin",
+      "141-2-0-15.bin",
+      "141-2-0-2.bin",
+      "141-2-0-3.bin",
+      "141-2-0-4.bin",
+      "141-2-0-5.bin",
+      "141-2-0-6.bin",
+      "141-2-0-7.bin",
+      "141-2-0-8.bin",
+      "141-2-0-9.bin"
+    ],
+    "ram_slots": [
+      786432,
+      262144
+    ]
+  },
+  "meters": {
+    "direct": {
+      "scan_ns": 16584272,
+      "lookup_ns": 10019560,
+      "lookup_calls": 5708,
+      "segment_length_histogram": {
+        "1": 1066,
+        "2": 262,
+        "3": 76,
+        "4": 80,
+        "5": 42,
+        "6": 36,
+        "7": 14,
+        "8": 36,
+        "9": 12,
+        "10": 24,
+        "11": 8,
+        "12": 18,
+        "13": 6,
+        "14": 2,
+        "15": 6,
+        "16": 8,
+        "17": 8,
+        "18": 2,
+        "19": 6,
+        "22": 6,
+        "24": 8,
+        "27": 2,
+        "32": 4,
+        "35": 2,
+        "36": 2,
+        "56": 2,
+        "60": 2,
+        "70": 2,
+        "238": 2
+      }
+    },
+    "lower": {
+      "scan_ns": 6979487,
+      "lookup_ns": 5434909,
+      "lookup_calls": 4042,
+      "segment_length_histogram": {
+        "1": 584,
+        "2": 150,
+        "3": 44,
+        "4": 58,
+        "5": 24,
+        "6": 22,
+        "7": 14,
+        "8": 24,
+        "9": 6,
+        "10": 14,
+        "11": 8,
+        "12": 14,
+        "13": 4,
+        "15": 2,
+        "16": 8,
+        "17": 6,
+        "18": 2,
+        "19": 6,
+        "22": 4,
+        "24": 6,
+        "27": 2,
+        "32": 2,
+        "35": 2,
+        "36": 2,
+        "56": 2,
+        "60": 2,
+        "70": 2,
+        "238": 2
+      }
+    }
+  },
+  "stages": {
+    "guest_before": [
+      853445093404678,
+      853445145774735
+    ],
+    "vmm_first": [
+      853445149064401,
+      853445172225967
+    ],
+    "maps_before": [
+      853445172232554,
+      853445173271227
+    ],
+    "direct_offsets_before": [
+      853445173278617,
+      853445176455934
+    ],
+    "direct_first": [
+      853445176460174,
+      853445216893810
+    ],
+    "lower_offsets": [
+      853445216897873,
+      853445219255335
+    ],
+    "lower_first": [
+      853445219257597,
+      853445235770136
+    ],
+    "provider_first": [
+      853445235772703,
+      853445321092789
+    ],
+    "vmm_middle": [
+      853445321094317,
+      853445327419378
+    ],
+    "provider_last": [
+      853445327421498,
+      853445329204737
+    ],
+    "direct_last": [
+      853445329206839,
+      853445341189391
+    ],
+    "lower_last": [
+      853445341191969,
+      853445348929453
+    ],
+    "vmm_last": [
+      853445348931217,
+      853445356805554
+    ],
+    "maps_after": [
+      853445356807887,
+      853445357094595
+    ],
+    "guest_after": [
+      853445359041782,
+      853445384692264
+    ]
+  },
+  "selected": 2854,
+  "identities": {
+    "metadata_before": {
+      "version": 1,
+      "page_size": 4096,
+      "max_pfn": 2097152,
+      "records": 2854,
+      "generation": 71920,
+      "shmem_pages": 286,
+      "duplicate_adds": 0,
+      "missing_removes": 0,
+      "out_of_range": 0,
+      "moved_pages": 0,
+      "stale_records": 0,
+      "bitmap_lock_ns": 39367
+    },
+    "metadata_after": {
+      "version": 1,
+      "page_size": 4096,
+      "max_pfn": 2097152,
+      "records": 3022,
+      "generation": 72088,
+      "shmem_pages": 286,
+      "duplicate_adds": 0,
+      "missing_removes": 0,
+      "out_of_range": 0,
+      "moved_pages": 0,
+      "stale_records": 0,
+      "bitmap_lock_ns": 41147
+    },
+    "guest_cache_before_bytes": 11689984,
+    "guest_cache_after_bytes": 12378112,
+    "host_confirmed_cache_bytes": 10514432,
+    "stable_resident_guest_pages": 2567,
+    "host_mapping_changed_pages": 0,
+    "retired_or_reused_pages": 0,
+    "new_or_unknown_after_pages": 168,
+    "host_nonresident_pages": 287,
+    "host_swapped_pages": 0,
+    "unconfirmed_after_pages": 168,
+    "interpretation": "confirmed host-resident PFN union for unchanged guest cache lifetimes across this sampling interval"
+  },
+  "account": {
+    "host_provider_current_bytes": 0,
+    "host_provider_old_snapshot_bytes": 20480,
+    "host_provider_intersection_three_bytes": 0,
+    "host_four_current_union_bytes": 16076800,
+    "host_four_unconfirmed_guest_capacity_bytes": 688128,
+    "provider_resolved_guest_pages": 0,
+    "provider_stable_slots": 16,
+    "provider_valid_slots": 13,
+    "provider_whole_allocation_resident_bytes": 4136960,
+    "provider_unattributed_resident_bytes": 4116480,
+    "provider_mixed_or_edge_resident_pages": 21,
+    "host_provider_segment_current_bytes": 32768,
+    "host_provider_segment_added_current_bytes": 32768,
+    "host_provider_segment_old_snapshot_bytes": 28672,
+    "host_provider_segment_added_old_snapshot_bytes": 8192,
+    "host_provider_combined_current_bytes": 32768,
+    "host_provider_combined_old_snapshot_bytes": 28672,
+    "host_four_segment_current_union_bytes": 16109568,
+    "host_four_segment_unconfirmed_guest_capacity_bytes": 688128,
+    "provider_segment_resolved_guest_pages": 0,
+    "provider_segment_unattributed_resident_bytes": 4075520,
+    "provider_segment_mixed_or_edge_resident_pages": 23
+  },
+  "union_pages": 3933,
+  "guest_publications": [
+    {
+      "request": 1,
+      "publication": 1,
+      "guest_start_ns": 9268929495,
+      "guest_end_ns": 9285102440,
+      "guest_cached_bytes": 12193792,
+      "guest_shmem_bytes": 1171456,
+      "guest_buffers_bytes": 204800,
+      "guest_publication_cpu_ns": 8096185
+    },
+    {
+      "request": 2,
+      "publication": 2,
+      "guest_start_ns": 9523250629,
+      "guest_end_ns": 9524989684,
+      "guest_cached_bytes": 12296192,
+      "guest_shmem_bytes": 1171456,
+      "guest_buffers_bytes": 204800,
+      "guest_publication_cpu_ns": 1379253
+    }
+  ],
+  "provider_frames": [
+    {
+      "lengths": [
+        65,
+        65,
+        65,
+        65,
+        65,
+        65,
+        65,
+        65,
+        65,
+        64,
+        65,
+        65,
+        65,
+        65,
+        64,
+        65
+      ],
+      "stages": {
+        "identity_before": {
+          "calls": 1,
+          "elapsed_ns": 356777,
+          "cpu_ns": 355213
+        },
+        "metadata_before_read": {
+          "calls": 16,
+          "elapsed_ns": 148263,
+          "cpu_ns": 145273
+        },
+        "header_decode": {
+          "calls": 16,
+          "elapsed_ns": 53865,
+          "cpu_ns": 53358
+        },
+        "pagemap_read": {
+          "calls": 16,
+          "elapsed_ns": 115691,
+          "cpu_ns": 115676
+        },
+        "metadata_after_read": {
+          "calls": 16,
+          "elapsed_ns": 41159,
+          "cpu_ns": 41115
+        },
+        "record_build": {
+          "calls": 16,
+          "elapsed_ns": 84304579,
+          "cpu_ns": 84262357
+        },
+        "identity_after": {
+          "calls": 1,
+          "elapsed_ns": 293266,
+          "cpu_ns": 293336
+        }
+      }
+    },
+    {
+      "lengths": [
+        65,
+        65,
+        65,
+        65,
+        65,
+        65,
+        65,
+        65,
+        65,
+        64,
+        65,
+        65,
+        65,
+        65,
+        64,
+        65
+      ],
+      "stages": {
+        "identity_before": {
+          "calls": 1,
+          "elapsed_ns": 203128,
+          "cpu_ns": 202370
+        },
+        "metadata_before_read": {
+          "calls": 16,
+          "elapsed_ns": 73956,
+          "cpu_ns": 73374
+        },
+        "header_decode": {
+          "calls": 16,
+          "elapsed_ns": 24488,
+          "cpu_ns": 24470
+        },
+        "pagemap_read": {
+          "calls": 16,
+          "elapsed_ns": 79848,
+          "cpu_ns": 79861
+        },
+        "metadata_after_read": {
+          "calls": 16,
+          "elapsed_ns": 25583,
+          "cpu_ns": 25525
+        },
+        "record_build": {
+          "calls": 16,
+          "elapsed_ns": 1138572,
+          "cpu_ns": 1139192
+        },
+        "identity_after": {
+          "calls": 1,
+          "elapsed_ns": 231492,
+          "cpu_ns": 142328
+        }
+      }
+    }
+  ],
+  "query_receipts": [
+    [
+      {
+        "query": 1,
+        "requested_pages": 2854,
+        "missing_kernel_results": 0,
+        "mincore_resident_pages": 2684,
+        "confirmed_pfn_pages": 2684,
+        "no_file_mapping_pages": 0
+      },
+      {
+        "query": 2,
+        "requested_pages": 2854,
+        "missing_kernel_results": 0,
+        "mincore_resident_pages": 2684,
+        "confirmed_pfn_pages": 2684,
+        "no_file_mapping_pages": 0
+      }
+    ],
+    [
+      {
+        "query": 1,
+        "requested_pages": 2021,
+        "missing_kernel_results": 0,
+        "mincore_resident_pages": 2021,
+        "confirmed_pfn_pages": 2021,
+        "no_file_mapping_pages": 833
+      },
+      {
+        "query": 2,
+        "requested_pages": 2021,
+        "missing_kernel_results": 0,
+        "mincore_resident_pages": 2021,
+        "confirmed_pfn_pages": 2021,
+        "no_file_mapping_pages": 833
+      }
+    ]
+  ]
+}
