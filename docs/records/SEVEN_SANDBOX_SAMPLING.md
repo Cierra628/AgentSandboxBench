@@ -1,6 +1,6 @@
 # 七沙箱页级查询的离线抽样评估
 
-- 基线 `handoff-20261118`，完整提交 `dd9ba4c9ebae59db68055da5e8ad566b87d6eb16`，独立分支 `codex/seven-sandbox-sampling`。
+- 基线 `handoff-20261118`，完整提交 `dd9ba4c9ebae59db68055da5e8ad566b87d6eb16`，独立分支 `analysis/seven-sandbox-sampling`。
 - Linux、Python 3.12.3、Bash。项目检查 `bash scripts/check-platform-offline.sh` 最终退出码 **0**，最后一行 `status=PASS scope=platform-offline`，共 184 项测试。首次退出码 1，最后一行 `FAILED (failures=1)`。本机 `.profile` 加载 `.bashrc` 后，测试的子登录 shell 重设 `HTTP_PROXY`，使 Matplotlib 模拟动作返回 98。复验用临时 `PATH` 下的 Bash 包装器向 `/usr/bin/bash` 传 `--noprofile`，并清空调用环境的代理变量；使用同一检查及断言，原仓库和登录配置无须改动。
 - 仓库资料为 [HANDOFF.md](../../HANDOFF.md)、[COLLABORATOR_GUIDE.md](../COLLABORATOR_GUIDE.md)、[STATUS.md](../STATUS.md) 顶部记录及下文引用的基线代码。实际使用 `/tmp/handoff-evidence-20261118.tar.gz` 解压的 `README.md` 和以下文件。压缩包 SHA-256 为 `fbc44e56995d0a77a5a61e1ef2da0eff35871ab051174acfd6547d646b8186ce`。
 
