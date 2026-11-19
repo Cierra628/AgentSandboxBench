@@ -311,9 +311,12 @@ def main(args):
     cache_sessions=getattr(args,'guest_cache_rollout_sessions',False)
     seven_restored=getattr(args,'seven_restored',False)
     restored_lower=getattr(args,'guest_cache_restored_lower',False)
+    unified_cache_rounds=getattr(args,'guest_cache_unified_rounds',False)
+    paused_vm_drives=getattr(args,'paused_vm_drives',False)
+    if paused_vm_drives and not (cache_sessions and restored_lower and provider_binary and child_cache_count==2 and not unified_cache_rounds):
+        raise ValueError('paused observation requires one source and one restore with the private snapshot provider')
     if cache_sessions and provider_binary and not (restored_lower and provider_get_data):raise ValueError('cache sessions provider requires restored lower and GET_DATA')
     if restored_lower and not cache_sessions:raise ValueError('restored lower requires cache sessions')
-    unified_cache_rounds=getattr(args,'guest_cache_unified_rounds',False)
     if unified_cache_rounds and not cache_sessions:raise ValueError('unified rounds requires cache sessions')
     immediate=getattr(args,"immediate_restores",False)
     if immediate and not seven_restored:raise ValueError("immediate restores requires seven restored branches")
@@ -1678,13 +1681,13 @@ def main(args):
             stage='guest-cache-metadata-probe';replay=mount/'controller/guest-cache'
             runner=('run_guest_cache_two_children.py' if child_cache_count==2 else 'run_guest_cache_child.py') if child_cache_probe else 'run_guest_cache_capacity.py' if capacity_probe else 'run_snapshot_cache_pair.py' if pair_cache_probe else 'run_snapshot_cache_calibration.py' if cache_restore_probe else 'run_guest_cache_metadata.py'
             if light_memory:runner='run_guest_light_memory.py'
-            if cache_sessions:runner='run_rollout_cache_calibration.py'
+            if cache_sessions:runner='run_paused_vm_drives.py' if paused_vm_drives else 'run_rollout_cache_calibration.py'
             call(stage,[sys.executable,'-B',ROOT/'scripts'/runner,'--container',container,
                 '--config-home',mount/'controller/config','--service-url',receipt['address'],'--output',replay,*(['--seven-restored'] if seven_restored else []),*(['--immediate-restores'] if immediate else []),*(['--restored-lower'] if restored_lower else []),*(['--unified-rounds'] if unified_cache_rounds else []),*(['--guests',str(child_cache_count)] if light_memory else []),*(['--restore-one'] if light_restore else []),*(['--lower-cache'] if lower_cache_probe and not pair_cache_probe else []),*(['--provider-cache'] if provider_binary else []),*(['--batch-lookup'] if batch_lookup else []),*(['--dynamic-file'] if dynamic_file_cache else []),*(['--ram-page-evidence'] if ram_page_evidence else []),*(['--vmm-page-evidence'] if vmm_page_evidence else []),*(['--io-uring-page-evidence'] if io_uring_page_evidence else []),*(['--host-backing-evidence'] if host_backing_evidence else []),*(['--host-backing-pfn-evidence'] if host_backing_pfn_evidence else []),*(['--host-backing-full-pfn-evidence'] if host_backing_full_pfn_evidence else []),*(['--host-backing-charge-evidence'] if host_backing_charge_evidence else [])],900 if seven_restored else 480 if light_restore else 420 if cache_restore_probe else 240,environment=env)
             measured=json.loads((replay/'result.json').read_text())
             assert measured['status']=='PASS'
             receipt['guest_cache_metadata']=measured
-            receipt['checks']['guest_cache_metadata_without_pause']='PASS'
+            receipt['checks']['paused_vm_drive_inventory' if paused_vm_drives else 'guest_cache_metadata_without_pause']='PASS'
             receipt['scope']='private diagnostic guest kernel; one snapshot cache restore calibration; native checkpoint pause only' if cache_restore_probe else 'private diagnostic guest kernel; whole-cache metadata to host residency; no VM pause or trajectory replay'
             if cache_sessions:receipt['scope']=measured['scope']
             if light_memory:
@@ -2407,6 +2410,7 @@ if __name__=='__main__':
     parser.add_argument('--guest-cache-unified-rounds',action='store_true',help='Explicit cache-session shared clock only')
     parser.add_argument('--immediate-restores',action='store_true')
     parser.add_argument('--seven-restored',action='store_true')
+    parser.add_argument('--paused-vm-drives',action='store_true',help='One restored VMM, in-place pause and actual configured drive inventory')
     parser.add_argument('--guest-cache-rollout-sessions',action='store_true',help='One source plus one restored guest with page-cache sessions, explicit only')
     parser.add_argument('--guest-cache-light-restore-one',action='store_true',help='Explicit seven-light-guest single save/restore')
     parser.add_argument('--guest-cache-light-memory',action='store_true',help='Explicit two-guest light memory rounds; no page probes')
