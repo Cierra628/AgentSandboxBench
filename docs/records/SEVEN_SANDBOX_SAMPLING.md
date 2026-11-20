@@ -1,8 +1,10 @@
 # 七沙箱页级查询的离线抽样评估
 
 - 基线 `handoff-20261118`，完整提交 `dd9ba4c9ebae59db68055da5e8ad566b87d6eb16`，独立分支 `analysis/seven-sandbox-sampling`。
-- Linux、Python 3.12.3、Bash。项目检查 `bash scripts/check-platform-offline.sh` 最终退出码 **0**，最后一行 `status=PASS scope=platform-offline`，共 184 项测试。首次退出码 1，最后一行 `FAILED (failures=1)`。本机 `.profile` 加载 `.bashrc` 后，测试的子登录 shell 重设 `HTTP_PROXY`，使 Matplotlib 模拟动作返回 98。复验用临时 `PATH` 下的 Bash 包装器向 `/usr/bin/bash` 传 `--noprofile`，并清空调用环境的代理变量；使用同一检查及断言，原仓库和登录配置无须改动。
-- 仓库资料为 [HANDOFF.md](../../HANDOFF.md)、[COLLABORATOR_GUIDE.md](../COLLABORATOR_GUIDE.md)、[STATUS.md](../STATUS.md) 顶部记录及下文引用的基线代码。实际使用 `/tmp/handoff-evidence-20261118.tar.gz` 解压的 `README.md` 和以下文件。压缩包 SHA-256 为 `fbc44e56995d0a77a5a61e1ef2da0eff35871ab051174acfd6547d646b8186ce`。
+- `cpu-15`，Linux、Python 3.12.3、Bash。2026-11-20 在基线的临时检出中执行 `bash scripts/check-platform-offline.sh`，退出码 **0**，最后一行 `status=PASS scope=platform-offline`，共 184 项测试。初版评估曾因本机 `.profile` 加载 `.bashrc` 后重设 `HTTP_PROXY`，使 Matplotlib 模拟动作返回 98，检查退出码为 1，最后一行 `FAILED (failures=1)`。本次用临时 `PATH` 下的 Bash 包装器向 `/usr/bin/bash` 传 `--noprofile`，并清空调用环境的代理变量，继续使用原检查及断言。
+- 仓库资料为 [HANDOFF.md](../../HANDOFF.md)、[COLLABORATOR_GUIDE.md](../COLLABORATOR_GUIDE.md)、[STATUS.md](../STATUS.md) 顶部记录及下文引用的基线代码。实际使用 2026-11-20 提供的 `handoff-evidence-20261118.zip` 解出的 `README.md` 和以下文件。ZIP 的 SHA-256 为 `b782c775194cfb3a7318dbf41cc7742f8c817ffba8781488bab93c62f1b37f1d`。原 ZIP、解压内容、逐文件校验和及检查日志保存在本地 `.artifacts/seven-sandbox-sampling/20261120/`。
+
+ZIP 内七份 Markdown（README 加六份报告）及八张 CSV 共 15 个文件，逐字节与上一版 tar 包中的 15 个文件一致。用本次 ZIP 跑分析脚本，复现了下文三张表及全部 25 行预算。
 
 | 证据包目录 | 实际使用的文件 | 用途 |
 | --- | --- | --- |
@@ -37,7 +39,7 @@
 
 ## 查询后评分所缺的记录
 
-全量原始目录由隔离及分层报告指向 `.artifacts/storage-isolated-service/20261118T042313Z-432686/guest-cache/live-cache/restored-g1/`。包内没有以下文件。
+全量原始目录由隔离及分层报告指向 `.artifacts/storage-isolated-service/20261118T042313Z-432686/guest-cache/live-cache/restored-g1/`。本次 ZIP 中没有 `pair-*` 或 `samples.jsonl`，原实验目录在当前账户下无法读取。以下是恢复逐页重放所需的文件。
 
 | 文件或字段 | 重放所需内容 |
 | --- | --- |
