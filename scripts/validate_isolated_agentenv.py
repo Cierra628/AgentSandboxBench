@@ -165,8 +165,12 @@ def main(args):
     os.umask(0o077)
     if os.geteuid()!=0: raise RuntimeError('root required')
     diagnostic_server=getattr(args,'diagnostic_server_binary',None)
+    # Matched no-sampling control: keep the measured kernel, server and VMM placement.
+    matched_off=bool(diagnostic_server and getattr(args,'diagnostic_guest_kernel',None)
+        and getattr(args,'schedule_sampling_control',False) and getattr(args,'schedule_smoke_metrics',False)
+        and getattr(args,'prettier6604_schedule',None)=='grpo' and getattr(args,'prettier6604_monitor_mode',None)=='off')
     if diagnostic_server:
-        if not ((getattr(args,'guest_cache_light_restore_one',False) or getattr(args,'guest_cache_rollout_sessions',False) or getattr(args,'light_rollout',False)) and os.environ.get('ASB_VMM_CHILD_CGROUP_CHECK')):
+        if not ((getattr(args,'guest_cache_light_restore_one',False) or getattr(args,'guest_cache_rollout_sessions',False) or getattr(args,'light_rollout',False) or matched_off) and os.environ.get('ASB_VMM_CHILD_CGROUP_CHECK')):
             raise ValueError('diagnostic server requires explicit child-cgroup light restore')
         diagnostic_server=Path(diagnostic_server).resolve()
         if not diagnostic_server.is_relative_to(ROOT/'.artifacts') or not diagnostic_server.is_file() or not os.access(diagnostic_server,os.X_OK):
@@ -352,7 +356,7 @@ def main(args):
     if cache_metadata_probe and not diagnostic_kernel:
         raise ValueError('guest cache metadata probe requires an explicit diagnostic kernel')
     if diagnostic_kernel:
-        if getattr(args,'light_rollout',False):
+        if getattr(args,'light_rollout',False) or matched_off:
             from light_prettier_rollout import diagnostic_kernel_args
             diagnostic_kernel_args(diagnostic_kernel)
         diagnostic_kernel=diagnostic_kernel.resolve()
@@ -458,7 +462,7 @@ def main(args):
     if prettier_monitor_mode=='off' and not prettier_readonly:
         if not (prettier_export and prettier_schedule=='grpo' and not (prettier_role or prettier_checkpoint or prettier_shared or prettier_root_count or
             getattr(args,'light_monitor',False) or getattr(args,'host_file_monitor',False) and not current_monitor_off or full_rootfs_mode or full_shared or
-            scaling or prefix_count or host_restore or independent_phase or prettier_cache_pair or diagnostic_kernel or prettier_physical)):
+            scaling or prefix_count or host_restore or independent_phase or prettier_cache_pair or (diagnostic_kernel and not matched_off) or prettier_physical)):
             raise ValueError('Prettier monitor-off requires complete readonly backbone or ordinary seven-guest GRPO')
     cache_seed=getattr(args,'immutable_cache_seed',None)
     schedule_smoke=False
@@ -1496,7 +1500,7 @@ def main(args):
         if vmm_check:
             from vmm_child_cgroup_check import setup_service
             stage='vmm-cgroup-setup'
-            vmm_sampler=setup_service(info,mount,out)
+            vmm_sampler=setup_service(info,mount,out,sample=not matched_off)
             receipt['vmm_child_cgroups']=json.loads((out/'vmm-cgroup-setup.json').read_text())
         if getattr(args,'external_delete_trace',False):
             from private_delete_trace import DeleteTrace
@@ -2193,7 +2197,7 @@ def main(args):
         assert image.stat().st_size==capacity and image.stat().st_blocks*512>=capacity
         assert available(ROOT)>HOST_RESERVE
         receipt['checks']['fixed_backing_allocation']='PASS'
-        if vmm_check and os.environ.get('ASB_VMM_ACCOUNTING_ONLY')=='on' and not light_rollout:
+        if vmm_check and os.environ.get('ASB_VMM_ACCOUNTING_ONLY')=='on' and not light_rollout and not matched_off:
             from vmm_child_cgroup_check import accounting_acceptance
             stage='experiment-memory-closure-acceptance'
             series=Path(os.environ['ASB_EXPERIMENT_MEMORY_SERIES'])
