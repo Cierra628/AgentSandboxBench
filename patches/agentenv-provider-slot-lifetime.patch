@@ -1,0 +1,150 @@
+--- a/storage/ublk/Cargo.toml
++++ b/storage/ublk/Cargo.toml
+@@ -27,8 +27,9 @@
+ tracing-subscriber = { version = "0.3.19", features = ["env-filter", "json"] }
+ tracing-bunyan-formatter = "0.3.10"
+ 
+-[dev-dependencies]
+ tempfile = "3"
++
++[dev-dependencies]
+ axum = "0.8.6"
+ sha2 = { version = "0.10.9", features = ["asm"] }
+ storage-util = { path = "../util", features = ["io-uring"] }
+--- a/storage/ublk/src/slot_observation.rs
++++ b/storage/ublk/src/slot_observation.rs
+@@ -1,8 +1,8 @@
+ //! Opt-in diagnostic metadata only; never reads or pins payload memory.
+ use anyhow::{Context, Result};
+-use std::fs::OpenOptions;
++use std::io::Write;
+ use std::os::fd::AsRawFd;
+-use std::path::Path;
++use std::path::{Path, PathBuf};
+ use std::ptr::NonNull;
+ use std::sync::atomic::{AtomicU64, Ordering::SeqCst};
+ 
+@@ -15,6 +15,8 @@
+ // States: 1 allocated, 2 filling, 3 complete read, 4 before kernel overwrite,
+ // 5 released, 6 failed/partial/non-read. Each mutation changes generation.
+ pub struct SlotObservation {
++    publication: Option<PathBuf>,
++    _data: Option<tempfile::TempPath>,
+     row: NonNull<[AtomicU64; WORDS]>,
+     retain_during_fetch: bool,
+     map_len: usize,
+@@ -39,12 +41,12 @@
+         let dir = Path::new(&dir);
+         std::fs::create_dir_all(dir)?;
+         let stem = format!("{}-{}-{qid}-{tag}", std::process::id(), info.dev_id);
+-        let path = dir.join(&stem).with_extension("bin");
+-        let file = OpenOptions::new()
+-            .write(true)
+-            .read(true)
+-            .create_new(true)
+-            .open(path)?;
++        // An exclusive, fresh name even when the same daemon reuses dev_id.
++        let file = tempfile::Builder::new()
++            .prefix(&format!("{stem}-"))
++            .suffix(".bin")
++            .tempfile_in(dir)?;
++        let publication = file.path().with_extension("json");
+         let retain_during_fetch = info.flags & ublk_sys::UBLK_F_NEED_GET_DATA as u64 != 0;
+         let segment_count = if retain_during_fetch {
+             anyhow::ensure!(
+@@ -56,7 +58,7 @@
+             0
+         };
+         let map_len = (64 + segment_count * 16).div_ceil(4096) * 4096;
+-        file.set_len(map_len as u64)?;
++        file.as_file().set_len(map_len as u64)?;
+         // SAFETY: the file covers map_len bytes; the mapping lives until Drop.
+         let ptr = unsafe {
+             libc::mmap(
+@@ -74,6 +76,8 @@
+             std::io::Error::last_os_error()
+         );
+         let mut this = Self {
++            publication: None,
++            _data: Some(file.into_temp_path()),
+             row: NonNull::new(ptr.cast()).context("null metadata mapping")?,
+             retain_during_fetch,
+             map_len,
+@@ -97,10 +101,11 @@
+             identity["segments"] = serde_json::json!({"schema":1, "unit_bytes":UNIT,
+                 "entry_offset":64, "entry_bytes":16, "count":segment_count});
+         }
+-        std::fs::write(
+-            dir.join(stem).with_extension("json"),
+-            serde_json::to_vec(&identity)?,
+-        )?;
++        // Readers must never see a partial JSON record.
++        let mut staged = tempfile::NamedTempFile::new_in(dir)?;
++        staged.write_all(&serde_json::to_vec(&identity)?)?;
++        staged.persist_noclobber(&publication)?;
++        this.publication = Some(publication);
+         Ok(Some(this))
+     }
+ 
+@@ -177,6 +182,12 @@
+ 
+ impl Drop for SlotObservation {
+     fn drop(&mut self) {
++        if let Some(path) = self.publication.take() {
++            if let Err(error) = std::fs::remove_file(&path) {
++                tracing::warn!(?path, %error, "could not retire provider slot");
++            }
++        }
++        // _data owns the matching unique .bin until after munmap.
+         self.set_segments(self.words()[3].load(SeqCst), None);
+         self.update(0, 0, 5);
+         // SAFETY: this mapping was created with exactly this length.
+@@ -205,6 +216,8 @@
+         };
+         assert_ne!(ptr, libc::MAP_FAILED);
+         let slot = SlotObservation {
++            publication: None,
++            _data: None,
+             row: NonNull::new(ptr.cast()).unwrap(),
+             retain_during_fetch: true,
+             map_len,
+@@ -217,6 +230,30 @@
+         slot
+     }
+ 
++    #[test]
++    fn retiring_one_publication_does_not_remove_its_successor() {
++        let dir = tempfile::tempdir().unwrap();
++        let image = Path::new("memory/image.json");
++        let info: ublk_sys::ublksrv_ctrl_dev_info = unsafe { std::mem::zeroed() };
++        std::env::set_var("AENV_PROVIDER_OBSERVE_DIR", dir.path());
++        let make = || {
++            SlotObservation::create(image, &info, 0, 0, 4096, 4096)
++                .unwrap()
++                .unwrap()
++        };
++        let first = make();
++        let second = make();
++        std::env::remove_var("AENV_PROVIDER_OBSERVE_DIR");
++        let a = first.publication.clone().unwrap();
++        let b = second.publication.clone().unwrap();
++        assert_ne!(a, b);
++        drop(first);
++        assert!(!a.exists() && !a.with_extension("bin").exists());
++        assert!(b.exists() && b.with_extension("bin").exists());
++        drop(second);
++        assert_eq!(std::fs::read_dir(dir).unwrap().count(), 0);
++    }
++
+     fn offsets(slot: &SlotObservation) -> Vec<u64> {
+         slot.segments().iter().map(|e| e[1].load(SeqCst)).collect()
+     }
+@@ -317,6 +354,8 @@
+         assert_ne!(writer, libc::MAP_FAILED);
+         assert_ne!(reader, libc::MAP_FAILED);
+         let mut slot = SlotObservation {
++            publication: None,
++            _data: None,
+             row: NonNull::new(writer.cast()).unwrap(),
+             retain_during_fetch: true,
+             map_len: 4096,

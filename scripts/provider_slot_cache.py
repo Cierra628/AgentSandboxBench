@@ -3,6 +3,7 @@ import hashlib
 import json
 import os
 from pathlib import Path
+import re
 import struct
 import time
 
@@ -24,6 +25,30 @@ def content_method(identity):
         assert identity['negotiated_flags']&4, 'GET_DATA was not negotiated'
         return 'invalid before user fill or kernel GET_DATA; valid during fetch'
     return 'invalid before kernel fetch'
+
+
+def mapped_files(proc):
+    """Compare filesystem device and inode, not the reusable ublk number."""
+    mappings=set()
+    for line in (proc/'maps').read_text().splitlines():
+        fields=line.split(None,5)
+        if len(fields)==6:
+            major,minor=(int(n,16) for n in fields[3].split(':'))
+            mappings.add((fields[5],os.makedev(major,minor),int(fields[4])))
+    return mappings
+
+
+def bound_device(proc, expected):
+    mappings=mapped_files(proc)
+    paths={path for path,_,_ in mappings if re.fullmatch(r'/dev/ublkb[0-9]+',path)}
+    if len(paths)!=1 or (expected is not None and paths!={expected}):
+        raise AssertionError('无可用槽位：VMM 没有唯一匹配设备')
+    path=paths.pop()
+    try:st=(proc/'root'/path.lstrip('/')).stat()
+    except FileNotFoundError:raise AssertionError('无可用槽位：VMM 设备已释放') from None
+    if {(dev,ino) for name,dev,ino in mappings if name==path}!={(st.st_dev,st.st_ino)}:
+        raise AssertionError('无可用槽位：VMM 映射与当前设备节点不符')
+    return path,(st.st_dev,st.st_ino,st.st_rdev)
 
 
 class ProviderCache:
@@ -58,22 +83,25 @@ class ProviderCache:
         else:self._check_owner()
         self.start=(self.proc/'stat').read_text().rsplit(')',1)[1].split()[19]
         nspid=[line.split()[1:] for line in (self.proc/'status').read_text().splitlines() if line.startswith('NSpid:')][0][-1]
+        device_path,device_identity=bound_device(vm_proc,device_path)
+        dev_id=int(device_path.removeprefix('/dev/ublkb'))
+        mappings=mapped_files(self.proc)
         identities=[];self.slots=[]
         for path in sorted((base/'provider-slots').glob('*.json')):
-            value=json.loads(path.read_text())
-            if binding is not None and value['image_config']!=image:continue
-            assert value['schema']==1 and value['image_config']==image
+            # A different candidate may retire while we enumerate the directory.
+            try:value=json.loads(path.read_text())
+            except FileNotFoundError:continue
+            if value['image_config']!=image or value['dev_id']!=dev_id:continue
+            data=path.with_suffix('.bin')
+            try:st=data.stat()
+            except FileNotFoundError:continue
+            if ('/workspace/env/provider-slots/'+data.name,st.st_dev,st.st_ino) not in mappings:
+                continue
+            assert value['schema']==1
             if binding is not None:
-                assert value['dev_id']==int(device_path.removeprefix('/dev/ublkb')), 'provider slot device differs'
                 assert value['content_validity']=='before_overwrite' and value['negotiated_flags']&4, 'explicit provider requires GET_DATA'
-
             assert value['pid']==int(nspid)
             assert value['process_stat'].rsplit(')',1)[1].split()[19]==self.start
-            data=path.with_suffix('.bin');st=data.stat()
-            # The provider must actually map this exact metadata file.
-            assert any(int(line.split()[4])==st.st_ino and line.split()[-1].endswith('/'+data.name)
-                       and (binding is None or tuple(int(v,16) for v in line.split()[3].split(':'))==(os.major(st.st_dev),os.minor(st.st_dev)))
-                       for line in (self.proc/'maps').read_text().splitlines())
             segments=value.get('segments')
             if segments is not None:
                 assert value['negotiated_flags']&4 and value['content_validity']=='before_overwrite'
@@ -81,8 +109,8 @@ class ProviderCache:
                     entry_bytes=SEGMENT.size,count=value['max_io_buf_bytes']//UNIT)
             self.slots.append((data,None,segments))
             identities.append(dict(name=data.name,device=st.st_dev,inode=st.st_ino,**value))
-        assert identities and len({r['dev_id'] for r in identities})==1
-        assert len(identities)==identities[0]['nr_queues']*identities[0]['queue_depth']
+        assert identities, '无可用槽位：当前 provider 没有映射该设备的槽位'
+        assert len(identities)==identities[0]['nr_queues']*identities[0]['queue_depth'], 'incomplete slot set (missing slot or device differs)'
         assert len({(r['queue'],r['slot']) for r in identities})==len(identities)
         if binding is not None:
             queues=identities[0]['nr_queues'];depth=identities[0]['queue_depth']
@@ -97,9 +125,13 @@ class ProviderCache:
         try:
             for (path,_,segments),saved in zip(self.slots,identities,strict=True):
                 file=path.open('rb',buffering=0);opened.append((path,file,segments))
-                if binding is not None:
-                    st=os.fstat(file.fileno())
-                    if (st.st_dev,st.st_ino)!=(saved['device'],saved['inode']):raise ValueError('provider metadata file replaced')
+                st=os.fstat(file.fileno())
+                if (st.st_dev,st.st_ino)!=(saved['device'],saved['inode']):raise ValueError('provider metadata file replaced')
+            maps_now=mapped_files(self.proc)
+            if any(('/workspace/env/provider-slots/'+r['name'],r['device'],r['inode']) not in maps_now for r in identities):
+                raise ValueError('无可用槽位：provider 映射已变化')
+            if bound_device(vm_proc,device_path)[1]!=device_identity:
+                raise ValueError('无可用槽位：VMM 设备已变化')
             self._check_owner()
         except BaseException:
             for _,file,_ in opened:file.close()

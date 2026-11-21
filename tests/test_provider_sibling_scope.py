@@ -28,6 +28,10 @@ class ProviderSiblingTests(unittest.TestCase):
         self.slots=self.env/'provider-slots';self.slots.mkdir()
         (self.proc/'20/status').write_text('NSpid:\t20\t2\n')
         (self.proc/'20/pagemap').write_bytes(struct.pack('<3Q',0,PRESENT|50,PRESENT|51))
+        self.dev=self.proc/'10/root/dev/ublkb3'
+        self.dev.parent.mkdir(parents=True);self.dev.touch()
+        st=self.dev.stat()
+        (self.proc/'10/maps').write_text(f'1000-2000 rw-p 0 {os.major(st.st_dev):x}:{os.minor(st.st_dev):x} {st.st_ino} /dev/ublkb3\n')
         maps=[]
         for slot in range(2):
             value=dict(schema=1,pid=2,image_config=self.image,dev_id=3,queue=0,slot=slot,nr_queues=1,queue_depth=2,max_io_buf_bytes=4096,negotiated_flags=4,content_validity='before_overwrite',process_stat=(self.proc/'20/stat').read_text(),segments=dict(schema=1,unit_bytes=512,entry_offset=64,entry_bytes=16,count=8))
@@ -50,6 +54,40 @@ class ProviderSiblingTests(unittest.TestCase):
     def test_same_config_wrong_device_rejected(self):
         p=self.slots/'s0.json';v=json.loads(p.read_text());v['dev_id']=4;p.write_text(json.dumps(v))
         with self.assertRaisesRegex(AssertionError,'device differs'):self.make()
+    def extra_generation(self, dev_id, mapped):
+        for slot in range(2):
+            meta=json.loads((self.slots/f's{slot}.json').read_text())
+            meta['dev_id']=dev_id
+            p=self.slots/f'other-{slot}.bin'
+            p.write_bytes((self.slots/f's{slot}.bin').read_bytes())
+            p.with_suffix('.json').write_text(json.dumps(meta))
+            if mapped:
+                st=p.stat()
+                with (self.proc/'20/maps').open('a') as f:
+                    f.write(f'3000-4000 rw-s 0 {os.major(st.st_dev):x}:{os.minor(st.st_dev):x} {st.st_ino} /workspace/env/provider-slots/{p.name}\n')
+
+    def test_same_snapshot_live_candidates(self):
+        self.extra_generation(4,True)
+        obj=self.make()
+        try:self.assertEqual([r['name'] for r in obj.identity['slots']],['s0.bin','s1.bin'])
+        finally:obj.close()
+
+    def test_number_eight_reused_with_old_publications(self):
+        self.dev.rename(self.dev.with_name('ublkb8'))
+        for p in [self.proc/'10/maps',self.env/'logs/server.log']:
+            p.write_text(p.read_text().replace('ublkb3','ublkb8'))
+        for p in self.slots.glob('*.json'):
+            v=json.loads(p.read_text());v['dev_id']=8;p.write_text(json.dumps(v))
+        self.extra_generation(8,False)
+        obj=ProviderCache(self.out,self.proc/'10',self.directory,binding=self.binding,vm=self.vm,device_path='/dev/ublkb8')
+        try:self.assertEqual([r['name'] for r in obj.identity['slots']],['s0.bin','s1.bin'])
+        finally:obj.close()
+
+    def test_released_device_leaves_complete_but_unusable_files(self):
+        self.dev.unlink()
+        (self.proc/'20/maps').write_text('')
+        with self.assertRaisesRegex(AssertionError,'无可用槽位'):self.make()
+
     def test_missing_slot_rejected(self):
         (self.slots/'s1.json').unlink()
         with self.assertRaises(AssertionError):self.make()
