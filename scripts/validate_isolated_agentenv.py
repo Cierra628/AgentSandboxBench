@@ -290,7 +290,10 @@ def main(args):
         provider_binary=provider_binary.resolve()
         assert provider_binary.is_relative_to(ROOT/'.artifacts') and provider_binary.is_file()
         assert provider_binary.open('rb').read(4)==b'\x7fELF'
-    lower_cache_probe=getattr(args,'snapshot_lower_cache_calibration',False) or pair_cache_probe or bool(provider_binary) and not prettier_cache_pair and not getattr(args,'guest_cache_rollout_sessions',False)
+    checkpoint_window=getattr(args,'bpo_checkpoint_window',False)
+    if checkpoint_window and not (getattr(args,'light_rollout',False) and getattr(args,'diagnostic_guest_kernel',None) and provider_binary and provider_get_data):
+        raise ValueError('checkpoint window requires diagnostic BPO and segmented provider')
+    lower_cache_probe=getattr(args,'snapshot_lower_cache_calibration',False) or pair_cache_probe or bool(provider_binary) and not checkpoint_window and not prettier_cache_pair and not getattr(args,'guest_cache_rollout_sessions',False)
     cache_restore_probe=getattr(args,'snapshot_cache_calibration',False) or lower_cache_probe
     child_cache_probe=getattr(args,'guest_cache_child_calibration',False)
     child_cache_count=getattr(args,'guest_cache_child_count',1)
@@ -780,6 +783,7 @@ def main(args):
             if light_monitor:check_args+=['--light-monitor']
             if full_shared:check_args+=['--host-shared-files']
             if schedule_smoke:check_args+=['--schedule-smoke-metrics']
+            if light_rollout:check_args+=['--light-rollout']
             if getattr(args,'schedule_expanded_files',False):check_args+=['--schedule-expanded-files']
             if getattr(args,'schedule_cache_layers',False):check_args+=['--schedule-cache-layers']
             if getattr(args,'schedule_block_cache_method',None) is not None:check_args+=['--schedule-block-cache-method',args.schedule_block_cache_method]
@@ -1923,6 +1927,7 @@ def main(args):
                 if full_shared:task_args+=['--host-shared-files']
                 if schedule_smoke:task_args+=['--schedule-smoke-metrics']
                 if light_rollout:task_args+=['--light-rollout']
+                if checkpoint_window:task_args+=['--bpo-checkpoint-window']
                 if getattr(args,'schedule_expanded_files',False):task_args+=['--schedule-expanded-files']
                 if getattr(args,'schedule_cache_layers',False):task_args+=['--schedule-cache-layers']
                 if getattr(args,'schedule_block_cache_method',None) is not None:task_args+=['--schedule-block-cache-method',args.schedule_block_cache_method]
@@ -2424,6 +2429,7 @@ if __name__=='__main__':
     parser.add_argument('--guest-cache-capacity-probe',action='store_true',help='12 GiB private volume; one guest, 128/64/128 MiB periodic clean-file reclaim targets; diagnostic reclaim kernel required')
     parser.add_argument('--snapshot-cache-pair',action='store_true',help='One two-guest shared snapshot / divergent write calibration')
     parser.add_argument('--snapshot-lower-cache-calibration',action='store_true',help='One raw snapshot-layer residency calibration, metadata reads only')
+    parser.add_argument('--bpo-checkpoint-window',action='store_true')
     parser.add_argument('--snapshot-provider-binary',type=Path,help='Owned diagnostic daemon; one short restore calibration with slot metadata')
     parser.add_argument('--snapshot-provider-get-data',action='store_true',help='Opt-in GET_DATA only for the owned observed memory device')
     parser.add_argument('--snapshot-bpf-batch',action='store_true',help='Private provider calibration only; read-only batch BPF queries')

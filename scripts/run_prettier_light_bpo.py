@@ -25,7 +25,7 @@ def smoke_output(out):
     return out/('run-'+out.name)
 
 
-def inside(out,unit,server,*,kernel_flags=()):
+def inside(out,unit,server,*,kernel_flags=(),schedule='bpo',cold_actions=False):
     membership=Path('/proc/self/cgroup').read_text().strip()
     assert membership.startswith('0::/')
     control=Path('/sys/fs/cgroup')/membership[3:].lstrip('/')
@@ -35,7 +35,9 @@ def inside(out,unit,server,*,kernel_flags=()):
     assert capacity_budget(available(ROOT),32*GIB)['ready']
     value=dict(status='RUNNING',parent=str(parent),controller=str(control),
         scope='Private preparation through cleanup; source service and pre-existing globally charged input excluded',
-        available_before_bytes=available(ROOT),schedule='bpo',requested_runs=1)
+        available_before_bytes=available(ROOT),schedule=schedule,requested_runs=1)
+    if cold_actions:
+        os.environ['ASB_GRPO_COLD_ACTIONS']='on'
     sampler=GroupSampler(parent,out/'full-memory',diagnostics=True)
     try:
         value['controller_states_before_preparation']=[accounting_controller_state(p,require_io=True) for p in [parent,control]]
@@ -49,11 +51,11 @@ def inside(out,unit,server,*,kernel_flags=()):
         write(out/'preparation-start.json',dict(monotonic_ns=time.monotonic_ns(),parent=str(parent),controller=str(control)))
         run_out=smoke_output(out)
         cmd=[sys.executable,'-B','scripts/run_schedule_smoke.py','--output',str(run_out),
-            '--schedule','bpo','--light-rollout','--diagnostic-server',str(server),'--unused-network-pools',*kernel_flags]
+            '--schedule',schedule,'--light-rollout','--diagnostic-server',str(server),'--unused-network-pools',*kernel_flags]
         with (out/'run.log').open('x') as log:
             completed=subprocess.run(cmd,cwd=ROOT,env=env,stdout=log,stderr=subprocess.STDOUT,timeout=1200)
         value['business_entry_exit_code']=completed.returncode
-        if completed.returncode:raise RuntimeError('single BPO failed; see run.log; no retry')
+        if completed.returncode:raise RuntimeError(f'single {schedule.upper()} failed; see run.log; no retry')
         batch=json.loads((run_out/'result.json').read_text());assert batch['status']=='PASS'
         value['raw']=batch['runs'][0]['raw'];value['storage']=batch['runs'][0]['storage']
         metrics=json.loads((Path(value['raw'])/'schedule-smoke-metrics.json').read_text())
@@ -84,8 +86,11 @@ def inside(out,unit,server,*,kernel_flags=()):
 def main():
     parser=argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--output',type=Path,required=True)
+    parser.add_argument('--schedule',choices=('bpo','grpo'),default='bpo')
+    parser.add_argument('--bpo-checkpoint-provider', type=Path)
     parser.add_argument('--diagnostic-guest-kernel', type=Path)
     parser.add_argument('--diagnostic-server',type=Path,required=True)
+    parser.add_argument('--cold-action-points',action='store_true')
     parser.add_argument('--inside',action='store_true');parser.add_argument('--unit')
     args=parser.parse_args();out=args.output.resolve()
     assert out.is_relative_to(ROOT/'.artifacts')
@@ -93,7 +98,13 @@ def main():
     assert server.is_relative_to(ROOT/'.artifacts') and server.is_file() and os.access(server,os.X_OK)
     from light_prettier_rollout import diagnostic_kernel_args
     kernel_flags=diagnostic_kernel_args(args.diagnostic_guest_kernel)
-    if args.inside:return inside(out,args.unit,server,kernel_flags=kernel_flags)
+    if args.cold_action_points and (args.schedule!='grpo' or not kernel_flags):parser.error('cold actions require diagnostic GRPO')
+    if args.bpo_checkpoint_provider:
+        provider=args.bpo_checkpoint_provider.resolve()
+        if args.schedule!='bpo' or not kernel_flags or not provider.is_relative_to(ROOT/'.artifacts') or not provider.is_file():
+            parser.error('checkpoint window requires diagnostic kernel and owned provider')
+        kernel_flags+=['--bpo-checkpoint-provider',str(provider)]
+    if args.inside:return inside(out,args.unit,server,kernel_flags=kernel_flags,schedule=args.schedule,cold_actions=args.cold_action_points)
     assert not out.exists()
     budget=capacity_budget(available(ROOT),32*GIB)
     assert budget['ready'],budget
@@ -103,7 +114,7 @@ def main():
     unit='asbvmm'+datetime.now(timezone.utc).strftime('%Y%m%dt%H%M%Sz').lower()
     command=['systemd-run','--quiet','--wait','--pipe','--collect','--unit='+unit+'control','--slice='+unit+'.slice',
         '--property=WorkingDirectory='+str(ROOT),'--property=MemoryAccounting=yes','--property=IOAccounting=yes',sys.executable,'-B',str(Path(__file__).resolve()),
-        '--output',str(out),'--diagnostic-server',str(server),'--inside','--unit',unit,*kernel_flags]
+        '--output',str(out),'--diagnostic-server',str(server),'--inside','--unit',unit,'--schedule',args.schedule,*(['--cold-action-points'] if args.cold_action_points else []),*kernel_flags]
     write(out/'launch.json',dict(command=command,budget=budget,unit=unit))
     with (out/'launch.log').open('x') as log:
         result=subprocess.run(command,env=clean_environment(os.environ),stdout=log,stderr=subprocess.STDOUT,timeout=1300)
