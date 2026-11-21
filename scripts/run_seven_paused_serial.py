@@ -73,7 +73,7 @@ def sweep(c, role, before, group, row):
     return left, host, np.column_stack((pfns,off,d1,d2)), np.column_stack((pfns,lo,l1,l2))
 
 
-def main(*,process_mode=False):
+def main(*,process_mode=False,fixed_snapshot=None):
     parser = argparse.ArgumentParser(description=__doc__)
     for k in ('container','config-home','service-url','output'):
         parser.add_argument('--'+k, required=True)
@@ -106,13 +106,17 @@ def main(*,process_mode=False):
     ids={}; vms={}; devices={}; readers={}; first={}; raw={}; paused=set(); installs={}
     try:
         with ExitStack() as resources:
-            source=create_source(Path(args.config_home),args.service_url)
-            cli('ready','exec',source,'true')
-            cli('source write','exec',source,'python3','-c',CONTENT+'p.parent.mkdir(exist_ok=True); '+WRITE)
-            snap='seven-paused-'+out.parents[2].name
-            cli('save','snapshot','create',source,'--name',snap,timeout=150)
-            resources.callback(cli,'delete snapshot','template','delete',snap)
-            cli('delete source','delete',source)
+            if fixed_snapshot:
+                snap,source=fixed_snapshot
+                result['snapshot']=snap
+            else:
+                source=create_source(Path(args.config_home),args.service_url)
+                cli('ready','exec',source,'true')
+                cli('source write','exec',source,'python3','-c',CONTENT+'p.parent.mkdir(exist_ok=True); '+WRITE)
+                snap='seven-paused-'+out.parents[2].name
+                cli('save','snapshot','create',source,'--name',snap,timeout=150)
+                resources.callback(cli,'delete snapshot','template','delete',snap)
+                cli('delete source','delete',source)
             cap=TaskPhysicalCache(out,args.container,cli,directory=out/'kvm-capture')
             resources.callback(cap.close)
             binding=cap.binding

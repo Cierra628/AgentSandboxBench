@@ -1,0 +1,35 @@
+attempt,status,cleanup,attach_s,ready_ms,merge_ms,total_ms,four,provider,sweep_critical,sweep_barrier_ms,last_ready,error
+1,PASS,PASS,10.351932636,611.450458,6.655239,618.364155,48038,0,restored-6,489.393883,restored-7,
+2,FAIL,PASS,10.064427794,,,,,,,,,"Traceback (most recent call last):
+  File ""/home/yyxie/asb-seven-process/scripts/run_seven_paused_serial.py"", line 165, in main
+    provider=ProviderCache(out,proc,shared/'provider',binding=binding,vm=vm,device_path=path)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File ""/home/yyxie/asb-seven-process/scripts/provider_slot_cache.py"", line 67, in __init__
+    assert value['dev_id']==int(device_path.removeprefix('/dev/ublkb')), 'provider slot device differs'
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: provider slot device differs
+"
+3,FAIL,PASS,10.285929041,,,,,,,,,"Traceback (most recent call last):
+  File ""/home/yyxie/asb-seven-process/scripts/run_seven_paused_serial.py"", line 165, in main
+    provider=ProviderCache(out,proc,shared/'provider',binding=binding,vm=vm,device_path=path)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File ""/home/yyxie/asb-seven-process/scripts/provider_slot_cache.py"", line 67, in __init__
+    assert value['dev_id']==int(device_path.removeprefix('/dev/ublkb')), 'provider slot device differs'
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: provider slot device differs
+"
+4,FAIL,PASS,10.529121252,,,,,,,,,"Traceback (most recent call last):
+  File ""/home/yyxie/asb-seven-process/scripts/run_seven_paused_serial.py"", line 159, in main
+    else:raise RuntimeError('no shared device creation receipt')
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+RuntimeError: no shared device creation receipt
+"
+5,FAIL,PASS,10.07596273,,,,,,,,,"Traceback (most recent call last):
+  File ""/home/yyxie/asb-seven-process/scripts/run_seven_paused_serial.py"", line 165, in main
+    provider=ProviderCache(out,proc,shared/'provider',binding=binding,vm=vm,device_path=path)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File ""/home/yyxie/asb-seven-process/scripts/provider_slot_cache.py"", line 67, in __init__
+    assert value['dev_id']==int(device_path.removeprefix('/dev/ublkb')), 'provider slot device differs'
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: provider slot device differs
+"
