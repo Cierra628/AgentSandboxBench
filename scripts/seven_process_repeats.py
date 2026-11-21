@@ -34,13 +34,30 @@ def series():
         assert all(not (g/'cgroup.procs').read_text().strip() for g in root.glob('vmm-*'))
     phase=os.environ.get('ASB_FIRST_FRAME_STUDY')
     count={'diagnose':1,None:5}[phase]
+    variance=os.environ.get('ASB_VARIANCE_ONE')=='1'
+    if variance:
+        assert strict and phase is None
+        count=1
     result=dict(status='FAIL',scope='five fresh restore cohorts, one immutable snapshot',attempts=[])
     try:
         with ExitStack() as held:
             source=create_source(Path(args.config_home),args.service_url)
             cleanup=ExitStack();held.enter_context(cleanup);cleanup.callback(cli,'delete',source)
             cli('exec',source,'true')
-            cli('exec',source,'python3','-c',CONTENT+'p.parent.mkdir(exist_ok=True); '+WRITE)
+            command=CONTENT+'p.parent.mkdir(exist_ok=True); '+WRITE
+            if variance:
+                from working_set_points import measured_command,points
+                import re,time
+                result['scope']='one independent source, seven restored; three guest cache points'
+                output_text=cli('exec',source,'python3','-c',measured_command(command,before=False))
+                result['save_point'],=points(output_text,1)
+                path=envdir/'logs/serial'/source/'firecracker-stdout.log'
+                serial=re.sub(rb'\x1b\[[0-9;]*m',b'',path.read_bytes())
+                result['pre_save_serial']=dict(host_ns=time.monotonic_ns(),bytes=len(serial),
+                    getty_slice=b'Created slice Slice /system/getty' in serial,
+                    snap_daemon=b'Started Snap Daemon' in serial)
+            else:
+                cli('exec',source,'python3','-c',command)
             snap='seven-paused-'+output.parents[2].name
             cli('snapshot','create',source,'--name',snap)
             held.callback(cli,'template','delete',snap);cleanup.close()
@@ -65,7 +82,8 @@ def series():
                     with (envdir/'logs/ublk-daemon.log').open('rb') as f:
                         f.seek(pos); row['file_exists']=f.read().count(b'File exists')
                     low={r:q['pages'] for r,q in v.get('query_rows',{}).items() if q['pages']<30000}
-                    if row['file_exists'] or 'ns' not in row or low:
+                    if variance: row['below_30000']=low
+                    if row['file_exists'] or 'ns' not in row or (low and not variance):
                         result['stop']=dict(attempt=n,low_pages=low,file_exists=row['file_exists'],error=v.get('error'))
                         row['status']='STOP'
                         break
