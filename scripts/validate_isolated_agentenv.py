@@ -318,6 +318,9 @@ def main(args):
     immediate=getattr(args,"immediate_restores",False)
     slot_lifetime=getattr(args,'provider_slot_lifetime',False)
     if slot_lifetime and not seven_restored:raise ValueError('slot lifetime requires seven restored branches')
+    process_count=getattr(args,'paused_query_processes',None)
+    if process_count and not (seven_restored and immediate):
+        raise ValueError('process benchmark requires seven immediate restores')
     if immediate and not seven_restored:raise ValueError("immediate restores requires seven restored branches")
     if seven_restored and not (cache_sessions and restored_lower and provider_binary and provider_get_data and unified_cache_rounds and child_cache_count==7):
         raise ValueError('seven-restored requires explicit restored provider sessions')
@@ -1680,14 +1683,14 @@ def main(args):
             stage='guest-cache-metadata-probe';replay=mount/'controller/guest-cache'
             runner=('run_guest_cache_two_children.py' if child_cache_count==2 else 'run_guest_cache_child.py') if child_cache_probe else 'run_guest_cache_capacity.py' if capacity_probe else 'run_snapshot_cache_pair.py' if pair_cache_probe else 'run_snapshot_cache_calibration.py' if cache_restore_probe else 'run_guest_cache_metadata.py'
             if light_memory:runner='run_guest_light_memory.py'
-            if cache_sessions:runner='run_rollout_cache_calibration.py'
+            if cache_sessions:runner='run_paused_process.py' if process_count else 'run_rollout_cache_calibration.py'
             if slot_lifetime:runner='verify_provider_slot_lifetime.py'
             call(stage,[sys.executable,'-B',ROOT/'scripts'/runner,'--container',container,
-                '--config-home',mount/'controller/config','--service-url',receipt['address'],'--output',replay,*(['--seven-restored'] if seven_restored else []),*(['--immediate-restores'] if immediate else []),*(['--restored-lower'] if restored_lower else []),*(['--unified-rounds'] if unified_cache_rounds else []),*(['--guests',str(child_cache_count)] if light_memory else []),*(['--restore-one'] if light_restore else []),*(['--lower-cache'] if lower_cache_probe and not pair_cache_probe else []),*(['--provider-cache'] if provider_binary else []),*(['--batch-lookup'] if batch_lookup else []),*(['--dynamic-file'] if dynamic_file_cache else []),*(['--ram-page-evidence'] if ram_page_evidence else []),*(['--vmm-page-evidence'] if vmm_page_evidence else []),*(['--io-uring-page-evidence'] if io_uring_page_evidence else []),*(['--host-backing-evidence'] if host_backing_evidence else []),*(['--host-backing-pfn-evidence'] if host_backing_pfn_evidence else []),*(['--host-backing-full-pfn-evidence'] if host_backing_full_pfn_evidence else []),*(['--host-backing-charge-evidence'] if host_backing_charge_evidence else [])],900 if seven_restored else 480 if light_restore else 420 if cache_restore_probe else 240,environment=env)
+                '--config-home',mount/'controller/config','--service-url',receipt['address'],'--output',replay,*(['--workers',str(process_count)] if process_count else []),*(['--seven-restored'] if seven_restored else []),*(['--immediate-restores'] if immediate else []),*(['--restored-lower'] if restored_lower else []),*(['--unified-rounds'] if unified_cache_rounds else []),*(['--guests',str(child_cache_count)] if light_memory else []),*(['--restore-one'] if light_restore else []),*(['--lower-cache'] if lower_cache_probe and not pair_cache_probe else []),*(['--provider-cache'] if provider_binary else []),*(['--batch-lookup'] if batch_lookup else []),*(['--dynamic-file'] if dynamic_file_cache else []),*(['--ram-page-evidence'] if ram_page_evidence else []),*(['--vmm-page-evidence'] if vmm_page_evidence else []),*(['--io-uring-page-evidence'] if io_uring_page_evidence else []),*(['--host-backing-evidence'] if host_backing_evidence else []),*(['--host-backing-pfn-evidence'] if host_backing_pfn_evidence else []),*(['--host-backing-full-pfn-evidence'] if host_backing_full_pfn_evidence else []),*(['--host-backing-charge-evidence'] if host_backing_charge_evidence else [])],900 if seven_restored else 480 if light_restore else 420 if cache_restore_probe else 240,environment=env)
             measured=json.loads((replay/'result.json').read_text())
             assert measured['status']=='PASS'
             receipt['guest_cache_metadata']=measured
-            receipt['checks']['three_paused_slot_lifetimes' if slot_lifetime else 'guest_cache_metadata_without_pause']='PASS'
+            receipt['checks']['three_paused_slot_lifetimes' if slot_lifetime else 'paused_query_processes' if process_count else 'guest_cache_metadata_without_pause']='PASS'
             receipt['scope']='private diagnostic guest kernel; one snapshot cache restore calibration; native checkpoint pause only' if cache_restore_probe else 'private diagnostic guest kernel; whole-cache metadata to host residency; no VM pause or trajectory replay'
             if cache_sessions:receipt['scope']=measured['scope']
             if light_memory:
@@ -2410,6 +2413,7 @@ if __name__=='__main__':
     parser.add_argument('--guest-cache-unified-rounds',action='store_true',help='Explicit cache-session shared clock only')
     parser.add_argument('--immediate-restores',action='store_true')
     parser.add_argument('--provider-slot-lifetime',action='store_true')
+    parser.add_argument('--paused-query-processes',type=int,choices=(1,7))
     parser.add_argument('--seven-restored',action='store_true')
     parser.add_argument('--guest-cache-rollout-sessions',action='store_true',help='One source plus one restored guest with page-cache sessions, explicit only')
     parser.add_argument('--guest-cache-light-restore-one',action='store_true',help='Explicit seven-light-guest single save/restore')
