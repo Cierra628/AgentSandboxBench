@@ -19,8 +19,12 @@ def series():
     env=clean_environment(dict(os.environ,XDG_CONFIG_HOME=args.config_home))
     def cli(*a):
         return subprocess.check_output([ROOT/'runtime/bin/aenv',*a],env=env,text=True,timeout=150).strip()
+    strict=os.environ.get("ASB_REPAIRED_FIVE")=="1"
+    envdir=output.parent.parent/"env"
     def empty():
         if json.loads(cli('list','--output','json'))!=[]:raise RuntimeError('remaining sandboxes')
+        if strict and any((envdir/'provider-slots').glob('*')):
+            raise RuntimeError('provider slots left after release')
         root=Path(os.environ['ASB_VMM_CGROUP_PARENT'])
         control=next(root.glob('*control.service'))
         for pid in (control/'cgroup.procs').read_text().split():
@@ -41,6 +45,7 @@ def series():
             result.update(source=source,snapshot=snap)
             empty()
             for n in range(1,6):
+                if strict: pos=(envdir/"logs/ublk-daemon.log").stat().st_size
                 child=output.with_name('seven-try-'+str(n))
                 argv=list(sys.argv[1:]);argv[argv.index('--output')+1]=str(child)
                 arg=[sys.executable,'-B',__file__,snap,source,*argv]
@@ -54,9 +59,17 @@ def series():
                 if run.returncode==0 and v.get('valid')==7 and v['status']=='PASS':
                     row['ns']=v['merge_end']-v['go']
                 empty();row['cleanup']='PASS';save(output/'series.json',result)
-                if n==2 and all(r.get('ns',0)>1_500_000_000 for r in result['attempts']):
+                if strict:
+                    with (envdir/'logs/ublk-daemon.log').open('rb') as f:
+                        f.seek(pos); row['file_exists']=f.read().count(b'File exists')
+                    low={r:q['pages'] for r,q in v.get('query_rows',{}).items() if q['pages']<30000}
+                    if row['file_exists'] or 'ns' not in row or low:
+                        result['stop']=dict(attempt=n,low_pages=low,file_exists=row['file_exists'],error=v.get('error'))
+                        row['status']='STOP'
+                        break
+                elif n==2 and all(r.get('ns',0)>1_500_000_000 for r in result['attempts']):
                     result['stop']='both_first_two_over_1.5s';break
-        result['status']='PASS' if all('ns' in r for r in result['attempts']) else 'INCOMPLETE'
+        result['status']='PASS' if (not strict or (len(result['attempts'])==5 and not result.get('stop'))) and all('ns' in r for r in result['attempts']) else 'INCOMPLETE'
     except Exception:
         result['error']=traceback.format_exc()
     save(output/'result.json',result)
