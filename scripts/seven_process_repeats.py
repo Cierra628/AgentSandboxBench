@@ -32,6 +32,8 @@ def series():
             except FileNotFoundError:continue
             if name=='bpftrace':raise RuntimeError('remaining owned probe '+pid)
         assert all(not (g/'cgroup.procs').read_text().strip() for g in root.glob('vmm-*'))
+    phase=os.environ.get('ASB_FIRST_FRAME_STUDY')
+    count={'diagnose':1,None:5}[phase]
     result=dict(status='FAIL',scope='five fresh restore cohorts, one immutable snapshot',attempts=[])
     try:
         with ExitStack() as held:
@@ -44,7 +46,7 @@ def series():
             held.callback(cli,'template','delete',snap);cleanup.close()
             result.update(source=source,snapshot=snap)
             empty()
-            for n in range(1,6):
+            for n in range(1,count+1):
                 if strict: pos=(envdir/"logs/ublk-daemon.log").stat().st_size
                 child=output.with_name('seven-try-'+str(n))
                 argv=list(sys.argv[1:]);argv[argv.index('--output')+1]=str(child)
@@ -69,7 +71,7 @@ def series():
                         break
                 elif n==2 and all(r.get('ns',0)>1_500_000_000 for r in result['attempts']):
                     result['stop']='both_first_two_over_1.5s';break
-        result['status']='PASS' if (not strict or (len(result['attempts'])==5 and not result.get('stop'))) and all('ns' in r for r in result['attempts']) else 'INCOMPLETE'
+        result['status']='PASS' if (not strict or (len(result['attempts'])==count and not result.get('stop'))) and all('ns' in r for r in result['attempts']) else 'INCOMPLETE'
     except Exception:
         result['error']=traceback.format_exc()
     save(output/'result.json',result)
@@ -77,5 +79,8 @@ def series():
 
 
 if __name__=='__main__':
+    if os.environ.get('ASB_FIRST_FRAME_STUDY')=='diagnose':
+        import runpy
+        runpy.run_path(str(ROOT/'docs/records/first-frame-opt-20261121/profile_build.py'))['install']()
     snap,source=sys.argv[1:3];del sys.argv[1:3]
     raise SystemExit(main(process_mode=True,fixed_snapshot=(snap,source)))
