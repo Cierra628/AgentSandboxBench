@@ -148,3 +148,21 @@
              row: NonNull::new(writer.cast()).unwrap(),
              retain_during_fetch: true,
              map_len: 4096,
+@@ -346,6 +385,8 @@
+         let mut words: [AtomicU64; WORDS] = std::array::from_fn(|_| AtomicU64::new(0));
+         words[3].store(8192, SeqCst);
+         let mut slot = std::mem::ManuallyDrop::new(SlotObservation {
++            publication: None,
++            _data: None,
+             row: NonNull::from(&mut words),
+             retain_during_fetch: true,
+             map_len: 4096,
+@@ -380,6 +421,8 @@
+         words[3].store(8192, SeqCst);
+         // The test uses stack memory and must not run the mmap-specific Drop.
+         let mut slot = std::mem::ManuallyDrop::new(SlotObservation {
++            publication: None,
++            _data: None,
+             row: NonNull::from(&mut words),
+             retain_during_fetch: false,
+             map_len: 4096,
