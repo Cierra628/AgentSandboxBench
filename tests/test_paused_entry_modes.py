@@ -36,6 +36,26 @@ class PausedModes(unittest.TestCase):
         self.assertEqual(entry(cache_sessions=False),
                          ('run_rollout_cache_calibration.py', 'guest_cache_metadata_without_pause'))
 
+    def test_seven_export(self):
+        self.assertEqual(entry('seven_paused_export', 'immediate_restores', 'seven_restored',
+                               child_cache_count=7, unified_cache_rounds=True),
+                         ('run_seven_paused_export.py', 'seven_paused_export'))
+
+    def test_seven_without_export(self):
+        self.assertEqual(entry('seven_restored', child_cache_count=7, unified_cache_rounds=True),
+                         ('run_rollout_cache_calibration.py', 'guest_cache_metadata_without_pause'))
+
+    def test_seven_export_requires_both_flags(self):
+        for flags in [(), ('seven_restored',), ('immediate_restores',)]:
+            with self.subTest(flags=flags), self.assertRaisesRegex(ValueError, '^paused export requires parallel seven restores$'):
+                entry('seven_paused_export', *flags)
+
+    def test_mixed_classes(self):
+        for flag in PAUSED_ENTRY_MODES:
+            with self.subTest(flag=flag), self.assertRaisesRegex(ValueError, 'select only one class'):
+                entry(flag, 'seven_paused_export', 'immediate_restores', 'seven_restored',
+                      child_cache_count=7, unified_cache_rounds=True)
+
     def test_prerequisites(self):
         for flag in PAUSED_ENTRY_MODES:
             for key, bad in dict(cache_sessions=False, restored_lower=False, provider_binary=None,

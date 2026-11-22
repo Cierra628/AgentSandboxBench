@@ -44,8 +44,22 @@ PAUSED_ENTRY_MODES = {
 }
 
 
+SEVEN_PAUSED_ENTRY_MODES = {
+    'seven_paused_export': ('run_seven_paused_export.py', 'seven_paused_export'),
+}
+
+
 def paused_entry(args, cache_sessions, restored_lower, provider_binary, child_cache_count, unified_cache_rounds):
     selected = [name for name in PAUSED_ENTRY_MODES if getattr(args, name, False)]
+    seven = [name for name in SEVEN_PAUSED_ENTRY_MODES if getattr(args, name, False)]
+    if selected and seven:
+        raise ValueError('two-instance and seven-restore workflows are separate; select only one class')
+    if len(seven) > 1:
+        raise ValueError('these are independent workflows; select only one')
+    if seven:
+        if not (getattr(args, 'immediate_restores', False) and getattr(args, 'seven_restored', False)):
+            raise ValueError('paused export requires parallel seven restores')
+        return SEVEN_PAUSED_ENTRY_MODES[seven[0]]
     if len(selected) > 1:
         raise ValueError('these are independent workflows; select only one')
     if not selected:
@@ -2431,6 +2445,7 @@ if __name__=='__main__':
     parser.add_argument('--guest-cache-restored-lower',action='store_true',help='Explicit restored cache session lower-layer query')
     parser.add_argument('--guest-cache-unified-rounds',action='store_true',help='Explicit cache-session shared clock only')
     parser.add_argument('--immediate-restores',action='store_true')
+    parser.add_argument('--seven-paused-export',action='store_true')
     parser.add_argument('--seven-restored',action='store_true')
     parser.add_argument('--paused-host-cache',action='store_true',help='One restored VMM, in-place pause and host-only file bitmaps')
     parser.add_argument('--paused-four-sources',action='store_true',help='One restored VMM, in-place pause and host-only four-source queries')
