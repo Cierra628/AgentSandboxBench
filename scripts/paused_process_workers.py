@@ -137,15 +137,17 @@ class Workers:
         self.pipes[r].send(after);self.stats[r].update(self.get(r,'done'))
     def merge(self,vms):
         import json
-        begin=clock();pfn=set();device=set();rows={}
+        begin=clock();pfn=[];device=[];rows={}
         for r in self.roles:
             directory=self.out/('process-'+r)
             row=json.loads((directory/'result.json').read_text())
             assert (row['role'],row['pid'],row['sid'])==(r,self.ps[r].pid,vms[r]['sandbox_id'])
             with np.load(directory/'sets.npz',allow_pickle=False) as data:
-                assert row['pages']==len(data['four'])
-                pfn.update(map(int,data['four']));device.update(map(int,data['provider']))
+                four=data['four'];provider=data['provider']
+                assert row['pages']==len(four)
+                pfn.append(four);device.append(provider)
             rows[r]=row
+        pfn=np.unique(np.concatenate(pfn));device=np.unique(np.concatenate(device))
         return dict(workers=self.stats,query_rows=rows,go=self.go,
                     merge_start=begin,merge_end=clock(),four_unique_pages=len(pfn),
                     provider_unique_pages=len(device),valid=len(rows))
