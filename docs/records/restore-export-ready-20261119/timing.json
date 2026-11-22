@@ -1,0 +1,112 @@
+{
+  "status": "PASS",
+  "scope": "single restore; preparation only; no page query",
+  "stages": [
+    {
+      "stage": "bind_vmm",
+      "start_ns": 857378045405134,
+      "end_ns": 857378049437611
+    },
+    {
+      "stage": "contents",
+      "start_ns": 857378049443158,
+      "end_ns": 857378455197221
+    },
+    {
+      "stage": "capture.ready",
+      "start_ns": 857378455491351,
+      "end_ns": 857378719925571
+    },
+    {
+      "stage": "live-cache-upload",
+      "start_ns": 857378719960970,
+      "end_ns": 857378794318365
+    },
+    {
+      "stage": "live-cache-start",
+      "start_ns": 857378794336675,
+      "end_ns": 857378845695211
+    },
+    {
+      "stage": "live-cache-ready",
+      "start_ns": 857378845705943,
+      "end_ns": 857379091382823
+    },
+    {
+      "stage": "live-cache-bootstrap",
+      "start_ns": 857379091394617,
+      "end_ns": 857379129859542
+    },
+    {
+      "stage": "exporter_setup",
+      "start_ns": 857378719935821,
+      "end_ns": 857379132160883
+    },
+    {
+      "stage": "capture.bind",
+      "start_ns": 857379132527999,
+      "end_ns": 857379141651426
+    },
+    {
+      "stage": "check_binding",
+      "start_ns": 857379141662781,
+      "end_ns": 857379141821599
+    },
+    {
+      "stage": "attach_backend",
+      "start_ns": 857379149724899,
+      "end_ns": 857382823235807
+    },
+    {
+      "stage": "backend_reader",
+      "start_ns": 857379147755242,
+      "end_ns": 857382823746249
+    },
+    {
+      "stage": "lower_metadata",
+      "start_ns": 857382823973426,
+      "end_ns": 857382843201384
+    },
+    {
+      "stage": "attach_lower",
+      "start_ns": 857382843727558,
+      "end_ns": 857386371845128
+    },
+    {
+      "stage": "lower_reader",
+      "start_ns": 857382843329523,
+      "end_ns": 857386372322174
+    },
+    {
+      "stage": "provider_init",
+      "start_ns": 857386372368497,
+      "end_ns": 857386389319971
+    },
+    {
+      "stage": "host_query_setup",
+      "start_ns": 857379147737555,
+      "end_ns": 857386389335857
+    },
+    {
+      "stage": "collector_start",
+      "start_ns": 857378455481584,
+      "end_ns": 857386389341016
+    }
+  ],
+  "events": {
+    "restore_start": 857377823330096,
+    "restore_return": 857378045403272,
+    "can_issue_request": 857386389341016
+  },
+  "cleanup": {
+    "provider": "PASS",
+    "lower": "PASS",
+    "backend": "PASS",
+    "memory": "PASS",
+    "pagemap": "PASS",
+    "capture": "PASS",
+    "restored": "PASS",
+    "snapshot": "PASS"
+  },
+  "publications": 0
+}
