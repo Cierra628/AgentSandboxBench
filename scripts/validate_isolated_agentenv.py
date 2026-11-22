@@ -45,6 +45,7 @@ PAUSED_ENTRY_MODES = {
 
 
 SEVEN_PAUSED_ENTRY_MODES = {
+    'paused_query_processes': ('run_paused_process.py', 'paused_query_processes'),
     'seven_paused_serial': ('run_seven_paused_serial.py', 'seven_paused_serial'),
     'seven_paused_export': ('run_seven_paused_export.py', 'seven_paused_export'),
 }
@@ -59,6 +60,8 @@ def paused_entry(args, cache_sessions, restored_lower, provider_binary, child_ca
         raise ValueError('these are independent workflows; select only one')
     if seven:
         if not (getattr(args, 'immediate_restores', False) and getattr(args, 'seven_restored', False)):
+            if seven[0] == 'paused_query_processes':
+                raise ValueError('process benchmark requires seven immediate restores')
             raise ValueError('paused export requires parallel seven restores')
         return SEVEN_PAUSED_ENTRY_MODES[seven[0]]
     if len(selected) > 1:
@@ -356,6 +359,7 @@ def main(args):
     if restored_lower and not cache_sessions:raise ValueError('restored lower requires cache sessions')
     if unified_cache_rounds and not cache_sessions:raise ValueError('unified rounds requires cache sessions')
     immediate=getattr(args,"immediate_restores",False)
+    process_count=getattr(args,'paused_query_processes',None)
     if immediate and not seven_restored:raise ValueError("immediate restores requires seven restored branches")
     if seven_restored and not (cache_sessions and restored_lower and provider_binary and provider_get_data and unified_cache_rounds and child_cache_count==7):
         raise ValueError('seven-restored requires explicit restored provider sessions')
@@ -1720,7 +1724,7 @@ def main(args):
             if light_memory:runner='run_guest_light_memory.py'
             if cache_sessions:runner=cache_runner
             call(stage,[sys.executable,'-B',ROOT/'scripts'/runner,'--container',container,
-                '--config-home',mount/'controller/config','--service-url',receipt['address'],'--output',replay,*(['--seven-restored'] if seven_restored else []),*(['--immediate-restores'] if immediate else []),*(['--restored-lower'] if restored_lower else []),*(['--unified-rounds'] if unified_cache_rounds else []),*(['--guests',str(child_cache_count)] if light_memory else []),*(['--restore-one'] if light_restore else []),*(['--lower-cache'] if lower_cache_probe and not pair_cache_probe else []),*(['--provider-cache'] if provider_binary else []),*(['--batch-lookup'] if batch_lookup else []),*(['--dynamic-file'] if dynamic_file_cache else []),*(['--ram-page-evidence'] if ram_page_evidence else []),*(['--vmm-page-evidence'] if vmm_page_evidence else []),*(['--io-uring-page-evidence'] if io_uring_page_evidence else []),*(['--host-backing-evidence'] if host_backing_evidence else []),*(['--host-backing-pfn-evidence'] if host_backing_pfn_evidence else []),*(['--host-backing-full-pfn-evidence'] if host_backing_full_pfn_evidence else []),*(['--host-backing-charge-evidence'] if host_backing_charge_evidence else [])],900 if seven_restored else 480 if light_restore else 420 if cache_restore_probe else 240,environment=env)
+                '--config-home',mount/'controller/config','--service-url',receipt['address'],'--output',replay,*(['--workers',str(process_count)] if process_count else []),*(['--seven-restored'] if seven_restored else []),*(['--immediate-restores'] if immediate else []),*(['--restored-lower'] if restored_lower else []),*(['--unified-rounds'] if unified_cache_rounds else []),*(['--guests',str(child_cache_count)] if light_memory else []),*(['--restore-one'] if light_restore else []),*(['--lower-cache'] if lower_cache_probe and not pair_cache_probe else []),*(['--provider-cache'] if provider_binary else []),*(['--batch-lookup'] if batch_lookup else []),*(['--dynamic-file'] if dynamic_file_cache else []),*(['--ram-page-evidence'] if ram_page_evidence else []),*(['--vmm-page-evidence'] if vmm_page_evidence else []),*(['--io-uring-page-evidence'] if io_uring_page_evidence else []),*(['--host-backing-evidence'] if host_backing_evidence else []),*(['--host-backing-pfn-evidence'] if host_backing_pfn_evidence else []),*(['--host-backing-full-pfn-evidence'] if host_backing_full_pfn_evidence else []),*(['--host-backing-charge-evidence'] if host_backing_charge_evidence else [])],900 if seven_restored else 480 if light_restore else 420 if cache_restore_probe else 240,environment=env)
             measured=json.loads((replay/'result.json').read_text())
             assert measured['status']=='PASS'
             receipt['guest_cache_metadata']=measured
@@ -2448,6 +2452,7 @@ if __name__=='__main__':
     parser.add_argument('--immediate-restores',action='store_true')
     parser.add_argument('--seven-paused-export',action='store_true')
     parser.add_argument('--seven-paused-serial',action='store_true')
+    parser.add_argument('--paused-query-processes',type=int,choices=(1,7))
     parser.add_argument('--seven-restored',action='store_true')
     parser.add_argument('--paused-host-cache',action='store_true',help='One restored VMM, in-place pause and host-only file bitmaps')
     parser.add_argument('--paused-four-sources',action='store_true',help='One restored VMM, in-place pause and host-only four-source queries')

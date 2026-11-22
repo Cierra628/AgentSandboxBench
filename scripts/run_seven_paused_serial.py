@@ -73,12 +73,15 @@ def sweep(c, role, before, group, row):
     return left, host, np.column_stack((pfns,off,d1,d2)), np.column_stack((pfns,lo,l1,l2))
 
 
-def main():
+def main(*,process_mode=False):
     parser = argparse.ArgumentParser(description=__doc__)
     for k in ('container','config-home','service-url','output'):
         parser.add_argument('--'+k, required=True)
     for k in ('seven-restored','immediate-restores','provider-cache','restored-lower','unified-rounds'):
         parser.add_argument('--'+k, action='store_true', required=True)
+    if process_mode:
+        from paused_process_workers import Workers,Publication
+        parser.add_argument('--workers',type=int,choices=(1,7),required=True)
     args = parser.parse_args()
     out = Path(args.output).resolve()
     assert out.parent.name == 'controller' and out.parent.parent.name == 'mount'
@@ -113,11 +116,15 @@ def main():
             cap=TaskPhysicalCache(out,args.container,cli,directory=out/'kvm-capture')
             resources.callback(cap.close)
             binding=cap.binding
-            prime_tracers(out,resources)
+            if process_mode:
+                selected=ROLES[:args.workers]
+                workers=Workers(out,selected,args.container,resources)
+                result['scope']='seven paused; independent PID-scoped readers; per-reader two provider frames'
+            else:prime_tracers(out,resources)
             result['tracers_ready']=clock()
             gate=threading.Barrier(7)
             for r in ROLES:
-                readers[r]=Reader(out,args.container,cli,session='restored',session_name=r+'-pages',capture=cap,lower_cache=True)
+                readers[r]=(Publication if process_mode else Reader)(out,args.container,cli,session='restored',session_name=r+'-pages',capture=cap,lower_cache=True)
             def install(r):
                 c=readers[r]; sid=ids[r]
                 cli('verify-rewrite-read','exec',sid,'python3','-c',CONTENT+'assert p.read_bytes()==data; '+WRITE)
@@ -167,12 +174,14 @@ def main():
                     rows[r]['ready']=clock()
                     first[r],info=c._snapshot()
                     rows[r].update(first_end=clock(),first_publication=info)
+                    if process_mode and r in selected:
+                        workers.bind(r,vm,vms[owner],path,c,first[r])
                 stage(pool,active(),'prepare / first export',prepare)
                 for c in readers.values():
                     for name in ('memory','pm','backend','lower_query'):
                         obj=getattr(c,name,None)
                         if obj is not None:resources.callback(obj.close)
-                for name in ('backend','lower_query'):
+                for name in (() if process_mode else ('backend','lower_query')):
                     qs=[getattr(readers[r],name) for r in active()]
                     if qs:
                         assert len({q.bank for q in qs})==len(qs) and all(q.tracer is qs[0].tracer and q.tracer.poll() is None for q in qs)
@@ -187,7 +196,7 @@ def main():
                     vm=vms[r];check_vmm(vm,binding.cgroup)
                     if api(vm,'GET')=='Paused':api(vm,'PATCH','Resumed')
                     assert api(vm,'GET')=='Running'
-                    paused.discard(r)
+                    rows[r]['resume_end']=clock();paused.discard(r)
                 groups = {r: DeviceRound(provider, [r]) for r in ROLES}
                 def lower_bitmap(tag):
                     start = clock()
@@ -202,8 +211,9 @@ def main():
                 try:
                     stage(pool,active(),'pause',pause)
                     if len(active()) != 7: raise RuntimeError('not all seven paused')
-                    lower_bitmap('lower-before')
-                    for r in ROLES:
+                    if process_mode:workers.query()
+                    else:lower_bitmap('lower-before')
+                    for r in (() if process_mode else ROLES):
                         try:
                             assert api(vms[r],'GET')=='Paused'
                             raw[r]=sweep(readers[r],r,first[r],groups[r],rows[r])
@@ -211,23 +221,33 @@ def main():
                         except Exception as exc:
                             failed(r,'serial sweep or paused-state check',exc)
                             raise
-                    lower_bitmap('lower-after')
+                    if not process_mode:lower_bitmap('lower-after')
                 finally:
                     stage(pool,list(paused),'resume',resume)
                 def account(r):
                     c=readers[r]
                     after,info=c._snapshot()
+                    if process_mode:
+                        if r in selected:
+                            workers.account(r,after)
+                            rows[r]['status']='OBSERVED'
+                        else:rows[r]['status']='NOT_QUERIED'
+                        return
                     left,h,d,l=raw[r];right=decode_array(after)
                     pages=groups[r].match(r,first[r],after,h,d,l,left,right)
                     rows[r].update(status='OBSERVED',pages=pages,guest_before=left[0]['records'],guest_after=right[0]['records'])
                     for name,value in [('before',first[r]),('after',after),('host',h),('direct',d),('lower',l)]:
                         (c.directory/(name+'.bin')).write_bytes(value if isinstance(value,bytes) else value.tobytes())
                 stage(pool,active(),'identity recheck / account',account)
-                save(out/'provider-frames.json',{r:g.frames for r,g in groups.items()})
+                if process_mode:
+                    if any(rows[r]['status']=='UNKNOWN' for r in ROLES):
+                        raise RuntimeError('incomplete identity check; not merging')
+                    result.update(workers.merge(vms))
+                else:save(out/'provider-frames.json',{r:g.frames for r,g in groups.items()})
                 valid=[r for r in ROLES if rows[r]['status']=='OBSERVED']
-                result.update(valid=len(valid),four_unique_pages=len(set().union(*(groups[r].matches[r][1] for r in valid))) if valid else None,
+                if not process_mode:result.update(valid=len(valid),four_unique_pages=len(set().union(*(groups[r].matches[r][1] for r in valid))) if valid else None,
                               provider_unique_pages=len(set().union(*(groups[r].matches[r][0] for r in valid))) if valid else None)
-        result['status']='PASS' if result['valid']==7 else 'INCOMPLETE'
+        result['status']='PASS' if result['valid']==(args.workers if process_mode else 7) else 'INCOMPLETE'
     except Exception:
         result['error']=traceback.format_exc()
     finally:
