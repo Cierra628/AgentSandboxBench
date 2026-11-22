@@ -34,6 +34,7 @@ CAPACITY = 20*GIB
 
 # CLI attribute -> (cache-session runner, successful receipt field).
 PAUSED_ENTRY_MODES = {
+    'fast_export_pause': ('run_fast_export_pause.py', 'fast_export_pause_curve'),
     'restore_export_ready': ('run_restore_export_ready.py', 'restore_export_preparation'),
     'paused_native': ('run_paused_native.py', 'paused_native_entry_boundary'),
     'paused_vm_drives': ('run_paused_vm_drives.py', 'paused_vm_drive_inventory'),
@@ -2437,6 +2438,7 @@ if __name__=='__main__':
     parser.add_argument('--paused-vm-drives',action='store_true',help='One restored VMM, in-place pause and actual configured drive inventory')
     parser.add_argument('--paused-native',action='store_true',help='One restored VMM, in-place pause and native page collector dependency check')
     parser.add_argument('--restore-export-ready',action='store_true',help='One restored VMM, timed preparation without page queries')
+    parser.add_argument('--fast-export-pause',action='store_true',help='One restored VMM, in-place pause and host-only four-source queries')
     parser.add_argument('--guest-cache-rollout-sessions',action='store_true',help='One source plus one restored guest with page-cache sessions, explicit only')
     parser.add_argument('--guest-cache-light-restore-one',action='store_true',help='Explicit seven-light-guest single save/restore')
     parser.add_argument('--guest-cache-light-memory',action='store_true',help='Explicit two-guest light memory rounds; no page probes')
