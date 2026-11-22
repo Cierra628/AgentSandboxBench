@@ -92,6 +92,15 @@ class PausedModes(unittest.TestCase):
         for count in (None, 1, 7):
             self.assertEqual(eval(code, {'process_count': count}), [] if count is None else ['--workers', str(count)])
 
+    def test_slot_lifetime(self):
+        self.assertEqual(entry('seven_restored', 'provider_slot_lifetime', child_cache_count=7,
+                               unified_cache_rounds=True), ('verify_provider_slot_lifetime.py', 'three_paused_slot_lifetimes'))
+        with self.assertRaisesRegex(ValueError, 'slot lifetime requires seven restored branches'):
+            entry('provider_slot_lifetime')
+        for other in (*PAUSED_ENTRY_MODES, *SEVEN_PAUSED_ENTRY_MODES):
+            with self.subTest(other=other), self.assertRaisesRegex(ValueError, 'select only one'):
+                entry(other, 'seven_restored', 'provider_slot_lifetime', child_cache_count=7, unified_cache_rounds=True)
+
     def test_prerequisites(self):
         for flag in PAUSED_ENTRY_MODES:
             for key, bad in dict(cache_sessions=False, restored_lower=False, provider_binary=None,

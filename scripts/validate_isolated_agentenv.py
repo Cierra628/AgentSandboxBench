@@ -51,13 +51,24 @@ SEVEN_PAUSED_ENTRY_MODES = {
 }
 
 
+# Slot lifetime checks do not require immediate restores.
+SEVEN_SLOT_ENTRY_MODES = {
+    'provider_slot_lifetime': ('verify_provider_slot_lifetime.py', 'three_paused_slot_lifetimes'),
+}
+
+
 def paused_entry(args, cache_sessions, restored_lower, provider_binary, child_cache_count, unified_cache_rounds):
     selected = [name for name in PAUSED_ENTRY_MODES if getattr(args, name, False)]
     seven = [name for name in SEVEN_PAUSED_ENTRY_MODES if getattr(args, name, False)]
-    if selected and seven:
+    slots = [name for name in SEVEN_SLOT_ENTRY_MODES if getattr(args, name, False)]
+    if selected and (seven or slots):
         raise ValueError('two-instance and seven-restore workflows are separate; select only one class')
-    if len(seven) > 1:
+    if len(seven) + len(slots) > 1:
         raise ValueError('these are independent workflows; select only one')
+    if slots:
+        if not getattr(args, 'seven_restored', False):
+            raise ValueError('slot lifetime requires seven restored branches')
+        return SEVEN_SLOT_ENTRY_MODES[slots[0]]
     if seven:
         if not (getattr(args, 'immediate_restores', False) and getattr(args, 'seven_restored', False)):
             if seven[0] == 'paused_query_processes':
@@ -2453,6 +2464,7 @@ if __name__=='__main__':
     parser.add_argument('--seven-paused-export',action='store_true')
     parser.add_argument('--seven-paused-serial',action='store_true')
     parser.add_argument('--paused-query-processes',type=int,choices=(1,7))
+    parser.add_argument('--provider-slot-lifetime',action='store_true')
     parser.add_argument('--seven-restored',action='store_true')
     parser.add_argument('--paused-host-cache',action='store_true',help='One restored VMM, in-place pause and host-only file bitmaps')
     parser.add_argument('--paused-four-sources',action='store_true',help='One restored VMM, in-place pause and host-only four-source queries')
