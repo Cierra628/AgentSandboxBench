@@ -45,6 +45,7 @@ PAUSED_ENTRY_MODES = {
 
 
 SEVEN_PAUSED_ENTRY_MODES = {
+    'seven_paused_serial': ('run_seven_paused_serial.py', 'seven_paused_serial'),
     'seven_paused_export': ('run_seven_paused_export.py', 'seven_paused_export'),
 }
 
@@ -2446,6 +2447,7 @@ if __name__=='__main__':
     parser.add_argument('--guest-cache-unified-rounds',action='store_true',help='Explicit cache-session shared clock only')
     parser.add_argument('--immediate-restores',action='store_true')
     parser.add_argument('--seven-paused-export',action='store_true')
+    parser.add_argument('--seven-paused-serial',action='store_true')
     parser.add_argument('--seven-restored',action='store_true')
     parser.add_argument('--paused-host-cache',action='store_true',help='One restored VMM, in-place pause and host-only file bitmaps')
     parser.add_argument('--paused-four-sources',action='store_true',help='One restored VMM, in-place pause and host-only four-source queries')

@@ -41,6 +41,13 @@ class PausedModes(unittest.TestCase):
                                child_cache_count=7, unified_cache_rounds=True),
                          ('run_seven_paused_export.py', 'seven_paused_export'))
 
+    def test_seven_serial(self):
+        flags = ('immediate_restores', 'seven_restored')
+        self.assertEqual(entry('seven_paused_serial', *flags, child_cache_count=7, unified_cache_rounds=True),
+                         ('run_seven_paused_serial.py', 'seven_paused_serial'))
+        with self.assertRaisesRegex(ValueError, 'independent workflows; select only one'):
+            entry('seven_paused_export', 'seven_paused_serial', *flags)
+
     def test_seven_without_export(self):
         self.assertEqual(entry('seven_restored', child_cache_count=7, unified_cache_rounds=True),
                          ('run_rollout_cache_calibration.py', 'guest_cache_metadata_without_pause'))
