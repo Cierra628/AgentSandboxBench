@@ -3,7 +3,7 @@
 set -euo pipefail
 cd "$(dirname "$0")/.."; root=$PWD
 if [[ $# == 1 ]]; then
-  case "$1" in 1|7|five|repaired-five) ;; *) exit 2;; esac
+  case "$1" in 1|7|five|repaired-five|variance-one) ;; *) exit 2;; esac
   unit=asbvmmproc$(date -u +%Y%m%dt%H%M%S)
   out=$root/.artifacts/$unit; mkdir "$out"
   rc=0
@@ -28,7 +28,8 @@ export OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1
 kernel=$root/.artifacts/agentenv-cache-kernel-20261015-v3/vmlinux.bin
 server=$root/.artifacts/light-restore-pid-build-20261117T083141Z/server
 provider=$root/.artifacts/provider-segments-build-20261016/uvm-ublk-daemon
-if [[ $3 == repaired-five ]]; then provider=$root/.artifacts/provider-slot-lifetime-515c875/uvm-ublk-daemon; export ASB_REPAIRED_FIVE=1; fi
+if [[ $3 == variance-one ]]; then export ASB_VARIANCE_ONE=1; fi
+if [[ $3 == repaired-five || $3 == variance-one ]]; then provider=$root/.artifacts/provider-slot-lifetime-515c875/uvm-ublk-daemon; export ASB_REPAIRED_FIVE=1; fi
 for f in "$kernel" "$server" "$provider"; do test -r "$f"; done
 PYTHONPATH=scripts python3 -B -c 'from run_live_child_calibration import *; b=capacity_budget(available(ROOT),64*GIB);print(b);assert b["ready"];s=json.loads(subprocess.check_output(["docker","inspect",SOURCE],timeout=10))[0];assert s["Id"]==SOURCE_ID and not s["State"]["Running"] and s["HostConfig"]["RestartPolicy"]["Name"]=="no"'
 test ! -e "$cache"
@@ -46,7 +47,7 @@ timeout 300 python3 -B scripts/prepare_prettier6604_cache.py "$cache"
 timeout 30 docker start "$ASB_AGENTENV_SOURCE_SERVICE"; started=1
 curl --noproxy '*' -fsS --retry 40 --retry-connrefused --retry-delay 1 --max-time 2 --retry-max-time 60 http://127.0.0.1:39681/health
 workers=$3
-if [[ $workers == five || $workers == repaired-five ]]; then export ASB_FIVE_FIXED_SNAPSHOT=1; workers=7; fi
+if [[ $workers == five || $workers == repaired-five || $workers == variance-one ]]; then export ASB_FIVE_FIXED_SNAPSHOT=1; workers=7; fi
 timeout 900 python3 -B scripts/validate_isolated_agentenv.py --guest-cache-child-calibration --guest-cache-child-count 7 \
  --guest-cache-rollout-sessions --guest-cache-restored-lower --snapshot-provider-binary "$provider" --snapshot-provider-get-data \
  --diagnostic-server-binary "$server" --diagnostic-guest-kernel "$kernel" --immutable-cache-seed "$cache" --seven-restored --immediate-restores --guest-cache-unified-rounds --paused-query-processes "$workers"

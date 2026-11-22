@@ -131,7 +131,13 @@ def main(*,process_mode=False,fixed_snapshot=None):
                 readers[r]=(Publication if process_mode else Reader)(out,args.container,cli,session='restored',session_name=r+'-pages',capture=cap,lower_cache=True)
             def install(r):
                 c=readers[r]; sid=ids[r]
-                cli('verify-rewrite-read','exec',sid,'python3','-c',CONTENT+'assert p.read_bytes()==data; '+WRITE)
+                command=CONTENT+'assert p.read_bytes()==data; '+WRITE
+                if os.environ.get('ASB_VARIANCE_ONE')=='1':
+                    from working_set_points import measured_command,points
+                    raw=cli('verify-rewrite-read','exec',sid,'python3','-c',measured_command(command,before=True))
+                    rows[r]['pre_verify'],rows[r]['post_verify']=points(raw,2)
+                else:
+                    cli('verify-rewrite-read','exec',sid,'python3','-c',command)
                 rows[r]['content_verified']=clock()
                 c._start_guest_exporter(sid)
             with ThreadPoolExecutor(7) as pool, ThreadPoolExecutor(7) as prep:
