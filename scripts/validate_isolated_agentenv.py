@@ -31,6 +31,26 @@ IMAGE = 'sha256:db9eb044ae3d85f9b276b9d2e5dea28cb0be95263d217ea4989f095e1d828681
 CAPACITY = 20*GIB
 
 
+
+# CLI attribute -> (cache-session runner, successful receipt field).
+PAUSED_ENTRY_MODES = {
+    'paused_host_cache': ('run_paused_host_cache.py', 'paused_host_layer_observation'),
+    'paused_four_sources': ('run_paused_four_sources.py', 'paused_host_four_source_observation'),
+    'immediate_image_layers': ('run_immediate_image_layers.py', 'fixed_image_layer_observation'),
+}
+
+
+def paused_entry(args, cache_sessions, restored_lower, provider_binary, child_cache_count, unified_cache_rounds):
+    selected = [name for name in PAUSED_ENTRY_MODES if getattr(args, name, False)]
+    if len(selected) > 1:
+        raise ValueError('these are independent workflows; select only one')
+    if not selected:
+        return 'run_rollout_cache_calibration.py', 'guest_cache_metadata_without_pause'
+    if not (cache_sessions and restored_lower and provider_binary and child_cache_count==2 and not unified_cache_rounds):
+        raise ValueError('paused observation requires one source and one restore with the private snapshot provider')
+    return PAUSED_ENTRY_MODES[selected[0]]
+
+
 def finish_fixture(image,success,receipt,cleanup,*,retain_for_final_acceptance=False):
     """Opt-in private calibration keeps the unmounted volume even on inner PASS."""
     if retain_for_final_acceptance:
@@ -312,12 +332,7 @@ def main(args):
     seven_restored=getattr(args,'seven_restored',False)
     restored_lower=getattr(args,'guest_cache_restored_lower',False)
     unified_cache_rounds=getattr(args,'guest_cache_unified_rounds',False)
-    paused_host_cache=getattr(args,'paused_host_cache',False)
-    paused_four_sources=getattr(args,'paused_four_sources',False)
-    if paused_host_cache and paused_four_sources:
-        raise ValueError('--paused-host-cache and --paused-four-sources are independent workflows; select only one')
-    if (paused_host_cache or paused_four_sources) and not (cache_sessions and restored_lower and provider_binary and child_cache_count==2 and not unified_cache_rounds):
-        raise ValueError('paused observation requires one source and one restore with the private snapshot provider')
+    cache_runner, cache_check = paused_entry(args, cache_sessions, restored_lower, provider_binary, child_cache_count, unified_cache_rounds)
     if cache_sessions and provider_binary and not (restored_lower and provider_get_data):raise ValueError('cache sessions provider requires restored lower and GET_DATA')
     if restored_lower and not cache_sessions:raise ValueError('restored lower requires cache sessions')
     if unified_cache_rounds and not cache_sessions:raise ValueError('unified rounds requires cache sessions')
@@ -1684,13 +1699,13 @@ def main(args):
             stage='guest-cache-metadata-probe';replay=mount/'controller/guest-cache'
             runner=('run_guest_cache_two_children.py' if child_cache_count==2 else 'run_guest_cache_child.py') if child_cache_probe else 'run_guest_cache_capacity.py' if capacity_probe else 'run_snapshot_cache_pair.py' if pair_cache_probe else 'run_snapshot_cache_calibration.py' if cache_restore_probe else 'run_guest_cache_metadata.py'
             if light_memory:runner='run_guest_light_memory.py'
-            if cache_sessions:runner='run_paused_host_cache.py' if paused_host_cache else 'run_paused_four_sources.py' if paused_four_sources else 'run_rollout_cache_calibration.py'
+            if cache_sessions:runner=cache_runner
             call(stage,[sys.executable,'-B',ROOT/'scripts'/runner,'--container',container,
                 '--config-home',mount/'controller/config','--service-url',receipt['address'],'--output',replay,*(['--seven-restored'] if seven_restored else []),*(['--immediate-restores'] if immediate else []),*(['--restored-lower'] if restored_lower else []),*(['--unified-rounds'] if unified_cache_rounds else []),*(['--guests',str(child_cache_count)] if light_memory else []),*(['--restore-one'] if light_restore else []),*(['--lower-cache'] if lower_cache_probe and not pair_cache_probe else []),*(['--provider-cache'] if provider_binary else []),*(['--batch-lookup'] if batch_lookup else []),*(['--dynamic-file'] if dynamic_file_cache else []),*(['--ram-page-evidence'] if ram_page_evidence else []),*(['--vmm-page-evidence'] if vmm_page_evidence else []),*(['--io-uring-page-evidence'] if io_uring_page_evidence else []),*(['--host-backing-evidence'] if host_backing_evidence else []),*(['--host-backing-pfn-evidence'] if host_backing_pfn_evidence else []),*(['--host-backing-full-pfn-evidence'] if host_backing_full_pfn_evidence else []),*(['--host-backing-charge-evidence'] if host_backing_charge_evidence else [])],900 if seven_restored else 480 if light_restore else 420 if cache_restore_probe else 240,environment=env)
             measured=json.loads((replay/'result.json').read_text())
             assert measured['status']=='PASS'
             receipt['guest_cache_metadata']=measured
-            receipt['checks']['paused_host_layer_observation' if paused_host_cache else 'paused_host_four_source_observation' if paused_four_sources else 'guest_cache_metadata_without_pause']='PASS'
+            receipt['checks'][cache_check]='PASS'
             receipt['scope']='private diagnostic guest kernel; one snapshot cache restore calibration; native checkpoint pause only' if cache_restore_probe else 'private diagnostic guest kernel; whole-cache metadata to host residency; no VM pause or trajectory replay'
             if cache_sessions:receipt['scope']=measured['scope']
             if light_memory:
@@ -2415,6 +2430,7 @@ if __name__=='__main__':
     parser.add_argument('--seven-restored',action='store_true')
     parser.add_argument('--paused-host-cache',action='store_true',help='One restored VMM, in-place pause and host-only file bitmaps')
     parser.add_argument('--paused-four-sources',action='store_true',help='One restored VMM, in-place pause and host-only four-source queries')
+    parser.add_argument('--immediate-image-layers',action='store_true',help='One restored VMM, in-place pause and full fixed-image residency')
     parser.add_argument('--guest-cache-rollout-sessions',action='store_true',help='One source plus one restored guest with page-cache sessions, explicit only')
     parser.add_argument('--guest-cache-light-restore-one',action='store_true',help='Explicit seven-light-guest single save/restore')
     parser.add_argument('--guest-cache-light-memory',action='store_true',help='Explicit two-guest light memory rounds; no page probes')
