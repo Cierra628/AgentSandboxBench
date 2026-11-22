@@ -47,10 +47,12 @@ class RolloutTests(unittest.TestCase):
     def test_empty_default_still_rejected(self):
         with tempfile.TemporaryDirectory() as t:
             with self.assertRaisesRegex(ValueError,'empty'):m.Sampler(Path(t),{},Path(t))
-    def test_explicit_bpo_only(self):
+    def test_explicit_bpo_or_grpo(self):
         self.assertFalse(options(SimpleNamespace()))
         self.assertTrue(options(SimpleNamespace(light_rollout=True,schedule='bpo',schedule_smoke_metrics=True)))
-        with self.assertRaisesRegex(ValueError,'complete BPO'):options(SimpleNamespace(light_rollout=True,schedule='grpo',schedule_smoke_metrics=True))
+        self.assertTrue(options(SimpleNamespace(light_rollout=True,schedule='grpo',schedule_smoke_metrics=True)))
+        self.assertTrue(options(SimpleNamespace(light_rollout=True,prettier6604_schedule='grpo',schedule_smoke_metrics=True),native=True))
+        with self.assertRaisesRegex(ValueError,'complete BPO'):options(SimpleNamespace(light_rollout=True,schedule='tvcache',schedule_smoke_metrics=True))
         with self.assertRaisesRegex(ValueError,'excludes'):options(SimpleNamespace(light_rollout=True,schedule='bpo',schedule_smoke_metrics=True,schedule_cache_layers=True))
 
 if __name__=='__main__':unittest.main()

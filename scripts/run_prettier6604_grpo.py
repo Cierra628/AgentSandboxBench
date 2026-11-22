@@ -304,7 +304,10 @@ def run(args):
         from schedule_smoke_metrics import options as smoke_options
         schedule_smoke=smoke_options(args)
     from light_prettier_rollout import options as light_rollout_options
-    light_rollout=light_rollout_options(args);rollout_sampler=None
+    light_rollout=light_rollout_options(args);rollout_sampler=None;checkpoint=None
+    per_action=os.environ.get('ASB_GRPO_COLD_ACTIONS')=='on'
+    if per_action and not (light_rollout and args.schedule=='grpo'):raise ValueError('cold actions require light GRPO')
+    cold_points=None
     local_no_proxy=os.environ.get('ASB_LOCAL_NO_PROXY')=='on'
     if local_no_proxy and (getattr(args,'schedule','grpo')!='grpo' or getattr(args,'role',None)):
         raise ValueError('local-no-proxy GRPO requires all seven cold guests')
@@ -612,6 +615,15 @@ def run(args):
                         result['first_tool_start_monotonic_ns']=time.monotonic_ns()
                     result.setdefault('role_first_segment_monotonic_ns',{}).setdefault(role,time.monotonic_ns())
                 if full_rootfs and full_rootfs.cold:full_rootfs.cold.mark('segment-begin',role=role,segment=segment)
+                if cold_points:
+                    if cold_points.abort.is_set():raise RuntimeError('another role failed')
+                    async def measure():
+                        for i in range(len(sampled_segment(samples,role,names[segment])['actions'])):
+                            await asyncio.to_thread(cold_points.point,role,sandbox,segment,f'{i+1:03}')
+                    try:
+                        return await asyncio.gather(super().run_segment(sandbox,role,segment),measure())
+                    except BaseException:
+                        cold_points.abort.set();raise
                 try:return await super().run_segment(sandbox,role,segment)
                 finally:
                     if full_rootfs and full_rootfs.cold:full_rootfs.cold.mark('segment-end',role=role,segment=segment)
@@ -809,6 +821,8 @@ def run(args):
                 for point,ids,template in [('expand-after-backbone-2',early_ids,early),('expand-after-backbone-4',late_ids,late)]:
                     self.record('events.tsv',f'{time.time_ns()}\tfork\t{point}\t{root}\t{",".join(ids)}\t{template}\t0')
                 by_role=dict(backbone=root,**dict(zip(early_roles+late_roles,early_ids+late_ids,strict=True)))
+                if checkpoint:
+                    result['checkpoint_window']=await asyncio.to_thread(checkpoint.measure,by_role,rollout_sampler.by_role)
                 await joined(self.run_path(by_role[r],r,executed[r]) for r in early_roles+late_roles)
                 return by_role
 
@@ -864,6 +878,9 @@ def run(args):
                     result['all_prepared_monotonic_ns']=time.monotonic_ns()
                 else:
                     sandboxes=await joined(self.start(role) for role in roles)
+                if cold_points:
+                    cold_points.capture.ready()
+                    await joined(asyncio.to_thread(cold_points.start_role,r) for r in roles)
                 if local_no_proxy:
                     assert result['local_no_proxy_guests']==dict(zip(roles,sandboxes,strict=True))
                     result['local_no_proxy']='PASS'
@@ -927,7 +944,10 @@ def run(args):
         else:
             from task_metrics_prefix import without_sampling
             runner.write_text(without_sampling(runner.read_text()))
-        (out/'sampling-variant.json').write_text(json.dumps(dict(mode='continuous per sandbox; boundary samples per segment' if monitoring else 'off',phase_updates='guest runner' if monitoring else 'none',original_runner_sha256=sha(workload/'guest-runner.sh'),executed_runner_sha256=sha(runner),**({'light_merge_boundary_meminfo':True} if merge_boundary_meminfo else {})),indent=2)+'\n')
+        if per_action:
+            from grpo_action_gate import gated_runner
+            runner.write_text(gated_runner(runner.read_text(),tool_time=True))
+        (out/'sampling-variant.json').write_text(json.dumps(dict(cold_action_gate=per_action,mode='continuous per sandbox; boundary samples per segment' if monitoring else 'off',phase_updates='guest runner' if monitoring else 'none',original_runner_sha256=sha(workload/'guest-runner.sh'),executed_runner_sha256=sha(runner),**({'light_merge_boundary_meminfo':True} if merge_boundary_meminfo else {})),indent=2)+'\n')
         shutil.copy2(args.frozen_export/'provenance.json',out/'input-provenance.json')
         (out/'reference-source.patch').write_text(patch)
         (out/'expected-official-audit.json').write_text(json.dumps(expected_official,indent=2)+'\n')
@@ -1007,6 +1027,14 @@ def run(args):
         if light_rollout:
             from light_prettier_rollout import LightRollout
             rollout_sampler=LightRollout(args.container,out,roles)
+            if per_action:
+                from grpo_cold_points import ColdPoints
+                cold_points=ColdPoints(out,args.container,cli,rollout_sampler.binding)
+                rollout_sampler.page_cache=cold_points
+            if getattr(args,'bpo_checkpoint_window',False):
+                from bpo_checkpoint_window import Window
+                checkpoint=Window(out,args.container,cli,rollout_sampler.binding)
+                shutil.copy2(ROOT/'scripts/bpo_checkpoint_window.py',code/'bpo_checkpoint_window.py')
             for name in ('light_prettier_rollout.py','light_memory_round.py','run_guest_light_memory.py','host_sandbox_monitor.py'):
                 shutil.copy2(ROOT/'scripts'/name,code/name)
         stage='frozen-paths';controller.phase(stage)
@@ -1096,6 +1124,7 @@ def run(args):
     finally:
         for sig in (signal.SIGTERM,signal.SIGINT):signal.signal(sig,signal.SIG_IGN)
         cleanup={}
+        if checkpoint:checkpoint.close()
         if rollout_sampler:
             try:result['light_rollout_sampling']=rollout_sampler.stop()
             except Exception as error:cleanup['light_rollout_error']=repr(error);success=False
@@ -1218,6 +1247,7 @@ if __name__=='__main__':
     parser.add_argument('--retain-capacity-checkpoint',action='store_true',help='64 MiB pair only; keep the owned checkpoint for the following 128 MiB run')
     parser.add_argument('--reuse-capacity-checkpoint',type=Path,help='128 MiB pair only; reuse the preceding sibling 64 MiB run checkpoint and prefix evidence')
     parser.add_argument('--capacity-checkpoint-recovery',type=Path,help='Explicit private-service rebinding receipt after verified full-volume recovery')
+    parser.add_argument('--bpo-checkpoint-window',action='store_true')
     parser.add_argument('--snapshot-damon-before-checkpoint',action='store_true',help='Capacity checkpoint comparison only; stop parent DAMON before save and restore the parent original state after each suffix')
     parser.add_argument('--snapshot-provider-cache',action='store_true',help='Explicit provider collection in the real pair only')
     parser.add_argument('--snapshot-bpf-batch',action='store_true',help='Batch lookup in the explicit provider pair')

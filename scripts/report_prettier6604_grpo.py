@@ -71,7 +71,13 @@ def audit(raw, task_dir):
                 from task_metrics_prefix import without_sampling
                 assert variant['mode']=='off' and variant['phase_updates']=='none'
                 assert (workload/name).read_text()==without_sampling(original.read_text())
-            else:assert (workload/name).read_text()==boundary_runner(original.read_text(),guest_phases=variant.get('phase_updates')=='guest runner',skip_vmstat=skip_boundary_vmstat,merge_meminfo=merge_boundary_meminfo)
+            else:
+                expected_runner=boundary_runner(original.read_text(),guest_phases=variant.get('phase_updates')=='guest runner',skip_vmstat=skip_boundary_vmstat,merge_meminfo=merge_boundary_meminfo)
+                if variant.get('cold_action_gate'):
+                    from grpo_action_gate import gated_runner
+                    assert schedule=='grpo'
+                    expected_runner=gated_runner(expected_runner,tool_time=True)
+                assert (workload/name).read_text()==expected_runner
         else:assert sha(workload/name)==digest
     samples=json.loads((workload/'agent-sampling.json').read_text())['segments']
     paths=json.loads((workload/'rollouts.json').read_text())

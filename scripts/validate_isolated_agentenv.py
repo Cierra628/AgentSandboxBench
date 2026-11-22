@@ -218,8 +218,12 @@ def main(args):
     os.umask(0o077)
     if os.geteuid()!=0: raise RuntimeError('root required')
     diagnostic_server=getattr(args,'diagnostic_server_binary',None)
+    # Matched no-sampling control: keep the measured kernel, server and VMM placement.
+    matched_off=bool(diagnostic_server and getattr(args,'diagnostic_guest_kernel',None)
+        and getattr(args,'schedule_sampling_control',False) and getattr(args,'schedule_smoke_metrics',False)
+        and getattr(args,'prettier6604_schedule',None)=='grpo' and getattr(args,'prettier6604_monitor_mode',None)=='off')
     if diagnostic_server:
-        if not ((getattr(args,'guest_cache_light_restore_one',False) or getattr(args,'guest_cache_rollout_sessions',False) or getattr(args,'light_rollout',False)) and os.environ.get('ASB_VMM_CHILD_CGROUP_CHECK')):
+        if not ((getattr(args,'guest_cache_light_restore_one',False) or getattr(args,'guest_cache_rollout_sessions',False) or getattr(args,'light_rollout',False) or matched_off) and os.environ.get('ASB_VMM_CHILD_CGROUP_CHECK')):
             raise ValueError('diagnostic server requires explicit child-cgroup light restore')
         diagnostic_server=Path(diagnostic_server).resolve()
         if not diagnostic_server.is_relative_to(ROOT/'.artifacts') or not diagnostic_server.is_file() or not os.access(diagnostic_server,os.X_OK):
@@ -343,7 +347,10 @@ def main(args):
         provider_binary=provider_binary.resolve()
         assert provider_binary.is_relative_to(ROOT/'.artifacts') and provider_binary.is_file()
         assert provider_binary.open('rb').read(4)==b'\x7fELF'
-    lower_cache_probe=getattr(args,'snapshot_lower_cache_calibration',False) or pair_cache_probe or bool(provider_binary) and not prettier_cache_pair and not getattr(args,'guest_cache_rollout_sessions',False)
+    checkpoint_window=getattr(args,'bpo_checkpoint_window',False)
+    if checkpoint_window and not (getattr(args,'light_rollout',False) and getattr(args,'diagnostic_guest_kernel',None) and provider_binary and provider_get_data):
+        raise ValueError('checkpoint window requires diagnostic BPO and segmented provider')
+    lower_cache_probe=getattr(args,'snapshot_lower_cache_calibration',False) or pair_cache_probe or bool(provider_binary) and not checkpoint_window and not prettier_cache_pair and not getattr(args,'guest_cache_rollout_sessions',False)
     cache_restore_probe=getattr(args,'snapshot_cache_calibration',False) or lower_cache_probe
     child_cache_probe=getattr(args,'guest_cache_child_calibration',False)
     child_cache_count=getattr(args,'guest_cache_child_count',1)
@@ -404,7 +411,7 @@ def main(args):
     if cache_metadata_probe and not diagnostic_kernel:
         raise ValueError('guest cache metadata probe requires an explicit diagnostic kernel')
     if diagnostic_kernel:
-        if getattr(args,'light_rollout',False):
+        if getattr(args,'light_rollout',False) or matched_off:
             from light_prettier_rollout import diagnostic_kernel_args
             diagnostic_kernel_args(diagnostic_kernel)
         diagnostic_kernel=diagnostic_kernel.resolve()
@@ -510,7 +517,7 @@ def main(args):
     if prettier_monitor_mode=='off' and not prettier_readonly:
         if not (prettier_export and prettier_schedule=='grpo' and not (prettier_role or prettier_checkpoint or prettier_shared or prettier_root_count or
             getattr(args,'light_monitor',False) or getattr(args,'host_file_monitor',False) and not current_monitor_off or full_rootfs_mode or full_shared or
-            scaling or prefix_count or host_restore or independent_phase or prettier_cache_pair or diagnostic_kernel or prettier_physical)):
+            scaling or prefix_count or host_restore or independent_phase or prettier_cache_pair or (diagnostic_kernel and not matched_off) or prettier_physical)):
             raise ValueError('Prettier monitor-off requires complete readonly backbone or ordinary seven-guest GRPO')
     cache_seed=getattr(args,'immutable_cache_seed',None)
     schedule_smoke=False
@@ -835,6 +842,7 @@ def main(args):
             if light_monitor:check_args+=['--light-monitor']
             if full_shared:check_args+=['--host-shared-files']
             if schedule_smoke:check_args+=['--schedule-smoke-metrics']
+            if light_rollout:check_args+=['--light-rollout']
             if getattr(args,'schedule_expanded_files',False):check_args+=['--schedule-expanded-files']
             if getattr(args,'schedule_cache_layers',False):check_args+=['--schedule-cache-layers']
             if getattr(args,'schedule_block_cache_method',None) is not None:check_args+=['--schedule-block-cache-method',args.schedule_block_cache_method]
@@ -1547,7 +1555,7 @@ def main(args):
         if vmm_check:
             from vmm_child_cgroup_check import setup_service
             stage='vmm-cgroup-setup'
-            vmm_sampler=setup_service(info,mount,out)
+            vmm_sampler=setup_service(info,mount,out,sample=not matched_off)
             receipt['vmm_child_cgroups']=json.loads((out/'vmm-cgroup-setup.json').read_text())
         if getattr(args,'external_delete_trace',False):
             from private_delete_trace import DeleteTrace
@@ -1978,6 +1986,7 @@ def main(args):
                 if full_shared:task_args+=['--host-shared-files']
                 if schedule_smoke:task_args+=['--schedule-smoke-metrics']
                 if light_rollout:task_args+=['--light-rollout']
+                if checkpoint_window:task_args+=['--bpo-checkpoint-window']
                 if getattr(args,'schedule_expanded_files',False):task_args+=['--schedule-expanded-files']
                 if getattr(args,'schedule_cache_layers',False):task_args+=['--schedule-cache-layers']
                 if getattr(args,'schedule_block_cache_method',None) is not None:task_args+=['--schedule-block-cache-method',args.schedule_block_cache_method]
@@ -2243,7 +2252,7 @@ def main(args):
         assert image.stat().st_size==capacity and image.stat().st_blocks*512>=capacity
         assert available(ROOT)>HOST_RESERVE
         receipt['checks']['fixed_backing_allocation']='PASS'
-        if vmm_check and os.environ.get('ASB_VMM_ACCOUNTING_ONLY')=='on' and not light_rollout:
+        if vmm_check and os.environ.get('ASB_VMM_ACCOUNTING_ONLY')=='on' and not light_rollout and not matched_off:
             from vmm_child_cgroup_check import accounting_acceptance
             stage='experiment-memory-closure-acceptance'
             series=Path(os.environ['ASB_EXPERIMENT_MEMORY_SERIES'])
@@ -2490,6 +2499,7 @@ if __name__=='__main__':
     parser.add_argument('--guest-cache-capacity-probe',action='store_true',help='12 GiB private volume; one guest, 128/64/128 MiB periodic clean-file reclaim targets; diagnostic reclaim kernel required')
     parser.add_argument('--snapshot-cache-pair',action='store_true',help='One two-guest shared snapshot / divergent write calibration')
     parser.add_argument('--snapshot-lower-cache-calibration',action='store_true',help='One raw snapshot-layer residency calibration, metadata reads only')
+    parser.add_argument('--bpo-checkpoint-window',action='store_true')
     parser.add_argument('--snapshot-provider-binary',type=Path,help='Owned diagnostic daemon; one short restore calibration with slot metadata')
     parser.add_argument('--snapshot-provider-get-data',action='store_true',help='Opt-in GET_DATA only for the owned observed memory device')
     parser.add_argument('--snapshot-bpf-batch',action='store_true',help='Private provider calibration only; read-only batch BPF queries')

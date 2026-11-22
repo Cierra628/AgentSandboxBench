@@ -50,7 +50,7 @@ def service_root(info):
     return path
 
 
-def setup_service(info, mount, out):
+def setup_service(info, mount, out, *, sample=True):
     assert info['Config']['Labels'].get('asb.vmm-child-cgroup') == 'on'
     root = service_root(info)
     control = CGROOT/Path('/proc',str(info['State']['Pid']),'cgroup').read_text().strip()[3:].lstrip('/')
@@ -67,6 +67,7 @@ def setup_service(info, mount, out):
         value['io_controller_states']=[accounting_controller_state(root,require_io=True),
             accounting_controller_state(control,require_io=True)]
     (out/'vmm-cgroup-setup.json').write_text(json.dumps(value, indent=2)+'\n')
+    if not sample:return None
     external=os.environ.get('ASB_EXPERIMENT_MEMORY_SERIES')
     if external:
         with Path(external).open() as stream:first=json.loads(stream.readline())

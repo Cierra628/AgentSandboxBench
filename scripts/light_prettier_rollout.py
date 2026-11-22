@@ -1,4 +1,4 @@
-"""Opt-in light rounds alongside the unchanged Prettier BPO business checks."""
+"""Opt-in light rounds alongside the unchanged Prettier business checks."""
 from pathlib import Path
 from host_sandbox_monitor import Binding
 from run_guest_light_memory import bind_vmm
@@ -6,7 +6,7 @@ from light_memory_round import Sampler
 
 
 def diagnostic_kernel_args(path):
-    """Only the opt-in BPO route requires the release used by the cache exporter."""
+    """Validate the release used by the cache exporter."""
     if path is None:return []
     import mmap
     from platform_tasks import ROOT
@@ -24,8 +24,8 @@ def diagnostic_kernel_args(path):
 def options(args,*,native=False):
     if not getattr(args,'light_rollout',False):return False
     schedule=getattr(args,'prettier6604_schedule' if native else 'schedule','grpo')
-    if schedule!='bpo' or not getattr(args,'schedule_smoke_metrics',False):
-        raise ValueError('light rollout requires complete BPO schedule smoke')
+    if schedule not in ('bpo','grpo') or not getattr(args,'schedule_smoke_metrics',False):
+        raise ValueError('light rollout requires complete BPO or GRPO schedule smoke')
     if any(getattr(args,k,None) for k in ('schedule_expanded_files','schedule_cache_layers','schedule_sampling_control')):
         raise ValueError('light rollout excludes expanded queries and sampling controls')
     return True

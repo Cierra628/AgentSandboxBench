@@ -123,7 +123,7 @@ def report(out, result):
     if result.get('light_rollout_requested'):
         lines=[line.replace('file是该私有服务cgroup的文件记账，含shmem。','本次显式light-rollout的file来自专属slice父组，含控制程序、服务、VMM与shmem；旧host/memory-samples.tsv仍是Docker范围，不混用。') for line in lines]
         lines += ['', '## 本次新增统一轮次', '',
-                  '本次仅BPO一次，保留原有guest与host监控及终点19文件查询，另加0.1秒统一父组/PSS轮次；并非仅开轻量采样的开销实验。light-memory.jsonl中待创建和保存中的角色总量留空，实际绑定分母逐点保存。父子闭合只诊断，不作业务失败条件。普通入口默认未改变。', '']
+                  '本次仅运行所选调度，保留原有guest与host监控及终点19文件查询，另加0.1秒统一父组/PSS轮次；并非仅开轻量采样的开销实验。light-memory.jsonl中待创建和保存中的角色总量留空，实际绑定分母逐点保存。父子闭合只诊断，不作业务失败条件。普通入口默认未改变。', '']
     (out/'REPORT.md').write_text('\n'.join(lines))
 
 
@@ -136,16 +136,20 @@ def main():
     parser.add_argument('--cache-layers',action='store_true',help='Opt-in four cache layers; requires expanded files')
     parser.add_argument('--expanded-files',action='store_true',help='Opt-in endpoint file coverage, once per schedule')
     parser.add_argument('--unused-network-pools',action='store_true',help='Explicit existing unused-network selector; ordinary defaults unchanged')
-    parser.add_argument('--light-rollout',action='store_true',help='Explicit single BPO light rounds alongside original validation')
+    parser.add_argument('--light-rollout',action='store_true',help='Explicit single BPO or GRPO light rounds alongside original validation')
+    parser.add_argument('--bpo-checkpoint-provider', type=Path)
     parser.add_argument('--diagnostic-guest-kernel',type=Path)
     parser.add_argument('--diagnostic-server',type=Path)
     args=parser.parse_args();out=args.output.resolve()
     from light_prettier_rollout import diagnostic_kernel_args
-    if args.diagnostic_guest_kernel and not args.light_rollout:parser.error('diagnostic guest kernel requires light BPO')
+    if args.diagnostic_guest_kernel and not args.light_rollout:parser.error('diagnostic guest kernel requires light rollout')
     kernel_flags=diagnostic_kernel_args(args.diagnostic_guest_kernel)
+    if args.bpo_checkpoint_provider:
+        if args.schedule!='bpo' or not args.light_rollout or not kernel_flags:parser.error('checkpoint window requires diagnostic light BPO')
+        kernel_flags+=['--bpo-checkpoint-window','--snapshot-provider-binary',str(args.bpo_checkpoint_provider),'--snapshot-provider-get-data']
     if args.light_rollout:
-        if args.schedule!='bpo' or not args.diagnostic_server or args.expanded_files or args.cache_layers:
-            parser.error('light rollout requires single BPO and diagnostic server without expanded queries')
+        if args.schedule not in ('bpo','grpo') or not args.diagnostic_server or args.expanded_files or args.cache_layers:
+            parser.error('light rollout requires single BPO or GRPO and diagnostic server without expanded queries')
     elif args.diagnostic_server:parser.error('diagnostic server requires light rollout')
     if args.memory_backing_links and not args.cache_layers:parser.error('--memory-backing-links requires --cache-layers')
     if args.cache_layers and not args.expanded_files:parser.error('--cache-layers requires --expanded-files')
