@@ -3,7 +3,7 @@
 set -euo pipefail
 cd "$(dirname "$0")/.."; root=$PWD
 if [[ $# == 1 ]]; then
-  case "$1" in 1|7) ;; *) exit 2;; esac
+  case "$1" in 1|7|five) ;; *) exit 2;; esac
   unit=asbvmmproc$(date -u +%Y%m%dt%H%M%S)
   out=$root/.artifacts/$unit; mkdir "$out"
   rc=0
@@ -39,6 +39,8 @@ gcc -O2 -Wall -Wextra scripts/vmm_cgroup_launcher.c -o "$out/vmm-cgroup-launcher
 timeout 300 python3 -B scripts/prepare_prettier6604_cache.py "$cache"
 timeout 30 docker start "$ASB_AGENTENV_SOURCE_SERVICE"; started=1
 curl --noproxy '*' -fsS --retry 40 --retry-connrefused --retry-delay 1 --max-time 2 --retry-max-time 60 http://127.0.0.1:39681/health
-timeout 600 python3 -B scripts/validate_isolated_agentenv.py --guest-cache-child-calibration --guest-cache-child-count 7 \
+workers=$3
+if [[ $workers == five ]]; then export ASB_FIVE_FIXED_SNAPSHOT=1; workers=7; fi
+timeout 900 python3 -B scripts/validate_isolated_agentenv.py --guest-cache-child-calibration --guest-cache-child-count 7 \
  --guest-cache-rollout-sessions --guest-cache-restored-lower --snapshot-provider-binary "$provider" --snapshot-provider-get-data \
- --diagnostic-server-binary "$server" --diagnostic-guest-kernel "$kernel" --immutable-cache-seed "$cache" --seven-restored --immediate-restores --guest-cache-unified-rounds --paused-query-processes "$3"
+ --diagnostic-server-binary "$server" --diagnostic-guest-kernel "$kernel" --immutable-cache-seed "$cache" --seven-restored --immediate-restores --guest-cache-unified-rounds --paused-query-processes "$workers"
