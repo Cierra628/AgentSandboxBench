@@ -7,7 +7,12 @@ if [[ $# == 1 ]]; then
   unit=asbvmmproc$(date -u +%Y%m%dt%H%M%S)
   out=$root/.artifacts/$unit; mkdir "$out"
   rc=0
-  systemd-run --quiet --wait --pipe --collect --unit="${unit}control" --slice="$unit.slice" \
+  phase_env=()
+  if [[ -n ${ASB_FIRST_FRAME_STUDY:-} ]]; then
+    [[ $1 == repaired-five && $ASB_FIRST_FRAME_STUDY == diagnose ]] || exit 2
+    phase_env+=(--setenv="ASB_FIRST_FRAME_STUDY=$ASB_FIRST_FRAME_STUDY")
+  fi
+  systemd-run "${phase_env[@]}" --quiet --wait --pipe --collect --unit="${unit}control" --slice="$unit.slice" \
     -p WorkingDirectory="$root" -p MemoryAccounting=yes -p IOAccounting=yes \
     bash "$root/scripts/observe_paused_process.sh" "$unit" "$out" "$1" >"$out/launch.log" 2>&1 || rc=$?
   PYTHONPATH=scripts python3 -B -c 'from pathlib import Path; import sys; from run_live_child_calibration import release_empty_slice;print(release_empty_slice(Path("/sys/fs/cgroup")/(sys.argv[1]+".slice")))' "$unit"
